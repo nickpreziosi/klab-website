@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import styles from "./logo.module.css";
+import type React from "react";
 
 interface LogoProps {
   size?: "sm" | "md" | "lg" | "xl";
@@ -64,7 +65,6 @@ export const Logo = ({
 
   const isAnimated = animated !== false;
   const isConstantAnimation = animated === "constant";
-  const MotionComponent = isAnimated ? motion.div : "div";
 
   const getSizeClass = () => {
     if (fit === "fit-content") {
@@ -107,32 +107,42 @@ export const Logo = ({
     .filter(Boolean)
     .join(" ");
 
-  const motionProps = isConstantAnimation
-    ? {
-        variants: constantAnimationVariants,
-        animate: "animate",
-      }
-    : isAnimated
-    ? {
-        variants: logoVariants,
-        initial: "initial",
-        whileHover: "hover",
-        whileTap: { scale: 0.95 },
-      }
-    : {};
+  const motionProps = (
+    isConstantAnimation
+      ? {
+          variants: constantAnimationVariants,
+          animate: "animate",
+        }
+      : isAnimated
+      ? {
+          variants: logoVariants,
+          initial: "initial",
+          whileHover: "hover",
+          whileTap: { scale: 0.95 },
+        }
+      : undefined
+  ) as React.ComponentProps<typeof motion.div> | undefined;
 
-  return (
-    <MotionComponent className={containerClasses} {...motionProps}>
-      <div className={styles.logoInner}>
-        <Image
-          src="/keo-logo.png"
-          alt="KEO Logo"
-          width={logoSize}
-          height={logoSize}
-          className={getObjectFitClass()}
-          priority
-        />
-      </div>
-    </MotionComponent>
+  const inner = (
+    <div className={styles.logoInner}>
+      <Image
+        src="/keo-logo.png"
+        alt="KEO Logo"
+        width={logoSize}
+        height={logoSize}
+        className={getObjectFitClass()}
+        priority
+      />
+    </div>
   );
+
+  if (isAnimated) {
+    return (
+      <motion.div className={containerClasses} {...motionProps}>
+        {inner}
+      </motion.div>
+    );
+  }
+
+  return <div className={containerClasses}>{inner}</div>;
 };

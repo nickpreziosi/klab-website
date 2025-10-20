@@ -1,0 +1,510 @@
+/* NAVBAR CONTAINER */
+.spacer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  height: 76px;
+}
+
+.container {
+  top: 0;
+  position: fixed;
+  display: block;
+  padding: 0 var(--padding-desktop);
+  width: 100%;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+  z-index: 10;
+  transition: all 500ms ease-in-out;
+  background-color: var(--main-color);
+}
+
+.containerScrolled {
+  background-color: var(--main-color-60);
+  backdrop-filter: blur(7px);
+  /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.75); Subtle dark shadow */
+  box-shadow: 0px 4px 12px rgba(255, 0, 76, 0.4), 0px 2px 4px rgba(0, 0, 0, 0.2);
+  /* Stronger pink shadow with depth */
+  box-shadow: 0px 6px 20px rgba(255, 0, 76, 0.5);
+  box-shadow: none;
+  border-bottom: solid 1px var(--primary-grey);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.container * {
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px !important;
+  z-index: 1001;
+}
+
+.logoContainer {
+  position: relative;
+  z-index: 1000;
+}
+
+.logoContainer a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.navList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+}
+
+.navListItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  transition: all 0.2s ease;
+  margin: 0;
+  list-style-type: none;
+  color: white;
+  cursor: pointer;
+  z-index: 1000;
+  border-radius: 12px;
+  border: 1px solid transparent;
+}
+
+.navListItem:hover {
+  color: var(--accent-color);
+}
+
+.drawerContainer {
+  display: none;
+  padding-right: 6px;
+}
+
+.dropdown {
+  z-index: 10000;
+}
+
+@media only screen and (max-width: 1024px) {
+  .navList {
+    display: none;
+  }
+  .drawerContainer {
+    display: flex;
+  }
+  .container {
+    padding: 0 var(--padding-tablet);
+  }
+}
+
+@media only screen and (max-width: 769px) {
+  .navList {
+    display: none;
+  }
+  .drawerContainer {
+    display: flex;
+  }
+  .container {
+    padding: 0 var(--padding-mobile);
+  }
+}
+
+.NavigationMenuTrigger {
+  position: relative !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100% !important;
+  padding: 12px !important;
+  transition: 300ms ease-in-out !important;
+  border-radius: 100px !important;
+  margin: 0 !important;
+  color: white !important;
+  cursor: pointer !important;
+}
+
+.navLinkContainer li {
+  list-style-type: none !important;
+}
+
+/* reset */
+.container button,
+.container p {
+  all: unset;
+}
+
+.NavigationMenuRoot {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  width: 100vw;
+  z-index: 1;
+  color: #00172dff !important;
+}
+
+@media only screen and (max-width: 769px) {
+  .NavigationMenuRoot {
+    display: none;
+  }
+}
+
+.NavigationMenuList {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  padding: 4px;
+  border-radius: 6px;
+  list-style: none;
+  box-shadow: 0 2px 10px var(--black-a7);
+  margin: 0;
+}
+
+.NavigationMenuTrigger:hover {
+  color: #ff004cff !important;
+}
+
+.NavigationMenuTrigger,
+.NavigationMenuLink {
+  outline: none;
+  user-select: none;
+  font-weight: 500;
+  line-height: 1;
+  border-radius: 4px;
+  font-size: 15px;
+  color: var(--violet-11);
+}
+.NavigationMenuTrigger:focus,
+.NavigationMenuLink:focus {
+  box-shadow: 0 0 0 2px var(--violet-7);
+}
+.NavigationMenuTrigger:hover,
+.NavigationMenuLink:hover {
+  background-color: var(--violet-3);
+}
+
+.NavigationMenuTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+}
+
+.NavigationMenuLink {
+  display: block;
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.NavigationMenuContent {
+  top: 62px;
+  left: 0;
+  position: absolute;
+  width: 100vw !important;
+  animation-duration: 250ms;
+  animation-timing-function: ease;
+  color: black;
+  background-color: var(--primary-blue);
+}
+
+.containerScrolled .NavigationMenuContent {
+  top: 62px;
+  left: 0;
+  position: absolute;
+  width: 100% !important;
+  animation-duration: 250ms;
+  animation-timing-function: ease;
+  color: black;
+  background-color: var(--primary-blue-60);
+  backdrop-filter: blur(7px) !important;
+}
+
+.NavigationMenuContent li {
+  list-style-type: none;
+  transition: all 300ms ease-in-out;
+  width: 100%;
+  backdrop-filter: blur(7px) !important;
+}
+
+.NavigationMenuContent div {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.NavigationMenuContent[data-motion="from-start"] {
+  animation-name: enterFromLeft;
+}
+.NavigationMenuContent[data-motion="from-end"] {
+  animation-name: enterFromRight;
+}
+.NavigationMenuContent[data-motion="to-start"] {
+  animation-name: exitToLeft;
+}
+.NavigationMenuContent[data-motion="to-end"] {
+  animation-name: exitToRight;
+}
+@media only screen and (min-width: 600px) {
+  .NavigationMenuContent {
+    width: auto;
+  }
+}
+
+.NavigationMenuIndicator {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 10px;
+  top: 100%;
+  overflow: hidden;
+  z-index: 1;
+  transition: width, transform 250ms ease;
+}
+.NavigationMenuIndicator[data-state="visible"] {
+  animation: fadeIn 200ms ease;
+}
+.NavigationMenuIndicator[data-state="hidden"] {
+  animation: fadeOut 200ms ease;
+}
+
+.NavigationMenuViewport {
+  position: relative;
+  transform-origin: top center;
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  height: var(--radix-navigation-menu-viewport-height);
+  transition: width, height, 300ms ease;
+}
+.NavigationMenuViewport[data-state="open"] {
+  animation: scaleIn 200ms ease;
+}
+.NavigationMenuViewport[data-state="closed"] {
+  animation: scaleOut 200ms ease;
+}
+@media only screen and (min-width: 600px) {
+  .NavigationMenuViewport {
+    width: var(--radix-navigation-menu-viewport-width);
+  }
+}
+
+.List {
+  width: 100% !important;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0;
+  list-style: none;
+  backdrop-filter: blur(7px) !important;
+}
+
+@media only screen and (min-width: 600px) {
+  .List {
+    width: 600px;
+    justify-content: center;
+  }
+}
+
+.ListItemLink {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: start;
+  outline: none;
+  text-decoration: none;
+  user-select: none;
+  padding: 18px;
+  font-size: 15px;
+  line-height: 1;
+  height: 100%;
+  color: var(--primary-white);
+  border-left: 1px solid var(--primary-pink);
+  transition: all 300ms ease-in-out;
+  backdrop-filter: blur(7px) !important;
+}
+
+.ListItemLink:hover {
+  background-color: var(--primary-pink-25);
+}
+
+.ListItemHeading {
+  transition: all 300ms ease-in-out;
+}
+
+.ListItemLink:focus {
+  box-shadow: 0 0 0 2px var(--violet-7);
+}
+
+.ListItemHeading {
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--violet-12);
+}
+
+.ListItemText {
+  color: var(--mauve-11);
+  line-height: 1.4;
+  font-weight: initial;
+}
+
+.Callout {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--purple-9) 0%, var(--indigo-9) 100%);
+  border-radius: 6px;
+  padding: 25px;
+  text-decoration: none;
+  outline: none;
+  user-select: none;
+}
+.Callout:focus {
+  box-shadow: 0 0 0 2px var(--violet-7);
+}
+
+.CalloutHeading {
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-top: 16px;
+  margin-bottom: 7px;
+}
+
+.CalloutText {
+  color: var(--mauve-4);
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.ViewportPosition {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  perspective: 2000px;
+}
+
+.CaretDown {
+  position: relative;
+  color: var(--violet-10);
+  top: 1px;
+  transition: transform 250ms ease;
+}
+[data-state="open"] > .CaretDown {
+  transform: rotate(-180deg);
+}
+
+.Arrow {
+  position: relative;
+  top: 70%;
+  background-color: white;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  border-top-left-radius: 2px;
+}
+
+@keyframes enterFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes enterFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes exitToRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+}
+
+@keyframes exitToLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: rotateX(-30deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+}
+
+@keyframes scaleOut {
+  from {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: rotateX(-10deg) scale(0.95);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

@@ -154,8 +154,7 @@
 }
 
 .main {
-  height: fit-content;
-  padding: 24px;
+  height: 2000px;
 }
 
 /* Enable hover only on non-touch devices */

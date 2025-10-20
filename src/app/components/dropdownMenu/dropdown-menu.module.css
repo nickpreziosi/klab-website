@@ -1,0 +1,85 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 998;
+  width: 100vw !important;
+  height: 100% !important;
+  background: var(--main-color-50);
+}
+
+.dropdown {
+  position: relative;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.content {
+  padding: 32px 0;
+}
+
+.heading {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--primary-white);
+  margin: 0 0 20px 0;
+}
+
+.list {
+  width: fit-content;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.item:hover {
+  background: var(--accent-color-20);
+  border-color: rgba(255, 0, 76, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 0, 76, 0.2);
+}
+
+.itemTitle {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary-white);
+  transition: color 0.2s ease;
+}
+
+.item:hover .itemTitle {
+  color: var(--accent-color);
+}
+
+.itemDescription {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--primary-white);
+  line-height: 1.5;
+}
