@@ -24,7 +24,7 @@
   --main-color-95: rgba(0, 0, 0, 0.95);
 
   /* Blue variants */
-  --primary-blue: rgba(0, 23, 45, 1);
+  --primmary-blue: rgba(0, 23, 45, 1);
   --primary-blue-05: rgba(0, 23, 45, 0.05);
   --primary-blue-10: rgba(0, 23, 45, 0.1);
   --primary-blue-15: rgba(0, 23, 45, 0.15);
@@ -182,6 +182,10 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+}
+
+body * {
+  font-family: "Poppins", sans-serif;
 }
 
 body {

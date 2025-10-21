@@ -8,13 +8,10 @@
   justify-content: center;
   justify-items: center;
   background-color: transparent;
-  padding: 0 var(--padding-desktop) var(--padding-desktop)
-    var(--padding-desktop);
+  padding: var(--padding-desktop);
 }
 
 .textContent {
-  border: 1px solid var(--main-color-10);
-  box-shadow: var(--shadow-xl);
   order: 0;
   background-color: var(--primary-white);
   padding: var(--padding-mobile);
@@ -23,7 +20,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 24px;
+  gap: 36px;
 }
 
 .textContent h2 {
@@ -32,18 +29,38 @@
 }
 
 .textContent p {
-  font-size: var(--text-lg);
+  font-size: var(--text-sm);
   font-weight: var(--font-medium);
 }
 
-/* Login Button */
-.loginContainer {
+.inputButtonContainer {
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+  border-radius: 100px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.input {
+  flex: 1;
+  height: 100%;
+  padding: 12px 16px;
+  font-size: var(--text-base);
+  border: 1px solid var(--main-color-10);
+  border-radius: 100px 0 0 100px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+/* Subscribe Button */
+.buttonContainer {
+  flex: 0;
   display: flex;
   justify-content: flex-start;
   width: 100%;
 }
 
-.loginButton {
+.button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,26 +72,40 @@
   font-weight: 600;
   font-size: var(--text-base);
   letter-spacing: 1px;
-  border-radius: 100px;
+  border-radius: 0 100px 100px 0;
   transition: all 300ms ease-in-out;
-  box-shadow: 0px 4px 16px rgba(255, 0, 76, 0.4),
-    0px 0px 20px rgba(255, 0, 76, 0.2);
+  border: none;
 }
 
-.loginButton:hover {
+.button:hover {
   background-color: #e6003f;
   box-shadow: 0px 6px 20px rgba(255, 0, 76, 0.6),
     0px 0px 30px rgba(255, 0, 76, 0.4);
 }
 
-.loginButton:active {
+.button:active {
   transform: scale(0.98);
+}
+
+.formField {
+  position: relative;
+}
+
+.formMessage {
+  position: absolute;
+  top: -60%;
+  color: var(--accent-color);
+  margin-bottom: var(--margin-lg);
+  font-size: var(--text-sm);
 }
 
 @media (max-width: 1024px) {
   .container {
     gap: var(--gap-sm);
     padding: var(--padding-desktop) var(--padding-tablet);
+  }
+  .inputButtonContainer {
+    width: 100%;
   }
 }
 

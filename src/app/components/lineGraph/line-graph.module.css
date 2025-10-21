@@ -1,6 +1,10 @@
+.background {
+  padding: var(--padding-mobile);
+  background: var(--main-color-75);
+  border-radius: 12px;
+}
 .container {
-  background: var(--main-color);
-  border-radius: 16px;
+  border-radius: 12px;
   position: relative;
   overflow: hidden;
 }
@@ -12,14 +16,14 @@
 .title {
   font-size: 28px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--primary-white);
   margin: 0 0 8px 0;
   letter-spacing: -0.02em;
 }
 
 .subtitle {
   font-size: 14px;
-  color: #888888;
+  color: var(--primary-white);
   margin: 0;
   font-weight: 400;
 }
@@ -82,7 +86,7 @@
 
 .statLabel {
   font-size: 12px;
-  color: #888888;
+  color: var(--primary-white);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 8px;
@@ -92,7 +96,7 @@
 .statValue {
   font-size: 24px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--primary-white);
   margin-bottom: 4px;
   letter-spacing: -0.02em;
 }
