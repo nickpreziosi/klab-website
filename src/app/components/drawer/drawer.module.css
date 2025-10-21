@@ -43,7 +43,7 @@
   bottom: 0;
   width: 85%;
   max-width: 400px;
-  background: var(--main-color);
+  background: var(--main-color-75);
   backdrop-filter: blur(10px);
   box-shadow: -2px 0px 8px rgba(0, 0, 0, 0.5);
   z-index: 1000;
@@ -51,6 +51,7 @@
   flex-direction: column;
   padding: 32px 24px;
   overflow-y: auto; /* Added overflow-y auto to make drawer scrollable */
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .drawer * {
@@ -169,10 +170,10 @@
 
 .dropdownItem {
   padding: 16px 20px;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--primary-white);
   text-decoration: none;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   transition: all 300ms ease-in-out;
   border-radius: 0px 8px 8px 0px;
   margin: var(--gap-xs) 0;

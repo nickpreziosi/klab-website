@@ -28,7 +28,7 @@
 
 .heading {
   font-family: "Poppins", sans-serif;
-  font-size: 14px;
+  font-size: var(--text-base);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -67,7 +67,7 @@
 
 .itemTitle {
   font-family: "Poppins", sans-serif;
-  font-size: 18px;
+  font-size: var(--text-lg);
   font-weight: 600;
   color: var(--primary-white);
   transition: color 0.2s ease;
@@ -75,7 +75,7 @@
 
 .itemDescription {
   font-family: "Poppins", sans-serif;
-  font-size: 14px;
+  font-size: var(--text-base);
   font-weight: 400;
   color: var(--primary-white);
   line-height: 1.5;

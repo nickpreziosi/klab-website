@@ -19,7 +19,10 @@
   font-family: "Poppins", sans-serif;
   z-index: 10;
   transition: all 500ms ease-in-out;
-  background-color: var(--main-color);
+  transition: border 300ms ease-in-out;
+  background-color: var(--main-color-60);
+  backdrop-filter: blur(7px);
+  border-bottom: 1px solid transparent;
 }
 
 .containerScrolled {
@@ -30,7 +33,7 @@
   box-shadow: 0px 6px 20px rgba(255, 0, 76, 0.5);
   box-shadow: none;
   backdrop-filter: blur(7px);
-  border-bottom: solid 1px var(--primary-grey);
+  border-bottom: solid 1px rgba(255, 255, 255, 0.5);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -65,6 +68,25 @@
 .navLink {
   height: 100%;
   padding: 12px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: var(--primary-white);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  font-family: "Poppins", sans-serif !important;
+  font-size: var(--text-lg);
+}
+
+.caretIcon {
+  margin-left: var(--margin-xs);
+  transition: transform 250ms ease;
+}
+
+.caretIconOpen {
+  transform: rotate(-180deg);
 }
 
 .navList {
@@ -73,6 +95,9 @@
   align-items: center;
   gap: 12px;
   height: 100%;
+}
+.navLink:hover {
+  color: var(--accent-color) !important;
 }
 
 .navListItem {
@@ -87,6 +112,7 @@
   z-index: 10000;
   border-radius: 12px;
   border: 1px solid transparent;
+  font-size: var(--text-lg);
 }
 
 .navListItem:hover {
@@ -143,12 +169,6 @@
 
 .navLinkContainer li {
   list-style-type: none !important;
-}
-
-/* reset */
-.container button,
-.container p {
-  all: unset;
 }
 
 .NavigationMenuRoot {

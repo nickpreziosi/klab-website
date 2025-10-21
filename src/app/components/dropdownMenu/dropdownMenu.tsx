@@ -8,8 +8,6 @@ import { useEffect, useRef } from "react";
 interface DesktopDropdownProps {
   isOpen: boolean;
   onClose: () => void;
-  /** Optional ref to the button that toggles the dropdown so clicks on it can be ignored */
-  triggerRef?: React.RefObject<HTMLButtonElement | null>;
 }
 
 const solutions = [
@@ -37,12 +35,54 @@ const solutions = [
   },
 ];
 
-export function DesktopDropdown({
-  isOpen,
-  onClose,
-  triggerRef,
-}: DesktopDropdownProps) {
+export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const firstLinkRef = useRef<HTMLAnchorElement | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const links =
+        dropdownRef.current?.querySelectorAll<HTMLAnchorElement>(
+          'a[role="menuitem"]'
+        );
+      if (!links || links.length === 0) return;
+
+      const currentIndex = Array.from(links).findIndex(
+        (link) => link === document.activeElement
+      );
+
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        // Loop to first item if at the end
+        const nextIndex =
+          currentIndex === links.length - 1 ? 0 : currentIndex + 1;
+        links[nextIndex]?.focus();
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        // Loop to last item if at the beginning
+        const prevIndex =
+          currentIndex <= 0 ? links.length - 1 : currentIndex - 1;
+        links[prevIndex]?.focus();
+      } else if (event.key === "Tab") {
+        event.preventDefault();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen && firstLinkRef.current) {
+      // Small delay to allow animation to start
+      const timer = setTimeout(() => {
+        firstLinkRef.current?.focus();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
@@ -70,7 +110,12 @@ export function DesktopDropdown({
               }}
             >
               <h3 className={styles.heading}>Our Technologies</h3>
-              <ul className={styles.list}>
+              <ul
+                tabIndex={0}
+                id="nav-dropdown-menu"
+                role="menu"
+                className={styles.list}
+              >
                 {solutions.map((solution, index) => (
                   <motion.li
                     key={solution.href}
@@ -84,9 +129,11 @@ export function DesktopDropdown({
                     }}
                   >
                     <Link
+                      role="menuitem"
                       href={solution.href}
                       className={styles.item}
                       onClick={onClose}
+                      tabIndex={0}
                     >
                       <div className={styles.itemTitle}>{solution.title}</div>
                       <div className={styles.itemDescription}>

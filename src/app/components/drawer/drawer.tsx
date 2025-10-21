@@ -4,7 +4,6 @@ import { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import styles from "./drawer.module.css";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Logo } from "../logo/logo";
@@ -156,18 +155,32 @@ export const Drawer = () => {
                           transition={{ duration: 0.3 }}
                         >
                           <Link
-                            href="/"
+                            href="/technologies/keo-rails"
                             className={styles.dropdownItem}
                             onClick={() => setIsOpen(false)}
                           >
                             KEO Rails
                           </Link>
                           <Link
-                            href="/"
+                            href="/technologies/kena-ai"
                             className={styles.dropdownItem}
                             onClick={() => setIsOpen(false)}
                           >
                             KENA AI
+                          </Link>
+                          <Link
+                            href="/technologies/keo-invoice-management-portal"
+                            className={styles.dropdownItem}
+                            onClick={() => setIsOpen(false)}
+                          >
+                            KEO Invoive Management Portal
+                          </Link>
+                          <Link
+                            href="/technologies/keo-teams-whatsapp-ai-chat"
+                            className={styles.dropdownItem}
+                            onClick={() => setIsOpen(false)}
+                          >
+                            KEO Teams & WhatsApp AI Chat
                           </Link>
                         </motion.div>
                       )}

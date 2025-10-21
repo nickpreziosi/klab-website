@@ -44,6 +44,13 @@ const constantAnimationVariants = {
   animate: {
     rotate: [0, -3, 3, -3, 0],
     scale: [1, 1.02, 1, 1.02, 1],
+
+    boxShadow: [
+      "0px 4px 16px rgba(255, 0, 76, 0.4), 0px 0px 20px",
+      "rgba(255, 0, 76, 0.2)",
+      "0px 6px 20px rgba(255, 0, 76, 0.6)",
+      "0px 0px 30px rgba(255, 0, 76, 0.4);",
+    ],
     transition: {
       duration: 4,
       ease: "easeInOut",
