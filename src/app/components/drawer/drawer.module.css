@@ -237,3 +237,12 @@
     padding: 14px 18px;
   }
 }
+
+/* Responsive adjustments */
+@media (min-width: 1024px) {
+  .drawer,
+  .overlay,
+  .hamburger {
+    display: none;
+  }
+}

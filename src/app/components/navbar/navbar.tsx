@@ -13,6 +13,7 @@ export const NavigationMenuDemo = () => {
   const [isAtTop, setIsAtTop] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const spacerRef = useRef<HTMLDivElement>(null);
+  const dropdownTriggerRef = useRef<HTMLButtonElement | null>(null);
 
   const handleDropdownClick = () => {
     setDropdownOpen(!dropdownOpen);
@@ -22,7 +23,6 @@ export const NavigationMenuDemo = () => {
     const handleScroll = () => {
       if (spacerRef.current) {
         const elementTop = spacerRef.current.getBoundingClientRect().top;
-        // Adjust this value based on how close to the top you want it to be
         setIsAtTop(elementTop >= 0);
       }
     };
@@ -89,6 +89,7 @@ export const NavigationMenuDemo = () => {
               </li>
               <li className={styles.navListItem}>
                 <button
+                  ref={dropdownTriggerRef}
                   onClick={handleDropdownClick}
                   className={styles.navLink}
                 >
