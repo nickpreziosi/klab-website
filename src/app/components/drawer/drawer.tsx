@@ -119,7 +119,7 @@ export const Drawer = () => {
                       onClick={() => setIsSolutionsOpen(!isSolutionsOpen)}
                     >
                       <span className={styles.navLinkText}>
-                        Solutions
+                        Technologies
                         <motion.svg
                           width="16"
                           height="16"
@@ -168,20 +168,6 @@ export const Drawer = () => {
                             onClick={() => setIsOpen(false)}
                           >
                             KENA AI
-                          </Link>
-                          <Link
-                            href="/login"
-                            className={styles.dropdownItem}
-                            onClick={() => setIsOpen(false)}
-                          >
-                            KEO Invoice Management Portal
-                          </Link>
-                          <Link
-                            href="/"
-                            className={styles.dropdownItem}
-                            onClick={() => setIsOpen(false)}
-                          >
-                            KEO AI Chat for Teams
                           </Link>
                         </motion.div>
                       )}

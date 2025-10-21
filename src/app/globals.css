@@ -121,6 +121,9 @@
   --font-medium: 400;
   --font-thin: 300;
 
+  /* NAVBAR HEIGHT */
+  --navbar-height: 76px;
+
   /* MARGIN VARIABLES */
   --margin-xs: 0.325rem; /* 6px */
   --margin-sm: 0.75rem; /* 12px */
@@ -210,7 +213,7 @@ input[type="image"],
 label[for],
 select,
 button {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 @media (prefers-color-scheme: dark) {

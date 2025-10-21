@@ -14,8 +14,6 @@ export const NavigationMenuDemo = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const spacerRef = useRef<HTMLDivElement>(null);
 
-  const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false);
-
   const handleDropdownClick = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -54,7 +52,7 @@ export const NavigationMenuDemo = () => {
 
       <div ref={spacerRef} className={styles.spacer}>
         <div
-          style={{ height: dropdownOpen ? "fit-content" : "76px" }}
+          style={{ height: "auto" }}
           id="navbarContainer"
           className={`${styles.container} ${
             !isAtTop && styles.containerScrolled
@@ -63,7 +61,7 @@ export const NavigationMenuDemo = () => {
           <div className={styles.navbar}>
             <div className={styles.logoContainer}>
               <Link href="/">
-                <Logo size="sm"></Logo>
+                <Logo size="sm" animated="constant"></Logo>
               </Link>
             </div>
 
@@ -78,14 +76,7 @@ export const NavigationMenuDemo = () => {
                   About
                 </Link>
               </li>
-              <li className={styles.navListItem}>
-                <button
-                  onClick={handleDropdownClick}
-                  className={styles.navLink}
-                >
-                  Technology {dropdownOpen ? "▲" : "▼"}
-                </button>
-              </li>
+
               <li className={styles.navListItem}>
                 <Link className={styles.navLink} href="/company">
                   Company
@@ -96,18 +87,25 @@ export const NavigationMenuDemo = () => {
                   Contact
                 </Link>
               </li>
+              <li className={styles.navListItem}>
+                <button
+                  onClick={handleDropdownClick}
+                  className={styles.navLink}
+                >
+                  Technologies {dropdownOpen ? "▲" : "▼"}
+                </button>
+              </li>
             </ul>
 
             <div className={styles.drawerContainer}>
               <Drawer></Drawer>
             </div>
           </div>
-          <div className={styles.dropdown}>
-            <DesktopDropdown
-              isOpen={dropdownOpen}
-              onClose={() => setDropdownOpen(false)}
-            />
-          </div>
+
+          <DesktopDropdown
+            isOpen={dropdownOpen}
+            onClose={() => setDropdownOpen(false)}
+          />
         </div>
       </div>
     </>
