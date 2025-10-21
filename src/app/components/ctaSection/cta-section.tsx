@@ -22,7 +22,7 @@ export const CtaSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
           >
-            <Link href="/login" className={styles.loginButton}>
+            <Link href="/contact" className={styles.loginButton}>
               <motion.span
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

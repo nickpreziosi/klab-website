@@ -21,7 +21,7 @@
   max-width: calc(1080px);
   height: fit-content;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 40% 60%;
   gap: 48px;
 }
 

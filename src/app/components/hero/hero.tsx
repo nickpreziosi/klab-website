@@ -1,11 +1,34 @@
+"use client";
+import { useEffect, useRef } from "react";
 import styles from "./hero.module.css";
 import "./hero.module.css";
+import { LoadingProgressBar } from "../loadingProgressBar/loading-progress-bar";
 
 export const Hero = () => {
+  // Reference to the video element
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Pause video when not visible to save resources
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        videoRef.current?.pause();
+      } else {
+        videoRef.current?.play();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
   return (
     <section className={styles.hero}>
+      <LoadingProgressBar></LoadingProgressBar>
+
       <video
-        width={720}
+        ref={videoRef}
         autoPlay={true}
         loop={true}
         muted={true}

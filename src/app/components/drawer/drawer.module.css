@@ -43,7 +43,7 @@
   bottom: 0;
   width: 85%;
   max-width: 400px;
-  background: var(--main-color-65);
+  background: var(--main-color-70);
   box-shadow: -2px 0px 8px rgba(0, 0, 0, 0.5);
   z-index: 1000;
   display: flex;
