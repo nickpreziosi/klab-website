@@ -24,10 +24,83 @@ const solutions = [
 ];
 
 export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const navbarRef = useRef<HTMLElement | null>(null);
+  const firstItemRef = useRef<HTMLAnchorElement>(null);
+  const lastItemRef = useRef<HTMLAnchorElement>(null);
+
+  // Store navbar reference
+  useEffect(() => {
+    navbarRef.current = document.getElementById("navbarContainer");
+  }, []);
+
+  // Handle clicks outside of navbar
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (navbarRef.current && !navbarRef.current.contains(target)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onClose]);
+
+  // Handle keyboard interactions
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      switch (event.key) {
+        case "Escape":
+          onClose();
+          break;
+        case "Tab":
+          if (
+            event.shiftKey &&
+            document.activeElement === firstItemRef.current
+          ) {
+            event.preventDefault();
+            lastItemRef.current?.focus();
+          } else if (
+            !event.shiftKey &&
+            document.activeElement === lastItemRef.current
+          ) {
+            event.preventDefault();
+            firstItemRef.current?.focus();
+          }
+          break;
+      }
+    };
+
+    const handleFocusOut = (event: FocusEvent) => {
+      if (!dropdownRef.current?.contains(event.relatedTarget as Node)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    dropdownRef.current?.addEventListener("focusout", handleFocusOut);
+
+    // Focus first item when opening
+    firstItemRef.current?.focus();
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      dropdownRef.current?.removeEventListener("focusout", handleFocusOut);
+    };
+  }, [isOpen, onClose]);
+
   return (
     <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
+          ref={dropdownRef}
           key="dropdown-container"
           className={styles.container}
           style={{ overflow: "hidden" }}
@@ -48,6 +121,8 @@ export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
               opacity: { duration: 0.2, delay: 0.1 },
             },
           }}
+          role="dialog"
+          aria-label="Technologies dropdown"
         >
           <motion.div
             className={styles.dropdown}
@@ -70,8 +145,14 @@ export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
                   ease: [0.4, 0, 0.2, 1],
                 }}
               >
-                <h3 className={styles.heading}>Our Technologies</h3>
-                <ul className={styles.list}>
+                <h3 className={styles.heading} id="dropdown-title">
+                  Our Technologies
+                </h3>
+                <ul
+                  className={styles.list}
+                  role="menu"
+                  aria-labelledby="dropdown-title"
+                >
                   {solutions.map((solution, index) => (
                     <motion.li
                       key={solution.href}
@@ -83,11 +164,21 @@ export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
                         delay: isOpen ? index * 0.05 : (3 - index) * 0.03,
                         ease: "easeOut",
                       }}
+                      role="none"
                     >
                       <Link
+                        ref={
+                          index === 0
+                            ? firstItemRef
+                            : index === solutions.length - 1
+                            ? lastItemRef
+                            : null
+                        }
                         href={solution.href}
                         className={styles.item}
                         onClick={onClose}
+                        role="menuitem"
+                        tabIndex={0}
                       >
                         <div className={styles.itemTitle}>{solution.title}</div>
                         <div className={styles.itemDescription}>
