@@ -1,5 +1,4 @@
 import styles from "./hero.module.css";
-import { AspectRatio } from "radix-ui";
 import "./hero.module.css";
 
 export const Hero = () => {

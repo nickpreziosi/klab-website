@@ -1,10 +1,10 @@
-import styles from "./data-section.module.css";
+import styles from "./cta-section.module.css";
 import { LineGraph } from "../lineGraph/line-graph";
 
-export const DataSection = () => {
+export const CtaSection = () => {
   return (
     <>
-      <section className={styles.container}>
+      <div className={styles.container}>
         <div className={styles.chartGrid}>
           <div className={styles.textContent}>
             <h2>Tailored to Your Business Needs</h2>
@@ -20,7 +20,7 @@ export const DataSection = () => {
             showProjected={true}
           ></LineGraph>
         </div>
-      </section>
+      </div>
     </>
   );
 };

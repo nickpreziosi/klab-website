@@ -1,0 +1,144 @@
+.container {
+  background: var(--main-color);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #888888;
+  margin: 0;
+  font-weight: 400;
+}
+
+.chartWrapper {
+  height: 400px;
+  position: relative;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 0, 76, 0.03) 0%,
+    transparent 70%
+  );
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.gridOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(rgba(255, 0, 76, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 0, 76, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.statsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.statCard {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 0, 76, 0.05) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  border: 1px solid rgba(255, 0, 76, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.statCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff004c, transparent);
+  opacity: 0.6;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: #888888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.statValue {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+
+.statChange {
+  font-size: 13px;
+  color: #ff004c;
+  font-weight: 600;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 24px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .chartWrapper {
+    height: 300px;
+  }
+
+  .statsContainer {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+
+  .statCard {
+    padding: 16px;
+  }
+}
+
+/* Hover effects */
+.statCard:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 0, 76, 0.08) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  border-color: rgba(255, 0, 76, 0.4);
+  transition: all 0.3s ease;
+}
+
+.statCard:hover::before {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}

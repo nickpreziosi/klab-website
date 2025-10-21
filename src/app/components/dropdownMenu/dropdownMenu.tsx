@@ -84,6 +84,24 @@ export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
     }
   }, [isOpen]);
 
+  // Close dropdown when viewport shrinks from desktop to mobile while open
+  useEffect(() => {
+    if (!isOpen || typeof window === "undefined") return;
+
+    let lastWidth = window.innerWidth;
+
+    const handleResize = () => {
+      const w = window.innerWidth;
+      if (lastWidth > 1024 && w <= 1024) {
+        onClose();
+      }
+      lastWidth = w;
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isOpen, onClose]);
+
   return (
     <AnimatePresence>
       {isOpen && (
