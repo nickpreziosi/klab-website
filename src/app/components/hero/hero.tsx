@@ -4,7 +4,7 @@ import "./hero.module.css";
 
 export const Hero = () => {
   return (
-    <>
+    <section className={styles.hero}>
       <video
         width={720}
         autoPlay={true}
@@ -13,7 +13,9 @@ export const Hero = () => {
         className={styles.backgroundVideo}
         src="https://www.pexels.com/download/video/34268861/"
       ></video>
+
       <div className={styles.content}>
+        <div className={styles.overlay} aria-hidden></div>
         <div className={styles.mainContainer}>
           <div className={styles.mainTextContainer}>
             <h1 className={styles.mainHeading}>We Pay. You Grow.</h1>
@@ -23,18 +25,16 @@ export const Hero = () => {
             </p>
           </div>
         </div>
-        <AspectRatio.Root className={styles.videoEmbedContainer} ratio={16 / 9}>
-          <iframe
-            className={styles.videoEmbed}
-            src="https://www.youtube.com/embed/Ivd6J240bNs?si=pyT7u2GxKWe1Izey"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          ></iframe>
-        </AspectRatio.Root>
+        <iframe
+          className={styles.videoEmbed}
+          src="https://www.youtube.com/embed/Ivd6J240bNs?si=pyT7u2GxKWe1Izey"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
       </div>
-    </>
+    </section>
   );
 };

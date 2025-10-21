@@ -1,0 +1,9 @@
+.dataSection {
+  width: 100%;
+  height: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+}
