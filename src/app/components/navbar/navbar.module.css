@@ -77,23 +77,32 @@
   border: 1px solid transparent;
   transition: all 0.2s ease;
   font-family: "Poppins", sans-serif !important;
-  font-size: var(--text-lg);
+  font-size: var(--text-md);
+}
+
+.separatorRoot {
+  width: 1px !important;
+  height: 30px !important;
+  background-color: var(--primary-white) !important;
+}
+
+.icon {
+  margin-right: var(--margin-xs);
 }
 
 .caretIcon {
-  margin-left: var(--margin-xs);
   transition: transform 250ms ease;
 }
 
 .caretIconOpen {
-  transform: rotate(-180deg);
+  transform: rotate(180deg);
 }
 
 .navList {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
   height: 100%;
 }
 .navLink:hover {
@@ -112,7 +121,7 @@
   z-index: 10000;
   border-radius: 12px;
   border: 1px solid transparent;
-  font-size: var(--text-lg);
+  font-size: var(--text-md);
 }
 
 .navListItem:hover {

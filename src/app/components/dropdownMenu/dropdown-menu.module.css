@@ -13,6 +13,7 @@
 .dropdown {
   position: relative;
   z-index: 999;
+  padding-bottom: var(--padding-lg);
 }
 
 .container {
