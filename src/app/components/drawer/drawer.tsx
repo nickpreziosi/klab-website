@@ -61,7 +61,7 @@ export const Drawer = () => {
               >
                 <div className={styles.drawerHeader}>
                   <Link href="/" onClick={() => setIsOpen(false)}>
-                    <Logo size="sm"></Logo>
+                    <Logo size="sm" animated="constant"></Logo>
                   </Link>
 
                   <Dialog.Close asChild>
@@ -100,6 +100,25 @@ export const Drawer = () => {
                       onClick={() => setIsOpen(false)}
                     >
                       <span className={styles.navLinkText}>Home</span>
+                      <motion.div
+                        className={styles.navLinkUnderline}
+                        whileHover={{ scaleX: 1 }}
+                        initial={{ scaleX: 0 }}
+                      />
+                    </Link>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <Link
+                      href="/about"
+                      className={styles.navLink}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <span className={styles.navLinkText}>About</span>
                       <motion.div
                         className={styles.navLinkUnderline}
                         whileHover={{ scaleX: 1 }}
@@ -190,29 +209,10 @@ export const Drawer = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                  >
-                    <Link
-                      href="/"
-                      className={styles.navLink}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <span className={styles.navLinkText}>Why Keo</span>
-                      <motion.div
-                        className={styles.navLinkUnderline}
-                        whileHover={{ scaleX: 1 }}
-                        initial={{ scaleX: 0 }}
-                      />
-                    </Link>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.25 }}
                   >
                     <Link
-                      href="/"
+                      href="/Company"
                       className={styles.navLink}
                       onClick={() => setIsOpen(false)}
                     >
@@ -231,7 +231,7 @@ export const Drawer = () => {
                     transition={{ delay: 0.3 }}
                   >
                     <Link
-                      href="/"
+                      href="/contact"
                       className={styles.navLink}
                       onClick={() => setIsOpen(false)}
                     >

@@ -90,21 +90,6 @@ export const NavigationMenuDemo = () => {
 
   return (
     <>
-      <style>
-        {`
-          @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-          @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-          @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-          @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-          @import url('https://fonts.cdnfonts.com/css/neue-plak');
-        `}
-      </style>
-      <style>
-        {
-          '@import "@radix-ui/colors/black-alpha.css"; @import "@radix-ui/colors/indigo.css"; @import "@radix-ui/colors/mauve.css"; @import "@radix-ui/colors/purple.css"; @import "@radix-ui/colors/violet.css";'
-        }
-      </style>
-
       <div ref={spacerRef} className={styles.spacer}>
         <nav
           style={{
@@ -171,7 +156,7 @@ export const NavigationMenuDemo = () => {
               </li>
 
               <li className={styles.navListItem}>
-                <Link className={styles.navLink} href="/">
+                <Link className={styles.navLink} href="/contact">
                   Contact
                 </Link>
               </li>

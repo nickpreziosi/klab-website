@@ -15,23 +15,23 @@ const solutions = [
     title: "KEO Rails",
     description:
       "Streamline your railway operations with intelligent automation",
-    href: "/solutions/keo-rails",
+    href: "/technologies/keo-rails",
   },
   {
     title: "KENA AI",
     description: "Advanced AI solutions for business intelligence",
-    href: "/solutions/kena-ai",
+    href: "/technologies/kena-ai",
   },
   {
     title: "KEO Invoice Management Portal",
     description: "Simplify invoice processing and management",
-    href: "/solutions/invoice-portal",
+    href: "/technologies/keo-invoice-management-portal",
   },
   {
     title: "KEO Teams & WhatsApp AI Chat",
     description:
       "Analyze business data and KPIs with the help of our conversational AI interface for Microsot Teams and WhatsApp",
-    href: "/solutions/teams-whatsapp-ai-chat",
+    href: "/technologies/keo-teams-whatsapp-ai-chat",
   },
 ];
 
