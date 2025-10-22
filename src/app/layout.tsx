@@ -3,6 +3,7 @@ import "./globals.css";
 import { Poppins } from "next/font/google";
 import SocialSidebar from "./components/socialSidebar/social-sidebar";
 import { NavigationMenuDemo } from "./components/navbar/navbar";
+import { Footer } from "./components/footer/footer";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({
         <NavigationMenuDemo></NavigationMenuDemo>
         <SocialSidebar></SocialSidebar>
         {children}
+        <Footer></Footer>
       </body>
     </html>
   );
