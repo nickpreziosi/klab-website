@@ -1,22 +1,24 @@
-.container {
+.background {
   width: 100%;
   height: fit-content;
-  display: grid;
+  display: flex;
   align-items: center;
   justify-content: center;
   justify-items: center;
 }
 
-.container > div {
+.container {
+  width: 100%;
   border-radius: 12px;
   gap: var(--gap-md);
-  background-color: var(--primary-white);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  background-color: var(--main-color-75);
+  backdrop-filter: blur(8px);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   align-items: center;
-  justify-items: center;
-  padding: var(--padding-mobile);
+  justify-items: flex-end;
+  padding: var(--padding-tablet);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .logoContainer {
@@ -26,13 +28,13 @@
   width: 100%;
 }
 
-.container > div > * {
+.container > * {
   flex: 1;
 }
 
 .textContent {
   flex: 1;
-  color: var(--main-color);
+  color: var(--primary-white);
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -40,6 +42,7 @@
   align-items: flex-end;
   gap: 36px;
   width: 100%;
+  max-width: 500px;
 }
 
 .textContent h2 {
@@ -116,7 +119,7 @@
   position: relative;
 }
 
-.form:invalid .input {
+.form:user-invalid .input {
   border: 4px solid red;
 }
 
@@ -137,16 +140,24 @@
 
 @media (max-width: 1024px) {
   .container {
-    padding: var(--padding-desktop) var(--padding-tablet);
+    padding: var(--padding-tablet);
+    grid-template-columns: 1fr;
+    justify-items: center;
   }
   .inputButtonContainer {
     width: 100%;
+  }
+  .textContent {
+    align-items: center;
+  }
+  .textContent p {
+    text-align: center;
   }
 }
 
 @media (max-width: 769px) {
   .container {
-    padding: var(--padding-desktop) var(--padding-mobile);
+    padding: var(--padding-mobile);
   }
   .container > div {
     flex-direction: column;
@@ -160,9 +171,5 @@
   .formMessage {
     text-align: center;
     top: -50%;
-  }
-
-  .textContent {
-    align-items: center;
   }
 }

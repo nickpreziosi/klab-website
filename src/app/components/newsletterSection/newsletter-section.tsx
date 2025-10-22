@@ -8,14 +8,14 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 export const NewsletterSection = () => {
   return (
     <>
-      <section className={styles.container}>
-        <div>
+      <section className={styles.background}>
+        <div className={styles.container}>
           <div className={styles.logoContainer}>
             <Logo size="xl" animated="constant"></Logo>
           </div>
 
           <div className={styles.textContent}>
-            <h2>Subsribe to our newsletter</h2>
+            <h2>Subscribe to our newsletter</h2>
 
             <Form.Root className={styles.form}>
               <Form.Field className={styles.formField} name="email">

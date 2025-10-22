@@ -1,12 +1,5 @@
-.backgroundVideo {
-  position: fixed;
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-
 .hero {
+  margin-top: calc(var(--navbar-height) * -1);
   position: relative;
   width: 100%;
   /* Ensure hero is at least full viewport height minus the navbar, but can grow if content is larger */
@@ -16,7 +9,6 @@
 }
 
 .videoEmbed {
-  padding: var(--padding-desktop);
   width: 100%;
   height: auto;
   aspect-ratio: 16/9;
@@ -88,20 +80,11 @@
 
 /* Tablet design */
 @media (max-width: 1024px) {
-  .videoEmbed {
-    padding: 0;
-  }
-  .content {
-    padding: var(--padding-tablet);
-  }
 }
 
 /* Mobile design */
 @media (max-width: 768px) {
   .videoEmbed {
-    padding: 0;
-  }
-  .content {
-    padding: var(--padding-mobile);
+    width: 100vw;
   }
 }

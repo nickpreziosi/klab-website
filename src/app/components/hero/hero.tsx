@@ -27,15 +27,6 @@ export const Hero = () => {
     <section className={styles.hero}>
       <LoadingProgressBar></LoadingProgressBar>
 
-      <video
-        ref={videoRef}
-        autoPlay={true}
-        loop={true}
-        muted={true}
-        className={styles.backgroundVideo}
-        src="https://www.pexels.com/download/video/34268861/"
-      ></video>
-
       <div className={styles.content}>
         <div className={styles.overlay} aria-hidden></div>
         <div className={styles.mainContainer}>
@@ -49,7 +40,7 @@ export const Hero = () => {
         </div>
         <iframe
           className={styles.videoEmbed}
-          src="https://www.youtube.com/embed/Ivd6J240bNs?si=pyT7u2GxKWe1Izey"
+          src="https://player.vimeo.com/video/1119375393?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

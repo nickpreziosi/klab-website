@@ -98,14 +98,12 @@ export const NavigationMenuDemo = () => {
               dropdownOpen || !isAtTop
                 ? "solid 1px rgba(255, 255, 255, 0.2)"
                 : "solid 1px transparent",
-
-            paddingBottom: dropdownOpen ? "24px" : "0",
           }}
           id="navbarContainer"
           aria-label="Main navigation"
           className={`${styles.container} ${
             !isAtTop && styles.containerScrolled
-          }`}
+          } ${dropdownOpen && styles.containerDropdownOpen}`}
         >
           <div className={styles.navbar}>
             <div className={styles.logoContainer}>

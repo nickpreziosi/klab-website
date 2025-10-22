@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   background-color: transparent;
-  padding: var(--padding-desktop);
+  padding: var(--padding-desktop) 0;
 }
 
 .textContent {
@@ -14,20 +14,20 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex-direction: column;
   gap: 24px;
 }
 
 .chartGrid {
   max-width: calc(1080px);
   height: fit-content;
-  display: grid;
-  grid-template-columns: 40% 60%;
+  display: flex;
   gap: 48px;
 }
 
 @media (max-width: 1024px) {
   .container {
-    padding: var(--padding-desktop) var(--padding-tablet);
+    padding: var(--padding-tablet);
   }
 }
 
@@ -35,11 +35,7 @@
   .textContent {
     order: 2;
   }
-  .chartGrid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
   .container {
-    padding: var(--padding-desktop) var(--padding-mobile);
+    padding: var(--padding-mobile) 0;
   }
 }
