@@ -1,14 +1,12 @@
 .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background: #000000;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  height: calc(100vh - var(--navbar-height));
+  min-height: fit-content;
+  overflow: scroll;
+  padding: var(--padding-tablet) var(--padding-mobile);
 }
 
 .container {
@@ -22,6 +20,38 @@
   font-family: "Poppins", sans-serif;
 }
 
+.logoContainer {
+  position: relative;
+  width: auto;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0 20px rgba(255, 0, 76, 0.5));
+}
+
+.logoGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 76, 0.4) 0%,
+    rgba(255, 0, 76, 0.2) 40%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  z-index: 1;
+  filter: blur(20px);
+}
 .errorCode {
   margin-top: var(--margin-sm);
   font-size: var(--text-8xl);
@@ -123,22 +153,27 @@
   gap: var(--gap-xs);
 }
 
+.logoLarge {
+  display: none;
+}
+
+.logoXL {
+  display: flex;
+}
+
 @media (max-width: 640px) {
   .container {
-    max-width: 90%;
     gap: 1.25rem;
+    height: fit-content;
   }
 
-  .logoContainer {
-    width: 100px;
-    height: 100px;
+  .logoLarge {
+    display: flex;
   }
 
-  .logo {
-    width: 100px !important;
-    height: 100px !important;
+  .logoXL {
+    display: none;
   }
-
   .logoGlow {
     width: 120px;
     height: 120px;

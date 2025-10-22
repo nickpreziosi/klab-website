@@ -42,7 +42,7 @@ export const NewsletterSection = () => {
                       className={styles.input}
                       type="email"
                       required
-                    />
+                    ></input>
                   </Form.Control>
                   <Form.Submit asChild>
                     <motion.div

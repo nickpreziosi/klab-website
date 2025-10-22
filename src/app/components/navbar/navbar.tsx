@@ -96,7 +96,7 @@ export const NavigationMenuDemo = () => {
             height: "auto",
             borderBottom:
               dropdownOpen || !isAtTop
-                ? "solid 1px rgba(255, 255, 255, 0.5)"
+                ? "solid 1px rgba(255, 255, 255, 0.2)"
                 : "solid 1px transparent",
 
             paddingBottom: dropdownOpen ? "24px" : "0",

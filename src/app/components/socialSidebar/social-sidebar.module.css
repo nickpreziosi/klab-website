@@ -1,0 +1,80 @@
+.sidebar {
+  position: fixed;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.linksContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--main-color-60);
+  border: solid 1px rgba(255, 255, 255, 0.2);
+
+  border-radius: 12px;
+  /* Changed icon color to pink/red accent */
+  color: var(--accent-color);
+  text-decoration: none;
+  /* Reduced transition duration from 300ms to 150ms */
+  transition: all 50ms ease-in-out;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+.socialLink:hover {
+  background: rgba(255, 0, 76, 0.1);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
+}
+
+.socialLink svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Tooltip Styles */
+.tooltipContent {
+  background: rgba(0, 0, 0, 0.95);
+  color: var(--primary-white);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 0, 76, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  z-index: 1001;
+  animation: slideIn 100ms ease-out;
+}
+
+.tooltipArrow {
+  fill: rgba(0, 0, 0, 0.95);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+}

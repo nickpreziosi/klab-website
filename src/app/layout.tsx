@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { Poppins } from "next/font/google";
+import SocialSidebar from "./components/socialSidebar/social-sidebar";
+import { NavigationMenuDemo } from "./components/navbar/navbar";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,7 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html className={poppins.className} lang="en">
-      <body>{children}</body>
+      <body>
+        <NavigationMenuDemo></NavigationMenuDemo>
+        <SocialSidebar></SocialSidebar>
+        {children}
+      </body>
     </html>
   );
 }
