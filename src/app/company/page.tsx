@@ -1,18 +1,11 @@
-"use client";
-import { Accordion } from "radix-ui";
 import styles from "./page.module.css";
-import Image from "next/image";
-import { useRef, useState } from "react";
-import { AccordionTrigger } from "@radix-ui/react-accordion";
 import { StaffCard } from "../components/staffCard/staff-card";
+import { CompanyHero } from "../components/companyHero/company-hero";
+import TimelineCarousel from "../components/timeline-carousel/timeline-carousel";
+import { CompanyVideo } from "../components/companyVideo/company-video";
+import CompanyStats from "../components/companyStats/company-stats";
 
 export default function Home() {
-  const accordionContentRef = useRef<HTMLDivElement | null>(null);
-  const [accordionIsOpen, setAccordionIsOpen] = useState(false);
-  const handleAccordionTriggerClick = () => {
-    setAccordionIsOpen(!accordionIsOpen);
-  };
-
   const employees = [
     {
       name: "Paolo Fidanza",
@@ -92,6 +85,11 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
+        <CompanyHero></CompanyHero>
+        <TimelineCarousel></TimelineCarousel>
+        <CompanyVideo></CompanyVideo>
+        <CompanyStats></CompanyStats>
+
         <section className={styles.staffSection}>
           <h1>Leadership Team</h1>
           <div className={styles.cardGrid}>
@@ -110,77 +108,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-      {/*<div key={employee.email} className={styles.card}>
-                <Image
-                  src={employee.image}
-                  alt="Winner Bold Award"
-                  width={500}
-                  height={500}
-                  className={styles.cardImage}
-                />
-                <div className={styles.overlay}></div>
-                <Accordion.Root
-                  className={styles.accordionRoot}
-                  type="single"
-                  collapsible
-                >
-                  <Accordion.Item
-                    className={styles.accordionItem}
-                    value="item-1"
-                  >
-                    <Accordion.Trigger
-                      onClick={handleAccordionTriggerClick}
-                      className={styles.accordionTrigger}
-                    >
-                      <div className={styles.cardText}>
-                        <h2 className={styles.cardTitle}>{employee.name}</h2>
-                        <p className={styles.cardPosition}>
-                          {employee.position}
-                        </p>
-                      </div>
-                      <div className={styles.accordionTriggerBio}>
-                        {!accordionIsOpen && index ? "Read Bio" : "Close Bio"}
-                        <svg
-                          className={styles.caretIcon}
-                          width="30"
-                          height="30"
-                          viewBox="0 0 15 15"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          aria-hidden="true"
-                        >
-                          <path
-                            d="M4 9H11L7.5 4.5L4 9Z"
-                            fill="currentColor"
-                          ></path>
-                        </svg>
-                      </div>
-                    </Accordion.Trigger>
-                    <Accordion.Content
-                      ref={accordionContentRef}
-                      className={styles.accordionContent}
-                    >
-                      <p className={styles.accordionContentBio}>
-                        {employee.bio}
-                      </p>
-                      <div className={styles.socialLinks}>
-                        {socialLinks.map((link) => (
-                          <a
-                            key={link.name}
-                            href={link.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={styles.socialLink}
-                            aria-label={link.name}
-                          >
-                            {link.icon}
-                          </a>
-                        ))}
-                      </div>
-                    </Accordion.Content>
-                  </Accordion.Item>
-                </Accordion.Root>
-              </div>*/}
     </div>
   );
 }

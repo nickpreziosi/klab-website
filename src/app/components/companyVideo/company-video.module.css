@@ -1,0 +1,126 @@
+.content {
+  width: 100%;
+  height: fit-content;
+  margin: 0 0 var(--padding-desktop);
+}
+
+.section {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  gap: var(--gap-lg);
+  flex-direction: row;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: var(--padding-tablet);
+}
+
+.text {
+  height: 100%;
+  width: fit-content;
+  bottom: 0;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--gap-lg);
+}
+
+.textHeader {
+  font-size: 3.5rem;
+}
+.textParagraph {
+  font-size: var(--text-3xl);
+}
+
+.videoContainer {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 6/4;
+  border-radius: 12px;
+  background-color: black;
+}
+
+.video {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 6/4;
+  border-radius: 12px;
+}
+
+@media (max-width: 1440px) {
+  .text {
+    gap: var(--gap-sm);
+  }
+  .textHeader {
+    font-size: var(--text-5xl);
+  }
+}
+
+/* Tablet design */
+@media (max-width: 1024px) {
+  .text {
+    gap: var(--gap-sm);
+  }
+  .section {
+    gap: var(--gap-md);
+    padding: var(--padding-mobile);
+  }
+  .textHeader {
+    font-size: var(--text-4xl);
+  }
+  .textParagraph {
+    font-size: var(--text-2xl);
+  }
+  .content {
+    margin: 0 0 var(--padding-tablet);
+  }
+}
+
+/* Mobile design */
+@media (max-width: 768px) {
+  .textHeader {
+    font-size: var(--text-3xl);
+  }
+  .textParagraph {
+    font-size: var(--text-xl);
+  }
+  .section {
+    flex-direction: column;
+    gap: var(--gap-md);
+  }
+  .videoContainer,
+  .video {
+    aspect-ratio: 16/9;
+  }
+  .content {
+    margin: 0 0 var(--padding-tablet);
+  }
+  .text {
+    width: 100%;
+  }
+}
+
+/* Mobile design */
+@media (max-width: 600px) {
+  .textHeader {
+    font-size: var(--text-2xl);
+  }
+  .textParagraph {
+    font-size: var(--text-lg);
+  }
+  .section {
+    gap: var(--gap-md);
+    padding: var(--padding-mobile);
+  }
+  .videoContainer,
+  .video {
+    aspect-ratio: 16/9;
+  }
+  .content {
+    padding: var(--padding-mobile);
+  }
+  .text {
+    width: 100%;
+  }
+}

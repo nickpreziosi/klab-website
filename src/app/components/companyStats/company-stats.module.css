@@ -1,0 +1,129 @@
+.statsSection {
+  position: relative;
+  width: 100%;
+}
+
+.statsTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #ffffff;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  width: 100%;
+}
+
+.statCard {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 0, 76, 0.2);
+  border-radius: 1rem;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.statCard:hover {
+  border-color: rgba(255, 0, 76, 0.5);
+}
+
+.statCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff004cff, transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.statCard:hover::before {
+  opacity: 1;
+}
+
+.statValueContainer {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.statValue {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #ff004cff;
+  line-height: 1;
+  text-shadow: 0 0 30px rgba(255, 0, 76, 0.5);
+}
+
+.statSuffix {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ff004cff;
+  margin-left: 0.25rem;
+}
+
+.statLabel {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.statGlow {
+  position: absolute;
+  bottom: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 76, 0.15) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  transition: bottom 0.3s ease;
+}
+
+.statCard:hover .statGlow {
+  bottom: -30%;
+}
+
+@media (max-width: 1024px) {
+  .statsGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .statsTitle {
+    font-size: 2rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .statValue {
+    font-size: 3rem;
+  }
+
+  .statSuffix {
+    font-size: 2rem;
+  }
+
+  .statCard {
+    padding: 2rem 1.5rem;
+  }
+}

@@ -1,0 +1,101 @@
+.content {
+  width: 100%;
+}
+
+.hero {
+  position: relative;
+}
+
+.heroImage {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  object-fit: cover;
+  object-position: 0% 80%;
+  filter: grayscale(100%);
+}
+
+.overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  bottom: 0;
+  background: linear-gradient(
+    0deg,
+    var(--main-color-90) 0%,
+    var(--main-color-80) 10%,
+    var(--main-color-70) 30%,
+    var(--main-color-60) 35%,
+    transparent 50%
+  );
+}
+
+.heroText {
+  position: absolute;
+  height: 100%;
+  bottom: 0;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--padding-tablet);
+}
+
+.heroTextHeader {
+  font-size: var(--text-8xl);
+}
+.heroTextHeader span {
+  color: var(--accent-color);
+}
+.heroTextParagraph {
+  font-size: var(--text-lg);
+}
+
+@media (max-width: 1440px) {
+  .heroText {
+    width: 100%;
+  }
+  .heroTextHeader {
+    font-size: var(--text-7xl);
+  }
+  .heroTextParagraph {
+    font-size: var(--text-base);
+  }
+}
+
+/* Tablet design */
+@media (max-width: 1024px) {
+  .heroText {
+    width: 100%;
+  }
+  .heroTextHeader {
+    font-size: var(--text-6xl);
+  }
+  .heroTextParagraph {
+    font-size: var(--text-base);
+  }
+  .heroImage {
+    aspect-ratio: 1/1;
+    object-position: 0% 80%;
+  }
+}
+
+/* Mobile design */
+@media (max-width: 768px) {
+  .heroTextHeader {
+    font-size: var(--text-5xl);
+  }
+  .heroTextParagraph {
+    font-size: var(--text-sm);
+  }
+  .heroImage {
+    aspect-ratio: 4/5;
+    object-position: 0% 80%;
+  }
+
+  .heroText {
+    width: 100%;
+    padding: var(--padding-mobile);
+  }
+}
