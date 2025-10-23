@@ -1,0 +1,105 @@
+.page {
+  min-height: 100vh;
+  background-color: #000000;
+  width: 100%;
+}
+
+.container * {
+  font-family: "Poppins", sans-serif;
+}
+
+.heroSection {
+  width: 100%;
+  padding: 120px 0 140px;
+  position: relative;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.heroContent {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--primary-white);
+  margin: 0 0 32px 0;
+  letter-spacing: -0.02em;
+}
+
+.heroDescription {
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  line-height: 1.6;
+  color: var(--primary-white);
+  margin: 0;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .heroSection {
+    padding: 100px 0 120px;
+  }
+
+  .container {
+    gap: 64px;
+    padding: 0 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    padding: 80px 0 100px;
+  }
+
+  .container {
+    gap: 56px;
+    padding: 0 24px;
+  }
+
+  .heroTitle {
+    margin-bottom: 24px;
+  }
+
+  .cardsGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroSection {
+    padding: 60px 0 80px;
+  }
+
+  .container {
+    padding: 0 20px;
+    gap: 48px;
+  }
+
+  .heroTitle {
+    margin-bottom: 20px;
+  }
+}

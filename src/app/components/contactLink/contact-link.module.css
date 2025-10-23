@@ -1,0 +1,136 @@
+.card {
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: all 200ms ease-in-out;
+  backdrop-filter: blur(10px);
+  height: 100%;
+}
+
+.card:hover {
+  border-color: rgba(255, 0, 76, 0.3);
+  background-color: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 8px 32px rgba(255, 0, 76, 0.1);
+}
+
+.iconWrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease-in-out;
+}
+
+.card:hover .iconWrapper {
+  background-color: rgba(255, 0, 76, 0.1);
+  border-color: rgba(255, 0, 76, 0.3);
+}
+
+.icon {
+  color: var(--primary-white);
+  transition: all 200ms ease-in-out;
+}
+
+.card:hover .icon {
+  color: var(--accent-color);
+}
+
+.title {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--primary-white);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.description {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--primary-white);
+  margin: 0;
+  flex-grow: 1;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 100px;
+  color: var(--primary-white);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 150ms ease-in-out;
+  align-self: flex-start;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: rgba(255, 0, 76, 0.15);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 20px rgba(255, 0, 76, 0.2);
+}
+
+.button:hover .arrow {
+  transform: translateX(4px);
+  color: var(--accent-color);
+}
+
+.arrow {
+  transition: all 150ms ease-in-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card {
+    padding: 40px 32px;
+    gap: 20px;
+  }
+
+  .iconWrapper {
+    width: 48px;
+    height: 48px;
+  }
+
+  .icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .button {
+    padding: 12px 24px;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 32px 24px;
+  }
+
+  .title {
+    font-size: 1.375rem;
+  }
+}

@@ -23,14 +23,25 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: var(--gap-lg);
+  align-items: flex-end;
+  gap: var(--gap-md);
 }
 
-.textHeader {
-  font-size: 3.5rem;
+.lightbulb {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: var(--padding-tablet);
 }
+
+.textContainer {
+  flex: 1;
+  width: 100%;
+}
+
+.textHeader,
 .textParagraph {
-  font-size: var(--text-3xl);
+  font-size: 1.3rem;
 }
 
 .videoContainer {
@@ -39,6 +50,9 @@
   aspect-ratio: 6/4;
   border-radius: 12px;
   background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .video {
@@ -52,8 +66,10 @@
   .text {
     gap: var(--gap-sm);
   }
-  .textHeader {
-    font-size: var(--text-5xl);
+
+  .textHeader,
+  .textParagraph {
+    font-size: 1.3rem;
   }
 }
 
@@ -61,16 +77,23 @@
 @media (max-width: 1024px) {
   .text {
     gap: var(--gap-sm);
+    width: 100%;
+    flex-direction: row-reverse;
+  }
+  .lightbulb {
+    padding: var(--padding-mobile);
+    width: fit-content;
   }
   .section {
+    flex-direction: column;
+
     gap: var(--gap-md);
     padding: var(--padding-mobile);
   }
-  .textHeader {
-    font-size: var(--text-4xl);
-  }
+
+  .textHeader,
   .textParagraph {
-    font-size: var(--text-2xl);
+    font-size: 1.3rem;
   }
   .content {
     margin: 0 0 var(--padding-tablet);
@@ -79,14 +102,11 @@
 
 /* Mobile design */
 @media (max-width: 768px) {
-  .textHeader {
-    font-size: var(--text-3xl);
-  }
+  .textHeader,
   .textParagraph {
-    font-size: var(--text-xl);
+    font-size: 1.3rem;
   }
   .section {
-    flex-direction: column;
     gap: var(--gap-md);
   }
   .videoContainer,
@@ -103,11 +123,9 @@
 
 /* Mobile design */
 @media (max-width: 600px) {
-  .textHeader {
-    font-size: var(--text-2xl);
-  }
+  .textHeader,
   .textParagraph {
-    font-size: var(--text-lg);
+    font-size: 1.3rem;
   }
   .section {
     gap: var(--gap-md);

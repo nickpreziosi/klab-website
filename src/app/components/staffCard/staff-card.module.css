@@ -121,6 +121,7 @@
   flex-wrap: wrap;
   justify-content: center;
   margin-top: var(--gap-md);
+  z-index: 10;
 }
 
 .socialLink {
@@ -137,6 +138,7 @@
   transition: all 150ms ease-in-out;
   backdrop-filter: blur(10px);
   cursor: pointer;
+  z-index: 10;
 }
 
 .socialLink:hover {

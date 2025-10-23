@@ -59,6 +59,7 @@ export default function CompanyCulture() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <Image
+              priority
               src="/keo-company-2.jpeg"
               alt="KEO team collaborating in modern office workspace"
               fill
@@ -74,6 +75,7 @@ export default function CompanyCulture() {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <Image
+              priority
               src="/keo-company-3.jpeg"
               alt="KEO team members enjoying foosball in office recreation area"
               fill

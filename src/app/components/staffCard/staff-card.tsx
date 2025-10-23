@@ -34,6 +34,7 @@ export const StaffCard = ({
     <>
       <div className={styles.card}>
         <Image
+          priority
           src={image}
           alt="Winner Bold Award"
           width={500}

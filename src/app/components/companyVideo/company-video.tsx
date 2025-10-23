@@ -1,14 +1,19 @@
 import Link from "next/link";
 import styles from "./company-video.module.css";
-import { Logo } from "../logo/logo";
+import Lightbulb from "../../components/lightbulb/lightbulb";
 
 export const CompanyVideo = () => {
   return (
     <div className={styles.content}>
       <section className={styles.section}>
         <div className={styles.text}>
-          <p className={styles.textParagraph}>Discover the vision.</p>
-          <h2 className={styles.textHeader}>Hear from KEO&apos;s founder:</h2>
+          <div className={styles.lightbulb}>
+            <Lightbulb></Lightbulb>
+          </div>
+          <div className={styles.textContainer}>
+            <p className={styles.textParagraph}>Discover the vision.</p>
+            <h2 className={styles.textHeader}>Hear from KEO&apos;s founder:</h2>
+          </div>
         </div>
         <Link href="/" className={styles.videoContainer}>
           <iframe

@@ -6,6 +6,7 @@ export const CompanyHero = () => {
     <section className={styles.content}>
       <div className={styles.hero}>
         <Image
+          priority
           className={styles.heroImage}
           width={1200}
           height={1405}
