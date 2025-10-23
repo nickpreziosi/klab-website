@@ -32,8 +32,8 @@
 
 .staffSection h1 {
   font-size: var(--text-4xl);
-  text-align: center;
-  margin-bottom: var(--margin-xl);
+  text-align: left;
+  margin-bottom: var(--margin-lg);
 }
 
 .staffSection {

@@ -4,6 +4,7 @@ import { CompanyHero } from "../components/companyHero/company-hero";
 import TimelineCarousel from "../components/timeline-carousel/timeline-carousel";
 import { CompanyVideo } from "../components/companyVideo/company-video";
 import CompanyStats from "../components/companyStats/company-stats";
+import CompanyCulture from "../components/companyCulture/company-culture";
 
 export default function Home() {
   const employees = [
@@ -88,8 +89,8 @@ export default function Home() {
         <CompanyHero></CompanyHero>
         <TimelineCarousel></TimelineCarousel>
         <CompanyVideo></CompanyVideo>
+        <CompanyCulture></CompanyCulture>
         <CompanyStats></CompanyStats>
-
         <section className={styles.staffSection}>
           <h1>Leadership Team</h1>
           <div className={styles.cardGrid}>

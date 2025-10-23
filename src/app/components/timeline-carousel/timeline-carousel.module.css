@@ -120,7 +120,7 @@
 
 .timelineDate {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
   margin-bottom: 16px;
 }
@@ -161,6 +161,12 @@
   color: var(--accent-color);
   font-weight: bold;
   font-size: 18px;
+}
+
+.separatorRoot {
+  width: 1px !important;
+  height: 30px !important;
+  background-color: var(--primary-white) !important;
 }
 
 @media (max-width: 1024px) {

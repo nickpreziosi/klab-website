@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { motion } from "framer-motion";
 import styles from "./timeline-carousel.module.css";
+import { Separator } from "radix-ui";
 
 interface TimelineEvent {
   quarter: string;
@@ -223,7 +224,11 @@ export default function TimelineCarousel() {
                 <div className={styles.timelineContent}>
                   <div className={styles.timelineDate}>
                     <span className={styles.quarter}>{event.quarter}</span>
-
+                    <Separator.Root
+                      className={styles.separatorRoot}
+                      decorative
+                      orientation="vertical"
+                    />
                     <span className={styles.year}>{event.year}</span>
                   </div>
                   <ul className={styles.milestones}>

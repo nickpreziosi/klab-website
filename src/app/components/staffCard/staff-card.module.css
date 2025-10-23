@@ -201,7 +201,7 @@
 }
 
 .accordionItem[data-state="open"] .caretIcon {
-  transform: rotate(-180deg);
+  transform: rotate(180deg);
 }
 
 .accordionItem[data-state="open"] .accordionTrigger {

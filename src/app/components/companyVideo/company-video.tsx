@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./company-video.module.css";
+import { Logo } from "../logo/logo";
 
 export const CompanyVideo = () => {
   return (
