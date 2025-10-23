@@ -1,0 +1,235 @@
+.card * {
+  font-family: "Poppins", sans-serif;
+}
+
+.card {
+  position: relative;
+  aspect-ratio: 4/5;
+  width: 100% !important;
+  height: fit-content;
+  color: var(--main-color);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
+
+.cardImage {
+  position: absolute;
+  filter: grayscale(100%);
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  z-index: 0; /* put image at the back */
+}
+
+.overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 1; /* overlay above image */
+  background: linear-gradient(
+    0deg,
+    var(--main-color-90) 0%,
+    var(--main-color-85) 15%,
+    transparent 50%
+  );
+}
+
+.cardText {
+  color: var(--primary-white);
+  text-align: left;
+}
+
+.cardTitle {
+  font-size: var(--text-xl);
+  margin-bottom: var(--gap-xs);
+}
+
+.cardPosition {
+  font-size: var(--text-base);
+  color: var(--primary-white);
+}
+
+.accordionRoot {
+  height: 100%;
+}
+
+.accordionItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: black;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  transition: all 300ms ease-in-out;
+  z-index: 9; /* ensure it sits above the overlay and image */
+}
+
+.accordionContent {
+  position: relative;
+  padding: 0 var(--padding-mobile);
+  height: 100%;
+  color: var(--primary-white);
+  overflow: hidden;
+  border-radius: 12px;
+  transition: all 300ms ease-in-out;
+  overflow: scroll;
+}
+
+.accordionContentHeader {
+  font-size: var(--text-lg);
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+}
+
+.accordionContentTitle {
+  font-size: var(--text-sm);
+  color: var(--accent-color);
+  margin-bottom: var(--gap-xs);
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+}
+
+.accordionContentBio {
+  font-size: var(--text-base);
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+}
+
+.accordionContent[data-state="open"] .accordionContentHeader,
+.accordionContent[data-state="open"] .accordionContentTitle,
+.accordionContent[data-state="open"] .accordionContentBio {
+  opacity: 1;
+}
+
+.accordionContent[data-state="open"] {
+  animation: slideUp 300ms ease-out;
+}
+.accordionContent[data-state="closed"] {
+  animation: slideDown 300ms ease-out;
+}
+
+/* Social Links */
+.socialLinks {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--gap-md);
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--main-color-60, rgba(0, 23, 45, 0.6));
+  border: solid 1px rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: var(--primary-white);
+  text-decoration: none;
+  transition: all 150ms ease-in-out;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+.socialLink:hover {
+  background: rgba(255, 0, 76, 0.1);
+  border-color: var(--accent-color, #ff004c);
+  color: var(--accent-color, #ff004c);
+  box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
+  transform: scale(1.1);
+}
+
+.socialLink svg {
+  width: 18px;
+  height: 18px;
+}
+
+.accordionTrigger {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gap-md);
+  padding: var(--padding-mobile);
+  border: transparent 1px var(--main-color);
+  border-radius: 12px 12px 0 0;
+  color: var(--primary-white);
+  text-decoration: none;
+  transition: all 150ms ease-in-out;
+  cursor: pointer;
+  z-index: 10;
+  background-color: transparent;
+}
+
+.accordionTriggerBio {
+  font-size: var(--text-lg);
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  transition: all 300ms;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  font-size: var(--text-sm);
+}
+
+.accordionTriggerBio,
+.cardTitle,
+.cardPosition {
+  transition: all 300ms;
+}
+
+.accordionTrigger:hover .cardTitle,
+.accordionTrigger:hover .cardPosition,
+.accordionTrigger:hover .accordionTriggerBio {
+  color: var(--accent-color, #ff004c);
+}
+
+.accordionItem[data-state="open"] {
+  background-color: var(--main-color-70);
+  backdrop-filter: blur(8px);
+}
+
+.caretIcon {
+  transition: all 300ms ease-in-out;
+}
+
+.accordionItem[data-state="open"] .caretIcon {
+  transform: rotate(-180deg);
+}
+
+.accordionItem[data-state="open"] .accordionTrigger {
+  padding: var(--padding-mobile) var(--padding-mobile) 12px;
+}
+
+@keyframes slideDown {
+  from {
+    height: 100%;
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: 100%;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 769px) {
+}

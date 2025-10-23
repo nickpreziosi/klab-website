@@ -22,7 +22,7 @@ export const Footer = () => {
     { href: "/privacy/brazil", label: "Brazil" },
   ];
 
-  const socialLinks: SocialLink[] = [
+  const socialLinks = [
     {
       name: "LinkedIn",
       href: "https://www.linkedin.com/company/keoworld",
