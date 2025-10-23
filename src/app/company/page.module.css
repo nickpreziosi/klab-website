@@ -44,10 +44,15 @@
   padding: var(--padding-desktop);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1260px) {
   .cardGrid {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--gap-lg);
+  }
+}
+
+@media (max-width: 1024px) {
+  .cardGrid {
+    gap: var(--gap-md);
   }
   .staffSection {
     padding: var(--padding-tablet);
@@ -57,7 +62,6 @@
 @media (max-width: 769px) {
   .cardGrid {
     grid-template-columns: 1fr;
-    gap: var(--gap-md);
   }
   .staffSection {
     padding: var(--padding-mobile);
