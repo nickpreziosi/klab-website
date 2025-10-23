@@ -14,7 +14,7 @@ export default function CompanyCulture() {
           className={styles.content}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ amount: 0.3 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h2 className={styles.title}>
@@ -31,7 +31,7 @@ export default function CompanyCulture() {
             outside the box.
           </p>
           <Link href="/careers" className={styles.button}>
-            <span>Careers</span>
+            <span>CAREERS</span>
             <svg
               width="20"
               height="20"
@@ -55,7 +55,7 @@ export default function CompanyCulture() {
             className={styles.imageWrapper}
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ amount: 0.3 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <Image
@@ -70,7 +70,7 @@ export default function CompanyCulture() {
             className={styles.imageWrapper}
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ amount: 0.3 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <Image
