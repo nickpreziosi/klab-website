@@ -21,44 +21,104 @@ import { useEffect, useState } from "react";
 
 export function ThemeToggle() {
   const [theme, setTheme] = useState("dark");
-  const calculateColorTheme = (theme: string) => {
-    if (theme === "dark") {
-      document.documentElement.style.setProperty("--main-color-rgb", "0, 0, 0");
-      document.documentElement.style.setProperty(
-        "--primary-white-rgb",
-        "255, 255, 255"
-      );
-    }
-    if (theme === "light") {
-      document.documentElement.style.setProperty(
-        "--main-color-rgb",
-        "255, 255, 255"
-      );
-      document.documentElement.style.setProperty(
-        "--primary-white-rgb",
-        "0, 0, 0"
-      );
-    }
-    if (theme === "keo") {
-      document.documentElement.style.setProperty(
-        "--main-color-rgb",
-        "0, 23, 45"
-      );
-      document.documentElement.style.setProperty(
-        "--primary-white-rgb",
-        "255, 255, 255"
-      );
-    }
-    if (theme === "system") {
-      document.documentElement.style.setProperty("--main-color-rgb", "0, 0, 0");
-      document.documentElement.style.setProperty(
-        "--primary-white-rgb",
-        "255, 255, 255"
-      );
-    }
-  };
+
   useEffect(() => {
-    calculateColorTheme(theme);
+    if (typeof window === "undefined") return;
+
+    const darkModeMediaQuery = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    );
+
+    // Stable handler so we can add/remove the same reference
+    const handleSystemThemeChange = (event: MediaQueryListEvent) => {
+      if (event.matches) {
+        document.documentElement.style.setProperty(
+          "--main-color-rgb",
+          "0, 0, 0"
+        );
+        document.documentElement.style.setProperty(
+          "--primary-white-rgb",
+          "255, 255, 255"
+        );
+      } else {
+        document.documentElement.style.setProperty(
+          "--main-color-rgb",
+          "255, 255, 255"
+        );
+        document.documentElement.style.setProperty(
+          "--primary-white-rgb",
+          "0, 0, 0"
+        );
+      }
+    };
+
+    const applyTheme = (t: string) => {
+      if (t === "system") {
+        // apply immediately based on current system preference
+        if (darkModeMediaQuery.matches) {
+          document.documentElement.style.setProperty(
+            "--main-color-rgb",
+            "0, 0, 0"
+          );
+          document.documentElement.style.setProperty(
+            "--primary-white-rgb",
+            "255, 255, 255"
+          );
+        } else {
+          document.documentElement.style.setProperty(
+            "--main-color-rgb",
+            "255, 255, 255"
+          );
+          document.documentElement.style.setProperty(
+            "--primary-white-rgb",
+            "0, 0, 0"
+          );
+        }
+      } else if (t === "dark") {
+        document.documentElement.style.setProperty(
+          "--main-color-rgb",
+          "0, 0, 0"
+        );
+        document.documentElement.style.setProperty(
+          "--primary-white-rgb",
+          "255, 255, 255"
+        );
+      } else if (t === "light") {
+        document.documentElement.style.setProperty(
+          "--main-color-rgb",
+          "255, 255, 255"
+        );
+        document.documentElement.style.setProperty(
+          "--primary-white-rgb",
+          "0, 0, 0"
+        );
+      } else if (t === "keo") {
+        document.documentElement.style.setProperty(
+          "--main-color-rgb",
+          "0, 23, 45"
+        );
+        document.documentElement.style.setProperty(
+          "--primary-white-rgb",
+          "255, 255, 255"
+        );
+      }
+    };
+
+    applyTheme(theme);
+
+    // Only attach listener when we're honoring system preference
+    if (theme === "system") {
+      darkModeMediaQuery.addEventListener("change", handleSystemThemeChange);
+      return () => {
+        darkModeMediaQuery.removeEventListener(
+          "change",
+          handleSystemThemeChange
+        );
+      };
+    }
+
+    // No listener attached for non-system themes; nothing to clean up
+    return;
   }, [theme]);
 
   const getThemeIcon = () => {
