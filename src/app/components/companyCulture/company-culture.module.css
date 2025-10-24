@@ -50,8 +50,8 @@
   align-items: center;
   gap: 12px;
   padding: 16px 32px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(var(--primary-white-rgb), 0.05);
+  border: 1px solid rgba(var(--primary-white-rgb), 0.2);
   border-radius: var(--rounded-full);
   color: var(--primary-white);
   font-family: var(--font-sans), sans-serif;
@@ -83,8 +83,8 @@
   aspect-ratio: 16 / 10;
   border-radius: var(--rounded-sm);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(var(--primary-white-rgb), 0.1);
+  background-color: rgba(var(--primary-white-rgb), 0.02);
 }
 
 .image {

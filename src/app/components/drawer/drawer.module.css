@@ -184,7 +184,7 @@
 .loginContainer {
   margin-top: 24px;
   padding-top: 24px;
-  border-top: 1px solid rgba(255, 0, 76, 0.2);
+  border-top: 1px solid rgba(255, 0, 76, 0.5);
 }
 
 .loginButton {

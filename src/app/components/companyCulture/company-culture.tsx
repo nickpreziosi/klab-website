@@ -31,7 +31,7 @@ export default function CompanyCulture() {
             outside the box.
           </p>
           <Link href="/careers" className={styles.button}>
-            <span>CAREERS</span>
+            <span>KEO Careers</span>
             <svg
               width="20"
               height="20"

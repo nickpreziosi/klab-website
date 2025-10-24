@@ -3,22 +3,21 @@
   flex-direction: column;
   gap: 0.75rem;
   padding: 1rem;
-  background: rgba(var(--primary-white-rgb), 0.05);
-  border: 1px solid rgba(var(--primary-white-rgb), 0.1);
+  background: rgba(var(--primary-white-rgb), 0.02);
+  border: 1px solid rgba(var(--primary-white-rgb), 0.2);
   border-radius: 0.75rem;
 }
 
 .label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: rgba(var(--primary-white-rgb), 0.7);
+  color: var(--primary-white);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .toggleGroup {
   display: grid;
-  /* Changed from 2 columns to 4 columns for single row layout */
   grid-template-columns: repeat(4, 1fr);
   gap: 0.5rem;
 }
@@ -31,10 +30,10 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 0.875rem 0.75rem;
-  background: rgba(var(--primary-white-rgb), 0.05);
-  border: 1px solid rgba(var(--primary-white-rgb), 0.1);
+  background: rgba(var(--primary-white-rgb), 0.1);
+  border: 1px solid rgba(var(--primary-white-rgb), 0.2);
   border-radius: 0.5rem;
-  color: rgba(var(--primary-white-rgb), 0.7);
+  color: var(--primary-white);
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -42,7 +41,7 @@
 }
 
 .toggleItem:hover {
-  background: rgba(var(--primary-white-rgb), 0.1);
+  background: rgba(var(--primary-white-rgb), 0.2);
   border-color: rgba(var(--primary-white-rgb), 0.2);
   color: rgba(var(--primary-white-rgb), 0.9);
 }
@@ -72,4 +71,10 @@
 
 .itemLabel {
   font-size: 0.8125rem;
+}
+
+@media only screen and (max-width: 480px) {
+  .toggleGroup {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
