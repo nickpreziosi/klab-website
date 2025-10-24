@@ -11,12 +11,12 @@ export function MobileThemeToggleV2() {
     try {
       if (typeof window !== "undefined") {
         const stored = localStorage.getItem("theme");
-        return (stored as string) ?? "keo";
+        return (stored as string) ?? "dark";
       }
     } catch {
       // ignore access errors and fall back to default
     }
-    return "keo";
+    return "dark";
   });
 
   // Listen for theme changes from other components/tabs so multiple toggles stay in sync.
@@ -168,6 +168,9 @@ export function MobileThemeToggleV2() {
     return;
   }, [theme]);
 
+  // control accordion open state so we can animate cleanly
+  const [open, setOpen] = useState<string | null>(null);
+
   const getThemeIcon = (themeName: string) => {
     switch (themeName) {
       case "light":
@@ -252,7 +255,13 @@ export function MobileThemeToggleV2() {
   };
 
   return (
-    <Accordion.Root type="single" collapsible className={styles.accordionRoot}>
+    <Accordion.Root
+      type="single"
+      collapsible
+      value={open ?? undefined}
+      onValueChange={(v) => setOpen(v ?? null)}
+      className={styles.accordionRoot}
+    >
       <Accordion.Item value="theme" className={styles.accordionItem}>
         <Accordion.Header className={styles.accordionHeader}>
           <Accordion.Trigger className={styles.accordionTrigger}>
@@ -280,12 +289,22 @@ export function MobileThemeToggleV2() {
             </svg>
           </Accordion.Trigger>
         </Accordion.Header>
-        <Accordion.Content className={styles.accordionContent} asChild>
+        <Accordion.Content
+          className={styles.accordionContent}
+          asChild
+          forceMount
+        >
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            // don't run the initial open animation on mount
+            initial={false}
+            // animate based on controlled `open` state so the element stays mounted
+            animate={
+              open === "theme"
+                ? { height: "auto", opacity: 1 }
+                : { height: 0, opacity: 0 }
+            }
+            transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
+            style={{ overflow: "hidden" }}
           >
             <div className={styles.themeOptions}>
               {["light", "dark", "keo", "system"].map((themeName) => (

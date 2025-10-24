@@ -24,12 +24,12 @@ export function ThemeToggle() {
     try {
       if (typeof window !== "undefined") {
         const stored = localStorage.getItem("theme");
-        return (stored as string) ?? "keo";
+        return (stored as string) ?? "dark";
       }
     } catch {
       // ignore access errors and fall back to default
     }
-    return "keo";
+    return "dark";
   });
 
   // Listen for theme changes from other components/tabs so multiple toggles stay in sync.
