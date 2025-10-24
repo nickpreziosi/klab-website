@@ -32,6 +32,43 @@ export function ThemeToggle() {
     return "keo";
   });
 
+  // Listen for theme changes from other components/tabs so multiple toggles stay in sync.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const onExternalThemeChange = (e: Event) => {
+      // CustomEvent dispatched in same window carries new theme in `detail`.
+      const maybeDetail = (e as CustomEvent).detail;
+      if (typeof maybeDetail === "string") {
+        setTheme(maybeDetail);
+        return;
+      }
+
+      // StorageEvent comes from other tabs/windows.
+      const se = e as StorageEvent;
+      if (se?.key === "theme" && typeof se.newValue === "string") {
+        setTheme(se.newValue);
+      }
+    };
+
+    window.addEventListener(
+      "themechange",
+      onExternalThemeChange as EventListener
+    );
+    window.addEventListener("storage", onExternalThemeChange as EventListener);
+
+    return () => {
+      window.removeEventListener(
+        "themechange",
+        onExternalThemeChange as EventListener
+      );
+      window.removeEventListener(
+        "storage",
+        onExternalThemeChange as EventListener
+      );
+    };
+  }, []);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -116,14 +153,21 @@ export function ThemeToggle() {
 
     applyTheme(theme);
 
-    // persist selection to localStorage
-    try {
-      if (typeof window !== "undefined") {
-        localStorage.setItem("theme", theme);
+    // persist selection to localStorage and notify same-window listeners
+    const persistTheme = (t: string) => {
+      try {
+        if (typeof window !== "undefined") {
+          localStorage.setItem("theme", t);
+          // Notify other components in the same window (storage event doesn't fire in same window)
+          const ev = new CustomEvent("themechange", { detail: t });
+          window.dispatchEvent(ev);
+        }
+      } catch {
+        // ignore storage errors (e.g. Safari private mode)
       }
-    } catch {
-      // ignore storage errors (e.g. Safari private mode)
-    }
+    };
+
+    persistTheme(theme);
 
     // Only attach listener when we're honoring system preference
     if (theme === "system") {
@@ -140,8 +184,8 @@ export function ThemeToggle() {
     return;
   }, [theme]);
 
-  const getThemeIcon = () => {
-    switch (theme) {
+  const getThemeIcon = (themeName: string) => {
+    switch (themeName) {
       case "light":
         return (
           <svg
@@ -176,16 +220,6 @@ export function ThemeToggle() {
             ></path>
           </svg>
         );
-      case "keo":
-        return (
-          <Image
-            src="/keo-logo.png"
-            alt="KEO"
-            width={18}
-            height={18}
-            className={styles.keoLogo}
-          />
-        );
       case "system":
         return (
           <svg
@@ -203,6 +237,33 @@ export function ThemeToggle() {
             ></path>
           </svg>
         );
+      case "keo":
+        return (
+          <Image
+            src="/keo-logo.png"
+            alt="KEO"
+            width={18}
+            height={18}
+            className={styles.keoLogo}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  const getThemeLabel = (themeName: string) => {
+    switch (themeName) {
+      case "light":
+        return "Light";
+      case "dark":
+        return "Dark";
+      case "system":
+        return "System";
+      case "keo":
+        return "KEO";
+      default:
+        return themeName;
     }
   };
 
@@ -213,7 +274,7 @@ export function ThemeToggle() {
           <Select value={theme} onValueChange={setTheme}>
             <TooltipTrigger asChild>
               <SelectTrigger className={styles.selectTrigger}>
-                <SelectValue>{getThemeIcon()}</SelectValue>
+                <SelectValue>{getThemeIcon(theme)}</SelectValue>
               </SelectTrigger>
             </TooltipTrigger>
             <SelectContent className={styles.selectContent}>
@@ -286,10 +347,7 @@ export function ThemeToggle() {
             className={styles.tooltip}
             side="bottom"
           >
-            Theme:{" "}
-            {theme === "keo"
-              ? "KEO"
-              : theme?.charAt(0).toUpperCase() + theme?.slice(1)}
+            Theme: {getThemeLabel(theme)}
             <TooltipArrow className={styles.tooltipArrow} />
           </TooltipContent>
         </Tooltip>

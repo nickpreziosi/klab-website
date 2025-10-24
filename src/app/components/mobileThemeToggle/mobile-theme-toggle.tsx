@@ -18,6 +18,41 @@ export function MobileThemeToggle() {
     return "keo";
   });
 
+  // Listen for theme changes from other components/tabs so multiple toggles stay in sync.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const onExternalThemeChange = (e: Event) => {
+      const maybeDetail = (e as CustomEvent).detail;
+      if (typeof maybeDetail === "string") {
+        setTheme(maybeDetail);
+        return;
+      }
+
+      const se = e as StorageEvent;
+      if (se?.key === "theme" && typeof se.newValue === "string") {
+        setTheme(se.newValue);
+      }
+    };
+
+    window.addEventListener(
+      "themechange",
+      onExternalThemeChange as EventListener
+    );
+    window.addEventListener("storage", onExternalThemeChange as EventListener);
+
+    return () => {
+      window.removeEventListener(
+        "themechange",
+        onExternalThemeChange as EventListener
+      );
+      window.removeEventListener(
+        "storage",
+        onExternalThemeChange as EventListener
+      );
+    };
+  }, []);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -102,14 +137,20 @@ export function MobileThemeToggle() {
 
     applyTheme(theme);
 
-    // persist selection to localStorage
-    try {
-      if (typeof window !== "undefined") {
-        localStorage.setItem("theme", theme);
+    // persist selection to localStorage and notify same-window listeners
+    const persistTheme = (t: string) => {
+      try {
+        if (typeof window !== "undefined") {
+          localStorage.setItem("theme", t);
+          const ev = new CustomEvent("themechange", { detail: t });
+          window.dispatchEvent(ev);
+        }
+      } catch {
+        // ignore storage errors (e.g. Safari private mode)
       }
-    } catch {
-      // ignore storage errors (e.g. Safari private mode)
-    }
+    };
+
+    persistTheme(theme);
 
     // Only attach listener when we're honoring system preference
     if (theme === "system") {
