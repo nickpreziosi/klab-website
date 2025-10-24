@@ -91,7 +91,8 @@
   --primary-pink-95: rgba(255, 0, 76, 0.95);
 
   /* White variants */
-  --primary-white: rgba(255, 255, 255, 1);
+  --primary-white: rgb(var(--primary-white-rgb));
+  --primary-white-rgb: 255, 255, 255;
 
   /* Grey variants */
   --primary-grey: rgba(222, 225, 230, 1);
@@ -180,19 +181,17 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  /*
   :root {
     --main-color-rgb: 0, 0, 0;
-    --primary-white: 255, 255, 255;
-  } */
+    --primary-white-rgb: 255, 255, 255;
+  }
 }
 
 @media (prefers-color-scheme: light) {
-  /*
   :root {
     --main-color-rgb: 255, 255, 255;
-    --primary-white: 0, 0, 0;
-  } */
+    --primary-white-rgb: 0, 0, 0;
+  }
 }
 
 html,

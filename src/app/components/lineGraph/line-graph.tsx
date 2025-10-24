@@ -127,18 +127,14 @@ export const LineGraph = ({
                 />
 
                 <XAxis
+                  className={styles.graphXAxis}
                   dataKey="month"
-                  stroke="#ffffff"
-                  tick={{ fill: "#ffffff", fontSize: 12 }}
-                  axisLine={{ stroke: "#ffffff" }}
-                  tickLine={{ stroke: "#ffffff" }}
+                  tick={{ fontSize: 12 }}
                 />
 
                 <YAxis
-                  stroke="#ffffff"
-                  tick={{ fill: "#ffffff", fontSize: 12 }}
-                  axisLine={{ stroke: "#ffffff" }}
-                  tickLine={{ stroke: "#ffffff" }}
+                  className={styles.graphXAxis}
+                  tick={{ fontSize: 12 }}
                   tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
                 />
 

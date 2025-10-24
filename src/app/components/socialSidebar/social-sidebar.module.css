@@ -45,7 +45,7 @@
 
 /* Tooltip Styles */
 .tooltipContent {
-  background: var(--main-color-75);
+  background: var(--main-color-60);
   backdrop-filter: blur(10px);
   color: var(--primary-white);
   padding: 0.5rem 1rem;

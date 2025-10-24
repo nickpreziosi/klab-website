@@ -137,6 +137,11 @@
   padding-right: 6px;
 }
 
+.themeToggleContainer {
+  z-index: 100001;
+  position: relative;
+}
+
 @media only screen and (max-width: 1024px) {
   .navList {
     display: none;

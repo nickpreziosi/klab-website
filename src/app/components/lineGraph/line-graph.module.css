@@ -58,6 +58,12 @@
   font-weight: 400;
 }
 
+.graphXAxis *,
+.graphYAxis * {
+  fill: var(--primary-white);
+  stroke: var(--primary-white);
+}
+
 .chartWrapper {
   height: 400px;
   width: 100%;
