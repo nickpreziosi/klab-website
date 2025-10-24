@@ -21,50 +21,43 @@ import { useEffect, useState } from "react";
 
 export function ThemeToggle() {
   const [theme, setTheme] = useState("dark");
-
+  const calculateColorTheme = (theme: string) => {
+    if (theme === "dark") {
+      document.documentElement.style.setProperty("--main-color-rgb", "0, 0, 0");
+      document.documentElement.style.setProperty(
+        "--primary-white-rgb",
+        "255, 255, 255"
+      );
+    }
+    if (theme === "light") {
+      document.documentElement.style.setProperty(
+        "--main-color-rgb",
+        "255, 255, 255"
+      );
+      document.documentElement.style.setProperty(
+        "--primary-white-rgb",
+        "0, 0, 0"
+      );
+    }
+    if (theme === "keo") {
+      document.documentElement.style.setProperty(
+        "--main-color-rgb",
+        "0, 23, 45"
+      );
+      document.documentElement.style.setProperty(
+        "--primary-white-rgb",
+        "255, 255, 255"
+      );
+    }
+    if (theme === "system") {
+      document.documentElement.style.setProperty("--main-color-rgb", "0, 0, 0");
+      document.documentElement.style.setProperty(
+        "--primary-white-rgb",
+        "255, 255, 255"
+      );
+    }
+  };
   useEffect(() => {
-    const calculateColorTheme = (theme: string) => {
-      if (theme === "dark") {
-        document.documentElement.style.setProperty(
-          "--main-color-rgb",
-          "0, 0, 0"
-        );
-        document.documentElement.style.setProperty(
-          "--primary-white-rgb",
-          "255, 255, 255"
-        );
-      }
-      if (theme === "light") {
-        document.documentElement.style.setProperty(
-          "--main-color-rgb",
-          "255, 255, 255"
-        );
-        document.documentElement.style.setProperty(
-          "--primary-white-rgb",
-          "0, 0, 0"
-        );
-      }
-      if (theme === "keo") {
-        document.documentElement.style.setProperty(
-          "--main-color-rgb",
-          "0, 23, 45"
-        );
-        document.documentElement.style.setProperty(
-          "--primary-white-rgb",
-          "255, 255, 255"
-        );
-      }
-      if (theme === "system") {
-        document.documentElement.style.setProperty(
-          "--main-color-rgb",
-          "0, 0, 0"
-        );
-        document.documentElement.style.setProperty(
-          "--primary-white-rgb",
-          "255, 255, 255"
-        );
-      }
-    };
     calculateColorTheme(theme);
   }, [theme]);
 
@@ -162,7 +155,6 @@ export function ThemeToggle() {
               </SelectTrigger>
             </TooltipTrigger>
             <SelectContent className={styles.selectContent}>
-              <span className={styles.selectItem}>Theme:</span>
               <SelectItem value="light" className={styles.selectItem}>
                 <svg
                   width="15"
@@ -227,7 +219,11 @@ export function ThemeToggle() {
             </SelectContent>
           </Select>
 
-          <TooltipContent className={styles.tooltip} side="bottom">
+          <TooltipContent
+            sideOffset={12}
+            className={styles.tooltip}
+            side="bottom"
+          >
             Theme:{" "}
             {theme === "keo"
               ? "KEO"
