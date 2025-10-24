@@ -1,19 +1,20 @@
 .card {
-  background-color: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(var(--primary-white-rgb), 0.02);
+  border: 1px solid rgba(var(--primary-white-rgb), 0.1);
   border-radius: 16px;
   padding: 48px 40px;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  transition: all 300ms ease-in-out;
+  transition: all 200ms ease-in-out;
   backdrop-filter: blur(10px);
   height: 100%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 8px;
 }
 
 .card:hover {
   border-color: rgba(255, 0, 76, 0.3);
-  background-color: rgba(255, 255, 255, 0.04);
+  background-color: rgba(var(--primary-white-rgb), 0.04);
   box-shadow: 0 8px 32px rgba(255, 0, 76, 0.1);
 }
 
@@ -21,8 +22,8 @@
   width: 56px;
   height: 56px;
   border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(var(--primary-white-rgb), 0.05);
+  border: 1px solid rgba(var(--primary-white-rgb), 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,8 +67,8 @@
   align-items: center;
   gap: 8px;
   padding: 14px 28px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: rgba(var(--primary-white-rgb), 0.05);
+  border: 1px solid rgba(var(--primary-white-rgb), 0.15);
   border-radius: 100px;
   color: var(--primary-white);
   font-family: var(--font-sans), sans-serif;

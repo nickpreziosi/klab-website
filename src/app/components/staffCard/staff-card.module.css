@@ -12,6 +12,8 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  border: 1px solid rgba(var(--primary-white-rgb), 0.1);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 8px;
 }
 
 .cardImage {
@@ -107,7 +109,6 @@
   margin-top: var(--gap-md);
   z-index: 10;
 }
-
 .socialLink {
   display: flex;
   align-items: center;
@@ -115,14 +116,13 @@
   width: 36px;
   height: 36px;
   background: var(--main-color-60, rgba(0, 23, 45, 0.6));
-  border: solid 1px rgba(255, 255, 255, 0.2);
-  border-radius: var(--rounded-sm);
+  border: solid 1px rgba(var(--primary-white-rgb), 0.2);
+  border-radius: 12px;
   color: var(--primary-white);
   text-decoration: none;
   transition: all 150ms ease-in-out;
   backdrop-filter: blur(10px);
   cursor: pointer;
-  z-index: 10;
 }
 
 .socialLink:hover {

@@ -8,7 +8,7 @@
   font-weight: 700;
   text-align: left;
   margin-bottom: 3rem;
-  color: #ffffff;
+  color: var(--primary-white);
 }
 
 .statsGrid {
@@ -20,13 +20,14 @@
 
 .statCard {
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(var(--primary-white-rgb), 0.03);
+  border: 1px solid rgba(var(--primary-white-rgb), 0.2);
   border-radius: 1rem;
   padding: 2.5rem 2rem;
   text-align: center;
   overflow: hidden;
   transition: border-color 0.3s ease;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 8px;
 }
 
 .statCard::before {

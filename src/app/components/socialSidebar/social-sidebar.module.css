@@ -19,7 +19,7 @@
   width: 36px;
   height: 36px;
   background: var(--main-color-60);
-  border: solid 1px rgba(255, 255, 255, 0.2);
+  border: solid 1px rgba(var(--primary-white-rgb), 0.2);
 
   border-radius: 12px;
   /* Changed icon color to pink/red accent */

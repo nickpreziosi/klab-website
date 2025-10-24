@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./footer.module.css";
 import { Logo } from "../logo/logo";
+import { Separator } from "radix-ui";
 
 export const Footer = () => {
   const navLinks = [
@@ -176,6 +177,7 @@ export const Footer = () => {
                 height={80}
                 className={styles.awardImage}
               />
+
               <Image
                 src="/global-finance-award.png"
                 alt="Global Finance KEO Award"

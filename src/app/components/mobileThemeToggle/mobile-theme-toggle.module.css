@@ -1,0 +1,75 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(var(--primary-white-rgb), 0.05);
+  border: 1px solid rgba(var(--primary-white-rgb), 0.1);
+  border-radius: 0.75rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(var(--primary-white-rgb), 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.toggleGroup {
+  display: grid;
+  /* Changed from 2 columns to 4 columns for single row layout */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.toggleItem {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 0.75rem;
+  background: rgba(var(--primary-white-rgb), 0.05);
+  border: 1px solid rgba(var(--primary-white-rgb), 0.1);
+  border-radius: 0.5rem;
+  color: rgba(var(--primary-white-rgb), 0.7);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggleItem:hover {
+  background: rgba(var(--primary-white-rgb), 0.1);
+  border-color: rgba(var(--primary-white-rgb), 0.2);
+  color: rgba(var(--primary-white-rgb), 0.9);
+}
+
+.toggleItem:focus-visible {
+  outline: 2px solid #ff004cff;
+  outline-offset: 2px;
+}
+
+.toggleItem[data-state="on"] {
+  background: rgba(255, 0, 76, 0.15);
+  border-color: #ff004cff;
+  color: #ff004cff;
+}
+
+.toggleItem[data-state="on"]:hover {
+  background: rgba(255, 0, 76, 0.2);
+  border-color: #ff004cff;
+  color: #ff004cff;
+}
+
+.itemIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.itemLabel {
+  font-size: 0.8125rem;
+}
