@@ -20,7 +20,7 @@ export const NewsletterSection = () => {
             <Form.Root className={styles.form}>
               <Form.Field className={styles.formField} name="email">
                 <VisuallyHidden>
-                  <Form.Label className={styles.formLabel}>Email</Form.Label>
+                  <Form.Label>Email</Form.Label>
                 </VisuallyHidden>
                 <Form.Message
                   className={styles.formMessage}
