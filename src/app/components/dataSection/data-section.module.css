@@ -8,23 +8,6 @@
   padding: var(--padding-desktop) 0;
 }
 
-.textContent {
-  order: 0;
-  color: var(--primary-white);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.chartGrid {
-  max-width: calc(1080px);
-  height: fit-content;
-  display: flex;
-  gap: 48px;
-}
-
 @media (max-width: 1024px) {
   .container {
     padding: var(--padding-tablet);
@@ -32,9 +15,6 @@
 }
 
 @media (max-width: 769px) {
-  .textContent {
-    order: 2;
-  }
   .container {
     padding: var(--padding-mobile) 0;
   }

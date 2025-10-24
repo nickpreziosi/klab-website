@@ -68,13 +68,13 @@
 
 .mainHeading {
   font-size: var(--text-6xl);
-  color: white;
+  color: var(--primary-white);
   font-weight: 700;
 }
 
 .mainText {
   font-size: 24px;
-  color: white;
+  color: var(--primary-white);
   font-weight: 500;
 }
 

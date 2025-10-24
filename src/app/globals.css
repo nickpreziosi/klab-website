@@ -2,26 +2,27 @@
   /* COLOR VARIABLES */
 
   /* Black variants */
-  --main-color: rgba(0, 0, 0, 1);
-  --main-color-05: rgba(0, 0, 0, 0.05);
-  --main-color-10: rgba(0, 0, 0, 0.1);
-  --main-color-15: rgba(0, 0, 0, 0.15);
-  --main-color-20: rgba(0, 0, 0, 0.2);
-  --main-color-25: rgba(0, 0, 0, 0.25);
-  --main-color-30: rgba(0, 0, 0, 0.3);
-  --main-color-35: rgba(0, 0, 0, 0.35);
-  --main-color-40: rgba(0, 0, 0, 0.4);
-  --main-color-45: rgba(0, 0, 0, 0.45);
-  --main-color-50: rgba(0, 0, 0, 0.5);
-  --main-color-55: rgba(0, 0, 0, 0.55);
-  --main-color-60: rgba(0, 0, 0, 0.6);
-  --main-color-65: rgba(0, 0, 0, 0.65);
-  --main-color-70: rgba(0, 0, 0, 0.7);
-  --main-color-75: rgba(0, 0, 0, 0.75);
-  --main-color-80: rgba(0, 0, 0, 0.8);
-  --main-color-85: rgba(0, 0, 0, 0.85);
-  --main-color-90: rgba(0, 0, 0, 0.9);
-  --main-color-95: rgba(0, 0, 0, 0.95);
+  --main-color-rgb: 0, 0, 0;
+  --main-color: rgb(var(--main-color-rgb));
+  --main-color-05: rgba(var(--main-color-rgb), 0.05);
+  --main-color-10: rgba(var(--main-color-rgb), 0.1);
+  --main-color-15: rgba(var(--main-color-rgb), 0.15);
+  --main-color-20: rgba(var(--main-color-rgb), 0.2);
+  --main-color-25: rgba(var(--main-color-rgb), 0.25);
+  --main-color-30: rgba(var(--main-color-rgb), 0.3);
+  --main-color-35: rgba(var(--main-color-rgb), 0.35);
+  --main-color-40: rgba(var(--main-color-rgb), 0.4);
+  --main-color-45: rgba(var(--main-color-rgb), 0.45);
+  --main-color-50: rgba(var(--main-color-rgb), 0.5);
+  --main-color-55: rgba(var(--main-color-rgb), 0.55);
+  --main-color-60: rgba(var(--main-color-rgb), 0.6);
+  --main-color-65: rgba(var(--main-color-rgb), 0.65);
+  --main-color-70: rgba(var(--main-color-rgb), 0.7);
+  --main-color-75: rgba(var(--main-color-rgb), 0.75);
+  --main-color-80: rgba(var(--main-color-rgb), 0.8);
+  --main-color-85: rgba(var(--main-color-rgb), 0.85);
+  --main-color-90: rgba(var(--main-color-rgb), 0.9);
+  --main-color-95: rgba(var(--main-color-rgb), 0.95);
 
   /* Blue variants */
   --primary-blue: rgba(0, 23, 45, 1);
@@ -173,9 +174,25 @@
   /* Inner shadow */
   --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05),
     inset 0 1px 2px 0 rgba(255, 0, 76, 0.1);
+
+  --rounded-full: 100px;
+  --rounded-sm: 1rem;
 }
 
 @media (prefers-color-scheme: dark) {
+  /*
+  :root {
+    --main-color-rgb: 0, 0, 0;
+    --primary-white: 255, 255, 255;
+  } */
+}
+
+@media (prefers-color-scheme: light) {
+  /*
+  :root {
+    --main-color-rgb: 255, 255, 255;
+    --primary-white: 0, 0, 0;
+  } */
 }
 
 html,
@@ -189,8 +206,7 @@ html * {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  background: var(--main-color);
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -8,7 +8,7 @@
   width: 100% !important;
   height: fit-content;
   color: var(--main-color);
-  border-radius: 12px;
+  border-radius: var(--rounded-sm);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -20,7 +20,7 @@
   height: 100%;
   width: 100%;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: var(--rounded-sm);
   z-index: 0; /* put image at the back */
 }
 
@@ -76,23 +76,9 @@
   height: 100%;
   color: var(--primary-white);
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: var(--rounded-sm);
   transition: all 300ms ease-in-out;
   overflow: scroll;
-}
-
-.accordionContentHeader {
-  font-size: var(--text-lg);
-  opacity: 0;
-  transition: all 300ms ease-in-out;
-}
-
-.accordionContentTitle {
-  font-size: var(--text-sm);
-  color: var(--accent-color);
-  margin-bottom: var(--gap-xs);
-  opacity: 0;
-  transition: all 300ms ease-in-out;
 }
 
 .accordionContentBio {
@@ -101,8 +87,6 @@
   transition: all 300ms ease-in-out;
 }
 
-.accordionContent[data-state="open"] .accordionContentHeader,
-.accordionContent[data-state="open"] .accordionContentTitle,
 .accordionContent[data-state="open"] .accordionContentBio {
   opacity: 1;
 }
@@ -132,7 +116,7 @@
   height: 36px;
   background: var(--main-color-60, rgba(0, 23, 45, 0.6));
   border: solid 1px rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
+  border-radius: var(--rounded-sm);
   color: var(--primary-white);
   text-decoration: none;
   transition: all 150ms ease-in-out;
@@ -160,7 +144,7 @@
   gap: var(--gap-md);
   padding: var(--padding-mobile);
   border: transparent 1px var(--main-color);
-  border-radius: 12px 12px 0 0;
+  border-radius: var(--rounded-sm) var(--rounded-sm) 0 0;
   color: var(--primary-white);
   text-decoration: none;
   transition: all 150ms ease-in-out;

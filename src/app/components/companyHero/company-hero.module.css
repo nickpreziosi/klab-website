@@ -10,9 +10,9 @@
   width: 100%;
   height: auto;
   aspect-ratio: 16/9;
-  border-radius: 12px;
+  border-radius: var(--rounded-sm);
   object-fit: cover;
-  object-position: 0% 80%;
+  object-position: 25% 80%;
   filter: grayscale(100%);
 }
 
@@ -35,7 +35,7 @@
   position: absolute;
   height: 100%;
   bottom: 0;
-  color: white;
+  color: var(--primary-white);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

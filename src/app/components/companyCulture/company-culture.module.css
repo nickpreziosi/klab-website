@@ -1,6 +1,5 @@
 .section {
   width: 100%;
-  background-color: #000000;
   padding: 0 0 var(--padding-desktop);
   position: relative;
 }
@@ -53,7 +52,7 @@
   padding: 16px 32px;
   background-color: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 100px;
+  border-radius: var(--rounded-full);
   color: var(--primary-white);
   font-family: var(--font-sans), sans-serif;
   font-size: 1rem;
@@ -71,15 +70,6 @@
   transform: translateY(-2px);
 }
 
-.button:hover .buttonIcon {
-  transform: translateX(4px);
-  color: var(--accent-color);
-}
-
-.buttonIcon {
-  transition: all 150ms ease-in-out;
-}
-
 .imagesGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -91,7 +81,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
-  border-radius: 12px;
+  border-radius: var(--rounded-sm);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background-color: rgba(255, 255, 255, 0.02);

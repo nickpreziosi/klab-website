@@ -1,5 +1,4 @@
 .overlay {
-  background: #000000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,12 +26,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.logo {
-  position: relative;
-  z-index: 2;
-  filter: drop-shadow(0 0 20px rgba(255, 0, 76, 0.5));
 }
 
 .logoGlow {

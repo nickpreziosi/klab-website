@@ -1,0 +1,247 @@
+.formContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.heading {
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 48px;
+  color: var(--primary-white);
+  line-height: 1.2;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.required {
+  color: var(--accent-color);
+  margin-left: 2px;
+}
+
+.input {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--primary-white);
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.input:focus {
+  border-color: var(--primary-white);
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.error {
+  font-size: 12px;
+  color: var(--accent-color);
+  margin-top: 4px;
+}
+
+.textarea {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--primary-white);
+  min-height: 150px;
+  resize: vertical;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  width: 100%;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--primary-white);
+  border-width: 1px;
+}
+
+.textarea::placeholder {
+  color: #9ca3af;
+}
+
+/* Added React Aria ComboBox styles */
+.comboboxWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.comboboxButton {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.popover {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
+  overflow: auto;
+  margin-top: 4px;
+  z-index: 50;
+}
+
+.listbox {
+  padding: 4px;
+  outline: none;
+}
+
+.listboxItem {
+  padding: 10px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #000000;
+  font-size: 14px;
+  outline: none;
+  transition: background-color 0.15s ease;
+}
+
+.listboxItem[data-hovered] {
+  background-color: #fef3f6;
+  color: var(--accent-color);
+}
+
+.listboxItem[data-focused] {
+  background-color: var(--primary-white);
+}
+
+.listboxItem[data-selected] {
+  background-color: var(--accent-color);
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* Added React Aria Checkbox styles */
+.checkboxWrapper {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.checkboxBox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-color);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.checkboxBox:focus {
+  border-color: var(--primary-white);
+}
+
+.checkboxContainer[data-selected] .checkboxBox {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.checkboxBox svg {
+  width: 14px;
+  height: 14px;
+  stroke: #ffffff;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.checkboxContainer[data-selected] .checkboxBox svg {
+  opacity: 1;
+}
+
+.checkboxLabel {
+  font-size: 14px;
+  font-weight: 400;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.submitWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.submitButton {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 12px 48px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitButton:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 20px rgba(255, 0, 76, 0.4);
+}
+
+.submitButton:active {
+  transform: scale(0.98);
+}

@@ -155,7 +155,6 @@ export default function NotFound() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <svg
-                    className={styles.icon}
                     width="20"
                     height="20"
                     viewBox="0 0 15 15"

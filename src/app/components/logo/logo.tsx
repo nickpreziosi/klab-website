@@ -38,7 +38,7 @@ const logoVariants = {
       },
     },
   },
-};
+} as any;
 
 const constantAnimationVariants = {
   animate: {
@@ -58,7 +58,7 @@ const constantAnimationVariants = {
       repeatType: "loop" as const,
     },
   },
-};
+} as any;
 
 export const Logo = ({
   size = "md",

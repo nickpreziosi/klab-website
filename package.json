@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check-unused-css": "check-unused-css"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
@@ -23,14 +24,19 @@
     "next": "15.5.6",
     "radix-ui": "^1.4.3",
     "react": "19.1.0",
+    "react-aria-components": "^1.13.0",
     "react-dom": "19.1.0",
-    "recharts": "^3.3.0"
+    "react-hook-form": "^7.65.0",
+    "recharts": "^3.3.0",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@hookform/resolvers": "^5.2.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "check-unused-css": "^0.2.3",
     "eslint": "^9",
     "eslint-config-next": "15.5.6",
     "typescript": "^5"

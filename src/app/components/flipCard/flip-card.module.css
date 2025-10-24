@@ -86,35 +86,6 @@
   padding-bottom: var(--gap-sm);
 }
 
-.accordionRoot {
-  height: 100%;
-  overflow: scroll;
-}
-
-.accordionItem {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  color: black;
-  height: 100%;
-  width: 100%;
-  position: relative;
-  transition: all 300ms ease-in-out;
-  z-index: 9; /* ensure it sits above the overlay and image */
-  overflow: scroll;
-}
-
-.accordionContent {
-  position: relative;
-  padding: 0 var(--padding-mobile);
-  height: 100%;
-  color: var(--primary-white);
-  overflow: hidden;
-  border-radius: 12px;
-  transition: all 300ms ease-in-out;
-  overflow: scroll;
-}
-
 /* Social Links */
 .socialLinks {
   display: flex;
@@ -153,10 +124,6 @@
   height: 18px;
 }
 
-.caretIcon {
-  transition: all 300ms ease-in-out;
-}
-
 .cardBackBio {
   font-size: var(--text-base);
   transition: all 300ms ease-in-out;
@@ -191,9 +158,6 @@
 }
 
 @media (max-width: 900px) {
-  .accordionContentBio {
-    font-size: var(--text-sm);
-  }
   .cardTitle {
     font-size: var(--text-lg);
   }
@@ -202,16 +166,7 @@
   }
 }
 
-@media (max-width: 769px) {
-  .accordionContentBio {
-    font-size: var(--text-base);
-  }
-}
-
 @media (max-width: 370px) {
-  .accordionContentBio {
-    font-size: var(--text-sm);
-  }
   .cardTitle {
     font-size: var(--text-lg);
   }
