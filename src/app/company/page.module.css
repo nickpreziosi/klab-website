@@ -26,7 +26,7 @@
   align-content: center;
   justify-items: center;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--gap-md);
+  gap: var(--gap-lg);
   height: fit-content;
 }
 
@@ -45,16 +45,13 @@
   padding-top: var(--padding-desktop);
 }
 
-@media (max-width: 1260px) {
+@media (max-width: 1280px) {
   .cardGrid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 1024px) {
-  .cardGrid {
-    gap: var(--gap-md);
-  }
   .main {
     padding: 0 var(--padding-tablet) var(--padding-tablet);
   }
@@ -71,6 +68,7 @@
 @media (max-width: 769px) {
   .cardGrid {
     grid-template-columns: 1fr;
+    gap: var(--gap-md);
   }
   .main {
     padding: 0 var(--padding-mobile) var(--padding-mobile);

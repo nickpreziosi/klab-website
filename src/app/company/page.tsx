@@ -28,24 +28,6 @@ export default function Home() {
       email: "farids@keo.com",
     },
     {
-      name: "Giovanni Calvi",
-      position: "Chief Credit Officer",
-      bio: "Giovanni is an international expert in the field of B2B and SME financing. He has founded and led financial and commercial companies focused on projects across LATAM. Giovanni is one of the founders of KEO and member of the Board.",
-      image: "/giovanni_calvi.jpeg",
-      linkedin: "https://linkedin.com/in/giovannicalvi",
-      x: "https://x.com/KeoWorld",
-      email: "giovannic@keo.com",
-    },
-    {
-      name: "Pablo Ribas",
-      position: "Chief Commercial Officer",
-      bio: "Pablo spent over 20 years at American Express, where he worked in international markets leading fintech response and AP automation strategy. He brings extensive industry experience leading cross-functional teams with full profit and loss management and accountability.",
-      image: "/pablo_ribas.jpeg",
-      linkedin: "https://linkedin.com/in/pabloribas",
-      x: "https://x.com/KeoWorld",
-      email: "pablor@keo.com",
-    },
-    {
       name: "Hernan Magarinos",
       position: "Chief Corporate Development Officer",
       bio: "Hernan brings more than 20 years of financial advisory and transactional experience to KEO. Hernan has led the acquisition and disposition of dozens of companies and assets with an aggregate value of over $20 billion.",
@@ -80,6 +62,27 @@ export default function Home() {
       linkedin: "https://linkedin.com/in/alessandrociacchini",
       x: "https://x.com/KeoWorld",
       email: "alessandroc@keo.com",
+    },
+  ];
+
+  const otherEmployees = [
+    {
+      name: "Giovanni Calvi",
+      position: "Chief Credit Officer",
+      bio: "Giovanni is an international expert in the field of B2B and SME financing. He has founded and led financial and commercial companies focused on projects across LATAM. Giovanni is one of the founders of KEO and member of the Board.",
+      image: "/giovanni_calvi.jpeg",
+      linkedin: "https://linkedin.com/in/giovannicalvi",
+      x: "https://x.com/KeoWorld",
+      email: "giovannic@keo.com",
+    },
+    {
+      name: "Pablo Ribas",
+      position: "Chief Commercial Officer",
+      bio: "Pablo spent over 20 years at American Express, where he worked in international markets leading fintech response and AP automation strategy. He brings extensive industry experience leading cross-functional teams with full profit and loss management and accountability.",
+      image: "/pablo_ribas.jpeg",
+      linkedin: "https://linkedin.com/in/pabloribas",
+      x: "https://x.com/KeoWorld",
+      email: "pablor@keo.com",
     },
   ];
 

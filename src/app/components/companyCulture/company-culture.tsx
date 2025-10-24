@@ -49,8 +49,8 @@ export default function CompanyCulture() {
           </Link>
         </motion.div>
 
-        {/* Images Grid */}
-        <div className={styles.imagesGrid}>
+        {/* */}
+        <div style={{ display: "none" }} className={styles.imagesGrid}>
           <motion.div
             className={styles.imageWrapper}
             initial={{ opacity: 0, x: -30 }}

@@ -28,7 +28,7 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: 1; /* overlay above image */
+  z-index: 0; /* overlay above image */
   background: linear-gradient(
     0deg,
     var(--main-color-90) 0%,
@@ -236,13 +236,13 @@
 
 @media (max-width: 769px) {
   .accordionContentBio {
-    font-size: var(--text-base);
+    font-size: var(--text-lg);
   }
 }
 
 @media (max-width: 370px) {
   .accordionContentBio {
-    font-size: var(--text-sm);
+    font-size: var(--text-lg);
   }
   .cardTitle {
     font-size: var(--text-lg);
