@@ -12,6 +12,7 @@ interface HeroTextProps {
   className?: string;
   buttonText?: string;
   buttonHref?: string;
+  center?: boolean;
   onButtonClick?: () => void;
 }
 
@@ -22,6 +23,7 @@ export default function HeroText({
   className = "",
   buttonText,
   buttonHref,
+  center,
   onButtonClick,
 }: HeroTextProps) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -40,6 +42,7 @@ export default function HeroText({
   return (
     <div className={`${styles.mainTextContainer} ${className}`}>
       <motion.h1
+        style={{ justifyContent: center ? "center" : "flex-start" }}
         className={styles.mainHeading}
         variants={{
           hidden: { opacity: 0 },

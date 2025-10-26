@@ -5,11 +5,12 @@ import styles from "./keo-dashboard.module.css";
 
 export default function KeoDashboard() {
   return (
-    <div className={styles.dashboard}>
+    <div aria-hidden="true" className={styles.dashboard}>
       {/* Sidebar */}
       <aside className={styles.sidebar}>
         <div className={styles.logo}>
           <Image
+            priority
             src="/keo-logo.png"
             alt="KEO"
             width={60}
@@ -51,8 +52,12 @@ export default function KeoDashboard() {
           <h1 className={styles.title}>Invoice List</h1>
           <div className={styles.headerRight}>
             <div className={styles.actions}>
-              <button className={styles.button}>+ Upload Invoices</button>
-              <button className={styles.buttonSecondary}>+ Load File</button>
+              <button tabIndex={-1} className={styles.button}>
+                + Upload Invoices
+              </button>
+              <button tabIndex={-1} className={styles.buttonSecondary}>
+                + Load File
+              </button>
             </div>
             <div className={styles.userAvatar}>
               <span className={styles.avatarText}>JD</span>
@@ -64,12 +69,18 @@ export default function KeoDashboard() {
           <div className={styles.searchBar}>
             <span className={styles.searchIcon}>🔍</span>
             <input
+              tabIndex={-1}
               type="text"
               placeholder="Search invoice..."
               className={styles.searchInput}
             />
           </div>
-          <select className={styles.filterSelect}>
+
+          <select
+            tabIndex={-1}
+            aria-label="Filter By Status"
+            className={styles.filterSelect}
+          >
             <option>Filter by status</option>
             <option>Approved</option>
             <option>Pending</option>
@@ -106,7 +117,9 @@ export default function KeoDashboard() {
                   </span>
                 </td>
                 <td>
-                  <button className={styles.actionButton}>👁️</button>
+                  <button tabIndex={-1} className={styles.actionButton}>
+                    👁️
+                  </button>
                 </td>
               </tr>
               <tr>
@@ -122,7 +135,9 @@ export default function KeoDashboard() {
                   </span>
                 </td>
                 <td>
-                  <button className={styles.actionButton}>👁️</button>
+                  <button tabIndex={-1} className={styles.actionButton}>
+                    👁️
+                  </button>
                 </td>
               </tr>
               <tr>
@@ -138,7 +153,9 @@ export default function KeoDashboard() {
                   </span>
                 </td>
                 <td>
-                  <button className={styles.actionButton}>👁️</button>
+                  <button tabIndex={-1} className={styles.actionButton}>
+                    👁️
+                  </button>
                 </td>
               </tr>
               <tr>
@@ -154,7 +171,9 @@ export default function KeoDashboard() {
                   </span>
                 </td>
                 <td>
-                  <button className={styles.actionButton}>👁️</button>
+                  <button tabIndex={-1} className={styles.actionButton}>
+                    👁️
+                  </button>
                 </td>
               </tr>
               <tr>
@@ -170,7 +189,9 @@ export default function KeoDashboard() {
                   </span>
                 </td>
                 <td>
-                  <button className={styles.actionButton}>👁️</button>
+                  <button tabIndex={-1} className={styles.actionButton}>
+                    👁️
+                  </button>
                 </td>
               </tr>
             </tbody>

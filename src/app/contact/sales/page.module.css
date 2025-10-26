@@ -1,4 +1,4 @@
 .main {
   min-height: 100vh;
-  padding-top: var(--navbar-height);
+  padding: var(--padding-desktop) 0;
 }

@@ -66,7 +66,7 @@ export function MobileThemeToggleV2() {
       if (event.matches) {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "0, 0, 0"
+          "20, 20, 20"
         );
         document.documentElement.style.setProperty(
           "--primary-white-rgb",
@@ -79,7 +79,7 @@ export function MobileThemeToggleV2() {
         );
         document.documentElement.style.setProperty(
           "--primary-white-rgb",
-          "0, 0, 0"
+          "20, 20, 20"
         );
       }
     };
@@ -90,7 +90,7 @@ export function MobileThemeToggleV2() {
         if (darkModeMediaQuery.matches) {
           document.documentElement.style.setProperty(
             "--main-color-rgb",
-            "0, 0, 0"
+            "20, 20, 20"
           );
           document.documentElement.style.setProperty(
             "--primary-white-rgb",
@@ -103,13 +103,13 @@ export function MobileThemeToggleV2() {
           );
           document.documentElement.style.setProperty(
             "--primary-white-rgb",
-            "0, 0, 0"
+            "20, 20, 20"
           );
         }
       } else if (t === "dark") {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "0, 0, 0"
+          "20, 20, 20"
         );
         document.documentElement.style.setProperty(
           "--primary-white-rgb",
@@ -122,7 +122,7 @@ export function MobileThemeToggleV2() {
         );
         document.documentElement.style.setProperty(
           "--primary-white-rgb",
-          "0, 0, 0"
+          "20, 20, 20"
         );
       } else if (t === "keo") {
         document.documentElement.style.setProperty(

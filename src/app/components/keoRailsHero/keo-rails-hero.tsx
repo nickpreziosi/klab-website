@@ -3,8 +3,6 @@
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import styles from "./keo-rails-hero.module.css";
-import Link from "next/link";
-import Image from "next/image";
 import HeroText from "../heroText/hero-text";
 import KeoDashboard from "../keoDashboard/keo-dashboard";
 

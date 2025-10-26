@@ -203,8 +203,7 @@
     to bottom,
     transparent 0%,
     transparent 25%,
-    rgba(var(--main-color-rgb), 0.5) 50%,
-    rgba(var(--main-color-rgb), 1) 90%,
+    rgba(var(--main-color-rgb), 1) 80%,
     rgba(var(--main-color-rgb), 1) 100%
   );
   z-index: 2;
