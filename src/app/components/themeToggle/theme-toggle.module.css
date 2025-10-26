@@ -35,30 +35,44 @@
   min-width: 48px !important;
   width: 100% !important;
   height: 100% !important;
-  padding: 0 !important;
+  padding: 12px !important;
   transition: all 0.2s ease !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
 
-.selectTrigger:hover svg {
+.selectTrigger:hover svg,
+.selectTrigger:hover span {
   color: var(--accent-color) !important;
+}
+
+.span {
+  color: var(--primary-white);
+  margin-left: var(--margin-xs);
+  font-size: var(--text-sm);
+  transition: all 200ms ease-in-out;
 }
 
 .selectTrigger svg {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   color: var(--primary-white) !important;
   transition: all 200ms ease-in-out;
 }
 
+.selectTrigger span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .selectTrigger img {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
 }
 
 .selectContent {
@@ -71,7 +85,7 @@
   min-width: fit-content !important;
   min-height: fit-content !important;
   border-radius: var(--rounded-sm) !important;
-  border: 1px solid rgba(var(--primary-white-rgb), 0.2);
+  border: 1px solid rgba(var(--primary-white-rgb), 0.3);
 }
 
 .selectItem {

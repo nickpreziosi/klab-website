@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { motion } from "framer-motion";
 import styles from "./timeline-carousel.module.css";
 import { Separator } from "radix-ui";
+import SectionHeader from "../sectionHeader/section-header";
 
 interface TimelineEvent {
   quarter: string;
@@ -158,11 +159,11 @@ export default function TimelineCarousel() {
       className={styles.section}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ amount: 0.2 }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6 }}
     >
       <div className={styles.header}>
-        <h2 className={styles.title}>Our Journey</h2>
+        <SectionHeader heading="Our Journey" align="left" animateOnce={true} />
         <div className={styles.controls}>
           <button
             className={styles.navButton}

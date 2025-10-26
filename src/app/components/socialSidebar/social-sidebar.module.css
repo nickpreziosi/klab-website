@@ -32,10 +32,10 @@
 }
 
 .socialLink:hover {
-  background: rgba(255, 0, 76, 0.1);
+  background: rgba(var(--accent-color-rgb), 0.1);
   border-color: var(--accent-color);
   color: var(--accent-color);
-  box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
+  box-shadow: 0 0 20px rgba(var(--accent-color-rgb), 0.3);
 }
 
 .socialLink svg {
@@ -52,7 +52,7 @@
   border-radius: 12px;
   font-size: 0.875rem;
   font-weight: 500;
-  border: 2px solid rgba(255, 0, 76, 0.3);
+  border: 2px solid rgba(var(--primary-white-rgb), 0.3);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   z-index: 1001;
   animation: slideIn 100ms ease-out;
@@ -60,7 +60,7 @@
 
 .tooltipArrow {
   fill: var(--main-color);
-  filter: drop-shadow(0 0 2px var(--accent-color));
+  filter: drop-shadow(0 0 2px var(--primary-white));
   clip-path: inset(0 -2px -2px -2px);
   width: 16px;
   height: 8px;

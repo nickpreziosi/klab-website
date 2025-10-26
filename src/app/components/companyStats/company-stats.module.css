@@ -12,9 +12,10 @@
 }
 
 .statsGrid {
+  margin-top: var(--padding-tablet);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  gap: var(--gap-lg);
   width: 100%;
 }
 
@@ -90,7 +91,6 @@
 @media (max-width: 1024px) {
   .statsGrid {
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
   }
 }
 
@@ -102,7 +102,7 @@
 
   .statsGrid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: var(--gap-md);
   }
 
   .statValue {

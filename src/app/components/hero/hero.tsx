@@ -3,6 +3,10 @@ import { useEffect, useRef } from "react";
 import styles from "./hero.module.css";
 import "./hero.module.css";
 import { LoadingProgressBar } from "../loadingProgressBar/loading-progress-bar";
+import Link from "next/link";
+import HeroText from "../heroText/hero-text";
+import SectionHeader from "../sectionHeader/section-header";
+import HomeSecondarySection from "../homeSecondarySection/home-secondary-section";
 
 export const Hero = () => {
   // Reference to the video element
@@ -25,19 +29,18 @@ export const Hero = () => {
 
   return (
     <section className={styles.hero}>
-      <LoadingProgressBar></LoadingProgressBar>
-
       <div className={styles.content}>
+        <LoadingProgressBar></LoadingProgressBar>
         <div className={styles.overlay} aria-hidden></div>
         <div className={styles.mainContainer}>
-          <div className={styles.mainTextContainer}>
-            <h1 className={styles.mainHeading}>We Pay. You Grow.</h1>
-            <p className={styles.mainText}>
-              B2B digital payment and inventory financing solutions that
-              streamline financial transactions between buyers and suppliers.
-            </p>
-          </div>
+          <HeroText
+            text="Empowering the Future of Financial Infrastructure"
+            subtitle="KEO builds the technology that automates risk, payments, and financial operations — all in one intelligent platform."
+            buttonText="Get Started"
+            buttonHref="/contact/sales"
+          />
         </div>
+
         <iframe
           className={styles.videoEmbed}
           src="https://player.vimeo.com/video/1119375393?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
@@ -47,6 +50,11 @@ export const Hero = () => {
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
         ></iframe>
+        <div className={styles.secondaryContainer}>
+          <HomeSecondarySection></HomeSecondarySection>
+
+          <div></div>
+        </div>
       </div>
     </section>
   );

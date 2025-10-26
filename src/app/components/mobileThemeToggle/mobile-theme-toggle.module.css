@@ -47,20 +47,20 @@
 }
 
 .toggleItem:focus-visible {
-  outline: 2px solid #ff004cff;
+  outline: 2px solid var(--accent-color);
   outline-offset: 2px;
 }
 
 .toggleItem[data-state="on"] {
-  background: rgba(255, 0, 76, 0.15);
-  border-color: #ff004cff;
-  color: #ff004cff;
+  background: rgba(var(--accent-color-rgb), 0.15);
+  border-color: rgb(var(--accent-color-rgb));
+  color: rgb(var(--accent-color-rgb));
 }
 
 .toggleItem[data-state="on"]:hover {
-  background: rgba(255, 0, 76, 0.2);
-  border-color: #ff004cff;
-  color: #ff004cff;
+  background: rgba(var(--accent-color-rgb), 0.2);
+  border-color: rgb(var(--accent-color-rgb));
+  color: rgb(var(--accent-color-rgb));
 }
 
 .itemIcon {

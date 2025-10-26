@@ -3,24 +3,20 @@
 import { motion } from "framer-motion";
 import { ContactLink } from "../components/contactLink/contact-link";
 import styles from "./page.module.css";
+import SectionHeader from "../components/sectionHeader/section-header";
 
 export default function ContactPage() {
   return (
     <main className={styles.page}>
       <section className={styles.heroSection}>
         <div className={styles.container}>
-          <motion.div
-            className={styles.heroContent}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className={styles.heroTitle}>How can we help?</h1>
-            <p className={styles.heroDescription}>
-              Get in touch with our sales and support teams for demos,
-              onboarding support, or product questions.
-            </p>
-          </motion.div>
+          <SectionHeader
+            heading="How can we help?"
+            subtitle="Get in touch with our sales and support teams for demos,
+              onboarding support, or product questions."
+            align="center"
+            animateOnce={true}
+          />
 
           <div className={styles.cardsGrid}>
             <ContactLink

@@ -19,6 +19,7 @@
   justify-items: flex-end;
   padding: var(--padding-tablet);
   border: 1px solid rgba(var(--primary-white-rgb), 0.2);
+  box-shadow: var(--shadow-black);
 }
 
 .logoContainer {

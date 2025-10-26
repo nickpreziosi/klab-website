@@ -16,7 +16,7 @@ export function MobileThemeToggleV2() {
     } catch {
       // ignore access errors and fall back to default
     }
-    return "dark";
+    return "keo";
   });
 
   // Listen for theme changes from other components/tabs so multiple toggles stay in sync.

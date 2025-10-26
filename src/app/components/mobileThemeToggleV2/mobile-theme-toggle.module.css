@@ -57,8 +57,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.375rem 0.75rem;
-  background: rgba(255, 0, 76, 0.15);
-  border: 1px solid #ff004cff;
+  background: rgba(var(--accent-color-rgb), 0.1);
+  border: 1px solid rgb(var(--accent-color-rgb));
   border-radius: 0.375rem;
 }
 
@@ -66,13 +66,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ff004cff;
+  color: rgb(var(--accent-color-rgb));
 }
 
 .currentThemeLabel {
   font-size: 0.8125rem;
   font-weight: 500;
-  color: #ff004cff;
+  color: rgb(var(--accent-color-rgb));
 }
 
 .caretIcon {
@@ -122,20 +122,20 @@
 }
 
 .themeOption:focus-visible {
-  outline: 2px solid #ff004cff;
+  outline: 2px solid rgb(var(--accent-color-rgb));
   outline-offset: 2px;
 }
 
 .themeOptionActive {
-  background: rgba(255, 0, 76, 0.15);
-  border-color: #ff004cff;
-  color: #ff004cff;
+  background: rgba(var(--accent-color-rgb), 0.15);
+  border-color: rgb(var(--accent-color-rgb));
+  color: rgb(var(--accent-color-rgb));
 }
 
 .themeOptionActive:hover {
-  background: rgba(255, 0, 76, 0.2);
-  border-color: #ff004cff;
-  color: #ff004cff;
+  background: rgba(var(--accent-color-rgb), 0.2);
+  border-color: rgb(var(--accent-color-rgb));
+  color: rgb(var(--accent-color-rgb));
 }
 
 .optionIcon {

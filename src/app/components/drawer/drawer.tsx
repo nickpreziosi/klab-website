@@ -196,20 +196,6 @@ export const Drawer = () => {
                           >
                             KENA AI
                           </Link>
-                          <Link
-                            href="/technologies/keo-invoice-management-portal"
-                            className={styles.dropdownItem}
-                            onClick={() => setIsOpen(false)}
-                          >
-                            KEO Invoive Management Portal
-                          </Link>
-                          <Link
-                            href="/technologies/keo-teams-whatsapp-ai-chat"
-                            className={styles.dropdownItem}
-                            onClick={() => setIsOpen(false)}
-                          >
-                            KEO Teams & WhatsApp AI Chat
-                          </Link>
                         </motion.div>
                       )}
                     </AnimatePresence>

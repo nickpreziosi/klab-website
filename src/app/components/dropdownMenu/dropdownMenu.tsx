@@ -22,17 +22,6 @@ const solutions = [
     description: "Advanced AI solutions for business intelligence",
     href: "/technologies/kena-ai",
   },
-  {
-    title: "KEO Invoice Management Portal",
-    description: "Simplify invoice processing and management",
-    href: "/technologies/keo-invoice-management-portal",
-  },
-  {
-    title: "KEO Teams & WhatsApp AI Chat",
-    description:
-      "Analyze business data and KPIs with the help of our conversational AI interface for Microsot Teams and WhatsApp",
-    href: "/technologies/keo-teams-whatsapp-ai-chat",
-  },
 ];
 
 export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
@@ -112,7 +101,7 @@ export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{
-            height: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
+            height: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
             opacity: { duration: 0.3 },
           }}
         >
@@ -141,8 +130,8 @@ export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     transition={{
-                      duration: 0.2,
-                      delay: isOpen ? index * 0.05 : (3 - index) * 0.03,
+                      duration: 0.4,
+                      delay: isOpen ? index * 0.2 : (3 - index) * 0.1,
                       ease: "easeOut",
                     }}
                   >

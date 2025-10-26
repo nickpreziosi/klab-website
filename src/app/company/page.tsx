@@ -5,6 +5,7 @@ import TimelineCarousel from "../components/timeline-carousel/timeline-carousel"
 import { CompanyVideo } from "../components/companyVideo/company-video";
 import CompanyStats from "../components/companyStats/company-stats";
 import CompanyCulture from "../components/companyCulture/company-culture";
+import SectionHeader from "../components/sectionHeader/section-header";
 
 export default function Home() {
   const employees = [
@@ -95,7 +96,11 @@ export default function Home() {
         <CompanyCulture></CompanyCulture>
         <CompanyStats></CompanyStats>
         <section className={styles.staffSection}>
-          <h1>Leadership Team</h1>
+          <SectionHeader
+            heading="Leadership Team"
+            align="left"
+            animateOnce={true}
+          />
           <div className={styles.cardGrid}>
             {employees.map((employee) => (
               <StaffCard

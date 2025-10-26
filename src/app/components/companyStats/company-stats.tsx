@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useSpring, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
 import styles from "./company-stats.module.css";
+import SectionHeader from "../sectionHeader/section-header";
 
 const stats = [
   {
@@ -67,15 +68,11 @@ function AnimatedCounter({
 export default function CompanyStats() {
   return (
     <section className={styles.statsSection}>
-      <motion.h2
-        className={styles.statsTitle}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.3 }}
-        transition={{ duration: 0.6 }}
-      >
-        Our Diverse Team
-      </motion.h2>
+      <SectionHeader
+        heading="Our Diverse Team"
+        align="left"
+        animateOnce={true}
+      />
 
       <div className={styles.statsGrid}>
         {stats.map((stat, index) => (
@@ -84,7 +81,7 @@ export default function CompanyStats() {
             className={styles.statCard}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ amount: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{
               duration: 0.6,
               delay: index * 0.1,
@@ -98,7 +95,7 @@ export default function CompanyStats() {
                 className={styles.statValue}
                 initial={{ scale: 0.5, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{
                   duration: 0.8,
                   delay: index * 0.1 + 0.2,

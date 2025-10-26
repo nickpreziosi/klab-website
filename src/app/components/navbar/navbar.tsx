@@ -131,7 +131,7 @@ export const NavigationMenuDemo = () => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  Home
+                  About
                 </Link>
               </li>
               <Separator.Root

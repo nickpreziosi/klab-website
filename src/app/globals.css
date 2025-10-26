@@ -2,7 +2,7 @@
   /* COLOR VARIABLES */
 
   /* Black variants */
-  --main-color-rgb: 0, 0, 0;
+  --main-color-rgb: 10, 10, 10;
   --main-color: rgb(var(--main-color-rgb));
   --main-color-05: rgba(var(--main-color-rgb), 0.05);
   --main-color-10: rgba(var(--main-color-rgb), 0.1);
@@ -47,7 +47,8 @@
   --primary-blue-95: rgba(0, 23, 45, 0.95);
 
   /* Pink variants */
-  --accent-color: rgba(255, 0, 76, 1);
+  --accent-color: rgba(var(--accent-color-rgb), 1);
+  --accent-color-rgb: 255, 0, 76;
   --accent-color-05: rgba(255, 0, 76, 0.05);
   --accent-color-10: rgba(255, 0, 76, 0.1);
   --accent-color-15: rgba(255, 0, 76, 0.15);
@@ -92,7 +93,7 @@
 
   /* White variants */
   --primary-white: rgb(var(--primary-white-rgb));
-  --primary-white-rgb: 255, 255, 255;
+  --primary-white-rgb: 250, 250, 250;
 
   /* Grey variants */
   --primary-grey: rgba(222, 225, 230, 1);
@@ -175,6 +176,8 @@
   /* Inner shadow */
   --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05),
     inset 0 1px 2px 0 rgba(255, 0, 76, 0.1);
+
+  --shadow-black: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
   --rounded-full: 100px;
   --rounded-sm: 1rem;

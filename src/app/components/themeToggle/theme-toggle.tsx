@@ -29,7 +29,7 @@ export function ThemeToggle() {
     } catch {
       // ignore access errors and fall back to default
     }
-    return "dark";
+    return "keo";
   });
 
   // Listen for theme changes from other components/tabs so multiple toggles stay in sync.
@@ -81,20 +81,20 @@ export function ThemeToggle() {
       if (event.matches) {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "0, 0, 0"
+          "20, 20, 20"
         );
         document.documentElement.style.setProperty(
           "--primary-white-rgb",
-          "255, 255, 255"
+          "250, 250, 250"
         );
       } else {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "255, 255, 255"
+          "250, 250, 250"
         );
         document.documentElement.style.setProperty(
           "--primary-white-rgb",
-          "0, 0, 0"
+          "20, 20, 20"
         );
       }
     };
@@ -105,39 +105,39 @@ export function ThemeToggle() {
         if (darkModeMediaQuery.matches) {
           document.documentElement.style.setProperty(
             "--main-color-rgb",
-            "0, 0, 0"
+            "20, 20, 20"
           );
           document.documentElement.style.setProperty(
             "--primary-white-rgb",
-            "255, 255, 255"
+            "250, 250, 250"
           );
         } else {
           document.documentElement.style.setProperty(
             "--main-color-rgb",
-            "255, 255, 255"
+            "250, 250, 250"
           );
           document.documentElement.style.setProperty(
             "--primary-white-rgb",
-            "0, 0, 0"
+            "20, 20, 20"
           );
         }
       } else if (t === "dark") {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "0, 0, 0"
+          "20, 20, 20"
         );
         document.documentElement.style.setProperty(
           "--primary-white-rgb",
-          "255, 255, 255"
+          "250, 250, 250"
         );
       } else if (t === "light") {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "255, 255, 255"
+          "250, 250, 250"
         );
         document.documentElement.style.setProperty(
           "--primary-white-rgb",
-          "0, 0, 0"
+          "20, 20, 20"
         );
       } else if (t === "keo") {
         document.documentElement.style.setProperty(
@@ -146,7 +146,7 @@ export function ThemeToggle() {
         );
         document.documentElement.style.setProperty(
           "--primary-white-rgb",
-          "255, 255, 255"
+          "250, 250, 250"
         );
       }
     };
@@ -275,6 +275,7 @@ export function ThemeToggle() {
             <TooltipTrigger asChild>
               <SelectTrigger className={styles.selectTrigger}>
                 <SelectValue>{getThemeIcon(theme)}</SelectValue>
+                <span className={styles.span}>Theme</span>
               </SelectTrigger>
             </TooltipTrigger>
             <SelectContent className={styles.selectContent}>

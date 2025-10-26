@@ -18,7 +18,7 @@
 .content {
   max-width: 900px;
   margin: 0 auto;
-  text-align: center;
+  text-align: center !important;
 }
 
 .title {
@@ -40,6 +40,7 @@
   line-height: 1.7;
   color: var(--primary-white);
   margin-bottom: 48px;
+  margin-top: var(--padding-tablet);
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;

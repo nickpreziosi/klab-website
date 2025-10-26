@@ -21,6 +21,7 @@ import {
 } from "react-aria-components";
 import { countries } from "../../lib/countries";
 import styles from "./sales-contact-form.module.css";
+import SectionHeader from "../sectionHeader/section-header";
 
 const companyTypes = [
   { id: "automotive", name: "Automotive" },
@@ -104,14 +105,11 @@ export function SalesContactForm() {
       transition={{ duration: 0.5 }}
       className={styles.formContainer}
     >
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className={styles.heading}
-      >
-        Share a few details and we&apos;ll get in touch
-      </motion.h1>
+      <SectionHeader
+        heading="Share a few details and we'll get in touch"
+        align="center"
+        animateOnce={true}
+      />
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <div className={styles.grid}>

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./company-culture.module.css";
+import SectionHeader from "../sectionHeader/section-header";
 
 export default function CompanyCulture() {
   return (
@@ -14,10 +15,16 @@ export default function CompanyCulture() {
           className={styles.content}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h2 className={styles.title}>
+          <SectionHeader
+            highlight={["Teamwork", "Inclusion"]}
+            heading="Innovation Through Teamwork & Inclusion."
+            align="center"
+            animateOnce={true}
+          />
+          <h2 style={{ display: "none" }} className={styles.title}>
             Innovation Through <br></br>
             <span className={styles.accent}>Teamwork</span> &
             <span className={styles.accent}> Inclusion</span>.

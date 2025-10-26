@@ -1,0 +1,123 @@
+/* Updated container to match provided styles */
+.mainTextContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: var(--gap-lg);
+  max-width: 504px;
+  text-align: left;
+}
+
+.wordsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0;
+}
+
+.word {
+  display: inline-block;
+  white-space: pre;
+  margin-right: 0em;
+}
+
+/* Updated heading styles to match provided mainHeading */
+.mainHeading {
+  font-weight: 400;
+  font-size: 52px;
+  line-height: 62px;
+  letter-spacing: -1.5%;
+  color: var(--primary-white);
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Updated subtitle styles to match provided mainText */
+.mainText {
+  font-weight: 300;
+  font-style: Light;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.5%;
+  color: var(--primary-white);
+  margin: 0;
+}
+
+/* Added contact button styles from provided CSS */
+.contactButton {
+  width: 133px;
+  height: 44px;
+  opacity: 1;
+  border-radius: 6px;
+  padding: 10px;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: var(--main-color);
+  background: var(--primary-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 300ms ease-in-out;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.contactButton:hover {
+  background: rgba(var(--primary-white-rgb), 0.6);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mainTextContainer {
+    padding: 3rem 1.5rem;
+    max-width: 100%;
+  }
+
+  .mainHeading {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  .mainText {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .wordsContainer {
+    gap: 0.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainTextContainer {
+    padding: 2rem 1rem;
+  }
+
+  .mainHeading {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .mainText {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .wordsContainer {
+    gap: 0.3rem;
+  }
+}
+
+/* Tablet design */
+@media (max-width: 1024px) {
+}
+
+/* Mobile design */
+@media (max-width: 768px) {
+}
