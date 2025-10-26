@@ -24,7 +24,7 @@ export function ThemeToggle() {
     try {
       if (typeof window !== "undefined") {
         const stored = localStorage.getItem("theme");
-        return (stored as string) ?? "dark";
+        return (stored as string) ?? "keo";
       }
     } catch {
       // ignore access errors and fall back to default

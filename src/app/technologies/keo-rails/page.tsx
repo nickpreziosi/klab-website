@@ -1,8 +1,9 @@
 import KeoRailsHero from "../../components/keoRailsHero/keo-rails-hero";
+import styles from "./page.module.css";
 
 export default function KeoRailsPage() {
   return (
-    <main>
+    <main className={styles.container}>
       <KeoRailsHero
         heading="Liquidity Without Resistance."
         subheading="T+0. Frictionless capital. Done."

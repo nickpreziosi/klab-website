@@ -4,8 +4,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: var(--gap-lg);
-  max-width: 504px;
+  gap: var(--gap-md);
+  max-width: 645px;
   text-align: left;
 }
 
@@ -24,6 +24,7 @@
 
 /* Updated heading styles to match provided mainHeading */
 .mainHeading {
+  max-width: 600px;
   font-weight: 400;
   font-size: 52px;
   line-height: 62px;
@@ -32,6 +33,14 @@
   margin: 0;
   display: flex;
   flex-wrap: wrap;
+}
+
+.subheader {
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -1.5%;
+  color: var(--primary-white) !important;
 }
 
 /* Updated subtitle styles to match provided mainText */
@@ -47,11 +56,11 @@
 
 /* Added contact button styles from provided CSS */
 .contactButton {
-  width: 133px;
+  width: fit-content;
   height: 44px;
   opacity: 1;
   border-radius: 6px;
-  padding: 10px;
+  padding: var(--padding-mobile);
   gap: 10px;
   font-weight: 500;
   font-size: 16px;

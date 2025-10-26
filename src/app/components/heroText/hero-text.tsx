@@ -7,6 +7,7 @@ import styles from "./hero-text.module.css";
 
 interface HeroTextProps {
   text: string;
+  subheader?: string;
   subtitle?: string;
   className?: string;
   buttonText?: string;
@@ -16,6 +17,7 @@ interface HeroTextProps {
 
 export default function HeroText({
   text,
+  subheader,
   subtitle,
   className = "",
   buttonText,
@@ -27,7 +29,7 @@ export default function HeroText({
   useEffect(() => {
     setTimeout(() => {
       setIsLoaded(true);
-    }, 1500);
+    }, 500);
   }, []);
 
   // Split text into words for staggered animation
@@ -76,6 +78,20 @@ export default function HeroText({
           </motion.span>
         ))}
       </motion.h1>
+      {subheader && (
+        <motion.h2
+          className={styles.subheader}
+          initial={{ opacity: 0, filter: "blur(10px)", y: 10 }}
+          animate={
+            isLoaded
+              ? { opacity: 1, filter: "blur(0px)", y: 0 }
+              : { opacity: 0, filter: "blur(10px)", y: 10 }
+          }
+          transition={{ delay: 0.6, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {subheader}
+        </motion.h2>
+      )}
       {subtitle && (
         <motion.p
           className={styles.mainText}

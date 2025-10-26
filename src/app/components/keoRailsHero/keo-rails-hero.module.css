@@ -1,19 +1,18 @@
 .heroSection {
   position: relative;
   min-height: 100vh;
-  height: 1800px;
+  height: 1300px;
   width: 100%;
   background: var(--background);
-  overflow: hidden;
   padding: var(--spacing-xl) var(--spacing-lg);
 }
 
 .contentWrapper {
-  max-width: 1400px;
+  max-width: 1440px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: var(--gap-xl);
+  gap: var(--gap-md);
   position: relative;
   z-index: 0;
 }
@@ -77,6 +76,7 @@
   height: 680px;
   margin-top: var(--spacing-xl);
   z-index: -100 !important;
+  border-radius: 16px;
 }
 
 .perspectiveWrapper {
@@ -84,15 +84,17 @@
   height: 100%;
   perspective: 2000px;
   perspective-origin: center center;
+  border-radius: 16px;
 }
 
 .transformedContent {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transform: translate(10%) scale(1.2) rotateX(32deg) rotateY(35deg)
-    rotate(330deg);
+  transform: translate(10%) scale(1.2) rotateX(25deg) rotateY(30deg)
+    rotate(334deg);
   transition: transform 0.3s ease;
+  border-radius: var(--rounded-sm);
 }
 
 /* Placeholder Content */
@@ -106,7 +108,6 @@
   );
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
     0 0 0 1px rgba(255, 255, 255, 0.05);
 }
@@ -169,14 +170,14 @@
   max-width: 100%;
   height: 100%;
   border-radius: 16px;
-  overflow: hidden;
 }
 
 .interfaceImage {
   object-fit: cover;
   object-position: top left;
   filter: invert(0.9);
-  border: 1px solid gray;
+  border: 1px solid rgba(var(--main-color-rgb), 0.2);
+  border-radius: 16px;
 }
 
 /* Added black overlay with low opacity */
@@ -211,6 +212,17 @@
 }
 
 /* Responsive */
+@media (max-width: 1440px) {
+  .transformedContent {
+    transform: translate(8%, 5%) scale(1.2) rotateX(25deg) rotateY(30deg)
+      rotate(334deg);
+  }
+  .transformedContainer {
+    width: 120%;
+  }
+}
+
+/* Responsive */
 @media (max-width: 1024px) {
   .heading {
     font-size: 48px;
@@ -221,7 +233,16 @@
   }
 
   .transformedContainer {
-    height: 500px;
+    height: 600px;
+    width: 135%;
+  }
+  .transformedContent {
+    transform: translate(10%, 10%) scale(1.2) rotateX(25deg) rotateY(30deg)
+      rotate(334deg);
+  }
+  .heroSection {
+    min-height: 100vh;
+    height: 1200px;
   }
 }
 
@@ -244,10 +265,19 @@
   }
 
   .transformedContainer {
-    height: 400px;
+    height: 500px;
+  }
+
+  .transformedContent {
+    transform: translate(5%, 2%) scale(1.2) rotateX(25deg) rotateY(30deg)
+      rotate(334deg);
   }
 
   .placeholderSidebar {
     width: 180px;
+  }
+  /* 3D Transformed Container */
+  .transformedContainer {
+    width: 135%;
   }
 }

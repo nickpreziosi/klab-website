@@ -5,6 +5,8 @@ import type { ReactNode } from "react";
 import styles from "./keo-rails-hero.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import HeroText from "../heroText/hero-text";
+import KeoDashboard from "../keoDashboard/keo-dashboard";
 
 interface KeoRailsHeroProps {
   heading: string;
@@ -27,22 +29,13 @@ export default function KeoRailsHero({
     <section className={styles.heroSection}>
       <div className={styles.contentWrapper}>
         {/* Left side - Text content */}
-        <motion.div
-          className={styles.textContent}
-          initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-          animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-        >
-          <h1 className={styles.heading}>{heading}</h1>
-          <h2 className={styles.subheading}>{subheading}</h2>
-          <p className={styles.description}>{description}</p>
-          <Link href={buttonHref}>
-            <button className={styles.ctaButton}>{buttonText}</button>
-          </Link>
-        </motion.div>
+        <HeroText
+          text={heading}
+          subtitle={description}
+          subheader={subheading}
+          buttonText={buttonText}
+          buttonHref={buttonHref}
+        ></HeroText>
 
         {/* Right side - 3D transformed content container */}
         <motion.div
@@ -57,17 +50,33 @@ export default function KeoRailsHero({
         >
           <div className={styles.perspectiveWrapper}>
             <div className={styles.transformedContent}>
-              <div className={styles.imageContainer}>
-                <Image
-                  src="/keo-invoice.jpg"
-                  alt="KEO Rails Invoice Management Interface"
-                  fill
-                  className={styles.interfaceImage}
-                  priority
-                />
+              <motion.div
+                className={styles.imageContainer}
+                initial={{
+                  opacity: 0,
+                  scale: 0.95,
+                  filter: "blur(10px)",
+                }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  filter: "blur(0px)",
+                }}
+                transition={{
+                  duration: 1.2,
+                  delay: 0.5,
+                  ease: [0.16, 1, 0.3, 1],
+                  scale: {
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 15,
+                  },
+                }}
+              >
+                <KeoDashboard />
                 <div className={styles.blackOverlay} />
                 <div className={styles.gradientOverlay} />
-              </div>
+              </motion.div>
 
               <div style={{ display: "none" }}>
                 {children || (
