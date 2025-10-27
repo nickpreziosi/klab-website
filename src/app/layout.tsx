@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 import SocialSidebar from "./components/socialSidebar/social-sidebar";
 import { NavigationMenuDemo } from "./components/navbar/navbar";
 import { Footer } from "./components/footer/footer";
+import Head from "./head";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,6 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html className={poppins.className} lang="en">
+      <Head></Head>
       <body>
         <NavigationMenuDemo></NavigationMenuDemo>
         <SocialSidebar></SocialSidebar>

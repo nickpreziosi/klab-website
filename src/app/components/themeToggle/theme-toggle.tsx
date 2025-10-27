@@ -161,6 +161,14 @@ export function ThemeToggle() {
           // Notify other components in the same window (storage event doesn't fire in same window)
           const ev = new CustomEvent("themechange", { detail: t });
           window.dispatchEvent(ev);
+          try {
+            // also write a cookie so the server can render the correct theme on first paint
+            document.cookie = `theme=${encodeURIComponent(
+              t
+            )}; path=/; max-age=${60 * 60 * 24 * 365}`;
+          } catch {
+            // ignore cookie write failures
+          }
         }
       } catch {
         // ignore storage errors (e.g. Safari private mode)
