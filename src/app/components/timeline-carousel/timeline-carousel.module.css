@@ -35,7 +35,7 @@
   border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
   background: rgba(var(--secondary-color-rgb), 0.05);
   backdrop-filter: blur(10px);
-  color: var(--accent-color);
+  color: var(--secondary-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -169,6 +169,7 @@
 @media (pointer: fine) and (hover: hover) {
   .navButton:hover:not(:disabled) {
     background: rgba(255, 0, 76, 0.1);
+    color: var(--accent-color);
     border-color: var(--accent-color);
     transform: scale(1.05);
     box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);

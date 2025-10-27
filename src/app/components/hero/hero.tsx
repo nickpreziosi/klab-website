@@ -35,7 +35,7 @@ export const Hero = () => {
           <HeroText
             text="Empowering the Future of Financial Infrastructure"
             subtitle="KEO builds the technology that automates risk, payments, and financial operations — all in one intelligent platform."
-            buttonText="Get Started"
+            buttonText="Contact Sales"
             buttonHref="/contact/sales"
           />
         </div>

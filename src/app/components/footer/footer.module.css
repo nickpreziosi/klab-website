@@ -52,8 +52,8 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  background: var(--main-color-60, rgba(var(--secondary-color-rgb), 0.6));
-  border: solid 1px rgba(var(--secondary-color-rgb), 0.2);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
+  background: rgba(var(--secondary-color-rgb), 0.05);
   border-radius: 12px;
   color: var(--secondary-color);
   text-decoration: none;
