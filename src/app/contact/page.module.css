@@ -1,5 +1,5 @@
 .page {
-  min-height: 100vh;
+  min-height: calc(100vh - var(--navbar-height));
   width: 100%;
 }
 
@@ -9,7 +9,7 @@
 
 .heroSection {
   width: 100%;
-  padding: 120px 0 140px;
+  padding: var(--padding-desktop) 0;
   position: relative;
 }
 

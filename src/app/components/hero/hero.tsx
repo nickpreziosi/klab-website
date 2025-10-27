@@ -7,6 +7,7 @@ import Link from "next/link";
 import HeroText from "../heroText/hero-text";
 import SectionHeader from "../sectionHeader/section-header";
 import HomeSecondarySection from "../homeSecondarySection/home-secondary-section";
+import VideoPlayer from "../VideoPlayer/video-player";
 
 export const Hero = () => {
   // Reference to the video element
@@ -41,15 +42,8 @@ export const Hero = () => {
           />
         </div>
 
-        <iframe
-          className={styles.videoEmbed}
-          src="https://player.vimeo.com/video/1119375393?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-        ></iframe>
+        <VideoPlayer videoUrl="https://player.vimeo.com/video/1119375393?badge=0&amp;autoplay=1&amp;autopause=0&amp;player_id=0&amp;app_id=58479"></VideoPlayer>
+
         <div className={styles.secondaryContainer}>
           <HomeSecondarySection></HomeSecondarySection>
 

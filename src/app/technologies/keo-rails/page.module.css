@@ -5,22 +5,25 @@
 .container {
   width: 100%;
   margin: 0 auto;
-  padding: var(--padding-desktop) 0;
+  max-width: 1440px;
+  padding: var(--padding-desktop);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: calc(100vh - var(--navbar-height));
+  min-height: fit-content;
 }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
   .container {
-    padding: var(--padding-tablet) 0;
+    padding: var(--padding-tablet);
   }
 }
 
 @media (max-width: 768px) {
   .container {
-    padding: var(--padding-mobile) 0;
+    padding: var(--padding-mobile);
   }
 }

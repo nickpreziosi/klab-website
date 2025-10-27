@@ -84,7 +84,6 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .mainTextContainer {
-    padding: 3rem 1.5rem;
     max-width: 100%;
   }
 

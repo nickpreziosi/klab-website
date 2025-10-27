@@ -1,9 +1,9 @@
 "use client";
 
 import SectionHeader from "../sectionHeader/section-header";
-import KenaVideoPlayer from "../kenaVideoPlayer/kena-video-player";
 import KenaTwoColumnContent from "../kenaTwoColumnContent/kena-two-column-content";
 import styles from "./kena-hero-section.module.css";
+import VideoPlayer from "../VideoPlayer/video-player";
 
 export default function KenaHeroSection() {
   return (
@@ -23,9 +23,7 @@ export default function KenaHeroSection() {
         </div>
 
         {/* Video section */}
-        <div className={styles.videoWrapper}>
-          <KenaVideoPlayer posterUrl="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/KEO_Website-bsYtoQVsObtcLyJB4JxBfFgDcL6BKm.png" />
-        </div>
+        <VideoPlayer videoUrl="https://player.vimeo.com/video/1119375393?badge=0&amp;autoplay=1&amp;autopause=0&amp;player_id=0&amp;app_id=58479"></VideoPlayer>
 
         {/* Two-column content section */}
         <div className={styles.contentWrapper}>

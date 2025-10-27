@@ -1,6 +1,6 @@
-import KeoRailsVideoPlayer from "@/app/components/keoRailsVideoPlayer/keo-rails-video-player";
 import KeoRailsHero from "../../components/keoRailsHero/keo-rails-hero";
 import styles from "./page.module.css";
+import VideoPlayer from "@/app/components/VideoPlayer/video-player";
 
 export default function KeoRailsPage() {
   return (
@@ -15,7 +15,7 @@ export default function KeoRailsPage() {
         {/* You can insert custom HTML, iframe, or other content here */}
         {/* For now, it will use the placeholder content */}
       </KeoRailsHero>
-      <KeoRailsVideoPlayer></KeoRailsVideoPlayer>
+      <VideoPlayer videoUrl="https://player.vimeo.com/video/1119375393?badge=0&amp;autoplay=1&amp;autopause=0&amp;player_id=0&amp;app_id=58479"></VideoPlayer>
     </main>
   );
 }

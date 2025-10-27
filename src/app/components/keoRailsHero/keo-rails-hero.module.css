@@ -5,7 +5,7 @@
   width: 100%;
   max-width: 1440px;
   background: var(--background);
-  padding: 0 var(--padding-desktop);
+  padding: 0;
   display: flex;
   justify-content: center;
 }
@@ -26,7 +26,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--gap-lg);
-  padding: 2rem 6rem;
 }
 
 .heading {
@@ -250,8 +249,11 @@
 
 @media (max-width: 768px) {
   .heroSection {
-    padding: var(--spacing-md);
     min-height: auto;
+  }
+
+  .contentWrapper {
+    gap: var(--gap-lg);
   }
 
   .heading {
@@ -276,7 +278,7 @@
   }
 
   .heroSection {
-    height: 1100px;
+    height: 980px;
   }
 
   .placeholderSidebar {
