@@ -58,7 +58,7 @@
 }
 
 .cardText {
-  color: var(--primary-white);
+  color: var(--secondary-color);
   text-align: left;
   z-index: 10;
   padding: var(--padding-mobile);
@@ -82,7 +82,7 @@
 
 .cardPosition {
   font-size: var(--text-base);
-  color: var(--primary-white);
+  color: var(--secondary-color);
   padding-bottom: var(--gap-sm);
 }
 
@@ -102,9 +102,9 @@
   width: 36px;
   height: 36px;
   background: var(--main-color-60, rgba(0, 23, 45, 0.6));
-  border: solid 1px rgba(255, 255, 255, 0.2);
+  border: solid 1px rgba(var(--secondary-color-rgb), 0.2);
   border-radius: 12px;
-  color: var(--primary-white);
+  color: var(--secondary-color);
   text-decoration: none;
   transition: all 150ms ease-in-out;
   backdrop-filter: blur(10px);

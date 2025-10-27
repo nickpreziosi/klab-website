@@ -84,7 +84,7 @@ export function ThemeToggle() {
           "20, 20, 20"
         );
         document.documentElement.style.setProperty(
-          "--primary-white-rgb",
+          "--secondary-color-rgb",
           "250, 250, 250"
         );
       } else {
@@ -93,7 +93,7 @@ export function ThemeToggle() {
           "250, 250, 250"
         );
         document.documentElement.style.setProperty(
-          "--primary-white-rgb",
+          "--secondary-color-rgb",
           "20, 20, 20"
         );
       }
@@ -108,7 +108,7 @@ export function ThemeToggle() {
             "20, 20, 20"
           );
           document.documentElement.style.setProperty(
-            "--primary-white-rgb",
+            "--secondary-color-rgb",
             "250, 250, 250"
           );
         } else {
@@ -117,7 +117,7 @@ export function ThemeToggle() {
             "250, 250, 250"
           );
           document.documentElement.style.setProperty(
-            "--primary-white-rgb",
+            "--secondary-color-rgb",
             "20, 20, 20"
           );
         }
@@ -127,7 +127,7 @@ export function ThemeToggle() {
           "20, 20, 20"
         );
         document.documentElement.style.setProperty(
-          "--primary-white-rgb",
+          "--secondary-color-rgb",
           "250, 250, 250"
         );
       } else if (t === "light") {
@@ -136,7 +136,7 @@ export function ThemeToggle() {
           "250, 250, 250"
         );
         document.documentElement.style.setProperty(
-          "--primary-white-rgb",
+          "--secondary-color-rgb",
           "20, 20, 20"
         );
       } else if (t === "keo") {
@@ -145,7 +145,7 @@ export function ThemeToggle() {
           "0, 23, 45"
         );
         document.documentElement.style.setProperty(
-          "--primary-white-rgb",
+          "--secondary-color-rgb",
           "250, 250, 250"
         );
       }

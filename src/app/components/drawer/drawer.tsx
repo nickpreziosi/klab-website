@@ -7,7 +7,7 @@ import Link from "next/link";
 import styles from "./drawer.module.css";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Logo } from "../logo/logo";
-import { MobileThemeToggleV2 } from "../mobileThemeToggleV2/mobile-theme-toggle-v2";
+import { MobileThemeToggle } from "../mobileThemeToggle/mobile-theme-toggle";
 
 export const Drawer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -280,7 +280,7 @@ export const Drawer = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <MobileThemeToggleV2></MobileThemeToggleV2>
+                    <MobileThemeToggle></MobileThemeToggle>
                   </motion.span>
                 </motion.div>
               </motion.div>

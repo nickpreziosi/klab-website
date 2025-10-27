@@ -1,28 +1,103 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding: 1rem;
-  background: rgba(var(--primary-white-rgb), 0.02);
-  border: 1px solid rgba(var(--primary-white-rgb), 0.2);
-  border-radius: 0.75rem;
+.accordionRoot {
+  width: 100%;
+}
+.accordionRoot {
+  font-family: "Poppins", sans-serif;
 }
 
-.label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--primary-white);
+.accordionItem {
+  background: rgba(var(--secondary-color-rgb), 0.03);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.1);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.accordionHeader {
+  all: unset;
+  display: flex;
+}
+
+.accordionTrigger {
+  all: unset;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.accordionTrigger:hover {
+  background: rgba(var(--secondary-color-rgb), 0.05);
+}
+
+.accordionTrigger:focus-visible {
+  outline: 2px solid #ff004cff;
+  outline-offset: -2px;
+}
+
+.triggerContent {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.triggerLabel {
+  font-size: var(--text-md);
+  font-weight: 400;
+  color: rgba(var(--secondary-color-rgb), 1);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.toggleGroup {
+.currentTheme {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  background: rgba(var(--accent-color-rgb), 0.1);
+  border: 1px solid rgb(var(--accent-color-rgb));
+  border-radius: 0.375rem;
+}
+
+.currentThemeIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(var(--accent-color-rgb));
+}
+
+.currentThemeLabel {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: rgb(var(--accent-color-rgb));
+}
+
+.caretIcon {
+  color: rgba(var(--secondary-color-rgb), 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  margin-left: 6px;
+}
+
+.accordionTrigger[data-state="closed"] .caretIcon {
+  transform: rotate(180deg);
+}
+
+.accordionContent {
+  overflow: hidden;
+}
+
+.themeOptions {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.5rem;
+  padding: 1rem;
 }
 
-.toggleItem {
+.themeOption {
   all: unset;
   display: flex;
   flex-direction: column;
@@ -30,51 +105,74 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 0.875rem 0.75rem;
-  background: rgba(var(--primary-white-rgb), 0.1);
-  border: 1px solid rgba(var(--primary-white-rgb), 0.2);
+  background: rgba(var(--secondary-color-rgb), 0.05);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.1);
   border-radius: 0.5rem;
-  color: var(--primary-white);
+  color: rgba(var(--secondary-color-rgb), 1);
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 400;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.toggleItem:hover {
-  background: rgba(var(--primary-white-rgb), 0.2);
-  border-color: rgba(var(--primary-white-rgb), 0.2);
-  color: rgba(var(--primary-white-rgb), 0.9);
+.themeOption:hover {
+  background: rgba(var(--secondary-color-rgb), 0.1);
+  border-color: rgba(var(--secondary-color-rgb), 0.2);
+  color: rgba(var(--secondary-color-rgb), 1);
 }
 
-.toggleItem:focus-visible {
-  outline: 2px solid var(--accent-color);
+.themeOption:focus-visible {
+  outline: 2px solid rgb(var(--accent-color-rgb));
   outline-offset: 2px;
 }
 
-.toggleItem[data-state="on"] {
+.themeOptionActive {
   background: rgba(var(--accent-color-rgb), 0.15);
   border-color: rgb(var(--accent-color-rgb));
   color: rgb(var(--accent-color-rgb));
 }
 
-.toggleItem[data-state="on"]:hover {
+.themeOptionActive:hover {
   background: rgba(var(--accent-color-rgb), 0.2);
   border-color: rgb(var(--accent-color-rgb));
   color: rgb(var(--accent-color-rgb));
 }
 
-.itemIcon {
+.optionIcon {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.itemLabel {
+.optionLabel {
   font-size: 0.8125rem;
 }
 
+.edit {
+  font-weight: 400;
+  font-size: var(--text-md);
+  color: var(--secondary-color);
+}
+
 @media only screen and (max-width: 480px) {
-  .toggleGroup {
+  .themeOptions {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .currentThemeLabel {
+    display: none;
+  }
+
+  .edit {
+    font-size: var(--text-md);
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .triggerLabel {
+    font-size: var(--text-sm);
+  }
+
+  .edit {
+    font-size: var(--text-sm);
   }
 }

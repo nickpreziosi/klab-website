@@ -38,7 +38,7 @@
 }
 
 .staffSection {
-  color: var(--primary-white);
+  color: var(--secondary-color);
   width: 100%;
   height: fit-content;
   display: flex;

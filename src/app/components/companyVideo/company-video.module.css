@@ -10,18 +10,18 @@
   display: flex;
   gap: var(--gap-lg);
   flex-direction: row;
-  border: 1px solid rgba(var(--primary-white-rgb), 0.2);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
   border-radius: var(--rounded-sm);
   padding: var(--padding-tablet);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 8px;
-  background-color: rgba(var(--primary-white-rgb), 0.03);
+  background-color: rgba(var(--secondary-color-rgb), 0.03);
 }
 
 .text {
   height: 100%;
   width: fit-content;
   bottom: 0;
-  color: var(--primary-white);
+  color: var(--secondary-color);
   display: flex;
   flex-direction: column;
   justify-content: center;

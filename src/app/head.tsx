@@ -9,11 +9,11 @@ function rgbForTheme(theme: string | null) {
   return { main: "250, 250, 250", white: "20, 20, 20" };
 }
 
-export default function Head() {
+export default async function Head() {
   // read server-side cookie if present
   // cookies() typing can vary across Next versions; cast to any to be defensive
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  const cookieStore: any = cookies();
+  const cookieStore: any = await cookies();
   const cookieTheme = cookieStore?.get?.("theme")?.value ?? null;
 
   // If we have a concrete cookie theme (not 'system'), render a server-side
@@ -21,7 +21,7 @@ export default function Head() {
   // colors on first paint without any client-side JS.
   if (cookieTheme && cookieTheme !== "system") {
     const { main, white } = rgbForTheme(cookieTheme);
-    const css = `:root{--main-color-rgb:${main};--primary-white-rgb:${white}}`;
+    const css = `:root{--main-color-rgb:${main};--secondary-color-rgb:${white};}`;
     return <style id="keo-theme-inline">{css}</style>;
   }
 
@@ -40,7 +40,7 @@ export default function Head() {
       if (theme === 'dark') { main = '20, 20, 20'; white = '250, 250, 250'; }
       else if (theme === 'light') { main = '250, 250, 250'; white = '20, 20, 20'; }
       else if (theme === 'keo') { main = '0, 23, 45'; white = '250, 250, 250'; }
-      try { var r = document.documentElement; r.style.setProperty('--main-color-rgb', main); r.style.setProperty('--primary-white-rgb', white); r.setAttribute('data-theme', theme); } catch (e) {}
+      try { var r = document.documentElement; r.style.setProperty('--main-color-rgb', main); r.style.setProperty('--secondary-color-rgb', white); r.setAttribute('data-theme', theme); } catch (e) {}
     } catch (err) {}
   })();`;
 

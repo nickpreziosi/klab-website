@@ -25,7 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html className={poppins.className} lang="en">
-      <Head></Head>
+      <head>
+        <Head></Head>
+      </head>
+
       <body>
         <NavigationMenuDemo></NavigationMenuDemo>
         <SocialSidebar></SocialSidebar>

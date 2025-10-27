@@ -22,7 +22,7 @@
 
 .card {
   background-color: rgba(var(--main-color-rgb), 0.5);
-  border: 1px solid rgba(var(--primary-white-rgb), 0.1);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.1);
   border-radius: 16px;
   padding: var(--padding-mobile);
   backdrop-filter: blur(8px);
@@ -34,7 +34,7 @@
   font-size: 20px;
   font-weight: 600;
   line-height: 1.4;
-  color: var(--primary-white);
+  color: var(--secondary-color);
   margin: 0 0 16px 0;
 }
 
@@ -42,7 +42,7 @@
   font-size: 16px;
   font-weight: 300;
   line-height: 1.6;
-  color: rgba(var(--primary-white-rgb), 1);
+  color: rgba(var(--secondary-color-rgb), 1);
   margin: 0;
 }
 

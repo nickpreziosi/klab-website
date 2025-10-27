@@ -18,7 +18,7 @@
   align-items: center;
   justify-items: flex-end;
   padding: var(--padding-tablet);
-  border: 1px solid rgba(var(--primary-white-rgb), 0.2);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
   box-shadow: var(--shadow-black);
 }
 
@@ -35,7 +35,7 @@
 
 .textContent {
   flex: 1;
-  color: var(--primary-white);
+  color: var(--secondary-color);
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -63,7 +63,7 @@
   width: 100%;
   border-radius: 100px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border: 1px solid rgba(var(--primary-white-rgb), 0.2);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
 }
 
 .input {
@@ -95,7 +95,7 @@
   background-color: rgba(20, 20, 20, 1);
   color: rgba(250, 250, 250, 1);
   border: none;
-  border-left: 1px solid rgba(var(--primary-white-rgb), 0.2);
+  border-left: 1px solid rgba(var(--secondary-color-rgb), 0.2);
   text-decoration: none;
   font-weight: 600;
   font-size: var(--text-base);

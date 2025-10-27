@@ -68,8 +68,7 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
                 src={posterUrl}
                 alt="KENA AI Visualization"
                 className={styles.poster}
-                width={800}
-                height={408}
+                fill
               ></Image>
               <button
                 onClick={handlePlayButtonClick}

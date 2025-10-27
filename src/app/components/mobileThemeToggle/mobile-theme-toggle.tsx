@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import * as ToggleGroup from "@radix-ui/react-toggle-group";
+import * as Accordion from "@radix-ui/react-accordion";
+import { motion } from "framer-motion";
 import styles from "./mobile-theme-toggle.module.css";
 import Image from "next/image";
 
@@ -10,7 +11,7 @@ export function MobileThemeToggle() {
     try {
       if (typeof window !== "undefined") {
         const stored = localStorage.getItem("theme");
-        return (stored as string) ?? "keo";
+        return (stored as string) ?? "dark";
       }
     } catch {
       // ignore access errors and fall back to default
@@ -65,10 +66,10 @@ export function MobileThemeToggle() {
       if (event.matches) {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "0, 0, 0"
+          "20, 20, 20"
         );
         document.documentElement.style.setProperty(
-          "--primary-white-rgb",
+          "--secondary-color-rgb",
           "255, 255, 255"
         );
       } else {
@@ -77,8 +78,8 @@ export function MobileThemeToggle() {
           "255, 255, 255"
         );
         document.documentElement.style.setProperty(
-          "--primary-white-rgb",
-          "0, 0, 0"
+          "--secondary-color-rgb",
+          "20, 20, 20"
         );
       }
     };
@@ -89,10 +90,10 @@ export function MobileThemeToggle() {
         if (darkModeMediaQuery.matches) {
           document.documentElement.style.setProperty(
             "--main-color-rgb",
-            "0, 0, 0"
+            "20, 20, 20"
           );
           document.documentElement.style.setProperty(
-            "--primary-white-rgb",
+            "--secondary-color-rgb",
             "255, 255, 255"
           );
         } else {
@@ -101,17 +102,17 @@ export function MobileThemeToggle() {
             "255, 255, 255"
           );
           document.documentElement.style.setProperty(
-            "--primary-white-rgb",
-            "0, 0, 0"
+            "--secondary-color-rgb",
+            "20, 20, 20"
           );
         }
       } else if (t === "dark") {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "0, 0, 0"
+          "20, 20, 20"
         );
         document.documentElement.style.setProperty(
-          "--primary-white-rgb",
+          "--secondary-color-rgb",
           "255, 255, 255"
         );
       } else if (t === "light") {
@@ -120,8 +121,8 @@ export function MobileThemeToggle() {
           "255, 255, 255"
         );
         document.documentElement.style.setProperty(
-          "--primary-white-rgb",
-          "0, 0, 0"
+          "--secondary-color-rgb",
+          "20, 20, 20"
         );
       } else if (t === "keo") {
         document.documentElement.style.setProperty(
@@ -129,7 +130,7 @@ export function MobileThemeToggle() {
           "0, 23, 45"
         );
         document.documentElement.style.setProperty(
-          "--primary-white-rgb",
+          "--secondary-color-rgb",
           "255, 255, 255"
         );
       }
@@ -166,6 +167,9 @@ export function MobileThemeToggle() {
     // No listener attached for non-system themes; nothing to clean up
     return;
   }, [theme]);
+
+  // control accordion open state so we can animate cleanly
+  const [open, setOpen] = useState<string | null>(null);
 
   const getThemeIcon = (themeName: string) => {
     switch (themeName) {
@@ -251,28 +255,82 @@ export function MobileThemeToggle() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.label}>Theme</div>
-      <ToggleGroup.Root
-        type="single"
-        value={theme}
-        onValueChange={(value) => {
-          if (value) setTheme(value);
-        }}
-        className={styles.toggleGroup}
-      >
-        {["light", "dark", "keo", "system"].map((themeName) => (
-          <ToggleGroup.Item
-            key={themeName}
-            value={themeName}
-            className={styles.toggleItem}
-            aria-label={getThemeLabel(themeName)}
+    <Accordion.Root
+      type="single"
+      collapsible
+      value={open ?? undefined}
+      onValueChange={(v) => setOpen(v ?? null)}
+      className={styles.accordionRoot}
+    >
+      <Accordion.Item value="theme" className={styles.accordionItem}>
+        <Accordion.Header className={styles.accordionHeader}>
+          <Accordion.Trigger
+            aria-label="Change Website Theme"
+            className={styles.accordionTrigger}
           >
-            <span className={styles.itemIcon}>{getThemeIcon(themeName)}</span>
-            <span className={styles.itemLabel}>{getThemeLabel(themeName)}</span>
-          </ToggleGroup.Item>
-        ))}
-      </ToggleGroup.Root>
-    </div>
+            <div className={styles.triggerContent}>
+              <span className={styles.triggerLabel}>Theme</span>
+              <span className={styles.currentTheme}>
+                <span className={styles.currentThemeIcon}>
+                  {getThemeIcon(theme)}
+                </span>
+                <span className={styles.currentThemeLabel}>
+                  {getThemeLabel(theme)}
+                </span>
+              </span>
+            </div>
+            <span className={styles.edit}>EDIT</span>
+            <svg
+              className={styles.caretIcon}
+              width="30"
+              height="30"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M4 9H11L7.5 4.5L4 9Z" fill="currentColor"></path>
+            </svg>
+          </Accordion.Trigger>
+        </Accordion.Header>
+        <Accordion.Content
+          className={styles.accordionContent}
+          asChild
+          forceMount
+        >
+          <motion.div
+            // don't run the initial open animation on mount
+            initial={false}
+            // animate based on controlled `open` state so the element stays mounted
+            animate={
+              open === "theme"
+                ? { height: "auto", opacity: 1 }
+                : { height: 0, opacity: 0 }
+            }
+            transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
+            style={{ overflow: "hidden" }}
+          >
+            <div className={styles.themeOptions}>
+              {["light", "dark", "keo", "system"].map((themeName) => (
+                <button
+                  key={themeName}
+                  onClick={() => setTheme(themeName)}
+                  className={`${styles.themeOption} ${
+                    theme === themeName ? styles.themeOptionActive : ""
+                  }`}
+                  aria-label={getThemeLabel(themeName)}
+                >
+                  <span className={styles.optionIcon}>
+                    {getThemeIcon(themeName)}
+                  </span>
+                  <span className={styles.optionLabel}>
+                    {getThemeLabel(themeName)}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        </Accordion.Content>
+      </Accordion.Item>
+    </Accordion.Root>
   );
 }

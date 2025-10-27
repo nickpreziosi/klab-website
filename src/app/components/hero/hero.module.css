@@ -69,7 +69,7 @@
   font-size: 52px;
   line-height: 62px;
   letter-spacing: -1.5%;
-  color: var(--primary-white);
+  color: var(--secondary-color);
 }
 
 .mainText {
@@ -78,7 +78,7 @@
   font-size: 24px;
   line-height: 32px;
   letter-spacing: -0.5%;
-  color: var(--primary-white);
+  color: var(--secondary-color);
 }
 
 .contactButton {
@@ -95,7 +95,7 @@
   line-height: 100%;
   letter-spacing: 0%;
   color: var(--main-color);
-  background: var(--primary-white);
+  background: var(--secondary-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -103,7 +103,7 @@
 }
 
 .contactButton:hover {
-  background: rgba(var(--primary-white-rgb), 0.75);
+  background: rgba(var(--secondary-color-rgb), 0.75);
 }
 
 .secondaryContainer {
@@ -130,7 +130,7 @@
   font-size: 52px;
   line-height: 62px;
   letter-spacing: -1.5%;
-  color: var(--primary-white);
+  color: var(--secondary-color);
 }
 
 /* Tablet design */

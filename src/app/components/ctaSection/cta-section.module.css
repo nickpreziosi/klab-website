@@ -16,7 +16,7 @@
   border: 1px solid var(--main-color-10);
   box-shadow: var(--shadow-xl);
   order: 0;
-  background-color: var(--primary-white);
+  background-color: var(--secondary-color);
   padding: var(--padding-mobile);
   color: var(--main-color);
   border-radius: 12px;

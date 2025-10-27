@@ -112,7 +112,7 @@
   flex-direction: row;
   align-items: center;
   padding: 20px 16px;
-  color: var(--primary-white);
+  color: var(--secondary-color);
   text-decoration: none;
   font-size: 20px;
   font-weight: 400;
@@ -174,7 +174,7 @@
 
 .dropdownItem {
   padding: 16px 20px;
-  color: var(--primary-white);
+  color: var(--secondary-color);
   text-decoration: none;
   font-size: 16px;
   font-weight: 400;

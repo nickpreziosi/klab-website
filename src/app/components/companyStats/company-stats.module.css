@@ -8,7 +8,7 @@
   font-weight: 700;
   text-align: left;
   margin-bottom: 3rem;
-  color: var(--primary-white);
+  color: var(--secondary-color);
 }
 
 .statsGrid {
@@ -21,8 +21,8 @@
 
 .statCard {
   position: relative;
-  background: rgba(var(--primary-white-rgb), 0.03);
-  border: 1px solid rgba(var(--primary-white-rgb), 0.2);
+  background: rgba(var(--secondary-color-rgb), 0.03);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
   border-radius: 1rem;
   padding: 2.5rem 2rem;
   text-align: center;
@@ -55,19 +55,19 @@
   font-weight: 700;
   color: #ff004cff;
   line-height: 1;
-  text-shadow: 0 0 30px rgba(255, 0, 76, 0.5);
+  text-shadow: 0 0 30px rgba(var(--accent-color-rgb), 0.5);
 }
 
 .statSuffix {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #ff004cff;
+  color: rgba(var(--accent-color-rgb), 1);
   margin-left: 0.25rem;
 }
 
 .statLabel {
   font-size: 1rem;
-  color: var(--primary-white);
+  color: var(--secondary-color);
   line-height: 1.5;
   font-weight: 500;
 }

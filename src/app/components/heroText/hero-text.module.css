@@ -29,7 +29,7 @@
   font-size: 52px;
   line-height: 62px;
   letter-spacing: -1.5%;
-  color: var(--primary-white);
+  color: var(--secondary-color);
   margin: 0;
   display: flex;
   flex-wrap: wrap;
@@ -40,7 +40,7 @@
   font-size: 32px;
   line-height: 40px;
   letter-spacing: -1.5%;
-  color: var(--primary-white) !important;
+  color: var(--secondary-color) !important;
 }
 
 /* Updated subtitle styles to match provided mainText */
@@ -50,7 +50,7 @@
   font-size: 24px;
   line-height: 32px;
   letter-spacing: -0.5%;
-  color: var(--primary-white);
+  color: var(--secondary-color);
   margin: 0;
 }
 
@@ -67,7 +67,7 @@
   line-height: 100%;
   letter-spacing: 0%;
   color: var(--main-color);
-  background: var(--primary-white);
+  background: var(--secondary-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,7 +78,7 @@
 }
 
 .contactButton:hover {
-  background: rgba(var(--primary-white-rgb), 0.6);
+  background: rgba(var(--secondary-color-rgb), 0.6);
 }
 
 /* Responsive adjustments */
