@@ -135,11 +135,13 @@ export const NavigationMenuDemo = () => {
                   About
                 </Link>
               </li>
-              <Separator.Root
-                className={styles.separatorRoot}
-                decorative
-                orientation="vertical"
-              />
+              <li className={styles.separatorRootListItem}>
+                <Separator.Root
+                  className={styles.separatorRoot}
+                  decorative
+                  orientation="vertical"
+                />
+              </li>
 
               <li className={styles.navListItem}>
                 <button
@@ -183,11 +185,13 @@ export const NavigationMenuDemo = () => {
                   </svg>
                 </button>
               </li>
-              <Separator.Root
-                className={styles.separatorRoot}
-                decorative
-                orientation="vertical"
-              />
+              <li className={styles.separatorRootListItem}>
+                <Separator.Root
+                  className={styles.separatorRoot}
+                  decorative
+                  orientation="vertical"
+                />
+              </li>
               <li className={styles.navListItem}>
                 <Link className={styles.navLink} href="/company">
                   <svg
@@ -208,11 +212,14 @@ export const NavigationMenuDemo = () => {
                   Company
                 </Link>
               </li>
-              <Separator.Root
-                className={styles.separatorRoot}
-                decorative
-                orientation="vertical"
-              />
+              <li className={styles.separatorRootListItem}>
+                <Separator.Root
+                  className={styles.separatorRoot}
+                  decorative
+                  orientation="vertical"
+                />
+              </li>
+
               <li className={styles.navListItem}>
                 <Link className={styles.navLink} href="/contact">
                   <svg
@@ -233,11 +240,14 @@ export const NavigationMenuDemo = () => {
                   Contact
                 </Link>
               </li>
-              <Separator.Root
-                className={styles.separatorRoot}
-                decorative
-                orientation="vertical"
-              />
+              <li className={styles.separatorRootListItem}>
+                <Separator.Root
+                  className={styles.separatorRoot}
+                  decorative
+                  orientation="vertical"
+                />
+              </li>
+
               <li
                 className={`${styles.navListItem} ${styles.themeToggleContainer}`}
               >

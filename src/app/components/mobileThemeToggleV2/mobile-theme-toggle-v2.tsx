@@ -264,7 +264,10 @@ export function MobileThemeToggleV2() {
     >
       <Accordion.Item value="theme" className={styles.accordionItem}>
         <Accordion.Header className={styles.accordionHeader}>
-          <Accordion.Trigger className={styles.accordionTrigger}>
+          <Accordion.Trigger
+            aria-label="Change Website Theme"
+            className={styles.accordionTrigger}
+          >
             <div className={styles.triggerContent}>
               <span className={styles.triggerLabel}>Theme</span>
               <span className={styles.currentTheme}>

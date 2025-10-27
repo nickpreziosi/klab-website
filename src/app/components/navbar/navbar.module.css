@@ -151,6 +151,16 @@
   max-width: 1440px;
 }
 
+.separatorRootListItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  list-style-type: none;
+  color: var(--primary-white) !important;
+  z-index: 10000;
+}
+
 @media only screen and (max-width: 1024px) {
   .navList {
     display: none;

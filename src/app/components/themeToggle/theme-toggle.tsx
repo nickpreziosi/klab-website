@@ -273,7 +273,10 @@ export function ThemeToggle() {
         <Tooltip>
           <Select value={theme} onValueChange={setTheme}>
             <TooltipTrigger asChild>
-              <SelectTrigger className={styles.selectTrigger}>
+              <SelectTrigger
+                aria-label="Change Website Theme"
+                className={styles.selectTrigger}
+              >
                 <SelectValue>{getThemeIcon(theme)}</SelectValue>
                 <span className={styles.span}>Theme</span>
               </SelectTrigger>

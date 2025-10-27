@@ -72,6 +72,7 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
         {!isClicked && (
           <>
             <Image
+              fetchPriority="high"
               priority
               src="/kena-video.jpg"
               alt="KENA AI Visualization"
@@ -103,7 +104,7 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
         {isClicked && (
           <iframe
             className={styles.videoEmbed}
-            src="https://player.vimeo.com/video/1119375393?badge=0&amp;autoplay=1&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+            src={videoUrl}
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
