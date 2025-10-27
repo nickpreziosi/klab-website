@@ -28,10 +28,6 @@
   transition: all 0.2s ease;
 }
 
-.accordionTrigger:hover {
-  background: rgba(var(--secondary-color-rgb), 0.05);
-}
-
 .accordionTrigger:focus-visible {
   outline: 2px solid #ff004cff;
   outline-offset: -2px;
@@ -115,12 +111,6 @@
   transition: all 0.2s ease;
 }
 
-.themeOption:hover {
-  background: rgba(var(--secondary-color-rgb), 0.1);
-  border-color: rgba(var(--secondary-color-rgb), 0.2);
-  color: rgba(var(--secondary-color-rgb), 1);
-}
-
 .themeOption:focus-visible {
   outline: 2px solid rgb(var(--accent-color-rgb));
   outline-offset: 2px;
@@ -128,12 +118,6 @@
 
 .themeOptionActive {
   background: rgba(var(--accent-color-rgb), 0.15);
-  border-color: rgb(var(--accent-color-rgb));
-  color: rgb(var(--accent-color-rgb));
-}
-
-.themeOptionActive:hover {
-  background: rgba(var(--accent-color-rgb), 0.2);
   border-color: rgb(var(--accent-color-rgb));
   color: rgb(var(--accent-color-rgb));
 }
@@ -152,6 +136,23 @@
   font-weight: 400;
   font-size: var(--text-md);
   color: var(--secondary-color);
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .accordionTrigger:hover {
+    background: rgba(var(--secondary-color-rgb), 0.05);
+  }
+  .themeOption:hover {
+    background: rgba(var(--secondary-color-rgb), 0.1);
+    border-color: rgba(var(--secondary-color-rgb), 0.2);
+    color: rgba(var(--secondary-color-rgb), 1);
+  }
+  .themeOptionActive:hover {
+    background: rgba(var(--accent-color-rgb), 0.2);
+    border-color: rgb(var(--accent-color-rgb));
+    color: rgb(var(--accent-color-rgb));
+  }
 }
 
 @media only screen and (max-width: 480px) {

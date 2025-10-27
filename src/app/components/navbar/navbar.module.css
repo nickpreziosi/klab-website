@@ -112,9 +112,6 @@
   gap: 6px;
   height: 100%;
 }
-.navLink:hover {
-  color: var(--accent-color) !important;
-}
 
 .navListItem {
   display: flex;
@@ -129,10 +126,6 @@
   border-radius: 12px;
   border: 1px solid transparent;
   font-size: var(--text-md);
-}
-
-.navListItem:hover {
-  color: var(--accent-color) !important;
 }
 
 .drawerContainer {
@@ -159,6 +152,16 @@
   list-style-type: none;
   color: var(--secondary-color) !important;
   z-index: 10000;
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .navLink:hover {
+    color: var(--accent-color) !important;
+  }
+  .navListItem:hover {
+    color: var(--accent-color) !important;
+  }
 }
 
 @media only screen and (max-width: 1024px) {

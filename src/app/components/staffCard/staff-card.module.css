@@ -127,14 +127,6 @@
   cursor: pointer;
 }
 
-.socialLink:hover {
-  background: rgba(255, 0, 76, 0.1);
-  border-color: var(--accent-color, #ff004c);
-  color: var(--accent-color, #ff004c);
-  box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
-  transform: scale(1.1);
-}
-
 .socialLink svg {
   width: 18px;
   height: 18px;
@@ -147,7 +139,7 @@
   padding: var(--padding-mobile);
   border: transparent 1px var(--main-color);
   border-radius: var(--rounded-sm) var(--rounded-sm) 0 0;
-  color: var(--primary-white);
+  color: var(--secondary-color);
   text-decoration: none;
   transition: all 150ms ease-in-out;
   cursor: pointer;
@@ -172,12 +164,6 @@
 .cardTitle,
 .cardPosition {
   transition: all 300ms;
-}
-
-.accordionTrigger:hover .cardTitle,
-.accordionTrigger:hover .cardPosition,
-.accordionTrigger:hover .accordionTriggerBio {
-  color: rgba(var(--accent-color-rgb));
 }
 
 .accordionItem[data-state="open"] {
@@ -216,6 +202,22 @@
   to {
     height: 100%;
     opacity: 1;
+  }
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .accordionTrigger:hover .cardTitle,
+  .accordionTrigger:hover .cardPosition,
+  .accordionTrigger:hover .accordionTriggerBio {
+    color: rgba(var(--accent-color-rgb));
+  }
+  .socialLink:hover {
+    background: rgba(255, 0, 76, 0.1);
+    border-color: var(--accent-color, #ff004c);
+    color: var(--accent-color, #ff004c);
+    box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
+    transform: scale(1.1);
   }
 }
 

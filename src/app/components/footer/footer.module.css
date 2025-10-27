@@ -62,14 +62,6 @@
   cursor: pointer;
 }
 
-.socialLink:hover {
-  background: rgba(255, 0, 76, 0.1);
-  border-color: var(--accent-color, #ff004c);
-  color: var(--accent-color, #ff004c);
-  box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
-  transform: scale(1.1);
-}
-
 .socialLink svg {
   width: 18px;
   height: 18px;
@@ -107,10 +99,6 @@
   display: inline-block;
 }
 
-.navLink:hover {
-  color: var(--accent-color, #ff004c);
-}
-
 /* Awards Section */
 .awardsSection {
   display: flex;
@@ -135,11 +123,6 @@
   border-radius: var(--rounded-sm);
   padding: 8px;
   transition: all 300ms ease;
-}
-
-.awardImage:hover {
-  transform: scale(1.05);
-  background: rgba(var(--secondary-color-rgb), 0.1);
 }
 
 /* Divider */
@@ -191,11 +174,6 @@
   text-decoration: underline;
 }
 
-.privacyLink:hover {
-  color: rgba(var(--accent-color-rgb), 1);
-  opacity: 0.8;
-}
-
 /* Addresses */
 .addresses {
   display: flex;
@@ -226,6 +204,28 @@
   font-size: 13px;
   color: var(--secondary-color, #ffffff);
   margin: 0;
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .socialLink:hover {
+    background: rgba(255, 0, 76, 0.1);
+    border-color: var(--accent-color, #ff004c);
+    color: var(--accent-color, #ff004c);
+    box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
+    transform: scale(1.1);
+  }
+  .navLink:hover {
+    color: var(--accent-color, #ff004c);
+  }
+  .awardImage:hover {
+    transform: scale(1.05);
+    background: rgba(var(--secondary-color-rgb), 0.1);
+  }
+  .privacyLink:hover {
+    color: rgba(var(--accent-color-rgb), 1);
+    opacity: 0.8;
+  }
 }
 
 /* Responsive Design */

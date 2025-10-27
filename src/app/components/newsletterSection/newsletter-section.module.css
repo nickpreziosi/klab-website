@@ -104,10 +104,6 @@
   transition: all 300ms ease-in-out;
 }
 
-.button:hover {
-  opacity: 0.75;
-}
-
 .button:active {
   transform: scale(0.98);
 }
@@ -137,6 +133,13 @@
   font-size: var(--text-sm);
   text-align: right;
   width: 100%;
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .button:hover {
+    opacity: 0.75;
+  }
 }
 
 @media (max-width: 1024px) {

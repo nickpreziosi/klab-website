@@ -50,11 +50,6 @@
   border-left: 2px solid rgba(var(--accent-color-rgb), 0.5);
 }
 
-.item:hover {
-  background: rgba(var(--accent-color-rgb), 0.2);
-  padding-left: 28px;
-}
-
 .itemTitle {
   font-family: "Poppins", sans-serif;
   font-size: var(--text-lg);
@@ -69,6 +64,14 @@
   font-weight: 300;
   color: var(--secondary-color);
   line-height: 1.5;
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .item:hover {
+    background: rgba(var(--accent-color-rgb), 0.2);
+    padding-left: 28px;
+  }
 }
 
 /* Responsive adjustments */

@@ -77,8 +77,11 @@
   text-decoration: none;
 }
 
-.contactButton:hover {
-  background: rgba(var(--secondary-color-rgb), 0.6);
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .contactButton:hover {
+    background: rgba(var(--secondary-color-rgb), 0.6);
+  }
 }
 
 /* Responsive adjustments */

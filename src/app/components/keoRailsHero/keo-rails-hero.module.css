@@ -66,11 +66,6 @@
   transition: all 0.2s ease;
 }
 
-.ctaButton:hover {
-  background: rgba(255, 255, 255, 0.9);
-  transform: translateY(-2px);
-}
-
 /* 3D Transformed Container */
 .transformedContainer {
   position: relative;
@@ -210,6 +205,14 @@
   );
   z-index: 2;
   pointer-events: none;
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .ctaButton:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+  }
 }
 
 /* Responsive */

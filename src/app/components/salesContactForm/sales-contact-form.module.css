@@ -141,6 +141,7 @@
   flex-direction: column;
   justify-content: flex-start;
   gap: 24px;
+  font-weight: 400;
 }
 
 /* Added React Aria ComboBox styles */
@@ -177,7 +178,7 @@
 
 .popover {
   background-color: #ffffff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
   border-radius: 8px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   height: 300px;
@@ -203,19 +204,14 @@
   transition: background-color 0.15s ease;
 }
 
-.listboxItem[data-hovered] {
-  background-color: #fef3f6;
+.listboxItem[data-selected] {
+  background-color: rgba(250, 250, 250, 1);
   color: var(--accent-color);
 }
 
 .listboxItem[data-focused] {
-  background-color: var(--secondary-color);
-}
-
-.listboxItem[data-selected] {
-  background-color: var(--accent-color);
-  color: #ffffff;
-  font-weight: 500;
+  background-color: rgba(250, 250, 250, 1);
+  color: var(--accent-color);
 }
 
 /* Added React Aria Checkbox styles */
@@ -292,8 +288,15 @@
   transition: all 0.3s ease;
 }
 
-.submitButton:hover {
-  opacity: 0.75;
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .listboxItem[data-hovered] {
+    background-color: rgba(250, 250, 250, 1);
+    color: var(--accent-color);
+  }
+  .submitButton:hover {
+    opacity: 0.75;
+  }
 }
 
 .submitButton:active {

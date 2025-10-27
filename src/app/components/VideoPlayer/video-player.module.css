@@ -65,6 +65,7 @@
   transition: all 0.3s ease-in-out;
 }
 
+/* Limit Hover Effects to Non Touch Devices */
 @media (pointer: fine) and (hover: hover) {
   .playButton:hover {
     transform: translate(-50%, -50%) scale(1.05);
@@ -99,7 +100,6 @@
   }
 
   .container {
-    padding: var(--padding-mobile) 0;
     width: 100vw !important;
     margin: calc(-1 * var(--padding-mobile));
   }

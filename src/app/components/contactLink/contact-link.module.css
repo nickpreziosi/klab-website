@@ -12,12 +12,6 @@
   box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 8px;
 }
 
-.card:hover {
-  border-color: rgba(255, 0, 76, 0.3);
-  background-color: rgba(var(--secondary-color-rgb), 0.04);
-  box-shadow: 0 8px 32px rgba(255, 0, 76, 0.1);
-}
-
 .iconWrapper {
   width: 56px;
   height: 56px;
@@ -30,18 +24,9 @@
   transition: all 200ms ease-in-out;
 }
 
-.card:hover .iconWrapper {
-  background-color: rgba(255, 0, 76, 0.1);
-  border-color: rgba(255, 0, 76, 0.3);
-}
-
 .icon {
   color: var(--secondary-color);
   transition: all 200ms ease-in-out;
-}
-
-.card:hover .icon {
-  color: var(--accent-color);
 }
 
 .title {
@@ -81,28 +66,42 @@
   cursor: pointer;
 }
 
-.button:hover {
-  background-color: rgba(255, 0, 76, 0.15);
-  border-color: var(--accent-color);
-  box-shadow: 0 0 20px rgba(255, 0, 76, 0.2);
-}
-
-.button:hover .arrow {
-  transform: translateX(4px);
-  color: var(--accent-color);
-}
-
 .iconWrapper > svg > path,
 .button > svg > path {
   fill: var(--secondary-color);
 }
 
-.button:hover .arrow > path {
-  fill: var(--accent-color);
-}
-
 .arrow {
   transition: all 150ms ease-in-out;
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .card:hover {
+    border-color: rgba(255, 0, 76, 0.3);
+    background-color: rgba(var(--secondary-color-rgb), 0.04);
+    box-shadow: 0 8px 32px rgba(255, 0, 76, 0.1);
+  }
+  .card:hover .iconWrapper {
+    background-color: rgba(255, 0, 76, 0.1);
+    border-color: rgba(255, 0, 76, 0.3);
+  }
+  .card:hover .icon {
+    color: var(--accent-color);
+  }
+  .button:hover {
+    background-color: rgba(255, 0, 76, 0.15);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 20px rgba(255, 0, 76, 0.2);
+  }
+
+  .button:hover .arrow {
+    transform: translateX(4px);
+    color: var(--accent-color);
+  }
+  .button:hover .arrow > path {
+    fill: var(--accent-color);
+  }
 }
 
 /* Responsive Design */

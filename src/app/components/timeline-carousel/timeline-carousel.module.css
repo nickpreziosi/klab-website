@@ -43,13 +43,6 @@
   transition: all 0.3s ease;
 }
 
-.navButton:hover:not(:disabled) {
-  background: rgba(255, 0, 76, 0.1);
-  border-color: var(--accent-color);
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
-}
-
 .navButton:disabled {
   opacity: 0.3;
   cursor: not-allowed;
@@ -170,6 +163,16 @@
   width: 1px !important;
   height: 30px !important;
   background-color: var(--secondary-color) !important;
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .navButton:hover:not(:disabled) {
+    background: rgba(255, 0, 76, 0.1);
+    border-color: var(--accent-color);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
+  }
 }
 
 @media (max-width: 1024px) {

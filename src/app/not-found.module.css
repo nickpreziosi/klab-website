@@ -121,18 +121,6 @@
     0px 0px 20px rgba(255, 0, 76, 0.2);
 }
 
-.button:hover {
-  background-color: #e6003f;
-  border-color: #e6003f;
-  box-shadow: 0px 6px 20px rgba(255, 0, 76, 0.6),
-    0px 0px 30px rgba(255, 0, 76, 0.4);
-  transform: translateY(-2px);
-}
-
-.backButton:hover {
-  transform: translateY(-2px);
-}
-
 .button:active,
 .backButton:active {
   transform: scale(0.98);
@@ -152,6 +140,21 @@
 
 .logoXL {
   display: flex;
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .button:hover {
+    background-color: #e6003f;
+    border-color: #e6003f;
+    box-shadow: 0px 6px 20px rgba(255, 0, 76, 0.6),
+      0px 0px 30px rgba(255, 0, 76, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .backButton:hover {
+    transform: translateY(-2px);
+  }
 }
 
 @media (max-width: 640px) {

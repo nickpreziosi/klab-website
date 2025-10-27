@@ -188,18 +188,20 @@
   }
 }
 
-/* Hover effects */
-.statCard:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 0, 76, 0.08) 0%,
-    rgba(0, 0, 0, 0.4) 100%
-  );
-  border-color: rgba(255, 0, 76, 0.4);
-  transition: all 0.3s ease;
-}
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .statCard:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 0, 76, 0.08) 0%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+    border-color: rgba(255, 0, 76, 0.4);
+    transition: all 0.3s ease;
+  }
 
-.statCard:hover::before {
-  opacity: 1;
-  transition: opacity 0.3s ease;
+  .statCard:hover::before {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
 }

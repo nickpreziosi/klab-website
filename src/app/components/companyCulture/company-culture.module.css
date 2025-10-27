@@ -64,13 +64,6 @@
   cursor: pointer;
 }
 
-.button:hover {
-  background-color: rgba(255, 0, 76, 0.1);
-  border-color: var(--accent-color);
-  box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
-  transform: translateY(-2px);
-}
-
 .imagesGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -93,8 +86,17 @@
   transition: transform 300ms ease-in-out;
 }
 
-.imageWrapper:hover .image {
-  transform: scale(1.05);
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .imageWrapper:hover .image {
+    transform: scale(1.05);
+  }
+  .button:hover {
+    background-color: rgba(255, 0, 76, 0.1);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
+    transform: translateY(-2px);
+  }
 }
 
 /* Responsive Design */

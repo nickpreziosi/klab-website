@@ -111,14 +111,6 @@
   cursor: pointer;
 }
 
-.socialLink:hover {
-  background: rgba(255, 0, 76, 0.1);
-  border-color: var(--accent-color, #ff004c);
-  color: var(--accent-color, #ff004c);
-  box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
-  transform: scale(1.1);
-}
-
 .socialLink svg {
   width: 18px;
   height: 18px;
@@ -280,18 +272,28 @@
   color: white;
 }
 
-.bioBackContainer:hover .bioBack {
-  color: var(--accent-color, #ff004c);
-}
-
 .bioFront,
 .bioBack .cardTitle,
 .cardPosition {
   transition: all 300ms;
 }
 
-.cardText:hover .cardTitle,
-.cardText:hover .cardPosition,
-.cardText:hover .bioFront {
-  color: var(--accent-color, #ff004c);
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .socialLink:hover {
+    background: rgba(255, 0, 76, 0.1);
+    border-color: var(--accent-color, #ff004c);
+    color: var(--accent-color, #ff004c);
+    box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
+    transform: scale(1.1);
+  }
+  .bioBackContainer:hover .bioBack {
+    color: var(--accent-color, #ff004c);
+  }
+
+  .cardText:hover .cardTitle,
+  .cardText:hover .cardPosition,
+  .cardText:hover .bioFront {
+    color: var(--accent-color, #ff004c);
+  }
 }

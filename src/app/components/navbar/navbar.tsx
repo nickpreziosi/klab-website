@@ -110,7 +110,7 @@ export const NavigationMenuDemo = () => {
           <div className={styles.navbar}>
             <div className={styles.logoContainer}>
               <Link href="/">
-                <Logo size="sm" animated="constant"></Logo>
+                <Logo size="sm" animated></Logo>
               </Link>
             </div>
 

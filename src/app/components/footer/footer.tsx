@@ -128,12 +128,12 @@ export const Footer = () => {
         <div className={styles.topSection}>
           {/* Logo Section */}
           <div className={styles.logoSection}>
-            <div className={styles.logoLarge}>
-              <Logo size="lg" animated="constant"></Logo>
-            </div>
-            <div className={styles.logoMedium}>
-              <Logo size="md" animated="constant"></Logo>
-            </div>
+            <Link href="/" className={styles.logoLarge}>
+              <Logo size="lg" animated></Logo>
+            </Link>
+            <Link href="/" className={styles.logoMedium}>
+              <Logo size="md" animated></Logo>
+            </Link>
 
             {/* Social Links */}
             <div className={styles.socialLinks}>
