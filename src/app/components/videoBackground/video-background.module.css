@@ -82,6 +82,10 @@
   overflow: hidden;
 }
 
+#iframe {
+  transition: all 2000ms ease-in-out;
+}
+
 .videoEmbedObjectFitCover > iframe {
   position: absolute;
   /* keep video centered both vertically and horizontally */

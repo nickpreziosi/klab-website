@@ -26,24 +26,6 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
     }
   }, [isInView]);
 
-  const containerVariants = {
-    hidden: {
-      opacity: 0,
-      filter: "blur(10px)",
-      y: 40,
-    },
-    visible: {
-      opacity: 1,
-      filter: "blur(0px)",
-      y: 0,
-      transition: {
-        duration: 1,
-        ease: [0.25, 0.4, 0.25, 1],
-        delay: 0.4,
-      },
-    },
-  };
-
   return (
     <motion.div
       ref={ref}
@@ -53,11 +35,13 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
           opacity: 0,
           filter: "blur(10px)",
           y: 40,
+          boxShadow: "none",
         },
         visible: {
           opacity: 1,
           filter: "blur(0px)",
           y: 0,
+          boxShadow: "var(--shadow-black)",
           transition: {
             duration: 1,
             ease: [0.25, 0.4, 0.25, 1],

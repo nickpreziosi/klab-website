@@ -14,7 +14,6 @@
   aspect-ratio: 16 / 9;
   cursor: pointer;
   transition: transform 0.3s ease;
-  box-shadow: var(--shadow-black);
   background-color: transparent;
 }
 
@@ -23,6 +22,7 @@
   height: auto;
   aspect-ratio: 16/9;
   border-radius: 12px;
+  background-color: rgba(var(--main-color-rgb));
 }
 
 .poster {

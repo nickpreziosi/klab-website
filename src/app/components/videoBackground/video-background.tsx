@@ -126,7 +126,7 @@ export default function VideoPlayer({
         className={styles.videoEmbedObjectFitCover}
         initial={{ opacity: 0 }}
         animate={{ opacity: iframeVisible ? 1 : 0 }}
-        transition={{ duration: fadeDurationMs / 1000, ease: "easeInOut" }}
+        transition={{ duration: 0.75, ease: "easeInOut" }}
         aria-hidden={!iframeVisible}
       />
 
@@ -135,7 +135,7 @@ export default function VideoPlayer({
         className={`${styles.poster} ${visible ? styles.posterEnter : ""}`}
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: isLoaded ? 0 : 1, y: visible ? 0 : 8 }}
-        transition={{ duration: fadeDurationMs / 1000, ease: "easeInOut" }}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
       >
         <Image
           fetchPriority="high"
