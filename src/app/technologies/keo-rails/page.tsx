@@ -1,3 +1,4 @@
+import KeoRailsVideoPlayer from "@/app/components/keoRailsVideoPlayer/keo-rails-video-player";
 import KeoRailsHero from "../../components/keoRailsHero/keo-rails-hero";
 import styles from "./page.module.css";
 
@@ -14,6 +15,7 @@ export default function KeoRailsPage() {
         {/* You can insert custom HTML, iframe, or other content here */}
         {/* For now, it will use the placeholder content */}
       </KeoRailsHero>
+      <KeoRailsVideoPlayer></KeoRailsVideoPlayer>
     </main>
   );
 }

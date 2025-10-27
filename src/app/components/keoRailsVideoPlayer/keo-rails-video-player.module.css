@@ -1,6 +1,8 @@
 .container {
   width: 100%;
   max-width: 1440px;
+  padding: 0 var(--padding-desktop);
+  margin: 0 auto;
   box-shadow: var(--shadow-black);
   border-radius: var(--rounded-sm);
 }
@@ -8,7 +10,6 @@
 .videoWrapper {
   position: relative;
   width: 100%;
-  max-width: 1440px;
   border-radius: 16px;
   overflow: hidden;
   aspect-ratio: 16 / 9;
@@ -69,14 +70,24 @@
   transition: all 0.3s ease-in-out;
 }
 
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 var(--padding-tablet);
+  }
+}
+
 @media (max-width: 768px) {
   .playButton {
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
   }
 
   .playIcon {
-    width: 24px;
-    height: 24px;
+    width: 64px;
+    height: 64px;
+  }
+
+  .container {
+    padding: var(--padding-mobile) 0;
   }
 }

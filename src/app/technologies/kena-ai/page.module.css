@@ -3,9 +3,8 @@
 }
 
 .container {
-  max-width: 1440px;
-  min-width: 100%;
-  padding: var(--padding-desktop);
+  width: 100%;
+  padding: var(--padding-desktop) 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,12 +14,12 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .container {
-    padding: var(--padding-tablet);
+    padding: var(--padding-tablet) 0;
   }
 }
 
 @media (max-width: 768px) {
   .container {
-    padding: var(--padding-mobile);
+    padding: var(--padding-mobile) 0;
   }
 }
