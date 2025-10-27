@@ -117,11 +117,7 @@ export default function NotFound() {
             transition={{ delay: 0.5, duration: 0.3 }}
           >
             <button onClick={handleGoBack} className={styles.backButton}>
-              <motion.span
-                className={styles.buttonSpan}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <motion.span className={styles.buttonSpan}>
                 <svg
                   width="20"
                   height="20"
@@ -149,11 +145,7 @@ export default function NotFound() {
               transition={{ delay: 0.35 }}
             >
               <Link href="/" className={styles.button}>
-                <motion.span
-                  className={styles.buttonSpan}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
+                <motion.span className={styles.buttonSpan}>
                   <svg
                     width="20"
                     height="20"
