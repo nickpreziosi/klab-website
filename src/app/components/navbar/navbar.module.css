@@ -13,8 +13,10 @@
 .container {
   top: 0;
   position: fixed;
-  display: block;
-  padding: 0 var(--padding-desktop);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   font-family: "Poppins", sans-serif;
   z-index: 10;
@@ -48,8 +50,10 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding: 0 var(--padding-desktop);
   height: var(--navbar-height) !important;
   z-index: 1001;
+  max-width: 1440px !important;
 }
 
 .logoContainer {
@@ -141,6 +145,12 @@
   position: relative;
 }
 
+.dropdownContainer {
+  width: 100%;
+  padding: 0 var(--padding-desktop);
+  max-width: 1440px;
+}
+
 @media only screen and (max-width: 1024px) {
   .navList {
     display: none;
@@ -148,7 +158,7 @@
   .drawerContainer {
     display: flex;
   }
-  .container {
+  .navbar {
     padding: 0 var(--padding-tablet);
   }
 }
@@ -160,7 +170,7 @@
   .drawerContainer {
     display: flex;
   }
-  .container {
+  .navbar {
     padding: 0 var(--padding-mobile);
   }
 }

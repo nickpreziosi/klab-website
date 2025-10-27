@@ -45,14 +45,14 @@
 
 /* Tooltip Styles */
 .tooltipContent {
-  background: var(--main-color-60);
+  background: var(--main-color);
   backdrop-filter: blur(10px);
   color: var(--primary-white);
   padding: 0.5rem 1rem;
   border-radius: 12px;
   font-size: 0.875rem;
   font-weight: 500;
-  border: 2px solid rgba(var(--primary-white-rgb), 0.3);
+  border: 1px solid rgba(var(--accent-color-rgb), 0.3);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   z-index: 1001;
   animation: slideIn 100ms ease-out;
@@ -60,7 +60,7 @@
 
 .tooltipArrow {
   fill: var(--main-color);
-  filter: drop-shadow(0 0 2px var(--primary-white));
+  filter: drop-shadow(0 0 1px var(--accent-color));
   clip-path: inset(0 -2px -2px -2px);
   width: 16px;
   height: 8px;

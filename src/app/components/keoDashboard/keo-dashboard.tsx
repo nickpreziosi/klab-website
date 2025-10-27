@@ -5,7 +5,7 @@ import styles from "./keo-dashboard.module.css";
 
 export default function KeoDashboard() {
   return (
-    <div aria-hidden="true" className={styles.dashboard}>
+    <div inert aria-hidden="true" className={styles.dashboard}>
       {/* Sidebar */}
       <aside className={styles.sidebar}>
         <div className={styles.logo}>

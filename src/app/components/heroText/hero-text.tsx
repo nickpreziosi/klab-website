@@ -125,7 +125,7 @@ export default function HeroText({
               filter: "blur(0px)",
               y: 0,
               transition: {
-                delay: 0.8,
+                delay: 0.6,
                 duration: 0.8,
                 ease: [0.16, 1, 0.3, 1],
               },

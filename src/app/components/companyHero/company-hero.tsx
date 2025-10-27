@@ -22,9 +22,9 @@ export const CompanyHero = () => {
             size="8xl"
             heading="We are KEO."
             align="left"
-            subtitle="Founded in 2020, KEO helps buyers and suppliers accelerate business
+            subtitle="Founded in 2020, KEO World helps buyers and suppliers accelerate business
             growth through all-digital inventory financing and B2B payment
-            solutions. Headquartered in Miami, Florida, KEO operates in the
+            solutions. Headquartered in Miami, Florida, KEO World operates in the
             U.S., Canada and across LATAM."
             animateOnce={true}
           />

@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { ContactLink } from "../components/contactLink/contact-link";
 import styles from "./page.module.css";
 import SectionHeader from "../components/sectionHeader/section-header";

@@ -129,6 +129,7 @@ export default function TimelineCarousel() {
     align: "start",
     slidesToScroll: 1,
     skipSnaps: false,
+    dragFree: true,
   });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);

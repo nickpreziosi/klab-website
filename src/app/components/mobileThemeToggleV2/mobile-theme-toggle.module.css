@@ -46,7 +46,7 @@
 
 .triggerLabel {
   font-size: var(--text-md);
-  font-weight: var(--font-semibold);
+  font-weight: 400;
   color: rgba(var(--primary-white-rgb), 1);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -71,7 +71,7 @@
 
 .currentThemeLabel {
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 400;
   color: rgb(var(--accent-color-rgb));
 }
 
@@ -110,7 +110,7 @@
   border-radius: 0.5rem;
   color: rgba(var(--primary-white-rgb), 1);
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 400;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -149,7 +149,7 @@
 }
 
 .edit {
-  font-weight: var(--font-semibold);
+  font-weight: 400;
   font-size: var(--text-md);
   color: var(--primary-white);
 }
@@ -163,9 +163,7 @@
   }
 
   .edit {
-    font-weight: var(--font-semibold);
     font-size: var(--text-md);
-    color: var(--primary-white);
   }
 }
 

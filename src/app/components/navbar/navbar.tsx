@@ -27,10 +27,11 @@ export const NavigationMenuDemo = () => {
         setIsAtTop(elementTop >= 0);
       }
     };
-
+    window.addEventListener("load", handleScroll);
     window.addEventListener("scroll", handleScroll);
 
     return () => {
+      window.removeEventListener("load", handleScroll);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []); // Empty dependency array ensures the effect runs once on mount
@@ -249,7 +250,7 @@ export const NavigationMenuDemo = () => {
             </div>
           </div>
 
-          <div ref={dropdownContainerRef}>
+          <div className={styles.dropdownContainer} ref={dropdownContainerRef}>
             <DesktopDropdown
               isOpen={dropdownOpen}
               onClose={() => setDropdownOpen(false)}

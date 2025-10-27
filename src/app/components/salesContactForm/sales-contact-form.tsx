@@ -108,7 +108,7 @@ export function SalesContactForm() {
     >
       <div className={styles.headingContainer}>
         <HeroText
-          text="Share a few details and we'll get in touch"
+          text="Share a few details and we'll get in touch!"
           center={true}
         ></HeroText>
       </div>

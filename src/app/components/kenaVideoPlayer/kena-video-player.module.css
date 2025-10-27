@@ -2,6 +2,8 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  box-shadow: var(--shadow-black);
+  border-radius: var(--rounded-sm);
 }
 
 .videoWrapper {
