@@ -37,7 +37,7 @@ export default function HeroText({
   // Split text into words for staggered animation
   const words = text.split(" ");
 
-  const ButtonComponent = buttonHref ? motion(Link) : motion.button;
+  const ButtonComponent = buttonHref ? motion.create(Link) : motion.button;
 
   return (
     <div className={`${styles.mainTextContainer} ${className}`}>

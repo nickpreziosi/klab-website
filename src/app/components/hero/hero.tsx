@@ -31,8 +31,6 @@ export const Hero = () => {
   return (
     <section className={styles.hero}>
       <div className={styles.content}>
-        <LoadingProgressBar></LoadingProgressBar>
-        <div className={styles.overlay} aria-hidden></div>
         <div className={styles.mainContainer}>
           <HeroText
             text="Empowering the Future of Financial Infrastructure"
