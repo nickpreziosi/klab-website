@@ -390,7 +390,7 @@
 }
 
 .emailInput:focus .subscribeButton {
-  outline: 2px solid var(--secondary-color);
+  border-color: rgba(var(--secondary-color-rgb), 0.8);
 }
 
 .emailInput::placeholder {
@@ -412,10 +412,6 @@
   flex: 0;
 }
 
-.subscribeButton:hover {
-  background-color: rgba(var(--secondary-color-rgb), 0.8);
-}
-
 /* Links Grid */
 .linksGrid {
   display: grid;
@@ -434,10 +430,6 @@
   gap: 16px;
   transition: all 0.3s ease;
   box-shadow: var(--shadow-black);
-}
-
-.linkCard:hover {
-  transform: translateY(-2px);
 }
 
 .linkCardTitle {
@@ -519,10 +511,6 @@
   color: var(--secondary-color);
   text-decoration: underline;
   transition: color 0.2s ease;
-}
-
-.legalLink:hover {
-  color: var(--accent-color);
 }
 
 /* Responsive Design */
@@ -630,5 +618,21 @@
   }
   .socialContainer {
     align-items: center;
+  }
+  .newsletterContent {
+    justify-content: center;
+  }
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .subscribeButton:hover {
+    background-color: rgba(var(--secondary-color-rgb), 0.8);
+  }
+  .linkCard:hover {
+    transform: translateY(-2px);
+  }
+  .legalLink:hover {
+    color: var(--accent-color);
   }
 }

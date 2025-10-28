@@ -19,6 +19,7 @@
     "@radix-ui/react-scroll-area": "^1.2.10",
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-visually-hidden": "^1.2.3",
+    "@svgr/webpack": "^8.1.0",
     "@vimeo/player": "^2.30.0",
     "embla-carousel-react": "^8.6.0",
     "motion": "^12.23.24",
@@ -29,6 +30,7 @@
     "react-dom": "19.1.0",
     "react-hook-form": "^7.65.0",
     "recharts": "^3.3.0",
+    "svgo": "^4.0.0",
     "zod": "^4.1.12"
   },
   "devDependencies": {

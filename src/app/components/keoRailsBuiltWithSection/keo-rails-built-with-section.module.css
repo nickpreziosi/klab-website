@@ -1,0 +1,132 @@
+.section {
+  width: 100%;
+  padding: var(--padding-desktop) 0;
+  position: relative;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.headingContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  font-size: 72px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--secondary-color);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.logosContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.logoWrapper {
+  width: 100%;
+  height: 160px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(var(--secondary-color-rgb), 0.03);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.1);
+  border-radius: 8px;
+  padding: var(--padding-mobile);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+
+.logoImage {
+  fill: rgba(var(--secondary-color-rgb), 1);
+  color: rgba(var(--secondary-color-rgb), 1);
+  width: 100%;
+  height: auto;
+}
+
+.logoImage path {
+  fill: rgba(var(--secondary-color-rgb), 1);
+  color: rgba(var(--secondary-color-rgb), 1);
+  width: 100%;
+  height: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .heading {
+    font-size: 56px;
+    text-align: center;
+  }
+
+  .logosContainer {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 0;
+  }
+
+  .container {
+    padding: 0 24px;
+  }
+
+  .heading {
+    font-size: 48px;
+  }
+
+  .logosContainer {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .logoWrapper {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 60px 0;
+  }
+
+  .heading {
+    font-size: 36px;
+  }
+
+  .logosContainer {
+    gap: 32px;
+  }
+}

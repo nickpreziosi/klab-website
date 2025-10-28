@@ -1,6 +1,8 @@
+import KeoCardsSection from "@/app/components/keoCardsSection/keo-cards-section";
 import KeoRailsHero from "../../components/keoRailsHero/keo-rails-hero";
 import styles from "./page.module.css";
 import VideoPlayer from "@/app/components/VideoPlayer/video-player";
+import KeoRailsBuiltWithSection from "@/app/components/keoRailsBuiltWithSection/keo-rails-built-with-section";
 
 export default function KeoRailsPage() {
   return (
@@ -19,6 +21,8 @@ export default function KeoRailsPage() {
         posterUrl="/kena-video.jpg"
         videoUrl="https://player.vimeo.com/video/1119375393?badge=0&amp;autoplay=1&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
       ></VideoPlayer>{" "}
+      <KeoCardsSection></KeoCardsSection>
+      <KeoRailsBuiltWithSection></KeoRailsBuiltWithSection>
     </main>
   );
 }
