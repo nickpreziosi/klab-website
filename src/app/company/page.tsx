@@ -89,8 +89,8 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
+      <CompanyHero></CompanyHero>
       <main className={styles.main}>
-        <CompanyHero></CompanyHero>
         <TimelineCarousel></TimelineCarousel>
         <CompanyVideo></CompanyVideo>
         <CompanyCulture></CompanyCulture>
