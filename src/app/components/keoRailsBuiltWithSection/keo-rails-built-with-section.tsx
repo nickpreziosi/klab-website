@@ -211,7 +211,7 @@ export default function KeoRailsBuiltWithSection() {
             </div>
 
             <div className={styles.logoWrapper}>
-              <Link href="https://www.circle.com/" className={styles.logo}>
+              <Link href="https://algorand.co/" className={styles.logo}>
                 <AlgorandLogo className={styles.logoImage} />
               </Link>
             </div>
