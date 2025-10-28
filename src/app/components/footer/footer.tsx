@@ -4,14 +4,30 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./footer.module.css";
 import { Logo } from "../logo/logo";
-import { Separator } from "radix-ui";
+import * as Form from "@radix-ui/react-form";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { motion } from "motion/react";
+import { useState } from "react";
+import Button from "../ui/button/button";
 
 export const Footer = () => {
+  const [email, setEmail] = useState("");
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle subscription logic here
+    console.log("Subscribe:", email);
+    setEmail("");
+  };
+
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
+    { href: "/technologies/keo-rails", label: "Keo Rails" },
+    { href: "/technologies/kena-ai", label: "Kena AI" },
     { href: "/company", label: "Company" },
     { href: "/contact", label: "Contact" },
+    { href: "/careers", label: "Careers" },
   ];
 
   const privacyLinks = [
@@ -122,139 +138,357 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className={styles.footer}>
-      <div className={styles.container}>
-        {/* Top Section: Logo, Nav Links, Awards */}
-        <div className={styles.topSection}>
-          {/* Logo Section */}
-          <div className={styles.logoSection}>
-            <Link href="/" className={styles.logoLarge}>
-              <Logo size="lg" animated></Logo>
-            </Link>
-            <Link href="/" className={styles.logoMedium}>
-              <Logo size="md" animated></Logo>
-            </Link>
+    <>
+      <footer className={styles.footer}>
+        <div className={styles.container}>
+          {/* Newsletter Section */}
+          <div className={styles.newsletter}>
+            <div className={styles.newsletterContent}>
+              <Image
+                src="/keo-logo.png"
+                alt="KEO Logo"
+                width={80}
+                height={80}
+                className={styles.logo}
+              />
+              <div className={styles.newsletterText}>
+                <h2 className={styles.newsletterHeading}>Stay in the loop</h2>
+                <p className={styles.newsletterSubheading}>
+                  Subscribe for KEO updates.
+                </p>
+              </div>
+            </div>
+            <form onSubmit={handleSubscribe} className={styles.subscribeForm}>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="yourname@arcnetwork.com"
+                className={styles.emailInput}
+                required
+              />
+              <button type="submit" className={styles.subscribeButton}>
+                Subscribe
+              </button>
+            </form>
+          </div>
 
-            {/* Social Links */}
-            <div className={styles.socialLinks}>
-              {socialLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.socialLink}
-                  aria-label={link.name}
-                >
-                  {link.icon}
-                </a>
-              ))}
+          {/* Links Section */}
+          <div className={styles.linksGrid}>
+            <div className={styles.linkCard}>
+              <h3 className={styles.linkCardTitle}>Join the community</h3>
+              <p className={styles.linkCardDescription}>
+                Be part of the financial technology revolution. Collaborate,
+                share ideas, and connect with others who are reshaping how
+                liquidity moves.
+              </p>
+              <Button
+                text="Join Now"
+                variant="outline"
+                href="/community"
+                iconPosition="end"
+                icon={
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                }
+              ></Button>
+            </div>
+
+            <div className={styles.linkCard}>
+              <h3 className={styles.linkCardTitle}>General communication</h3>
+              <p className={styles.linkCardDescription}>
+                Have questions about KEO or our solutions? Our team is ready to
+                help you find the right product or partnership.
+              </p>
+              <Button
+                text="Contact Us"
+                variant="outline"
+                href="/contact"
+                iconPosition="end"
+                icon={
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                }
+              ></Button>
+            </div>
+
+            <div className={styles.linkCard}>
+              <h3 className={styles.linkCardTitle}>Documentation</h3>
+              <p className={styles.linkCardDescription}>
+                Explore our API docs, integration guides, and compliance
+                framework. Everything you need to build on top of KEO&apos;s
+                technology.
+              </p>
+              <Button
+                text="View Docs"
+                variant="outline"
+                href="https://docs.keorails.com/"
+                iconPosition="end"
+                icon={
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                }
+              ></Button>
+            </div>
+
+            <div className={styles.linkCard}>
+              <h3 className={styles.linkCardTitle}>Developers</h3>
+              <p className={styles.linkCardDescription}>
+                Access SDKs, tools, and technical resources to accelerate your
+                integrations.
+              </p>
+              <Button
+                text="Start Building"
+                variant="outline"
+                href="https://docs.keorails.com/"
+                iconPosition="end"
+                icon={
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                }
+              ></Button>
             </div>
           </div>
 
-          {/* Navigation Links */}
-          <nav className={styles.navSection}>
-            <h3 className={styles.sectionTitle}>Quick Links</h3>
-            <ul className={styles.navList}>
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className={styles.navLink}>
+          <div className={styles.nav}>
+            <div className={styles.navContainer}>
+              <h3 className={styles.navTitle}>Quick Links</h3>
+              <nav className={styles.navLinks}>
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={styles.navLink}
+                  >
                     {link.label}
                   </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+                ))}
+              </nav>
+            </div>
 
-          {/* Awards Section */}
-          <div className={styles.awardsSection}>
-            <h3 className={styles.sectionTitle}>Awards & Recognition</h3>
-            <div className={styles.awardsGrid}>
-              <Image
-                src="/winner-bold-award.png"
-                alt="Winner Bold Award"
-                width={120}
-                height={80}
-                className={styles.awardImage}
-              />
+            <div className={styles.socialContainer}>
+              <h3 className={styles.navTitle}>Follow Us On Social</h3>
+              <div className={styles.socialLinks}>
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.socialLink}
+                    aria-label={link.name}
+                  >
+                    {link.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
 
-              <Image
-                src="/global-finance-award.png"
-                alt="Global Finance KEO Award"
-                width={120}
-                height={80}
-                className={styles.awardImage}
-              />
-              <Image
-                src="/best-tech-award.png"
-                alt="Best Tech KEO Award"
-                width={120}
-                height={80}
-                className={styles.awardImage}
-              />
+          {/* Legal Section */}
+          <div className={styles.legal}>
+            <p className={styles.copyright}>
+              © 2025 KEO World, Inc. All rights reserved.
+            </p>
+            <p className={styles.legalText}>
+              Use of this site constitutes acceptance of KEO&apos;s Privacy and
+              Data Protection Policy.
+            </p>
+            <p className={styles.legalText}>
+              KEO World, Inc. and its affiliates collect and process personal
+              data in accordance with applicable privacy laws. For questions,
+              contact{" "}
+              <a
+                href="mailto:privacyprotection@keoworld.com"
+                className={styles.legalLink}
+              >
+                privacyprotection@keoworld.com
+              </a>
+            </p>
+          </div>
+        </div>
+      </footer>
+
+      {/* OLD FOOTER CODE
+      <footer className={styles.footer}>
+        <div className={styles.container}>
+          <div className={styles.topSection}>
+
+            <div className={styles.logoSection}>
+              <Link href="/" className={styles.logoMedium}>
+                <Logo size="md" animated></Logo>
+              </Link>
+
+
+              <div className={styles.socialLinks}>
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.socialLink}
+                    aria-label={link.name}
+                  >
+                    {link.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+
+            <nav className={styles.navSection}>
+              <h3 className={styles.sectionTitle}>Quick Links</h3>
+              <ul className={styles.navList}>
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className={styles.navLink}>
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+
+            <div className={styles.awardsSection}>
+              <h3 className={styles.sectionTitle}>Awards & Recognition</h3>
+              <div className={styles.awardsGrid}>
+                <Image
+                  src="/winner-bold-award.png"
+                  alt="Winner Bold Award"
+                  width={120}
+                  height={80}
+                  className={styles.awardImage}
+                />
+
+                <Image
+                  src="/global-finance-award.png"
+                  alt="Global Finance KEO Award"
+                  width={120}
+                  height={80}
+                  className={styles.awardImage}
+                />
+                <Image
+                  src="/best-tech-award.png"
+                  alt="Best Tech KEO Award"
+                  width={120}
+                  height={80}
+                  className={styles.awardImage}
+                />
+              </div>
+            </div>
+          </div>
+
+
+          <div className={styles.divider} />
+
+
+          <div className={styles.legalSection}>
+            <div className={styles.legalText}>
+              <p className={styles.disclaimer}>
+                *The entities belonging to KEO World that operated in Mexico
+                called KEO WORLD MEXICO S. de R.L de C.V. y KEO WORLD S.A. de
+                C.V. SOFOM E.N.R. are not entities authorized to operate as
+                Financial Technology Institutions (Instituciones de Tecnología
+                Financiera) under the terms of the Mexican Law that regulates
+                Financial Technology Institutions (Ley para regular las
+                Instituciones de Tecnología Financiera), nor do they carry out
+                operations reserved for said Financial Technology Institutions
+                under the terms of the aforementioned Law.
+              </p>
+              <p className={styles.disclaimer}>
+                American Express® is a brand of American Express. The Workeo
+                American Express® Card is issued by KEO under license from
+                American Express.
+              </p>
+              <div className={styles.privacyPolicies}>
+                <span className={styles.privacyLabel}>Privacy Policies:</span>
+                {privacyLinks.map((link, index) => (
+                  <span key={link.href}>
+                    <Link href={link.href} className={styles.privacyLink}>
+                      {link.label}
+                    </Link>
+                    {index < privacyLinks.length - 1 && " • "}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.addresses}>
+              <p className={styles.address}>
+                <strong>KEO WORLD INC</strong> • 328 NW 29th St. Miami, Florida
+                33127
+              </p>
+              <p className={styles.address}>
+                <strong>KEO Mexico</strong> • Blvd. Miguel de Cervantes Saavedra
+                193, Piso 6, Colonia Granada, Delegación Miguel Hidalgo, 11520
+                Ciudad de México, CDMX
+              </p>
+              <p className={styles.address}>
+                <strong>KEO Brazil Tecnologia LTDA</strong> • R. Elvira Ferraz,
+                250 9o Andar Conj 911 e 912- Vila Olímpia São Paulo - SP,
+                04552-040
+              </p>
+            </div>
+
+            <div className={styles.copyright}>
+              <p>
+                © {new Date().getFullYear()} KEO World Inc. All rights reserved.
+              </p>
             </div>
           </div>
         </div>
-
-        {/* Divider */}
-        <div className={styles.divider} />
-
-        {/* Legal Section */}
-        <div className={styles.legalSection}>
-          <div className={styles.legalText}>
-            <p className={styles.disclaimer}>
-              *The entities belonging to KEO World that operated in Mexico
-              called KEO WORLD MEXICO S. de R.L de C.V. y KEO WORLD S.A. de C.V.
-              SOFOM E.N.R. are not entities authorized to operate as Financial
-              Technology Institutions (Instituciones de Tecnología Financiera)
-              under the terms of the Mexican Law that regulates Financial
-              Technology Institutions (Ley para regular las Instituciones de
-              Tecnología Financiera), nor do they carry out operations reserved
-              for said Financial Technology Institutions under the terms of the
-              aforementioned Law.
-            </p>
-            <p className={styles.disclaimer}>
-              American Express® is a brand of American Express. The Workeo
-              American Express® Card is issued by KEO under license from
-              American Express.
-            </p>
-            <div className={styles.privacyPolicies}>
-              <span className={styles.privacyLabel}>Privacy Policies:</span>
-              {privacyLinks.map((link, index) => (
-                <span key={link.href}>
-                  <Link href={link.href} className={styles.privacyLink}>
-                    {link.label}
-                  </Link>
-                  {index < privacyLinks.length - 1 && " • "}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className={styles.addresses}>
-            <p className={styles.address}>
-              <strong>KEO WORLD INC</strong> • 328 NW 29th St. Miami, Florida
-              33127
-            </p>
-            <p className={styles.address}>
-              <strong>KEO Mexico</strong> • Blvd. Miguel de Cervantes Saavedra
-              193, Piso 6, Colonia Granada, Delegación Miguel Hidalgo, 11520
-              Ciudad de México, CDMX
-            </p>
-            <p className={styles.address}>
-              <strong>KEO Brazil Tecnologia LTDA</strong> • R. Elvira Ferraz,
-              250 9o Andar Conj 911 e 912- Vila Olímpia São Paulo - SP,
-              04552-040
-            </p>
-          </div>
-
-          <div className={styles.copyright}>
-            <p>
-              © {new Date().getFullYear()} KEO World Inc. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
+      </footer>
+      */}
+    </>
   );
 };

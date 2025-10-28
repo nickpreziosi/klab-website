@@ -16,7 +16,7 @@
   width: 56px;
   height: 56px;
   border-radius: 12px;
-  background-color: rgba(var(--main-color-rgb), 0.1);
+  background: rgba(var(--secondary-color-rgb), 0.05);
   border: 1px solid rgba(var(--secondary-color-rgb), 0.1);
   display: flex;
   align-items: center;
@@ -64,19 +64,11 @@
     background-color: rgba(var(--secondary-color-rgb), 0.04);
     box-shadow: 0 8px 32px rgba(255, 0, 76, 0.1);
   }
-  .card:hover .iconWrapper {
-    background-color: rgba(255, 0, 76, 0.1);
-    border-color: rgba(255, 0, 76, 0.3);
-  }
-  .card:hover .icon {
-    color: var(--accent-color);
-  }
   .button:hover {
     background-color: rgba(255, 0, 76, 0.15);
     border-color: var(--accent-color);
     box-shadow: 0 0 20px rgba(255, 0, 76, 0.2);
   }
-
   .button:hover .arrow {
     transform: translateX(4px);
     color: var(--accent-color);

@@ -41,7 +41,7 @@ export default function CompanyCulture() {
           <Button
             href="/careers"
             text="KEO Careers"
-            variant="full"
+            variant="outline"
             iconPosition="end"
             icon={
               <svg

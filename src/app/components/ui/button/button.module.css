@@ -48,9 +48,9 @@
     transform: translateX(2px);
   }
   .buttonFull:hover {
-    background-color: rgba(var(--secondary-color-rgb), 0.75);
+    background-color: rgba(var(--secondary-color-rgb), 0.8);
   }
   .buttonOutline:hover {
-    background-color: rgba(var(--secondary-color-rgb), 0.2);
+    background-color: rgba(var(--secondary-color-rgb), 0.1);
   }
 }

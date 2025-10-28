@@ -38,7 +38,7 @@ export function ContactLink({
       <Button
         href={href}
         text={buttonText}
-        variant="full"
+        variant="outline"
         iconPosition="end"
         icon={
           <svg
