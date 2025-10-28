@@ -6,6 +6,10 @@
   border-radius: var(--rounded-sm);
 }
 
+.container #video {
+  scroll-margin-top: 50px; /* Adjust the value to your header's height */
+}
+
 .videoWrapper {
   position: relative;
   width: 100%;

@@ -52,7 +52,7 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
       initial="hidden"
       animate={shouldAnimate ? "visible" : "hidden"}
     >
-      <div className={styles.videoWrapper}>
+      <div id="video" className={styles.videoWrapper}>
         <AnimatePresence>
           {!isClicked && (
             <motion.div

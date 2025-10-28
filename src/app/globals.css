@@ -125,6 +125,14 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
 }
+html {
+  scroll-behavior: smooth;
+}
+#video {
+  scroll-margin-top: var(
+    --navbar-height
+  ); /* Adjust the value to your header's height */
+}
 
 html * {
   font-display: swap;

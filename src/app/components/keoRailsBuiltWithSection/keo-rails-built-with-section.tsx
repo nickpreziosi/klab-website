@@ -93,7 +93,7 @@ const AlgorandLogo = (props: LogoProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlSpace="preserve"
-    viewBox="0 0 1500 650"
+    viewBox="160 160 1140 320"
     fill={props.fill}
     {...props}
   >
@@ -178,11 +178,7 @@ export default function KeoRailsBuiltWithSection() {
               },
             }}
           >
-            <h2 className={styles.heading}>
-              Built With
-              <br />
-              The Best
-            </h2>
+            <h2 className={styles.heading}>Built With The Best</h2>
           </motion.div>
 
           <motion.div

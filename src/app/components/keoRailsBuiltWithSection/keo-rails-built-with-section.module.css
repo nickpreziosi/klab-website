@@ -12,7 +12,7 @@
 
 .content {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 2.2fr;
   gap: 80px;
   align-items: center;
 }
@@ -23,19 +23,19 @@
 }
 
 .heading {
-  font-size: 72px;
-  font-weight: 600;
-  line-height: 1.1;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 76px;
+  letter-spacing: -1.5%;
   color: var(--secondary-color);
   margin: 0;
-  letter-spacing: -0.02em;
 }
 
 .logosContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 60px;
+  gap: var(--padding-tablet);
 }
 
 .logoWrapper {
@@ -58,11 +58,6 @@
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.logo:hover {
-  transform: scale(1.05);
-  opacity: 0.8;
-}
-
 .logoImage {
   fill: rgba(var(--secondary-color-rgb), 1);
   color: rgba(var(--secondary-color-rgb), 1);
@@ -78,29 +73,24 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
   .content {
     grid-template-columns: 1fr;
-    gap: 60px;
+    gap: var(--padding-tablet);
   }
-
   .heading {
     font-size: 56px;
     text-align: center;
-  }
-
-  .logosContainer {
-    gap: 40px;
   }
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 80px 0;
+    padding: 0;
   }
 
   .container {
-    padding: 0 24px;
+    padding: 0;
   }
 
   .heading {
@@ -109,24 +99,33 @@
 
   .logosContainer {
     flex-direction: column;
-    gap: 40px;
+    gap: var(--padding-mobile);
   }
 
   .logoWrapper {
     width: 100%;
+    height: 240px;
   }
 }
 
 @media (max-width: 480px) {
   .section {
-    padding: 60px 0;
+    padding: 0;
   }
 
   .heading {
     font-size: 36px;
   }
+  .logoWrapper {
+    width: 100%;
+    height: 200px;
+  }
+}
 
-  .logosContainer {
-    gap: 32px;
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .logo:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
   }
 }
