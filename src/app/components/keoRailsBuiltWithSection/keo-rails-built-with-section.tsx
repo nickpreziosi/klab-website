@@ -201,19 +201,31 @@ export default function KeoRailsBuiltWithSection() {
             }}
           >
             <div className={styles.logoWrapper}>
-              <Link href="https://www.circle.com/" className={styles.logo}>
+              <Link
+                aria-label="Go to Circle's website"
+                href="https://www.circle.com/"
+                className={styles.logo}
+              >
                 <CircleLogo className={styles.logoImage} />
               </Link>
             </div>
 
             <div className={styles.logoWrapper}>
-              <Link href="https://algorand.co/" className={styles.logo}>
+              <Link
+                aria-label="Go to Algorand's website"
+                href="https://algorand.co/"
+                className={styles.logo}
+              >
                 <AlgorandLogo className={styles.logoImage} />
               </Link>
             </div>
 
             <div className={styles.logoWrapper}>
-              <Link href="https://www.stablecorp.com/" className={styles.logo}>
+              <Link
+                aria-label="Go to Stablecorp's website"
+                href="https://www.stablecorp.com/"
+                className={styles.logo}
+              >
                 <StablecorpLogo className={styles.logoImage} />
               </Link>
             </div>

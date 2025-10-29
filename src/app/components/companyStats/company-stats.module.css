@@ -1,6 +1,17 @@
+.statsContainer {
+  width: 100%;
+  background-color: rgba(var(--secondary-color-rgb), 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .statsSection {
   position: relative;
   width: 100%;
+  max-width: 1440px;
+  padding: var(--padding-desktop);
 }
 
 .statsTitle {
@@ -92,9 +103,17 @@
   .statsGrid {
     grid-template-columns: 1fr 1fr;
   }
+
+  .statsSection {
+    padding: var(--padding-tablet);
+  }
 }
 
 @media (max-width: 768px) {
+  .statsSection {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+
   .statsTitle {
     font-size: 2rem;
     text-align: center;

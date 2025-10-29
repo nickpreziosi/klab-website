@@ -1,0 +1,149 @@
+.section {
+  background-color: var(--main-color);
+  padding: 120px 0;
+  position: relative;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.topHeading {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.mainHeading {
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.heading {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.description {
+  font-size: 1.125rem;
+  color: var(--secondary-color);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 36px;
+  background-color: var(--secondary-color);
+  color: var(--main-color);
+  font-size: 1.125rem;
+  font-weight: 500;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: fit-content;
+  margin-top: 20px;
+}
+
+.ctaButton:hover {
+  background-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(233, 30, 99, 0.3);
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.ctaButton:hover .arrow {
+  transform: translateX(4px);
+}
+
+.rightColumn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .mainHeading {
+    font-size: 2.5rem;
+  }
+
+  .heading {
+    font-size: 2rem;
+  }
+
+  .content {
+    gap: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 0;
+  }
+
+  .container {
+    padding: 0 24px;
+  }
+
+  .topHeading {
+    margin-bottom: 60px;
+  }
+
+  .mainHeading {
+    font-size: 2rem;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .leftColumn {
+    gap: 40px;
+  }
+
+  .heading {
+    font-size: 1.75rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .ctaButton {
+    padding: 16px 32px;
+    font-size: 1rem;
+  }
+}

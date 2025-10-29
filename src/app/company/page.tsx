@@ -2,10 +2,10 @@ import styles from "./page.module.css";
 import { StaffCard } from "../components/staffCard/staff-card";
 import { CompanyHero } from "../components/companyHero/company-hero";
 import TimelineCarousel from "../components/timeline-carousel/timeline-carousel";
-import { CompanyVideo } from "../components/companyVideo/company-video";
 import CompanyStats from "../components/companyStats/company-stats";
 import CompanyCulture from "../components/companyCulture/company-culture";
 import SectionHeader from "../components/sectionHeader/section-header";
+import CompanyVideoSection from "../components/companyVideoSection/company-video-section";
 
 export default function Home() {
   const employees = [
@@ -92,30 +92,32 @@ export default function Home() {
       <CompanyHero></CompanyHero>
       <main className={styles.main}>
         <TimelineCarousel></TimelineCarousel>
-        <CompanyVideo></CompanyVideo>
+        <CompanyVideoSection></CompanyVideoSection>
         <CompanyCulture></CompanyCulture>
         <CompanyStats></CompanyStats>
-        <section className={styles.staffSection}>
-          <SectionHeader
-            heading="Leadership Team"
-            align="left"
-            animateOnce={true}
-          />
-          <div className={styles.cardGrid}>
-            {employees.map((employee) => (
-              <StaffCard
-                key={employee.email}
-                name={employee.name}
-                position={employee.position}
-                bio={employee.bio}
-                image={employee.image}
-                linkedin={employee.linkedin}
-                email={employee.email}
-                x={employee.x}
-              ></StaffCard>
-            ))}
-          </div>
-        </section>
+        <div className={styles.staffContainer}>
+          <section className={styles.staffSection}>
+            <SectionHeader
+              heading="Leadership Team"
+              align="left"
+              animateOnce={true}
+            />
+            <div className={styles.cardGrid}>
+              {employees.map((employee) => (
+                <StaffCard
+                  key={employee.email}
+                  name={employee.name}
+                  position={employee.position}
+                  bio={employee.bio}
+                  image={employee.image}
+                  linkedin={employee.linkedin}
+                  email={employee.email}
+                  x={employee.x}
+                ></StaffCard>
+              ))}
+            </div>
+          </section>
+        </div>
       </main>
     </div>
   );

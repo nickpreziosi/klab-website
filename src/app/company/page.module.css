@@ -5,15 +5,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-    180deg,
-    var(--main-color) 0%,
-    rgba(var(--secondary-color-rgb), 0.025) 20%,
-    rgba(var(--secondary-color-rgb), 0.05) 40%,
-    rgba(var(--secondary-color-rgb), 0.075) 70%,
-    rgba(var(--secondary-color-rgb), 0.1) 80%,
-    rgba(var(--secondary-color-rgb), 0.1) 100%
-  );
 }
 
 .main {
@@ -23,8 +14,25 @@
   align-items: center;
   height: fit-content;
   width: 100%;
-  max-width: 1440px;
-  padding: 0 var(--padding-desktop) var(--padding-desktop);
+  padding: 0;
+}
+
+.staffContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    180deg,
+    rgba(var(--secondary-color-rgb), 0.1) 0%,
+    rgba(var(--secondary-color-rgb), 0.1) 5%,
+    rgba(var(--main-color-rgb), 0.2) 20%,
+    rgba(var(--main-color-rgb), 0.5) 70%,
+    rgba(var(--main-color-rgb), 0.7) 80%,
+    rgba(var(--main-color-rgb), 1) 100%
+  );
 }
 
 .cardGrid {
@@ -49,10 +57,11 @@
 .staffSection {
   color: var(--secondary-color);
   width: 100%;
+  max-width: 1440px;
   height: fit-content;
   display: flex;
   flex-direction: column;
-  padding-top: var(--padding-desktop);
+  padding: var(--padding-desktop);
 }
 
 @media (max-width: 1280px) {
@@ -62,11 +71,8 @@
 }
 
 @media (max-width: 1024px) {
-  .main {
-    padding: 0 var(--padding-tablet) var(--padding-tablet);
-  }
   .staffSection {
-    padding-top: var(--padding-tablet);
+    padding: var(--padding-tablet);
   }
   .staffSection h1 {
     font-size: var(--text-4xl);
@@ -76,11 +82,23 @@
 }
 
 @media (max-width: 769px) {
+  .staffSection {
+    padding: var(--padding-tablet);
+  }
   .cardGrid {
     grid-template-columns: 1fr;
     gap: var(--gap-md);
   }
-  .main {
-    padding: 0 var(--padding-mobile) var(--padding-mobile);
+  .staffSection > div > h2 {
+    margin-left: calc(-1 * var(--padding-mobile));
+  }
+}
+
+@media (max-width: 500px) {
+  .staffSection {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+  .staffSection > div > h2 {
+    margin-left: 0;
   }
 }

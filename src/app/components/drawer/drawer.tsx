@@ -62,7 +62,7 @@ export const Drawer = () => {
               >
                 <div className={styles.drawerHeader}>
                   <Link href="/" onClick={() => setIsOpen(false)}>
-                    <Logo size="sm" animated="constant"></Logo>
+                    <Logo size="sm" animated></Logo>
                   </Link>
 
                   <Dialog.Close asChild>

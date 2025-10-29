@@ -6,10 +6,6 @@
   border-radius: var(--rounded-sm);
 }
 
-.container #video {
-  scroll-margin-top: 50px; /* Adjust the value to your header's height */
-}
-
 .videoWrapper {
   position: relative;
   width: 100%;
@@ -52,7 +48,6 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .playIcon path {
@@ -71,18 +66,12 @@
 
 /* Limit Hover Effects to Non Touch Devices */
 @media (pointer: fine) and (hover: hover) {
-  .playButton:hover {
-    transform: translate(-50%, -50%) scale(1.05);
-  }
   .playButton:hover .playIcon {
-    transform: scale(1.05);
+    transform: scale(1.1);
   }
 
   .playButton:hover .playIcon {
     box-shadow: var(--shadow-black);
-  }
-  .playButton:hover .playIcon path {
-    fill: rgba(var(--accent-color-rgb), 0.7);
   }
 }
 

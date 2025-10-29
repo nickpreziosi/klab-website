@@ -144,13 +144,9 @@ export const Footer = () => {
           {/* Newsletter Section */}
           <div className={styles.newsletter}>
             <div className={styles.newsletterContent}>
-              <Image
-                src="/keo-logo.png"
-                alt="KEO Logo"
-                width={80}
-                height={80}
-                className={styles.logo}
-              />
+              <Link href="/" aria-label="KEO Home">
+                <Logo size="md" animated></Logo>
+              </Link>
               <div className={styles.newsletterText}>
                 <h2 className={styles.newsletterHeading}>Stay in the loop</h2>
                 <p className={styles.newsletterSubheading}>
@@ -163,7 +159,7 @@ export const Footer = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="yourname@arcnetwork.com"
+                placeholder="email@keoworld.com"
                 className={styles.emailInput}
                 required
               />

@@ -1,0 +1,566 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 20px; /* Increased padding to accommodate floating icons */
+  background: var(--background);
+  position: relative;
+  min-height: 800px; /* Added min-height to ensure enough space */
+  pointer-events: none;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none;
+}
+
+/* Added floating icons styles */
+.floatingIcons {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Repositioned icons further from phone to avoid overlap */
+.floatingIcon {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  z-index: 4; /* Increased z-index to ensure visibility */
+}
+
+.iconLeft {
+  left: -40%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.iconBottom {
+  bottom: -5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.iconRight {
+  right: -40%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.iconCircle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(
+    --main-color
+  ); /* Changed to use main-color for better contrast */
+  border: 2px solid rgba(var(--main-color-rgb) 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--secondary-color);
+  opacity: 0.5; /* Increased from 0.4 for better visibility */
+  transition: all 0.4s ease;
+}
+
+.iconActive .iconCircle {
+  opacity: 1;
+  background: #ff0055;
+  color: white;
+  border-color: #ff0055;
+  box-shadow: 0 0 30px rgba(255, 0, 85, 0.6), 0 0 60px rgba(255, 0, 85, 0.3); /* Increased glow intensity */
+  transform: scale(1.15); /* Increased scale for more emphasis */
+}
+
+.iconLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--secondary-color);
+  opacity: 0.5; /* Increased from 0.4 for better visibility */
+  transition: opacity 0.3s ease;
+}
+
+.iconActive .iconLabel {
+  opacity: 1;
+  color: #ff0055;
+}
+
+/* Updated curved path sizing and positioning for proper alignment */
+.curvedPath {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.iconLeft .curvedPath {
+  left: 80px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.iconBottom .curvedPath {
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.iconRight .curvedPath {
+  right: 80px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.phoneFrame {
+  position: relative;
+  width: 375px;
+  height: 812px;
+  transform: scale(0.8);
+  background: #1a1a1a;
+  border-radius: 50px;
+  padding: 12px;
+  box-shadow: 0 0 0 2px #2a2a2a, 0 20px 60px rgba(0, 0, 0, 0.3),
+    0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 5; /* Added z-index to ensure phone is above paths */
+}
+
+.phoneNotch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 30px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 6;
+}
+
+.phoneScreen {
+  width: 100%;
+  height: 100%;
+  background: #f7f9fc;
+  border-radius: 40px;
+  overflow: hidden;
+  position: relative;
+}
+
+.screenWrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #f7f9fc;
+}
+
+/* Header */
+.header {
+  background: #2b4a6f;
+  padding: 50px 20px 30px;
+  border-radius: 0 0 30px 30px;
+}
+
+.headerContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.headerTitle {
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.headerSubtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  margin: 0;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Credit Card */
+.creditCard {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.creditLabel {
+  color: #9ba6ad;
+  font-size: 14px;
+  margin: 0 0 8px 0;
+}
+
+.creditAmount {
+  color: #000a1e;
+  font-size: 48px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+}
+
+.creditAmount span {
+  font-size: 32px;
+}
+
+.creditDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.creditRow {
+  display: flex;
+  justify-content: space-between;
+  color: #9ba6ad;
+  font-size: 14px;
+}
+
+.creditValue {
+  color: #000a1e;
+  font-weight: 600;
+}
+
+/* Balance Card */
+.balanceCard {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.balanceLabel {
+  color: #9ba6ad;
+  font-size: 14px;
+  margin: 0 0 8px 0;
+}
+
+.balanceAmount {
+  color: #000a1e;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Buttons */
+.buttonGroup {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.actionButton {
+  flex: 1;
+  background: #ff0055;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.actionButton span {
+  font-size: 20px;
+}
+
+/* Invoice List */
+.invoiceList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.invoiceItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.invoiceNumber {
+  color: #000a1e;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.invoiceSupplier {
+  color: #9ba6ad;
+  font-size: 12px;
+  margin: 0;
+}
+
+.invoiceRight {
+  text-align: right;
+}
+
+.invoiceAmount {
+  color: #000a1e;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.invoiceDate {
+  color: #ff0055;
+  font-size: 12px;
+  margin: 0;
+}
+
+/* Invoices Screen */
+.invoiceHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  color: #000a1e;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #000a1e;
+}
+
+.toggleSwitch {
+  width: 44px;
+  height: 24px;
+  background: #ff0055;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggleThumb {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+
+.largeInvoiceCard {
+  background: white;
+  border-radius: 16px;
+  padding: 40px 24px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.largeInvoiceNumber {
+  color: #000a1e;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 40px 0;
+}
+
+.invoiceInfo {
+  display: flex;
+  justify-content: space-between;
+  color: #9ba6ad;
+  font-size: 14px;
+}
+
+.sendPaymentButton {
+  width: 100%;
+  background: #ff0055;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Details Screen */
+.approvedBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+  color: #2bb161;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.checkIcon {
+  width: 28px;
+  height: 28px;
+  background: #2bb161;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.detailsCard {
+  background: white;
+  border-radius: 16px;
+  padding: 40px 24px;
+}
+
+.detailsInvoiceNumber {
+  color: #000a1e;
+  font-size: 48px;
+  font-weight: 700;
+  margin: 0 0 40px 0;
+  text-align: center;
+}
+
+.detailsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detailLabel {
+  color: #9ba6ad;
+  font-size: 14px;
+}
+
+.detailValue {
+  color: #000a1e;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Bottom Navigation */
+.bottomNav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: white;
+  border-top: 1px solid #e3e3e3;
+  padding: 12px 0;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #9ba6ad;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.navItemActive {
+  color: #ff0055;
+}
+
+.navItemActive svg {
+  stroke: #ff0055;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 80px 20px; /* Adjusted padding for mobile */
+    min-height: 900px;
+  }
+
+  .phoneFrame {
+    width: 320px;
+    height: 693px;
+    border-radius: 40px;
+    padding: 10px;
+  }
+
+  .phoneNotch {
+    width: 120px;
+    height: 25px;
+  }
+
+  .phoneScreen {
+    border-radius: 32px;
+  }
+
+  /* Adjusted mobile positioning for better spacing */
+  .iconLeft {
+    left: 5%;
+  }
+
+  .iconBottom {
+    bottom: 5%;
+  }
+
+  .iconRight {
+    right: 5%;
+  }
+
+  .iconCircle {
+    width: 60px;
+    height: 60px;
+  }
+
+  .iconCircle svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .iconLabel {
+    font-size: 12px;
+  }
+
+  .curvedPath {
+    width: 250px;
+    height: 250px;
+  }
+
+  .iconLeft .curvedPath {
+    left: 60px;
+  }
+
+  .iconBottom .curvedPath {
+    bottom: 60px;
+  }
+
+  .iconRight .curvedPath {
+    right: 60px;
+  }
+}

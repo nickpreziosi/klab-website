@@ -1,0 +1,331 @@
+.section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(var(--secondary-color-rgb), 0.05);
+  position: relative;
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  padding: var(--padding-desktop);
+}
+
+/* Top Section - Two Column Layout */
+.topSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 500px;
+  margin-bottom: 120px;
+  align-items: center;
+  box-shadow: var(--shadow-black);
+  border-radius: 20px;
+}
+
+/* Left Column - Text Content */
+.textColumn {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  padding: var(--padding-tablet);
+  gap: 24px;
+  background: linear-gradient(
+    -90deg,
+    rgba(var(--secondary-color-rgb), 0.02) 0%,
+    rgba(var(--secondary-color-rgb), 0.01) 20%,
+    rgba(var(--main-color-rgb), 0.5) 40%,
+    rgba(var(--main-color-rgb), 1) 70%,
+    rgba(var(--main-color-rgb), 1) 80%,
+    rgba(var(--main-color-rgb), 1) 100%
+  );
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.label {
+  color: var(--secondary-color);
+  font-family: Poppins;
+  font-weight: 300;
+  font-style: Light;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: 0%;
+}
+
+.heading {
+  color: var(--secondary-color);
+  margin: 0;
+  font-weight: 400;
+  font-size: 52px;
+  line-height: 62px;
+  letter-spacing: -1.5%;
+}
+
+/* Right Column - Video Player */
+.videoColumn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(var(--main-color-rgb), 0.5);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.videoCard {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.videoContainer {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.thumbnailImage {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.videoThumbnail {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.keoLogo {
+  position: absolute;
+  font-size: 120px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.15);
+  user-select: none;
+  pointer-events: none;
+}
+
+.playButton {
+  position: relative;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  background: transparent;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+}
+
+.playIcon {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+  color: rgba(250, 250, 250, 0.7);
+}
+
+/* Bottom Section - Centered Text */
+.bottomSection {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.bottomHeading {
+  color: var(--secondary-color);
+  margin: 0 0 24px 0;
+  font-weight: 400;
+  font-size: 52px;
+  line-height: 62px;
+  letter-spacing: -1.5%;
+  text-align: center;
+}
+
+.bottomDescription {
+  color: var(--secondary-color);
+  margin: 0;
+  font-weight: 300;
+  font-style: Light;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.5%;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .topSection {
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 80px;
+  }
+
+  .heading {
+    font-size: 48px;
+  }
+
+  .bottomHeading {
+    font-size: 40px;
+  }
+
+  .keoLogo {
+    font-size: 80px;
+  }
+  .container {
+    padding: var(--padding-tablet);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+
+  .heading {
+    font-size: 24px;
+  }
+
+  .bottomHeading {
+    font-size: 32px;
+  }
+
+  .bottomDescription {
+    font-size: 16px;
+  }
+
+  .videoCard {
+    padding: 24px;
+  }
+
+  .keoLogo {
+    font-size: 60px;
+  }
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .playIcon:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-black);
+  }
+}
+
+.dialogOverlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  position: fixed;
+  inset: 0;
+  animation: overlayShow 300ms ease-in-out;
+  z-index: 1000;
+}
+
+.dialogContent {
+  background-color: transparent;
+  border-radius: 12px;
+  box-shadow: var(--shadow-black);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: auto;
+  max-height: 100vh;
+  aspect-ratio: 16 / 9;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1001;
+  object-fit: contain;
+  padding: var(--padding-tablet);
+}
+.dialogContent:focus {
+  outline: none;
+}
+
+.dialogTitle {
+  margin: 0;
+  font-weight: 500;
+  color: white;
+  font-size: 17px;
+}
+
+.dialogDescription {
+  margin: 10px 0 20px;
+  color: white;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  background-color: transparent;
+}
+
+.videoEmbed {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  background-color: transparent;
+}
+
+.dialogCloseButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
