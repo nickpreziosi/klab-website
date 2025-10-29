@@ -179,6 +179,8 @@ export const Footer = () => {
                 liquidity moves.
               </p>
               <Button
+                size="sm"
+                fontWeight={300}
                 text="Join Now"
                 variant="outline"
                 href="/community"
@@ -209,6 +211,8 @@ export const Footer = () => {
                 help you find the right product or partnership.
               </p>
               <Button
+                size="sm"
+                fontWeight={300}
                 text="Contact Us"
                 variant="outline"
                 href="/contact"
@@ -240,6 +244,8 @@ export const Footer = () => {
                 technology.
               </p>
               <Button
+                size="sm"
+                fontWeight={300}
                 text="View Docs"
                 variant="outline"
                 href="https://docs.keorails.com/"
@@ -270,6 +276,8 @@ export const Footer = () => {
                 integrations.
               </p>
               <Button
+                size="sm"
+                fontWeight={300}
                 text="Start Building"
                 variant="outline"
                 href="https://docs.keorails.com/"

@@ -48,6 +48,25 @@
   border-bottom-left-radius: 20px;
 }
 
+/* Left Column - Text Content */
+.textColumnMobile {
+  height: 100%;
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: var(--padding-desktop) var(--padding-mobile) var(--padding-tablet)
+    var(--padding-mobile);
+  gap: var(--gap-xl);
+  color: rgba(var(--secondary-color-rgb), 1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .label {
   color: var(--secondary-color);
   font-family: Poppins;
@@ -69,7 +88,7 @@
 
 /* Right Column - Video Player */
 .videoColumn {
-  width: 100%;
+  width: 100% !important;
   height: 100%;
   display: flex;
   align-items: center;
@@ -81,14 +100,14 @@
 
 .videoCard {
   position: relative;
-  width: 100%;
+  width: 100% !important;
   height: 100%;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
 }
 
 .videoContainer {
-  width: 100%;
+  width: 100% !important;
   height: 100%;
   overflow: hidden;
   border-top-right-radius: 20px;
@@ -148,7 +167,7 @@
   background-color: transparent;
   border-radius: 50%;
   transition: all 0.3s ease-in-out;
-  color: rgba(250, 250, 250, 0.7);
+  color: rgba(var(--secondary-color-rgb), 0.7);
 }
 
 /* Bottom Section - Centered Text */
@@ -179,6 +198,132 @@
   text-align: center;
 }
 
+.dialogOverlay {
+  backdrop-filter: blur(8px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  inset: 0;
+  animation: overlayShow 300ms ease-in-out;
+  z-index: 1000;
+}
+
+.dialogContainer {
+  /* center children inside the container */
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 1001;
+  border-radius: 12px;
+}
+
+.dialogContent {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  border-radius: 12px;
+  width: 100%;
+  object-fit: contain;
+  height: auto;
+  aspect-ratio: 16/9;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1001;
+}
+
+/* Animate open/close using Radix data-state attribute so we get a proper exit animation */
+.dialogContent[data-state="open"] {
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dialogContent[data-state="closed"] {
+  animation: contentHide 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dialogContent:focus {
+  outline: none;
+}
+
+.dialogTitle {
+  margin: 0;
+  font-weight: 500;
+  color: white;
+  font-size: 17px;
+}
+
+.dialogDescription {
+  margin: 10px 0 20px;
+  color: white;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.videoEmbed {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  background-color: transparent;
+  /* ensure the embed fills the dialog and uses cover behavior */
+  object-fit: cover;
+}
+
+.dialogCloseButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(var(--accent-color-rgb), 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 150ms ease, opacity 150ms ease, box-shadow 150ms ease;
+}
+
+.dialogCloseButton:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-black);
+}
+
+.srOnly {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translateY(-2%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .topSection {
@@ -200,6 +345,17 @@
   .container {
     padding: var(--padding-tablet);
   }
+
+  /* tablet: use tablet padding around the dialog */
+  .dialogContainer {
+    padding: 0 !important;
+    width: 100vw !important;
+  }
+
+  .dialogContent {
+    max-width: calc(100vw - 0px);
+    max-height: calc(100vh - 0px) !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -208,7 +364,14 @@
   }
 
   .heading {
-    font-size: 24px;
+    font-size: 52px;
+    line-height: 58px;
+  }
+
+  .label {
+    color: var(--secondary-color);
+    font-weight: 400;
+    font-size: 28px;
   }
 
   .bottomHeading {
@@ -219,12 +382,56 @@
     font-size: 16px;
   }
 
-  .videoCard {
-    padding: 24px;
-  }
-
   .keoLogo {
     font-size: 60px;
+  }
+
+  .topSection {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: auto;
+    width: 100%;
+    aspect-ratio: 1/1;
+  }
+
+  /* Left Column - Text Content */
+  .textColumn {
+    display: none;
+  }
+
+  .textColumnMobile {
+    display: flex;
+  }
+
+  .videoContainer,
+  .thumbnailImage,
+  .videoThumbnail {
+    border-radius: 20px;
+  }
+
+  /* mobile: remove dialog padding so dialog can use full viewport */
+  .dialogContainer {
+    padding: 0 !important;
+  }
+
+  .dialogContent {
+    max-width: calc(100vw - 0px);
+    max-height: calc(100vh - 0px) !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .textColumnMobile {
+    padding: var(--padding-tablet) var(--padding-mobile) var(--padding-mobile);
+    gap: var(--gap-xl);
+  }
+
+  .heading {
+    font-size: 30px;
+    line-height: 42px;
+  }
+  .label {
+    font-size: 20px;
   }
 }
 
@@ -234,98 +441,4 @@
     transform: scale(1.1);
     box-shadow: var(--shadow-black);
   }
-}
-
-.dialogOverlay {
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
-  position: fixed;
-  inset: 0;
-  animation: overlayShow 300ms ease-in-out;
-  z-index: 1000;
-}
-
-.dialogContent {
-  background-color: transparent;
-  border-radius: 12px;
-  box-shadow: var(--shadow-black);
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: auto;
-  max-height: 100vh;
-  aspect-ratio: 16 / 9;
-  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 1001;
-  object-fit: contain;
-  padding: var(--padding-tablet);
-}
-.dialogContent:focus {
-  outline: none;
-}
-
-.dialogTitle {
-  margin: 0;
-  font-weight: 500;
-  color: white;
-  font-size: 17px;
-}
-
-.dialogDescription {
-  margin: 10px 0 20px;
-  color: white;
-  font-size: 15px;
-  line-height: 1.5;
-}
-
-@keyframes overlayShow {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes contentShow {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -48%) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-.videoWrapper {
-  position: relative;
-  width: 100%;
-  border-radius: 12px;
-  overflow: hidden;
-  aspect-ratio: 16 / 9;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  background-color: transparent;
-}
-
-.videoEmbed {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 16/9;
-  border-radius: 12px;
-  background-color: transparent;
-}
-
-.dialogCloseButton {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
 }

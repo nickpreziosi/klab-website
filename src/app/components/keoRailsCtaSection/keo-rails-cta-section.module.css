@@ -1,12 +1,17 @@
 .section {
-  position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
-  max-width: 1440px;
-  margin: 0;
   width: 100%;
+  max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-desktop);
 }
 
 .content {
@@ -44,8 +49,15 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .container {
+    padding: var(--padding-tablet);
+  }
+}
+
 @media (max-width: 768px) {
-  .section {
+  .container {
+    padding: var(--padding-tablet) var(--padding-mobile);
   }
 
   .heading {

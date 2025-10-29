@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import styles from "./company-video-section.module.css";
 import Image from "next/image";
-import { Dialog } from "radix-ui";
+import { AspectRatio, Dialog } from "radix-ui";
+import { useEffect, useRef, useState } from "react";
 
 interface CompanyVideoSectionProps {
   label?: string;
@@ -16,7 +17,7 @@ interface CompanyVideoSectionProps {
 }
 
 const DialogDemo = () => (
-  <Dialog.Root modal={true}>
+  <Dialog.Root>
     <Dialog.Trigger asChild>
       <button className={styles.playButton} aria-label="Play video">
         <svg
@@ -101,6 +102,16 @@ export default function CompanyVideoSection({
           >
             <div className={styles.videoCard}>
               <div className={styles.videoContainer}>
+                <motion.div
+                  className={styles.textColumnMobile}
+                  initial={{ opacity: 0, filter: "blur(10px)" }}
+                  whileInView={{ opacity: 1, filter: "blur(0px)" }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                >
+                  <p className={styles.label}>{label}</p>
+                  <h2 className={styles.heading}>{heading}</h2>
+                </motion.div>
                 <Image
                   className={styles.thumbnailImage}
                   src="/keo-video.jpg"

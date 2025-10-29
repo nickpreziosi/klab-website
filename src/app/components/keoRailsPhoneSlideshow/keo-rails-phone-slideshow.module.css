@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 120px 20px; /* Increased padding to accommodate floating icons */
+  padding: 0 var(--padding-mobile);
   background: var(--background);
   position: relative;
   min-height: 800px; /* Added min-height to ensure enough space */
@@ -242,21 +242,26 @@
 .balanceCard {
   background: white;
   border-radius: 16px;
-  padding: 24px;
+  padding: 24px 40px;
   margin-bottom: 16px;
 }
 
 .balanceLabel {
   color: #9ba6ad;
-  font-size: 14px;
   margin: 0 0 8px 0;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0.8px;
 }
 
 .balanceAmount {
   color: #000a1e;
-  font-size: 36px;
-  font-weight: 700;
   margin: 0;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 125%;
+  letter-spacing: 0.8px;
 }
 
 /* Buttons */
@@ -273,13 +278,15 @@
   border: none;
   border-radius: 50px;
   padding: 16px;
-  font-size: 16px;
-  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0.8px;
 }
 
 .actionButton span {

@@ -129,9 +129,7 @@ html {
   scroll-behavior: smooth;
 }
 #video {
-  scroll-margin-top: var(
-    --navbar-height
-  ); /* Adjust the value to your header's height */
+  scroll-margin-top: var(--navbar-height);
 }
 
 html * {

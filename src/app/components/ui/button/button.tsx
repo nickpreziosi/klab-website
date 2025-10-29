@@ -2,6 +2,8 @@ import styles from "./button.module.css";
 import Link from "next/link";
 
 interface ButtonProps {
+  size?: "sm" | "md" | "lg";
+  fontWeight?: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
   icon?: React.ReactNode;
   iconPosition?: "start" | "end";
   href?: string;
@@ -11,6 +13,8 @@ interface ButtonProps {
 }
 
 export default function ButtonPlayer({
+  size,
+  fontWeight,
   icon,
   iconPosition = "start",
   href,
@@ -22,11 +26,15 @@ export default function ButtonPlayer({
     <>
       {href && (
         <Link
+          style={{ fontWeight: fontWeight ? fontWeight : 400 }}
           href={href}
           className={`${styles.button} ${
             styles[
               `button${variant.charAt(0).toUpperCase() + variant.slice(1)}`
             ]
+          } ${
+            size &&
+            styles[`button${size.charAt(0).toUpperCase() + size.slice(1)}`]
           } ${iconPosition === "start" ? styles.iconStart : styles.iconEnd}`}
         >
           {icon && iconPosition === "start" && icon}
@@ -41,6 +49,9 @@ export default function ButtonPlayer({
             styles[
               `button${variant.charAt(0).toUpperCase() + variant.slice(1)}`
             ]
+          } ${
+            size &&
+            styles[`button${size.charAt(0).toUpperCase() + size.slice(1)}`]
           } ${iconPosition === "start" ? styles.iconStart : styles.iconEnd}`}
         >
           {icon && iconPosition === "start" && icon}

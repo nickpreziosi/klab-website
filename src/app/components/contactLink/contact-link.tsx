@@ -29,8 +29,6 @@ export function ContactLink({
       transition={{ duration: 0.2 }}
       whileHover={{ y: -4 }}
     >
-      <div className={styles.iconWrapper}>{icon}</div>
-
       <h3 className={styles.title}>{title}</h3>
 
       <p className={styles.description}>{description}</p>
@@ -40,6 +38,8 @@ export function ContactLink({
         text={buttonText}
         variant="outline"
         iconPosition="end"
+        size="sm"
+        fontWeight={300}
         icon={
           <svg
             width="20"

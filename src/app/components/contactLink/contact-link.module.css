@@ -30,12 +30,13 @@
 }
 
 .title {
-  font-family: var(--font-sans), sans-serif;
-  font-size: 1.75rem;
-  font-weight: 400;
   color: var(--secondary-color);
   margin: 0;
-  letter-spacing: -0.01em;
+  font-weight: 500;
+  font-style: Bold;
+  font-size: 20px;
+  line-height: 22px;
+  letter-spacing: 0%;
 }
 
 .description {
@@ -46,6 +47,9 @@
   margin: 0;
   flex-grow: 1;
   font-weight: 300;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0%;
 }
 
 .iconWrapper > svg > path,

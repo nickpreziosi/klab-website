@@ -8,8 +8,10 @@ import { DesktopDropdown } from "../dropdownMenu/dropdownMenu";
 import { Logo } from "../logo/logo";
 import { Separator } from "radix-ui";
 import { ThemeToggle } from "../themeToggle/theme-toggle";
+import { usePathname } from "next/navigation";
 
 export const NavigationMenuDemo = () => {
+  const path = usePathname();
   const [isAtTop, setIsAtTop] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const spacerRef = useRef<HTMLDivElement>(null);
@@ -90,12 +92,18 @@ export const NavigationMenuDemo = () => {
     };
   }, [dropdownOpen]);
 
+  console.log("Path:", path);
+
   return (
     <>
       <div ref={spacerRef} className={styles.spacer}>
         <nav
           style={{
             height: "auto",
+            background:
+              path === "/" && isAtTop
+                ? "transparent"
+                : "rgba(var(--main-color-rgb), 0.7)",
             borderBottom:
               dropdownOpen || !isAtTop
                 ? "solid 1px rgba(255, 255, 255, 0.2)"

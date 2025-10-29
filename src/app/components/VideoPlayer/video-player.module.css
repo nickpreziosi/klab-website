@@ -91,9 +91,4 @@
     width: 80px;
     height: 80px;
   }
-
-  .container {
-    width: 100vw !important;
-    margin: calc(-1 * var(--padding-mobile));
-  }
 }

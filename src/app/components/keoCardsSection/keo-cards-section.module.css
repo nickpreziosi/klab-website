@@ -1,13 +1,27 @@
 .section {
   width: 100%;
-  padding: 120px 0;
   background-color: var(--main-color);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--secondary-color-rgb), 0.1) 0%,
+    rgba(var(--secondary-color-rgb), 0.1) 20%,
+    rgba(var(--main-color-rgb), 0.2) 40%,
+    rgba(var(--main-color-rgb), 0.5) 70%,
+    rgba(var(--main-color-rgb), 0.7) 80%,
+    rgba(var(--main-color-rgb), 1) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
+  width: 100%;
   max-width: 1440px;
   display: flex;
   flex-direction: column;
+  padding: var(--padding-desktop);
 }
 
 .featuresGrid {
@@ -57,8 +71,8 @@
 
 /* Tablet */
 @media (max-width: 1024px) {
-  .section {
-    padding: var(--padding-tablet) 0;
+  .container {
+    padding: var(--padding-tablet);
   }
 
   .featuresGrid {
@@ -88,8 +102,8 @@
 
 /* Mobile */
 @media (max-width: 768px) {
-  .section {
-    padding: var(--padding-tablet) 0;
+  .container {
+    padding: var(--padding-tablet) var(--padding-mobile);
   }
   .featuresGrid {
     grid-template-columns: 1fr;

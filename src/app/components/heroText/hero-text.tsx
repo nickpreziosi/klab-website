@@ -139,6 +139,8 @@ export default function HeroText({
             href={buttonHref}
             variant="full"
             iconPosition="end"
+            size="md"
+            fontWeight={500}
             icon={
               <svg
                 width="20"

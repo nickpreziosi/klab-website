@@ -39,7 +39,9 @@ export default function CompanyCulture() {
             outside the box.
           </p>
           <Button
-            href="/careers"
+            size="md"
+            fontWeight={500}
+            href="https://www.linkedin.com/company/keoworld"
             text="KEO Careers"
             variant="outline"
             iconPosition="end"

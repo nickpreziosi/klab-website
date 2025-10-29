@@ -22,6 +22,7 @@
   z-index: 10;
   transition: all 300ms ease-in-out;
   border-bottom: 1px solid transparent;
+  background: rgba(var(--main-color-rgb), 0.75);
 }
 
 .containerDropdownOpen {

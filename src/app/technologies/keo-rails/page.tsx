@@ -19,14 +19,21 @@ export default function KeoRailsPage() {
         {/* You can insert custom HTML, iframe, or other content here */}
         {/* For now, it will use the placeholder content */}
       </KeoRailsHero>
-      <VideoPlayer
-        posterUrl="/kena-video.jpg"
-        videoUrl="https://player.vimeo.com/video/1119375393?badge=0&amp;autoplay=1&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-      ></VideoPlayer>{" "}
+      <div className={styles.videoSection} id="video">
+        <VideoPlayer
+          posterUrl="/kena-video.jpg"
+          videoUrl="https://player.vimeo.com/video/1119375393?badge=0&amp;autoplay=1&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        ></VideoPlayer>
+      </div>
+
       <KeoCardsSection></KeoCardsSection>
       <KeoRailsDemo></KeoRailsDemo>
-      <KeoRailsCtaSection></KeoRailsCtaSection>
-      <KeoRailsBuiltWithSection></KeoRailsBuiltWithSection>
+
+      <div className={styles.lastSectionWrapper}>
+        <KeoRailsBuiltWithSection></KeoRailsBuiltWithSection>
+
+        <KeoRailsCtaSection></KeoRailsCtaSection>
+      </div>
     </main>
   );
 }

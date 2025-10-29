@@ -34,7 +34,7 @@ export default function ContactPage() {
                 </svg>
               }
               title="Sales"
-              description="Speak to our sales team about plans, pricing, enterprise contracts, or request a demo."
+              description="Be part of the financial technology revolution. Collaborate, share ideas, and connect with others who are reshaping how liquidity moves."
               href="/contact/sales"
               buttonText="Talk to sales"
             />
@@ -55,8 +55,8 @@ export default function ContactPage() {
                   ></path>
                 </svg>
               }
-              title="Help & support"
-              description="Ask product questions, report problems, or leave feedback."
+              title="Help & Support"
+              description="Be part of the financial technology revolution. Collaborate, share ideas, and connect with others who are reshaping how liquidity moves."
               href="/contact/support"
               buttonText="Contact support"
             />

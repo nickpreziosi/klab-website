@@ -22,11 +22,11 @@
   background: linear-gradient(
     180deg,
     var(--main-color) 0%,
-    var(--main-color-85) 20%,
-    var(--main-color-75) 40%,
+    var(--main-color-85) 15%,
+    var(--main-color-75) 30%,
     var(--main-color-75) 70%,
-    var(--main-color-55) 80%,
-    var(--main-color) 100%
+    var(--main-color-75) 80%,
+    var(--main-color-75) 100%
   );
 }
 
