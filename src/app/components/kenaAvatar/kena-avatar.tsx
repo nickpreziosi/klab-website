@@ -6,10 +6,40 @@ import {
   Environment,
   useTexture,
   Decal,
+  useGLTF,
 } from "@react-three/drei";
 import { useRef, useState } from "react";
-import type * as THREE from "three";
+import * as THREE from "three";
 import styles from "./kena-avatar.module.css";
+
+function HolographicAvatar() {
+  const groupRef = useRef<THREE.Group>(null);
+
+  // Load the GLB model
+  const { scene } = useGLTF(
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Kena_meshy_4__1030184110_texture-0R1l9skXI9ChpuOLJmQccVx6XQM680.glb"
+  );
+
+  // Apply holographic material effects to all meshes in the model
+  scene.traverse((child) => {
+    if ((child as THREE.Mesh).isMesh) {
+      const mesh = child as THREE.Mesh;
+      if (mesh.material) {
+        const material = mesh.material as THREE.MeshStandardMaterial;
+        material.emissive = new THREE.Color("#00D9FF");
+        material.emissiveIntensity = 0.1;
+        material.metalness = 0.4;
+        material.roughness = 0.3;
+      }
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      <primitive object={scene} scale={2} position={[0, 0, 0]} />
+    </group>
+  );
+}
 
 function KeoSphere() {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -55,7 +85,7 @@ export function KenaAvatar({ className }: KenaAvatarProps) {
         <pointLight position={[-10, -10, -5]} intensity={0.5} color="#FF0055" />
 
         {/* 3D Scene */}
-        <KeoSphere />
+        <HolographicAvatar />
 
         {/* Environment for reflections */}
         <Environment preset="city" />
