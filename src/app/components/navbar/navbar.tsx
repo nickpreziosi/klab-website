@@ -101,7 +101,7 @@ export const NavigationMenuDemo = () => {
           style={{
             height: "auto",
             background:
-              path === "/" && isAtTop
+              path === "/" && isAtTop && !dropdownOpen
                 ? "transparent"
                 : "rgba(var(--main-color-rgb), 0.7)",
             borderBottom:

@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -7,25 +6,33 @@ import styles from "./hero-text.module.css";
 import Button from "../ui/button/button";
 
 interface HeroTextProps {
+  maxWidth?: string;
   text: string;
   subheader?: string;
   subtitle?: string;
   className?: string;
   buttonText?: string;
   buttonHref?: string;
+  buttonTwoText?: string;
+  buttonTwoHref?: string;
   center?: boolean;
   onButtonClick?: () => void;
+  onButtonTwoClick?: () => void;
 }
 
 export default function HeroText({
+  maxWidth,
   text,
   subheader,
   subtitle,
   className = "",
   buttonText,
   buttonHref,
+  buttonTwoText,
+  buttonTwoHref,
   center,
   onButtonClick,
+  onButtonTwoClick,
 }: HeroTextProps) {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -39,11 +46,19 @@ export default function HeroText({
   const words = text.split(" ");
 
   const ButtonComponent = buttonHref ? motion.create(Link) : motion.button;
+  const ButtonComponentTwo = buttonTwoHref
+    ? motion.create(Link)
+    : motion.button;
 
   return (
-    <div className={`${styles.mainTextContainer} ${className}`}>
+    <div
+      style={{ maxWidth: maxWidth ? maxWidth : "100%" }}
+      className={`${styles.mainTextContainer} ${className}`}
+    >
       <motion.h1
-        style={{ justifyContent: center ? "center" : "flex-start" }}
+        style={{
+          justifyContent: center ? "center" : "flex-start",
+        }}
         className={styles.mainHeading}
         variants={{
           hidden: { opacity: 0 },
@@ -112,6 +127,7 @@ export default function HeroText({
       )}
       {buttonText && (
         <motion.div
+          className={styles.buttonGroup}
           initial="hidden"
           animate={isLoaded ? "visible" : "hidden"}
           variants={{
@@ -133,6 +149,17 @@ export default function HeroText({
           onClick={onButtonClick}
           {...(buttonHref && { href: buttonHref })}
         >
+          {buttonTwoText && (
+            <Button
+              text={buttonTwoText}
+              onClick={onButtonTwoClick}
+              href={buttonTwoHref}
+              variant="outline"
+              iconPosition="end"
+              size="md"
+              fontWeight={500}
+            ></Button>
+          )}
           <Button
             text={buttonText}
             onClick={onButtonClick}

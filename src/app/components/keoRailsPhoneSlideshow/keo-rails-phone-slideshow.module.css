@@ -5,7 +5,7 @@
   padding: 0 var(--padding-mobile);
   background: var(--background);
   position: relative;
-  min-height: 800px; /* Added min-height to ensure enough space */
+  height: fit-content;
   pointer-events: none;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -32,7 +32,7 @@
 }
 
 .iconLeft {
-  left: -40%;
+  left: -30%;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -44,7 +44,7 @@
 }
 
 .iconRight {
-  right: -40%;
+  right: -30%;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -53,16 +53,19 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: var(
-    --main-color
-  ); /* Changed to use main-color for better contrast */
-  border: 2px solid rgba(var(--main-color-rgb) 0.1);
+  background: transparent;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--secondary-color);
   opacity: 0.5; /* Increased from 0.4 for better visibility */
   transition: all 0.4s ease;
+}
+
+.iconCircle svg {
+  width: 48px;
+  height: 48px;
 }
 
 .iconActive .iconCircle {
@@ -98,7 +101,7 @@
 }
 
 .iconLeft .curvedPath {
-  left: 80px;
+  left: 55px;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -110,7 +113,7 @@
 }
 
 .iconRight .curvedPath {
-  right: 80px;
+  right: 55px;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -120,6 +123,8 @@
   width: 375px;
   height: 812px;
   transform: scale(0.8);
+  transform-origin: top center;
+  align-self: flex-start;
   background: #1a1a1a;
   border-radius: 50px;
   padding: 12px;
@@ -166,13 +171,14 @@
 .header {
   background: #2b4a6f;
   padding: 50px 20px 30px;
-  border-radius: 0 0 30px 30px;
+  border-radius: 0;
 }
 
 .headerContent {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
+  color: white;
 }
 
 .headerTitle {
@@ -504,70 +510,50 @@
   stroke: #ff0055;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .container {
-    padding: 80px 20px; /* Adjusted padding for mobile */
-    min-height: 900px;
-  }
-
-  .phoneFrame {
-    width: 320px;
-    height: 693px;
-    border-radius: 40px;
-    padding: 10px;
-  }
-
-  .phoneNotch {
-    width: 120px;
-    height: 25px;
-  }
-
-  .phoneScreen {
-    border-radius: 32px;
-  }
-
-  /* Adjusted mobile positioning for better spacing */
+/* Responsive design */
+@media (max-width: 1024px) {
   .iconLeft {
-    left: 5%;
+    left: -30%;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .iconBottom {
-    bottom: 5%;
+    bottom: -5%;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .iconRight {
-    right: 5%;
+    right: -30%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+@media (max-width: 800px) {
+  .iconLeft {
+    display: none;
   }
 
-  .iconCircle {
-    width: 60px;
-    height: 60px;
+  .iconBottom {
+    display: none;
   }
 
-  .iconCircle svg {
-    width: 24px;
-    height: 24px;
+  .iconRight {
+    display: none;
   }
+}
 
-  .iconLabel {
-    font-size: 12px;
+@media (max-width: 769px) {
+  .phoneFrame {
+    margin-bottom: -100px;
   }
+}
 
-  .curvedPath {
-    width: 250px;
-    height: 250px;
-  }
-
-  .iconLeft .curvedPath {
-    left: 60px;
-  }
-
-  .iconBottom .curvedPath {
-    bottom: 60px;
-  }
-
-  .iconRight .curvedPath {
-    right: 60px;
+@media (max-width: 400px) {
+  .phoneFrame {
+    transform: scale(0.7);
+    max-width: 100%;
+    margin-bottom: -200px;
   }
 }

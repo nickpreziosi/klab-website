@@ -12,6 +12,8 @@ interface KeoRailsHeroProps {
   description: string;
   buttonText: string;
   buttonHref: string;
+  buttonTwoText?: string;
+  buttonTwoHref?: string;
   children?: ReactNode; // For the transformed content (HTML, iframe, etc.)
 }
 
@@ -22,17 +24,22 @@ export default function KeoRailsHero({
   buttonText,
   buttonHref,
   children,
+  buttonTwoText,
+  buttonTwoHref,
 }: KeoRailsHeroProps) {
   return (
     <section className={styles.heroSection}>
       <div className={styles.contentWrapper}>
         {/* Left side - Text content */}
         <HeroText
+          maxWidth="600px"
           text={heading}
           subtitle={description}
           subheader={subheading}
           buttonText={buttonText}
           buttonHref={buttonHref}
+          buttonTwoText={buttonTwoText}
+          buttonTwoHref={buttonTwoHref}
         ></HeroText>
 
         {/* Right side - 3D transformed content container */}

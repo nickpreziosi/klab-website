@@ -5,7 +5,8 @@
   justify-content: flex-start;
   align-items: flex-start;
   gap: var(--gap-md);
-  max-width: 645px;
+  width: 645px;
+  width: 100%;
   text-align: left;
 }
 
@@ -24,7 +25,8 @@
 
 /* Updated heading styles to match provided mainHeading */
 .mainHeading {
-  max-width: 600px;
+  width: 600px;
+  width: 100%;
   font-weight: 400;
   font-size: 52px;
   line-height: 62px;
@@ -75,6 +77,12 @@
   border: none;
   cursor: pointer;
   text-decoration: none;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
 }
 
 /* Limit Hover Effects to Non Touch Devices */
