@@ -1,0 +1,90 @@
+.container {
+  position: relative;
+  width: 100%;
+  /* Constrain the component so it never grows larger than this and scales down as the viewport shrinks */
+  /* Use viewport-relative maximum so small screens get a smaller cap (90vw) */
+  max-width: min(100%, 90vw);
+  /* Keep a consistent square area for the avatar; scales height based on width */
+  aspect-ratio: 1 / 1;
+  margin: 0 auto; /* center horizontally */
+  background: linear-gradient(135deg, var(--main-color) 0%, #1a2a3a 100%);
+  border-radius: 16px;
+  overflow: hidden;
+  object-fit: cover;
+  /* cap height so it doesn't overflow very short viewports */
+  max-height: min(80vh, 700px);
+  /* Prevent flex/grid parents from forcing it to expand; allow it to shrink below parent's min-width */
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  min-width: 0;
+  box-shadow: var(--shadow-black);
+}
+
+.canvas {
+  width: 100% !important;
+  height: 100% !important; /* fills the container determined by aspect-ratio */
+  display: block;
+  cursor: grab;
+  border-radius: 16px;
+}
+
+.canvas:active {
+  cursor: grabbing;
+}
+
+.instruction {
+  position: absolute;
+  /* keep instruction just above the bottom edge but responsive */
+  bottom: clamp(12px, 3vh, var(--padding-mobile));
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 16px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Added styles for rotation icon */
+.rotationIcon {
+  width: 24px;
+  height: 16px;
+  color: white;
+  animation: rotateIcon 2s ease-in-out infinite;
+}
+
+/* Added styles for 360° text */
+.degree {
+  font-weight: 600;
+  color: var(--accent-pink);
+}
+
+/* Added rotation animation for icon */
+@keyframes rotateIcon {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .instruction {
+    font-size: 12px;
+    bottom: 15px;
+    gap: 6px;
+  }
+
+  /* Smaller icon on mobile */
+  .rotationIcon {
+    width: 20px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+}

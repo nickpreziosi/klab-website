@@ -8,8 +8,6 @@ import VideoPlayer from "../VideoPlayer/video-player";
 export default function KenaHeroSection() {
   return (
     <section className={styles.section}>
-      <div className={styles.overlay} aria-hidden></div>
-
       <div className={styles.container}>
         {/* Top section with centered header */}
         <div className={styles.headerWrapper}>

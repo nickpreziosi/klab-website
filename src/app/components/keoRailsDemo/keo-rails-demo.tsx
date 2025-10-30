@@ -1,11 +1,19 @@
+"use client";
+
+import { motion } from "framer-motion";
 import styles from "./keo-rails-demo.module.css";
 import KeoRailsPhoneSlideshow from "../keoRailsPhoneSlideshow/keo-rails-phone-slideshow";
-import Link from "next/link";
 import Button from "../ui/button/button";
 
 export default function KeoRailsDemo() {
   return (
-    <section className={styles.section}>
+    <motion.section
+      className={styles.section}
+      initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
       <div className={styles.container}>
         {/* Top heading */}
         <div className={styles.topHeading}>
@@ -69,6 +77,6 @@ export default function KeoRailsDemo() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

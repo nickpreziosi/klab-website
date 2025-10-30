@@ -1,0 +1,114 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--secondary-color-rgb), 0.1) 0%,
+    rgba(var(--secondary-color-rgb), 0.1) 20%,
+    rgba(var(--main-color-rgb), 0.2) 40%,
+    rgba(var(--main-color-rgb), 0.5) 70%,
+    rgba(var(--main-color-rgb), 0.7) 80%,
+    rgba(var(--main-color-rgb), 1) 100%
+  );
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap-xl);
+  max-width: 1440px;
+  padding: var(--padding-desktop);
+}
+
+.headerWrapper {
+  max-width: 500px;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 76px;
+  letter-spacing: -1.5%;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  width: 100%;
+  align-items: center;
+  justify-items: center;
+  gap: var(--gap-xl);
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  color: rgba(var(--secondary-color-rgb));
+}
+
+.leftColumnItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.leftColumnItemHeading {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.5%;
+  border-left: 2px solid var(--secondary-color);
+  padding-left: 16px;
+}
+
+.leftColumnItemText {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 0%;
+  color: rgba(var(--secondary-color-rgb));
+}
+
+.rightColumn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 1440px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .leftColumn {
+    order: 2;
+  }
+  .rightColumn {
+    aspect-ratio: 1/1;
+    width: 100%;
+    height: auto;
+    order: 1;
+  }
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    gap: var(--gap-lg);
+  }
+
+  .section {
+    padding: var(--padding-tablet);
+    gap: var(--gap-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+}
