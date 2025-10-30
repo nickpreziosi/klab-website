@@ -1,11 +1,12 @@
 .hero {
-  margin-top: calc(var(--navbar-height) * -1);
   position: relative;
   width: 100%;
   /* Ensure hero is at least full viewport height minus the navbar, but can grow if content is larger */
   min-height: calc(100vh - var(--navbar-height));
   display: flex;
-  align-items: stretch;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .videoEmbed {
@@ -36,13 +37,14 @@
 .content {
   position: relative; /* establish stacking context for overlay/video */
   width: 100%;
+  max-width: 1440px;
   min-height: calc(100vh - var(--navbar-height));
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: var(--gap-xl);
-  padding: var(--padding-desktop) 0;
+  padding: var(--padding-desktop);
 }
 
 .mainContainer {
@@ -138,10 +140,16 @@
 
 /* Tablet design */
 @media (max-width: 1024px) {
+  .content {
+    padding: var(--padding-tablet);
+  }
 }
 
 /* Mobile design */
 @media (max-width: 768px) {
+  .content {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
   .videoEmbed {
     width: 100vw;
   }

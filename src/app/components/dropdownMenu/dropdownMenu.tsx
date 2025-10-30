@@ -14,12 +14,12 @@ const solutions = [
   {
     title: "KEO Rails",
     description:
-      "Streamline your railway operations with intelligent automation",
+      "B2B blockchain-based payments and lending infrastructure with near instant settlements",
     href: "/technologies/keo-rails",
   },
   {
     title: "KENA AI",
-    description: "Advanced AI solutions for business intelligence",
+    description: "KENA is the world's first AI underwriter",
     href: "/technologies/kena-ai",
   },
 ];

@@ -45,12 +45,6 @@ export const Hero = () => {
           posterUrl="/kena-video.jpg"
           videoUrl="https://player.vimeo.com/video/1119375393?badge=0&amp;autoplay=1&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
         ></VideoPlayer>
-
-        <div className={styles.secondaryContainer}>
-          <HomeSecondarySection></HomeSecondarySection>
-
-          <div></div>
-        </div>
       </div>
     </section>
   );

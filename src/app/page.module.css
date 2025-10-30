@@ -14,18 +14,10 @@
   flex-direction: column;
   height: fit-content;
   width: 100%;
-  max-width: 1440px;
-  padding: var(--padding-desktop);
 }
 
 @media (max-width: 1024px) {
-  .main {
-    padding: var(--padding-tablet);
-  }
 }
 
 @media (max-width: 769px) {
-  .main {
-    padding: var(--padding-mobile);
-  }
 }

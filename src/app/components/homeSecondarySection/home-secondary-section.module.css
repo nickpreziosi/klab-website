@@ -1,16 +1,24 @@
 .section {
   background: transparent;
-  padding: 120px 0 0 0;
   width: 100%;
+  position: relative;
 }
 
 .container {
-  max-width: 1400px;
   margin: 0 auto;
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: 10rem;
+  width: 100%;
+  max-width: 1440px;
+  padding: var(--padding-desktop);
+}
+
+.globe {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 
 .cardsGrid {
@@ -48,22 +56,30 @@
 
 /* Tablet */
 @media (max-width: 1024px) {
+  .container {
+    padding: var(--padding-tablet);
+    gap: var(--gap-lg);
+  }
   .cardsGrid {
     grid-template-columns: 1fr;
+  }
+  .globe {
+    transform: scale(0.9);
+    transform-origin: right bottom;
   }
 }
 
 /* Mobile */
 @media (max-width: 768px) {
-  .section {
-    padding: 80px 0;
+  .container {
+    padding: 0 var(--padding-mobile) var(--padding-tablet);
+    gap: 0;
   }
-
-  .cardsGrid {
-    margin-top: 60px;
-  }
-
   .card {
-    padding: 24px;
+    padding: var(--padding-mobile);
+  }
+  .globe {
+    transform: scale(0.8);
+    transform-origin: right bottom;
   }
 }
