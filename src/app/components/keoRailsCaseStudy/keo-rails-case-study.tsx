@@ -113,6 +113,7 @@ export default function KeoRailsCaseStudy() {
       id: "circle",
       name: "Circle",
       logo: <CircleLogo />,
+      image: "/keo-hero.jpg",
       title:
         "See how Circle unlocked instant liquidity across 12 markets with KEO Rails",
       description:
@@ -140,6 +141,7 @@ export default function KeoRailsCaseStudy() {
       id: "Algorand",
       name: "Algorand",
       logo: <AlgorandLogo />,
+      image: "/keo-company-2.jpeg",
       title:
         "See how Algorand unlocked instant liquidity across 12 markets with KEO Rails",
       description:
@@ -168,6 +170,7 @@ export default function KeoRailsCaseStudy() {
       id: "Stablecorp",
       name: "Stablecorp",
       logo: <StablecorpLogo />,
+      image: "/keo-company-3.jpeg",
       title:
         "See how Stablecorp unlocked instant liquidity across 12 markets with KEO Rails",
       description:
@@ -195,6 +198,7 @@ export default function KeoRailsCaseStudy() {
       id: "google",
       name: "Google",
       logo: <CircleLogo />,
+      image: "/keo-company-hero.jpeg",
       title:
         "See how Google unlocked instant liquidity across 12 markets with KEO Rails",
       description:
@@ -239,9 +243,16 @@ export default function KeoRailsCaseStudy() {
     touch: false,
     loop: true,
   } as any);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [introRef, introApi] = useEmblaCarousel({
+    skipSnaps: false,
+    draggable: false,
+    touch: false,
+    loop: true,
+  } as any);
 
   useEffect(() => {
-    if (!leftApi || !rightApi) return;
+    if (!leftApi || !rightApi || !introApi) return;
     // when either carousel moves, sync index and move the other
     const sync = () => {
       const idx = leftApi.selectedScrollSnap();
@@ -249,50 +260,59 @@ export default function KeoRailsCaseStudy() {
       // scroll the other to same index if needed
       if (rightApi && rightApi.selectedScrollSnap() !== idx)
         rightApi.scrollTo(idx);
+      if (introApi && introApi.selectedScrollSnap() !== idx)
+        introApi.scrollTo(idx);
     };
 
     leftApi.on("select", sync);
     rightApi.on("select", sync);
+    introApi.on("select", sync);
 
     // ensure both start at the same position
     leftApi.scrollTo(selectedIndex);
     rightApi.scrollTo(selectedIndex);
+    introApi.scrollTo(selectedIndex);
 
     return () => {
       leftApi.off("select", sync);
       rightApi.off("select", sync);
+      introApi.off("select", sync);
     };
-  }, [leftApi, rightApi, selectedIndex]);
+  }, [leftApi, rightApi, introApi, selectedIndex]);
 
-  // Autoplay: advance both carousels every 5s
-  useEffect(() => {
-    if (!leftApi || !rightApi) return;
-    const interval = setInterval(() => {
-      // guard with try/catch in case embla becomes unavailable during teardown
-      try {
-        const current = leftApi.selectedScrollSnap();
-        const next = (current + 1) % caseStudyData.length;
-        leftApi.scrollTo(next);
-        rightApi.scrollTo(next);
-        setSelectedIndex(next);
-      } catch {
-        /* ignore */
-      }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [leftApi, rightApi, caseStudyData.length]);
+  // Autoplay removed: slides no longer auto-advance. Navigation is driven by logos and programmatic calls.
 
   return (
     <section className={styles.section}>
       <div className={styles.container}>
         <div className={styles.intro}>
-          <h2 className={styles.heading}>
-            {caseStudyData[selectedIndex]?.title}
-          </h2>
-          <p className={styles.mainText}>
-            {caseStudyData[selectedIndex]?.description}
-          </p>
+          <div className={`${styles.embla} embla`} ref={introRef}>
+            <div className={`${styles.embla__container}`}>
+              {caseStudyData.map((cs, idx) => {
+                const isActive = idx === selectedIndex;
+                return (
+                  <div
+                    className={styles.embla__slide}
+                    key={cs.id}
+                    data-case={cs.id}
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{
+                        opacity: isActive ? 1 : 0.6,
+                        y: isActive ? 0 : 8,
+                      }}
+                      transition={{ duration: 0.45 }}
+                      className={styles.introSlide}
+                    >
+                      <h2 className={styles.heading}>{cs.title}</h2>
+                      <p className={styles.mainText}>{cs.description}</p>
+                    </motion.div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         <div className={styles.grid}>
@@ -348,7 +368,7 @@ export default function KeoRailsCaseStudy() {
                 >
                   <Image
                     fill
-                    src="/keo-hero.jpg"
+                    src={cs.image}
                     alt={`${cs.name} background`}
                     style={{ objectFit: "cover" }}
                   />
@@ -425,6 +445,59 @@ export default function KeoRailsCaseStudy() {
               {caseStudy.logo}
             </button>
           ))}
+        </div>
+        {/* Mobile / Tablet controls: arrows + indicators. Visible on <=1024px, hidden on larger screens */}
+        <div className={styles.mobileControls}>
+          <button
+            className={`${styles.arrowButton} ${styles.arrowLeft}`}
+            aria-label="Previous case study"
+            onClick={() => {
+              if (!leftApi || !rightApi || !introApi) return;
+              const current = leftApi.selectedScrollSnap();
+              const prev =
+                (current - 1 + caseStudyData.length) % caseStudyData.length;
+              leftApi.scrollTo(prev);
+              rightApi.scrollTo(prev);
+              introApi.scrollTo(prev);
+              setSelectedIndex(prev);
+            }}
+          >
+            ‹
+          </button>
+
+          <div className={styles.indicatorsContainer}>
+            {caseStudyData.map((_, idx) => (
+              <button
+                key={idx}
+                className={`${styles.indicator} ${
+                  selectedIndex === idx ? styles.activeIndicator : ""
+                }`}
+                onClick={() => {
+                  if (leftApi) leftApi.scrollTo(idx);
+                  if (rightApi) rightApi.scrollTo(idx);
+                  if (introApi) introApi.scrollTo(idx);
+                  setSelectedIndex(idx);
+                }}
+                aria-label={`Show slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+
+          <button
+            className={`${styles.arrowButton} ${styles.arrowRight}`}
+            aria-label="Next case study"
+            onClick={() => {
+              if (!leftApi || !rightApi || !introApi) return;
+              const current = leftApi.selectedScrollSnap();
+              const next = (current + 1) % caseStudyData.length;
+              leftApi.scrollTo(next);
+              rightApi.scrollTo(next);
+              introApi.scrollTo(next);
+              setSelectedIndex(next);
+            }}
+          >
+            ›
+          </button>
         </div>
       </div>
     </section>

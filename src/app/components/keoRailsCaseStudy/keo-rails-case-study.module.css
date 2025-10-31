@@ -273,6 +273,48 @@
   background-color: rgba(var(--secondary-color-rgb), 0.1);
 }
 
+/* Mobile / tablet controls (arrows + indicators). Hidden by default (desktop), enabled via media query */
+.mobileControls {
+  display: none;
+  width: 100%;
+  gap: var(--gap-md);
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--gap-md);
+}
+.arrowButton {
+  display: none; /* shown at <=1024px */
+  background: transparent;
+  border: none;
+  color: var(--secondary-color);
+  font-size: 28px;
+  line-height: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.arrowButton:hover {
+  background: rgba(var(--secondary-color-rgb), 0.06);
+}
+.indicatorsContainer {
+  display: none; /* shown at <=1024px */
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(var(--secondary-color-rgb), 0.2);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.activeIndicator {
+  background: rgba(var(--secondary-color-rgb), 0.9);
+}
+
 @media (max-width: 1024px) {
   .container {
     padding: var(--padding-tablet);
@@ -288,6 +330,25 @@
     flex-direction: row;
     gap: var(--gap-md);
   }
+  .logosContainer {
+    display: none; /* hide logos on tablet and smaller */
+  }
+
+  /* show mobile controls on tablet and smaller */
+  .mobileControls {
+    display: flex;
+  }
+  .arrowButton {
+    display: inline-flex;
+  }
+  .indicatorsContainer {
+    display: flex;
+  }
+  .rightColumn {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2/1;
+  }
 }
 
 @media (max-width: 768px) {
@@ -297,10 +358,9 @@
   .highlightWrapper {
     flex-direction: column;
   }
-  .logosContainer {
+  .rightColumn {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--gap-lg);
+    height: auto;
+    aspect-ratio: 3/2;
   }
 }
