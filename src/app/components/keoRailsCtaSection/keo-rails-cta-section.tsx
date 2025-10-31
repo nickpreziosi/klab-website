@@ -20,11 +20,17 @@ export default function KeoRailsCtaSection() {
           className={styles.content}
         >
           <h2 className={styles.heading}>
-            Hesitation is the most expensive choice.
+            YOUR NEXT MOVE.<br></br>RIGHT NOW.<br></br>DOMINATE THE API ECONOMY.
           </h2>
 
           <p className={styles.subheading}>
-            The future starts now. Access your T+0 advantage.
+            Ready for the true competitive edge? Embed and customize the most
+            advanced payment infrastructure on the market directly into your
+            product or service via our API developer suite.
+          </p>
+
+          <p className={`${styles.subheading} ${styles.highlight}`}>
+            TRANSFORM YOUR EFFICIENCY
           </p>
 
           <motion.div
@@ -35,7 +41,7 @@ export default function KeoRailsCtaSection() {
           >
             <Button
               href="/contact/sales"
-              text="Go direct: activate T+0"
+              text="EMBED KEO RAILS"
               iconPosition="end"
               variant="full"
               icon={

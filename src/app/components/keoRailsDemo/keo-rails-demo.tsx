@@ -17,11 +17,7 @@ export default function KeoRailsDemo() {
       <div className={styles.container}>
         {/* Top heading */}
         <div className={styles.topHeading}>
-          <h2 className={styles.mainHeading}>
-            T+1 is not a strategy.
-            <br />
-            It is a liability
-          </h2>
+          <h2 className={styles.mainHeading}>FEEL THE CASH FLOW</h2>
         </div>
 
         {/* Two column layout */}
@@ -29,20 +25,52 @@ export default function KeoRailsDemo() {
           {/* Left column - Text content */}
           <div className={styles.leftColumn}>
             <div className={styles.textBlock}>
-              <h3 className={styles.heading}>The power to extend time.</h3>
+              <h3 className={styles.heading}>
+                CAPITAL UNLOCKED. REVENUE ACCELERATED.
+              </h3>
               <p className={styles.description}>
-                Control payment terms. Use our instant liquidity as your
-                greatest negotiation weapon
+                The old system makes you wait. Keo Rails makes you move. Our
+                infrastructure is designed for the modern instinct: if the deal
+                is closed, the money is moved. We eliminate holding periods,
+                lost transfers, and unnecessary processing costs, so your
+                business captures more revenue, faster. Start capturing revenue
+                at the speed of thought.
               </p>
             </div>
 
             <div className={styles.textBlock}>
               <h3 className={styles.heading}>
-                Zero DSO is not a goal, it is a right.
+                SOVEREIGNTY IN EVERY TRANSACTION.
               </h3>
               <p className={styles.description}>
-                Instantly convert invoices into cash. Eliminate credit risk from
-                your balance sheet.
+                With fully customizable, self-custody digital wallets, you
+                reclaim control. Execute domestic and cross-border payments with
+                zero friction, and seamlessly make domestic and cross-border
+                payments via stablecoins and move funds between traditional bank
+                accounts and stablecoins.
+              </p>
+            </div>
+
+            <div className={styles.textBlock}>
+              <h3 className={styles.heading}>
+                THE FOUNDATION OF IMMUTABLE TRUST
+              </h3>
+              <p className={styles.description}>
+                KEO Rails ensures enterprise-grade payment security through
+                cutting edge blockchain-powered data tokenization, smart
+                contracts, self-custody wallets and stablecoins.
+              </p>
+            </div>
+
+            <div className={styles.textBlock}>
+              <h3 className={styles.heading}>LENDING IN ONE SIMPLE CLICK.</h3>
+              <p className={styles.description}>
+                Rails provides an integrated financing solution for lenders
+                wishing to finance B2B payments. When a purchasing opportunity
+                appears, your financing should be there immediately. We
+                integrated the ability to finance B2B payments directly into the
+                rail. It’s instant leverage for the lenders who have the vision
+                (op 2 courage) to move at our speed.
               </p>
             </div>
 

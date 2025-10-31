@@ -1,0 +1,306 @@
+.section {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--secondary-color-rgb), 0.1) 0%,
+    rgba(var(--secondary-color-rgb), 0.1) 20%,
+    rgba(var(--main-color-rgb), 0.2) 40%,
+    rgba(var(--main-color-rgb), 0.5) 70%,
+    rgba(var(--main-color-rgb), 0.7) 80%,
+    rgba(var(--main-color-rgb), 1) 100%
+  );
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap-lg);
+  width: 100%;
+  max-width: 1440px;
+  align-items: start;
+  padding: var(--padding-desktop);
+}
+
+.intro {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.heading {
+  width: 100%;
+  color: var(--secondary-color);
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 52px;
+  line-height: 62px;
+  letter-spacing: -1.5%;
+}
+
+.mainText {
+  color: var(--secondary-color);
+  font-weight: 300;
+  font-style: Medium;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.5%;
+}
+
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+/* Embla carousel basics */
+.embla {
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+.embla__container {
+  display: flex;
+  width: 100%; /* ensure the container doesn't grow beyond its parent (.embla) */
+  height: 100%;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.embla__slide {
+  position: relative;
+  /* each slide should exactly match the embla viewport width */
+  min-width: 100%;
+  flex: 0 0 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.embla__slide img,
+.rightColumnBackgroundImage,
+.embla__slide svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+}
+
+.highlightWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+.highlightWrapper {
+  min-width: 0;
+}
+
+.rightSlideInner {
+  position: relative;
+  min-height: 220px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--gap-sm);
+  padding: var(--padding-tablet);
+  border-radius: 20px;
+  color: white;
+}
+
+.leftColumn {
+  color: var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+.leftColumn,
+.rightColumn {
+  min-width: 0;
+}
+
+.highlight {
+  /* Background layers container sits inside rightColumn and holds absolute layered images */
+  .backgroundLayers {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    z-index: 0; /* background layer sits under content */
+  }
+  .backgroundLayer {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .backgroundLayer :global(img) {
+    object-fit: cover;
+  }
+
+  /* ensure slide text sits above backgrounds */
+  .rightSlideInner {
+    position: relative;
+    z-index: 1;
+  }
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.highlightHeading {
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.5%;
+  border-left: 2px solid rgba(var(--secondary-color-rgb));
+  padding: 0 var(--padding-mobile);
+}
+
+.highlightText {
+  font-weight: 300;
+  font-style: Light;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 0%;
+  padding: 0 var(--padding-mobile);
+}
+
+.rightColumn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--gap-sm);
+  border-radius: 20px;
+  color: black;
+  box-shadow: var(--shadow-black);
+  overflow: hidden;
+}
+
+.backgroundOverlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--accent-color-rgb), 0.1) 0%,
+    rgba(var(--accent-color-rgb), 0.2) 20%,
+    rgba(var(--accent-color-rgb), 0.3) 40%,
+    rgba(var(--accent-color-rgb), 0.7) 80%,
+    rgba(var(--accent-color-rgb), 0.7) 100%
+  );
+}
+
+.rightHeading {
+  font-weight: 600;
+  font-style: Medium;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.5%;
+  max-width: 340px;
+}
+
+.rightColumnLink {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 400;
+  font-style: Light;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  transition: all 0.3s ease-in-out;
+}
+.rightColumnLink:hover {
+  text-decoration: underline;
+}
+
+.rightColumnBackgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  border-radius: 20px;
+  z-index: -1;
+}
+
+.logosContainer {
+  width: 100%;
+  display: flex;
+  gap: var(--gap-lg);
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--gap-lg);
+  color: var(--secondary-color);
+}
+
+.logoButton {
+  padding: var(--padding-mobile);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 10px;
+}
+
+.logoButton svg {
+  color: var(--secondary-color);
+}
+
+.active {
+  background-color: rgba(var(--secondary-color-rgb), 0.1);
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: var(--padding-tablet);
+  }
+  .grid {
+    gap: var(--gap-lg);
+    grid-template-columns: 1fr;
+  }
+  .highlightWrapper {
+    flex-direction: row;
+  }
+  .leftColumn {
+    flex-direction: row;
+    gap: var(--gap-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+  .highlightWrapper {
+    flex-direction: column;
+  }
+  .logosContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap-lg);
+  }
+}

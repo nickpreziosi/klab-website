@@ -5,14 +5,16 @@ import VideoPlayer from "@/app/components/VideoPlayer/video-player";
 import KeoRailsBuiltWithSection from "@/app/components/keoRailsBuiltWithSection/keo-rails-built-with-section";
 import KeoRailsCtaSection from "@/app/components/keoRailsCtaSection/keo-rails-cta-section";
 import KeoRailsDemo from "@/app/components/keoRailsDemo/keo-rails-demo";
+import KeoRailsCodeSection from "@/app/components/keoRailsCodeSection/keo-rails-code-section";
+import KeoRailsCaseStudy from "@/app/components/keoRailsCaseStudy/keo-rails-case-study";
 
 export default function KeoRailsPage() {
   return (
     <main className={styles.container}>
       <KeoRailsHero
-        heading="Liquidity Without Resistance."
-        subheading="T+0. Frictionless capital. Done."
-        description="The instant settlement engine built to dissolve latency and risk in B2B finance. It is liquidity without resistance."
+        heading='THE AGE OF "WAIT" IS OVER.'
+        subheading="B2B Blockchain-Based Payments and Lending Infrastructure with Near Instant Settlements "
+        description="Keo Rails is an embedded payment and lending solution which combines immediate funds availability, settlement finality and instant confirmation - all in a payment made near instantaneously. Bringing together speed, data and communication for execution of payments."
         buttonText="Start my T+0 flow"
         buttonHref="/contact/sales"
         buttonTwoText="Learn More"
@@ -28,14 +30,13 @@ export default function KeoRailsPage() {
         ></VideoPlayer>
       </div>
 
-      <KeoCardsSection></KeoCardsSection>
+      <KeoRailsCodeSection></KeoRailsCodeSection>
       <KeoRailsDemo></KeoRailsDemo>
+      <KeoRailsBuiltWithSection></KeoRailsBuiltWithSection>
 
-      <div className={styles.lastSectionWrapper}>
-        <KeoRailsBuiltWithSection></KeoRailsBuiltWithSection>
+      <KeoRailsCaseStudy></KeoRailsCaseStudy>
 
-        <KeoRailsCtaSection></KeoRailsCtaSection>
-      </div>
+      <KeoRailsCtaSection></KeoRailsCtaSection>
     </main>
   );
 }

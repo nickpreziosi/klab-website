@@ -8,22 +8,14 @@ import SectionHeader from "../sectionHeader/section-header";
 
 const features = [
   {
-    title: "T+0",
-    description: "Money moves in seconds. We use complete trust.",
-  },
-  {
-    title: "Digital traceability allows no lies.",
+    title: "Trust",
     description:
-      "Every transaction is recorded, verified, and immutable on the blockchain.",
+      "KEO Rails payment infrastructure keeps a trusted record for all real-time transactions in a secure, authenticated, and verifiable manner, preventing any party from altering executed transactions.",
   },
   {
-    title: "it's no magic, it's design.",
+    title: "Certainty",
     description:
-      "You pay less because we do less. We cut out the friction, and we give the saving back to you. It's not magic, it's design.",
-  },
-  {
-    title: "Your system stays in place.",
-    description: "Your risk and cost disappear.",
+      "It’s not just security—it’s immutable and absolute certainty in execution for B2B trade. This is a payment record that is unbreakable and unchangeable, directly powering your growth.",
   },
 ];
 
@@ -35,7 +27,7 @@ export default function KeoCardsSection() {
     <section className={styles.section} ref={ref}>
       <div className={styles.container}>
         <SectionHeader
-          heading="The tech is the tool to get you to ZERO RISK."
+          heading="ENTERPRISE TRUST. IMPOSSIBLE TO ALTER. PERIOD."
           align="center"
         />
 
@@ -61,23 +53,6 @@ export default function KeoCardsSection() {
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          className={styles.tagline}
-          initial={{ opacity: 0, filter: "blur(10px)" }}
-          animate={
-            isInView
-              ? { opacity: 1, filter: "blur(0px)" }
-              : { opacity: 0, filter: "blur(10px)" }
-          }
-          transition={{
-            duration: 0.8,
-            delay: 0.6,
-            ease: [0.21, 0.47, 0.32, 0.98],
-          }}
-        >
-          Our ledger is the code. Our code is the truth.
-        </motion.div>
       </div>
     </section>
   );

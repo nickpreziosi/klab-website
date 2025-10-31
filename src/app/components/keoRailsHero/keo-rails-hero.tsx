@@ -33,7 +33,7 @@ export default function KeoRailsHero({
       <div className={styles.contentWrapper}>
         {/* Left side - Text content */}
         <HeroText
-          maxWidth="600px"
+          maxWidth="900px"
           text={heading}
           subtitle={description}
           subheader={subheading}
