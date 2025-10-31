@@ -6,7 +6,10 @@ import HomeSecondarySection from "./components/homeSecondarySection/home-seconda
 export default function Home() {
   return (
     <>
-      <VideoBackground></VideoBackground>
+      <VideoBackground
+        videoUrl="./keo-home-loop.mp4"
+        posterUrl="/keo-home-poster.jpg"
+      ></VideoBackground>
       <div className={styles.page}>
         <main className={styles.main}>
           <Hero></Hero>

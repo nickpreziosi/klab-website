@@ -4,7 +4,6 @@
   height: 1260px;
   width: 100%;
   max-width: 1440px;
-  background: var(--background);
   padding: 0;
   display: flex;
   justify-content: center;
@@ -89,9 +88,11 @@
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
+
   transform: translate(10%) scale(1.2) rotateX(25deg) rotateY(30deg)
     rotate(334deg);
   transition: transform 0.3s ease;
+
   border-radius: var(--rounded-sm);
 }
 

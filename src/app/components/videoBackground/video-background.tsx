@@ -19,10 +19,10 @@ export default function VideoPlayer({
 }: VideoPlayerProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [visible, setVisible] = useState(false);
-  // container ref where the Vimeo Player will insert the iframe
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  // container ref where the Vimeo Player will insert the iframe or where a native <video> may mount
+  const containerRef = useRef<HTMLElement | null>(null);
   const playerRef = useRef<InstanceType<typeof Player> | null>(null);
-  const [iframeVisible, setIframeVisible] = useState(false);
+  const [mediaVisible, setMediaVisible] = useState(false);
 
   // useInView to defer loading until the component is near/inside viewport
   const isInView = useInView(containerRef, { margin: "200px" });
@@ -98,7 +98,7 @@ export default function VideoPlayer({
     player.on("loaded", () => {
       // simultaneously show iframe and hide poster for a crossfade
       requestAnimationFrame(() => {
-        setIframeVisible(true);
+        setMediaVisible(true);
         setIsLoaded(true);
       });
     });
@@ -118,17 +118,97 @@ export default function VideoPlayer({
     };
   }, [isInView, videoUrl, fadeDurationMs]);
 
+  // If a relative/local video path is provided (e.g. "/video.mp4" or ends with .mp4), render a native <video>
+  // We'll use a separate effect to initialize and listen for its loaded/canplay event.
+  const isLocalVideo =
+    !!videoUrl && /(^\/|\.(mp4|webm|ogg))(\?.*)?$/.test(videoUrl);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    if (!isLocalVideo) return;
+    if (!isInView) return;
+    const vid = videoRef.current;
+    if (!vid) return;
+
+    // If the source is already set, avoid re-initializing
+    if (vid.dataset?.initialized) return;
+
+    // set attributes and prepare for fade
+    vid.muted = true;
+    vid.loop = true;
+    vid.playsInline = true;
+    vid.preload = "metadata";
+
+    // prepare style for fade-in
+    vid.style.opacity = "0";
+    vid.style.transition = `opacity ${fadeDurationMs}ms ease`;
+    vid.style.willChange = "opacity";
+
+    // attach source and load
+    vid.src = videoUrl as string;
+    // mark initialized to avoid duplicate work
+    vid.dataset.initialized = "1";
+
+    const onCanPlay = () => {
+      requestAnimationFrame(() => {
+        vid.style.opacity = "1";
+        setMediaVisible(true);
+        setIsLoaded(true);
+      });
+    };
+
+    vid.addEventListener("canplay", onCanPlay);
+
+    // attempt to start playback (muted autoplay should work in most browsers)
+    vid.load();
+    const playPromise = vid.play();
+    if (playPromise && typeof playPromise.then === "function") {
+      playPromise.catch(() => {
+        // autoplay might be blocked; we'll still wait for canplay event
+      });
+    }
+
+    return () => {
+      vid.pause();
+      vid.removeEventListener("canplay", onCanPlay);
+      try {
+        delete vid.dataset.initialized;
+      } catch {}
+    };
+  }, [isLocalVideo, isInView, videoUrl, fadeDurationMs]);
+
   return (
     <div className={styles.backgroundVideo}>
-      {/* iframe container animated via motion on its wrapper */}
-      <motion.div
-        ref={containerRef}
-        className={styles.videoEmbedObjectFitCover}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: iframeVisible ? 1 : 0 }}
-        transition={{ duration: 0.75, ease: "easeInOut" }}
-        aria-hidden={!iframeVisible}
-      />
+      {/* media container: either a Vimeo iframe (Player creates it inside this div) or a native <video> */}
+      {isLocalVideo ? (
+        <motion.video
+          // attach both refs so the effects can use containerRef (for in-view) and videoRef (for video control)
+          ref={(el) => {
+            // keep the original containerRef for useInView and Vimeo fallback
+            containerRef.current = el as HTMLElement | null;
+            videoRef.current = el as HTMLVideoElement | null;
+          }}
+          className={styles.videoEmbedObjectFitCover}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: mediaVisible ? 1 : 0 }}
+          transition={{ duration: 0.75, ease: "easeInOut" }}
+          aria-hidden={!mediaVisible}
+          playsInline
+          muted
+          loop
+        />
+      ) : (
+        <motion.div
+          ref={(el) => {
+            containerRef.current = el as HTMLElement | null;
+          }}
+          className={styles.videoEmbedObjectFitCover}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: mediaVisible ? 1 : 0 }}
+          transition={{ duration: 0.75, ease: "easeInOut" }}
+          aria-hidden={!mediaVisible}
+        />
+      )}
 
       {/* Poster shown until player reports loaded. We keep it mounted and fade it out */}
       <motion.div
