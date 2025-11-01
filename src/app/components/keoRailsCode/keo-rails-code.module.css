@@ -3,9 +3,12 @@
   height: 100%;
   background: rgba(var(--secondary-color-rgb), 0.05);
   border-radius: 20px;
-  overflow: hidden;
   border: 1px solid rgba(var(--secondary-color-rgb), 0.05);
   font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+  overflow-x: hidden;
+  /* outer container should not scroll; inner .codeBlock will handle vertical scrolling */
+  overflow-y: hidden;
+  max-height: 100%;
 }
 
 /* Removed header styles, no longer needed */
@@ -14,7 +17,12 @@
   display: flex;
   padding: 30px 0;
   height: 100%;
+  max-height: 100%;
   width: 100%;
+  overflow-x: hidden; /* prevent horizontal overflow from pushing layout */
+  /* make the codeBlock the scrollable area so we can auto-scroll it when new lines appear */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .lineNumbers {
@@ -34,8 +42,15 @@
 }
 
 .codeContent {
-  flex: 1;
+  /* Make the code column flexible but allow children to be clipped instead of growing the container
+     `min-width: 0` is necessary to allow flex children to shrink on overflow instead of expanding
+  */
+  width: 100%;
+  flex: 1 1 0%;
+  min-width: 0;
   padding: 0 30px;
+  overflow-x: hidden; /* hide long lines rather than pushing the grid */
+  height: fit-content;
 }
 
 /* Added section styles for REQUEST and RESPONSE headers */
@@ -56,7 +71,9 @@
   font-size: 14px;
   line-height: 24px;
   color: #e6e6e6;
-  white-space: pre;
+  /* wrap long lines instead of clipping */
+  white-space: pre-wrap;
+  word-break: break-word;
   font-family: inherit;
 }
 
@@ -96,11 +113,20 @@
   margin-left: 2px;
 }
 
+@media (max-width: 1024px) {
+  .container {
+    height: 500px !important;
+  }
+  .codeBlock {
+    height: 500px !important;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .codeBlock {
     font-size: 12px;
-    min-height: 300px;
+
     padding: 20px 0;
   }
 

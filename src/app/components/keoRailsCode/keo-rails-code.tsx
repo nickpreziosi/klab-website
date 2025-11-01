@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
 import styles from "./keo-rails-code.module.css";
 
 interface CodeLine {
@@ -33,8 +32,13 @@ export function KeoRailsCode({
   const [visibleLines, setVisibleLines] = useState<number>(0);
   const [typedChars, setTypedChars] = useState<number>(0);
   const [isComplete, setIsComplete] = useState<boolean>(false);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  // separate refs: containerRef is the scrollable container and observed for in-view;
+  // codeBlockRef is the inner block. Avoid attaching the same ref to multiple elements.
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const codeBlockRef = useRef<HTMLDivElement | null>(null);
+  const lineNumbersRef = useRef<HTMLDivElement | null>(null);
+  const codeContentRef = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(containerRef, { once: false, margin: "-100px" });
 
   useEffect(() => {
     if (isInView && isComplete && loop) {
@@ -118,10 +122,30 @@ export function KeoRailsCode({
       .reduce((acc, section) => acc + section.lines.length, 0);
   };
 
+  // Scroll by code line when a new line becomes visible (so we don't scroll per character)
+  useEffect(() => {
+    // compute global line index by summing lines before currentSection
+    const totalBefore = sections
+      .slice(0, currentSection)
+      .reduce((acc, section) => acc + section.lines.length, 0);
+    const globalIndex = totalBefore + visibleLines;
+    if (!codeContentRef.current) return;
+    const el = codeContentRef.current.querySelector(
+      `[data-line-index="line-${globalIndex}"]`
+    );
+    if (el && codeBlockRef.current) {
+      // scroll the container so that the code line is visible
+      (el as HTMLElement).scrollIntoView({
+        behavior: "auto",
+        block: "nearest",
+      });
+    }
+  }, [currentSection, visibleLines, sections]);
+
   return (
-    <div ref={ref} className={styles.container}>
-      <div className={styles.codeBlock}>
-        <div className={styles.lineNumbers}>
+    <div ref={containerRef} className={styles.container}>
+      <div ref={codeBlockRef} className={styles.codeBlock}>
+        <div className={styles.lineNumbers} ref={lineNumbersRef}>
           {sections.map((section, sectionIndex) => {
             const shouldShowSection = sectionIndex <= currentSection;
             const startLineNumber = getTotalLinesBeforeSection(sectionIndex);
@@ -150,9 +174,10 @@ export function KeoRailsCode({
             ) : null;
           })}
         </div>
-        <div className={styles.codeContent}>
+        <div className={styles.codeContent} ref={codeContentRef}>
           {sections.map((section, sectionIndex) => {
             const shouldShowSection = sectionIndex <= currentSection;
+            const startLineNumber = getTotalLinesBeforeSection(sectionIndex);
 
             return shouldShowSection ? (
               <div key={sectionIndex} className={styles.section}>
@@ -173,6 +198,7 @@ export function KeoRailsCode({
                     <motion.div
                       key={`${sectionIndex}-${lineIndex}`}
                       className={styles.codeLine}
+                      data-line-index={`line-${startLineNumber + lineIndex}`}
                       style={{ paddingLeft: `${line.indent * 20}px` }}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{
