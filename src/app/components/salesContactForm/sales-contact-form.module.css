@@ -1,8 +1,8 @@
 .formContainer {
   width: 100%;
   max-width: 1440px;
+  padding: var(--padding-desktop);
   margin: 0 auto;
-  padding: 0 var(--padding-desktop);
 }
 
 .heading {
@@ -25,6 +25,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
 }
 
 .grid {
@@ -56,11 +57,20 @@
   .row {
     flex-direction: column;
   }
+  .formContainer {
+    padding: var(--padding-tablet);
+  }
+  .headingContainer {
+    margin-bottom: var(--padding-tablet);
+  }
 }
 
 @media (max-width: 769px) {
   .comboboxRow {
     flex-direction: column;
+  }
+  .formContainer {
+    padding: var(--padding-tablet) var(--padding-mobile);
   }
 }
 
@@ -97,11 +107,6 @@
   border: 2px solid var(--accent-color) !important;
 }
 
-.input:focus {
-  border-color: var(--secondary-color);
-  outline: 2px solid var(--secondary-color);
-}
-
 .input::placeholder {
   color: #9ca3af;
 }
@@ -124,10 +129,6 @@
   transition: all 0.2s ease;
   font-family: inherit;
   width: 100%;
-}
-
-.textarea:focus {
-  outline: 2px solid var(--secondary-color);
 }
 
 .textarea::placeholder {

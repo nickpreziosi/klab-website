@@ -129,7 +129,13 @@ export const Logo = ({
     : {};
 
   return (
-    <MotionComponent className={containerClasses} {...motionProps}>
+    <MotionComponent
+      tabIndex={-1}
+      inert
+      aria-hidden
+      className={containerClasses}
+      {...motionProps}
+    >
       <div className={styles.logoInner}>
         <Image
           fetchPriority="high"

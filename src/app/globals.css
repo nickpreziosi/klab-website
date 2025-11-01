@@ -172,5 +172,16 @@ button {
   cursor: pointer !important;
 }
 
+a[href]:focus,
+input:focus,
+input:focus,
+textarea:focus,
+label:focus,
+select:focus,
+button:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
 @media (prefers-color-scheme: dark) {
 }
