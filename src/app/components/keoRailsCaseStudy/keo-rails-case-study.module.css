@@ -237,9 +237,13 @@
   line-height: 100%;
   letter-spacing: 0%;
   transition: all 0.3s ease-in-out;
+  background-color: transparent;
+  padding-bottom: 2px;
+  border: 1px solid transparent;
+  color: white;
 }
 .rightColumnLink:hover {
-  text-decoration: underline;
+  border-bottom: 1px solid white;
 }
 
 .rightColumnBackgroundImage {
@@ -291,33 +295,40 @@
   margin-top: var(--gap-md);
 }
 .arrowButton {
-  display: none; /* shown at <=1024px */
-  background: transparent;
-  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
+  background: rgba(var(--secondary-color-rgb), 0.05);
+  backdrop-filter: blur(10px);
   color: var(--secondary-color);
-  font-size: 28px;
-  line-height: 1;
-  padding: 8px 12px;
-  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
-.arrowButton:hover {
-  background: rgba(var(--secondary-color-rgb), 0.06);
+
+.arrowButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
+
 .indicatorsContainer {
   display: none; /* shown at <=1024px */
-  gap: 8px;
+  gap: 12px;
   align-items: center;
   justify-content: center;
 }
 .indicator {
-  width: 10px;
+  width: 40px;
   height: 10px;
   border-radius: 999px;
   background: rgba(var(--secondary-color-rgb), 0.2);
   border: none;
   padding: 0;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 .activeIndicator {
   background: rgba(var(--secondary-color-rgb), 0.9);
@@ -393,5 +404,25 @@
     width: 100%;
     height: auto;
     aspect-ratio: 3/2;
+  }
+  .rightSlideInner {
+    padding: var(--padding-mobile);
+  }
+  .mobileControls {
+    margin-top: var(--gap-xs);
+  }
+  .indicator {
+    width: 30px;
+  }
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .arrowButton:hover {
+    background: rgba(var(--accent-color-rgb), 0.1);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(var(--accent-color-rgb), 0.3);
   }
 }
