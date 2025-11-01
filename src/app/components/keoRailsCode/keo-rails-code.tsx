@@ -38,7 +38,36 @@ export function KeoRailsCode({
   const codeBlockRef = useRef<HTMLDivElement | null>(null);
   const lineNumbersRef = useRef<HTMLDivElement | null>(null);
   const codeContentRef = useRef<HTMLDivElement | null>(null);
+  const hasMountedRef = useRef<boolean>(false);
   const isInView = useInView(containerRef, { once: false, margin: "-100px" });
+
+  // Track whether the user has scrolled/interacted so we only start the typing
+  // animation when the section is brought into view by user action.
+  const userScrolledRef = useRef<boolean>(false);
+  const [shouldStartTyping, setShouldStartTyping] = useState<boolean>(false);
+
+  useEffect(() => {
+    const mark = () => {
+      userScrolledRef.current = true;
+      window.removeEventListener("scroll", mark);
+      window.removeEventListener("wheel", mark);
+      window.removeEventListener("touchstart", mark);
+    };
+    window.addEventListener("scroll", mark, { passive: true });
+    window.addEventListener("wheel", mark, { passive: true });
+    window.addEventListener("touchstart", mark, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", mark);
+      window.removeEventListener("wheel", mark);
+      window.removeEventListener("touchstart", mark);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isInView && userScrolledRef.current) {
+      setShouldStartTyping(true);
+    }
+  }, [isInView]);
 
   useEffect(() => {
     if (isInView && isComplete && loop) {
@@ -124,12 +153,25 @@ export function KeoRailsCode({
 
   // Scroll by code line when a new line becomes visible (so we don't scroll per character)
   useEffect(() => {
+    // Only scroll when typing is allowed (user scrolled into view). This prevents
+    // any automatic scroll on initial load or when the page programmatically
+    // brings the section into view.
+    if (!shouldStartTyping) return;
+
     // compute global line index by summing lines before currentSection
     const totalBefore = sections
       .slice(0, currentSection)
       .reduce((acc, section) => acc + section.lines.length, 0);
     const globalIndex = totalBefore + visibleLines;
     if (!codeContentRef.current) return;
+
+    // Prevent auto-scrolling on initial mount which causes the page to jump down
+    // to this section. Only start scrolling after the component has mounted once.
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true;
+      return;
+    }
+
     const el = codeContentRef.current.querySelector(
       `[data-line-index="line-${globalIndex}"]`
     );
@@ -140,7 +182,7 @@ export function KeoRailsCode({
         block: "nearest",
       });
     }
-  }, [currentSection, visibleLines, sections]);
+  }, [currentSection, visibleLines, sections, shouldStartTyping]);
 
   return (
     <div ref={containerRef} className={styles.container}>
