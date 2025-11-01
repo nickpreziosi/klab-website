@@ -12,7 +12,7 @@ export default function KeoMockDashboard() {
   }, []);
 
   return (
-    <div className={styles.dashboardWrapper}>
+    <div inert aria-hidden tabIndex={-1} className={styles.dashboardWrapper}>
       <div className={`${styles.apiFrames} ${isVisible ? styles.visible : ""}`}>
         {/* Frame 1: Sidebar Navigation */}
         <div className={`${styles.apiFrame} ${styles.frame1}`}>
