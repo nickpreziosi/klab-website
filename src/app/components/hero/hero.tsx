@@ -42,8 +42,8 @@ export const Hero = () => {
         </div>
 
         <VideoPlayer
-          posterUrl="/kena-video.jpg"
-          videoUrl="https://player.vimeo.com/video/1119375393?badge=0&amp;autoplay=1&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+          posterUrl="/keo-home-main2.jpg"
+          videoUrl="/keo-home-main.mp4"
         ></VideoPlayer>
       </div>
     </section>

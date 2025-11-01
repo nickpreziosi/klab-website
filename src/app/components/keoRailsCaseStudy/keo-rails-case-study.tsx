@@ -234,53 +234,50 @@ export default function KeoRailsCaseStudy() {
     skipSnaps: false,
     draggable: false,
     touch: false,
-    loop: true,
-  } as any);
+  } as never);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [rightRef, rightApi] = useEmblaCarousel({
     skipSnaps: false,
     draggable: false,
     touch: false,
-    loop: true,
-  } as any);
+  } as never);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [introRef, introApi] = useEmblaCarousel({
     skipSnaps: false,
     draggable: false,
     touch: false,
-    loop: true,
-  } as any);
+  } as never);
 
   useEffect(() => {
     if (!leftApi || !rightApi || !introApi) return;
     // when either carousel moves, sync index and move the other
     const sync = () => {
-      const idx = leftApi.selectedScrollSnap();
+      const idx = rightApi.selectedScrollSnap();
       setSelectedIndex(idx);
       // scroll the other to same index if needed
-      if (rightApi && rightApi.selectedScrollSnap() !== idx)
-        rightApi.scrollTo(idx);
+      if (leftApi && leftApi.selectedScrollSnap() !== idx)
+        leftApi.scrollTo(idx);
       if (introApi && introApi.selectedScrollSnap() !== idx)
         introApi.scrollTo(idx);
     };
 
-    leftApi.on("select", sync);
     rightApi.on("select", sync);
+    leftApi.on("select", sync);
+
     introApi.on("select", sync);
 
     // ensure both start at the same position
-    leftApi.scrollTo(selectedIndex);
     rightApi.scrollTo(selectedIndex);
+    leftApi.scrollTo(selectedIndex);
+
     introApi.scrollTo(selectedIndex);
 
     return () => {
-      leftApi.off("select", sync);
       rightApi.off("select", sync);
+      leftApi.off("select", sync);
       introApi.off("select", sync);
     };
-  }, [leftApi, rightApi, introApi, selectedIndex]);
-
-  // Autoplay removed: slides no longer auto-advance. Navigation is driven by logos and programmatic calls.
+  }, [rightApi, leftApi, introApi, selectedIndex]);
 
   return (
     <section className={styles.section}>
@@ -297,13 +294,13 @@ export default function KeoRailsCaseStudy() {
                     data-case={cs.id}
                   >
                     <motion.div
+                      className={styles.introSlide}
                       initial={{ opacity: 0, y: 8 }}
                       animate={{
                         opacity: isActive ? 1 : 0.6,
                         y: isActive ? 0 : 8,
                       }}
                       transition={{ duration: 0.45 }}
-                      className={styles.introSlide}
                     >
                       <h2 className={styles.heading}>{cs.title}</h2>
                       <p className={styles.mainText}>{cs.description}</p>
@@ -399,9 +396,9 @@ export default function KeoRailsCaseStudy() {
                         <h4 className={styles.rightHeading}>
                           See how {cs.name} achieved real-time settlement
                         </h4>
-                        <Link
+                        <div
+                          aria-hidden={!isActive}
                           className={styles.rightColumnLink}
-                          href={cs.cta.href}
                         >
                           {cs.cta.text}
                           <svg
@@ -418,7 +415,7 @@ export default function KeoRailsCaseStudy() {
                               clipRule="evenodd"
                             ></path>
                           </svg>
-                        </Link>
+                        </div>
                       </motion.div>
                     </div>
                   );

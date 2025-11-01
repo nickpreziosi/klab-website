@@ -15,9 +15,18 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isClicked, setIsClicked] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // consider a URL local if it looks like a relative path or points to a static video file
+  const isLocalVideo =
+    /^(\.\/|\.\.\/|\/)/.test(videoUrl) ||
+    /\.(mp4|webm|ogg|mov)(\?|$)/i.test(videoUrl);
 
   const handlePlayButtonClick = () => {
     setIsClicked(true);
+    // reset ready when initiating a new play request
+    setVideoReady(false);
   };
 
   useEffect(() => {
@@ -54,7 +63,8 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
     >
       <div className={styles.videoWrapper}>
         <AnimatePresence>
-          {!isClicked && (
+          {/* Poster: show until iframe is mounted (external) OR until local video signals ready */}
+          {(!isClicked || (isLocalVideo ? !videoReady : !isClicked)) && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -92,8 +102,10 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
             </motion.div>
           )}
         </AnimatePresence>
+
         <AnimatePresence>
-          {isClicked && (
+          {/* External iframe: mount immediately on click */}
+          {!isLocalVideo && isClicked && (
             <motion.iframe
               key="iframe"
               initial={{ opacity: 0 }}
@@ -108,6 +120,32 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
             ></motion.iframe>
+          )}
+
+          {/* Local video element: mount on click, reveal when canplay/canplaythrough */}
+          {isLocalVideo && isClicked && (
+            <motion.video
+              key="video"
+              ref={videoRef}
+              className={styles.videoEmbed}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: videoReady ? 1 : 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              src={videoUrl}
+              playsInline
+              controls
+              autoPlay
+              onCanPlay={() => {
+                setVideoReady(true);
+                // try to play (should be allowed since user initiated)
+                try {
+                  videoRef.current?.play();
+                } catch {
+                  /* ignore */
+                }
+              }}
+            />
           )}
         </AnimatePresence>
       </div>

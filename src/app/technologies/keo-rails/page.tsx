@@ -25,8 +25,8 @@ export default function KeoRailsPage() {
       </KeoRailsHero>
       <div className={styles.videoSection} id="video">
         <VideoPlayer
-          posterUrl="/kena-video.jpg"
-          videoUrl="https://player.vimeo.com/video/1119375393?badge=0&amp;autoplay=1&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+          posterUrl="/keo-rails1.jpg"
+          videoUrl="/keo-rails.mp4"
         ></VideoPlayer>
       </div>
 

@@ -12,7 +12,7 @@ export const CompanyHero = () => {
           width={1200}
           height={1405}
           alt="KEO Employee Image"
-          src="/keo-hero.jpg"
+          src="/keo-hero1.png"
         ></Image>
         <div className={styles.heroText}>
           <h1 className={styles.heroHeader}>

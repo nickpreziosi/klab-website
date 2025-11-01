@@ -21,10 +21,7 @@ export default function KenaHeroSection() {
         </div>
 
         {/* Video section */}
-        <VideoPlayer
-          posterUrl="/kena-video.jpg"
-          videoUrl="https://player.vimeo.com/video/1119375393?badge=0&amp;autoplay=1&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-        ></VideoPlayer>
+        <VideoPlayer posterUrl="/kena.jpg" videoUrl="/kena.mp4"></VideoPlayer>
 
         {/* Two-column content section */}
         <div className={styles.contentWrapper}>
