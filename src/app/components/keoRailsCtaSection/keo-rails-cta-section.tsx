@@ -9,6 +9,7 @@ import Button from "../ui/button/button";
 export default function KeoRailsCtaSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const highlightText = "TRANSFORM YOUR EFFICIENCY";
 
   return (
     <section className={styles.section} ref={ref}>
@@ -20,7 +21,7 @@ export default function KeoRailsCtaSection() {
           className={styles.content}
         >
           <h2 className={styles.heading}>
-            YOUR NEXT MOVE.<br></br>RIGHT NOW.<br></br>DOMINATE THE API ECONOMY.
+            YOUR NEXT MOVE. RIGHT NOW.<br></br>DOMINATE THE API ECONOMY.
           </h2>
 
           <p className={styles.subheading}>
@@ -29,8 +30,21 @@ export default function KeoRailsCtaSection() {
             product or service via our API developer suite.
           </p>
 
-          <p className={`${styles.subheading} ${styles.highlight}`}>
-            TRANSFORM YOUR EFFICIENCY
+          <p
+            className={`${styles.subheading} ${styles.highlight} ${
+              styles.highlightSweep
+            } ${isInView ? styles.inView : ""}`}
+          >
+            <span
+              className={styles.typing}
+              style={
+                {
+                  ["--typing-ch"]: `${highlightText.length}ch`,
+                } as unknown as React.CSSProperties
+              }
+            >
+              {highlightText}
+            </span>
           </p>
 
           <motion.div

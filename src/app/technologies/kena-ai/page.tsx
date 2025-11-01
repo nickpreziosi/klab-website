@@ -3,6 +3,7 @@ import Kena3dSection from "../../components/kena3dSection/kena-3d-section";
 import KenaHeroSection from "../../components/kenaHeroSection/kena-hero-section";
 import styles from "./page.module.css";
 import KenaCtaSection from "@/app/components/kenaCtaSection/kena-cta-section";
+import KenaCaseStudy from "@/app/components/kenaCaseStudy/kena-case-study";
 
 export default function KenaAIPage() {
   return (
@@ -11,6 +12,7 @@ export default function KenaAIPage() {
       <KenaCardsSection></KenaCardsSection>
       <Kena3dSection></Kena3dSection>
       <KenaCtaSection></KenaCtaSection>
+      <KenaCaseStudy></KenaCaseStudy>
     </main>
   );
 }

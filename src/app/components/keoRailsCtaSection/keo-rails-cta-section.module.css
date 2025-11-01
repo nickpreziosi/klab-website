@@ -26,8 +26,8 @@
   margin-bottom: 24px;
   letter-spacing: -0.02em;
   font-weight: 400;
-  font-size: 52px;
-  line-height: 62px;
+  font-size: 48px;
+  line-height: 56px;
   letter-spacing: -1.5%;
 }
 
@@ -44,7 +44,84 @@
 .highlight {
   width: fit-content;
   padding: 8px;
+  padding-bottom: 0px;
   background-color: rgba(var(--accent-color-rgb), 0.4);
+}
+
+/* Typing / highlight effects */
+.typing {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  /* limit the reveal width using ch units via a CSS variable set from React */
+  max-width: 0ch;
+  border-right: 2px solid rgba(var(--secondary-color-rgb), 0.9);
+  /* default: paused until the element is in view */
+  animation: typing 1.8s steps(30, end) forwards, blink 800ms step-end infinite;
+  animation-play-state: paused;
+}
+
+.highlightSweep {
+  position: relative;
+  overflow: hidden;
+}
+.highlightSweep::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  transform: translateX(-100%);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  /* default paused; will run when in-view */
+  animation: sweep 2.4s ease-in-out 0.5s 1;
+  animation-play-state: paused;
+}
+
+/* helper class applied from React when element is in view */
+.inView {
+  /* marker class applied from React when element enters viewport */
+}
+
+/* when parent has .inView, run the typing and sweep animations */
+.inView .typing {
+  animation-play-state: running;
+}
+.highlightSweep.inView::before {
+  animation-play-state: running;
+}
+
+@keyframes typing {
+  from {
+    max-width: 0ch;
+  }
+  to {
+    max-width: var(--typing-ch, 20ch);
+  }
+}
+
+@keyframes blink {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: rgba(var(--secondary-color-rgb), 0.9);
+  }
+}
+
+@keyframes sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }
 
 .arrow {
