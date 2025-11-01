@@ -38,7 +38,7 @@ const logoVariants = {
       },
     },
   },
-} as any;
+} as never;
 
 const constantAnimationVariants = {
   animate: {
@@ -58,7 +58,7 @@ const constantAnimationVariants = {
       repeatType: "loop" as const,
     },
   },
-} as any;
+} as never;
 
 export const Logo = ({
   size = "md",
@@ -132,12 +132,13 @@ export const Logo = ({
     <MotionComponent className={containerClasses} {...motionProps}>
       <div className={styles.logoInner}>
         <Image
+          fetchPriority="high"
+          priority
           src="/keo-logo.png"
           alt="KEO Logo"
           width={logoSize}
           height={logoSize}
           className={getObjectFitClass()}
-          priority
         />
       </div>
     </MotionComponent>

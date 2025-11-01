@@ -17,6 +17,7 @@ interface HomeSecondarySection {
 
 const Globe = () => {
   return (
+    
     <svg
       viewBox="0 0 838 700"
       className={styles.globe}

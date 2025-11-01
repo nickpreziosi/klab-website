@@ -339,6 +339,8 @@ export default function KeoRailsPhoneSlideshow() {
 
   return (
     <motion.div
+      inert
+      tabIndex={-1}
       aria-hidden="true"
       className={styles.container}
       initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
