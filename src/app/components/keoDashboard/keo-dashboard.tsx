@@ -1,203 +1,251 @@
 "use client";
 
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import styles from "./keo-dashboard.module.css";
 
-export default function KeoDashboard() {
+export default function KeoMockDashboard() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Trigger animation on mount
+    setIsVisible(true);
+  }, []);
+
   return (
-    <div inert aria-hidden="true" className={styles.dashboard}>
-      {/* Sidebar */}
-      <aside className={styles.sidebar}>
-        <div className={styles.logo}>
-          <Image
-            priority
-            src="/keo-logo.png"
-            alt="KEO"
-            width={60}
-            height={24}
-            className={styles.logoImage}
-          />
-        </div>
-        <nav className={styles.nav}>
-          <div className={`${styles.navItem} ${styles.active}`}>
-            <span className={styles.icon}>📊</span>
-            <span>Invoice List</span>
-          </div>
-          <div className={styles.navItem}>
-            <span className={styles.icon}>📥</span>
-            <span>Inbox</span>
-          </div>
-          <div className={styles.navItem}>
-            <span className={styles.icon}>📋</span>
-            <span>My Issues</span>
-          </div>
-          <div className={styles.navItem}>
-            <span className={styles.icon}>👁️</span>
-            <span>Watchlist</span>
-          </div>
-          <div className={styles.navItem}>
-            <span className={styles.icon}>📁</span>
-            <span>Projects</span>
-          </div>
-          <div className={styles.navItem}>
-            <span className={styles.icon}>👥</span>
-            <span>Teams</span>
-          </div>
-        </nav>
-      </aside>
-
-      {/* Main Content */}
-      <main className={styles.main}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>Invoice List</h1>
-          <div className={styles.headerRight}>
-            <div className={styles.actions}>
-              <button tabIndex={-1} className={styles.button}>
-                + Upload Invoices
-              </button>
-              <button tabIndex={-1} className={styles.buttonSecondary}>
-                + Load File
-              </button>
-            </div>
-            <div className={styles.userAvatar}>
-              <span className={styles.avatarText}>JD</span>
+    <div className={styles.dashboardWrapper}>
+      <div className={`${styles.apiFrames} ${isVisible ? styles.visible : ""}`}>
+        {/* Frame 1: Sidebar Navigation */}
+        <div className={`${styles.apiFrame} ${styles.frame1}`}>
+          <div className={styles.frameContent}>
+            <div className={styles.apiSidebar}>
+              <div className={styles.apiVersion}>V1</div>
+              <h2 className={styles.apiTitle}>API Reference</h2>
+              <div className={styles.jumpTo}>
+                <input
+                  type="text"
+                  placeholder="Jump to"
+                  className={styles.jumpInput}
+                />
+                <span className={styles.cmdIcon}>⌘K</span>
+              </div>
+              <nav className={styles.apiNav}>
+                <div className={styles.apiNavSection}>
+                  <div className={`${styles.apiNavItem} ${styles.expanded}`}>
+                    <span className={styles.chevron}>›</span>
+                    <span>KEO Rails API</span>
+                  </div>
+                  <div className={styles.apiNavSubItems}>
+                    <div className={`${styles.apiNavItem} ${styles.subItem}`}>
+                      <span>Core</span>
+                      <span className={styles.methodBadge}>GET</span>
+                    </div>
+                    <div
+                      className={`${styles.apiNavItem} ${styles.subItem} ${styles.hasChildren}`}
+                    >
+                      <span className={styles.chevron}>›</span>
+                      <span>/api/health</span>
+                    </div>
+                    <div
+                      className={`${styles.apiNavItem} ${styles.subItem} ${styles.hasChildren}`}
+                    >
+                      <span className={styles.chevron}>›</span>
+                      <span>Accounts</span>
+                    </div>
+                    <div
+                      className={`${styles.apiNavItem} ${styles.subItem} ${styles.hasChildren}`}
+                    >
+                      <span className={styles.chevron}>›</span>
+                      <span>Invoices</span>
+                    </div>
+                    <div className={`${styles.apiNavItem} ${styles.subItem}`}>
+                      <span>Loans</span>
+                    </div>
+                  </div>
+                </div>
+              </nav>
             </div>
           </div>
-        </header>
+        </div>
 
-        <div className={styles.filters}>
-          <div className={styles.searchBar}>
-            <span className={styles.searchIcon}>🔍</span>
-            <input
-              tabIndex={-1}
-              type="text"
-              placeholder="Search invoice..."
-              className={styles.searchInput}
-            />
+        {/* Frame 2: API Response UI */}
+        <div className={`${styles.apiFrame} ${styles.frame2}`}>
+          <div className={styles.frameContent}>
+            <div className={styles.apiResponse}>
+              <h3 className={styles.endpointTitle}>/api/health</h3>
+              <div className={styles.urlBar}>
+                <input
+                  type="text"
+                  value="https://staging.abksor.com/api/health"
+                  readOnly
+                  className={styles.urlInput}
+                />
+              </div>
+              <button className={styles.getButton}>GET</button>
+
+              <div className={styles.responsesSection}>
+                <h4 className={styles.responsesTitle}>Responses</h4>
+                <div className={styles.responseCards}>
+                  <div className={`${styles.responseCard} ${styles.success}`}>
+                    <div className={styles.statusRow}>
+                      <span className={styles.statusDot}></span>
+                      <span className={styles.statusCode}>200</span>
+                      <span className={styles.arrow}>→</span>
+                    </div>
+                    <p className={styles.statusMessage}>
+                      Health check is successful
+                    </p>
+                  </div>
+                  <div className={`${styles.responseCard} ${styles.error}`}>
+                    <div className={styles.statusRow}>
+                      <span className={styles.statusDot}></span>
+                      <span className={styles.statusCode}>503</span>
+                    </div>
+                    <p className={styles.statusMessage}>
+                      Health check is not ok
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.metaInfo}>
+                <span className={styles.uploadInfo}>
+                  <span className={styles.linkIcon}>🔗</span>
+                  Upload 8 months ago
+                </span>
+                <span className={styles.accountsLink}>
+                  Accounts <span className={styles.arrow}>→</span>
+                </span>
+              </div>
+            </div>
           </div>
-
-          <select
-            tabIndex={-1}
-            aria-label="Filter By Status"
-            className={styles.filterSelect}
-          >
-            <option>Filter by status</option>
-            <option>Approved</option>
-            <option>Pending</option>
-            <option>Rejected</option>
-            <option>Paid</option>
-          </select>
         </div>
 
-        <div className={styles.tableContainer}>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Number</th>
-                <th>Issue Date</th>
-                <th>Due Date</th>
-                <th>Supplier</th>
-                <th>Buyer</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>INV001</td>
-                <td>2023-01-05</td>
-                <td>2023-01-20</td>
-                <td>Tech Solutions Inc.</td>
-                <td>Global Corp.</td>
-                <td>$1500.75</td>
-                <td>
-                  <span className={`${styles.badge} ${styles.badgeApproved}`}>
-                    Approved
-                  </span>
-                </td>
-                <td>
-                  <button tabIndex={-1} className={styles.actionButton}>
-                    👁️
+        {/* Frame 3: Code Editor */}
+        <div className={`${styles.apiFrame} ${styles.frame3}`}>
+          <div className={styles.frameContent}>
+            <div className={styles.codeEditor}>
+              <div className={styles.languageSection}>
+                <h4 className={styles.sectionTitle}>LANGUAGE</h4>
+                <div className={styles.languageButtons}>
+                  <button className={styles.langButton}>
+                    <span className={styles.langIcon}>-//</span>
+                    <span>Shell</span>
                   </button>
-                </td>
-              </tr>
-              <tr>
-                <td>INV002</td>
-                <td>2023-01-07</td>
-                <td>2023-01-22</td>
-                <td>Innovate LLC</td>
-                <td>Startup Hub</td>
-                <td>$320.00</td>
-                <td>
-                  <span className={`${styles.badge} ${styles.badgePending}`}>
-                    Pending
-                  </span>
-                </td>
-                <td>
-                  <button tabIndex={-1} className={styles.actionButton}>
-                    👁️
+                  <button className={styles.langButton}>
+                    <span className={styles.langIcon}>⬢</span>
+                    <span>Node</span>
                   </button>
-                </td>
-              </tr>
-              <tr>
-                <td>INV003</td>
-                <td>2023-01-10</td>
-                <td>2023-01-25</td>
-                <td>Creative Designs</td>
-                <td>Fashion Retailers</td>
-                <td>$899.50</td>
-                <td>
-                  <span className={`${styles.badge} ${styles.badgeRejected}`}>
-                    Rejected
-                  </span>
-                </td>
-                <td>
-                  <button tabIndex={-1} className={styles.actionButton}>
-                    👁️
+                  <button className={styles.langButton}>
+                    <span className={styles.langIcon}>◆</span>
+                    <span>Ruby</span>
                   </button>
-                </td>
-              </tr>
-              <tr>
-                <td>INV004</td>
-                <td>2023-01-12</td>
-                <td>2023-01-27</td>
-                <td>Logistics Pro</td>
-                <td>Distribution Co.</td>
-                <td>$2100.00</td>
-                <td>
-                  <span className={`${styles.badge} ${styles.badgePaid}`}>
-                    Paid
-                  </span>
-                </td>
-                <td>
-                  <button tabIndex={-1} className={styles.actionButton}>
-                    👁️
+                  <button className={styles.langButton}>
+                    <span className={styles.langIcon}>PHP</span>
+                    <span>PHP</span>
                   </button>
-                </td>
-              </tr>
-              <tr>
-                <td>INV005</td>
-                <td>2023-01-15</td>
-                <td>2023-01-30</td>
-                <td>Marketing Agency</td>
-                <td>Local Business</td>
-                <td>$550.25</td>
-                <td>
-                  <span className={`${styles.badge} ${styles.badgePending}`}>
-                    Pending
-                  </span>
-                </td>
-                <td>
-                  <button tabIndex={-1} className={styles.actionButton}>
-                    👁️
+                  <button className={styles.langButton}>
+                    <span className={styles.langIcon}>🐍</span>
+                    <span>Python</span>
                   </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                </div>
+              </div>
+
+              <div className={styles.codeBlock}>
+                <h4 className={styles.sectionTitle}>REQUEST</h4>
+                <pre className={styles.code}>
+                  <code>
+                    <span className={styles.lineNumber}>1</span>{" "}
+                    <span className={styles.keyword}>import</span> requests
+                    {"\n"}
+                    <span className={styles.lineNumber}>2</span>
+                    {"\n"}
+                    <span className={styles.lineNumber}>3</span>{" "}
+                    <span className={styles.variable}>url</span> ={" "}
+                    <span className={styles.string}>
+                      &quot;https://staging.abksor.com/api/health&quot;
+                    </span>
+                    {"\n"}
+                    <span className={styles.lineNumber}>4</span>
+                    {"\n"}
+                    <span className={styles.lineNumber}>5</span>{" "}
+                    <span className={styles.variable}>headers</span> = {"{"}
+                    <span className={styles.string}>
+                      &quot;accept&quot;
+                    </span>:{" "}
+                    <span className={styles.string}>
+                      &quot;application/json&quot;
+                    </span>
+                    {"}"}
+                    {"\n"}
+                    <span className={styles.lineNumber}>6</span>
+                    {"\n"}
+                    <span className={styles.lineNumber}>7</span>{" "}
+                    <span className={styles.variable}>response</span> =
+                    requests.<span className={styles.function}>get</span>(url,
+                    headers=headers){"\n"}
+                    <span className={styles.lineNumber}>8</span>
+                    {"\n"}
+                    <span className={styles.lineNumber}>9</span>{" "}
+                    <span className={styles.keyword}>print</span>(response.
+                    <span className={styles.function}>text</span>())
+                  </code>
+                </pre>
+              </div>
+
+              <div className={styles.codeBlock}>
+                <h4 className={styles.sectionTitle}>RESPONSE</h4>
+                <pre className={styles.code}>
+                  <code>
+                    <span className={styles.lineNumber}>1</span> {"{"}
+                    {"\n"}
+                    <span className={styles.lineNumber}>2</span>{" "}
+                    <span className={styles.string}>&quot;status&quot;</span>:{" "}
+                    <span className={styles.string}>&quot;ok&quot;</span>,{"\n"}
+                    <span className={styles.lineNumber}>3</span>{" "}
+                    <span className={styles.string}>
+                      &quot;onCommitHash&quot;
+                    </span>
+                    :{" "}
+                    <span className={styles.string}>
+                      &quot;af3ba93ba41ca1bb373d35ed39ad9&quot;
+                    </span>
+                    ,{"\n"}
+                    <span className={styles.lineNumber}>4</span>{" "}
+                    <span className={styles.string}>&quot;name&quot;</span>:{" "}
+                    <span className={styles.string}>&quot;string&quot;</span>,
+                    {"\n"}
+                    <span className={styles.lineNumber}>5</span>{" "}
+                    <span className={styles.string}>&quot;version&quot;</span>:{" "}
+                    <span className={styles.string}>&quot;v0.1.0&quot;</span>,
+                    {"\n"}
+                    <span className={styles.lineNumber}>6</span>{" "}
+                    <span className={styles.string}>&quot;branch&quot;</span>:{" "}
+                    <span className={styles.string}>&quot;branch&quot;</span>,
+                    {"\n"}
+                    <span className={styles.lineNumber}>7</span>{" "}
+                    <span className={styles.string}>&quot;details&quot;</span>:{" "}
+                    {"{"}
+                    {"\n"}
+                    <span className={styles.lineNumber}>8</span>{" "}
+                    <span className={styles.string}>&quot;redis&quot;</span>:{" "}
+                    {"{"}
+                    {"\n"}
+                    <span className={styles.lineNumber}>9</span>{" "}
+                    <span className={styles.string}>&quot;status&quot;</span>:{" "}
+                    <span className={styles.string}>&quot;up&quot;</span>
+                    {"\n"}
+                    <span className={styles.lineNumber}>10</span> {"}"}
+                    {"\n"}
+                    <span className={styles.lineNumber}>11</span> {"}"}
+                    {"\n"}
+                    <span className={styles.lineNumber}>12</span> {"}"}
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

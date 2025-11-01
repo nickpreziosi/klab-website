@@ -1,7 +1,7 @@
 .heroSection {
   position: relative;
   min-height: 100vh;
-  height: 1260px;
+  height: 1100px;
   width: 100%;
   max-width: 1440px;
   padding: 0;
@@ -88,11 +88,9 @@
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-
-  transform: translate(10%) scale(1.2) rotateX(25deg) rotateY(30deg)
+  transform: translate(15%) scale(1.2) rotateX(25deg) rotateY(30deg)
     rotate(334deg);
   transition: transform 0.3s ease;
-
   border-radius: var(--rounded-sm);
 }
 
@@ -184,9 +182,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100;
   height: 100%;
-  background: rgba(var(--main-color-rgb), 0.25);
   z-index: 1;
   pointer-events: none;
 }
@@ -194,15 +191,15 @@
 /* Added gradient overlay from transparent to more opaque at bottom */
 .gradientOverlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  bottom: 0;
+  left: -300px;
+  width: calc(100vw + 300px);
   height: 100%;
   background: linear-gradient(
     to bottom,
     transparent 0%,
     transparent 25%,
-    rgba(var(--main-color-rgb), 1) 80%,
+    rgba(var(--main-color-rgb), 1) 60%,
     rgba(var(--main-color-rgb), 1) 100%
   );
   z-index: 2;
@@ -220,7 +217,7 @@
 /* Responsive */
 @media (max-width: 1440px) {
   .transformedContent {
-    transform: translate(8%, 5%) scale(1.2) rotateX(25deg) rotateY(30deg)
+    transform: translate(15%, 5%) scale(1.2) rotateX(25deg) rotateY(30deg)
       rotate(334deg);
   }
   .transformedContainer {
@@ -243,12 +240,12 @@
     width: 150%;
   }
   .transformedContent {
-    transform: translate(8%, 10%) scale(1.2) rotateX(25deg) rotateY(30deg)
+    transform: translate(15%, 10%) scale(1.2) rotateX(25deg) rotateY(30deg)
       rotate(334deg);
   }
   .heroSection {
     min-height: 100vh;
-    height: 1180px;
+    height: 1100px;
   }
   .contentWrapper {
     padding: var(--padding-tablet);
@@ -278,8 +275,39 @@
   }
 
   .transformedContent {
-    transform: translate(5%, 2%) scale(1.2) rotateX(25deg) rotateY(30deg)
+    transform: translate(50%, 2%) scale(1.2) rotateX(25deg) rotateY(30deg)
       rotate(334deg);
+  }
+  .gradientOverlay {
+    left: -500px;
+    height: calc(100% + 200px);
+    bottom: -200px;
+    width: calc(100vw + 500px);
+  }
+
+  .heroSection {
+    height: fit-content;
+  }
+
+  .placeholderSidebar {
+    width: 180px;
+  }
+  /* 3D Transformed Container */
+  .transformedContainer {
+    width: 135%;
+  }
+}
+
+@media (max-width: 500px) {
+  .transformedContent {
+    transform: translate(70%, 2%) scale(1.2) rotateX(25deg) rotateY(30deg)
+      rotate(334deg);
+  }
+  .gradientOverlay {
+    left: -500px;
+    height: calc(100% + 100px);
+    bottom: -100px;
+    width: calc(100vw + 500px);
   }
 
   .heroSection {

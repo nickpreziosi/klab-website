@@ -80,8 +80,9 @@ export default function KeoRailsHero({
                 }}
               >
                 <KeoDashboard />
-                <div className={styles.blackOverlay} />
                 <div className={styles.gradientOverlay} />
+
+                <div className={styles.blackOverlay} />
               </motion.div>
 
               <div style={{ display: "none" }}>
