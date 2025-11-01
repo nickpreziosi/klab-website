@@ -8,23 +8,21 @@ import { useRef, useEffect } from "react";
 
 export default function KeoRailsCodeSection() {
   const leftColRef = useRef<HTMLDivElement | null>(null);
-  const rightColRef = useRef<HTMLDivElement | null>(null);
+  const cardsContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!leftColRef.current || !rightColRef.current) return;
+    if (!leftColRef.current || !cardsContainerRef.current) return;
 
     const sync = () => {
-      const rightHeight =
-        rightColRef.current?.getBoundingClientRect().height || 0;
-      // On smaller screens cap the left column to 500px; otherwise use right column height
-      const cap = window.innerWidth <= 1024 ? 500 : Infinity;
-      const applied = Math.min(rightHeight || Infinity, cap);
-      // Apply maxHeight to left column so it won't push layout; left column will scroll internally
-      leftColRef.current!.style.maxHeight = `${applied}px`;
-      leftColRef.current!.style.overflow = "hidden";
+      // On smaller screens cap the left column to 400px; otherwise use right column height
       if (window.innerWidth <= 1024) {
-        console.log(leftColRef.current!.style.height);
-        leftColRef.current!.style.height = `500px!important`;
+        leftColRef.current!.style.maxHeight = `400px`;
+        leftColRef.current!.style.height = `400px`;
+      } else {
+        const cardsContainerHeight =
+          cardsContainerRef.current?.getBoundingClientRect().height;
+        leftColRef.current!.style.maxHeight = `${cardsContainerHeight}px`;
+        leftColRef.current!.style.overflow = "hidden";
       }
     };
 
@@ -33,7 +31,7 @@ export default function KeoRailsCodeSection() {
 
     // Observe right column size changes
     const ro = new ResizeObserver(() => sync());
-    ro.observe(rightColRef.current);
+    ro.observe(cardsContainerRef.current);
 
     // Also sync on window resize
     window.addEventListener("resize", sync);
@@ -59,8 +57,8 @@ export default function KeoRailsCodeSection() {
               loop={true}
             />
           </div>
-          <div className={styles.rightColumn} ref={rightColRef}>
-            <div className={styles.cardsContainer}>
+          <div className={styles.rightColumn}>
+            <div ref={cardsContainerRef} className={styles.cardsContainer}>
               <div className={styles.card}>
                 <h4 className={styles.cardHeading}>Trust</h4>
                 <p className={styles.cardText}>
