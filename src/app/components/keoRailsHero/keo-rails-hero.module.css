@@ -89,7 +89,7 @@
   height: 100%;
   transform-style: preserve-3d;
   transform: translate(15%) scale(1.2) rotateX(25deg) rotateY(30deg)
-    rotate(334deg);
+    rotate(334deg) !important;
   transition: transform 0.3s ease;
   border-radius: var(--rounded-sm);
 }
@@ -218,7 +218,7 @@
 @media (max-width: 1440px) {
   .transformedContent {
     transform: translate(15%, 5%) scale(1.2) rotateX(25deg) rotateY(30deg)
-      rotate(334deg);
+      rotate(334deg) !important;
   }
   .transformedContainer {
     width: 120%;
@@ -241,7 +241,7 @@
   }
   .transformedContent {
     transform: translate(15%, 10%) scale(1.2) rotateX(25deg) rotateY(30deg)
-      rotate(334deg);
+      rotate(334deg) !important;
   }
   .heroSection {
     min-height: 100vh;
@@ -276,7 +276,7 @@
 
   .transformedContent {
     transform: translate(50%, 2%) scale(1.2) rotateX(25deg) rotateY(30deg)
-      rotate(334deg);
+      rotate(334deg) !important;
   }
   .gradientOverlay {
     left: -500px;
@@ -301,7 +301,7 @@
 @media (max-width: 500px) {
   .transformedContent {
     transform: translate(70%, 2%) scale(1.2) rotateX(25deg) rotateY(30deg)
-      rotate(334deg);
+      rotate(334deg) !important;
   }
   .gradientOverlay {
     left: -500px;
