@@ -38,6 +38,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   max-width: 1440px;
+  width: 100%;
   padding: var(--padding-desktop);
 }
 
@@ -123,7 +124,6 @@
   border: 1px solid hsl(var(--border));
   border-radius: 0.5rem;
   background: hsl(var(--card));
-  padding: 2rem;
 }
 
 .cardContent {

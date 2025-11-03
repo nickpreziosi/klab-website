@@ -32,16 +32,18 @@ export default function KeoRailsHero({
     <section className={styles.heroSection}>
       <div className={styles.contentWrapper}>
         {/* Left side - Text content */}
-        <HeroText
-          maxWidth="900px"
-          text={heading}
-          subtitle={description}
-          subheader={subheading}
-          buttonText={buttonText}
-          buttonHref={buttonHref}
-          buttonTwoText={buttonTwoText}
-          buttonTwoHref={buttonTwoHref}
-        ></HeroText>
+        <div className={styles.heroTextContainer}>
+          <HeroText
+            maxWidth="900px"
+            text={heading}
+            subtitle={description}
+            subheader={subheading}
+            buttonText={buttonText}
+            buttonHref={buttonHref}
+            buttonTwoText={buttonTwoText}
+            buttonTwoHref={buttonTwoHref}
+          ></HeroText>
+        </div>
 
         {/* Right side - 3D transformed content container */}
         <motion.div className={styles.transformedContainer}>

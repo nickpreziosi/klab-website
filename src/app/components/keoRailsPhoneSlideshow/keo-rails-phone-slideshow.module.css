@@ -564,7 +564,7 @@
 
 @media (max-width: 400px) {
   .phoneFrame {
-    transform: scale(0.7);
+    transform: scale(0.5);
     max-width: 100%;
     margin-bottom: -200px;
   }
