@@ -94,16 +94,18 @@
     height: auto;
     order: 1;
   }
+  .grid {
+    gap: var(--gap-sm);
+  }
+  .section {
+    gap: var(--gap-sm);
+  }
 }
 
 @media (max-width: 1024px) {
-  .grid {
-    gap: var(--gap-lg);
-  }
-
   .section {
     padding: var(--padding-tablet);
-    gap: var(--gap-lg);
+    gap: var(--gap-sm);
   }
 }
 

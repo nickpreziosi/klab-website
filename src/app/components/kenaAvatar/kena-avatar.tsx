@@ -8,7 +8,7 @@ import {
   Decal,
   useGLTF,
 } from "@react-three/drei";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import * as THREE from "three";
 import styles from "./kena-avatar.module.css";
 
@@ -30,6 +30,7 @@ function HolographicAvatar() {
         material.emissiveIntensity = 0.1;
         material.metalness = 0.4;
         material.roughness = 0.3;
+        material.shadowSide = THREE.DoubleSide;
       }
     }
   });

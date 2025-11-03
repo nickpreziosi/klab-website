@@ -5,9 +5,9 @@
   /* Use viewport-relative maximum so small screens get a smaller cap (90vw) */
   max-width: min(100%, 90vw);
   /* Keep a consistent square area for the avatar; scales height based on width */
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4/6;
   margin: 0 auto; /* center horizontally */
-  background: linear-gradient(135deg, var(--main-color) 0%, #1a2a3a 100%);
+  background: transparent;
   border-radius: 16px;
   overflow: hidden;
   object-fit: cover;
@@ -17,7 +17,6 @@
   box-sizing: border-box;
   flex: 0 0 auto;
   min-width: 0;
-  box-shadow: var(--shadow-black);
 }
 
 .canvas {
@@ -35,10 +34,10 @@
 .instruction {
   position: absolute;
   /* keep instruction just above the bottom edge but responsive */
-  bottom: clamp(12px, 3vh, var(--padding-mobile));
+  bottom: clamp(12px, 1vh, var(--padding-mobile));
   left: 50%;
   transform: translateX(-50%);
-  color: white;
+  color: var(--secondary-color);
   font-size: 16px;
   pointer-events: none;
   display: flex;
