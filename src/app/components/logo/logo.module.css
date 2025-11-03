@@ -13,6 +13,10 @@
   border-radius: 100%;
 }
 
+.logoContainer * {
+  border-radius: 100%;
+}
+
 /* Added flat variant with no box-shadow */
 .flat {
   box-shadow: none !important;

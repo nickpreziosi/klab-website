@@ -3,6 +3,7 @@
   z-index: 999;
   padding-bottom: var(--padding-lg);
   width: 100%;
+  border-radius: 6px;
 }
 
 .container {
@@ -10,10 +11,12 @@
   margin: 0 auto;
   padding: 0;
   height: fit-content;
+  border-radius: 6px;
 }
 
 .content {
   padding: var(--padding-sm) 0 var(--padding-lg) 0;
+  border-radius: 6px;
 }
 
 .heading {
@@ -69,8 +72,12 @@
 /* Limit Hover Effects to Non Touch Devices */
 @media (pointer: fine) and (hover: hover) {
   .item:hover {
-    background: rgba(var(--accent-color-rgb), 0.2);
+    background: rgba(var(--secondary-color-rgb), 0.05);
     padding-left: 28px;
+  }
+
+  .item:hover .itemTitle {
+    color: var(--accent-color);
   }
 }
 

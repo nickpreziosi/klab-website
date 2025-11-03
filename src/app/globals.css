@@ -172,13 +172,13 @@ button {
   cursor: pointer !important;
 }
 
-a[href]:focus,
-input:focus,
-input:focus,
-textarea:focus,
-label:focus,
-select:focus,
-button:focus {
+a[href]:focus-visible,
+input:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+label:focus-visible,
+select:focus-visible,
+button:focus-visible {
   outline: 2px solid var(--secondary-color);
   outline-offset: 2px;
 }

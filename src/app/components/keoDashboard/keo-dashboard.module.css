@@ -42,10 +42,21 @@
 .frame1 {
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) translateX(-80px) translateY(-40px)
-    rotateX(10deg) rotateY(-8deg) scale(0.9);
-  z-index: 1;
-  transition-delay: 0s;
+  transform: translate(-95%, -80%) translateX(0px) translateY(0px) rotateX(5deg)
+    rotateY(-5deg) scale(1) !important;
+}
+
+.frame1,
+.frame2,
+.frame3 {
+  transition: box-shadow 0.3s ease-in-out !important;
+}
+
+.frame1:hover,
+.frame2:hover,
+.frame3:hover {
+  transition: box-shadow 0.15s ease-in-out !important;
+  box-shadow: rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px !important;
 }
 
 .frame1 *,
@@ -53,38 +64,20 @@
 .frame3 * {
   color: var(--secondary-color) !important;
 }
-.apiFrames.visible .frame1 {
-  transform: translate(-95%, -80%) translateX(0px) translateY(0px) rotateX(5deg)
-    rotateY(-5deg) scale(1);
-}
 
 .frame2 {
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) translateX(-80px) translateY(-40px)
-    rotateX(10deg) rotateY(-8deg) scale(0.9);
-  z-index: 2;
-  transition-delay: 0.15s;
-}
-
-.apiFrames.visible .frame2 {
   transform: translate(-60%, -70%) translateX(0px) translateY(0px) rotateX(5deg)
-    rotateY(-5deg) scale(1);
+    rotateY(-5deg) scale(1) !important;
 }
 
 .frame3 {
   width: 800px;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) translateX(80px) translateY(40px)
-    rotateX(10deg) rotateY(-8deg) scale(0.9);
-  z-index: 3;
-  transition-delay: 0.3s;
-}
-
-.apiFrames.visible .frame3 {
   transform: translate(-30%, -65%) translateX(80px) translateY(40px)
-    rotateX(5deg) rotateY(-5deg) scale(1);
+    rotateX(5deg) rotateY(-5deg) scale(1) !important;
 }
 
 .frameContent {

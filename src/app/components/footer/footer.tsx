@@ -144,7 +144,7 @@ export const Footer = () => {
           {/* Newsletter Section */}
           <div className={styles.newsletter}>
             <div className={styles.newsletterContent}>
-              <Link href="/" aria-label="KEO Home">
+              <Link className={styles.logo} href="/" aria-label="KEO Home">
                 <Logo size="md" animated></Logo>
               </Link>
               <div className={styles.newsletterText}>

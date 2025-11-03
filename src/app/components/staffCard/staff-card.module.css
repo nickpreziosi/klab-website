@@ -135,6 +135,7 @@
 .accordionTrigger {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   gap: var(--gap-md);
   padding: var(--padding-mobile);
   border: transparent 1px var(--main-color);
@@ -147,6 +148,16 @@
   background-color: transparent;
 }
 
+.accordionTrigger:focus-visible {
+  outline: none;
+  border-color: var(--accent-color, #ff004c);
+}
+
+.accordionTrigger:focus-visible .accordionTriggerBio {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
 .accordionTriggerBio {
   font-size: var(--text-lg);
   white-space: nowrap;
@@ -155,9 +166,11 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  height: 100%;
+  height: fit-content;
   font-size: var(--text-sm);
   color: white;
+  padding: 6px;
+  border-radius: 6px;
 }
 
 .accordionTriggerBio,

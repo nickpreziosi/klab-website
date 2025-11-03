@@ -2,21 +2,42 @@
 
 import { useEffect, useState } from "react";
 import styles from "./keo-dashboard.module.css";
+import { motion } from "motion/react";
 
 export default function KeoMockDashboard() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    // Trigger animation on mount
-    setIsVisible(true);
-  }, []);
-
   return (
-    <div inert aria-hidden tabIndex={-1} className={styles.dashboardWrapper}>
-      <div className={`${styles.apiFrames} ${isVisible ? styles.visible : ""}`}>
+    <div className={styles.dashboardWrapper}>
+      <div className={`${styles.apiFrames} `}>
         {/* Frame 1: Sidebar Navigation */}
-        <div className={`${styles.apiFrame} ${styles.frame1}`}>
-          <div className={styles.frameContent}>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: -48,
+            rotateX: 8,
+            scale: 0.98,
+            filter: "blur(12px)",
+            boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            scale: 1,
+            filter: "blur(0px)",
+            boxShadow: "var(--shadow-black)",
+          }}
+          viewport={{ once: true, amount: 0.45 }}
+          transition={{
+            duration: 0.9,
+            delay: 0.3,
+            ease: [0.16, 1, 0.3, 1],
+            type: "spring",
+            stiffness: 90,
+            damping: 16,
+          }}
+          className={`${styles.apiFrame} ${styles.frame1}`}
+        >
+          <div inert aria-hidden tabIndex={-1} className={styles.frameContent}>
             <div className={styles.apiSidebar}>
               <div className={styles.apiVersion}>V1</div>
               <h2 className={styles.apiTitle}>API Reference</h2>
@@ -65,11 +86,38 @@ export default function KeoMockDashboard() {
               </nav>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Frame 2: API Response UI */}
-        <div className={`${styles.apiFrame} ${styles.frame2}`}>
-          <div className={styles.frameContent}>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: -48,
+            rotateX: 8,
+            scale: 0.98,
+            filter: "blur(12px)",
+            boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            scale: 1,
+            filter: "blur(0px)",
+            boxShadow: "var(--shadow-black)",
+          }}
+          viewport={{ once: true, amount: 0.45 }}
+          transition={{
+            duration: 0.9,
+            delay: 0.6,
+            ease: [0.16, 1, 0.3, 1],
+            type: "spring",
+            stiffness: 90,
+            damping: 16,
+          }}
+          className={`${styles.apiFrame} ${styles.frame2}`}
+        >
+          <div inert aria-hidden tabIndex={-1} className={styles.frameContent}>
             <div className={styles.apiResponse}>
               <h3 className={styles.endpointTitle}>/api/health</h3>
               <div className={styles.urlBar}>
@@ -118,11 +166,38 @@ export default function KeoMockDashboard() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Frame 3: Code Editor */}
-        <div className={`${styles.apiFrame} ${styles.frame3}`}>
-          <div className={styles.frameContent}>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: -48,
+            rotateX: 8,
+            scale: 0.98,
+            filter: "blur(12px)",
+            boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            scale: 1,
+            filter: "blur(0px)",
+            boxShadow: "var(--shadow-black)",
+          }}
+          viewport={{ once: true, amount: 0.45 }}
+          transition={{
+            duration: 0.9,
+            delay: 0.9,
+            ease: [0.16, 1, 0.3, 1],
+            type: "spring",
+            stiffness: 90,
+            damping: 16,
+          }}
+          className={`${styles.apiFrame} ${styles.frame3}`}
+        >
+          <div inert aria-hidden tabIndex={-1} className={styles.frameContent}>
             <div className={styles.codeEditor}>
               <div className={styles.languageSection}>
                 <h4 className={styles.sectionTitle}>LANGUAGE</h4>
@@ -244,7 +319,7 @@ export default function KeoMockDashboard() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

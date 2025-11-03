@@ -44,45 +44,12 @@ export default function KeoRailsHero({
         ></HeroText>
 
         {/* Right side - 3D transformed content container */}
-        <motion.div
-          className={styles.transformedContainer}
-          initial={{ opacity: 0, filter: "blur(10px)" }}
-          animate={{ opacity: 1, filter: "blur(0px)" }}
-          transition={{
-            duration: 1,
-            delay: 0.3,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-        >
+        <motion.div className={styles.transformedContainer}>
           <div className={styles.perspectiveWrapper}>
             <div className={styles.transformedContent}>
               <motion.div
                 className={styles.imageContainer}
                 style={{ transformStyle: "preserve-3d" }}
-                initial={{
-                  opacity: 0,
-                  y: 48,
-                  rotateX: 8,
-                  scale: 0.98,
-                  filter: "blur(12px)",
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  rotateX: 0,
-                  scale: 1,
-                  filter: "blur(0px)",
-                }}
-                viewport={{ once: true, amount: 0.45 }}
-                transition={{
-                  duration: 0.9,
-                  delay: 0.15,
-                  ease: [0.16, 1, 0.3, 1],
-                  type: "spring",
-                  stiffness: 90,
-                  damping: 16,
-                }}
-                whileHover={{ scale: 1.02, rotateX: 0 }}
               >
                 <KeoDashboard />
                 <div className={styles.gradientOverlay} />
