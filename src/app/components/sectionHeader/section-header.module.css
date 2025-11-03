@@ -109,9 +109,10 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .heading {
-    font-size: 32px;
+    font-size: 40px;
+    line-height: 1.2;
   }
 
   .subtitle {
@@ -119,9 +120,21 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  .heading {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 540px) {
   .heading {
     font-size: 28px;
+    line-height: 1.2;
   }
 
   .subtitle {

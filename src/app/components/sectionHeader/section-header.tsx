@@ -129,6 +129,9 @@ export default function SectionHeader({
 
       {secondHeading && (
         <motion.h2
+          style={{
+            justifyContent: align === "center" ? "center" : "flex-start",
+          }}
           className={styles.heading}
           variants={containerVariants}
           initial="hidden"

@@ -1,7 +1,6 @@
 .accordionRoot {
   width: 100%;
-}
-.accordionRoot {
+  border-radius: 16px;
   font-family: "Poppins", sans-serif;
 }
 
@@ -23,14 +22,29 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 0.5rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
+.accordionTriggerContainer {
+  all: unset;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+
+.accordionTrigger:focus-visible .accordionTriggerContainer {
+  outline: 2px solid var(--secondary-color);
+}
 .accordionTrigger:focus-visible {
-  outline: 2px solid #ff004cff;
-  outline-offset: -2px;
+  outline: none;
+  border-bottom: none;
 }
 
 .triggerContent {
@@ -112,7 +126,7 @@
 }
 
 .themeOption:focus-visible {
-  outline: 2px solid rgb(var(--accent-color-rgb));
+  outline: 2px solid var(--secondary-color);
   outline-offset: 2px;
 }
 

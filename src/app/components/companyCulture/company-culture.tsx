@@ -21,7 +21,8 @@ export default function CompanyCulture() {
         >
           <SectionHeader
             highlight={["Teamwork", "Inclusion"]}
-            heading="Innovation Through Teamwork & Inclusion."
+            heading="Innovation Through"
+            secondHeading="Teamwork & Inclusion."
             align="center"
             animateOnce={true}
           />
@@ -31,12 +32,11 @@ export default function CompanyCulture() {
             <span className={styles.accent}> Inclusion</span>.
           </h2>
           <p className={styles.description}>
-            Our strength is built on combining start-up energy with extensive
-            industry experience to develop innovative solutions that change the
-            way companies grow. We have a deep commitment to advancing
-            diversity, equality, and inclusion, essential to our mission of
-            helping businesses and attracting exceptional people who think
-            outside the box.
+            KEO combines start-up energy with extensive industry experience to
+            develop innovative technologies. We have a deep commitment to
+            advancing diversity, equality, and inclusion, essential to our
+            mission of helping businesses and attracting exceptional people who
+            think outside the box.
           </p>
           <Button
             size="md"

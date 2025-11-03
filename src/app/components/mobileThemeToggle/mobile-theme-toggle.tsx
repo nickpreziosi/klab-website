@@ -268,28 +268,30 @@ export function MobileThemeToggle() {
             aria-label="Change Website Theme"
             className={styles.accordionTrigger}
           >
-            <div className={styles.triggerContent}>
-              <span className={styles.triggerLabel}>Theme</span>
-              <span className={styles.currentTheme}>
-                <span className={styles.currentThemeIcon}>
-                  {getThemeIcon(theme)}
+            <div className={styles.accordionTriggerContainer}>
+              <div className={styles.triggerContent}>
+                <span className={styles.triggerLabel}>Theme</span>
+                <span className={styles.currentTheme}>
+                  <span className={styles.currentThemeIcon}>
+                    {getThemeIcon(theme)}
+                  </span>
+                  <span className={styles.currentThemeLabel}>
+                    {getThemeLabel(theme)}
+                  </span>
                 </span>
-                <span className={styles.currentThemeLabel}>
-                  {getThemeLabel(theme)}
-                </span>
-              </span>
+              </div>
+              <span className={styles.edit}>EDIT</span>
+              <svg
+                className={styles.caretIcon}
+                width="30"
+                height="30"
+                viewBox="0 0 15 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M4 9H11L7.5 4.5L4 9Z" fill="currentColor"></path>
+              </svg>
             </div>
-            <span className={styles.edit}>EDIT</span>
-            <svg
-              className={styles.caretIcon}
-              width="30"
-              height="30"
-              viewBox="0 0 15 15"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M4 9H11L7.5 4.5L4 9Z" fill="currentColor"></path>
-            </svg>
           </Accordion.Trigger>
         </Accordion.Header>
         <Accordion.Content

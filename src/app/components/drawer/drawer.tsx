@@ -61,7 +61,11 @@ export const Drawer = () => {
                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
               >
                 <div className={styles.drawerHeader}>
-                  <Link href="/" onClick={() => setIsOpen(false)}>
+                  <Link
+                    className={styles.logoLink}
+                    href="/"
+                    onClick={() => setIsOpen(false)}
+                  >
                     <Logo size="sm" animated></Logo>
                   </Link>
 
@@ -271,12 +275,16 @@ export const Drawer = () => {
                 </nav>
 
                 <motion.div
-                  className={styles.loginContainer}
+                  tabIndex={-1}
+                  aria-hidden
+                  className={styles.themeToggleContainer}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35 }}
                 >
                   <motion.span
+                    tabIndex={-1}
+                    aria-hidden
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
