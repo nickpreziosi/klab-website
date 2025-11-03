@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./keo-rails-phone-slideshow.module.css";
 
@@ -329,6 +329,8 @@ function BottomNav({ active }: { active: string }) {
 
 export default function KeoRailsPhoneSlideshow() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const stickyRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -337,97 +339,169 @@ export default function KeoRailsPhoneSlideshow() {
     return () => clearInterval(interval);
   }, []);
 
+  // JS fallback sticky behavior: keep the .sticky element pinned to the top of
+  // the .container while the user scrolls through it. This is more robust when
+  // CSS sticky is prevented by transforms/overflow in ancestor elements.
+  useEffect(() => {
+    const minWidth = 1025;
+    const update = () => {
+      const container = containerRef.current;
+      const sticky = stickyRef.current;
+      if (!container || !sticky) return;
+
+      // Reset styles on small screens
+      if (window.innerWidth < minWidth) {
+        sticky.style.position = "relative";
+        sticky.style.top = "";
+        sticky.style.left = "";
+        sticky.style.width = "";
+        sticky.style.bottom = "";
+        sticky.style.zIndex = "";
+        return;
+      }
+
+      const rect = container.getBoundingClientRect();
+      const stickyRect = sticky.getBoundingClientRect();
+      const containerTop = window.scrollY + rect.top;
+      const containerBottom = containerTop + rect.height;
+      const stickyHeight = stickyRect.height;
+      const offset = 0; // if you have a fixed header, adjust this value
+      const scrollY = window.scrollY;
+
+      if (
+        scrollY + offset >= containerTop &&
+        scrollY + offset + stickyHeight <= containerBottom
+      ) {
+        // fixed to viewport top
+        sticky.style.position = "fixed";
+        sticky.style.top = `${offset}px`;
+        sticky.style.left = `${rect.left}px`;
+        sticky.style.width = `${rect.width}px`;
+        sticky.style.bottom = "";
+        sticky.style.zIndex = "20";
+      } else if (scrollY + offset + stickyHeight > containerBottom) {
+        // stick to bottom of container
+        sticky.style.position = "absolute";
+        sticky.style.top = `${rect.height - stickyHeight}px`;
+        sticky.style.left = "0";
+        sticky.style.width = "100%";
+        sticky.style.zIndex = "";
+      } else {
+        // before entering container
+        sticky.style.position = "relative";
+        sticky.style.top = "";
+        sticky.style.left = "";
+        sticky.style.width = "";
+        sticky.style.zIndex = "";
+      }
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
   return (
-    <motion.div
-      inert
-      tabIndex={-1}
-      aria-hidden="true"
-      className={styles.container}
-      initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-    >
-      {screens.map((screen, index) => {
-        const isActive = currentIndex === index;
-        const position =
-          index === 0 ? "left" : index === 1 ? "bottom" : "right";
+    <div className={styles.container} ref={containerRef}>
+      <motion.div
+        inert
+        tabIndex={-1}
+        aria-hidden="true"
+        className={styles.container}
+        initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        {screens.map((screen, index) => {
+          const isActive = currentIndex === index;
+          const position =
+            index === 0 ? "left" : index === 1 ? "bottom" : "right";
 
-        return (
-          <div
-            key={screen.id}
-            className={`${styles.floatingIcon} ${
-              styles[
-                `icon${position.charAt(0).toUpperCase() + position.slice(1)}`
-              ]
-            } ${isActive ? styles.iconActive : ""}`}
-          >
-            <div className={styles.iconCircle}>{screen.icon}</div>
-            <span className={styles.iconLabel}>{screen.label}</span>
-
-            {isActive && (
-              <svg
-                className={styles.curvedPath}
-                viewBox="0 0 400 400"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <motion.path
-                  d={
-                    position === "left"
-                      ? "M 50 200 Q 150 200, 250 200"
-                      : position === "bottom"
-                      ? "M 200 350 Q 200 275, 200 200"
-                      : "M 350 200 Q 250 200, 150 200"
-                  }
-                  stroke="#FF0055"
-                  strokeWidth="3"
-                  fill="none"
-                  strokeDasharray="5,5"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                />
-                <motion.circle
-                  cx={
-                    position === "left" ? 50 : position === "bottom" ? 200 : 350
-                  }
-                  cy={
-                    position === "left"
-                      ? 200
-                      : position === "bottom"
-                      ? 350
-                      : 200
-                  }
-                  r="6"
-                  fill="#FF0055"
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: [0, 1, 1, 0],
-                  }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                />
-              </svg>
-            )}
-          </div>
-        );
-      })}
-      <div className={styles.phoneFrame}>
-        <div className={styles.phoneNotch} />
-        <div className={styles.phoneScreen}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-              className={styles.screenWrapper}
+          return (
+            <div
+              key={screen.id}
+              className={`${styles.floatingIcon} ${
+                styles[
+                  `icon${position.charAt(0).toUpperCase() + position.slice(1)}`
+                ]
+              } ${isActive ? styles.iconActive : ""}`}
             >
-              {screens[currentIndex].component}
-            </motion.div>
-          </AnimatePresence>
+              <div className={styles.iconCircle}>{screen.icon}</div>
+              <span className={styles.iconLabel}>{screen.label}</span>
+
+              {isActive && (
+                <svg
+                  className={styles.curvedPath}
+                  viewBox="0 0 400 400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <motion.path
+                    d={
+                      position === "left"
+                        ? "M 50 200 Q 150 200, 250 200"
+                        : position === "bottom"
+                        ? "M 200 350 Q 200 275, 200 200"
+                        : "M 350 200 Q 250 200, 150 200"
+                    }
+                    stroke="#FF0055"
+                    strokeWidth="3"
+                    fill="none"
+                    strokeDasharray="5,5"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                  />
+                  <motion.circle
+                    cx={
+                      position === "left"
+                        ? 50
+                        : position === "bottom"
+                        ? 200
+                        : 350
+                    }
+                    cy={
+                      position === "left"
+                        ? 200
+                        : position === "bottom"
+                        ? 350
+                        : 200
+                    }
+                    r="6"
+                    fill="#FF0055"
+                    initial={{ opacity: 0 }}
+                    animate={{
+                      opacity: [0, 1, 1, 0],
+                    }}
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                  />
+                </svg>
+              )}
+            </div>
+          );
+        })}
+        <div className={styles.phoneFrame}>
+          <div className={styles.phoneNotch} />
+          <div className={styles.phoneScreen}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentIndex}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+                className={styles.screenWrapper}
+              >
+                {screens[currentIndex].component}
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }

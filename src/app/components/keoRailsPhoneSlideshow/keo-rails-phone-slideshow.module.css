@@ -1,15 +1,27 @@
+.section {
+  position: absolute;
+  height: 600px;
+}
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 0 var(--padding-mobile);
   background: var(--background);
-  position: relative;
   height: fit-content;
   pointer-events: none;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none;
+  position: relative;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sticky {
+  position: sticky;
+  color: white;
+  top: 0;
+  left: 0;
 }
 
 /* Added floating icons styles */
@@ -38,7 +50,7 @@
 }
 
 .iconBottom {
-  top: 60%;
+  top: 80%;
   left: 50%;
   transform: translateX(-50%);
 }

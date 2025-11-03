@@ -7,6 +7,7 @@ import KeoRailsCtaSection from "@/app/components/keoRailsCtaSection/keo-rails-ct
 import KeoRailsDemo from "@/app/components/keoRailsDemo/keo-rails-demo";
 import KeoRailsCodeSection from "@/app/components/keoRailsCodeSection/keo-rails-code-section";
 import KeoRailsCaseStudy from "@/app/components/keoRailsCaseStudy/keo-rails-case-study";
+import KeoRailsGridSection from "@/app/components/keoRailsGridSection/keo-rails-grid-section";
 
 export default function KeoRailsPage() {
   return (
@@ -31,7 +32,7 @@ export default function KeoRailsPage() {
       </div>
 
       <KeoRailsCodeSection></KeoRailsCodeSection>
-      <KeoRailsDemo></KeoRailsDemo>
+      <KeoRailsGridSection></KeoRailsGridSection>
       <KeoRailsBuiltWithSection></KeoRailsBuiltWithSection>
 
       <KeoRailsCaseStudy></KeoRailsCaseStudy>

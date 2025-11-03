@@ -87,14 +87,6 @@
   transition: border-color 0.2s ease;
 }
 
-.emailInput:focus {
-  outline: 2px solid var(--secondary-color);
-}
-
-.emailInput:focus .subscribeButton {
-  border-color: rgba(var(--secondary-color-rgb), 0.8);
-}
-
 .emailInput::placeholder {
   color: rgba(var(--secondary-color-rgb), 0.5);
 }
@@ -246,6 +238,10 @@
   text-decoration: underline;
   transition: color 0.2s ease;
 }
+.legalLink,
+.navLink {
+  border-radius: 6px;
+}
 
 /* Responsive Design */
 @media (max-width: 1200px) {
@@ -365,7 +361,9 @@
   .legalLink:hover,
   .navLink:hover {
     color: var(--accent-color);
+    border-radius: 6px;
   }
+
   .socialLink:hover {
     background: rgba(var(--accent-color-rgb), 0.1);
     border-color: var(--accent-color);

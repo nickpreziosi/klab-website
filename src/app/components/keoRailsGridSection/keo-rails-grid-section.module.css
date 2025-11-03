@@ -1,34 +1,23 @@
 .section {
   width: 100%;
+  margin: 0;
   background-color: rgba(var(--secondary-color-rgb), 0.05);
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.section * {
-  font-family: "Poppins", sans-serif;
-}
-.container {
-  width: 100%;
-  max-width: 1440px;
-  padding: var(--padding-desktop);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .topHeading {
   text-align: center;
-  margin-bottom: 100px;
+  padding: var(--padding-desktop) var(--padding-desktop) 0;
 }
 
 .mainHeading {
   color: var(--secondary-color);
   margin: 0;
   font-weight: 400;
-  font-size: 78px;
+  font-size: 64px;
   line-height: 76px;
   letter-spacing: -1.5%;
   text-align: center;
@@ -44,13 +33,12 @@
   text-align: center;
 }
 
-.content {
-  position: relative;
+.grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 120px;
-  align-items: center;
-  justify-items: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1440px;
+  padding: var(--padding-desktop);
 }
 
 .leftColumn {
@@ -86,56 +74,23 @@
   letter-spacing: -0.5%;
 }
 
-.ctaButton {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 18px 36px;
-  background-color: var(--secondary-color);
-  color: var(--main-color);
-  font-size: 1.125rem;
-  font-weight: 500;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  width: fit-content;
-  margin-top: 20px;
+.scrollContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.ctaButton:hover {
-  background-color: var(--accent-color);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(233, 30, 99, 0.3);
+.contentBlock {
+  display: flex;
+  flex-direction: column;
 }
 
-.arrow {
-  transition: transform 0.3s ease;
-}
-
-.ctaButton:hover .arrow {
-  transform: translateX(4px);
-}
-
-.rightColumn {
-  width: 100%;
-  height: 100%;
-}
-
-/* Responsive design */
-@media (max-width: 1440px) {
-  .content {
-    grid-template-columns: 1fr;
-  }
-  .rightColumn {
-    order: 1;
-  }
-
-  .leftColumn {
-    order: 2;
-    gap: var(--gap-md);
-  }
-}
 @media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--gap-lg);
+    padding: var(--padding-tablet);
+  }
   .mainHeading {
     font-size: 2.75rem;
     line-height: 3rem;
@@ -146,21 +101,60 @@
     line-height: 2.5rem;
   }
 
-  .content {
-    gap: 80px;
-  }
-  .container {
-    padding: var(--padding-tablet);
+  .topHeading {
+    padding: var(--padding-tablet) var(--padding-tablet) 0;
   }
 }
 
+@media (min-width: 1024px) {
+  .stickyWrapper {
+    position: sticky;
+    top: calc(var(--padding-desktop));
+    align-self: start;
+  }
+}
+
+/* Right Column - Sticky Content */
+.stickyWrapper {
+  height: fit-content;
+}
+
+.card {
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  background: hsl(var(--card));
+  padding: 2rem;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.icon {
+  width: 4rem;
+  height: 4rem;
+  background: hsl(var(--primary));
+  border-radius: 0.5rem;
+}
+
+.cardHeading {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.cardText {
+  color: hsl(var(--muted-foreground));
+}
+
 @media (max-width: 768px) {
-  .container {
+  .grid {
     padding: var(--padding-tablet) var(--padding-mobile);
   }
 
   .topHeading {
-    margin-bottom: 60px;
+    padding: var(--padding-tablet) var(--padding-mobile) 0;
   }
 
   .mainHeading {
