@@ -32,20 +32,20 @@
 }
 
 .iconLeft {
-  left: -30%;
-  top: 50%;
+  left: -15%;
+  top: 25%;
   transform: translateY(-50%);
 }
 
 .iconBottom {
-  bottom: -5%;
+  top: 60%;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .iconRight {
-  right: -30%;
-  top: 50%;
+  right: -15%;
+  top: 25%;
   transform: translateY(-50%);
 }
 
@@ -122,7 +122,7 @@
   position: relative;
   width: 375px;
   height: 812px;
-  transform: scale(0.8);
+  transform: scale(0.5);
   transform-origin: top center;
   align-self: flex-start;
   background: #1a1a1a;

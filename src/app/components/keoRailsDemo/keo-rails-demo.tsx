@@ -17,7 +17,10 @@ export default function KeoRailsDemo() {
       <div className={styles.container}>
         {/* Top heading */}
         <div className={styles.topHeading}>
-          <h2 className={styles.mainHeading}>FEEL THE CASH FLOW</h2>
+          <h2 className={styles.mainHeading}>WHY KEO RAILS?</h2>
+          <p className={styles.subheading}>
+            The old system makes you wait. Keo Rails makes you move.
+          </p>
         </div>
 
         {/* Two column layout */}
@@ -29,12 +32,9 @@ export default function KeoRailsDemo() {
                 CAPITAL UNLOCKED. REVENUE ACCELERATED.
               </h3>
               <p className={styles.description}>
-                The old system makes you wait. Keo Rails makes you move. Our
-                infrastructure is designed for the modern instinct: if the deal
-                is closed, the money is moved. We eliminate holding periods,
-                lost transfers, and unnecessary processing costs, so your
-                business captures more revenue, faster. Start capturing revenue
-                at the speed of thought.
+                We eliminate holding periods, lost transfers, and unnecessary
+                processing costs, so your business captures more revenue,
+                faster.
               </p>
             </div>
 
@@ -66,11 +66,10 @@ export default function KeoRailsDemo() {
               <h3 className={styles.heading}>LENDING IN ONE SIMPLE CLICK.</h3>
               <p className={styles.description}>
                 Rails provides an integrated financing solution for lenders
-                wishing to finance B2B payments. When a purchasing opportunity
-                appears, your financing should be there immediately. We
-                integrated the ability to finance B2B payments directly into the
-                rail. It’s instant leverage for the lenders who have the vision
-                (op 2 courage) to move at our speed.
+                wishing to finance B2B payments. We integrated the ability to
+                finance B2B payments directly into the rail. It&apos;s instant
+                leverage for the lenders who have the vision (op 2 courage) to
+                move at our speed.
               </p>
             </div>
 

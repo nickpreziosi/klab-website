@@ -58,26 +58,31 @@ export default function KeoRailsHero({
             <div className={styles.transformedContent}>
               <motion.div
                 className={styles.imageContainer}
+                style={{ transformStyle: "preserve-3d" }}
                 initial={{
                   opacity: 0,
-                  scale: 0.95,
-                  filter: "blur(10px)",
+                  y: 48,
+                  rotateX: 8,
+                  scale: 0.98,
+                  filter: "blur(12px)",
                 }}
-                animate={{
+                whileInView={{
                   opacity: 1,
+                  y: 0,
+                  rotateX: 0,
                   scale: 1,
                   filter: "blur(0px)",
                 }}
+                viewport={{ once: true, amount: 0.45 }}
                 transition={{
-                  duration: 1.2,
-                  delay: 0.5,
+                  duration: 0.9,
+                  delay: 0.15,
                   ease: [0.16, 1, 0.3, 1],
-                  scale: {
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 15,
-                  },
+                  type: "spring",
+                  stiffness: 90,
+                  damping: 16,
                 }}
+                whileHover={{ scale: 1.02, rotateX: 0 }}
               >
                 <KeoDashboard />
                 <div className={styles.gradientOverlay} />

@@ -13,7 +13,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  /* allow children to stretch so the grid can size correctly for sticky */
+  align-items: stretch;
 }
 
 .topHeading {
@@ -31,11 +32,22 @@
   text-align: center;
 }
 
+.subheading {
+  color: var(--secondary-color);
+  margin: 16px 0 0 0;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.5%;
+  text-align: center;
+}
+
 .content {
+  position: relative;
   display: grid;
-  grid-template-columns: 1.2fr 2fr;
+  grid-template-columns: 2fr 1fr;
   gap: 120px;
-  align-items: center;
+  align-items: start;
   justify-items: center;
 }
 
@@ -120,6 +132,27 @@
   .leftColumn {
     order: 2;
     gap: var(--gap-md);
+  }
+}
+/* Apply sticky behavior only on larger screens */
+@media (min-width: 1025px) {
+  .rightColumn {
+    position: sticky;
+    top: 120px; /* keep it visible below any header/padding */
+    align-self: start; /* ensure it sticks relative to the grid start */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 8px;
+    /* let the content size naturally; avoid forcing a height which can
+       interfere with sticky calculations in complex layouts */
+    max-width: 100%;
+  }
+
+  /* If the right column content is taller than the viewport, allow it to scroll internally */
+  .rightColumn > * {
+    max-height: calc(100vh - 160px);
+    overflow: auto;
   }
 }
 @media (max-width: 1024px) {

@@ -60,7 +60,7 @@ export default function KeoRailsCodeSection() {
           <div className={styles.rightColumn}>
             <div ref={cardsContainerRef} className={styles.cardsContainer}>
               <div className={styles.card}>
-                <h3 className={styles.cardHeading}>Trust</h3>
+                <h3 className={styles.cardHeading}>TRUST</h3>
                 <p className={styles.cardText}>
                   KEO Rails payment infrastructure keeps a trusted record for
                   all real-time transactions in a secure, authenticated, and
@@ -69,7 +69,7 @@ export default function KeoRailsCodeSection() {
                 </p>
               </div>
               <div className={styles.card}>
-                <h3 className={styles.cardHeading}>Certainty</h3>
+                <h3 className={styles.cardHeading}>CERTAINTY</h3>
                 <p className={styles.cardText}>
                   It&apos;s not just security — it&apos;s immutable and absolute
                   certainty in execution for B2B trade. This is a payment record

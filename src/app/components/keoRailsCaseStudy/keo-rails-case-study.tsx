@@ -117,7 +117,7 @@ export default function KeoRailsCaseStudy() {
       title:
         "See how Circle unlocked instant liquidity across 12 markets with KEO Rails",
       description:
-        "Circle, a global financial technology firm, replaced slow T+2 settlements with KEO Rails' instant payment infrastructure. By integrating KEO's blockchain-based settlement engine, Circle reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
+        "By integrating KEO's blockchain-based settlement engine, Circle reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
       highlights: [
         {
           heading: "12+ markets",
@@ -145,7 +145,7 @@ export default function KeoRailsCaseStudy() {
       title:
         "See how Algorand unlocked instant liquidity across 12 markets with KEO Rails",
       description:
-        "Algorand, a leading blockchain platform, replaced slow T+2 settlements with KEO Rails' instant payment infrastructure. By integrating KEO's blockchain-based settlement engine, Algorand reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
+        "By integrating KEO's blockchain-based settlement engine, Algorand reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
       highlights: [
         {
           heading: "9+ markets",
@@ -174,7 +174,7 @@ export default function KeoRailsCaseStudy() {
       title:
         "See how Stablecorp unlocked instant liquidity across 12 markets with KEO Rails",
       description:
-        "Stablecorp, a multinational technology company, replaced slow T+2 settlements with KEO Rails' instant payment infrastructure. By integrating KEO's blockchain-based settlement engine, Stablecorp reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
+        "By integrating KEO's blockchain-based settlement engine, Stablecorp reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
       highlights: [
         {
           heading: "18+ markets",
@@ -202,7 +202,7 @@ export default function KeoRailsCaseStudy() {
       title:
         "See how Google unlocked instant liquidity across 12 markets with KEO Rails",
       description:
-        "Google, a multinational technology company, replaced slow T+2 settlements with KEO Rails' instant payment infrastructure. By integrating KEO's blockchain-based settlement engine, Google reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
+        "By integrating KEO's blockchain-based settlement engine, Google reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
       highlights: [
         {
           heading: "100+ markets",
@@ -283,6 +283,7 @@ export default function KeoRailsCaseStudy() {
     <section className={styles.section}>
       <div className={styles.container}>
         <div className={styles.intro}>
+          <h2 className={styles.heading}>WHO WE IMPACT?</h2>
           <div className={`${styles.embla} embla`} ref={introRef}>
             <div className={`${styles.embla__container}`}>
               {caseStudyData.map((cs, idx) => {
@@ -302,7 +303,6 @@ export default function KeoRailsCaseStudy() {
                       }}
                       transition={{ duration: 0.45 }}
                     >
-                      <h2 className={styles.heading}>{cs.title}</h2>
                       <p className={styles.mainText}>{cs.description}</p>
                     </motion.div>
                   </div>
