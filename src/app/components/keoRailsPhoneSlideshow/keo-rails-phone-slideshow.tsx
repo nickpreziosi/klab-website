@@ -338,7 +338,7 @@ export default function KeoRailsPhoneSlideshow() {
       className={styles.container}
       initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: false, margin: "-100px" }}
+      viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       {/* Floating Icons */}
@@ -359,7 +359,7 @@ export default function KeoRailsPhoneSlideshow() {
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: isActive ? 1 : 0.95 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               animate={{
                 scale: isActive ? 1 : 0.95,
               }}

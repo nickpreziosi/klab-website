@@ -281,7 +281,13 @@ export default function KeoRailsCaseStudy() {
 
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
+      <motion.div
+        className={styles.container}
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.18 }}
+        transition={{ duration: 0.55, ease: "easeOut" }}
+      >
         <div className={styles.intro}>
           <h2 className={styles.heading}>WHO WE IMPACT?</h2>
           <div className={`${styles.embla} embla`} ref={introRef}>
@@ -526,7 +532,7 @@ export default function KeoRailsCaseStudy() {
             </svg>
           </button>
         </div>
-      </div>
+        </motion.div>
     </section>
   );
 }

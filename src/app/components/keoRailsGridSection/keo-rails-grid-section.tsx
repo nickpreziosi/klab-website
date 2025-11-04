@@ -36,14 +36,14 @@ export default function KeoRailsGridSection() {
         <div className={styles.grid}>
           {/* Left Column - 4 Feature Sections */}
           <div className={styles.scrollContent}>
-            <div className={styles.leftColumn}>
-              <motion.div
-                className={styles.textBlock}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-              >
+            <motion.div
+              className={styles.leftColumn}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+            >
+              <div className={styles.textBlock}>
                 <h3 className={styles.heading}>
                   CAPITAL UNLOCKED. REVENUE ACCELERATED.
                 </h3>
@@ -52,15 +52,9 @@ export default function KeoRailsGridSection() {
                   processing costs, so your business captures more revenue,
                   faster.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div
-                className={styles.textBlock}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-              >
+              <div className={styles.textBlock}>
                 <h3 className={styles.heading}>
                   SOVEREIGNTY IN EVERY TRANSACTION.
                 </h3>
@@ -71,15 +65,9 @@ export default function KeoRailsGridSection() {
                   cross-border payments via stablecoins and move funds between
                   traditional bank accounts and stablecoins.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div
-                className={styles.textBlock}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-              >
+              <div className={styles.textBlock}>
                 <h3 className={styles.heading}>
                   THE FOUNDATION OF IMMUTABLE TRUST
                 </h3>
@@ -88,15 +76,9 @@ export default function KeoRailsGridSection() {
                   cutting edge blockchain-powered data tokenization, smart
                   contracts, self-custody wallets and stablecoins.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div
-                className={styles.textBlock}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-              >
+              <div className={styles.textBlock}>
                 <h3 className={styles.heading}>LENDING IN ONE SIMPLE CLICK.</h3>
                 <p className={styles.description}>
                   Rails provides an integrated financing solution for lenders
@@ -105,8 +87,8 @@ export default function KeoRailsGridSection() {
                   leverage for the lenders who have the vision to move at our
                   speed.
                 </p>
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
           </div>
 
           {/* Right Column - Sticky Phone */}

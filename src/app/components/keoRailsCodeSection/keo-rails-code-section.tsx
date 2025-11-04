@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "motion/react";
 import {
   exampleApiSections,
   KeoRailsCode,
@@ -41,7 +42,13 @@ export default function KeoRailsCodeSection() {
 
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
+      <motion.div
+        className={styles.container}
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.18 }}
+        transition={{ duration: 0.55, ease: "easeOut" }}
+      >
         <h2 className={styles.heading}>
           ENTERPRISE TRUST.
           <br />
@@ -79,7 +86,7 @@ export default function KeoRailsCodeSection() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
