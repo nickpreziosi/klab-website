@@ -18,8 +18,8 @@ const solutions = [
     href: "/technologies/keo-rails",
   },
   {
-    title: "KENA AI",
-    description: "KENA is the world's first AI underwriter",
+    title: "Kena AI",
+    description: "Kena is the world's first AI underwriter",
     href: "/technologies/kena-ai",
   },
 ];

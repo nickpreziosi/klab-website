@@ -25,7 +25,7 @@ const features = [
   {
     title: "Scalable risk automation",
     description:
-      "From a single SME to global portfolios — KENA evolves with your business.",
+      "From a single SME to global portfolios — Kena evolves with your business.",
   },
 ];
 
@@ -37,7 +37,7 @@ export default function KeoCardsSection() {
     <section className={styles.section} ref={ref}>
       <div className={styles.container}>
         <SectionHeader
-          heading="Why KENA changes everything"
+          heading="Why Kena changes everything"
           align="center"
           animateOnce={true}
         />

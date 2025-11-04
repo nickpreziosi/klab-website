@@ -14,7 +14,7 @@ export default function KenaHeroSection() {
           <SectionHeader
             heading="AI that Understands Risk the Way"
             secondHeading="Humans Do — Only Smarter."
-            subtitle="KENA is the world's first Risk AI that replicates the decision-making of financial underwriters — analyzing, conversing, and improving in real time."
+            subtitle="Kena is the world's first Risk AI that replicates the decision-making of financial underwriters — analyzing, conversing, and improving in real time."
             align="center"
             animateOnce={true}
           />
@@ -26,7 +26,7 @@ export default function KenaHeroSection() {
         {/* Two-column content section */}
         <div className={styles.contentWrapper}>
           <KenaTwoColumnContent
-            leftContent="KENA is the world's first AI underwriter."
+            leftContent="Kena is the world's first AI underwriter."
             rightContent="A humanoid Risk Intelligence Engine designed to replicate how financial institutions think, assess, and decide. She communicates naturally with her users, receives data and documents via chat, and continuously self-trains on millions of SME data points worldwide."
           />
         </div>

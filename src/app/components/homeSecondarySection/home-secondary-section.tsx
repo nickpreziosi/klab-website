@@ -451,9 +451,9 @@ export default function HomeSecondarySection({
       video: "/keo-rails.mp4",
     },
     {
-      title: "KENA",
+      title: "Kena",
       description:
-        "KENA, our proprietary Risk AI, replicates the reasoning of financial underwriters and continuously self-trains with global data.",
+        "Kena, our proprietary risk AI, replicates the reasoning of financial underwriters and continuously self-trains with global data.",
       link: "/technologies/kena-ai",
       image: "/kena.jpg",
       video: "/kena.mp4",

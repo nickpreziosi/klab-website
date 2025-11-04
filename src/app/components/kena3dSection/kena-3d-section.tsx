@@ -10,7 +10,7 @@ export default function Kena3dSection() {
       <section className={styles.section}>
         <div className={styles.headerWrapper}>
           <SectionHeader
-            heading="How KENA Thinks, Learns, and Decides"
+            heading="How Kena Thinks, Learns, and Decides"
             align="center"
             animateOnce={true}
           />
@@ -29,14 +29,14 @@ export default function Kena3dSection() {
                 Understanding & Reasoning
               </h3>
               <p className={styles.leftColumnItemText}>
-                KENA interprets each case as an underwriter would - assesing
+                Kena interprets each case as an underwriter would - assesing
                 logic, ratios, and narrative.
               </p>
             </div>
             <div className={styles.leftColumnItem}>
               <h3 className={styles.leftColumnItemHeading}>Decisioning</h3>
               <p className={styles.leftColumnItemText}>
-                Generates real-time credit or risk outcomes with transparent
+                Generates real-time credit risk outcomes with transparent,
                 explainable logic.
               </p>
             </div>
@@ -50,8 +50,8 @@ export default function Kena3dSection() {
             <div className={styles.leftColumnItem}>
               <h3 className={styles.leftColumnItemHeading}>Scale & Deploy</h3>
               <p className={styles.leftColumnItemText}>
-                Organizations can clone or train KENA models for new markets,
-                products, or regulations.
+                Organizations can train Kena models for new markets, products,
+                or regulations.
               </p>
             </div>
           </div>

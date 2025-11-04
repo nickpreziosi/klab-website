@@ -198,7 +198,7 @@ export const Drawer = () => {
                             className={styles.dropdownItem}
                             onClick={() => setIsOpen(false)}
                           >
-                            KENA AI
+                            Kena AI
                           </Link>
                         </motion.div>
                       )}
