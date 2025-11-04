@@ -1,0 +1,91 @@
+/* Completely restyled to match existing component patterns */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px 20px;
+}
+
+.navButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: rgba(var(--secondary-color-rgb), 0.05);
+  color: var(--secondary-color);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.15);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navButton:hover:not(:disabled) {
+  background: rgba(var(--secondary-color-rgb), 0.08);
+  border-color: rgba(var(--secondary-color-rgb), 0.25);
+  transform: translateY(-2px);
+}
+
+.navButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pages {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pageButton {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(var(--secondary-color-rgb), 0.05);
+  color: var(--secondary-color);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.15);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pageButton:hover {
+  background: rgba(var(--secondary-color-rgb), 0.08);
+  border-color: rgba(var(--secondary-color-rgb), 0.25);
+}
+
+.pageButton.active {
+  background: var(--secondary-color);
+  color: var(--main-color);
+  border-color: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    gap: 12px;
+  }
+
+  .navButton span {
+    display: none;
+  }
+
+  .navButton {
+    padding: 10px;
+  }
+
+  .pages {
+    gap: 6px;
+  }
+
+  .pageButton {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+}
