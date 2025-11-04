@@ -32,17 +32,12 @@ export function KeoRailsCode({
   const [visibleLines, setVisibleLines] = useState<number>(0);
   const [typedChars, setTypedChars] = useState<number>(0);
   const [isComplete, setIsComplete] = useState<boolean>(false);
-  // separate refs: containerRef is the scrollable container and observed for in-view;
-  // codeBlockRef is the inner block. Avoid attaching the same ref to multiple elements.
   const containerRef = useRef<HTMLDivElement | null>(null);
   const codeBlockRef = useRef<HTMLDivElement | null>(null);
-  const lineNumbersRef = useRef<HTMLDivElement | null>(null);
   const codeContentRef = useRef<HTMLDivElement | null>(null);
   const hasMountedRef = useRef<boolean>(false);
   const isInView = useInView(containerRef, { once: false, margin: "-100px" });
 
-  // Track whether the user has scrolled/interacted so we only start the typing
-  // animation when the section is brought into view by user action.
   const userScrolledRef = useRef<boolean>(false);
   const [shouldStartTyping, setShouldStartTyping] = useState<boolean>(false);
 
@@ -69,6 +64,11 @@ export function KeoRailsCode({
     }
   }, [isInView]);
 
+  const totalLines = sections.reduce(
+    (acc, section) => acc + section.lines.length,
+    0
+  );
+
   useEffect(() => {
     if (isInView && isComplete && loop) {
       const resetTimer = setTimeout(() => {
@@ -76,6 +76,9 @@ export function KeoRailsCode({
         setVisibleLines(0);
         setTypedChars(0);
         setIsComplete(false);
+        if (codeBlockRef.current) {
+          codeBlockRef.current.scrollTop = 0;
+        }
       }, 2000);
       return () => clearTimeout(resetTimer);
     }
@@ -98,7 +101,6 @@ export function KeoRailsCode({
             setTypedChars(0);
           }
         } else {
-          // Current section complete, move to next section
           if (currentSection < sections.length - 1) {
             setTimeout(() => {
               setCurrentSection(currentSection + 1);
@@ -106,7 +108,6 @@ export function KeoRailsCode({
               setTypedChars(0);
             }, 500);
           } else {
-            // All sections complete
             setIsComplete(true);
           }
         }
@@ -125,6 +126,18 @@ export function KeoRailsCode({
     lineDelay,
     isComplete,
   ]);
+
+  useEffect(() => {
+    const codeBlock = codeBlockRef.current;
+    if (!codeBlock) return;
+
+    // The overlay captures all pointer events, preventing manual scroll of code block
+    // while allowing page scroll to work normally
+
+    return () => {
+      // Cleanup if needed
+    };
+  }, []);
 
   const getColorClass = (type?: string) => {
     switch (type) {
@@ -151,22 +164,15 @@ export function KeoRailsCode({
       .reduce((acc, section) => acc + section.lines.length, 0);
   };
 
-  // Scroll by code line when a new line becomes visible (so we don't scroll per character)
   useEffect(() => {
-    // Only scroll when typing is allowed (user scrolled into view). This prevents
-    // any automatic scroll on initial load or when the page programmatically
-    // brings the section into view.
     if (!shouldStartTyping) return;
 
-    // compute global line index by summing lines before currentSection
     const totalBefore = sections
       .slice(0, currentSection)
       .reduce((acc, section) => acc + section.lines.length, 0);
     const globalIndex = totalBefore + visibleLines;
     if (!codeContentRef.current) return;
 
-    // Prevent auto-scrolling on initial mount which causes the page to jump down
-    // to this section. Only start scrolling after the component has mounted once.
     if (!hasMountedRef.current) {
       hasMountedRef.current = true;
       return;
@@ -176,45 +182,28 @@ export function KeoRailsCode({
       `[data-line-index="line-${globalIndex}"]`
     );
     if (el && codeBlockRef.current) {
-      // scroll the container so that the code line is visible
+      const scrollX = window.scrollX;
+      const scrollY = window.scrollY;
       (el as HTMLElement).scrollIntoView({
-        behavior: "auto",
+        behavior: "smooth",
         block: "nearest",
       });
+
+      // Restore page scroll position immediately
+      window.scrollTo(scrollX, scrollY);
     }
   }, [currentSection, visibleLines, sections, shouldStartTyping]);
 
   return (
     <div ref={containerRef} className={styles.container}>
+      <div className={styles.scrollOverlay} />
       <div ref={codeBlockRef} className={styles.codeBlock}>
-        <div className={styles.lineNumbers} ref={lineNumbersRef}>
-          {sections.map((section, sectionIndex) => {
-            const shouldShowSection = sectionIndex <= currentSection;
-            const startLineNumber = getTotalLinesBeforeSection(sectionIndex);
-
-            return shouldShowSection ? (
-              <div key={sectionIndex}>
-                {section.lines.map((_, lineIndex) => {
-                  const isVisible =
-                    sectionIndex < currentSection ||
-                    (sectionIndex === currentSection &&
-                      lineIndex <= visibleLines);
-
-                  return (
-                    <motion.div
-                      key={`${sectionIndex}-${lineIndex}`}
-                      className={styles.lineNumber}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: isVisible ? 1 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {startLineNumber + lineIndex + 1}
-                    </motion.div>
-                  );
-                })}
-              </div>
-            ) : null;
-          })}
+        <div className={styles.lineNumbers}>
+          {Array.from({ length: totalLines }, (_, index) => (
+            <div key={index} className={styles.lineNumber}>
+              {index + 1}
+            </div>
+          ))}
         </div>
         <div className={styles.codeContent} ref={codeContentRef}>
           {sections.map((section, sectionIndex) => {
@@ -320,6 +309,7 @@ export const exampleApiSections: CodeSection[] = [
       { content: "}", indent: 2 },
       { content: "}", indent: 1 },
       { content: "}", indent: 0 },
+      { content: "", indent: 0 },
     ],
   },
 ];

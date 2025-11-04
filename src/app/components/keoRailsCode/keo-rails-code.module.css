@@ -3,34 +3,65 @@
   height: 100%;
   background: rgba(var(--secondary-color-rgb), 0.05);
   border-radius: 20px;
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.05);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.1);
   font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
-  overflow-x: hidden;
-  /* outer container should not scroll; inner .codeBlock will handle vertical scrolling */
-  overflow-y: hidden;
+  overflow: hidden;
   max-height: 100%;
+  /* Isolate scroll context to prevent page scroll */
+  position: relative;
+  contain: layout;
 }
 
-/* Removed header styles, no longer needed */
+/* Added scroll overlay to capture scroll events and allow page scroll */
+.scrollOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: transparent;
+  pointer-events: auto;
+}
 
+/* Removed pointer-events: none to allow auto-scroll, added scrollbar hiding */
 .codeBlock {
   display: flex;
   padding: 30px 0;
   height: 100%;
   max-height: 100%;
   width: 100%;
-  overflow-x: hidden; /* prevent horizontal overflow from pushing layout */
-  /* make the codeBlock the scrollable area so we can auto-scroll it when new lines appear */
+  overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  /* Hide scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  /* Prevent scroll from propagating to page */
+  overscroll-behavior: contain;
+  isolation: isolate;
+  /* Prevent direct interaction with code block */
+  pointer-events: none;
 }
 
+/* Hide webkit scrollbar */
+.codeBlock::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Ensure border extends full height */
 .lineNumbers {
   display: flex;
   flex-direction: column;
   padding: 0 20px;
-  border-right: 1px solid rgba(var(--secondary-color-rgb), 0.5);
+  border-right: 1px solid rgba(var(--secondary-color-rgb), 0.2);
   user-select: none;
+  flex-shrink: 0;
+  min-height: 100%;
+  /* Allow pointer events to pass through */
+  pointer-events: none;
 }
 
 .lineNumber {
@@ -42,18 +73,16 @@
 }
 
 .codeContent {
-  /* Make the code column flexible but allow children to be clipped instead of growing the container
-     `min-width: 0` is necessary to allow flex children to shrink on overflow instead of expanding
-  */
   width: 100%;
   flex: 1 1 0%;
   min-width: 0;
   padding: 0 30px;
-  overflow-x: hidden; /* hide long lines rather than pushing the grid */
+  overflow-x: hidden;
   height: fit-content;
+  /* Allow pointer events to pass through */
+  pointer-events: none;
 }
 
-/* Added section styles for REQUEST and RESPONSE headers */
 .section {
   margin-bottom: 30px;
 }
@@ -71,13 +100,11 @@
   font-size: 14px;
   line-height: 24px;
   color: #e6e6e6;
-  /* wrap long lines instead of clipping */
   white-space: pre-wrap;
   word-break: break-word;
   font-family: inherit;
 }
 
-/* Updated syntax highlighting colors to match video */
 .keyword {
   color: #f63f7c;
 }
@@ -122,11 +149,9 @@
   }
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .codeBlock {
     font-size: 12px;
-
     padding: 20px 0;
   }
 

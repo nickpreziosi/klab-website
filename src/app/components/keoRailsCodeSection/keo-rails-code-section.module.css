@@ -7,12 +7,12 @@
   align-items: center;
   background: linear-gradient(
     180deg,
-    rgba(var(--secondary-color-rgb), 0.1) 0%,
-    rgba(var(--secondary-color-rgb), 0.1) 20%,
-    rgba(var(--main-color-rgb), 0.2) 40%,
-    rgba(var(--main-color-rgb), 0.5) 70%,
-    rgba(var(--main-color-rgb), 0.7) 80%,
-    rgba(var(--main-color-rgb), 1) 100%
+    rgba(var(--secondary-color-rgb), 0.02) 0%,
+    rgba(var(--secondary-color-rgb), 0.05) 20%,
+    rgba(var(--main-color-rgb), 0.1) 40%,
+    rgba(var(--main-color-rgb), 0.3) 70%,
+    rgba(var(--main-color-rgb), 0.5) 80%,
+    rgba(var(--main-color-rgb), 0.8) 100%
   );
 }
 
@@ -35,7 +35,7 @@
   font-weight: 400;
   font-size: 52px;
   line-height: 62px;
-  letter-spacing: -1.5%;
+  letter-spacing: -0.015em;
   text-align: center;
 }
 
@@ -44,21 +44,19 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--gap-md);
+  align-items: start;
 }
 
 .leftColumn {
   display: flex;
   flex-direction: column;
   width: 100%;
-  /* On larger screens let the column take the grid's available height */
   height: 100%;
-  max-height: 400px;
   border-radius: 20px;
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
+  overflow: hidden;
 }
 
 .rightColumn {
-  flex: 0;
   display: flex;
   flex-direction: column;
   gap: var(--gap-md);
@@ -84,27 +82,35 @@
   display: flex;
   flex-direction: column;
   background: rgba(var(--secondary-color-rgb), 0.05);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
-  border-radius: 10px;
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.15);
+  border-radius: 16px;
   padding: var(--padding-mobile);
   color: var(--secondary-color);
-  gap: var(--gap-md);
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  background: rgba(var(--secondary-color-rgb), 0.08);
+  border-color: rgba(var(--secondary-color-rgb), 0.25);
+  transform: translateY(-2px);
 }
 
 .cardHeading {
   font-weight: 700;
-  font-style: Bold;
   font-size: 18px;
   line-height: 22px;
-  letter-spacing: 0%;
+  letter-spacing: 0.02em;
+  margin: 0;
 }
 
 .cardText {
   font-weight: 300;
-  font-style: Light;
   font-size: 14px;
   line-height: 22px;
-  letter-spacing: 0%;
+  letter-spacing: 0;
+  margin: 0;
+  opacity: 0.9;
 }
 
 @media (max-width: 1024px) {
@@ -112,6 +118,7 @@
     padding: var(--padding-tablet);
     gap: var(--gap-lg);
   }
+
   .grid {
     display: flex;
     flex-direction: column;
@@ -123,18 +130,17 @@
 
   .leftColumn {
     order: 2;
-    /* On tablet/smaller cap the code column to 500px height */
-    height: 500px !important;
+    height: 500px;
     max-height: 500px;
-    flex: 1;
   }
 
   .cardsContainer {
     flex-direction: row;
   }
 
-  .leftHeading {
+  .heading {
     font-size: 40px;
+    line-height: 48px;
   }
 
   .rightText {
@@ -150,11 +156,18 @@
   .cardsContainer {
     flex-direction: column;
   }
-  .leftHeading {
+
+  .heading {
     font-size: 36px;
+    line-height: 44px;
   }
 
   .rightText {
-    font-size: 18px;
+    font-size: 16px;
+  }
+
+  .leftColumn {
+    height: 400px;
+    max-height: 400px;
   }
 }

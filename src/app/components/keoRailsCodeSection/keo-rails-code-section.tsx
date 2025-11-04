@@ -14,26 +14,23 @@ export default function KeoRailsCodeSection() {
     if (!leftColRef.current || !cardsContainerRef.current) return;
 
     const sync = () => {
-      // On smaller screens cap the left column to 400px; otherwise use right column height
       if (window.innerWidth <= 1024) {
-        leftColRef.current!.style.maxHeight = `400px`;
-        leftColRef.current!.style.height = `400px`;
+        leftColRef.current!.style.maxHeight = `500px`;
+        leftColRef.current!.style.height = `500px`;
       } else {
         const cardsContainerHeight =
           cardsContainerRef.current?.getBoundingClientRect().height;
         leftColRef.current!.style.maxHeight = `${cardsContainerHeight}px`;
+        leftColRef.current!.style.height = `${cardsContainerHeight}px`;
         leftColRef.current!.style.overflow = "hidden";
       }
     };
 
-    // Initial sync
     sync();
 
-    // Observe right column size changes
     const ro = new ResizeObserver(() => sync());
     ro.observe(cardsContainerRef.current);
 
-    // Also sync on window resize
     window.addEventListener("resize", sync);
 
     return () => {
@@ -46,14 +43,16 @@ export default function KeoRailsCodeSection() {
     <section className={styles.section}>
       <div className={styles.container}>
         <h2 className={styles.heading}>
-          ENTERPRISE TRUST.<br></br>IMPOSSIBLE TO ALTER. PERIOD.
+          ENTERPRISE TRUST.
+          <br />
+          IMPOSSIBLE TO ALTER. PERIOD.
         </h2>
         <div className={styles.grid}>
           <div className={styles.leftColumn} ref={leftColRef}>
             <KeoRailsCode
               sections={exampleApiSections}
-              typingSpeed={10}
-              lineDelay={200}
+              typingSpeed={20}
+              lineDelay={150}
               loop={true}
             />
           </div>
