@@ -4,14 +4,18 @@ import KenaHeroSection from "../../components/kenaHeroSection/kena-hero-section"
 import styles from "./page.module.css";
 import KenaCtaSection from "@/app/components/kenaCtaSection/kena-cta-section";
 import KenaCaseStudy from "@/app/components/kenaCaseStudy/kena-case-study";
+import KenaPassword from "@/app/components/kenaPassword/kena-password";
 
 export default function KenaAIPage() {
   return (
     <main className={styles.container}>
       <KenaHeroSection />
-      <KenaCardsSection></KenaCardsSection>
-      <Kena3dSection></Kena3dSection>
-      <KenaCtaSection></KenaCtaSection>
+
+      <KenaPassword>
+        <KenaCardsSection />
+        <Kena3dSection />
+        <KenaCtaSection />
+      </KenaPassword>
     </main>
   );
 }

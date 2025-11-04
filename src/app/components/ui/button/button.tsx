@@ -10,6 +10,8 @@ interface ButtonProps {
   text: string;
   onClick?: () => void;
   variant?: "full" | "outline";
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
 export default function ButtonPlayer({
@@ -21,6 +23,8 @@ export default function ButtonPlayer({
   text,
   onClick,
   variant = "full",
+  disabled,
+  type,
 }: ButtonProps) {
   return (
     <>
@@ -44,6 +48,8 @@ export default function ButtonPlayer({
       )}
       {!href && (
         <button
+          type={type}
+          disabled={disabled}
           onClick={onClick}
           className={`${styles.button} ${
             styles[

@@ -532,7 +532,7 @@ export default function KeoRailsCaseStudy() {
             </svg>
           </button>
         </div>
-        </motion.div>
+      </motion.div>
     </section>
   );
 }
