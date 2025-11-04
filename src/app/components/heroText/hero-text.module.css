@@ -131,6 +131,9 @@
   .wordsContainer {
     gap: 0.3rem;
   }
+  .buttonGroup {
+    flex-direction: column;
+  }
 }
 
 /* Tablet design */

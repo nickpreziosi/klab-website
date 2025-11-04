@@ -8,178 +8,173 @@
   justify-content: center;
 }
 
+.container {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-desktop);
+  gap: var(--gap-xl);
+}
+
 .topHeading {
   text-align: center;
-  padding: var(--padding-desktop) var(--padding-desktop) 0;
+  max-width: 1440px;
 }
 
 .mainHeading {
   color: var(--secondary-color);
   margin: 0;
-  font-weight: 400;
-  font-size: 64px;
-  line-height: 76px;
-  letter-spacing: -1.5%;
+  font-weight: 600;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   text-align: center;
 }
 
 .subheading {
   color: var(--secondary-color);
-  margin: 16px 0 0 0;
-  font-weight: 300;
-  font-size: 24px;
-  line-height: 32px;
-  letter-spacing: -0.5%;
+  margin: 1.5rem 0 0 0;
+  font-weight: 400;
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
   text-align: center;
 }
 
+/* Grid now defines the sticky container boundaries for just the 4 features */
+/* Removed min-height so grid naturally sizes to content height */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  max-width: 1440px;
+  gap: 4rem;
+  max-width: 1400px;
   width: 100%;
-  padding: var(--padding-desktop);
+  position: relative;
 }
 
 .leftColumn {
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 6rem;
+  padding-bottom: 0;
 }
 
 .textBlock {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--gap-sm);
+  gap: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.textBlock:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.textBlock:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.textBlock:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.textBlock:nth-child(4) {
+  animation-delay: 0.4s;
 }
 
 .heading {
   color: var(--secondary-color);
   margin: 0;
-  font-weight: 500;
-  font-style: Bold;
-  font-size: 36px;
-  line-height: 40px;
-  letter-spacing: -1.5%;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .description {
   color: var(--secondary-color);
   margin: 0;
-  font-weight: 300;
-  font-style: Light;
-  font-size: 18px;
-  line-height: 24px;
-  letter-spacing: -0.5%;
+  font-weight: 400;
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: 1.7;
+  letter-spacing: -0.01em;
 }
 
 .scrollContent {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
 }
 
-.contentBlock {
+/* Improved sticky positioning - starts at top, centers in viewport, ends at bottom of grid */
+.rightColumn {
+  position: relative;
+  height: fit-content;
+}
+
+@media (min-width: 1024px) {
+  .rightColumn {
+    position: sticky;
+    /* Removed transform and using calculated top to center without interfering with sticky boundaries */
+    top: calc(50vh - 250px);
+    align-self: start;
+  }
+}
+
+.ctaContainer {
+  width: 100%;
+  max-width: 1400px;
   display: flex;
-  flex-direction: column;
+  justify-content: flex-start;
 }
 
 @media (max-width: 1024px) {
   .grid {
     grid-template-columns: 1fr;
     gap: var(--gap-lg);
+    min-height: auto;
+  }
+
+  .container {
     padding: var(--padding-tablet);
-  }
-  .mainHeading {
-    font-size: 2.75rem;
-    line-height: 3rem;
-  }
-
-  .heading {
-    font-size: 2rem;
-    line-height: 2.5rem;
-  }
-
-  .topHeading {
-    padding: var(--padding-tablet) var(--padding-tablet) 0;
-  }
-}
-
-@media (min-width: 1024px) {
-  .stickyWrapper {
-    position: sticky;
-    top: calc(var(--padding-desktop));
-    align-self: start;
-  }
-}
-
-/* Right Column - Sticky Content */
-.stickyWrapper {
-  height: fit-content;
-}
-
-.card {
-  border: 1px solid hsl(var(--border));
-  border-radius: 0.5rem;
-  background: hsl(var(--card));
-}
-
-.cardContent {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.icon {
-  width: 4rem;
-  height: 4rem;
-  background: hsl(var(--primary));
-  border-radius: 0.5rem;
-}
-
-.cardHeading {
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.cardText {
-  color: hsl(var(--muted-foreground));
-}
-
-@media (max-width: 768px) {
-  .grid {
-    padding: var(--padding-tablet) var(--padding-mobile);
-  }
-
-  .topHeading {
-    padding: var(--padding-tablet) var(--padding-mobile) 0;
-  }
-
-  .mainHeading {
-    font-size: 2.25rem;
-  }
-
-  .content {
-    gap: 0px;
+    gap: var(--gap-lg);
   }
 
   .leftColumn {
-    gap: var(--gap-md);
-    max-width: calc(100vw - (2 * var(--padding-mobile))) !important;
+    gap: var(--gap-xl);
   }
 
-  .heading {
-    font-size: 1.75rem;
+  .rightColumn {
+    order: -1;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .ctaContainer {
+    justify-content: center;
   }
 
-  .description {
-    font-size: 1rem;
+  .container {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+
+  .leftColumn {
+    gap: var(--gap-lg);
   }
 
   .ctaButton {
-    padding: 16px 32px;
-    font-size: 1rem;
+    width: 100%;
+    justify-content: center;
   }
 }

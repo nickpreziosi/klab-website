@@ -1,30 +1,16 @@
-.section {
-  position: absolute;
-  height: 600px;
-}
+/* Improved container with better centering and smooth transitions */
 .container {
-  padding: 0 var(--padding-mobile);
-  background: var(--background);
-  height: fit-content;
-  pointer-events: none;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none;
   position: relative;
-  height: 600px;
+  width: 100%;
+  height: 500px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  user-select: none;
 }
 
-.sticky {
-  position: sticky;
-  color: white;
-  top: 0;
-  left: 0;
-}
-
-/* Added floating icons styles */
+/* Floating Icons Container */
 .floatingIcons {
   position: absolute;
   width: 100%;
@@ -32,117 +18,116 @@
   pointer-events: none;
 }
 
-/* Repositioned icons further from phone to avoid overlap */
 .floatingIcon {
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-  z-index: 4; /* Increased z-index to ensure visibility */
+  gap: 12px;
+  z-index: 25;
 }
 
+/* Repositioned icons closer to the phone and relative to its center */
 .iconLeft {
-  left: -15%;
-  top: 25%;
+  left: 2rem;
+  top: 50%;
   transform: translateY(-50%);
 }
 
 .iconBottom {
-  top: 80%;
+  bottom: -8rem;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) !important;
 }
 
 .iconRight {
-  right: -15%;
-  top: 25%;
+  right: 2rem;
+  top: 50%;
   transform: translateY(-50%);
 }
 
+/* Updated icon circle styling - inactive icons are light gray, active icons are dark gradient */
 .iconCircle {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: transparent;
-  border: none;
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--secondary-color);
-  opacity: 0.5; /* Increased from 0.4 for better visibility */
-  transition: all 0.4s ease;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  /* Inactive state: light gray background */
+  background: linear-gradient(135deg, #c5c5c5 0%, #b8b8b8 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Active state: dark gradient background */
+.iconCircle.active {
+  background: linear-gradient(135deg, #3a3a3a 0%, #1a1a1a 100%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .iconCircle svg {
-  width: 48px;
-  height: 48px;
+  width: 28px;
+  height: 28px;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.iconActive .iconCircle {
-  opacity: 1;
-  background: #ff0055;
-  color: white;
-  border-color: #ff0055;
-  box-shadow: 0 0 30px rgba(255, 0, 85, 0.6), 0 0 60px rgba(255, 0, 85, 0.3); /* Increased glow intensity */
-  transform: scale(1.15); /* Increased scale for more emphasis */
-}
-
+/* Enhanced label styling with better typography */
 .iconLabel {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--secondary-color);
-  opacity: 0.5; /* Increased from 0.4 for better visibility */
-  transition: opacity 0.3s ease;
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-.iconActive .iconLabel {
-  opacity: 1;
-  color: #ff0055;
-}
-
-/* Updated curved path sizing and positioning for proper alignment */
+/* Improved curved path styling with gradient and animation */
 .curvedPath {
   position: absolute;
   width: 400px;
   height: 400px;
   pointer-events: none;
-  z-index: 0;
+  z-index: 10;
   overflow: visible;
+  filter: drop-shadow(0 2px 4px rgba(255, 0, 85, 0.2));
 }
 
 .iconLeft .curvedPath {
-  left: 55px;
+  left: 24px;
   top: 50%;
   transform: translateY(-50%);
 }
 
 .iconBottom .curvedPath {
-  bottom: 80px;
+  bottom: 72px;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .iconRight .curvedPath {
-  right: 55px;
+  right: 24px;
   top: 50%;
   transform: translateY(-50%);
 }
 
+/* Enhanced phone frame with better shadows and modern styling */
 .phoneFrame {
   position: relative;
   width: 375px;
   height: 812px;
   transform: scale(0.5);
-  transform-origin: top center;
-  align-self: flex-start;
   background: #1a1a1a;
-  border-radius: 50px;
-  padding: 12px;
-  box-shadow: 0 0 0 2px #2a2a2a, 0 20px 60px rgba(0, 0, 0, 0.3),
-    0 10px 30px rgba(0, 0, 0, 0.2);
-  z-index: 5; /* Added z-index to ensure phone is above paths */
+  border-radius: 48px;
+  padding: 14px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 20px 60px rgba(0, 0, 0, 0.4),
+    0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 20;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .phoneNotch {
@@ -150,18 +135,18 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 150px;
-  height: 30px;
+  width: 160px;
+  height: 32px;
   background: #1a1a1a;
-  border-radius: 0 0 20px 20px;
-  z-index: 6;
+  border-radius: 0 0 24px 24px;
+  z-index: 25;
 }
 
 .phoneScreen {
   width: 100%;
   height: 100%;
-  background: #f7f9fc;
-  border-radius: 40px;
+  background: #f8fafc;
+  border-radius: 36px;
   overflow: hidden;
   position: relative;
 }
@@ -176,14 +161,13 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: #f7f9fc;
+  background: #f8fafc;
 }
 
 /* Header */
 .header {
-  background: #2b4a6f;
+  background: linear-gradient(135deg, #2b4a6f 0%, #1e3a5f 100%);
   padding: 50px 20px 30px;
-  border-radius: 0;
 }
 
 .headerContent {
@@ -195,15 +179,16 @@
 
 .headerTitle {
   color: white;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   margin: 0 0 4px 0;
 }
 
 .headerSubtitle {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
   margin: 0;
+  font-family: monospace;
 }
 
 /* Content */
@@ -216,77 +201,85 @@
 /* Credit Card */
 .creditCard {
   background: white;
-  border-radius: 16px;
-  padding: 24px;
+  border-radius: 20px;
+  padding: 28px;
   margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .creditLabel {
-  color: #9ba6ad;
-  font-size: 14px;
+  color: #94a3b8;
+  font-size: 13px;
   margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
 }
 
 .creditAmount {
-  color: #000a1e;
-  font-size: 48px;
+  color: #0f172a;
+  font-size: 44px;
   font-weight: 700;
-  margin: 0 0 20px 0;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.02em;
 }
 
 .creditAmount span {
-  font-size: 32px;
+  font-size: 28px;
+  color: #64748b;
 }
 
 .creditDetails {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
 }
 
 .creditRow {
   display: flex;
   justify-content: space-between;
-  color: #9ba6ad;
-  font-size: 14px;
+  color: #64748b;
+  font-size: 13px;
 }
 
 .creditValue {
-  color: #000a1e;
+  color: #0f172a;
   font-weight: 600;
 }
 
 /* Balance Card */
 .balanceCard {
   background: white;
-  border-radius: 16px;
-  padding: 24px 40px;
+  border-radius: 20px;
+  padding: 28px;
   margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .balanceLabel {
-  color: #9ba6ad;
+  color: #94a3b8;
   margin: 0 0 8px 0;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 100%;
-  letter-spacing: 0.8px;
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .balanceAmount {
-  color: #000a1e;
+  color: #0f172a;
   margin: 0;
-  font-weight: 400;
-  font-size: 30px;
-  line-height: 125%;
-  letter-spacing: 0.8px;
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: -0.02em;
 }
 
 /* Buttons */
 .buttonGroup {
   display: flex;
   gap: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .actionButton {
@@ -302,38 +295,45 @@
   justify-content: center;
   gap: 8px;
   font-weight: 600;
-  font-size: 12px;
-  line-height: 100%;
-  letter-spacing: 0.8px;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 4px 12px rgba(255, 0, 85, 0.25);
+}
+
+.actionButton:hover {
+  background: #e6004d;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 0, 85, 0.35);
 }
 
 .actionButton span {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 /* Invoice List */
 .invoiceList {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
 }
 
 .invoiceItem {
   display: flex;
   justify-content: space-between;
-  padding: 16px 0;
-  border-bottom: 1px solid #e3e3e3;
+  padding: 18px 0;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .invoiceNumber {
-  color: #000a1e;
+  color: #0f172a;
   font-size: 14px;
   font-weight: 600;
-  margin: 0 0 4px 0;
+  margin: 0 0 6px 0;
 }
 
 .invoiceSupplier {
-  color: #9ba6ad;
+  color: #94a3b8;
   font-size: 12px;
   margin: 0;
 }
@@ -343,16 +343,17 @@
 }
 
 .invoiceAmount {
-  color: #000a1e;
+  color: #0f172a;
   font-size: 14px;
   font-weight: 600;
-  margin: 0 0 4px 0;
+  margin: 0 0 6px 0;
 }
 
 .invoiceDate {
   color: #ff0055;
   font-size: 12px;
   margin: 0;
+  font-weight: 500;
 }
 
 /* Invoices Screen */
@@ -364,8 +365,8 @@
 }
 
 .sectionTitle {
-  color: #000a1e;
-  font-size: 24px;
+  color: #0f172a;
+  font-size: 22px;
   font-weight: 700;
   margin: 0;
 }
@@ -373,9 +374,10 @@
 .toggle {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #000a1e;
+  gap: 10px;
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
 }
 
 .toggleSwitch {
@@ -385,6 +387,7 @@
   border-radius: 12px;
   position: relative;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .toggleThumb {
@@ -395,28 +398,33 @@
   position: absolute;
   top: 2px;
   right: 2px;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .largeInvoiceCard {
   background: white;
-  border-radius: 16px;
-  padding: 40px 24px;
+  border-radius: 20px;
+  padding: 48px 28px;
   margin-bottom: 24px;
   text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .largeInvoiceNumber {
-  color: #000a1e;
-  font-size: 32px;
+  color: #0f172a;
+  font-size: 36px;
   font-weight: 700;
-  margin: 0 0 40px 0;
+  margin: 0 0 32px 0;
+  letter-spacing: -0.02em;
 }
 
 .invoiceInfo {
   display: flex;
   justify-content: space-between;
-  color: #9ba6ad;
-  font-size: 14px;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .sendPaymentButton {
@@ -425,10 +433,18 @@
   color: white;
   border: none;
   border-radius: 50px;
-  padding: 16px;
-  font-size: 16px;
+  padding: 18px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 4px 12px rgba(255, 0, 85, 0.25);
+}
+
+.sendPaymentButton:hover {
+  background: #e6004d;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 0, 85, 0.35);
 }
 
 /* Details Screen */
@@ -436,62 +452,76 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   background: white;
-  border-radius: 12px;
-  padding: 16px;
+  border-radius: 16px;
+  padding: 18px;
   margin-bottom: 24px;
-  color: #2bb161;
-  font-size: 18px;
+  color: #10b981;
+  font-size: 16px;
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .checkIcon {
-  width: 28px;
-  height: 28px;
-  background: #2bb161;
+  width: 32px;
+  height: 32px;
+  background: #10b981;
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .detailsCard {
   background: white;
-  border-radius: 16px;
-  padding: 40px 24px;
+  border-radius: 20px;
+  padding: 40px 28px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .detailsInvoiceNumber {
-  color: #000a1e;
-  font-size: 48px;
+  color: #0f172a;
+  font-size: 44px;
   font-weight: 700;
   margin: 0 0 40px 0;
   text-align: center;
+  letter-spacing: -0.02em;
 }
 
 .detailsList {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 .detailRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .detailLabel {
-  color: #9ba6ad;
-  font-size: 14px;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .detailValue {
-  color: #000a1e;
-  font-size: 14px;
+  color: #0f172a;
+  font-size: 15px;
   font-weight: 600;
 }
 
@@ -500,18 +530,20 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   background: white;
-  border-top: 1px solid #e3e3e3;
-  padding: 12px 0;
+  border-top: 1px solid #e2e8f0;
+  padding: 12px 0 8px;
 }
 
 .navItem {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  color: #9ba6ad;
-  font-size: 12px;
+  gap: 6px;
+  color: #94a3b8;
+  font-size: 11px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 
 .navItemActive {
@@ -519,53 +551,34 @@
 }
 
 .navItemActive svg {
-  stroke: #ff0055;
+  transform: scale(1.1);
 }
 
-/* Responsive design */
+/* Responsive improvements */
 @media (max-width: 1024px) {
-  .iconLeft {
-    left: -30%;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  .iconBottom {
-    bottom: -5%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .iconRight {
-    right: -30%;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-}
-@media (max-width: 800px) {
-  .iconLeft {
-    display: none;
-  }
-
-  .iconBottom {
-    display: none;
-  }
-
+  .iconLeft,
+  .iconBottom,
   .iconRight {
     display: none;
   }
-}
 
-@media (max-width: 769px) {
   .phoneFrame {
-    margin-bottom: -100px;
+    transform: scale(0.6);
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 768px) {
+  .phoneFrame {
+    transform: scale(0.6);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    height: 500px;
+  }
+
   .phoneFrame {
     transform: scale(0.5);
-    max-width: 100%;
-    margin-bottom: -200px;
   }
 }

@@ -12,7 +12,6 @@ export default function KenaAIPage() {
       <KenaCardsSection></KenaCardsSection>
       <Kena3dSection></Kena3dSection>
       <KenaCtaSection></KenaCtaSection>
-      <KenaCaseStudy></KenaCaseStudy>
     </main>
   );
 }

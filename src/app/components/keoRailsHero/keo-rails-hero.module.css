@@ -78,10 +78,12 @@
   position: relative;
   width: 100%;
   height: 680px;
-  margin-top: var(--spacing-xl);
   z-index: -100 !important;
   border-radius: 16px;
-  width: 100vw !important;
+  overflow: hidden;
+}
+/* 3D Transformed Container */
+.transformedContainer * {
   overflow: hidden;
 }
 
@@ -97,7 +99,7 @@
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transform: translate(15%) scale(1.2) rotateX(25deg) rotateY(30deg)
+  transform: translate(15%, 7%) scale(1.2) rotateX(25deg) rotateY(30deg)
     rotate(334deg) !important;
   transition: transform 0.3s ease;
   border-radius: var(--rounded-sm);
@@ -195,6 +197,7 @@
   height: 100%;
   z-index: 1;
   pointer-events: none;
+  overflow: hidden;
 }
 
 /* Added gradient overlay from transparent to more opaque at bottom */
@@ -213,6 +216,7 @@
   );
   z-index: 2;
   pointer-events: none;
+  overflow: hidden;
 }
 
 /* Limit Hover Effects to Non Touch Devices */
