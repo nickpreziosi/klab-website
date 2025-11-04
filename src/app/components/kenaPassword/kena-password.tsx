@@ -91,7 +91,6 @@ export default function KenaPassword({
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 aria-invalid={error ? "true" : "false"}
-                autoFocus
               />
               <button
                 type="button"
