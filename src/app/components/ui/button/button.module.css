@@ -19,6 +19,13 @@
   flex-wrap: nowrap;
   font-family: inherit;
 }
+
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .buttonSm {
   font-size: 14px;
 }
