@@ -2,38 +2,46 @@
 import { motion } from "framer-motion";
 import styles from "./news-pagination.module.css";
 import Button from "@/app/components/ui/button/button";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 interface NewsPaginationProps {
-  currentPage: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
 }
 
-export default function NewsPagination({
-  currentPage,
-  totalPages,
-  onPageChange,
-}: NewsPaginationProps) {
+export default function NewsPagination({ totalPages }: NewsPaginationProps) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const raw = searchParams?.get("page") ?? "1";
+  const parsed = Number(raw);
+  const currentPage = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
-  const handlePrevious = () => {
-    if (currentPage > 1) {
-      onPageChange(currentPage - 1);
+  const navigateTo = (page: number) => {
+    // ensure page in range
+    const target = Math.max(1, Math.min(totalPages, page));
+    // construct simple query (replace other query params)
+    const url = `${pathname}?page=${target}`;
+    router.push(url);
+    // scroll to top after navigation
+    try {
       window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch {
+      window.scrollTo(0, 0);
     }
+  };
+
+  const handlePrevious = () => {
+    if (currentPage > 1) navigateTo(currentPage - 1);
   };
 
   const handleNext = () => {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    if (currentPage < totalPages) navigateTo(currentPage + 1);
   };
 
-  const handlePageClick = (page: number) => {
-    onPageChange(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const handlePageClick = (page: number) => navigateTo(page);
 
   return (
     <motion.nav

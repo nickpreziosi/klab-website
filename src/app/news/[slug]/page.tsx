@@ -13,6 +13,7 @@ type Article = {
   date: string;
   readTime: string;
   image?: string;
+  embedLink?: string;
   author: string;
   authorRole?: string;
   content: string;
@@ -26,6 +27,7 @@ const articlesData: Record<string, Article> = {
     date: "2024-03-15",
     readTime: "5 min read",
     image: "/blockchain-payment-platform.jpg",
+    embedLink: "https://www.youtube.com/embed/Ivd6J240bNs",
     author: "Sarah Chen",
     authorRole: "CEO",
     content: `
@@ -182,22 +184,36 @@ export default function ArticlePage({
         </div>
       </section>
 
-      {/* Featured Image */}
+      {/* Featured media: image or YouTube embed (when youtubeId is provided) */}
       <motion.section
         className={styles.imageSection}
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
       >
-        <div className={styles.imageContainer}>
-          <Image
-            width={500}
-            height={500}
-            src={article.image || "/placeholder.svg"}
-            alt={article.title}
-            className={styles.image}
-          />
-        </div>
+        {article.embedLink ? (
+          <div className={styles.videoWrapper}>
+            <iframe
+              title={article.title}
+              className={styles.video}
+              src={`${article.embedLink}?rel=0&modestbranding=1`}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+            />
+          </div>
+        ) : (
+          <div className={styles.imageContainer}>
+            <Image
+              width={500}
+              height={500}
+              src={article.image || "/placeholder.svg"}
+              alt={article.title}
+              className={styles.image}
+            />
+          </div>
+        )}
       </motion.section>
 
       {/* Article Content */}

@@ -26,6 +26,23 @@
   background: rgba(var(--secondary-color-rgb), 0.03);
 }
 
+/* Play badge overlay for video thumbnails */
+.playBadge {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* visual only */
+  z-index: 6;
+}
+
+.playBadge svg {
+  width: 56px;
+  height: 56px;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.35));
+}
+
 .image {
   width: 100%;
   height: 100%;
@@ -74,6 +91,7 @@
   margin: 0 0 20px 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

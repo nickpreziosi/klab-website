@@ -6,6 +6,7 @@ import NewsCard from "../components/news/newsCard/news-card";
 import NewsPagination from "../components/news/newsPagination/news-pagination";
 import NewsCardSkeleton from "../components/news/newsCardSkeleton/news-card-skeleton";
 import styles from "./page.module.css";
+import { useSearchParams } from "next/navigation";
 
 // Mock articles data
 const articles = [
@@ -18,6 +19,7 @@ const articles = [
     date: "2024-03-15",
     readTime: "5 min read",
     image: "/blockchain-payment-platform.jpg",
+    youtubeId: "Ivd6J240bNs",
     author: "Sarah Chen",
     authorRole: "CEO",
   },
@@ -124,20 +126,27 @@ const articles = [
 const ARTICLES_PER_PAGE = 6;
 
 export default function NewsPage() {
-  const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+  const searchParams = useSearchParams();
+
+  // read page from URL query param ?page=1
+  const rawPage = searchParams?.get("page") ?? "1";
+  const parsed = Number(rawPage);
+  const currentPage = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
 
   useEffect(() => {
     setIsLoading(true);
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 600);
 
     return () => clearTimeout(timer);
   }, [currentPage]);
 
   const totalPages = Math.ceil(articles.length / ARTICLES_PER_PAGE);
-  const startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
+  // clamp currentPage to valid range for slicing
+  const safePage = Math.max(1, Math.min(totalPages, currentPage));
+  const startIndex = (safePage - 1) * ARTICLES_PER_PAGE;
   const endIndex = startIndex + ARTICLES_PER_PAGE;
   const currentArticles = articles.slice(startIndex, endIndex);
 
@@ -193,12 +202,8 @@ export default function NewsPage() {
               ))}
         </div>
 
-        {/* Pagination */}
-        <NewsPagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
+        {/* Pagination (driven by URL ?page=) */}
+        <NewsPagination totalPages={totalPages} />
       </section>
     </main>
   );

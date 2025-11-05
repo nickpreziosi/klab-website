@@ -27,7 +27,11 @@
   transform: translateX(-50%);
   width: 800px;
   height: 800px;
-  background: radial-gradient(circle, rgba(var(--main-color-rgb), 0.3) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(var(--main-color-rgb), 0.3) 0%,
+    transparent 70%
+  );
   border-radius: 50%;
   filter: blur(100px);
 }
@@ -169,6 +173,20 @@
   object-fit: cover;
 }
 
+.videoWrapper {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  border-radius: 16px;
+}
+
+.video {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  border-radius: 16px;
+}
+
 .article {
   padding: 0 var(--padding-desktop) 80px;
   max-width: 1440px;
@@ -227,7 +245,7 @@
 .content blockquote {
   margin: 32px 0;
   padding: 24px 32px;
-  border-left: 4px solid rgba(var(--secondary-color-rgb), 0.3);
+  border-left: 4px solid rgba(var(--accent-color-rgb), 0.3);
   background: rgba(var(--secondary-color-rgb), 0.05);
   border-radius: 0 8px 8px 0;
   font-style: italic;

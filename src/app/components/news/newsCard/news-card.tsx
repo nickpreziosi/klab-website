@@ -13,7 +13,8 @@ interface NewsCardProps {
     category: string;
     date: string;
     readTime: string;
-    image: string;
+    image?: string;
+    youtubeId?: string;
     author: string;
     authorRole: string;
   };
@@ -35,13 +36,46 @@ export default function NewsCard({ article, index }: NewsCardProps) {
     >
       <Link href={`/news/${article.slug}`} className={styles.link}>
         <div className={styles.imageContainer}>
-          <Image
-            width={500}
-            height={500}
-            src={article.image || "/placeholder.svg"}
-            alt={article.title}
-            className={styles.image}
-          />
+          {article.youtubeId ? (
+            <>
+              <Image
+                width={500}
+                height={281}
+                src={`https://img.youtube.com/vi/${article.youtubeId}/hqdefault.jpg`}
+                alt={article.title}
+                className={styles.image}
+                unoptimized
+              />
+              <div className={styles.playBadge} aria-hidden>
+                <svg
+                  width="44"
+                  height="44"
+                  viewBox="0 0 44 44"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="22" cy="22" r="22" fill="rgba(0,0,0,0.5)" />
+                  <path
+                    d="M18 14L30 22L18 30V14Z"
+                    fill="white"
+                    stroke="white"
+                    strokeWidth="0"
+                  />
+                </svg>
+              </div>
+            </>
+          ) : (
+            <>
+              <Image
+                width={500}
+                height={500}
+                src={article.image || "/placeholder.svg"}
+                alt={article.title}
+                className={styles.image}
+              />
+            </>
+          )}
+
           <div className={styles.category}>{article.category}</div>
         </div>
 
