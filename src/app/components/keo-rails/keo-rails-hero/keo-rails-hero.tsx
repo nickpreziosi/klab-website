@@ -5,7 +5,6 @@ import type { ReactNode } from "react";
 import styles from "./keo-rails-hero.module.css";
 import HeroText from "@/app/components/ui/hero-text/hero-text";
 import KeoDashboard from "@/app/components/keo-rails/keo-rails-dashboard/keo-dashboard";
-import Image from "next/image";
 
 interface KeoRailsHeroProps {
   heading: string;

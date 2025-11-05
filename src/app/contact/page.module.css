@@ -66,8 +66,8 @@
 
 .cardsGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--gap-lg);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-md);
   width: 100%;
 }
 
@@ -79,7 +79,7 @@
   }
 
   .cardsGrid {
-    gap: var(--gap-md);
+    grid-template-columns: 1fr;
   }
 }
 
@@ -91,10 +91,6 @@
 
   .heroTitle {
     margin-bottom: 24px;
-  }
-
-  .cardsGrid {
-    grid-template-columns: 1fr;
   }
 }
 

@@ -42,7 +42,7 @@ export default function ButtonPlayer({
             size &&
             styles[`button${size.charAt(0).toUpperCase() + size.slice(1)}`]
           } ${iconPosition === "start" ? styles.iconStart : styles.iconEnd} ${
-            width === "fit" ? styles.buttonFit : styles.buttonFull
+            width === "fit" ? styles.buttonFitWidth : styles.buttonFullWidth
           }`}
         >
           {icon && iconPosition === "start" && icon}
@@ -63,7 +63,7 @@ export default function ButtonPlayer({
             size &&
             styles[`button${size.charAt(0).toUpperCase() + size.slice(1)}`]
           } ${iconPosition === "start" ? styles.iconStart : styles.iconEnd} ${
-            width === "fit" ? styles.buttonFit : styles.buttonFull
+            width === "fit" ? styles.buttonFitWidth : styles.buttonFullWidth
           }`}
         >
           {icon && iconPosition === "start" && icon}

@@ -25,11 +25,11 @@
   pointer-events: none;
 }
 
-.buttonFit {
-  width: fit-content;
+.buttonFitWidth {
+  width: fit-content !important;
 }
-.buttonFull {
-  width: 100%;
+.buttonFullWidth {
+  width: 100% !important;
 }
 .buttonSm {
   font-size: 14px;

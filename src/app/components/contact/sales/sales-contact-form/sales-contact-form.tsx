@@ -495,6 +495,7 @@ export function SalesContactForm() {
         <div className={styles.submitWrapper}>
           <Button
             text="Submit"
+            width="fit"
             variant="full"
             iconPosition="end"
             icon={

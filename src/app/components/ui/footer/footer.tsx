@@ -27,13 +27,18 @@ export const Footer = () => {
   ];
 
   const privacyLinks = [
-    { href: "/privacy/usa", label: "USA" },
-    { href: "/privacy/canada", label: "Canada" },
-    { href: "/privacy/colombia", label: "Colombia" },
-    { href: "/privacy/mexico", label: "Mexico" },
-    { href: "/privacy/peru", label: "Peru" },
-    { href: "/privacy/brazil", label: "Brazil" },
+    { href: "/keo-privacy-policy-usa.pdf", label: "USA" },
+    { href: "/keo-privacy-policy-canada.pdf", label: "Canada" },
+    { href: "/keo-aviso-de-privacidad-colombia.pdf", label: "Colombia" },
+    { href: "/keo-aviso-de-privacidad-méxico.pdf", label: "Mexico" },
+    { href: "/keo-privacy-policy-brazil.pdf", label: "Brazil" },
   ];
+
+  // Subset used in the footer privacy policies section
+  const _policyCountries = ["USA", "Canada", "Colombia", "Mexico", "Brazil"];
+  const privacyPolicyLinks = privacyLinks.filter((p) =>
+    _policyCountries.includes(p.label)
+  );
 
   const socialLinks = [
     {
@@ -168,18 +173,17 @@ export const Footer = () => {
           {/* Links Section */}
           <div className={styles.linksGrid}>
             <div className={styles.linkCard}>
-              <h3 className={styles.linkCardTitle}>Join the community</h3>
+              <h3 className={styles.linkCardTitle}>Read Our Blog</h3>
               <p className={styles.linkCardDescription}>
-                Be part of the financial technology revolution. Collaborate,
-                share ideas, and connect with others who are reshaping how
-                liquidity moves.
+                Explore articles on fintech trends, KEO updates, industry
+                insights, and more.
               </p>
               <Button
                 size="sm"
                 fontWeight={300}
                 text="Join Now"
                 variant="outline"
-                href="/community"
+                href="/news"
                 iconPosition="end"
                 icon={
                   <svg
@@ -201,10 +205,10 @@ export const Footer = () => {
             </div>
 
             <div className={styles.linkCard}>
-              <h3 className={styles.linkCardTitle}>General communication</h3>
+              <h3 className={styles.linkCardTitle}>Contact Us</h3>
               <p className={styles.linkCardDescription}>
                 Have questions about KEO or our solutions? Our team is ready to
-                help you find the right product or partnership.
+                help you find the right product or assistance.
               </p>
               <Button
                 size="sm"
@@ -233,18 +237,17 @@ export const Footer = () => {
             </div>
 
             <div className={styles.linkCard}>
-              <h3 className={styles.linkCardTitle}>Documentation</h3>
+              <h3 className={styles.linkCardTitle}>Litepapers</h3>
               <p className={styles.linkCardDescription}>
-                Explore our API docs, integration guides, and compliance
-                framework. Everything you need to build on top of KEO&apos;s
-                technology.
+                Explore our litepapers for concise technical overviews,
+                integration guidance, and implementation examples.
               </p>
               <Button
                 size="sm"
                 fontWeight={300}
-                text="View Docs"
+                text="View Litepapers"
                 variant="outline"
-                href="https://docs.keorails.com/"
+                href="/litepapers"
                 iconPosition="end"
                 icon={
                   <svg
@@ -268,13 +271,13 @@ export const Footer = () => {
             <div className={styles.linkCard}>
               <h3 className={styles.linkCardTitle}>Developers</h3>
               <p className={styles.linkCardDescription}>
-                Access SDKs, tools, and technical resources to accelerate your
-                integrations.
+                Explore our API docs, integration guides, and technical
+                resources to get started with KEO technologies.
               </p>
               <Button
                 size="sm"
                 fontWeight={300}
-                text="Start Building"
+                text="View Docs"
                 variant="outline"
                 href="https://docs.keorails.com/"
                 iconPosition="end"
@@ -336,7 +339,8 @@ export const Footer = () => {
           {/* Legal Section */}
           <div className={styles.legal}>
             <p className={styles.copyright}>
-              © 2025 KEO World, Inc. All rights reserved.
+              © 2025 KEO World, Inc. All rights reserved. • 328 NW 29th St.
+              Miami, Florida 33127
             </p>
             <p className={styles.legalText}>
               Use of this site constitutes acceptance of KEO&apos;s Privacy and
@@ -353,6 +357,19 @@ export const Footer = () => {
                 privacyprotection@keoworld.com
               </a>
             </p>
+
+            {/* Privacy policies quick links */}
+            <div className={styles.legalText}>
+              <span className={styles.privacyLabel}>Privacy Policies: </span>
+              {privacyPolicyLinks.map((link, index) => (
+                <span key={link.href}>
+                  <Link href={link.href} className={styles.legalLink}>
+                    {link.label}
+                  </Link>
+                  {index < privacyPolicyLinks.length - 1 && " • "}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </footer>
