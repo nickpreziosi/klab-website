@@ -12,6 +12,7 @@ interface ButtonProps {
   variant?: "full" | "outline";
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
+  width?: "fit" | "full";
 }
 
 export default function ButtonPlayer({
@@ -25,6 +26,7 @@ export default function ButtonPlayer({
   variant = "full",
   disabled,
   type,
+  width = "fit",
 }: ButtonProps) {
   return (
     <>
@@ -39,7 +41,9 @@ export default function ButtonPlayer({
           } ${
             size &&
             styles[`button${size.charAt(0).toUpperCase() + size.slice(1)}`]
-          } ${iconPosition === "start" ? styles.iconStart : styles.iconEnd}`}
+          } ${iconPosition === "start" ? styles.iconStart : styles.iconEnd} ${
+            width === "fit" ? styles.buttonFit : styles.buttonFull
+          }`}
         >
           {icon && iconPosition === "start" && icon}
           {text}
@@ -58,7 +62,9 @@ export default function ButtonPlayer({
           } ${
             size &&
             styles[`button${size.charAt(0).toUpperCase() + size.slice(1)}`]
-          } ${iconPosition === "start" ? styles.iconStart : styles.iconEnd}`}
+          } ${iconPosition === "start" ? styles.iconStart : styles.iconEnd} ${
+            width === "fit" ? styles.buttonFit : styles.buttonFull
+          }`}
         >
           {icon && iconPosition === "start" && icon}
           {text}

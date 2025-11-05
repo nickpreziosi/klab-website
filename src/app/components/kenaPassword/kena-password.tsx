@@ -20,6 +20,19 @@ export default function KenaPassword({
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 500); // Adjust breakpoint as needed
+    };
+
+    // Set initial state
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     try {
@@ -133,6 +146,7 @@ export default function KenaPassword({
               </button>
             </div>
             <Button
+              width={isMobile ? "full" : "fit"}
               variant="outline"
               icon={
                 !loading ? (

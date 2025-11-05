@@ -1,5 +1,4 @@
 .button {
-  width: fit-content;
   height: 44px;
   opacity: 1;
   border-radius: 6px;
@@ -18,6 +17,13 @@
   white-space: nowrap;
   flex-wrap: nowrap;
   font-family: inherit;
+}
+
+.buttonFit {
+  width: fit-content;
+}
+.buttonFull {
+  width: 100%;
 }
 .buttonSm {
   font-size: 14px;
