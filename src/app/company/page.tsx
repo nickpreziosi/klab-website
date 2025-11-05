@@ -1,11 +1,11 @@
 import styles from "./page.module.css";
-import { StaffCard } from "../components/staffCard/staff-card";
-import { CompanyHero } from "../components/companyHero/company-hero";
-import TimelineCarousel from "../components/timeline-carousel/timeline-carousel";
-import CompanyStats from "../components/companyStats/company-stats";
-import CompanyCulture from "../components/companyCulture/company-culture";
-import SectionHeader from "../components/sectionHeader/section-header";
-import CompanyVideoSection from "../components/companyVideoSection/company-video-section";
+import { StaffCard } from "@/app/components/company/staff-card/staff-card";
+import { CompanyHero } from "@/app/components/company/company-hero/company-hero";
+import TimelineCarousel from "@/app/components/company/timeline-carousel/timeline-carousel";
+import CompanyStats from "@/app/components/company/company-stats/company-stats";
+import CompanyCulture from "@/app/components/company/company-culture/company-culture";
+import SectionHeader from "@/app/components/ui/section-header/section-header";
+import CompanyVideoSection from "@/app/components/company/company-video-section/company-video-section";
 
 export default function Home() {
   const employees = [

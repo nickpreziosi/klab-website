@@ -1,11 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import styles from "./not-found.module.css";
-import { Logo } from "./components/logo/logo";
+import { Logo } from "@/app/components/ui/logo/logo";
 import { useRouter } from "next/navigation";
-import Button from "./components/ui/button/button";
+import Button from "@/app/components/ui/button/button";
 
 export default function NotFound() {
   const router = useRouter();
