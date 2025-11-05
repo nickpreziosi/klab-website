@@ -10,6 +10,7 @@ export default function Kena3dSection() {
       <section className={styles.section}>
         <div className={styles.headerWrapper}>
           <SectionHeader
+            maxWidth={560}
             heading="How Kena Thinks, Learns, and Decides"
             align="center"
             animateOnce={true}
