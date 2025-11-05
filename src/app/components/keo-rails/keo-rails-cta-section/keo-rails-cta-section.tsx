@@ -54,7 +54,7 @@ export default function KeoRailsCtaSection() {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <Button
-              href="/contact/sales"
+              href="https://docs.keorails.com/"
               text="EMBED KEO RAILS"
               iconPosition="end"
               variant="full"

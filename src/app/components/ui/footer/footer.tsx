@@ -181,7 +181,7 @@ export const Footer = () => {
               <Button
                 size="sm"
                 fontWeight={300}
-                text="Join Now"
+                text="Read Blog"
                 variant="outline"
                 href="/news"
                 iconPosition="end"

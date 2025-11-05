@@ -178,17 +178,15 @@
 .bottomHeading {
   color: var(--secondary-color);
   margin: 0;
-  display: flex;
-  flex-wrap: wrap;
+
   gap: 0.1em;
   font-weight: 400;
   font-size: 52px;
   line-height: 1.2;
   letter-spacing: -1.5%;
   margin: 0;
-  display: flex;
-  flex-wrap: wrap;
   margin: 0 0 var(--gap-md) 0;
+  text-align: center !important;
 }
 
 .bottomDescription {

@@ -229,8 +229,8 @@ export default function CompanyVideoSection({
   heading = "Hear from KEO's founder",
   videoTitle = "KEO",
   videoThumbnail = "",
-  bottomHeading = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  bottomDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate quis erat lacinia efficitur. Nulla semper vulputate justo nec ornare.",
+  bottomHeading = "What we stand for",
+  bottomDescription = "A concise overview of the product vision and core design principles. Hear why these choices matter, what problems the platform addresses, and how teams can integrate and move forward.",
   onPlayClick,
 }: CompanyVideoSectionProps) {
   // onPlayClick will be passed through to DialogDemo which calls it when dialog opens
