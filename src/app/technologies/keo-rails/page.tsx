@@ -1,13 +1,11 @@
-import KeoCardsSection from "@/app/components/keoCardsSection/keo-cards-section";
-import KeoRailsHero from "../../components/keoRailsHero/keo-rails-hero";
+import KeoRailsHero from "@/app/components/keo-rails/keo-rails-hero/keo-rails-hero";
 import styles from "./page.module.css";
-import VideoPlayer from "@/app/components/VideoPlayer/video-player";
-import KeoRailsBuiltWithSection from "@/app/components/keoRailsBuiltWithSection/keo-rails-built-with-section";
-import KeoRailsCtaSection from "@/app/components/keoRailsCtaSection/keo-rails-cta-section";
-import KeoRailsDemo from "@/app/components/keoRailsDemo/keo-rails-demo";
-import KeoRailsCodeSection from "@/app/components/keoRailsCodeSection/keo-rails-code-section";
-import KeoRailsCaseStudy from "@/app/components/keoRailsCaseStudy/keo-rails-case-study";
-import KeoRailsGridSection from "@/app/components/keoRailsGridSection/keo-rails-grid-section";
+import VideoPlayer from "@/app/components/ui/video-player/video-player";
+import KeoRailsBuiltWithSection from "@/app/components/keo-rails/keo-rails-built-with-section/keo-rails-built-with-section";
+import KeoRailsCtaSection from "@/app/components/keo-rails/keo-rails-cta-section/keo-rails-cta-section";
+import KeoRailsCodeSection from "@/app/components/keo-rails/keo-rails-code-section/keo-rails-code-section";
+import KeoRailsCaseStudy from "@/app/components/keo-rails/keo-rails-case-study/keo-rails-case-study";
+import KeoRailsGridSection from "@/app/components/keo-rails/keo-rails-grid-section/keo-rails-grid-section";
 
 export default function KeoRailsPage() {
   return (

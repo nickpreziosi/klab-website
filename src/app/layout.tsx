@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Poppins } from "next/font/google";
-import SocialSidebar from "./components/socialSidebar/social-sidebar";
-import { NavigationMenuDemo } from "./components/navbar/navbar";
-import { Footer } from "./components/footer/footer";
+import SocialSidebar from "@/app/components/ui/social-sidebar/social-sidebar";
+import { NavigationMenuDemo } from "@/app/components/ui/navbar/navbar";
+import { Footer } from "@/app/components/ui/footer/footer";
 import Head from "./head";
 
 const poppins = Poppins({

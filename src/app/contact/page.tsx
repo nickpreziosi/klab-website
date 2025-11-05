@@ -1,6 +1,6 @@
-import { ContactLink } from "../components/contactLink/contact-link";
+import { ContactLink } from "@/app/components/contact/contact-link/contact-link";
 import styles from "./page.module.css";
-import SectionHeader from "../components/sectionHeader/section-header";
+import SectionHeader from "@/app/components/ui/section-header/section-header";
 
 export default function ContactPage() {
   return (

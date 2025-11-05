@@ -1,7 +1,7 @@
 import styles from "./page.module.css";
-import { Hero } from "./components/hero/hero";
-import VideoBackground from "./components/videoBackground/video-background";
-import HomeSecondarySection from "./components/homeSecondarySection/home-secondary-section";
+import { Hero } from "@/app/components/home/hero/hero";
+import VideoBackground from "@/app/components/home/video-background/video-background";
+import HomeSecondarySection from "@/app/components/home/home-secondary-section/home-secondary-section";
 
 export default function Home() {
   return (

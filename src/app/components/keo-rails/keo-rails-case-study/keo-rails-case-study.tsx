@@ -1,0 +1,537 @@
+"use client";
+import styles from "./keo-rails-case-study.module.css";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import useEmblaCarousel from "embla-carousel-react";
+import { motion } from "framer-motion";
+
+export default function KeoRailsCaseStudy() {
+  const CircleLogo = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlSpace="preserve"
+      id="Layer_1"
+      x={0}
+      y={0}
+      fill="currentColor"
+      viewBox="0 0 324.2 83"
+    >
+      <style>{`.st2{fill:currentColor}`}</style>
+      <linearGradient
+        id="SVGID_1_"
+        x1={232.827}
+        x2={291.249}
+        y1={646.994}
+        y2={588.572}
+        gradientTransform="translate(-206 -561.39)"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop
+          offset={0}
+          style={{
+            stopColor: "#b090f5",
+          }}
+        />
+        <stop
+          offset={1}
+          style={{
+            stopColor: "#5fbfff",
+          }}
+        />
+      </linearGradient>
+      <path
+        d="m77.5 20.9-1.8-3.1c-.5-.9-1.6-1.2-2.5-.7-.1.1-.3.2-.4.3l-4.1 4.1c-.6.6-.7 1.6-.2 2.3 1.5 2.3 2.7 4.8 3.6 7.4 5.7 16.9-3.4 35.2-20.3 40.9-3.3 1.1-6.8 1.7-10.3 1.7-5.3 0-10.5-1.3-15.1-3.8l7-7c11.9 4.5 25.2-1.5 29.7-13.4 2.2-5.9 1.9-12.5-.8-18.2-.4-.9-1.5-1.3-2.5-.9-.2.1-.4.2-.5.4L55.1 35c-.5.5-.6 1.1-.5 1.7l.4 1.5c1.7 7.4-2.9 14.9-10.3 16.6-3.4.8-7 .3-10-1.5l-1.8-1.1c-.7-.4-1.6-.3-2.2.3l-17 17c-.7.7-.7 1.9 0 2.6l.2.2 2.5 1.9c7.1 5.8 16 8.8 25.1 8.8C64.4 83 83 64.4 83 41.4c0-7.2-1.9-14.2-5.5-20.5z"
+        style={{
+          fill: "url(#SVGID_1_)",
+        }}
+      />
+      <linearGradient
+        id="SVGID_2_"
+        x1={203.707}
+        x2={262.137}
+        y1={617.199}
+        y2={558.772}
+        gradientTransform="translate(-206 -561.39)"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop
+          offset={0}
+          style={{
+            stopColor: "#68d7fa",
+          }}
+        />
+        <stop
+          offset={1}
+          style={{
+            stopColor: "#4ee498",
+          }}
+        />
+      </linearGradient>
+      <path
+        d="M66.7 8.6C59.5 3 50.6 0 41.5 0 18.6 0 0 18.6 0 41.6c0 7.2 1.9 14.3 5.4 20.5l1.8 3.1c.5.9 1.6 1.2 2.5.7.1-.1.3-.2.4-.3l4.1-4.1c.6-.6.7-1.6.2-2.3-1.5-2.3-2.7-4.8-3.6-7.4-5.7-16.9 3.4-35.2 20.3-40.9 3.3-1.1 6.8-1.7 10.3-1.7 5.3 0 10.5 1.3 15.1 3.8l-7 7c-11.9-4.5-25.2 1.5-29.7 13.4-1 2.6-1.5 5.4-1.5 8.2 0 .4.1 2.1.1 2.4.3 2.6 1 5.2 2.2 7.6.4.9 1.5 1.3 2.5.9.2-.1.4-.2.5-.4l4.2-4.2c.5-.5.6-1.1.5-1.7l-.3-1.5c-1.7-7.4 2.9-14.9 10.3-16.6 3.4-.8 7-.3 10 1.5l1.8 1.1c.7.4 1.6.3 2.2-.3l17-17c.7-.7.7-1.9 0-2.6l-.2-.2-2.4-2z"
+        style={{
+          fill: "url(#SVGID_2_)",
+        }}
+      />
+      <path
+        d="M136.6 53c-.6-.5-1.6-.5-2.2.1-2.7 2.1-5.8 4-10.3 4-8.3 0-15-7-15-15.5s6.7-15.6 15-15.6c3.6 0 7.4 1.5 10.3 4 .3.4.8.6 1.3.6.4 0 .8-.3 1.1-.6l2.7-2.8c.3-.3.5-.8.5-1.3s-.2-.9-.6-1.3c-4.7-4.1-9.4-5.9-15.3-5.9-12.6 0-22.9 10.3-22.9 23 0 12.6 10.2 22.9 22.9 22.9 5.8.1 11.3-2.2 15.4-6.2.4-.4.6-.9.5-1.4 0-.4-.2-.8-.5-1.1l-2.9-2.9zM156.2 19.2h-4.1c-.9 0-1.7.8-1.7 1.7v41.2c0 .9.8 1.7 1.7 1.7h4.1c.9 0 1.7-.8 1.7-1.7V20.9c0-.9-.7-1.7-1.7-1.7zM204.5 33.1c0-7.6-6.3-13.9-14-13.9h-16.8c-1 0-1.7.8-1.7 1.7v41.2c0 1 .8 1.7 1.7 1.7h4c.9 0 1.7-.8 1.7-1.7V46.8h8.4l8.1 16.2c.3.5.9.9 1.5.9h4.8c.6 0 1.2-.3 1.5-.8.3-.6.3-1.2 0-1.8L195.5 46c5.6-2.5 9-7.4 9-12.9zm-7.6.1c0 3.9-3.2 7.2-7 7.2h-10.5v-14H190c3.7-.1 6.9 3.1 6.9 6.8zM248.4 53c-.6-.5-1.6-.5-2.2.1-2.7 2.1-5.8 4-10.3 4-8.3 0-15-7-15-15.5S227.6 26 235.8 26c3.6 0 7.4 1.5 10.3 4 .3.4.8.6 1.3.6.4 0 .8-.3 1.1-.6l2.7-2.8c.3-.3.5-.8.5-1.3s-.2-.9-.6-1.3c-4.7-4.1-9.4-5.9-15.3-5.9-12.6 0-22.9 10.3-22.9 23 0 12.6 10.2 22.9 22.9 22.9 5.8.1 11.3-2.2 15.4-6.2.4-.4.6-.9.5-1.4 0-.4-.2-.8-.5-1.1l-2.8-2.9zM285.9 56.9h-16.2v-36c0-.9-.8-1.7-1.7-1.7h-4.1c-1 0-1.7.8-1.7 1.7v41.2c0 1 .8 1.7 1.7 1.7h22c1 0 1.7-.8 1.7-1.7v-3.4c0-1-.7-1.8-1.7-1.8zM322.5 26.2c1 0 1.7-.8 1.7-1.7V21c0-1-.8-1.7-1.7-1.7h-24.7c-1 0-1.7.8-1.7 1.7v41.2c0 1 .8 1.7 1.7 1.7h24.7c1 0 1.7-.8 1.7-1.7v-3.4c0-1-.8-1.7-1.7-1.7h-19V44.7h15.9c1 0 1.7-.8 1.7-1.7v-3.5c0-.9-.8-1.7-1.7-1.7h-15.9V26.2h19z"
+        className="st2"
+      />
+    </svg>
+  );
+
+  const AlgorandLogo = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlSpace="preserve"
+      viewBox="160 160 1140 320"
+      fill="currentColor"
+    >
+      <path d="M457.8 233.2v180.5H421V233.2h36.8zM608 292v122.1c0 37.9-29.5 61.2-65.6 61.2-34.8 0-60.8-21.6-63.3-52.1l36.7.2c1.5 13 12.9 18.6 27.9 18.6 14.2 0 27.4-7.6 27.4-27.4V399c-9.4 6.1-21.4 9.7-34.8 9.7-33.6 0-60.5-27.2-60.5-58.5 0-36.4 27-60.8 60.5-60.8 13.5 0 25.4 3.6 34.8 9.7v-6.6l36.9-.5zm-36.8 71.9v-29.7c-7.5-10.9-17.9-14.5-28.2-14.5-18.1 0-30.7 12.1-30.7 30.5 0 13.5 12.6 28.3 30.7 28.3 10.3-.1 20.7-3.8 28.2-14.6zM754.8 351.4c0 37.6-27.8 64.4-65.1 64.4-37.6 0-65.4-26.8-65.4-64.4 0-37.3 27.8-64.6 65.4-64.6 37.3 0 65.1 27.3 65.1 64.6zm-35.5 0c0-17.7-11.6-32-29.6-32-18.2 0-29.8 14.3-29.8 32 0 18.2 11.6 31.8 29.8 31.8 17.9-.1 29.6-13.6 29.6-31.8zM983.3 292.2v121.3l-36.1.2v-6.9c-9.4 6.1-21.4 9.9-34.8 9.9-33.6 0-60.5-28.5-60.5-63.6 0-35.3 27-63.8 60.5-63.8 13.5 0 25.4 3.8 34.8 9.9v-6.9l36.1-.1zm-36.1 79.5v-37.2c-7.6-10.8-18.2-13.8-28.8-13.8-18.5 0-31.3 14.8-31.3 32.5 0 17.5 12.8 32.3 31.3 32.3 10.6-.1 21.2-3 28.8-13.8zM1131.7 347.8v65.9h-35.5v-61.6c0-19.8-9.9-30.3-27.5-30.3-9.2 0-19.3 5.3-28 15.5v76.4h-36.3V292.4h36.3v9.2c9.9-7.9 21.4-12.2 35.1-12.2 32.4 0 55.9 22.8 55.9 58.4zM404.2 413.6h-37.5l-24.4-90.7-52.5 90.7h-41.9l81-140.4-13-48.8-109.3 189.3h-41.9l138.5-240h36.7l16.1 59.6h37.9l-25.9 45zM1278.3 233.2v180.5h-36.8v-6.9c-9.4 6.1-21.4 9.9-34.8 9.9-33.6 0-60.5-28.5-60.5-63.8 0-35.1 27-63.6 60.5-63.6 13.5 0 25.4 3.8 34.8 9.9v-66.1l36.8.1zm-36.8 138.6v-37.5c-7.7-10.9-18.4-13.9-29-13.9-18.6 0-31.5 14.9-31.5 32.5 0 17.9 12.9 32.8 31.5 32.8 10.6 0 21.3-3 29-13.9zM845.3 323c-8 1-26.8 1.9-37.8 17.1v73.7h-36.3V292.6h36.3v9.1c8.3-7.1 20.8-11.3 37.8-9.6" />
+    </svg>
+  );
+
+  const StablecorpLogo = () => (
+    <svg
+      preserveAspectRatio="slice"
+      viewBox="0 0 1408 276"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+    >
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M141.842 192.381 0 111.493V79.49l198.142 112.993L104.175 247 0 187.593v-32.654l18.51 10.556v.03l85.541 48.781 37.791-21.925ZM58.947 54.521l141.52 80.655v31.946L2.713 54.42 96.569 0l103.898 59.212v32.596l-18.3-10.43.001-.03-85.474-48.713-37.747 21.886ZM364.408 88.465h28.53l-.015-1.015c-.267-17.785-6.881-32.436-18.893-42.627C362.034 34.646 344.754 29 323.284 29c-21.071 0-36.982 5.447-47.638 14.881-10.669 9.447-15.951 22.787-15.951 38.312 0 10.973 2.606 19.963 8.123 27.291 5.508 7.317 13.846 12.88 25.133 17.139l.004.002c10.583 3.943 21.156 5.798 31.103 7.542l.036.007c9.534 1.672 18.458 3.241 26.434 6.414l.004.001c6.599 2.594 11.018 5.729 13.796 9.483 2.768 3.741 3.978 8.196 3.978 13.574 0 9.326-3.679 16.666-10.383 21.706-6.739 5.066-16.626 7.872-29.116 7.872-13.265 0-24.203-3.195-31.867-9.116-7.636-5.9-12.11-14.572-12.366-25.757l-.023-.977h-29.084l.02 1.02c.4 20.045 8.15 34.974 21.171 44.864 12.985 9.862 31.108 14.636 52.149 14.636 21.174 0 38.383-4.84 50.32-14.184 11.971-9.37 18.53-23.184 18.53-40.855 0-13.385-3.813-23.311-10.134-30.732-6.305-7.401-15.034-12.225-24.73-15.553-9.256-3.174-18.613-4.776-27.737-6.339l-.035-.006c-10.787-1.847-21.237-3.641-31.063-7.861-5.063-2.213-9.172-4.77-12.019-8.22-2.826-3.424-4.472-7.804-4.472-13.796 0-8.023 2.967-14.294 8.922-18.597 6.005-4.34 15.165-6.763 27.684-6.763 13.297 0 23.091 2.747 29.678 8.112 6.557 5.34 10.095 13.406 10.612 24.412l.045.953ZM581.997 214.581h28.035v-82.98c0-16.457-3.439-29.554-12.15-38.524-8.716-8.974-22.513-13.615-42.761-13.615-20.387 0-34.35 4.709-43.283 12.985-8.945 8.287-12.677 19.991-12.944 33.598l-.02 1.02h26.395l.079-.914c.645-7.496 2.951-13.482 7.438-17.604 4.487-4.123 11.309-6.524 21.283-6.524 9.344 0 16.118 2.019 20.539 5.608 4.375 3.552 6.587 8.755 6.6 15.478-.251 2.185-.942 3.831-2.058 5.141-1.136 1.333-2.775 2.39-5.033 3.276-4.564 1.792-11.324 2.767-20.712 4.093-15.463 2.101-30.13 4.224-40.91 10.164-5.422 2.987-9.893 6.954-13 12.386-3.105 5.427-4.808 12.247-4.808 20.88 0 12.177 3.408 21.97 10.64 28.706 7.22 6.725 18.089 10.253 32.7 10.253 22.017 0 36.326-8.13 43.97-18.732v15.305Zm-51.339-52.229c5.157-3.425 12.91-5.379 23.304-7.094 1.726-.261 3.409-.506 5.042-.744l.045-.007c5.724-.833 10.869-1.583 15.015-2.619 3.052-.763 5.687-1.709 7.638-3.048l-.23 16.459-.001.013c-.77 17.829-15.76 31.716-37.133 31.716-7.361 0-12.669-1.685-16.13-4.786-3.442-3.083-5.223-7.716-5.223-13.984 0-3.906.67-7.04 1.946-9.604 1.271-2.558 3.173-4.606 5.727-6.302ZM624.717 214.581h27.509v-19.61c4.057 7.918 9.549 13.449 15.856 17.103 7.355 4.261 15.758 5.934 24.169 5.934 16.453 0 30.678-6.446 40.773-18.48 10.082-12.02 15.98-29.534 15.98-51.584 0-20.718-5.233-37.828-14.646-49.78-9.431-11.977-23.004-18.702-39.477-18.702-17.269 0-32.73 7.29-42.129 24.455V35.44h-28.035v179.141Zm61.486-20.189c-9.711 0-18.296-3.832-24.473-11.364-6.192-7.55-10.03-18.901-10.03-34.03 0-13.053 2.868-24.288 8.62-32.232 5.721-7.901 14.356-12.634 26.146-12.634 10.902 0 19.272 4.034 24.946 11.437 5.703 7.441 8.768 18.4 8.768 32.375 0 15.144-3.583 26.768-9.589 34.581-5.986 7.787-14.434 11.867-24.388 11.867ZM789.129 214.581V35.441h-28.298v179.14h28.298ZM828.66 156.325h94.099v-1c0-24.237-5.084-43.21-15.304-56.141-10.252-12.972-25.559-19.722-45.656-19.722-19.292 0-34.709 6.276-45.289 18.161-10.567 11.869-16.197 29.203-16.197 51.112 0 21.372 5.297 38.706 15.796 50.709 10.518 12.025 26.137 18.564 46.479 18.564 15.553 0 28.137-3.867 37.844-11.14 9.707-7.272 16.452-17.884 20.444-31.223l.385-1.286h-29.467l-.194.748c-3.281 12.649-14.377 20.076-29.012 20.076-10.127 0-18.32-3.651-24.127-10.394-5.667-6.581-9.137-16.196-9.801-28.464Zm64.981-18.871h-64.185c.684-10.795 4.19-19.415 9.674-25.375 5.649-6.14 13.463-9.529 22.669-9.529 8.956 0 16.768 3.2 22.412 9.238 5.483 5.867 8.992 14.492 9.43 25.666ZM1049.67 165.66h-28.6l-.09.9c-1.79 17.88-15.5 27.305-29.775 27.305-9.019 0-16.802-3.803-22.364-11.513-5.588-7.745-8.983-19.507-8.983-35.462 0-16.09 3.461-26.896 9.042-33.666 5.554-6.737 13.327-9.62 22.305-9.62 7.838 0 14.825 2.189 20.105 6.589 5.26 4.392 8.91 11.061 9.93 20.201l.1.889h28.54l-.08-1.076c-1.21-15.916-7.49-28.63-17.71-37.358-10.21-8.72-24.26-13.387-40.885-13.387-17.551 0-32.506 5.135-43.066 16.26-10.553 11.117-16.579 28.071-16.579 51.431 0 23.361 6.025 41.085 16.42 52.983 10.408 11.913 25.098 17.872 42.173 17.872 31.777 0 55.627-20.654 59.377-51.227l.14-1.121ZM1198.96 214.581h28.3V146.89c0-11.705 2.99-21.458 8.96-28.272 5.95-6.793 14.99-10.796 27.39-10.796 3.36 0 6.46.26 9.28.775l1.18.215v-29.35h-6.78c-7.98 0-16.25 1.131-23.84 5.123-6.72 3.53-12.84 9.264-17.77 18.288V82.889h-26.72V214.58ZM1283.2 276h28.04v-82.187c9.4 17.139 24.84 24.195 41.86 24.195 16.6 0 30.24-6.654 39.71-18.567 9.44-11.888 14.68-28.934 14.68-49.652 0-22.183-5.97-39.763-16.08-51.814-10.13-12.067-24.35-18.513-40.68-18.513-8.14 0-16.48 1.606-23.87 5.867-6.36 3.67-11.98 9.284-16.15 17.441V82.889h-27.51V276Zm61.75-82.399c-11.79 0-20.42-4.795-26.14-12.763-5.76-8.011-8.63-19.314-8.63-32.367 0-15.128 3.84-26.481 10-34.031 6.15-7.534 14.67-11.363 24.24-11.363 10.09 0 18.6 4.145 24.62 11.998 6.04 7.88 9.62 19.57 9.62 34.714 0 13.975-3.06 24.934-8.77 32.375-5.67 7.403-14.04 11.437-24.94 11.437ZM462.087 218.117h24.676v-26.378h-19.877c-5.975 0-9.581-1.324-11.775-3.742-2.241-2.471-3.462-6.571-3.462-13.21V98.104H486.2V72.827h-34.551V35.464h-27.934v37.363h-21.663v25.277h21.663v81.225c0 11.601 3.44 21.008 10.644 28.101 7.061 7.226 16.431 10.687 27.728 10.687ZM1121.8 218.008c20.09 0 36.48-6.876 47.84-19.067 11.35-12.184 17.59-29.58 17.59-50.47 0-20.76-6.24-38.025-17.56-50.109-11.33-12.091-27.65-18.9-47.61-18.9-20.22 0-36.74 6.874-48.19 19.03-11.46 12.149-17.77 29.48-17.77 50.243 0 20.232 6.12 37.559 17.43 49.839 11.32 12.29 27.77 19.434 48.27 19.434Zm.26-24.143c-11.98 0-21.14-4.057-27.33-11.627-6.21-7.6-9.54-18.875-9.54-33.503s3.33-25.835 9.54-33.369c6.18-7.503 15.34-11.498 27.33-11.498 11.99 0 21.08 3.995 27.2 11.494 6.15 7.533 9.41 18.74 9.41 33.373 0 14.761-3.33 26.036-9.51 33.602-6.15 7.535-15.24 11.528-27.1 11.528Z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+
+  const caseStudyData = [
+    {
+      id: "circle",
+      name: "Circle",
+      logo: <CircleLogo />,
+      image: "/keo-hero.jpg",
+      title:
+        "See how Circle unlocked instant liquidity across 12 markets with KEO Rails",
+      description:
+        "By integrating KEO's blockchain-based settlement engine, Circle reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
+      highlights: [
+        {
+          heading: "12+ markets",
+          text: "unified under one settlement flow",
+        },
+        {
+          heading: "100%",
+          text: "reduction in payment latency",
+        },
+        {
+          heading: "Millions",
+          text: "in liquidity unlocked per month",
+        },
+      ],
+      cta: {
+        text: "See how Circle achieved real-time settlement",
+        href: "/case-studies/circle",
+      },
+    },
+    {
+      id: "Algorand",
+      name: "Algorand",
+      logo: <AlgorandLogo />,
+      image: "/keo-company-2.jpeg",
+      title:
+        "See how Algorand unlocked instant liquidity across 12 markets with KEO Rails",
+      description:
+        "By integrating KEO's blockchain-based settlement engine, Algorand reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
+      highlights: [
+        {
+          heading: "9+ markets",
+          text: "unified under one settlement flow",
+        },
+        {
+          heading: "95%",
+          text: "reduction in payment latency",
+        },
+        {
+          heading: "Millions",
+          text: "in liquidity unlocked per month",
+        },
+      ],
+      cta: {
+        text: "See how Algorand achieved real-time settlement",
+        href: "/case-studies/algorand",
+      },
+    },
+
+    {
+      id: "Stablecorp",
+      name: "Stablecorp",
+      logo: <StablecorpLogo />,
+      image: "/keo-company-3.jpeg",
+      title:
+        "See how Stablecorp unlocked instant liquidity across 12 markets with KEO Rails",
+      description:
+        "By integrating KEO's blockchain-based settlement engine, Stablecorp reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
+      highlights: [
+        {
+          heading: "18+ markets",
+          text: "unified under one settlement flow",
+        },
+        {
+          heading: "80%",
+          text: "reduction in payment latency",
+        },
+        {
+          heading: "Millions",
+          text: "in liquidity unlocked per month",
+        },
+      ],
+      cta: {
+        text: "See how Stablecorp achieved real-time settlement",
+        href: "/case-studies/stablecorp",
+      },
+    },
+    {
+      id: "google",
+      name: "Google",
+      logo: <CircleLogo />,
+      image: "/keo-company-hero.jpeg",
+      title:
+        "See how Google unlocked instant liquidity across 12 markets with KEO Rails",
+      description:
+        "By integrating KEO's blockchain-based settlement engine, Google reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
+      highlights: [
+        {
+          heading: "100+ markets",
+          text: "unified under one settlement flow",
+        },
+        {
+          heading: "92%",
+          text: "reduction in payment latency",
+        },
+        {
+          heading: "Billions",
+          text: "in liquidity unlocked per month",
+        },
+      ],
+      cta: {
+        text: "See how Google achieved real-time settlement",
+        href: "/case-studies/Google",
+      },
+    },
+  ];
+
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  // Embla for left (highlights) and right (visuals)
+  // Disable dragging (mouse/touch) so logos act as the navigation and slides only change programmatically
+  // Disable explicit-any lint here because embla option typings may not include draggable/touch in this project
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [leftRef, leftApi] = useEmblaCarousel({
+    skipSnaps: false,
+    draggable: false,
+    touch: false,
+  } as never);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [rightRef, rightApi] = useEmblaCarousel({
+    skipSnaps: false,
+    draggable: false,
+    touch: false,
+  } as never);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [introRef, introApi] = useEmblaCarousel({
+    skipSnaps: false,
+    draggable: false,
+    touch: false,
+  } as never);
+
+  useEffect(() => {
+    if (!leftApi || !rightApi || !introApi) return;
+    // when either carousel moves, sync index and move the other
+    const sync = () => {
+      const idx = rightApi.selectedScrollSnap();
+      setSelectedIndex(idx);
+      // scroll the other to same index if needed
+      if (leftApi && leftApi.selectedScrollSnap() !== idx)
+        leftApi.scrollTo(idx);
+      if (introApi && introApi.selectedScrollSnap() !== idx)
+        introApi.scrollTo(idx);
+    };
+
+    rightApi.on("select", sync);
+    leftApi.on("select", sync);
+
+    introApi.on("select", sync);
+
+    // ensure both start at the same position
+    rightApi.scrollTo(selectedIndex);
+    leftApi.scrollTo(selectedIndex);
+
+    introApi.scrollTo(selectedIndex);
+
+    return () => {
+      rightApi.off("select", sync);
+      leftApi.off("select", sync);
+      introApi.off("select", sync);
+    };
+  }, [rightApi, leftApi, introApi, selectedIndex]);
+
+  return (
+    <section className={styles.section}>
+      <motion.div
+        className={styles.container}
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.18 }}
+        transition={{ duration: 0.55, ease: "easeOut" }}
+      >
+        <div className={styles.intro}>
+          <h2 className={styles.heading}>WHO WE IMPACT?</h2>
+          <div className={`${styles.embla} embla`} ref={introRef}>
+            <div className={`${styles.embla__container}`}>
+              {caseStudyData.map((cs, idx) => {
+                const isActive = idx === selectedIndex;
+                return (
+                  <div
+                    className={styles.embla__slide}
+                    key={cs.id}
+                    data-case={cs.id}
+                  >
+                    <motion.div
+                      className={styles.introSlide}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{
+                        opacity: isActive ? 1 : 0.6,
+                        y: isActive ? 0 : 8,
+                      }}
+                      transition={{ duration: 0.45 }}
+                    >
+                      <p className={styles.mainText}>{cs.description}</p>
+                    </motion.div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.grid}>
+          <div className={styles.leftColumn}>
+            <div className={`${styles.embla} embla`} ref={leftRef}>
+              <div className={`${styles.embla__container}`}>
+                {caseStudyData.map((cs, idx) => {
+                  const isActive = idx === selectedIndex;
+                  return (
+                    <div
+                      className={styles.embla__slide}
+                      key={cs.id}
+                      data-case={cs.id}
+                    >
+                      <motion.div
+                        initial={{ opacity: 0, x: 12 }}
+                        animate={{
+                          opacity: isActive ? 1 : 0.6,
+                          x: isActive ? 0 : 12,
+                        }}
+                        transition={{ duration: 0.4 }}
+                        className={styles.highlightWrapper}
+                      >
+                        {cs.highlights.map((highlight, index) => (
+                          <div className={styles.highlight} key={index}>
+                            <h3 className={styles.highlightHeading}>
+                              {highlight.heading}
+                            </h3>
+                            <p className={styles.highlightText}>
+                              {highlight.text}
+                            </p>
+                          </div>
+                        ))}
+                      </motion.div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.rightColumn}>
+            {/* Background layers: fade between these while text slides above */}
+            <div className={styles.backgroundLayers} aria-hidden>
+              {caseStudyData.map((cs, idx) => (
+                <motion.div
+                  key={cs.id}
+                  className={styles.backgroundLayer}
+                  data-case={cs.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: selectedIndex === idx ? 1 : 0 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                >
+                  <Image
+                    fill
+                    src={cs.image}
+                    alt={`${cs.name} background`}
+                    style={{ objectFit: "cover" }}
+                  />
+                  <div className={styles.backgroundOverlay} />
+                </motion.div>
+              ))}
+            </div>
+
+            <div className={`${styles.embla} embla`} ref={rightRef}>
+              <div className={`${styles.embla__container}`}>
+                {caseStudyData.map((cs, idx) => {
+                  const isActive = idx === selectedIndex;
+                  return (
+                    <div
+                      className={styles.embla__slide}
+                      key={cs.id}
+                      data-case={cs.id}
+                    >
+                      <motion.div
+                        initial={{ opacity: 0, x: 12 }}
+                        animate={{
+                          opacity: isActive ? 1 : 0.6,
+                          x: isActive ? 0 : 12,
+                        }}
+                        transition={{ duration: 0.45 }}
+                        className={styles.rightSlideInner}
+                      >
+                        <h4 className={styles.rightHeading}>
+                          See how {cs.name} achieved real-time settlement
+                        </h4>
+                        <button
+                          aria-hidden={!isActive}
+                          tabIndex={isActive ? 0 : -1}
+                          className={styles.rightColumnLink}
+                          onClick={() => {
+                            console.log(`Button Clicked`);
+                          }}
+                        >
+                          Watch Video
+                          <svg
+                            width="15"
+                            height="15"
+                            viewBox="0 0 15 15"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                              fill="currentColor"
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                            ></path>
+                          </svg>
+                        </button>
+                      </motion.div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.logosContainer}>
+          {caseStudyData.map((caseStudy, idx) => (
+            <button
+              key={caseStudy.id}
+              onClick={() => {
+                setSelectedIndex(idx);
+                if (leftApi) leftApi.scrollTo(idx);
+                if (rightApi) rightApi.scrollTo(idx);
+              }}
+              className={`${styles.logoButton} ${
+                selectedIndex === idx ? styles.active : ""
+              }`}
+              aria-label={`Show ${caseStudy.name}`}
+            >
+              {caseStudy.logo}
+            </button>
+          ))}
+        </div>
+        {/* Mobile / Tablet controls: arrows + indicators. Visible on <=1024px, hidden on larger screens */}
+        <div className={styles.mobileControls}>
+          <button
+            className={`${styles.arrowButton} ${styles.arrowLeft}`}
+            aria-label="Previous case study"
+            onClick={() => {
+              if (!leftApi || !rightApi || !introApi) return;
+              const current = leftApi.selectedScrollSnap();
+              const prev =
+                (current - 1 + caseStudyData.length) % caseStudyData.length;
+              leftApi.scrollTo(prev);
+              rightApi.scrollTo(prev);
+              introApi.scrollTo(prev);
+              setSelectedIndex(prev);
+            }}
+          >
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.84182 3.13514C9.04327 3.32401 9.05348 3.64042 8.86462 3.84188L5.43521 7.49991L8.86462 11.1579C9.05348 11.3594 9.04327 11.6758 8.84182 11.8647C8.64036 12.0535 8.32394 12.0433 8.13508 11.8419L4.38508 7.84188C4.20477 7.64955 4.20477 7.35027 4.38508 7.15794L8.13508 3.15794C8.32394 2.95648 8.64036 2.94628 8.84182 3.13514Z"
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+              ></path>
+            </svg>
+          </button>
+
+          <div className={styles.indicatorsContainer}>
+            {caseStudyData.map((_, idx) => (
+              <button
+                key={idx}
+                className={`${styles.indicator} ${
+                  selectedIndex === idx ? styles.activeIndicator : ""
+                }`}
+                onClick={() => {
+                  if (leftApi) leftApi.scrollTo(idx);
+                  if (rightApi) rightApi.scrollTo(idx);
+                  if (introApi) introApi.scrollTo(idx);
+                  setSelectedIndex(idx);
+                }}
+                aria-label={`Show slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+
+          <button
+            className={`${styles.arrowButton} ${styles.arrowRight}`}
+            aria-label="Next case study"
+            onClick={() => {
+              if (!leftApi || !rightApi || !introApi) return;
+              const current = leftApi.selectedScrollSnap();
+              const next = (current + 1) % caseStudyData.length;
+              leftApi.scrollTo(next);
+              rightApi.scrollTo(next);
+              introApi.scrollTo(next);
+              setSelectedIndex(next);
+            }}
+          >
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6.1584 3.13508C6.35985 2.94621 6.67627 2.95642 6.86514 3.15788L10.6151 7.15788C10.7954 7.3502 10.7954 7.64949 10.6151 7.84182L6.86514 11.8418C6.67627 12.0433 6.35985 12.0535 6.1584 11.8646C5.95694 11.6757 5.94673 11.3593 6.1356 11.1579L9.565 7.49985L6.1356 3.84182C5.94673 3.64036 5.95694 3.32394 6.1584 3.13508Z"
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </motion.div>
+    </section>
+  );
+}

@@ -19,6 +19,12 @@
   font-family: inherit;
 }
 
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .buttonFit {
   width: fit-content;
 }

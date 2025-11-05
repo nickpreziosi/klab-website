@@ -1,10 +1,9 @@
-import KenaCardsSection from "@/app/components/kenaCardsSection/kena-cards-section";
-import Kena3dSection from "../../components/kena3dSection/kena-3d-section";
-import KenaHeroSection from "../../components/kenaHeroSection/kena-hero-section";
+import KenaCardsSection from "../../components/kena/kena-cards-section/kena-cards-section";
+import Kena3dSection from "../../components/kena/kena-3d-section/kena-3d-section";
+import KenaHeroSection from "../../components/kena/kena-hero-section/kena-hero-section";
 import styles from "./page.module.css";
-import KenaCtaSection from "@/app/components/kenaCtaSection/kena-cta-section";
-import KenaCaseStudy from "@/app/components/kenaCaseStudy/kena-case-study";
-import KenaPassword from "@/app/components/kenaPassword/kena-password";
+import KenaCtaSection from "../../components/kena/kena-cta-section/kena-cta-section";
+import KenaPassword from "../../components/kena/kena-password/kena-password";
 
 export default function KenaAIPage() {
   return (
