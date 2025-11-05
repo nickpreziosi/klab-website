@@ -2,20 +2,27 @@
 import { motion } from "framer-motion";
 import styles from "./news-pagination.module.css";
 import Button from "@/app/components/ui/button/button";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 interface NewsPaginationProps {
   totalPages: number;
 }
 
 export default function NewsPagination({ totalPages }: NewsPaginationProps) {
-  const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
-  const raw = searchParams?.get("page") ?? "1";
-  const parsed = Number(raw);
-  const currentPage = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const sp = new URLSearchParams(window.location.search);
+    const raw = sp.get("page") ?? "1";
+    const parsed = Number(raw);
+    setCurrentPage(Number.isFinite(parsed) && parsed > 0 ? parsed : 1);
+    // update when pathname changes (e.g., route mount)
+  }, [pathname]);
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
@@ -25,12 +32,6 @@ export default function NewsPagination({ totalPages }: NewsPaginationProps) {
     // construct simple query (replace other query params)
     const url = `${pathname}?page=${target}`;
     router.push(url);
-    // scroll to top after navigation
-    try {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } catch {
-      window.scrollTo(0, 0);
-    }
   };
 
   const handlePrevious = () => {
@@ -81,7 +82,7 @@ export default function NewsPagination({ totalPages }: NewsPaginationProps) {
         {pages.map((page) => (
           <Button
             key={page}
-            variant="outline"
+            variant={currentPage === page ? "full" : "outline"}
             aria-label={`Page ${page}`}
             aria-current={page === currentPage ? "page" : undefined}
             text={page.toString()}

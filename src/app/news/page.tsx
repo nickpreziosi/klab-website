@@ -6,7 +6,6 @@ import NewsCard from "../components/news/newsCard/news-card";
 import NewsPagination from "../components/news/newsPagination/news-pagination";
 import NewsCardSkeleton from "../components/news/newsCardSkeleton/news-card-skeleton";
 import styles from "./page.module.css";
-import { useSearchParams } from "next/navigation";
 
 // Mock articles data
 const articles = [
@@ -127,12 +126,18 @@ const ARTICLES_PER_PAGE = 6;
 
 export default function NewsPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const searchParams = useSearchParams();
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
-  // read page from URL query param ?page=1
-  const rawPage = searchParams?.get("page") ?? "1";
-  const parsed = Number(rawPage);
-  const currentPage = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+  // Read page from URL on mount (client-side). Use an effect to avoid setState during render.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const sp = new URLSearchParams(window.location.search);
+    const rawPage = sp.get("page") ?? "1";
+    const parsed = Number(rawPage);
+    const initialPage = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+    if (initialPage !== currentPage) setCurrentPage(initialPage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
