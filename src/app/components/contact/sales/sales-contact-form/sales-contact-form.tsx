@@ -37,15 +37,9 @@ const companyTypes = [
   { id: "other", name: "Other" },
 ];
 
-const revenueRanges = [
-  { id: "pre-revenue", name: "Pre-revenue" },
-  { id: "under-500k", name: "< $500K" },
-  { id: "500k-1m", name: "$500K - 1M" },
-  { id: "1m-5m", name: "$1M - $5M" },
-  { id: "5m-10m", name: "$5M - $10M" },
-  { id: "10m-25m", name: "$10M - $25M" },
-  { id: "25m-50m", name: "$25M - $50M" },
-  { id: "50m-plus", name: "$50M+" },
+const products = [
+  { id: "keo-rails", name: "KEO Rails" },
+  { id: "kena", name: "Kena" },
 ];
 
 const countryOptions = countries.map((c) => ({ id: c.value, name: c.label }));
@@ -62,7 +56,7 @@ const formSchema = z.object({
     .optional()
     .or(z.literal("")),
   companyType: z.string().optional(),
-  annualRevenue: z.string().optional(),
+  product: z.string().optional(),
   country: z.string().optional(),
   message: z.string().min(2, "Message is required"),
   emailUpdates: z.boolean().default(false),
@@ -87,7 +81,7 @@ export function SalesContactForm() {
       position: "",
       companyWebsite: "",
       companyType: "",
-      annualRevenue: "",
+      product: "",
       country: "",
       message: "",
       emailUpdates: false,
@@ -248,19 +242,19 @@ export function SalesContactForm() {
             <div className={styles.comboboxContainer}>
               <div className={styles.comboboxRow}>
                 <Controller
-                  name="annualRevenue"
+                  name="product"
                   control={control}
                   render={({ field }) => (
                     <ComboBox
                       className={styles.fieldGroup}
                       selectedKey={field.value}
                       onSelectionChange={(key) =>
-                        setValue("annualRevenue", key as string)
+                        setValue("product", key as string)
                       }
-                      isInvalid={!!errors.annualRevenue}
+                      isInvalid={!!errors.product}
                     >
                       <Label className={styles.label}>
-                        Annual B2B Revenue
+                        Product of Interest
                         <span className={styles.required}></span>
                       </Label>
                       <div className={styles.comboboxWrapper}>
@@ -268,7 +262,7 @@ export function SalesContactForm() {
                           autoComplete="off"
                           placeholder="Choose or type an option"
                           className={`${styles.input} ${
-                            errors.annualRevenue && styles.inputError
+                            errors.product && styles.inputError
                           }`}
                         />
                         <ComboboxButton className={styles.comboboxButton}>
@@ -288,13 +282,13 @@ export function SalesContactForm() {
                       </div>
                       <Popover className={styles.popover}>
                         <ListBox className={styles.listbox}>
-                          {revenueRanges.map((range) => (
+                          {products.map((product) => (
                             <ListBoxItem
-                              key={range.id}
-                              id={range.id}
+                              key={product.id}
+                              id={product.id}
                               className={styles.listboxItem}
                             >
-                              {range.name}
+                              {product.name}
                             </ListBoxItem>
                           ))}
                           <ListBoxSection>
@@ -303,9 +297,9 @@ export function SalesContactForm() {
                           </ListBoxSection>
                         </ListBox>
                       </Popover>
-                      {errors.annualRevenue && (
+                      {errors.product && (
                         <FieldError className={styles.error}>
-                          {errors.annualRevenue.message}
+                          {errors.product.message}
                         </FieldError>
                       )}
                     </ComboBox>

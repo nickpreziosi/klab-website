@@ -106,7 +106,7 @@ export function CareersContactForm() {
                 First Name<span className={styles.required}>*</span>
               </Label>
               <Input
-                autoComplete="given-name"
+                autoComplete="off"
                 {...register("firstName")}
                 placeholder="John"
                 className={`${styles.input} ${
@@ -127,7 +127,7 @@ export function CareersContactForm() {
                 Last Name<span className={styles.required}>*</span>
               </Label>
               <Input
-                autoComplete="family-name"
+                autoComplete="off"
                 {...register("lastName")}
                 placeholder="Doe"
                 className={`${styles.input} ${
@@ -149,7 +149,7 @@ export function CareersContactForm() {
                 Email<span className={styles.required}>*</span>
               </Label>
               <Input
-                autoComplete="email"
+                autoComplete="off"
                 {...register("email")}
                 type="email"
                 placeholder="john@example.com"
@@ -168,7 +168,7 @@ export function CareersContactForm() {
                 Phone<span className={styles.required}>*</span>
               </Label>
               <Input
-                autoComplete="tel"
+                autoComplete="off"
                 {...register("phone")}
                 type="tel"
                 placeholder="+1 (555) 000-0000"
@@ -190,7 +190,7 @@ export function CareersContactForm() {
             <TextField className={styles.fieldGroup} isInvalid={!!errors.title}>
               <Label className={styles.label}>Position of Interest</Label>
               <Input
-                autoComplete="organization-title"
+                autoComplete="off"
                 {...register("position")}
                 placeholder="Software Engineer"
                 className={`${styles.input} ${
@@ -271,10 +271,7 @@ export function CareersContactForm() {
               control={control}
               render={({ field }) => (
                 <div className={styles.fieldGroup}>
-                  <Label className={styles.label}>
-                    Resume / Cover Letter
-                    <span className={styles.optional}> (up to 3 files)</span>
-                  </Label>
+                  <Label className={styles.label}>Resume / Cover Letter</Label>
 
                   <FileUpload
                     maxFiles={3}

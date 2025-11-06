@@ -97,7 +97,7 @@ export function SupportContactForm() {
                 First Name<span className={styles.required}>*</span>
               </Label>
               <Input
-                autoComplete="given-name"
+                autoComplete="off"
                 {...register("firstName")}
                 placeholder="John"
                 className={`${styles.input} ${
@@ -118,7 +118,7 @@ export function SupportContactForm() {
                 Last Name<span className={styles.required}>*</span>
               </Label>
               <Input
-                autoComplete="family-name"
+                autoComplete="off"
                 {...register("lastName")}
                 placeholder="Doe"
                 className={`${styles.input} ${
@@ -140,7 +140,7 @@ export function SupportContactForm() {
                 Email<span className={styles.required}>*</span>
               </Label>
               <Input
-                autoComplete="email"
+                autoComplete="off"
                 {...register("email")}
                 type="email"
                 placeholder="john@example.com"
@@ -159,7 +159,7 @@ export function SupportContactForm() {
                 Phone<span className={styles.required}>*</span>
               </Label>
               <Input
-                autoComplete="tel"
+                autoComplete="off"
                 {...register("phone")}
                 type="tel"
                 placeholder="+1 (555) 000-0000"
@@ -306,7 +306,6 @@ export function SupportContactForm() {
                 <div className={styles.fieldGroup}>
                   <Label className={styles.label}>
                     Screenshots, Videos, or Examples
-                    <span className={styles.optional}> (up to 3 files)</span>
                   </Label>
 
                   <FileUpload
