@@ -1,9 +1,9 @@
 "use client";
 
 import type React from "react";
-
 import { useState, useRef, type DragEvent, type KeyboardEvent } from "react";
 import { FieldError } from "react-aria-components";
+import * as ToastPrimitive from "@radix-ui/react-toast";
 import styles from "./file-upload.module.css";
 
 interface FileUploadProps {
@@ -25,6 +25,57 @@ export function FileUpload({
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const isFileAccepted = (file: File) => {
+    if (!fileTypes || fileTypes.length === 0) return true;
+    const accepts = fileTypes.map((s) => s.trim()).filter(Boolean);
+    if (accepts.includes("*") || accepts.includes("*.*")) return true;
+
+    const name = file.name.toLowerCase();
+    const type = (file.type || "").toLowerCase();
+
+    for (const pattern of accepts) {
+      const p = pattern.toLowerCase();
+      if (p === "*" || p === "*.*") return true;
+
+      if (p.startsWith(".")) {
+        // extension like .pdf
+        if (name.endsWith(p)) return true;
+        continue;
+      }
+
+      if (p.includes("/")) {
+        // mime type or wildcard like image/*
+        if (p.endsWith("/*")) {
+          const prefix = p.replace("/*", "");
+          if (type.startsWith(prefix + "/")) return true;
+        } else {
+          if (type === p) return true;
+        }
+        continue;
+      }
+
+      // bare extension without dot (e.g., pdf)
+      if (name.endsWith("." + p)) return true;
+    }
+
+    return false;
+  };
+
+  type Toast = { id: number; message: string; items?: string[]; open: boolean };
+  const [toasts, setToasts] = useState<Toast[]>([]);
+  const nextToastId = useRef(1);
+
+  // Show a single toast summarizing errors. This replaces any existing toasts.
+  const showErrorToast = (items: string[], ttl = 4000) => {
+    const id = nextToastId.current++;
+    setToasts([{ id, message: "Upload error", items, open: true }]);
+    window.setTimeout(() => {
+      setToasts((prev) =>
+        prev.map((x) => (x.id === id ? { ...x, open: false } : x))
+      );
+    }, ttl);
+  };
+
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(true);
@@ -39,15 +90,69 @@ export function FileUpload({
     e.preventDefault();
     setIsDragging(false);
 
-    const droppedFiles = Array.from(e.dataTransfer.files);
-    const newFiles = [...files, ...droppedFiles].slice(0, maxFiles);
+    const droppedFiles = Array.from(e.dataTransfer.files || []);
+    // filter by accepted file types (if provided)
+    const accepted = droppedFiles.filter((f) => isFileAccepted(f));
+    const rejected = droppedFiles.filter((f) => !isFileAccepted(f));
+
+    // Build a single errors array describing problems (max files and/or incorrect types)
+    const errors: string[] = [];
+    if (rejected.length > 0) {
+      errors.push(`Incorrect file type`);
+    }
+
+    const remaining = Math.max(0, maxFiles - files.length);
+    if (remaining === 0) {
+      // no capacity
+      errors.push(`Maximum of ${maxFiles} files`);
+      showErrorToast(errors);
+      return;
+    }
+
+    // If accepted items exceed remaining, we'll add only the allowed number and report the max error
+    let toAdd = accepted;
+    if (accepted.length > remaining) {
+      toAdd = accepted.slice(0, remaining);
+      errors.push(`Maximum of ${maxFiles} files`);
+    }
+
+    // If there are any errors, show a single toast summarizing them
+    if (errors.length > 0) {
+      showErrorToast(errors);
+    }
+
+    const newFiles = [...files, ...toAdd];
     onChange(newFiles);
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const selectedFiles = Array.from(e.target.files);
-      const newFiles = [...files, ...selectedFiles].slice(0, maxFiles);
+      // file input already respects `accept`, but be defensive and filter anyway
+      const accepted = selectedFiles.filter((f) => isFileAccepted(f));
+      const rejected = selectedFiles.filter((f) => !isFileAccepted(f));
+
+      const errors: string[] = [];
+      if (rejected.length > 0) {
+        errors.push(`Incorrect file type`);
+      }
+
+      const remaining = Math.max(0, maxFiles - files.length);
+      if (remaining === 0) {
+        errors.push(`Maximum of ${maxFiles} files`);
+        showErrorToast(errors);
+        return;
+      }
+
+      let toAdd = accepted;
+      if (accepted.length > remaining) {
+        toAdd = accepted.slice(0, remaining);
+        errors.push(`Maximum of ${maxFiles} files`);
+      }
+
+      if (errors.length > 0) showErrorToast(errors);
+
+      const newFiles = [...files, ...toAdd];
       onChange(newFiles);
     }
   };
@@ -211,8 +316,77 @@ export function FileUpload({
           </div>
         )}
       </div>
-
       {error && <FieldError className={styles.errorText}>{error}</FieldError>}
+
+      {/* Radix Toasts (per-component) */}
+      <div className={styles.toastContainer}>
+        <ToastPrimitive.Provider>
+          {toasts.map((t) => (
+            <ToastPrimitive.Root
+              key={t.id}
+              className={styles.toast}
+              open={t.open}
+              onOpenChange={(open) => {
+                // when Radix requests close (swipe/timeout), remove the toast from state
+                if (!open) setToasts((p) => p.filter((x) => x.id !== t.id));
+              }}
+            >
+              <div className={styles.toastContent}>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0.877075 7.49988C0.877075 3.84219 3.84222 0.877045 7.49991 0.877045C11.1576 0.877045 14.1227 3.84219 14.1227 7.49988C14.1227 11.1575 11.1576 14.1227 7.49991 14.1227C3.84222 14.1227 0.877075 11.1575 0.877075 7.49988ZM7.49991 1.82704C4.36689 1.82704 1.82708 4.36686 1.82708 7.49988C1.82708 10.6329 4.36689 13.1727 7.49991 13.1727C10.6329 13.1727 13.1727 10.6329 13.1727 7.49988C13.1727 4.36686 10.6329 1.82704 7.49991 1.82704ZM9.85358 5.14644C10.0488 5.3417 10.0488 5.65829 9.85358 5.85355L8.20713 7.49999L9.85358 9.14644C10.0488 9.3417 10.0488 9.65829 9.85358 9.85355C9.65832 10.0488 9.34173 10.0488 9.14647 9.85355L7.50002 8.2071L5.85358 9.85355C5.65832 10.0488 5.34173 10.0488 5.14647 9.85355C4.95121 9.65829 4.95121 9.3417 5.14647 9.14644L6.79292 7.49999L5.14647 5.85355C4.95121 5.65829 4.95121 5.3417 5.14647 5.14644C5.34173 4.95118 5.65832 4.95118 5.85358 5.14644L7.50002 6.79289L9.14647 5.14644C9.34173 4.95118 9.65832 4.95118 9.85358 5.14644Z"
+                    fill="var(--accent-color)"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+                <div className={styles.toastMessage}>
+                  <ToastPrimitive.Title className={styles.toastTitle}>
+                    {t.message}
+                  </ToastPrimitive.Title>
+                  {t.items && t.items.length > 0 && (
+                    <div className={styles.toastList}>
+                      {t.items.map((it, i) => (
+                        <div key={i} className={styles.toastItem}>
+                          {it}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <ToastPrimitive.Close
+                  className={styles.toastClose}
+                  aria-label="Dismiss"
+                >
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12.8536 2.85355C13.0488 2.65829 13.0488 2.34171 12.8536 2.14645C12.6583 1.95118 12.3417 1.95118 12.1464 2.14645L7.5 6.79289L2.85355 2.14645C2.65829 1.95118 2.34171 1.95118 2.14645 2.14645C1.95118 2.34171 1.95118 2.65829 2.14645 2.85355L6.79289 7.5L2.14645 12.1464C1.95118 12.3417 1.95118 12.6583 2.14645 12.8536C2.34171 13.0488 2.65829 13.0488 2.85355 12.8536L7.5 8.20711L12.1464 12.8536C12.3417 13.0488 12.6583 13.0488 12.8536 12.8536C13.0488 12.6583 13.0488 12.3417 12.8536 12.1464L8.20711 7.5L12.8536 2.85355Z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                </ToastPrimitive.Close>
+              </div>
+            </ToastPrimitive.Root>
+          ))}
+
+          <ToastPrimitive.Viewport className={styles.toastViewport} />
+        </ToastPrimitive.Provider>
+      </div>
     </div>
   );
 }

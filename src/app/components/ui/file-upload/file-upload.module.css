@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 8px;
   width: 100%;
+  position: relative;
 }
 
 .label {
@@ -189,4 +190,96 @@
   font-size: 12px;
   color: #ef4444;
   margin-top: 4px;
+}
+
+/* Toasts */
+
+/* Radix Toast viewport (positions toasts) */
+.toastViewport {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 60;
+  height: fit-content;
+  width: 100% !important;
+}
+
+.toastContainer {
+  position: absolute;
+  left: 0;
+  /* place slightly above the upload input */
+  bottom: calc(100% + 8px);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  pointer-events: auto; /* allow clicking close buttons */
+}
+
+.toast {
+  background: var(--main-color);
+  border-left: 4px solid var(--accent-color);
+  font-size: 12px;
+  box-shadow: var(--shadow-black);
+  height: fit-content;
+  max-height: 100px;
+  overflow: scroll;
+  border-radius: 6px;
+  border: 1px solid rgba(var(--accent-color-rgb), 0.7);
+}
+
+.toastContent {
+  background-color: rgba(var(--accent-color-rgb), 0.05);
+  color: rgba(var(--secondary-color-rgb));
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 48px 12px 12px;
+  height: fit-content;
+  font-weight: 400;
+}
+
+.toastMessage {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.toastTitle {
+  margin: 0;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.toastList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  height: fit-content;
+  max-height: 100px;
+}
+.toastItem {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: fit-content;
+  max-height: 100px;
+}
+.toastClose {
+  position: absolute;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  top: 12px;
+  right: 12px;
+  transition: color 0.2s ease;
+  background: transparent;
+  border: none;
+  color: var(--secondary-color) !important;
 }
