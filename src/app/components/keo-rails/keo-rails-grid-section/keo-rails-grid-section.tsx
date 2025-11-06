@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import KeoRailsPhoneSlideshow from "@/app/components/keo-rails/keo-rails-phone-slideshow/keo-rails-phone-slideshow";
 import styles from "./keo-rails-grid-section.module.css";
@@ -8,11 +8,44 @@ import Button from "../../ui/button/button";
 
 export default function KeoRailsGridSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let raf = 0;
+
+    const onScroll = () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const leftEl = leftRef.current;
+        if (!leftEl) return;
+        const rect = leftEl.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const contentHeight = rect.height;
+        const maxScroll = Math.max(0, contentHeight - vh);
+        // amount the top has been scrolled past viewport top
+        const scrolled = Math.min(Math.max(-rect.top, 0), maxScroll);
+        const pct =
+          maxScroll > 0 ? scrolled / maxScroll : rect.top <= 0 ? 1 : 0;
+        setProgress(Number.isFinite(pct) ? pct : 0);
+      });
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   return (
     <section className={styles.section} ref={sectionRef}>
       <div className={styles.container}>
-        <div className={styles.topHeading}>
+        <div style={{ display: "none" }} className={styles.topHeading}>
           <motion.h2
             className={styles.mainHeading}
             initial={{ opacity: 0, y: 20 }}
@@ -35,7 +68,7 @@ export default function KeoRailsGridSection() {
 
         <div className={styles.grid}>
           {/* Left Column - 4 Feature Sections */}
-          <div className={styles.scrollContent}>
+          <div className={styles.scrollContent} ref={leftRef}>
             <motion.div
               className={styles.leftColumn}
               initial={{ opacity: 0, y: 30 }}
@@ -43,6 +76,26 @@ export default function KeoRailsGridSection() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
+              <div className={styles.textBlock}>
+                <motion.h2
+                  className={styles.mainHeading}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                >
+                  WHY KEO RAILS?
+                </motion.h2>
+                <motion.p
+                  className={styles.subheading}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+                >
+                  The old system makes you wait. Keo Rails makes you move.
+                </motion.p>
+              </div>
               <div className={styles.textBlock}>
                 <h3 className={styles.heading}>
                   CAPITAL UNLOCKED. REVENUE ACCELERATED.
@@ -87,40 +140,55 @@ export default function KeoRailsGridSection() {
                   leverage for the lenders who have the vision to move at our
                   speed.
                 </p>
+                <div className={styles.ctaContainer}>
+                  <Button
+                    text="Activate my profile"
+                    variant="full"
+                    iconPosition="end"
+                    href="/contact/sales"
+                    icon={
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M4 10H16M16 10L10 4M16 10L10 16"
+                          stroke="currentColor"
+                          strokeWidth="1"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    }
+                  ></Button>
+                </div>
               </div>
             </motion.div>
           </div>
-
-          {/* Right Column - Sticky Phone */}
-          <div className={styles.rightColumn}>
+          <div className={styles.progressContainer} aria-hidden>
+            <div className={styles.progressTrack}>
+              <div
+                className={styles.progressFill}
+                style={{ height: `${Math.round(progress * 100)}%` }}
+              />
+            </div>
+            <div
+              className={styles.progressMarker}
+              style={{
+                opacity: progress >= 0.5 ? 1 : 0,
+                transform: `translate(-50%, -50%) rotate(${
+                  progress >= 0.75 ? 45 : 0
+                }deg) scale(1)`,
+              }}
+            />
+          </div>
+          {/* Right Column - Sticky Phone with scroll progress indicator */}
+          <div className={styles.rightColumn} ref={rightRef}>
             <KeoRailsPhoneSlideshow />
           </div>
-        </div>
-
-        <div className={styles.ctaContainer}>
-          <Button
-            text="Activate my profile"
-            variant="full"
-            iconPosition="end"
-            href="/contact/sales"
-            icon={
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M4 10H16M16 10L10 4M16 10L10 16"
-                  stroke="currentColor"
-                  strokeWidth="1"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            }
-          ></Button>
         </div>
       </div>
     </section>
