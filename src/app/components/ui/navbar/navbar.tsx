@@ -92,8 +92,6 @@ export const NavigationMenuDemo = () => {
     };
   }, [dropdownOpen]);
 
-  console.log("Path:", path);
-
   return (
     <>
       <div ref={spacerRef} className={styles.spacer}>
@@ -105,9 +103,13 @@ export const NavigationMenuDemo = () => {
                 ? "transparent"
                 : "rgba(var(--main-color-rgb), 0.7)",
             borderBottom:
-              dropdownOpen || !isAtTop
+              path !== "/" || dropdownOpen || !isAtTop
                 ? "solid 1px rgba(255, 255, 255, 0.2)"
                 : "solid 1px transparent",
+            boxShadow:
+              path !== "/" || dropdownOpen || !isAtTop
+                ? "var(--shadow-black)"
+                : "none",
           }}
           id="navbarContainer"
           aria-label="Main navigation"
