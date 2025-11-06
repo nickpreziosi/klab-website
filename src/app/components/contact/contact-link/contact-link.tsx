@@ -2,7 +2,6 @@
 
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import styles from "./contact-link.module.css";
 import Button from "@/app/components/ui/button/button";
 interface ContactLinkProps {

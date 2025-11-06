@@ -69,6 +69,7 @@
   display: flex;
   gap: 0;
   width: 100%;
+  border-radius: 8px;
 }
 
 .subscribeForm * {
@@ -76,7 +77,7 @@
 }
 
 .emailInput {
-  padding: 14px 24px;
+  padding: 12px 16px;
   font-size: 14px;
   border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
   border-right: none;
@@ -89,6 +90,23 @@
 
 .emailInput::placeholder {
   color: rgba(var(--secondary-color-rgb), 0.5);
+}
+
+.subscribeForm:focus-within {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
+.subscribeForm:focus-within .emailInput {
+  border-color: var(--secondary-color);
+}
+
+.subscribeForm:has(.subscribeButton:focus) {
+  outline: none;
+}
+
+.emailInput:focus {
+  outline: none;
 }
 
 .subscribeButton {
