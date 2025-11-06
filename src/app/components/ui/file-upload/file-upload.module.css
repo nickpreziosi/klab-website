@@ -48,9 +48,8 @@
 
 /* Added focus state for keyboard navigation */
 .dropzone:focus {
-  border-color: rgba(var(--secondary-color-rgb), 0.6);
+  border-color: rgba(var(--secondary-color-rgb), 1);
   background-color: rgba(var(--secondary-color-rgb), 0.03);
-  box-shadow: 0 0 0 3px rgba(var(--secondary-color-rgb), 0.1);
 }
 
 .dropzone.dragging {

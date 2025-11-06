@@ -16,36 +16,29 @@ import {
   Popover,
   FieldError,
 } from "react-aria-components";
-import { countries } from "@/app/lib/countries";
-import styles from "./careers-contact-form.module.css";
+import styles from "./support-contact-form.module.css";
 import Button from "@/app/components/ui/button/button";
 import { FileUpload } from "@/app/components/ui/file-upload/file-upload";
 
-const departments = [
-  { id: "engineering", name: "Engineering" },
-  { id: "product", name: "Product" },
-  { id: "design", name: "Design" },
-  { id: "marketing", name: "Marketing" },
-  { id: "sales", name: "Sales" },
-  { id: "operations", name: "Operations" },
-  { id: "finance", name: "Finance" },
-  { id: "legal", name: "Legal" },
-  { id: "hr", name: "Human Resources" },
-  { id: "customer-success", name: "Customer Success" },
-  { id: "other", name: "Other" },
+const issueTypes = [
+  { id: "onboarding", name: "Onboarding" },
+  { id: "account-issue", name: "Account Issue" },
+  { id: "technical-issue", name: "Technical Issue" },
+  { id: "software-bug", name: "Software Bug" },
 ];
 
-const countryOptions = countries.map((c) => ({ id: c.value, name: c.label }));
+const products = [
+  { id: "keo-rails", name: "KEO Rails" },
+  { id: "kena", name: "Kena" },
+];
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
   phone: z.string().min(2, "Phone number is required"),
-  company: z.string().optional(),
-  title: z.string().optional(),
-  position: z.string().optional(),
-  department: z.string().min(1, "Please select a department"),
+  issueType: z.string().min(1, "Please select an issue type"),
+  product: z.string().min(1, "Please select a product"),
   message: z.string().min(10, "Message must be at least 10 characters"),
   files: z
     .array(z.instanceof(File))
@@ -55,14 +48,13 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export function CareersContactForm() {
+export function SupportContactForm() {
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    watch,
   } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -70,16 +62,15 @@ export function CareersContactForm() {
       lastName: "",
       email: "",
       phone: "",
-      company: "",
-      title: "",
-      department: "",
+      issueType: "",
+      product: "",
       message: "",
       files: [],
     },
   });
 
   const onSubmit = async (data: FormData) => {
-    console.log("[v0] Form submitted:", data);
+    console.log("[v0] Support form submitted:", data);
     // TODO: Implement form submission logic
   };
 
@@ -91,7 +82,7 @@ export function CareersContactForm() {
       className={styles.formContainer}
     >
       <div className={styles.headingContainer}>
-        <h1 className={styles.heading}>Join Our Team</h1>
+        <h1 className={styles.heading}>Contact Support</h1>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
@@ -184,47 +175,29 @@ export function CareersContactForm() {
             </TextField>
           </div>
 
-          {/* Third Row: Company */}
-
+          {/* Third Row: Issue Type, Product */}
           <div className={styles.row}>
-            <TextField className={styles.fieldGroup} isInvalid={!!errors.title}>
-              <Label className={styles.label}>Position of Interest</Label>
-              <Input
-                autoComplete="organization-title"
-                {...register("position")}
-                placeholder="Software Engineer"
-                className={`${styles.input} ${
-                  errors.position && styles.inputError
-                }`}
-              />
-              {errors.position && (
-                <FieldError className={styles.error}>
-                  {errors.position.message}
-                </FieldError>
-              )}
-            </TextField>
             <Controller
-              name="department"
+              name="issueType"
               control={control}
               render={({ field }) => (
                 <ComboBox
                   className={styles.fieldGroup}
                   selectedKey={field.value}
                   onSelectionChange={(key) =>
-                    setValue("department", key as string)
+                    setValue("issueType", key as string)
                   }
-                  isInvalid={!!errors.department}
+                  isInvalid={!!errors.issueType}
                 >
                   <Label className={styles.label}>
-                    Department of Interest
-                    <span className={styles.required}>*</span>
+                    Issue Type<span className={styles.required}>*</span>
                   </Label>
                   <div className={styles.comboboxWrapper}>
                     <Input
                       autoComplete="off"
-                      placeholder="Choose or type a department"
+                      placeholder="Select an issue type"
                       className={`${styles.input} ${
-                        errors.department && styles.inputError
+                        errors.issueType && styles.inputError
                       }`}
                     />
                     <ComboboxButton className={styles.comboboxButton}>
@@ -244,20 +217,79 @@ export function CareersContactForm() {
                   </div>
                   <Popover className={styles.popover}>
                     <ListBox className={styles.listbox}>
-                      {departments.map((dept) => (
+                      {issueTypes.map((issue) => (
                         <ListBoxItem
-                          key={dept.id}
-                          id={dept.id}
+                          key={issue.id}
+                          id={issue.id}
                           className={styles.listboxItem}
                         >
-                          {dept.name}
+                          {issue.name}
                         </ListBoxItem>
                       ))}
                     </ListBox>
                   </Popover>
-                  {errors.department && (
+                  {errors.issueType && (
                     <FieldError className={styles.error}>
-                      {errors.department.message}
+                      {errors.issueType.message}
+                    </FieldError>
+                  )}
+                </ComboBox>
+              )}
+            />
+            <Controller
+              name="product"
+              control={control}
+              render={({ field }) => (
+                <ComboBox
+                  className={styles.fieldGroup}
+                  selectedKey={field.value}
+                  onSelectionChange={(key) =>
+                    setValue("product", key as string)
+                  }
+                  isInvalid={!!errors.product}
+                >
+                  <Label className={styles.label}>
+                    Product<span className={styles.required}>*</span>
+                  </Label>
+                  <div className={styles.comboboxWrapper}>
+                    <Input
+                      autoComplete="off"
+                      placeholder="Select a product"
+                      className={`${styles.input} ${
+                        errors.product && styles.inputError
+                      }`}
+                    />
+                    <ComboboxButton className={styles.comboboxButton}>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M4 6H11L7.5 10.5L4 6Z"
+                          fill="currentColor"
+                        ></path>
+                      </svg>
+                    </ComboboxButton>
+                  </div>
+                  <Popover className={styles.popover}>
+                    <ListBox className={styles.listbox}>
+                      {products.map((product) => (
+                        <ListBoxItem
+                          key={product.id}
+                          id={product.id}
+                          className={styles.listboxItem}
+                        >
+                          {product.name}
+                        </ListBoxItem>
+                      ))}
+                    </ListBox>
+                  </Popover>
+                  {errors.product && (
+                    <FieldError className={styles.error}>
+                      {errors.product.message}
                     </FieldError>
                   )}
                 </ComboBox>
@@ -265,6 +297,7 @@ export function CareersContactForm() {
             />
           </div>
 
+          {/* Fourth Row: Message, File Upload */}
           <div className={styles.rowEqualHeight}>
             <Controller
               name="files"
@@ -272,16 +305,23 @@ export function CareersContactForm() {
               render={({ field }) => (
                 <div className={styles.fieldGroup}>
                   <Label className={styles.label}>
-                    Resume / Cover Letter
+                    Screenshots, Videos, or Examples
                     <span className={styles.optional}> (up to 3 files)</span>
                   </Label>
 
                   <FileUpload
-                    maxFiles={3}
                     files={field.value || []}
                     onChange={field.onChange}
                     error={errors.files?.message}
-                    fileTypes={[".pdf", ".doc", ".docx", ".txt"]}
+                    maxFiles={5}
+                    fileTypes={[
+                      ".jpg",
+                      ".png",
+                      ".jpeg",
+                      ".mp4",
+                      ".mov",
+                      ".pdf",
+                    ]}
                   />
                 </div>
               )}
@@ -295,7 +335,7 @@ export function CareersContactForm() {
               </Label>
               <TextArea
                 {...register("message")}
-                placeholder="Tell us about yourself and why you'd like to join our team..."
+                placeholder="Please describe your issue in detail..."
                 className={`${styles.textarea} ${
                   errors.message && styles.inputError
                 }`}
@@ -311,7 +351,7 @@ export function CareersContactForm() {
 
         <div className={styles.submitWrapper}>
           <Button
-            text="Submit"
+            text="Submit Request"
             width="fit"
             variant="full"
             iconPosition="end"

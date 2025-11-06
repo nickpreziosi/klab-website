@@ -3,16 +3,25 @@
 import type React from "react";
 
 import { useState, useRef, type DragEvent, type KeyboardEvent } from "react";
-import { Label, FieldError } from "react-aria-components";
+import { FieldError } from "react-aria-components";
 import styles from "./file-upload.module.css";
 
 interface FileUploadProps {
   files: File[];
   onChange: (files: File[]) => void;
   error?: string;
+  fileTypes?: string[];
+  maxFiles?: number;
 }
 
-export function FileUpload({ files, onChange, error }: FileUploadProps) {
+export function FileUpload({
+  files,
+  onChange,
+  error,
+  fileTypes,
+  maxFiles = 3,
+}: FileUploadProps) {
+  console.log(fileTypes?.join(","));
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -31,14 +40,14 @@ export function FileUpload({ files, onChange, error }: FileUploadProps) {
     setIsDragging(false);
 
     const droppedFiles = Array.from(e.dataTransfer.files);
-    const newFiles = [...files, ...droppedFiles].slice(0, 3);
+    const newFiles = [...files, ...droppedFiles].slice(0, maxFiles);
     onChange(newFiles);
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const selectedFiles = Array.from(e.target.files);
-      const newFiles = [...files, ...selectedFiles].slice(0, 3);
+      const newFiles = [...files, ...selectedFiles].slice(0, maxFiles);
       onChange(newFiles);
     }
   };
@@ -69,11 +78,6 @@ export function FileUpload({ files, onChange, error }: FileUploadProps) {
 
   return (
     <div className={styles.container}>
-      <Label className={styles.label}>
-        Resume / Cover Letter
-        <span className={styles.optional}> (up to 3 files)</span>
-      </Label>
-
       <div
         className={`${styles.dropzone} ${isDragging ? styles.dragging : ""} ${
           error ? styles.error : ""
@@ -97,7 +101,7 @@ export function FileUpload({ files, onChange, error }: FileUploadProps) {
           ref={fileInputRef}
           type="file"
           multiple
-          accept=".pdf,.doc,.docx,.txt"
+          accept={fileTypes ? fileTypes.join(",") : "*.*"}
           onChange={handleFileSelect}
           className={styles.hiddenInput}
           aria-hidden="true"
@@ -126,7 +130,10 @@ export function FileUpload({ files, onChange, error }: FileUploadProps) {
                 : "Drag and drop files here, or click to select"}
             </p>
             <p className={styles.dropzoneSubtext}>
-              PDF, DOC, DOCX, or TXT (max 3 files)
+              <span>
+                {fileTypes ? fileTypes.join(", ").toUpperCase() : ""}{" "}
+              </span>
+              (max {maxFiles} files)
             </p>
           </div>
         ) : (
@@ -181,7 +188,7 @@ export function FileUpload({ files, onChange, error }: FileUploadProps) {
                 </button>
               </div>
             ))}
-            {files.length < 3 && (
+            {files.length < maxFiles && (
               <p className={styles.addMoreText}>
                 <svg
                   width="24"
@@ -197,7 +204,8 @@ export function FileUpload({ files, onChange, error }: FileUploadProps) {
                     clipRule="evenodd"
                   ></path>
                 </svg>{" "}
-                Click or drag to add more files ({3 - files.length} remaining)
+                Click or drag to add more files ({maxFiles - files.length}{" "}
+                remaining)
               </p>
             )}
           </div>
