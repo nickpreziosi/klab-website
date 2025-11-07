@@ -128,7 +128,7 @@
   position: relative;
   height: fit-content;
   margin: var(--padding-desktop);
-  height: 640px;
+  height: 75vh;
 }
 
 .progressContainer {
@@ -146,7 +146,6 @@
 .progressTrack {
   width: 4px;
   height: 100vh;
-  background: rgba(var(--secondary-color-rgb), 0.12);
   border-radius: 4px;
   position: relative;
   overflow: visible;
@@ -177,21 +176,25 @@
   top: 50%;
 }
 
-@media (min-width: 1024px) {
-  .rightColumn {
-    position: sticky;
-    /* Removed transform and using calculated top to center without interfering with sticky boundaries */
-    top: calc(50vh - 250px);
-    align-self: start;
-  }
-}
-
 .ctaContainer {
   width: 100%;
   max-width: 1400px;
   display: flex;
   justify-content: flex-start;
   margin-top: var(--padding-mobile);
+}
+
+.animationContainer {
+  transition: all 0.5 ease-in-out;
+}
+
+@media (min-width: 1024px) {
+  .rightColumn {
+    position: sticky;
+    /* Removed transform and using calculated top to center without interfering with sticky boundaries */
+    top: calc(50vh - 320px);
+    align-self: start;
+  }
 }
 
 @media (max-width: 1024px) {

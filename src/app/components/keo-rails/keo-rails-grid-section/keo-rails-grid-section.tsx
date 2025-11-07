@@ -1,10 +1,12 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import KeoRailsPhoneSlideshow from "@/app/components/keo-rails/keo-rails-phone-slideshow/keo-rails-phone-slideshow";
 import styles from "./keo-rails-grid-section.module.css";
 import Button from "../../ui/button/button";
+import KeoRailsAnimationOne from "../keo-rails-animation-one/keo-rails-animation-one";
+import KeoRailsAnimationTwo from "../keo-rails-animation-two/keo-rails-animation-two";
 
 export default function KeoRailsGridSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -187,7 +189,74 @@ export default function KeoRailsGridSection() {
           </div>
           {/* Right Column - Sticky Phone with scroll progress indicator */}
           <div className={styles.rightColumn} ref={rightRef}>
-            <KeoRailsPhoneSlideshow />
+            <AnimatePresence>
+              {progress <= 0.25 && (
+                <motion.div
+                  key={0}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: false }}
+                  transition={{
+                    duration: 0.3,
+                    ease: "easeOut",
+                  }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <KeoRailsAnimationOne></KeoRailsAnimationOne>
+                </motion.div>
+              )}
+
+              {progress > 0.25 && progress <= 0.5 && (
+                <motion.div
+                  key={1}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: false }}
+                  transition={{
+                    duration: 0.3,
+                    ease: "easeOut",
+                  }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <KeoRailsAnimationTwo></KeoRailsAnimationTwo>
+                </motion.div>
+              )}
+              {progress > 0.5 && progress <= 0.75 && (
+                <motion.div
+                  key={0}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: false }}
+                  transition={{
+                    duration: 0.3,
+                    ease: "easeOut",
+                  }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <KeoRailsAnimationOne></KeoRailsAnimationOne>
+                </motion.div>
+              )}
+
+              {progress > 0.75 && progress <= 1 && (
+                <motion.div
+                  key={1}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: false }}
+                  transition={{
+                    duration: 0.3,
+                    ease: "easeOut",
+                  }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <KeoRailsAnimationTwo></KeoRailsAnimationTwo>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
