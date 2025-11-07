@@ -52,7 +52,6 @@ export default function KeoRailsHero({
                 className={styles.imageContainer}
                 style={{ transformStyle: "preserve-3d" }}
               >
-                <KeoDashboard />
                 <div className={styles.gradientOverlay} />
 
                 <div className={styles.blackOverlay} />
