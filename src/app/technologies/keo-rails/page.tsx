@@ -6,7 +6,8 @@ import KeoRailsCtaSection from "@/app/components/keo-rails/keo-rails-cta-section
 import KeoRailsCodeSection from "@/app/components/keo-rails/keo-rails-code-section/keo-rails-code-section";
 import KeoRailsCaseStudy from "@/app/components/keo-rails/keo-rails-case-study/keo-rails-case-study";
 import KeoRailsGridSection from "@/app/components/keo-rails/keo-rails-grid-section/keo-rails-grid-section";
-
+import KeoRailsDashboardPanels from "@/app/components/keo-rails/keo-rails-dashboard-panels/keo-rails-dashboard-panels";
+// background is now rendered with HTML/CSS (see page.module.css)
 export default function KeoRailsPage() {
   return (
     <main className={styles.container}>
@@ -18,10 +19,12 @@ export default function KeoRailsPage() {
         buttonHref="/contact/sales"
         buttonTwoText="Learn More"
         buttonTwoHref="#video"
-      >
-        {/* You can insert custom HTML, iframe, or other content here */}
-        {/* For now, it will use the placeholder content */}
-      </KeoRailsHero>
+      />
+      {/* You can insert custom HTML, iframe, or other content here */}
+      {/* For now, it will use the placeholder content */}
+
+      <KeoRailsDashboardPanels />
+
       <div className={styles.videoSection} id="video">
         <VideoPlayer
           posterUrl="/keo-rails1.jpg"

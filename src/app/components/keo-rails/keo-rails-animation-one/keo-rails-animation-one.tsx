@@ -237,7 +237,7 @@ export default function KeoRailsAnimationOne() {
           y1="0"
           x2="0"
           y2="96"
-          stroke="var(--accent-color)"
+          stroke="rgba(var(--secondary-color-rgb), 0.2)"
           strokeWidth="4"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={
@@ -275,7 +275,7 @@ export default function KeoRailsAnimationOne() {
             key={0}
             d={d}
             fill="none"
-            stroke="var(--accent-color)"
+            stroke="rgba(var(--secondary-color-rgb), 0.2)"
             strokeWidth={4}
             strokeLinecap="round"
             initial={{ pathLength: 0, opacity: 0 }}

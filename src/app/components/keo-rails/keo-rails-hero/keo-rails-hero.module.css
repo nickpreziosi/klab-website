@@ -1,7 +1,6 @@
 .heroSection {
   position: relative;
-  min-height: 100vh;
-  height: 1100px;
+  height: fit-content;
   width: 100%;
   max-width: 1440px;
   padding: 0;
@@ -259,10 +258,6 @@
     transform: translate(15%, 10%) scale(1.2) rotateX(25deg) rotateY(30deg)
       rotate(334deg) !important;
   }
-  .heroSection {
-    min-height: 100vh;
-    height: 1100px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -296,10 +291,6 @@
     height: calc(100% + 200px);
     bottom: -200px;
     width: calc(100vw + 500px);
-  }
-
-  .heroSection {
-    height: fit-content;
   }
 
   .placeholderSidebar {

@@ -119,7 +119,7 @@
 .scrollContent {
   display: flex;
   flex-direction: column;
-  height: 500vh;
+  height: 400vh;
   position: relative;
 }
 
@@ -127,8 +127,7 @@
 .rightColumn {
   position: relative;
   height: fit-content;
-  margin: var(--padding-desktop);
-  height: 75vh;
+  height: 100vh;
 }
 
 .progressContainer {
@@ -186,6 +185,17 @@
 
 .animationContainer {
   transition: all 0.5 ease-in-out;
+  width: 100%;
+  height: 100%;
+}
+
+.animationContainer * {
+  width: 70%;
+  height: 100%;
+}
+.animationContainer svg * {
+  width: 100%;
+  height: 100%;
 }
 
 @media (min-width: 1024px) {
