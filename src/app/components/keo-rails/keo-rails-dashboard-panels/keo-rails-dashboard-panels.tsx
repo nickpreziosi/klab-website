@@ -7,7 +7,7 @@ import styles from "./keo-rails-dashboard-panels.module.css";
 export default function KeoRailsDashboardPanels() {
   return (
     <div inert tabIndex={-1} aria-hidden className={styles.dashboardContainer}>
-      <div className={styles.dashboardStack}>
+      <motion.div className={styles.dashboardStack}>
         {/* Panel 1: API Reference Sidebar */}
         <motion.div
           initial={{
@@ -808,7 +808,7 @@ export default function KeoRailsDashboardPanels() {
             </div>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Vignette overlay */}
       <div className={styles.dashboardVignette} />

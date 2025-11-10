@@ -114,10 +114,6 @@
 }
 
 @media (max-width: 480px) {
-  .mainTextContainer {
-    padding: 2rem 1rem;
-  }
-
   .mainHeading {
     font-size: 32px;
     line-height: 40px;
