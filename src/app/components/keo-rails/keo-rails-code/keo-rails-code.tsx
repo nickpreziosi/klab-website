@@ -65,7 +65,7 @@ export function KeoRailsCode({
   }, [isInView]);
 
   const totalLines = sections.reduce(
-    (acc, section) => acc + section.lines.length,
+    (acc, section) => acc + section.lines.length + 1, // +1 for section header
     0
   );
 
@@ -161,7 +161,7 @@ export function KeoRailsCode({
   const getTotalLinesBeforeSection = (sectionIndex: number) => {
     return sections
       .slice(0, sectionIndex)
-      .reduce((acc, section) => acc + section.lines.length, 0);
+      .reduce((acc, section) => acc + section.lines.length + 1, 0); // +1 for section header
   };
 
   useEffect(() => {
@@ -169,8 +169,8 @@ export function KeoRailsCode({
 
     const totalBefore = sections
       .slice(0, currentSection)
-      .reduce((acc, section) => acc + section.lines.length, 0);
-    const globalIndex = totalBefore + visibleLines;
+      .reduce((acc, section) => acc + section.lines.length + 1, 0); // +1 for section header
+    const globalIndex = totalBefore + visibleLines + 1; // +1 to skip the header line
     if (!codeContentRef.current) return;
 
     if (!hasMountedRef.current) {
@@ -212,7 +212,12 @@ export function KeoRailsCode({
 
             return shouldShowSection ? (
               <div key={sectionIndex} className={styles.section}>
-                <div className={styles.sectionHeader}>{section.title}</div>
+                <div
+                  className={styles.sectionHeader}
+                  data-line-index={`line-${startLineNumber}`}
+                >
+                  {section.title}
+                </div>
                 {section.lines.map((line, lineIndex) => {
                   const isCurrentLine =
                     sectionIndex === currentSection &&
@@ -229,7 +234,9 @@ export function KeoRailsCode({
                     <motion.div
                       key={`${sectionIndex}-${lineIndex}`}
                       className={styles.codeLine}
-                      data-line-index={`line-${startLineNumber + lineIndex}`}
+                      data-line-index={`line-${
+                        startLineNumber + lineIndex + 1
+                      }`}
                       style={{ paddingLeft: `${line.indent * 20}px` }}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{
