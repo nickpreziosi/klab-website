@@ -13,19 +13,25 @@ export default function KeoRailsDashboardPanels() {
 
   useEffect(() => {
     let resizeTimeout: NodeJS.Timeout;
-    
+
     const updateScreenSize = () => {
       // Debounce resize events to prevent rapid state updates
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
         const width = window.innerWidth;
-        const newSize = width <= 500 ? "mobile" 
-          : width <= 1024 ? "tablet" 
-          : width <= 1600 ? "desktop" 
-          : "large";
-        
+        const newSize =
+          width <= 500
+            ? "mobile"
+            : width <= 1024
+            ? "tablet"
+            : width <= 1600
+            ? "desktop"
+            : "large";
+
         // Only update if size actually changed
-        setScreenSize(prevSize => prevSize !== newSize ? newSize : prevSize);
+        setScreenSize((prevSize) =>
+          prevSize !== newSize ? newSize : prevSize
+        );
       }, 100);
     };
 
