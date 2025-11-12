@@ -2,10 +2,12 @@ import styles from "./page.module.css";
 import { Hero } from "@/app/components/home/hero/hero";
 import VideoBackground from "@/app/components/home/video-background/video-background";
 import HomeSecondarySection from "@/app/components/home/home-secondary-section/home-secondary-section";
+import { LoadingProgressBar } from "./components/ui/loading-progress-bar/loading-progress-bar";
 
 export default function Home() {
   return (
     <>
+      <LoadingProgressBar></LoadingProgressBar>
       <VideoBackground
         videoUrl="./keo-home-loop.mp4"
         posterUrl="/keo-home-poster.jpg"

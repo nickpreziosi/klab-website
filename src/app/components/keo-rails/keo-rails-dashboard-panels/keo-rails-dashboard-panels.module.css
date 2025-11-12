@@ -55,6 +55,15 @@
   pointer-events: auto;
 }
 
+.panelOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(var(--secondary-color-rgb), 0.05);
+}
+
 .dashboardPanel * {
   pointer-events: none;
   user-select: none; /* Disables text selection */ /* Visually indicates disabled state */

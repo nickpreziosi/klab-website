@@ -20,6 +20,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: calc(-1.5 * var(--padding-desktop));
 }
 
 .lastSectionWrapper {
@@ -44,6 +45,8 @@
 
 @media (max-width: 768px) {
   .videoSection {
+    margin-top: calc(-1 * var(--padding-desktop));
+
     padding: var(--padding-tablet) var(--padding-mobile);
   }
 }

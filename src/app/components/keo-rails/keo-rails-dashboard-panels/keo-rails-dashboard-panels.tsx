@@ -10,8 +10,12 @@ export default function KeoRailsDashboardPanels() {
     "large" | "desktop" | "tablet" | "mobile"
   >("large");
   const [hasAnimated, setHasAnimated] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    // Set mounted after initial render
+    setIsMounted(true);
+    
     let resizeTimeout: NodeJS.Timeout;
 
     const updateScreenSize = () => {
@@ -361,7 +365,8 @@ export default function KeoRailsDashboardPanels() {
       >
         {/* Panel 1: API Reference Sidebar */}
         <motion.div
-          initial={panelOneVariants[screenSize].initial}
+          key="panel-1"
+          initial={!isMounted ? panelOneVariants[screenSize].initial : false}
           animate={panelOneVariants[screenSize].animate}
           onAnimationComplete={() => setHasAnimated(true)}
           transition={
@@ -393,7 +398,9 @@ export default function KeoRailsDashboardPanels() {
           viewport={{ once: true, amount: 0.45 }}
           style={{ zIndex: 1 }}
           className={`${styles.dashboardPanel} ${styles.panelOne}`}
+          tabIndex={-1}
         >
+          <div className={styles.panelOverlay}></div>
           <div className={styles.windowChrome}>
             <div className={styles.windowDots}>
               <span className={styles.dot} />
@@ -410,11 +417,11 @@ export default function KeoRailsDashboardPanels() {
               <span className={styles.searchText}>Jump to</span>
               <span className={styles.searchIcon}>⌘</span>
             </div>
-            <nav className={styles.navList}>
+            <nav tabIndex={-1} className={styles.navList}>
               <div className={styles.navGroupTitle}>KEO Rails API</div>
 
               <div className={styles.navGroup}>
-                <button className={styles.navItem}>
+                <button tabIndex={-1} className={styles.navItem}>
                   <span>Core</span>
                   <svg
                     className={styles.navIcon}
@@ -432,11 +439,11 @@ export default function KeoRailsDashboardPanels() {
                     ></path>
                   </svg>
                 </button>
-                <button className={styles.navItemActive}>
+                <button tabIndex={-1} className={styles.navItemActive}>
                   <span className={styles.navPath}>/api/health</span>
                   <span className={styles.navBadge}>GET</span>
                 </button>
-                <button className={styles.navItem}>
+                <button tabIndex={-1} className={styles.navItem}>
                   <span>Accounts</span>
                   <svg
                     className={styles.navIcon}
@@ -454,7 +461,7 @@ export default function KeoRailsDashboardPanels() {
                     ></path>
                   </svg>
                 </button>
-                <button className={styles.navItem}>
+                <button tabIndex={-1} className={styles.navItem}>
                   <span>Invoices</span>
                   <svg
                     className={styles.navIcon}
@@ -472,7 +479,7 @@ export default function KeoRailsDashboardPanels() {
                     ></path>
                   </svg>
                 </button>
-                <button className={styles.navItem}>
+                <button tabIndex={-1} className={styles.navItem}>
                   <span>Loans</span>
                   <svg
                     className={styles.navIcon}
@@ -497,7 +504,8 @@ export default function KeoRailsDashboardPanels() {
 
         {/* Panel 2: API Endpoint Details */}
         <motion.div
-          initial={panelTwoVariants[screenSize].initial}
+          key="panel-2"
+          initial={!isMounted ? panelTwoVariants[screenSize].initial : false}
           animate={panelTwoVariants[screenSize].animate}
           transition={
             hasAnimated
@@ -528,7 +536,10 @@ export default function KeoRailsDashboardPanels() {
           viewport={{ once: true, amount: 0.45 }}
           style={{ zIndex: 2 }}
           className={`${styles.dashboardPanel} ${styles.panelTwo}`}
+          tabIndex={-1}
         >
+          <div className={styles.panelOverlay}></div>
+
           <div className={styles.windowChrome}>
             <div className={styles.windowDots}>
               <span className={styles.dot} />
@@ -615,7 +626,8 @@ export default function KeoRailsDashboardPanels() {
 
         {/* Panel 3: Code Example */}
         <motion.div
-          initial={panelThreeVariants[screenSize].initial}
+          key="panel-3"
+          initial={!isMounted ? panelThreeVariants[screenSize].initial : false}
           animate={panelThreeVariants[screenSize].animate}
           transition={
             hasAnimated
@@ -646,7 +658,10 @@ export default function KeoRailsDashboardPanels() {
           viewport={{ once: true, amount: 0.45 }}
           style={{ zIndex: 3 }}
           className={`${styles.dashboardPanel} ${styles.panelThree}`}
+          tabIndex={-1}
         >
+          <div className={styles.panelOverlay}></div>
+
           <div className={styles.windowChrome}>
             <div className={styles.windowDots}>
               <span className={styles.dot} />
@@ -654,11 +669,15 @@ export default function KeoRailsDashboardPanels() {
               <span className={styles.dot} />
             </div>
           </div>
-          <div className={styles.panelContent}>
+          <div tabIndex={-1} className={styles.panelContent}>
             <div className={styles.languageSection}>
               <div className={styles.languageLabel}>LANGUAGE</div>
               <div className={styles.langTabs}>
-                <button className={styles.langTab} aria-label="Shell">
+                <button
+                  tabIndex={-1}
+                  className={styles.langTab}
+                  aria-label="Shell"
+                >
                   <div className={styles.langTabContent}>
                     <svg
                       height="20"
@@ -689,7 +708,11 @@ export default function KeoRailsDashboardPanels() {
                   </div>
                 </button>
 
-                <button className={styles.langTab} aria-label="Node.js">
+                <button
+                  tabIndex={-1}
+                  className={styles.langTab}
+                  aria-label="Node.js"
+                >
                   <div className={styles.langTabContent}>
                     <svg
                       width="20"
@@ -707,7 +730,11 @@ export default function KeoRailsDashboardPanels() {
                   </div>
                 </button>
 
-                <button className={styles.langTab} aria-label="Ruby">
+                <button
+                  tabIndex={-1}
+                  className={styles.langTab}
+                  aria-label="Ruby"
+                >
                   <div className={styles.langTabContent}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1007,7 +1034,11 @@ export default function KeoRailsDashboardPanels() {
                   </div>
                 </button>
 
-                <button className={styles.langTab} aria-label="PHP">
+                <button
+                  tabIndex={-1}
+                  className={styles.langTab}
+                  aria-label="PHP"
+                >
                   <div className={styles.langTabContent}>
                     <svg
                       viewBox="0 0 96.17000000000002 48.124"
@@ -1022,7 +1053,11 @@ export default function KeoRailsDashboardPanels() {
                   </div>
                 </button>
 
-                <button className={styles.langTab} aria-label="Python">
+                <button
+                  tabIndex={-1}
+                  className={styles.langTab}
+                  aria-label="Python"
+                >
                   <div className={styles.langTabContent}>
                     <svg
                       width="20"
@@ -1065,7 +1100,11 @@ export default function KeoRailsDashboardPanels() {
                     <span className={styles.langLabelText}>Python</span>
                   </div>
                 </button>
-                <button className={styles.langTabDots} aria-label="More">
+                <button
+                  tabIndex={-1}
+                  className={styles.langTabDots}
+                  aria-label="More"
+                >
                   <svg
                     width="50"
                     height="50"
