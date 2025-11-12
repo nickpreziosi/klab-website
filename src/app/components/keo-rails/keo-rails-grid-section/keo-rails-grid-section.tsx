@@ -2,7 +2,6 @@
 
 import { useRef, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import KeoRailsPhoneSlideshow from "@/app/components/keo-rails/keo-rails-phone-slideshow/keo-rails-phone-slideshow";
 import styles from "./keo-rails-grid-section.module.css";
 import Button from "../../ui/button/button";
 import KeoRailsAnimationOne from "../keo-rails-animation-one/keo-rails-animation-one";
@@ -193,14 +192,13 @@ export default function KeoRailsGridSection() {
           <div className={styles.rightColumn} ref={rightRef}>
             <div className={styles.animationContainer}>
               <video
-                hidden
                 autoPlay
                 loop
                 muted
                 className={styles.video}
                 src="/keo-rails.mov"
               ></video>
-              <Lottie animationData={animationData} loop={true} />
+              <Lottie hidden animationData={animationData} loop={true} />
             </div>
 
             <div style={{ display: "none" }}>

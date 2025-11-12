@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { easeInOut, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import styles from "./keo-rails-dashboard-panels.module.css";
 // using inline SVGs for language icons instead of raster Image imports
@@ -9,23 +9,32 @@ export default function KeoRailsDashboardPanels() {
   const [screenSize, setScreenSize] = useState<
     "large" | "desktop" | "tablet" | "mobile"
   >("large");
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
+    let resizeTimeout: NodeJS.Timeout;
+    
     const updateScreenSize = () => {
-      if (window.innerWidth <= 500) {
-        setScreenSize("mobile");
-      } else if (window.innerWidth <= 1024) {
-        setScreenSize("tablet");
-      } else if (window.innerWidth <= 1600) {
-        setScreenSize("desktop");
-      } else {
-        setScreenSize("large");
-      }
+      // Debounce resize events to prevent rapid state updates
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const width = window.innerWidth;
+        const newSize = width <= 500 ? "mobile" 
+          : width <= 1024 ? "tablet" 
+          : width <= 1600 ? "desktop" 
+          : "large";
+        
+        // Only update if size actually changed
+        setScreenSize(prevSize => prevSize !== newSize ? newSize : prevSize);
+      }, 100);
     };
 
     updateScreenSize();
     window.addEventListener("resize", updateScreenSize);
-    return () => window.removeEventListener("resize", updateScreenSize);
+    return () => {
+      clearTimeout(resizeTimeout);
+      window.removeEventListener("resize", updateScreenSize);
+    };
   }, []);
 
   // Stack transform variants based on screen size
@@ -53,14 +62,20 @@ export default function KeoRailsDashboardPanels() {
     large: {
       initial: {
         opacity: 0,
-        transform: "translateY(calc(-50% - 48px)) rotateX(8deg) scale(0.98)",
-        filter: "blur(12px)",
-        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        y: "-50%",
+        translateY: 50,
+        rotateX: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
         zIndex: 1,
       },
       animate: {
         opacity: 1,
-        transform: "translateY(-50%) rotateX(0deg) scale(1)",
+        y: "-50%",
+        translateY: 0,
+        rotateX: 0,
+        scale: 1,
         filter: "blur(0px)",
         boxShadow: "var(--shadow-black)",
         zIndex: 1,
@@ -69,14 +84,20 @@ export default function KeoRailsDashboardPanels() {
     desktop: {
       initial: {
         opacity: 0,
-        transform: "translateY(calc(-50% - 48px)) rotateX(8deg) scale(0.98)",
-        filter: "blur(12px)",
-        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        y: "-50%",
+        translateY: 50,
+        rotateX: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
         zIndex: 1,
       },
       animate: {
         opacity: 1,
-        transform: "translateY(-50%) rotateX(0deg) scale(1)",
+        y: "-50%",
+        translateY: 0,
+        rotateX: 0,
+        scale: 1,
         filter: "blur(0px)",
         boxShadow: "var(--shadow-black)",
         zIndex: 1,
@@ -85,14 +106,20 @@ export default function KeoRailsDashboardPanels() {
     tablet: {
       initial: {
         opacity: 0,
-        transform: "translateY(calc(-50% - 48px)) rotateX(8deg) scale(0.98)",
-        filter: "blur(12px)",
-        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        y: "-50%",
+        translateY: 50,
+        rotateX: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
         zIndex: 1,
       },
       animate: {
         opacity: 1,
-        transform: "translateY(-50%) rotateX(0deg) scale(1)",
+        y: "-50%",
+        translateY: 0,
+        rotateX: 0,
+        scale: 1,
         filter: "blur(0px)",
         boxShadow: "var(--shadow-black)",
         zIndex: 1,
@@ -101,14 +128,22 @@ export default function KeoRailsDashboardPanels() {
     mobile: {
       initial: {
         opacity: 0,
-        transform: "translateY(calc(-40% - 48px)) translateX(-8%) rotateX(8deg) scale(0.98)",
-        filter: "blur(12px)",
-        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        y: "-40%",
+        x: "-8%",
+        translateY: 50,
+        rotateX: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
         zIndex: 1,
       },
       animate: {
         opacity: 1,
-        transform: "translateY(-40%) translateX(-8%) rotateX(0deg) scale(1)",
+        y: "-40%",
+        x: "-8%",
+        translateY: 0,
+        rotateX: 0,
+        scale: 1,
         filter: "blur(0px)",
         boxShadow: "var(--shadow-black)",
         zIndex: 1,
@@ -120,14 +155,20 @@ export default function KeoRailsDashboardPanels() {
     large: {
       initial: {
         opacity: 0,
-        transform: "translateY(calc(-50% + 100px - 48px)) rotateX(8deg) scale(0.98)",
-        filter: "blur(12px)",
-        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        y: "calc(-50% + 100px)",
+        translateY: 80,
+        rotateX: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
         zIndex: 2,
       },
       animate: {
         opacity: 1,
-        transform: "translateY(calc(-50% + 100px)) rotateX(0deg) scale(1)",
+        y: "calc(-50% + 100px)",
+        translateY: 0,
+        rotateX: 0,
+        scale: 1,
         filter: "blur(0px)",
         boxShadow: "var(--shadow-black)",
         zIndex: 2,
@@ -136,14 +177,20 @@ export default function KeoRailsDashboardPanels() {
     desktop: {
       initial: {
         opacity: 0,
-        transform: "translateY(calc(-50% + 100px - 48px)) rotateX(8deg) scale(0.98)",
-        filter: "blur(12px)",
-        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        y: "calc(-50% + 100px)",
+        translateY: 80,
+        rotateX: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
         zIndex: 2,
       },
       animate: {
         opacity: 1,
-        transform: "translateY(calc(-50% + 100px)) rotateX(0deg) scale(1)",
+        y: "calc(-50% + 100px)",
+        translateY: 0,
+        rotateX: 0,
+        scale: 1,
         filter: "blur(0px)",
         boxShadow: "var(--shadow-black)",
         zIndex: 2,
@@ -152,14 +199,20 @@ export default function KeoRailsDashboardPanels() {
     tablet: {
       initial: {
         opacity: 0,
-        transform: "translateY(calc(-50% + 100px - 48px)) rotateX(8deg) scale(0.98)",
-        filter: "blur(12px)",
-        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        y: "calc(-50% + 100px)",
+        translateY: 80,
+        rotateX: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
         zIndex: 2,
       },
       animate: {
         opacity: 1,
-        transform: "translateY(calc(-50% + 100px)) rotateX(0deg) scale(1)",
+        y: "calc(-50% + 100px)",
+        translateY: 0,
+        rotateX: 0,
+        scale: 1,
         filter: "blur(0px)",
         boxShadow: "var(--shadow-black)",
         zIndex: 2,
@@ -168,14 +221,22 @@ export default function KeoRailsDashboardPanels() {
     mobile: {
       initial: {
         opacity: 0,
-        transform: "translateY(calc(-40% + 100px - 48px)) translateX(-10%) rotateX(8deg) scale(0.98)",
-        filter: "blur(12px)",
-        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        y: "calc(-40% + 100px)",
+        x: "-10%",
+        translateY: 80,
+        rotateX: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
         zIndex: 2,
       },
       animate: {
         opacity: 1,
-        transform: "translateY(calc(-40% + 100px)) translateX(-10%) rotateX(0deg) scale(1)",
+        y: "calc(-40% + 100px)",
+        x: "-10%",
+        translateY: 0,
+        rotateX: 0,
+        scale: 1,
         filter: "blur(0px)",
         boxShadow: "var(--shadow-black)",
         zIndex: 2,
@@ -187,14 +248,20 @@ export default function KeoRailsDashboardPanels() {
     large: {
       initial: {
         opacity: 0,
-        transform: "translateY(calc(-50% + 200px - 48px)) rotateX(8deg) scale(0.98)",
-        filter: "blur(12px)",
-        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        y: "calc(-50% + 200px)",
+        translateY: 100,
+        rotateX: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
         zIndex: 3,
       },
       animate: {
         opacity: 1,
-        transform: "translateY(calc(-50% + 200px)) rotateX(0deg) scale(1)",
+        y: "calc(-50% + 200px)",
+        translateY: 0,
+        rotateX: 0,
+        scale: 1,
         filter: "blur(0px)",
         boxShadow: "var(--shadow-black)",
         zIndex: 3,
@@ -203,14 +270,20 @@ export default function KeoRailsDashboardPanels() {
     desktop: {
       initial: {
         opacity: 0,
-        transform: "translateY(calc(-50% + 200px - 48px)) rotateX(8deg) scale(0.98)",
-        filter: "blur(12px)",
-        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        y: "calc(-50% + 200px)",
+        translateY: 100,
+        rotateX: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
         zIndex: 3,
       },
       animate: {
         opacity: 1,
-        transform: "translateY(calc(-50% + 200px)) rotateX(0deg) scale(1)",
+        y: "calc(-50% + 200px)",
+        translateY: 0,
+        rotateX: 0,
+        scale: 1,
         filter: "blur(0px)",
         boxShadow: "var(--shadow-black)",
         zIndex: 3,
@@ -219,14 +292,20 @@ export default function KeoRailsDashboardPanels() {
     tablet: {
       initial: {
         opacity: 0,
-        transform: "translateY(calc(-50% + 200px - 48px)) rotateX(8deg) scale(0.98)",
-        filter: "blur(12px)",
-        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        y: "calc(-50% + 200px)",
+        translateY: 100,
+        rotateX: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
         zIndex: 3,
       },
       animate: {
         opacity: 1,
-        transform: "translateY(calc(-50% + 200px)) rotateX(0deg) scale(1)",
+        y: "calc(-50% + 200px)",
+        translateY: 0,
+        rotateX: 0,
+        scale: 1,
         filter: "blur(0px)",
         boxShadow: "var(--shadow-black)",
         zIndex: 3,
@@ -235,14 +314,22 @@ export default function KeoRailsDashboardPanels() {
     mobile: {
       initial: {
         opacity: 0,
-        transform: "translateY(calc(-40% + 200px - 48px)) translateX(-10%) rotateX(8deg) scale(0.98)",
-        filter: "blur(12px)",
-        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        y: "calc(-40% + 200px)",
+        x: "-10%",
+        translateY: 100,
+        rotateX: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
         zIndex: 3,
       },
       animate: {
         opacity: 1,
-        transform: "translateY(calc(-40% + 200px)) translateX(-10%) rotateX(0deg) scale(1)",
+        y: "calc(-40% + 200px)",
+        x: "-10%",
+        translateY: 0,
+        rotateX: 0,
+        scale: 1,
         filter: "blur(0px)",
         boxShadow: "var(--shadow-black)",
         zIndex: 3,
@@ -251,7 +338,15 @@ export default function KeoRailsDashboardPanels() {
   };
 
   return (
-    <div tabIndex={-1} aria-hidden className={styles.dashboardContainer}>
+    <motion.div
+      animate={{
+        transform:
+          screenSize !== "mobile" ? "translateY(-80px)" : "translateY(0)",
+      }}
+      tabIndex={-1}
+      aria-hidden
+      className={styles.dashboardContainer}
+    >
       <motion.div
         className={styles.dashboardStack}
         animate={screenSize}
@@ -261,16 +356,35 @@ export default function KeoRailsDashboardPanels() {
         {/* Panel 1: API Reference Sidebar */}
         <motion.div
           initial={panelOneVariants[screenSize].initial}
-          whileInView={panelOneVariants[screenSize].animate}
+          animate={panelOneVariants[screenSize].animate}
+          onAnimationComplete={() => setHasAnimated(true)}
+          transition={
+            hasAnimated
+              ? {
+                  delay: 0,
+                  duration: 0.15,
+                  ease: easeInOut,
+                }
+              : {
+                  duration: 0.9,
+                  delay: 0.3,
+                  ease: [0.16, 1, 0.3, 1],
+                  type: "spring",
+                  stiffness: 90,
+                  damping: 16,
+                }
+          }
+          whileHover={
+            screenSize !== "mobile"
+              ? {
+                  scale: 1.02,
+                  z: 50,
+                  boxShadow:
+                    "0 40px 40px rgba(var(--accent-color-rgb), 0.4), 0 0 40px rgba(var(--accent-color-rgb), 0.3)",
+                }
+              : {}
+          }
           viewport={{ once: true, amount: 0.45 }}
-          transition={{
-            duration: 0.9,
-            delay: 0.3,
-            ease: [0.16, 1, 0.3, 1],
-            type: "spring",
-            stiffness: 90,
-            damping: 16,
-          }}
           style={{ zIndex: 1 }}
           className={`${styles.dashboardPanel} ${styles.panelOne}`}
         >
@@ -307,8 +421,8 @@ export default function KeoRailsDashboardPanels() {
                     <path
                       d="M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z"
                       fill="currentColor"
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </button>
@@ -329,8 +443,8 @@ export default function KeoRailsDashboardPanels() {
                     <path
                       d="M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z"
                       fill="currentColor"
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </button>
@@ -347,8 +461,8 @@ export default function KeoRailsDashboardPanels() {
                     <path
                       d="M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z"
                       fill="currentColor"
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </button>
@@ -365,8 +479,8 @@ export default function KeoRailsDashboardPanels() {
                     <path
                       d="M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z"
                       fill="currentColor"
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </button>
@@ -378,16 +492,34 @@ export default function KeoRailsDashboardPanels() {
         {/* Panel 2: API Endpoint Details */}
         <motion.div
           initial={panelTwoVariants[screenSize].initial}
-          whileInView={panelTwoVariants[screenSize].animate}
+          animate={panelTwoVariants[screenSize].animate}
+          transition={
+            hasAnimated
+              ? {
+                  delay: 0,
+                  duration: 0.15,
+                  ease: easeInOut,
+                }
+              : {
+                  duration: 0.9,
+                  delay: 0.6,
+                  ease: [0.16, 1, 0.3, 1],
+                  type: "spring",
+                  stiffness: 90,
+                  damping: 16,
+                }
+          }
+          whileHover={
+            screenSize !== "mobile"
+              ? {
+                  scale: 1.02,
+                  z: 50,
+                  boxShadow:
+                    "0 40px 40px rgba(var(--accent-color-rgb), 0.4), 0 0 40px rgba(var(--accent-color-rgb), 0.3)",
+                }
+              : {}
+          }
           viewport={{ once: true, amount: 0.45 }}
-          transition={{
-            duration: 0.9,
-            delay: 0.6,
-            ease: [0.16, 1, 0.3, 1],
-            type: "spring",
-            stiffness: 90,
-            damping: 16,
-          }}
           style={{ zIndex: 2 }}
           className={`${styles.dashboardPanel} ${styles.panelTwo}`}
         >
@@ -478,16 +610,34 @@ export default function KeoRailsDashboardPanels() {
         {/* Panel 3: Code Example */}
         <motion.div
           initial={panelThreeVariants[screenSize].initial}
-          whileInView={panelThreeVariants[screenSize].animate}
+          animate={panelThreeVariants[screenSize].animate}
+          transition={
+            hasAnimated
+              ? {
+                  delay: 0,
+                  duration: 0.15,
+                  ease: easeInOut,
+                }
+              : {
+                  duration: 0.9,
+                  delay: 0.9,
+                  ease: [0.16, 1, 0.3, 1],
+                  type: "spring",
+                  stiffness: 90,
+                  damping: 16,
+                }
+          }
+          whileHover={
+            screenSize !== "mobile"
+              ? {
+                  scale: 1.02,
+                  z: 50,
+                  boxShadow:
+                    "0 40px 40px rgba(var(--accent-color-rgb), 0.4), 0 0 40px rgba(var(--accent-color-rgb), 0.3)",
+                }
+              : {}
+          }
           viewport={{ once: true, amount: 0.45 }}
-          transition={{
-            duration: 0.9,
-            delay: 0.9,
-            ease: [0.16, 1, 0.3, 1],
-            type: "spring",
-            stiffness: 90,
-            damping: 16,
-          }}
           style={{ zIndex: 3 }}
           className={`${styles.dashboardPanel} ${styles.panelThree}`}
         >
@@ -510,7 +660,7 @@ export default function KeoRailsDashboardPanels() {
                       width="20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <g stroke-width="2.41">
+                      <g strokeWidth="2.41">
                         <path
                           d="M546.353 124.75L334.494-1.03a79.795 79.795 0 0 0-81.747 0L40.853 124.75A84.504 84.504 0 0 0 .001 197.545v251.523a84.504 84.504 0 0 0 40.852 72.752l211.859 125.737a79.837 79.837 0 0 0 81.747 0L546.318 521.82a84.504 84.504 0 0 0 40.894-72.795v-251.47a84.504 84.504 0 0 0-40.852-72.794z"
                           fill="#fff"
@@ -883,8 +1033,8 @@ export default function KeoRailsDashboardPanels() {
                           y2="78.201%"
                           id="a"
                         >
-                          <stop stop-color="#387EB8" offset="0%" />
-                          <stop stop-color="#366994" offset="100%" />
+                          <stop stopColor="#387EB8" offset="0%" />
+                          <stop stopColor="#366994" offset="100%" />
                         </linearGradient>
                         <linearGradient
                           x1="19.128%"
@@ -893,8 +1043,8 @@ export default function KeoRailsDashboardPanels() {
                           y2="88.429%"
                           id="b"
                         >
-                          <stop stop-color="#FFE052" offset="0%" />
-                          <stop stop-color="#FFC331" offset="100%" />
+                          <stop stopColor="#FFE052" offset="0%" />
+                          <stop stopColor="#FFC331" offset="100%" />
                         </linearGradient>
                       </defs>
                       <path
@@ -1044,6 +1194,6 @@ export default function KeoRailsDashboardPanels() {
 
       {/* Vignette overlay */}
       <div className={styles.dashboardVignette} />
-    </div>
+    </motion.div>
   );
 }
