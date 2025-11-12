@@ -119,7 +119,7 @@ export const NavigationMenuDemo = () => {
         >
           <div className={styles.navbar}>
             <div className={styles.logoContainer}>
-              <Link href="/">
+              <Link aria-label="Go to Homepage" href="/">
                 <Logo size="sm" animated></Logo>
               </Link>
             </div>

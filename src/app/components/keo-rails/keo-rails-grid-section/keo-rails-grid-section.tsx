@@ -192,6 +192,14 @@ export default function KeoRailsGridSection() {
           {/* Right Column - Sticky Phone with scroll progress indicator */}
           <div className={styles.rightColumn} ref={rightRef}>
             <div className={styles.animationContainer}>
+              <video
+                hidden
+                autoPlay
+                loop
+                muted
+                className={styles.video}
+                src="/keo-rails.mov"
+              ></video>
               <Lottie animationData={animationData} loop={true} />
             </div>
 

@@ -119,7 +119,7 @@
 .scrollContent {
   display: flex;
   flex-direction: column;
-  height: 400vh;
+  height: 250vh;
   position: relative;
 }
 
@@ -140,6 +140,7 @@
   justify-content: center;
   pointer-events: none;
   height: 100vh;
+  visibility: hidden;
 }
 
 .progressTrack {
@@ -190,20 +191,34 @@
 }
 
 .animationContainer * {
-  width: 70%;
+  width: 100%;
   height: 100%;
+  object-fit: cover;
 }
+
 .animationContainer svg * {
   width: 100%;
   height: 100%;
+}
+
+.animationContainer svg {
+  display: flex;
+  align-items: flex-start;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 @media (min-width: 1024px) {
   .rightColumn {
     position: sticky;
     /* Removed transform and using calculated top to center without interfering with sticky boundaries */
-    top: calc(50vh - 320px);
+    top: 0;
     align-self: start;
+    background-color: white;
   }
 }
 

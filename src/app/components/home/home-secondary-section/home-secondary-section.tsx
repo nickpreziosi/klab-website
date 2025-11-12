@@ -524,7 +524,7 @@ export default function HomeSecondarySection({
                   <h3 className={styles.cardTitle}>{card.title}</h3>
                   <p className={styles.cardDescription}>{card.description}</p>
                   <Button
-                    text="Learn More"
+                    text={`Learn About ${card.title}`}
                     href={card.link}
                     variant="outline"
                     icon={

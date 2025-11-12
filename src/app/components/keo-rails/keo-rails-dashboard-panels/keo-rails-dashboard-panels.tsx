@@ -1,25 +1,268 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 import styles from "./keo-rails-dashboard-panels.module.css";
 // using inline SVGs for language icons instead of raster Image imports
 
 export default function KeoRailsDashboardPanels() {
+  const [screenSize, setScreenSize] = useState<
+    "large" | "desktop" | "tablet" | "mobile"
+  >("large");
+
+  useEffect(() => {
+    const updateScreenSize = () => {
+      if (window.innerWidth <= 500) {
+        setScreenSize("mobile");
+      } else if (window.innerWidth <= 1024) {
+        setScreenSize("tablet");
+      } else if (window.innerWidth <= 1600) {
+        setScreenSize("desktop");
+      } else {
+        setScreenSize("large");
+      }
+    };
+
+    updateScreenSize();
+    window.addEventListener("resize", updateScreenSize);
+    return () => window.removeEventListener("resize", updateScreenSize);
+  }, []);
+
+  // Stack transform variants based on screen size
+  const stackVariants = {
+    large: {
+      transform:
+        "translate(10%, 10%) scale(1.2) rotateX(25deg) rotateY(30deg) rotate(334deg)",
+    },
+    desktop: {
+      transform:
+        "translate(10%, 25%) scale(1.2) rotateX(25deg) rotateY(30deg) rotate(334deg)",
+    },
+    tablet: {
+      transform:
+        "translate(10%, 12%) scale(1.2) rotateX(25deg) rotateY(30deg) rotate(334deg)",
+    },
+    mobile: {
+      transform:
+        "translate(10%, 10%) scale(1.2) rotateX(25deg) rotateY(30deg) rotate(334deg)",
+    },
+  };
+
+  // Panel variants based on screen size
+  const panelOneVariants = {
+    large: {
+      initial: {
+        opacity: 0,
+        transform: "translateY(calc(-50% - 48px)) rotateX(8deg) scale(0.98)",
+        filter: "blur(12px)",
+        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        zIndex: 1,
+      },
+      animate: {
+        opacity: 1,
+        transform: "translateY(-50%) rotateX(0deg) scale(1)",
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
+        zIndex: 1,
+      },
+    },
+    desktop: {
+      initial: {
+        opacity: 0,
+        transform: "translateY(calc(-50% - 48px)) rotateX(8deg) scale(0.98)",
+        filter: "blur(12px)",
+        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        zIndex: 1,
+      },
+      animate: {
+        opacity: 1,
+        transform: "translateY(-50%) rotateX(0deg) scale(1)",
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
+        zIndex: 1,
+      },
+    },
+    tablet: {
+      initial: {
+        opacity: 0,
+        transform: "translateY(calc(-50% - 48px)) rotateX(8deg) scale(0.98)",
+        filter: "blur(12px)",
+        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        zIndex: 1,
+      },
+      animate: {
+        opacity: 1,
+        transform: "translateY(-50%) rotateX(0deg) scale(1)",
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
+        zIndex: 1,
+      },
+    },
+    mobile: {
+      initial: {
+        opacity: 0,
+        transform: "translateY(calc(-40% - 48px)) translateX(-8%) rotateX(8deg) scale(0.98)",
+        filter: "blur(12px)",
+        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        zIndex: 1,
+      },
+      animate: {
+        opacity: 1,
+        transform: "translateY(-40%) translateX(-8%) rotateX(0deg) scale(1)",
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
+        zIndex: 1,
+      },
+    },
+  };
+
+  const panelTwoVariants = {
+    large: {
+      initial: {
+        opacity: 0,
+        transform: "translateY(calc(-50% + 100px - 48px)) rotateX(8deg) scale(0.98)",
+        filter: "blur(12px)",
+        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        zIndex: 2,
+      },
+      animate: {
+        opacity: 1,
+        transform: "translateY(calc(-50% + 100px)) rotateX(0deg) scale(1)",
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
+        zIndex: 2,
+      },
+    },
+    desktop: {
+      initial: {
+        opacity: 0,
+        transform: "translateY(calc(-50% + 100px - 48px)) rotateX(8deg) scale(0.98)",
+        filter: "blur(12px)",
+        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        zIndex: 2,
+      },
+      animate: {
+        opacity: 1,
+        transform: "translateY(calc(-50% + 100px)) rotateX(0deg) scale(1)",
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
+        zIndex: 2,
+      },
+    },
+    tablet: {
+      initial: {
+        opacity: 0,
+        transform: "translateY(calc(-50% + 100px - 48px)) rotateX(8deg) scale(0.98)",
+        filter: "blur(12px)",
+        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        zIndex: 2,
+      },
+      animate: {
+        opacity: 1,
+        transform: "translateY(calc(-50% + 100px)) rotateX(0deg) scale(1)",
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
+        zIndex: 2,
+      },
+    },
+    mobile: {
+      initial: {
+        opacity: 0,
+        transform: "translateY(calc(-40% + 100px - 48px)) translateX(-10%) rotateX(8deg) scale(0.98)",
+        filter: "blur(12px)",
+        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        zIndex: 2,
+      },
+      animate: {
+        opacity: 1,
+        transform: "translateY(calc(-40% + 100px)) translateX(-10%) rotateX(0deg) scale(1)",
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
+        zIndex: 2,
+      },
+    },
+  };
+
+  const panelThreeVariants = {
+    large: {
+      initial: {
+        opacity: 0,
+        transform: "translateY(calc(-50% + 200px - 48px)) rotateX(8deg) scale(0.98)",
+        filter: "blur(12px)",
+        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        zIndex: 3,
+      },
+      animate: {
+        opacity: 1,
+        transform: "translateY(calc(-50% + 200px)) rotateX(0deg) scale(1)",
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
+        zIndex: 3,
+      },
+    },
+    desktop: {
+      initial: {
+        opacity: 0,
+        transform: "translateY(calc(-50% + 200px - 48px)) rotateX(8deg) scale(0.98)",
+        filter: "blur(12px)",
+        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        zIndex: 3,
+      },
+      animate: {
+        opacity: 1,
+        transform: "translateY(calc(-50% + 200px)) rotateX(0deg) scale(1)",
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
+        zIndex: 3,
+      },
+    },
+    tablet: {
+      initial: {
+        opacity: 0,
+        transform: "translateY(calc(-50% + 200px - 48px)) rotateX(8deg) scale(0.98)",
+        filter: "blur(12px)",
+        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        zIndex: 3,
+      },
+      animate: {
+        opacity: 1,
+        transform: "translateY(calc(-50% + 200px)) rotateX(0deg) scale(1)",
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
+        zIndex: 3,
+      },
+    },
+    mobile: {
+      initial: {
+        opacity: 0,
+        transform: "translateY(calc(-40% + 200px - 48px)) translateX(-10%) rotateX(8deg) scale(0.98)",
+        filter: "blur(12px)",
+        boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+        zIndex: 3,
+      },
+      animate: {
+        opacity: 1,
+        transform: "translateY(calc(-40% + 200px)) translateX(-10%) rotateX(0deg) scale(1)",
+        filter: "blur(0px)",
+        boxShadow: "var(--shadow-black)",
+        zIndex: 3,
+      },
+    },
+  };
+
   return (
-    <div inert tabIndex={-1} aria-hidden className={styles.dashboardContainer}>
-      <motion.div className={styles.dashboardStack}>
+    <div tabIndex={-1} aria-hidden className={styles.dashboardContainer}>
+      <motion.div
+        className={styles.dashboardStack}
+        animate={screenSize}
+        variants={stackVariants}
+        transition={{ duration: 0.3 }}
+      >
         {/* Panel 1: API Reference Sidebar */}
         <motion.div
-          initial={{
-            opacity: 0,
-            filter: "blur(12px)",
-            boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
-          }}
-          animate={{
-            opacity: 1,
-            filter: "blur(0px)",
-            boxShadow: "var(--shadow-black)",
-          }}
+          initial={panelOneVariants[screenSize].initial}
+          whileInView={panelOneVariants[screenSize].animate}
+          viewport={{ once: true, amount: 0.45 }}
           transition={{
             duration: 0.9,
             delay: 0.3,
@@ -28,6 +271,7 @@ export default function KeoRailsDashboardPanels() {
             stiffness: 90,
             damping: 16,
           }}
+          style={{ zIndex: 1 }}
           className={`${styles.dashboardPanel} ${styles.panelOne}`}
         >
           <div className={styles.windowChrome}>
@@ -133,16 +377,9 @@ export default function KeoRailsDashboardPanels() {
 
         {/* Panel 2: API Endpoint Details */}
         <motion.div
-          initial={{
-            opacity: 0,
-            filter: "blur(12px)",
-            boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
-          }}
-          animate={{
-            opacity: 1,
-            filter: "blur(0px)",
-            boxShadow: "var(--shadow-black)",
-          }}
+          initial={panelTwoVariants[screenSize].initial}
+          whileInView={panelTwoVariants[screenSize].animate}
+          viewport={{ once: true, amount: 0.45 }}
           transition={{
             duration: 0.9,
             delay: 0.6,
@@ -151,6 +388,7 @@ export default function KeoRailsDashboardPanels() {
             stiffness: 90,
             damping: 16,
           }}
+          style={{ zIndex: 2 }}
           className={`${styles.dashboardPanel} ${styles.panelTwo}`}
         >
           <div className={styles.windowChrome}>
@@ -239,16 +477,9 @@ export default function KeoRailsDashboardPanels() {
 
         {/* Panel 3: Code Example */}
         <motion.div
-          initial={{
-            opacity: 0,
-            filter: "blur(12px)",
-            boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
-          }}
-          animate={{
-            opacity: 1,
-            filter: "blur(0px)",
-            boxShadow: "var(--shadow-black)",
-          }}
+          initial={panelThreeVariants[screenSize].initial}
+          whileInView={panelThreeVariants[screenSize].animate}
+          viewport={{ once: true, amount: 0.45 }}
           transition={{
             duration: 0.9,
             delay: 0.9,
@@ -257,6 +488,7 @@ export default function KeoRailsDashboardPanels() {
             stiffness: 90,
             damping: 16,
           }}
+          style={{ zIndex: 3 }}
           className={`${styles.dashboardPanel} ${styles.panelThree}`}
         >
           <div className={styles.windowChrome}>

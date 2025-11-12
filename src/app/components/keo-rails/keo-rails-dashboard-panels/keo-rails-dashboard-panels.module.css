@@ -9,8 +9,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none;
   margin-top: -60px;
+  overflow: hidden;
 }
 
 @media (min-width: 1024px) {
@@ -32,9 +32,6 @@
   display: flex;
   align-items: space-between;
   justify-content: space-between;
-  transform: translate(10%, 10%) scale(1.2) rotateX(25deg) rotateY(30deg)
-    rotate(334deg) !important;
-  transform-style: preserve-3d;
 }
 
 .dashboardPanel {
@@ -53,29 +50,34 @@
   box-shadow: var(--shadow-black);
   overflow: hidden;
   backdrop-filter: blur(10px);
+  transition: box-shadow 0.15s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.dashboardPanel * {
+  pointer-events: none;
+  user-select: none; /* Disables text selection */ /* Visually indicates disabled state */
+  cursor: default;
 }
 
 .panelOne {
   left: 0;
   top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
+  z-index: 1 !important;
   overflow: hidden;
 }
 
 .panelTwo {
   left: 320px;
   top: 50%;
-  transform: translateY(calc(-50% + 100px));
-  z-index: 2;
+  z-index: 2 !important;
   overflow: hidden;
 }
 
 .panelThree {
   left: 640px;
   top: 50%;
-  transform: translateY(calc(-50% + 200px));
-  z-index: 3;
+  z-index: 3 !important;
   overflow: hidden;
 }
 
@@ -561,10 +563,6 @@
 }
 
 @media (max-width: 1600px) {
-  .dashboardStack {
-    transform: translate(10%, 25%) scale(1.2) rotateX(25deg) rotateY(30deg)
-      rotate(334deg) !important;
-  }
   .dashboardContainer {
     margin-top: -100px;
   }
@@ -580,8 +578,6 @@
   .dashboardStack {
     display: block;
     position: relative;
-    transform: translate(10%, 12%) scale(1.2) rotateX(25deg) rotateY(30deg)
-      rotate(334deg) !important;
   }
 
   .dashboardPanel {
@@ -597,14 +593,5 @@
     overflow: hidden;
     height: 600px;
     margin-top: 0;
-  }
-  .panelOne {
-    transform: translateY(-40%) translateX(-8%);
-  }
-  .panelTwo {
-    transform: translateY(calc(-40% + 100px)) translateX(-10%);
-  }
-  .panelThree {
-    transform: translateY(calc(-40% + 200px)) translateX(-10%);
   }
 }
