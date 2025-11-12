@@ -8,11 +8,13 @@ import KeoRailsAnimationOne from "../keo-rails-animation-one/keo-rails-animation
 import KeoRailsAnimationTwo from "../keo-rails-animation-two/keo-rails-animation-two";
 import Lottie from "lottie-react";
 import animationData from "../../../../../public/lottie/keo-rails.json";
+import Image from "next/image";
 
 export default function KeoRailsGridSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -43,6 +45,13 @@ export default function KeoRailsGridSection() {
       window.removeEventListener("resize", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
+  }, []);
+
+  useEffect(() => {
+    // Set video playback speed to 4x
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 4.0;
+    }
   }, []);
 
   return (
@@ -192,13 +201,16 @@ export default function KeoRailsGridSection() {
           <div className={styles.rightColumn} ref={rightRef}>
             <div className={styles.animationContainer}>
               <video
+                ref={videoRef}
                 autoPlay
                 loop
                 muted
+                playsInline
                 className={styles.video}
-                src="/keo-rails.mov"
-              ></video>
-              <Lottie hidden animationData={animationData} loop={true} />
+              >
+                <source src="/keo-rails.mov" type="video/quicktime" />
+                <source src="/keo-rails.webm" type="video/webm" />
+              </video>
             </div>
 
             <div style={{ display: "none" }}>

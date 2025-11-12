@@ -52,9 +52,9 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
           y: 0,
           boxShadow: "var(--shadow-black)",
           transition: {
-            duration: 1,
+            duration: 0.5,
             ease: [0.25, 0.4, 0.25, 1],
-            delay: 0.4,
+            delay: 0.2,
           },
         },
       }}
