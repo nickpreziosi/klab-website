@@ -15,7 +15,7 @@ export default function KeoRailsDashboardPanels() {
   useEffect(() => {
     // Set mounted after initial render
     setIsMounted(true);
-    
+
     let resizeTimeout: NodeJS.Timeout;
 
     const updateScreenSize = () => {
