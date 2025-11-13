@@ -199,6 +199,7 @@ export function KeoRailsCode({
       <div className={styles.scrollOverlay} />
       <div ref={codeBlockRef} className={styles.codeBlock}>
         <div className={styles.lineNumbers}>
+          <br></br>
           {Array.from({ length: totalLines }, (_, index) => (
             <div key={index} className={styles.lineNumber}>
               {index + 1}

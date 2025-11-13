@@ -29,9 +29,9 @@ export const Hero = () => {
       <div className={styles.content}>
         <div className={styles.mainContainer}>
           <HeroText
-            maxWidth="600px"
+            maxWidth="620px"
             text="Building the Future of Financial Infrastructure"
-            subtitle="KEO builds the technology that automates risk, payments, and financial operations — all in one intelligent platform."
+            subtitle="KEO develops the technology that automates risk, payments, and financial operations — all in one intelligent platform."
             buttonText="Contact Sales"
             buttonHref="/contact/sales"
           />

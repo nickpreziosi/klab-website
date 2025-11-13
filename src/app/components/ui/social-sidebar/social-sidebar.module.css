@@ -20,7 +20,7 @@
   height: 36px;
   border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
   background: rgba(var(--secondary-color-rgb), 0.05);
-  border-radius: 12px;
+  border-radius: 6px;
   color: rgba(var(--secondary-color-rgb), 1);
   text-decoration: none;
   transition: all 50ms ease-in-out;
@@ -39,7 +39,7 @@
   backdrop-filter: blur(10px);
   color: var(--secondary-color);
   padding: 0.5rem 1rem;
-  border-radius: 12px;
+  border-radius: 6px;
   font-size: 0.875rem;
   font-weight: 500;
   border: 1px solid rgba(var(--accent-color-rgb), 0.3);

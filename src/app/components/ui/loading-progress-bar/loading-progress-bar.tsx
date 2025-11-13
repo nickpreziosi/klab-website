@@ -148,50 +148,60 @@ export function LoadingProgressBar() {
           transition={{ duration: 0.4 }}
         >
           <div className={styles.container}>
-            {/* Logo Animation */}
-            <motion.div
-              className={styles.logoContainer}
-              initial={{ scale: 0.5, opacity: 0, y: -20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.5,
-                ease: [0.34, 1.56, 0.64, 1],
-              }}
-            >
+            <motion.div className={styles.spinnerContainer}>
               <motion.div
-                animate={{
-                  scale: [1, 1.05, 1],
-                  rotate: [0, 5, -5, 0],
-                }}
+                className={styles.spinner}
+                animate={{ rotate: 360 }}
                 transition={{
                   duration: 2,
                   repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
+                  ease: "linear",
                 }}
+              >
+                <motion.svg
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                  viewBox="0 0 200 200"
+                  className={styles.spinnerSvg}
+                >
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="80"
+                    fill="none"
+                    stroke="var(--secondary-color)"
+                    strokeWidth="8"
+                    strokeDasharray="20 20"
+                    strokeLinecap="round"
+                    style={{
+                      strokeDashoffset: `${
+                        502 - (502 * displayProgress) / 100
+                      }`,
+                      transition: "stroke-dashoffset 0.3s ease-out",
+                    }}
+                  />
+                </motion.svg>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{
+                  opacity: displayProgress / 100,
+                  scale: 0.8 + (displayProgress / 100) * 0.2,
+                }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className={styles.logoCenter}
               >
                 <Image
                   src="/keo-logo.png"
                   alt="Keo Logo"
-                  width={120}
-                  height={120}
+                  width={140}
+                  height={140}
                   className={styles.logo}
                   priority
                 />
               </motion.div>
-
-              {/* Glow effect behind logo */}
-              <motion.div
-                className={styles.logoGlow}
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.6, 0.3],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-              />
             </motion.div>
 
             {/* Progress Percentage */}
@@ -259,7 +269,7 @@ export function LoadingProgressBar() {
               className={styles.loadingText}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.3 }}
+              transition={{ delay: 0, duration: 0.3 }}
             >
               <motion.span
                 animate={{ opacity: [0.5, 1, 0.5] }}

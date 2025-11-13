@@ -6,16 +6,27 @@ import styles from "./keo-rails-grid-section.module.css";
 import Button from "../../ui/button/button";
 import KeoRailsAnimationOne from "../keo-rails-animation-one/keo-rails-animation-one";
 import KeoRailsAnimationTwo from "../keo-rails-animation-two/keo-rails-animation-two";
-import Lottie from "lottie-react";
+import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import animationData from "../../../../../public/lottie/keo-rails.json";
-import Image from "next/image";
 
 export default function KeoRailsGridSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const lottieRef = useRef<LottieRefCurrentProps>(null);
   const [progress, setProgress] = useState(0);
+  const [isSafari, setIsSafari] = useState(false);
+
+  useEffect(() => {
+    // Detect Safari browser
+    const ua = navigator.userAgent.toLowerCase();
+    const isSafariBrowser =
+      ua.includes("safari") &&
+      !ua.includes("chrome") &&
+      !ua.includes("android");
+    setIsSafari(isSafariBrowser);
+  }, []);
 
   useEffect(() => {
     let raf = 0;
@@ -51,6 +62,13 @@ export default function KeoRailsGridSection() {
     // Set video playback speed to 4x
     if (videoRef.current) {
       videoRef.current.playbackRate = 4.0;
+    }
+  }, []);
+
+  useEffect(() => {
+    // Set Lottie playback speed to 3x
+    if (lottieRef.current) {
+      lottieRef.current.setSpeed(3);
     }
   }, []);
 
@@ -201,6 +219,7 @@ export default function KeoRailsGridSection() {
           <div className={styles.rightColumn} ref={rightRef}>
             <div className={styles.animationContainer}>
               <video
+                hidden
                 ref={videoRef}
                 autoPlay
                 loop
@@ -208,9 +227,18 @@ export default function KeoRailsGridSection() {
                 playsInline
                 className={styles.video}
               >
-                <source src="/keo-rails.mov" type="video/quicktime" />
-                <source src="/keo-rails.webm" type="video/webm" />
+                {isSafari ? (
+                  <source src="/keo-rails.mov" type="video/quicktime" />
+                ) : (
+                  <source src="/keo-rails.webm" type="video/webm" />
+                )}
               </video>
+              <Lottie
+                lottieRef={lottieRef}
+                animationData={animationData}
+                loop={true}
+                assetsPath="/lottie/images/"
+              />
             </div>
 
             <div style={{ display: "none" }}>

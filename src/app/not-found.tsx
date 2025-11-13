@@ -5,6 +5,7 @@ import styles from "./not-found.module.css";
 import { Logo } from "@/app/components/ui/logo/logo";
 import { useRouter } from "next/navigation";
 import Button from "@/app/components/ui/button/button";
+import Link from "next/link";
 
 export default function NotFound() {
   const router = useRouter();
@@ -32,42 +33,9 @@ export default function NotFound() {
               ease: [0.34, 1.56, 0.64, 1],
             }}
           >
-            <motion.div
-              animate={{
-                scale: [1, 1.05, 1],
-                rotate: [0, 5, -5, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-            >
-              <Logo
-                className={styles.logoXL}
-                size="xl"
-                animated="constant"
-              ></Logo>
-              <Logo
-                className={styles.logoLarge}
-                size="lg"
-                animated="constant"
-              ></Logo>
-            </motion.div>
-
-            {/* Glow effect behind logo */}
-            <motion.div
-              className={styles.logoGlow}
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.6, 0.3],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-            />
+            <Link href="/">
+              <Logo className={styles.logoLarge} size="lg" animated></Logo>
+            </Link>
           </motion.div>
 
           {/* 404 Text */}
@@ -87,16 +55,7 @@ export default function NotFound() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.3 }}
           >
-            <motion.span
-              animate={{ opacity: [0.7, 1, 0.7] }}
-              transition={{
-                duration: 2,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-            >
-              Page Not Found
-            </motion.span>
+            <motion.span>Page Not Found</motion.span>
           </motion.div>
 
           {/* Description */}

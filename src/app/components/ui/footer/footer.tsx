@@ -18,7 +18,6 @@ export const Footer = () => {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
     { href: "/technologies/keo-rails", label: "Keo Rails" },
     { href: "/technologies/kena-ai", label: "Kena AI" },
     { href: "/company", label: "Company" },
