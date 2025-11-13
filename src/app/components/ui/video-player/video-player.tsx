@@ -71,6 +71,7 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
               key="poster"
+              className={styles.posterContainer}
             >
               <Image
                 fetchPriority="high"

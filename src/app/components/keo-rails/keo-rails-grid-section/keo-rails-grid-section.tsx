@@ -217,7 +217,12 @@ export default function KeoRailsGridSection() {
           </div>
           {/* Right Column - Sticky Phone with scroll progress indicator */}
           <div className={styles.rightColumn} ref={rightRef}>
-            <div className={styles.animationContainer}>
+            <div
+              aria-hidden="true"
+              role="presentation"
+              tabIndex={-1}
+              className={styles.animationContainer}
+            >
               <video
                 hidden
                 ref={videoRef}

@@ -19,6 +19,9 @@
   position: absolute;
   right: 0;
   bottom: 0;
+  width: 838px;
+  height: 700px;
+  will-change: transform;
 }
 
 .cardsGrid {
@@ -72,6 +75,7 @@
   height: auto;
   aspect-ratio: 6/4;
   border-radius: 12px;
+  object-fit: cover;
 }
 
 .cardText {

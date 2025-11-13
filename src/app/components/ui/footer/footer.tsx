@@ -13,7 +13,7 @@ export const Footer = () => {
     e.preventDefault();
     // Handle subscription logic here
     console.log("Subscribe:", email);
-    setEmail("");
+    setEmail(email);
   };
 
   const navLinks = [

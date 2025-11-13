@@ -41,7 +41,13 @@ export default function KeoRailsCodeSection() {
   }, []);
 
   return (
-    <section className={styles.section}>
+    <section
+      inert
+      tabIndex={-1}
+      aria-hidden
+      role="presentation"
+      className={styles.section}
+    >
       <motion.div
         className={styles.container}
         initial={{ opacity: 0, y: 12 }}

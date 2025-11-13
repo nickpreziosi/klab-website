@@ -19,8 +19,6 @@ interface CompanyVideoSectionProps {
 const DialogDemo = ({ onPlay }: { onPlay?: () => void }) => {
   const [open, setOpen] = useState(false);
   const [contentReady, setContentReady] = useState(false);
-  const [playerMode] = useState<"video" | "iframe">("video");
-  const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
@@ -28,18 +26,14 @@ const DialogDemo = ({ onPlay }: { onPlay?: () => void }) => {
     if (open && onPlay) onPlay();
   }, [open, onPlay]);
 
-  // close when clicking anywhere inside the content except the iframe
+  // close when clicking anywhere inside the content except the video
   const handleContentPointerDown = (e: React.PointerEvent) => {
     const target = e.target as Node;
-    if (iframeRef.current && iframeRef.current.contains(target)) {
-      // click inside iframe element (rare, typically won't bubble), ignore
-      return;
-    }
     if (videoRef.current && videoRef.current.contains(target)) {
       // click inside video element (rare, typically won't bubble), ignore
       return;
     }
-    // close whenever clicking inside content but outside iframe
+    // close whenever clicking inside content but outside video
     setOpen(false);
   };
 
@@ -154,37 +148,10 @@ const DialogDemo = ({ onPlay }: { onPlay?: () => void }) => {
           ref={contentRef}
           data-loaded={contentReady}
           // also close when pointer down happens outside the content (Radix handles overlay),
-          // and handle clicks inside content via our handler to close when clicking outside iframe
+          // and handle clicks inside content via our handler to close when clicking outside video
           onPointerDown={(e) => handleContentPointerDown(e)}
         >
-          {/* Keep iframe mounted so exit animations can run; only set the src when opening */}
-          <iframe
-            ref={iframeRef}
-            className={
-              playerMode === "video"
-                ? `${styles.videoEmbed} ${styles.hiddenEmbed}`
-                : styles.videoEmbed
-            }
-            src={
-              open
-                ? "https://player.vimeo.com/video/1119375393?badge=0&amp;autoplay=1&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                : undefined
-            }
-            title="Video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-            onLoad={() => {
-              // iframe finished loading (either about:blank or real src). If open and has src,
-              // treat this as content ready for animations.
-              if (open) setContentReady(true);
-            }}
-          />
-
-          {/* Native HTML video element placed where the iframe is. It shares the same
-              styling (.videoEmbed). By default we render in 'video' mode and hide the
-              iframe above; you can toggle playerMode later to switch. */}
+          {/* Native HTML video element */}
           <video
             src="/keo-home-main.mp4"
             ref={videoRef}

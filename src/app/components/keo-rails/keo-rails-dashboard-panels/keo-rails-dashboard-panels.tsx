@@ -354,7 +354,8 @@ export default function KeoRailsDashboardPanels() {
           screenSize !== "mobile" ? "translateY(-80px)" : "translateY(0)",
       }}
       tabIndex={-1}
-      aria-hidden
+      aria-hidden="true"
+      role="presentation"
       className={styles.dashboardContainer}
     >
       <motion.div
@@ -399,6 +400,7 @@ export default function KeoRailsDashboardPanels() {
           style={{ zIndex: 1 }}
           className={`${styles.dashboardPanel} ${styles.panelOne}`}
           tabIndex={-1}
+          aria-hidden="true"
         >
           <div className={styles.panelOverlay}></div>
           <div className={styles.windowChrome}>
@@ -537,6 +539,7 @@ export default function KeoRailsDashboardPanels() {
           style={{ zIndex: 2 }}
           className={`${styles.dashboardPanel} ${styles.panelTwo}`}
           tabIndex={-1}
+          aria-hidden="true"
         >
           <div className={styles.panelOverlay}></div>
 
@@ -659,6 +662,7 @@ export default function KeoRailsDashboardPanels() {
           style={{ zIndex: 3 }}
           className={`${styles.dashboardPanel} ${styles.panelThree}`}
           tabIndex={-1}
+          aria-hidden="true"
         >
           <div className={styles.panelOverlay}></div>
 
@@ -1238,7 +1242,7 @@ export default function KeoRailsDashboardPanels() {
       </motion.div>
 
       {/* Vignette overlay */}
-      <div className={styles.dashboardVignette} />
+      <div aria-hidden="true" className={styles.dashboardVignette} />
     </motion.div>
   );
 }
