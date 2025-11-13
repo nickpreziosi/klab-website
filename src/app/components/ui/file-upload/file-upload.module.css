@@ -42,11 +42,6 @@
   justify-content: flex-start;
 }
 
-.dropzone:hover {
-  border-color: rgba(var(--secondary-color-rgb), 0.4);
-  background-color: rgba(var(--secondary-color-rgb), 0.02);
-}
-
 /* Added focus state for keyboard navigation */
 .dropzone:focus {
   border-color: rgba(var(--secondary-color-rgb), 1);
@@ -112,10 +107,6 @@
   transition: all 0.2s ease;
 }
 
-.fileItem:hover {
-  background-color: rgba(var(--secondary-color-rgb), 0.08);
-}
-
 .fileInfo {
   display: flex;
   align-items: center;
@@ -162,10 +153,6 @@
   color: rgba(var(--secondary-color-rgb), 0.6);
   transition: all 0.2s ease;
   flex-shrink: 0;
-}
-
-.removeButton:hover {
-  color: #ef4444;
 }
 
 .removeButton svg {
@@ -282,4 +269,17 @@
   background: transparent;
   border: none;
   color: var(--secondary-color) !important;
+}
+
+@media (pointer: fine) and (hover: hover) {
+  .removeButton:hover {
+    color: #ef4444;
+  }
+  .fileItem:hover {
+    background-color: rgba(var(--secondary-color-rgb), 0.08);
+  }
+  .dropzone:hover {
+    border-color: rgba(var(--secondary-color-rgb), 0.4);
+    background-color: rgba(var(--secondary-color-rgb), 0.02);
+  }
 }

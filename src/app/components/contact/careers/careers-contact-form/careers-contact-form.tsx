@@ -4,6 +4,8 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import {
   TextField,
   Label,
@@ -20,6 +22,7 @@ import { countries } from "@/app/lib/countries";
 import styles from "./careers-contact-form.module.css";
 import Button from "@/app/components/ui/button/button";
 import { FileUpload } from "@/app/components/ui/file-upload/file-upload";
+import HeroText from "@/app/components/ui/hero-text/hero-text";
 
 const departments = [
   { id: "engineering", name: "Engineering" },
@@ -51,18 +54,21 @@ const formSchema = z.object({
     .array(z.instanceof(File))
     .max(3, "Maximum 3 files allowed")
     .optional(),
+  recaptcha: z.string().min(1, "Please complete the reCAPTCHA verification"),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
 export function CareersContactForm() {
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    watch,
   } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -75,12 +81,24 @@ export function CareersContactForm() {
       department: "",
       message: "",
       files: [],
+      recaptcha: "",
     },
   });
 
   const onSubmit = async (data: FormData) => {
-    console.log("[v0] Form submitted:", data);
-    // TODO: Implement form submission logic
+    setIsSubmitting(true);
+    try {
+      console.log("[v0] Form submitted:", data);
+      // TODO: Implement form submission logic
+
+      // Reset reCAPTCHA after successful submission
+      recaptchaRef.current?.reset();
+      setValue("recaptcha", "");
+    } catch (error) {
+      console.error("Form submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -91,7 +109,11 @@ export function CareersContactForm() {
       className={styles.formContainer}
     >
       <div className={styles.headingContainer}>
-        <h1 className={styles.heading}>Join Our Team</h1>
+        <HeroText
+          maxWidth="800px"
+          text="Reach out to our careers team and we'll get in touch!"
+          center={true}
+        ></HeroText>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
@@ -305,30 +327,80 @@ export function CareersContactForm() {
             </TextField>
           </div>
         </div>
+        <div className={styles.lastRow}>
+          <div className={styles.recaptchaWrapper}>
+            <Controller
+              name="recaptcha"
+              control={control}
+              render={() => (
+                <>
+                  <ReCAPTCHA
+                    className={styles.recaptcha}
+                    ref={recaptchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+                    onChange={(value) => setValue("recaptcha", value || "")}
+                    theme="dark"
+                  />
+                  {errors.recaptcha && (
+                    <FieldError className={styles.error}>
+                      {errors.recaptcha.message}
+                    </FieldError>
+                  )}
+                </>
+              )}
+            />
+          </div>
 
-        <div className={styles.submitWrapper}>
-          <Button
-            text="Submit"
-            width="fit"
-            variant="full"
-            iconPosition="end"
-            icon={
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 15 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
-                  fill="currentColor"
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            }
-          />
+          <div className={styles.submitWrapperDesktop}>
+            <Button
+              text={isSubmitting ? "Submitting..." : "Submit Form"}
+              width="fit"
+              variant="full"
+              iconPosition="end"
+              disabled={isSubmitting}
+              icon={
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              }
+            />
+          </div>
+          <div className={styles.submitWrapperMobile}>
+            <Button
+              text={isSubmitting ? "Submitting..." : "Submit Form"}
+              width="full"
+              variant="full"
+              iconPosition="end"
+              disabled={isSubmitting}
+              icon={
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              }
+            />
+          </div>
         </div>
       </form>
     </motion.div>

@@ -4,6 +4,8 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import {
   TextField,
   Label,
@@ -48,23 +50,26 @@ const formSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
   phone: z.string().min(2, "Phone number is required"),
-  company: z.string().optional(),
-  position: z.string().optional(),
+  company: z.string().min(1, "Company name is required"),
+  position: z.string().min(1, "Position is required"),
   companyWebsite: z
     .string()
-    .url("Please enter a valid URL")
-    .optional()
-    .or(z.literal("")),
-  companyType: z.string().optional(),
-  product: z.string().optional(),
-  country: z.string().optional(),
+    .min(1, "Company website is required")
+    .url("Please enter a valid URL"),
+  companyType: z.string().min(1, "Company type is required"),
+  product: z.string().min(1, "Product selection is required"),
+  country: z.string().min(1, "Country is required"),
   message: z.string().min(2, "Message is required"),
   emailUpdates: z.boolean().default(false),
+  recaptcha: z.string().min(1, "Please complete the reCAPTCHA verification"),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
 export function SalesContactForm() {
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     control,
     register,
@@ -85,12 +90,24 @@ export function SalesContactForm() {
       country: "",
       message: "",
       emailUpdates: false,
+      recaptcha: "",
     },
   });
 
   const onSubmit = async (data: FormData) => {
-    console.log("[v0] Form submitted:", data);
-    // TODO: Implement form submission logic
+    setIsSubmitting(true);
+    try {
+      console.log("[v0] Form submitted:", data);
+      // TODO: Implement form submission logic
+
+      // Reset reCAPTCHA after successful submission
+      recaptchaRef.current?.reset();
+      setValue("recaptcha", "");
+    } catch (error) {
+      console.error("Form submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -102,7 +119,8 @@ export function SalesContactForm() {
     >
       <div className={styles.headingContainer}>
         <HeroText
-          text="Share a few details and we'll get in touch!"
+          maxWidth="720px"
+          text="Let's discuss how we can help your business grow"
           center={true}
         ></HeroText>
       </div>
@@ -174,9 +192,10 @@ export function SalesContactForm() {
             <TextField
               className={styles.fieldGroup}
               isInvalid={!!errors.position}
+              isRequired
             >
               <Label className={styles.label}>
-                Position<span className={styles.required}></span>
+                Position<span className={styles.required}>*</span>
               </Label>
               <Input
                 autoComplete="off"
@@ -198,9 +217,10 @@ export function SalesContactForm() {
             <TextField
               className={styles.fieldGroup}
               isInvalid={!!errors.company}
+              isRequired
             >
               <Label className={styles.label}>
-                Company Name<span className={styles.required}></span>
+                Company Name<span className={styles.required}>*</span>
               </Label>
               <Input
                 autoComplete="off"
@@ -219,8 +239,11 @@ export function SalesContactForm() {
             <TextField
               className={styles.fieldGroup}
               isInvalid={!!errors.companyWebsite}
+              isRequired
             >
-              <Label className={styles.label}>Company Website</Label>
+              <Label className={styles.label}>
+                Company Website<span className={styles.required}>*</span>
+              </Label>
               <Input
                 autoComplete="off"
                 {...register("companyWebsite")}
@@ -252,10 +275,11 @@ export function SalesContactForm() {
                         setValue("product", key as string)
                       }
                       isInvalid={!!errors.product}
+                      isRequired
                     >
                       <Label className={styles.label}>
                         Product of Interest
-                        <span className={styles.required}></span>
+                        <span className={styles.required}>*</span>
                       </Label>
                       <div className={styles.comboboxWrapper}>
                         <Input
@@ -316,9 +340,10 @@ export function SalesContactForm() {
                         setValue("country", key as string)
                       }
                       isInvalid={!!errors.country}
+                      isRequired
                     >
                       <Label className={styles.label}>
-                        Country<span className={styles.required}></span>
+                        Country<span className={styles.required}>*</span>
                       </Label>
                       <div className={styles.comboboxWrapper}>
                         <Input
@@ -377,10 +402,11 @@ export function SalesContactForm() {
                         setValue("companyType", key as string)
                       }
                       isInvalid={!!errors.companyType}
+                      isRequired
                     >
                       <Label className={styles.label}>
                         Type of company
-                        <span className={styles.required}></span>
+                        <span className={styles.required}>*</span>
                       </Label>
                       <div className={styles.comboboxWrapper}>
                         <Input
@@ -465,9 +491,10 @@ export function SalesContactForm() {
             <TextField
               className={styles.fieldGroup}
               isInvalid={!!errors.message}
+              isRequired
             >
               <Label className={styles.label}>
-                Message<span className={styles.required}></span>*
+                Message<span className={styles.required}>*</span>
               </Label>
               <TextArea
                 {...register("message")}
@@ -485,30 +512,80 @@ export function SalesContactForm() {
             </TextField>
           </div>
         </div>
+        <div className={styles.lastRow}>
+          <div className={styles.recaptchaWrapper}>
+            <Controller
+              name="recaptcha"
+              control={control}
+              render={() => (
+                <>
+                  <ReCAPTCHA
+                    className={styles.recaptcha}
+                    ref={recaptchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+                    onChange={(value) => setValue("recaptcha", value || "")}
+                    theme="dark"
+                  />
+                  {errors.recaptcha && (
+                    <FieldError className={styles.error}>
+                      {errors.recaptcha.message}
+                    </FieldError>
+                  )}
+                </>
+              )}
+            />
+          </div>
 
-        <div className={styles.submitWrapper}>
-          <Button
-            text="Submit"
-            width="fit"
-            variant="full"
-            iconPosition="end"
-            icon={
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 15 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
-                  fill="currentColor"
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            }
-          />
+          <div className={styles.submitWrapperDesktop}>
+            <Button
+              text={isSubmitting ? "Submitting..." : "Submit Form"}
+              width="fit"
+              variant="full"
+              iconPosition="end"
+              disabled={isSubmitting}
+              icon={
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              }
+            />
+          </div>
+          <div className={styles.submitWrapperMobile}>
+            <Button
+              text={isSubmitting ? "Submitting..." : "Submit Form"}
+              width="full"
+              variant="full"
+              iconPosition="end"
+              disabled={isSubmitting}
+              icon={
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              }
+            />
+          </div>
         </div>
       </form>
     </motion.div>
