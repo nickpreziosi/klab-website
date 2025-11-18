@@ -92,15 +92,16 @@ export function SalesContactForm() {
       emailUpdates: false,
       recaptcha: "",
     },
+    mode: "onSubmit",
   });
 
+  // Custom submit handler: trigger reCAPTCHA before validation
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
+      // Form submission logic here
       console.log("[v0] Form submitted:", data);
       // TODO: Implement form submission logic
-
-      // Reset reCAPTCHA after successful submission
       recaptchaRef.current?.reset();
       setValue("recaptcha", "");
     } catch (error) {
@@ -110,6 +111,22 @@ export function SalesContactForm() {
     }
   };
 
+  // Custom handler for submit button
+  const handleRecaptchaAndSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const token = await recaptchaRef.current?.executeAsync();
+      setValue("recaptcha", token || "");
+      handleSubmit(onSubmit)();
+    } catch (error) {
+      console.error("reCAPTCHA execution error:", error);
+      setIsSubmitting(false);
+    }
+  };
+
+  // Debug: log errors on every render
+  console.log("Form errors:", errors);
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -125,7 +142,7 @@ export function SalesContactForm() {
         ></HeroText>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <form onSubmit={handleRecaptchaAndSubmit} className={styles.form}>
         <div className={styles.grid}>
           {/* First Row */}
           <div className={styles.row}>
@@ -192,7 +209,6 @@ export function SalesContactForm() {
             <TextField
               className={styles.fieldGroup}
               isInvalid={!!errors.position}
-              isRequired
             >
               <Label className={styles.label}>
                 Position<span className={styles.required}>*</span>
@@ -217,7 +233,6 @@ export function SalesContactForm() {
             <TextField
               className={styles.fieldGroup}
               isInvalid={!!errors.company}
-              isRequired
             >
               <Label className={styles.label}>
                 Company Name<span className={styles.required}>*</span>
@@ -239,7 +254,6 @@ export function SalesContactForm() {
             <TextField
               className={styles.fieldGroup}
               isInvalid={!!errors.companyWebsite}
-              isRequired
             >
               <Label className={styles.label}>
                 Company Website<span className={styles.required}>*</span>
@@ -275,7 +289,6 @@ export function SalesContactForm() {
                         setValue("product", key as string)
                       }
                       isInvalid={!!errors.product}
-                      isRequired
                     >
                       <Label className={styles.label}>
                         Product of Interest
@@ -311,6 +324,7 @@ export function SalesContactForm() {
                               key={product.id}
                               id={product.id}
                               className={styles.listboxItem}
+                              textValue={product.name} // <-- Add this
                             >
                               {product.name}
                             </ListBoxItem>
@@ -340,7 +354,6 @@ export function SalesContactForm() {
                         setValue("country", key as string)
                       }
                       isInvalid={!!errors.country}
-                      isRequired
                     >
                       <Label className={styles.label}>
                         Country<span className={styles.required}>*</span>
@@ -375,6 +388,7 @@ export function SalesContactForm() {
                               key={country.id}
                               id={country.id}
                               className={styles.listboxItem}
+                              textValue={country.name}
                             >
                               {country.name}
                             </ListBoxItem>
@@ -402,7 +416,6 @@ export function SalesContactForm() {
                         setValue("companyType", key as string)
                       }
                       isInvalid={!!errors.companyType}
-                      isRequired
                     >
                       <Label className={styles.label}>
                         Type of company
@@ -413,7 +426,7 @@ export function SalesContactForm() {
                           autoComplete="off"
                           placeholder="Choose or type an option"
                           className={`${styles.input} ${
-                            errors.companyType && styles.companyType
+                            errors.companyType && styles.inputError
                           }`}
                         />
                         <ComboboxButton className={styles.comboboxButton}>
@@ -438,6 +451,7 @@ export function SalesContactForm() {
                               key={type.id}
                               id={type.id}
                               className={styles.listboxItem}
+                              textValue={type.name}
                             >
                               {type.name}
                             </ListBoxItem>
@@ -491,7 +505,6 @@ export function SalesContactForm() {
             <TextField
               className={styles.fieldGroup}
               isInvalid={!!errors.message}
-              isRequired
             >
               <Label className={styles.label}>
                 Message<span className={styles.required}>*</span>
@@ -525,6 +538,7 @@ export function SalesContactForm() {
                     sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
                     onChange={(value) => setValue("recaptcha", value || "")}
                     theme="dark"
+                    size="invisible"
                   />
                   {errors.recaptcha && (
                     <FieldError className={styles.error}>
@@ -538,6 +552,7 @@ export function SalesContactForm() {
 
           <div className={styles.submitWrapperDesktop}>
             <Button
+              type="submit"
               text={isSubmitting ? "Submitting..." : "Submit Form"}
               width="fit"
               variant="full"
@@ -563,6 +578,7 @@ export function SalesContactForm() {
           </div>
           <div className={styles.submitWrapperMobile}>
             <Button
+              type="submit"
               text={isSubmitting ? "Submitting..." : "Submit Form"}
               width="full"
               variant="full"

@@ -88,15 +88,38 @@ export function CareersContactForm() {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
-      console.log("[v0] Form submitted:", data);
-      // TODO: Implement form submission logic
-
-      // Reset reCAPTCHA after successful submission
+      // Log form data instead of sending to backend
+      console.log("[v0] Careers form submitted:", data);
+      // Reset reCAPTCHA after submission
       recaptchaRef.current?.reset();
       setValue("recaptcha", "");
+      setValue("firstName", "");
+      setValue("lastName", "");
+      setValue("email", "");
+      setValue("phone", "");
+      setValue("company", "");
+      setValue("title", "");
+      setValue("position", "");
+      setValue("department", "");
+      setValue("message", "");
+      setValue("files", []);
     } catch (error) {
       console.error("Form submission error:", error);
     } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Custom handler for submit button
+  const handleRecaptchaAndSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const token = await recaptchaRef.current?.executeAsync();
+      setValue("recaptcha", token || "");
+      handleSubmit(onSubmit)();
+    } catch (error) {
+      console.error("reCAPTCHA execution error:", error);
       setIsSubmitting(false);
     }
   };
@@ -111,12 +134,12 @@ export function CareersContactForm() {
       <div className={styles.headingContainer}>
         <HeroText
           maxWidth="800px"
-          text="Reach out to our careers team and we'll get in touch!"
+          text="Ready to join our team? Let's get started!"
           center={true}
         ></HeroText>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <form onSubmit={handleRecaptchaAndSubmit} className={styles.form}>
         <div className={styles.grid}>
           {/* First Row: First Name, Last Name */}
           <div className={styles.row}>
@@ -340,6 +363,7 @@ export function CareersContactForm() {
                     sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
                     onChange={(value) => setValue("recaptcha", value || "")}
                     theme="dark"
+                    size="invisible"
                   />
                   {errors.recaptcha && (
                     <FieldError className={styles.error}>

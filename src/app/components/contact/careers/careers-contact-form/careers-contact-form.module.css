@@ -239,11 +239,16 @@
   display: flex;
   flex-direction: row;
   gap: 24px;
-  justify-content: space-between;
+  justify-content: flex-end;
+}
+
+.recaptchaWrapper > div {
+  width: 256px !important;
 }
 
 .recaptchaWrapper {
-  display: none;
+  width: 256px;
+  display: flex;
   flex-direction: column;
   gap: 8px;
   margin-top: 8px;

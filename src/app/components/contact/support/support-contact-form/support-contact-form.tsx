@@ -93,6 +93,20 @@ export function SupportContactForm() {
     }
   };
 
+  // Custom handler for submit button
+  const handleRecaptchaAndSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const token = await recaptchaRef.current?.executeAsync();
+      setValue("recaptcha", token || "");
+      handleSubmit(onSubmit)();
+    } catch (error) {
+      console.error("reCAPTCHA execution error:", error);
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -108,7 +122,7 @@ export function SupportContactForm() {
         ></HeroText>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <form onSubmit={handleRecaptchaAndSubmit} className={styles.form}>
         <div className={styles.grid}>
           {/* First Row: First Name, Last Name */}
           <div className={styles.row}>
@@ -383,6 +397,7 @@ export function SupportContactForm() {
                     sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
                     onChange={(value) => setValue("recaptcha", value || "")}
                     theme="dark"
+                    size="invisible"
                   />
                   {errors.recaptcha && (
                     <FieldError className={styles.error}>
