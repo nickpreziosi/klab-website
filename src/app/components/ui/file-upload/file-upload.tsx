@@ -21,7 +21,6 @@ export function FileUpload({
   fileTypes,
   maxFiles = 3,
 }: FileUploadProps) {
-  console.log(fileTypes?.join(","));
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 

@@ -51,8 +51,9 @@
 .lastRow {
   display: flex;
   flex-direction: row;
-  gap: 24px;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: 0px;
 }
 
 .fieldGroup {
@@ -203,6 +204,7 @@
   align-items: flex-end;
   justify-content: flex-start;
   margin-bottom: 2px;
+  margin-top: 16px;
 }
 
 .checkboxContainer {
@@ -252,11 +254,11 @@
 }
 
 .recaptchaWrapper > div {
-  width: 256px !important;
+  width: 0px !important;
 }
 
 .recaptchaWrapper {
-  width: 256px;
+  width: 0px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -315,13 +317,16 @@
 }
 
 @media (max-width: 540px) {
+  .checkboxWrapper {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
   .lastRow {
     width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-
   .submitWrapperDesktop {
     display: none;
   }

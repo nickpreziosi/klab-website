@@ -47,7 +47,8 @@ const products = [
 const countryOptions = countries.map((c) => ({ id: c.value, name: c.label }));
 
 const formSchema = z.object({
-  fullName: z.string().min(2, "Full name must be at least 2 characters"),
+  firstName: z.string().min(2, "First name must be at least 2 characters"),
+  lastName: z.string().min(2, "Last name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
   phone: z.string().min(2, "Phone number is required"),
   company: z.string().min(1, "Company name is required"),
@@ -79,7 +80,8 @@ export function SalesContactForm() {
   } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      fullName: "",
+      firstName: "",
+      lastName: "",
       email: "",
       phone: "",
       company: "",
@@ -148,25 +150,49 @@ export function SalesContactForm() {
           <div className={styles.row}>
             <TextField
               className={styles.fieldGroup}
-              isInvalid={!!errors.fullName}
+              isInvalid={!!errors.firstName}
             >
               <Label className={styles.label}>
-                Full Name<span className={styles.required}>*</span>
+                First Name<span className={styles.required}>*</span>
               </Label>
               <Input
                 autoComplete="off"
-                {...register("fullName")}
-                placeholder="John Doe"
+                {...register("firstName")}
+                placeholder="First"
                 className={`${styles.input} ${
-                  errors.fullName && styles.inputError
+                  errors.firstName && styles.inputError
                 }`}
               />
-              {errors.fullName && (
+              {errors.firstName && (
                 <FieldError className={styles.error}>
-                  {errors.fullName.message}
+                  {errors.firstName.message}
                 </FieldError>
               )}
             </TextField>
+            <TextField
+              className={styles.fieldGroup}
+              isInvalid={!!errors.lastName}
+            >
+              <Label className={styles.label}>
+                Last Name<span className={styles.required}>*</span>
+              </Label>
+              <Input
+                autoComplete="off"
+                {...register("lastName")}
+                placeholder="Last"
+                className={`${styles.input} ${
+                  errors.lastName && styles.inputError
+                }`}
+              />
+              {errors.lastName && (
+                <FieldError className={styles.error}>
+                  {errors.lastName.message}
+                </FieldError>
+              )}
+            </TextField>
+          </div>
+
+          <div className={styles.row}>
             <TextField className={styles.fieldGroup} isInvalid={!!errors.email}>
               <Label className={styles.label}>
                 Email<span className={styles.required}>*</span>
@@ -175,7 +201,7 @@ export function SalesContactForm() {
                 autoComplete="off"
                 {...register("email")}
                 type="email"
-                placeholder="john@example.com"
+                placeholder="first@example.com"
                 className={`${styles.input} ${
                   errors.email && styles.inputError
                 }`}
@@ -186,16 +212,13 @@ export function SalesContactForm() {
                 </FieldError>
               )}
             </TextField>
-          </div>
-
-          <div className={styles.row}>
             <TextField className={styles.fieldGroup} isInvalid={!!errors.phone}>
               <Label className={styles.label}>Phone*</Label>
               <Input
                 autoComplete="off"
                 {...register("phone")}
                 type="tel"
-                placeholder="+1 (555) 000-0000"
+                placeholder="+1 (123) 456-7890"
                 className={`${styles.input} ${
                   errors.phone && styles.inputError
                 }`}
@@ -206,6 +229,9 @@ export function SalesContactForm() {
                 </FieldError>
               )}
             </TextField>
+          </div>
+
+          <div className={styles.row}>
             <TextField
               className={styles.fieldGroup}
               isInvalid={!!errors.position}
@@ -227,9 +253,6 @@ export function SalesContactForm() {
                 </FieldError>
               )}
             </TextField>
-          </div>
-
-          <div className={styles.row}>
             <TextField
               className={styles.fieldGroup}
               isInvalid={!!errors.company}
@@ -240,7 +263,7 @@ export function SalesContactForm() {
               <Input
                 autoComplete="off"
                 {...register("company")}
-                placeholder="Acme Inc."
+                placeholder="Google"
                 className={`${styles.input} ${
                   errors.company && styles.inputError
                 }`}
@@ -251,32 +274,97 @@ export function SalesContactForm() {
                 </FieldError>
               )}
             </TextField>
-            <TextField
-              className={styles.fieldGroup}
-              isInvalid={!!errors.companyWebsite}
-            >
-              <Label className={styles.label}>
-                Company Website<span className={styles.required}>*</span>
-              </Label>
-              <Input
-                autoComplete="off"
-                {...register("companyWebsite")}
-                type="url"
-                placeholder="https://example.com"
-                className={`${styles.input} ${
-                  errors.companyWebsite && styles.inputError
-                }`}
-              />
-              {errors.companyWebsite && (
-                <FieldError className={styles.error}>
-                  {errors.companyWebsite.message}
-                </FieldError>
-              )}
-            </TextField>
           </div>
 
           <div className={styles.row}>
             <div className={styles.comboboxContainer}>
+              <div className={styles.comboboxRow}>
+                <TextField
+                  className={styles.fieldGroup}
+                  isInvalid={!!errors.companyWebsite}
+                >
+                  <Label className={styles.label}>
+                    Company Website<span className={styles.required}>*</span>
+                  </Label>
+                  <Input
+                    autoComplete="off"
+                    {...register("companyWebsite")}
+                    type="url"
+                    placeholder="https://www.example.com"
+                    className={`${styles.input} ${
+                      errors.companyWebsite && styles.inputError
+                    }`}
+                  />
+                  {errors.companyWebsite && (
+                    <FieldError className={styles.error}>
+                      {errors.companyWebsite.message}
+                    </FieldError>
+                  )}
+                </TextField>
+              </div>
+              <div className={styles.comboboxRow}>
+                <Controller
+                  name="companyType"
+                  control={control}
+                  render={({ field }) => (
+                    <ComboBox
+                      className={styles.fieldGroup}
+                      selectedKey={field.value}
+                      onSelectionChange={(key) =>
+                        setValue("companyType", key as string)
+                      }
+                      isInvalid={!!errors.companyType}
+                    >
+                      <Label className={styles.label}>
+                        Type of company
+                        <span className={styles.required}>*</span>
+                      </Label>
+                      <div className={styles.comboboxWrapper}>
+                        <Input
+                          autoComplete="off"
+                          placeholder="Choose or type an option"
+                          className={`${styles.input} ${
+                            errors.companyType && styles.inputError
+                          }`}
+                        />
+                        <ComboboxButton className={styles.comboboxButton}>
+                          <svg
+                            width="40"
+                            height="40"
+                            viewBox="0 0 15 15"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M4 6H11L7.5 10.5L4 6Z"
+                              fill="currentColor"
+                            ></path>
+                          </svg>
+                        </ComboboxButton>
+                      </div>
+                      <Popover className={styles.popover}>
+                        <ListBox className={styles.listbox}>
+                          {companyTypes.map((type) => (
+                            <ListBoxItem
+                              key={type.id}
+                              id={type.id}
+                              className={styles.listboxItem}
+                              textValue={type.name}
+                            >
+                              {type.name}
+                            </ListBoxItem>
+                          ))}
+                        </ListBox>
+                      </Popover>
+                      {errors.companyType && (
+                        <FieldError className={styles.error}>
+                          {errors.companyType.message}
+                        </FieldError>
+                      )}
+                    </ComboBox>
+                  )}
+                />
+              </div>
               <div className={styles.comboboxRow}>
                 <Controller
                   name="product"
@@ -404,102 +492,6 @@ export function SalesContactForm() {
                   )}
                 />
               </div>
-              <div className={styles.comboboxRow}>
-                <Controller
-                  name="companyType"
-                  control={control}
-                  render={({ field }) => (
-                    <ComboBox
-                      className={styles.fieldGroup}
-                      selectedKey={field.value}
-                      onSelectionChange={(key) =>
-                        setValue("companyType", key as string)
-                      }
-                      isInvalid={!!errors.companyType}
-                    >
-                      <Label className={styles.label}>
-                        Type of company
-                        <span className={styles.required}>*</span>
-                      </Label>
-                      <div className={styles.comboboxWrapper}>
-                        <Input
-                          autoComplete="off"
-                          placeholder="Choose or type an option"
-                          className={`${styles.input} ${
-                            errors.companyType && styles.inputError
-                          }`}
-                        />
-                        <ComboboxButton className={styles.comboboxButton}>
-                          <svg
-                            width="40"
-                            height="40"
-                            viewBox="0 0 15 15"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M4 6H11L7.5 10.5L4 6Z"
-                              fill="currentColor"
-                            ></path>
-                          </svg>
-                        </ComboboxButton>
-                      </div>
-                      <Popover className={styles.popover}>
-                        <ListBox className={styles.listbox}>
-                          {companyTypes.map((type) => (
-                            <ListBoxItem
-                              key={type.id}
-                              id={type.id}
-                              className={styles.listboxItem}
-                              textValue={type.name}
-                            >
-                              {type.name}
-                            </ListBoxItem>
-                          ))}
-                        </ListBox>
-                      </Popover>
-                      {errors.companyType && (
-                        <FieldError className={styles.error}>
-                          {errors.companyType.message}
-                        </FieldError>
-                      )}
-                    </ComboBox>
-                  )}
-                />
-                <div className={styles.checkboxWrapper}>
-                  <Controller
-                    name="emailUpdates"
-                    control={control}
-                    render={({ field }) => (
-                      <AriaCheckbox
-                        isSelected={field.value}
-                        onChange={field.onChange}
-                        className={styles.checkboxContainer}
-                      >
-                        <div className={styles.checkboxBox}>
-                          <svg
-                            width="15"
-                            height="15"
-                            viewBox="0 0 15 15"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
-                              fill="currentColor"
-                              fillRule="evenodd"
-                              clipRule="evenodd"
-                            ></path>
-                          </svg>
-                        </div>
-                        <span className={styles.checkboxLabel}>
-                          I would like to receive updates via email.
-                        </span>
-                      </AriaCheckbox>
-                    )}
-                  />
-                </div>
-              </div>
             </div>
 
             <TextField
@@ -525,7 +517,41 @@ export function SalesContactForm() {
             </TextField>
           </div>
         </div>
+
         <div className={styles.lastRow}>
+          <div className={styles.checkboxWrapper}>
+            <Controller
+              name="emailUpdates"
+              control={control}
+              render={({ field }) => (
+                <AriaCheckbox
+                  isSelected={field.value}
+                  onChange={field.onChange}
+                  className={styles.checkboxContainer}
+                >
+                  <div className={styles.checkboxBox}>
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span className={styles.checkboxLabel}>
+                    I would like to receive updates via email.
+                  </span>
+                </AriaCheckbox>
+              )}
+            />
+          </div>
           <div className={styles.recaptchaWrapper}>
             <Controller
               name="recaptcha"

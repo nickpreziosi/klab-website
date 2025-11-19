@@ -240,14 +240,71 @@
   flex-direction: row;
   gap: 24px;
   justify-content: flex-end;
+  align-items: flex-start;
+}
+
+/* Added React Aria Checkbox styles */
+.checkboxWrapper {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  margin-bottom: 2px;
+  margin-top: 16px;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.checkboxBox {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid rgba(var(--secondary-color-rgb), 0.2);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.checkboxContainer[data-focused] .checkboxBox {
+  outline: 2px solid var(--secondary-color);
+}
+
+.checkboxContainer[data-selected] .checkboxBox {
+  background-color: var(--secondary-color);
+}
+
+.checkboxBox svg {
+  width: 2rem;
+  height: 2rem;
+  opacity: 0;
+  color: var(--main-color);
+  transition: opacity 0.2s ease;
+}
+
+.checkboxContainer[data-selected] .checkboxBox svg {
+  opacity: 1;
+}
+
+.checkboxLabel {
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--secondary-color);
+  cursor: pointer;
 }
 
 .recaptchaWrapper > div {
-  width: 256px !important;
+  width: 0px !important;
 }
 
 .recaptchaWrapper {
-  width: 256px;
+  width: 0px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -284,12 +341,17 @@
   transition: all 0.3s ease;
 }
 
-@media (max-width: 540px) {
+@media (max-width: 560px) {
+  .checkboxWrapper {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
   .lastRow {
     width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 0;
   }
 
   .submitWrapperDesktop {
