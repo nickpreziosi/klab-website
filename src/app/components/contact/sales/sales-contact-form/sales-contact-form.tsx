@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import {
   TextField,
@@ -46,6 +46,10 @@ const products = [
 
 const countryOptions = countries.map((c) => ({ id: c.value, name: c.label }));
 
+const companyTypeIds = companyTypes.map((t) => t.id);
+const productIds = products.map((p) => p.id);
+const countryIds = countryOptions.map((c) => c.id);
+
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
@@ -56,10 +60,33 @@ const formSchema = z.object({
   companyWebsite: z
     .string()
     .min(1, "Company website is required")
-    .url("Please enter a valid URL"),
-  companyType: z.string().min(1, "Company type is required"),
-  product: z.string().min(1, "Product selection is required"),
-  country: z.string().min(1, "Country is required"),
+    .refine(
+      (val) => {
+        // Accept domains (example.com, www.example.com) or full URLs (https://example.com)
+        const domainOrUrlPattern =
+          /^((https?:\/\/)?(www\.)?)?[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+([\/?#].*)?$/;
+        return domainOrUrlPattern.test(val);
+      },
+      {
+        message:
+          "Please enter a valid domain (example.com) or URL (https://example.com)",
+      }
+    ),
+  companyType: z
+    .string()
+    .min(1, "Company type is required")
+    .refine(
+      (val) => companyTypeIds.includes(val),
+      "Please select a valid company type"
+    ),
+  product: z
+    .string()
+    .min(1, "Product selection is required")
+    .refine((val) => productIds.includes(val), "Please select a valid product"),
+  country: z
+    .string()
+    .min(1, "Country is required")
+    .refine((val) => countryIds.includes(val), "Please select a valid country"),
   message: z.string().min(2, "Message is required"),
   emailUpdates: z.boolean().default(false),
   recaptcha: z.string().min(1, "Please complete the reCAPTCHA verification"),
@@ -70,6 +97,24 @@ type FormData = z.infer<typeof formSchema>;
 export function SalesContactForm() {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
+
+  // Scroll to top of page when submission is successful
+  useEffect(() => {
+    if (isSuccess) {
+      // Small delay to ensure the view is rendered
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }, 100);
+    }
+  }, [isSuccess]);
 
   const {
     control,
@@ -77,6 +122,8 @@ export function SalesContactForm() {
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
+    trigger,
   } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -97,17 +144,72 @@ export function SalesContactForm() {
     mode: "onSubmit",
   });
 
-  // Custom submit handler: trigger reCAPTCHA before validation
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
+
     try {
-      // Form submission logic here
-      console.log("[v0] Form submitted:", data);
-      // TODO: Implement form submission logic
+      // Create FormData object
+      const formData = new FormData();
+
+      // Append all form fields
+      formData.append("firstName", data.firstName);
+      formData.append("lastName", data.lastName);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone);
+      formData.append("company", data.company);
+      formData.append("position", data.position);
+      formData.append("companyWebsite", data.companyWebsite);
+      formData.append("companyType", data.companyType);
+      formData.append("product", data.product);
+      formData.append("country", data.country);
+      formData.append("message", data.message);
+      formData.append("recaptcha", data.recaptcha);
+
+      // Send to API route
+      const response = await fetch("/api/contact/sales", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        // Handle validation errors
+        if (result.details && Array.isArray(result.details)) {
+          const errorMessages = result.details
+            .map((detail: { message?: string; path?: string[] }) => {
+              const field = detail.path?.[0] || "field";
+              return detail.message || `${field} is invalid`;
+            })
+            .join(", ");
+          throw new Error(errorMessages || result.error || "Validation failed");
+        }
+        throw new Error(
+          result.error || result.details || "Failed to submit inquiry"
+        );
+      }
+
+      // Success - reset form and reCAPTCHA
+      reset();
       recaptchaRef.current?.reset();
-      setValue("recaptcha", "");
+      setIsSuccess(true);
+      setSubmitStatus({
+        type: "success",
+        message: result.message || "Inquiry submitted successfully!",
+      });
     } catch (error) {
       console.error("Form submission error:", error);
+      setSubmitStatus({
+        type: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Failed to submit inquiry. Please try again.",
+      });
+      // Reset reCAPTCHA on error so user can try again
+      recaptchaRef.current?.reset();
+      setValue("recaptcha", "");
     } finally {
       setIsSubmitting(false);
     }
@@ -120,15 +222,104 @@ export function SalesContactForm() {
     try {
       const token = await recaptchaRef.current?.executeAsync();
       setValue("recaptcha", token || "");
-      handleSubmit(onSubmit)();
+      handleSubmit(onSubmit, () => {
+        // Error callback - validation failed
+        setIsSubmitting(false);
+      })();
     } catch (error) {
       console.error("reCAPTCHA execution error:", error);
       setIsSubmitting(false);
     }
   };
 
-  // Debug: log errors on every render
-  console.log("Form errors:", errors);
+  // Success view
+  if (isSuccess) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className={styles.formContainer}
+      >
+        <div className={styles.successContainer}>
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 200,
+              damping: 15,
+              delay: 0.2,
+            }}
+            className={styles.successIcon}
+          >
+            <svg
+              width="80"
+              height="80"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+              />
+            </svg>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className={styles.successContent}
+          >
+            <HeroText
+              maxWidth="800px"
+              text="Inquiry Submitted Successfully!"
+              center={true}
+            />
+            <p className={styles.successMessage}>
+              Thank you for your interest in KEO. We&apos;ve received your
+              inquiry and our sales team will be in touch with you shortly to
+              discuss how we can help your business grow.
+            </p>
+            <div className={styles.successActions}>
+              <Button
+                text="Submit Another Inquiry"
+                width="fit"
+                variant="outline"
+                onClick={() => {
+                  setIsSuccess(false);
+                  setSubmitStatus({ type: null, message: "" });
+                  reset();
+                }}
+                icon={
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                }
+                iconPosition="end"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </motion.div>
+    );
+  }
+
+  // Form view
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -144,6 +335,12 @@ export function SalesContactForm() {
         ></HeroText>
       </div>
 
+      {submitStatus.type === "error" && (
+        <div className={`${styles.statusMessage} ${styles.statusError}`}>
+          {submitStatus.message}
+        </div>
+      )}
+
       <form onSubmit={handleRecaptchaAndSubmit} className={styles.form}>
         <div className={styles.grid}>
           {/* First Row */}
@@ -158,7 +355,7 @@ export function SalesContactForm() {
               <Input
                 autoComplete="off"
                 {...register("firstName")}
-                placeholder="First"
+                placeholder="John"
                 className={`${styles.input} ${
                   errors.firstName && styles.inputError
                 }`}
@@ -179,7 +376,7 @@ export function SalesContactForm() {
               <Input
                 autoComplete="off"
                 {...register("lastName")}
-                placeholder="Last"
+                placeholder="Doe"
                 className={`${styles.input} ${
                   errors.lastName && styles.inputError
                 }`}
@@ -201,7 +398,7 @@ export function SalesContactForm() {
                 autoComplete="off"
                 {...register("email")}
                 type="email"
-                placeholder="first@example.com"
+                placeholder="john@example.com"
                 className={`${styles.input} ${
                   errors.email && styles.inputError
                 }`}
@@ -218,7 +415,7 @@ export function SalesContactForm() {
                 autoComplete="off"
                 {...register("phone")}
                 type="tel"
-                placeholder="+1 (123) 456-7890"
+                placeholder="+1 (555) 000-0000"
                 className={`${styles.input} ${
                   errors.phone && styles.inputError
                 }`}
@@ -289,7 +486,7 @@ export function SalesContactForm() {
                   <Input
                     autoComplete="off"
                     {...register("companyWebsite")}
-                    type="url"
+                    type="text"
                     placeholder="https://www.example.com"
                     className={`${styles.input} ${
                       errors.companyWebsite && styles.inputError
@@ -310,9 +507,13 @@ export function SalesContactForm() {
                     <ComboBox
                       className={styles.fieldGroup}
                       selectedKey={field.value}
-                      onSelectionChange={(key) =>
-                        setValue("companyType", key as string)
-                      }
+                      onSelectionChange={async (key) => {
+                        const value = key as string;
+                        setValue("companyType", value, {
+                          shouldValidate: true,
+                        });
+                        await trigger("companyType");
+                      }}
                       isInvalid={!!errors.companyType}
                     >
                       <Label className={styles.label}>
@@ -373,9 +574,11 @@ export function SalesContactForm() {
                     <ComboBox
                       className={styles.fieldGroup}
                       selectedKey={field.value}
-                      onSelectionChange={(key) =>
-                        setValue("product", key as string)
-                      }
+                      onSelectionChange={async (key) => {
+                        const value = key as string;
+                        setValue("product", value, { shouldValidate: true });
+                        await trigger("product");
+                      }}
                       isInvalid={!!errors.product}
                     >
                       <Label className={styles.label}>
@@ -438,9 +641,11 @@ export function SalesContactForm() {
                     <ComboBox
                       className={styles.fieldGroup}
                       selectedKey={field.value}
-                      onSelectionChange={(key) =>
-                        setValue("country", key as string)
-                      }
+                      onSelectionChange={async (key) => {
+                        const value = key as string;
+                        setValue("country", value, { shouldValidate: true });
+                        await trigger("country");
+                      }}
                       isInvalid={!!errors.country}
                     >
                       <Label className={styles.label}>

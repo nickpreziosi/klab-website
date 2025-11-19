@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import {
   TextField,
@@ -19,7 +19,6 @@ import {
   FieldError,
   Checkbox as AriaCheckbox,
 } from "react-aria-components";
-import { countries } from "@/app/lib/countries";
 import styles from "./careers-contact-form.module.css";
 import Button from "@/app/components/ui/button/button";
 import { FileUpload } from "@/app/components/ui/file-upload/file-upload";
@@ -39,7 +38,7 @@ const departments = [
   { id: "other", name: "Other" },
 ];
 
-const countryOptions = countries.map((c) => ({ id: c.value, name: c.label }));
+const departmentIds = departments.map((d) => d.id);
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -49,7 +48,13 @@ const formSchema = z.object({
   company: z.string().optional(),
   title: z.string().optional(),
   position: z.string().optional(),
-  department: z.string().min(1, "Please select a department"),
+  department: z
+    .string()
+    .min(1, "Please select a department")
+    .refine(
+      (val) => departmentIds.includes(val),
+      "Please select a valid department"
+    ),
   message: z.string().min(10, "Message must be at least 10 characters"),
   files: z
     .array(z.instanceof(File))
@@ -64,6 +69,24 @@ type FormData = z.infer<typeof formSchema>;
 export function CareersContactForm() {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
+
+  // Scroll to top of page when submission is successful
+  useEffect(() => {
+    if (isSuccess) {
+      // Small delay to ensure the view is rendered
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }, 100);
+    }
+  }, [isSuccess]);
 
   const {
     control,
@@ -71,6 +94,8 @@ export function CareersContactForm() {
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
+    trigger,
   } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -90,24 +115,81 @@ export function CareersContactForm() {
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
+
     try {
-      // Log form data instead of sending to backend
-      console.log("[v0] Careers form submitted:", data);
-      // Reset reCAPTCHA after submission
+      // Create FormData object
+      const formData = new FormData();
+
+      // Append all form fields
+      formData.append("firstName", data.firstName);
+      formData.append("lastName", data.lastName);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone);
+      if (data.company) {
+        formData.append("company", data.company);
+      }
+      if (data.title) {
+        formData.append("title", data.title);
+      }
+      if (data.position) {
+        formData.append("position", data.position);
+      }
+      formData.append("department", data.department);
+      formData.append("message", data.message);
+      formData.append("recaptcha", data.recaptcha);
+
+      // Append files
+      if (data.files && data.files.length > 0) {
+        data.files.forEach((file) => {
+          formData.append("files", file);
+        });
+      }
+
+      // Send to API route
+      const response = await fetch("/api/contact/careers", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        // Handle validation errors
+        if (result.details && Array.isArray(result.details)) {
+          const errorMessages = result.details
+            .map((detail: { message?: string; path?: string[] }) => {
+              const field = detail.path?.[0] || "field";
+              return detail.message || `${field} is invalid`;
+            })
+            .join(", ");
+          throw new Error(errorMessages || result.error || "Validation failed");
+        }
+        throw new Error(
+          result.error || result.details || "Failed to submit application"
+        );
+      }
+
+      // Success - reset form and reCAPTCHA
+      reset();
       recaptchaRef.current?.reset();
-      setValue("recaptcha", "");
-      setValue("firstName", "");
-      setValue("lastName", "");
-      setValue("email", "");
-      setValue("phone", "");
-      setValue("company", "");
-      setValue("title", "");
-      setValue("position", "");
-      setValue("department", "");
-      setValue("message", "");
-      setValue("files", []);
+      setIsSuccess(true);
+      setSubmitStatus({
+        type: "success",
+        message: result.message || "Application submitted successfully!",
+      });
     } catch (error) {
       console.error("Form submission error:", error);
+      setSubmitStatus({
+        type: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Failed to submit application. Please try again.",
+      });
+      // Reset reCAPTCHA on error so user can try again
+      recaptchaRef.current?.reset();
+      setValue("recaptcha", "");
     } finally {
       setIsSubmitting(false);
     }
@@ -120,13 +202,104 @@ export function CareersContactForm() {
     try {
       const token = await recaptchaRef.current?.executeAsync();
       setValue("recaptcha", token || "");
-      handleSubmit(onSubmit)();
+      handleSubmit(onSubmit, () => {
+        // Error callback - validation failed
+        setIsSubmitting(false);
+      })();
     } catch (error) {
       console.error("reCAPTCHA execution error:", error);
       setIsSubmitting(false);
     }
   };
 
+  // Success view
+  if (isSuccess) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className={styles.formContainer}
+      >
+        <div className={styles.successContainer}>
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 200,
+              damping: 15,
+              delay: 0.2,
+            }}
+            className={styles.successIcon}
+          >
+            <svg
+              width="80"
+              height="80"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+              />
+            </svg>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className={styles.successContent}
+          >
+            <HeroText
+              maxWidth="800px"
+              text="Application Submitted Successfully!"
+              center={true}
+            />
+            <p className={styles.successMessage}>
+              Thank you for your interest in joining our team. We&apos;ve
+              received your application and will review it carefully. Our team
+              will be in touch with you soon.
+            </p>
+            <div className={styles.successActions}>
+              <Button
+                text="Submit Another Application"
+                width="fit"
+                variant="outline"
+                onClick={() => {
+                  setIsSuccess(false);
+                  setSubmitStatus({ type: null, message: "" });
+                  reset();
+                }}
+                icon={
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                }
+                iconPosition="end"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </motion.div>
+    );
+  }
+
+  // Form view
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -141,6 +314,12 @@ export function CareersContactForm() {
           center={true}
         ></HeroText>
       </div>
+
+      {submitStatus.type === "error" && (
+        <div className={`${styles.statusMessage} ${styles.statusError}`}>
+          {submitStatus.message}
+        </div>
+      )}
 
       <form onSubmit={handleRecaptchaAndSubmit} className={styles.form}>
         <div className={styles.grid}>
@@ -258,9 +437,11 @@ export function CareersContactForm() {
                 <ComboBox
                   className={styles.fieldGroup}
                   selectedKey={field.value}
-                  onSelectionChange={(key) =>
-                    setValue("department", key as string)
-                  }
+                  onSelectionChange={async (key) => {
+                    const value = key as string;
+                    setValue("department", value, { shouldValidate: true });
+                    await trigger("department");
+                  }}
                   isInvalid={!!errors.department}
                 >
                   <Label className={styles.label}>
@@ -270,7 +451,7 @@ export function CareersContactForm() {
                   <div className={styles.comboboxWrapper}>
                     <Input
                       autoComplete="off"
-                      placeholder="Choose or type a department"
+                      placeholder="Choose or type an option"
                       className={`${styles.input} ${
                         errors.department && styles.inputError
                       }`}

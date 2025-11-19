@@ -3,16 +3,32 @@ import nodemailer from "nodemailer";
 import { z } from "zod";
 
 // Server-side validation schema
-const careersFormSchema = z.object({
+const salesFormSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
   phone: z.string().min(2, "Phone number is required"),
-  company: z.string().optional(),
-  title: z.string().optional(),
-  position: z.string().optional(),
-  department: z.string().min(1, "Please select a department"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  company: z.string().min(1, "Company name is required"),
+  position: z.string().min(1, "Position is required"),
+  companyWebsite: z
+    .string()
+    .min(1, "Company website is required")
+    .refine(
+      (val) => {
+        // Accept domains (example.com, www.example.com) or full URLs (https://example.com)
+        const domainOrUrlPattern =
+          /^((https?:\/\/)?(www\.)?)?[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+([\/?#].*)?$/;
+        return domainOrUrlPattern.test(val);
+      },
+      {
+        message:
+          "Please enter a valid domain (example.com) or URL (https://example.com)",
+      }
+    ),
+  companyType: z.string().min(1, "Company type is required"),
+  product: z.string().min(1, "Product selection is required"),
+  country: z.string().min(1, "Country is required"),
+  message: z.string().min(2, "Message is required"),
   recaptcha: z.string().min(1, "Please complete the reCAPTCHA verification"),
 });
 
@@ -47,16 +63,15 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
 
 // Create email transporter
 function createTransporter() {
-  // Using Gmail as an example. Configure based on your email provider
-  const emailUser = process.env.CAREERS_EMAIL_USER;
-  const emailPassword = process.env.CAREERS_EMAIL_PASSWORD;
+  const emailUser = process.env.SALES_EMAIL_USER;
+  const emailPassword = process.env.SALES_EMAIL_PASSWORD;
 
   if (!emailUser || !emailPassword) {
     throw new Error("Email credentials not configured");
   }
 
   return nodemailer.createTransport({
-    service: "gmail", // or use host/port for other providers
+    service: "gmail",
     auth: {
       user: emailUser,
       pass: emailPassword,
@@ -83,10 +98,12 @@ export async function POST(request: Request) {
         lastName: formData.get("lastName") as string,
         email: formData.get("email") as string,
         phone: formData.get("phone") as string,
-        company: (formData.get("company") as string) || undefined,
-        title: (formData.get("title") as string) || undefined,
-        position: (formData.get("position") as string) || undefined,
-        department: formData.get("department") as string,
+        company: formData.get("company") as string,
+        position: formData.get("position") as string,
+        companyWebsite: formData.get("companyWebsite") as string,
+        companyType: formData.get("companyType") as string,
+        product: formData.get("product") as string,
+        country: formData.get("country") as string,
         message: formData.get("message") as string,
         recaptcha: formData.get("recaptcha") as string,
       };
@@ -96,7 +113,7 @@ export async function POST(request: Request) {
     }
 
     // Server-side validation
-    const validationResult = careersFormSchema.safeParse(data);
+    const validationResult = salesFormSchema.safeParse(data);
     if (!validationResult.success) {
       console.error("Validation failed:", validationResult.error.issues);
       return NextResponse.json(
@@ -122,67 +139,6 @@ export async function POST(request: Request) {
         { error: "reCAPTCHA verification failed" },
         { status: 400 }
       );
-    }
-
-    // Extract files
-    let files, attachments;
-    try {
-      files = formData.getAll("files") as File[];
-      attachments = [];
-    } catch (err) {
-      console.error("Error extracting files:", err);
-      throw err;
-    }
-
-    // Validate file count and size
-    if (files.length > 3) {
-      console.error("Too many files uploaded:", files.length);
-      return NextResponse.json(
-        { error: "Maximum 3 files allowed" },
-        { status: 400 }
-      );
-    }
-
-    // Process files (convert to buffer for nodemailer)
-    for (const file of files) {
-      if (file.size === 0) continue; // Skip empty files
-
-      // Validate file size (10MB max per file)
-      if (file.size > 10 * 1024 * 1024) {
-        console.error(`File ${file.name} exceeds 10MB limit`);
-        return NextResponse.json(
-          { error: `File ${file.name} exceeds 10MB limit` },
-          { status: 400 }
-        );
-      }
-
-      // Validate file type
-      const allowedTypes = [
-        "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "text/plain",
-      ];
-
-      if (!allowedTypes.includes(file.type)) {
-        console.error(`File type ${file.type} not allowed`);
-        return NextResponse.json(
-          { error: `File type ${file.type} not allowed` },
-          { status: 400 }
-        );
-      }
-
-      let buffer;
-      try {
-        buffer = Buffer.from(await file.arrayBuffer());
-      } catch (err) {
-        console.error(`Error converting file ${file.name} to buffer:`, err);
-        throw err;
-      }
-      attachments.push({
-        filename: file.name,
-        content: buffer,
-      });
     }
 
     // Create email transporter
@@ -211,13 +167,25 @@ export async function POST(request: Request) {
         return escapeHtml(text).replace(/\n/g, "<br>");
       };
 
+      const formatCompanyType = (type: string) => {
+        return type.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+      };
+
+      const ensureUrlProtocol = (url: string) => {
+        // If URL doesn't start with http:// or https://, add https://
+        if (!/^https?:\/\//i.test(url)) {
+          return `https://${url}`;
+        }
+        return url;
+      };
+
       emailHtml = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Career Application</title>
+  <title>New Sales Inquiry</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f5f5f5; line-height: 1.6;">
   <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #f5f5f5; padding: 20px 0;">
@@ -234,15 +202,15 @@ export async function POST(request: Request) {
           <!-- Title Section -->
           <tr>
             <td style="padding: 30px 30px 20px 30px; text-align: center; border-bottom: 2px solid #f0f0f0;">
-              <h1 style="margin: 0; font-size: 28px; font-weight: 600; color: #0a0a0a; letter-spacing: -0.02em;">New Career Application</h1>
-              <p style="margin: 10px 0 0 0; font-size: 16px; color: #666666; font-weight: 300;">A new candidate has submitted an application</p>
+              <h1 style="margin: 0; font-size: 28px; font-weight: 600; color: #0a0a0a; letter-spacing: -0.02em;">New Sales Inquiry</h1>
+              <p style="margin: 10px 0 0 0; font-size: 16px; color: #666666; font-weight: 300;">A potential customer is interested in our products</p>
             </td>
           </tr>
 
           <!-- Content Section -->
           <tr>
             <td style="padding: 30px;">
-              <!-- Personal Information -->
+              <!-- Contact Information -->
               <table role="presentation" style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
@@ -272,47 +240,57 @@ export async function POST(request: Request) {
       )}</a>
                   </td>
                 </tr>
-                ${
-                  data.company
-                    ? `<tr>
-                        <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
-                          <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Current Company</strong>
-                          <span style="color: #333333; font-size: 16px;">${escapeHtml(
-                            data.company
-                          )}</span>
-                        </td>
-                      </tr>`
-                    : ""
-                }
-                ${
-                  data.title
-                    ? `<tr>
-                        <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
-                          <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Current Title</strong>
-                          <span style="color: #333333; font-size: 16px;">${escapeHtml(
-                            data.title
-                          )}</span>
-                        </td>
-                      </tr>`
-                    : ""
-                }
-                ${
-                  data.position
-                    ? `<tr>
-                        <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
-                          <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Position of Interest</strong>
-                          <span style="color: #333333; font-size: 16px;">${escapeHtml(
-                            data.position
-                          )}</span>
-                        </td>
-                      </tr>`
-                    : ""
-                }
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                    <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Position</strong>
+                    <span style="color: #333333; font-size: 16px;">${escapeHtml(
+                      data.position
+                    )}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                    <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Company</strong>
+                    <span style="color: #333333; font-size: 16px;">${escapeHtml(
+                      data.company
+                    )}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                    <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Company Website</strong>
+                    <a href="${escapeHtml(
+                      ensureUrlProtocol(data.companyWebsite)
+                    )}" target="_blank" rel="noopener noreferrer" style="color: #ff004c; font-size: 16px; text-decoration: none;">${escapeHtml(
+        data.companyWebsite
+      )}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                    <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Company Type</strong>
+                    <span style="color: #333333; font-size: 16px;">${escapeHtml(
+                      formatCompanyType(data.companyType)
+                    )}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                    <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Product of Interest</strong>
+                    <span style="color: #333333; font-size: 16px;">${escapeHtml(
+                      data.product === "keo-rails"
+                        ? "KEO Rails"
+                        : data.product === "kena"
+                        ? "Kena"
+                        : data.product
+                    )}</span>
+                  </td>
+                </tr>
                 <tr>
                   <td style="padding: 12px 0;">
-                    <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Department</strong>
-                    <span style="color: #333333; font-size: 16px; text-transform: capitalize;">${escapeHtml(
-                      data.department.replace(/-/g, " ")
+                    <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Country</strong>
+                    <span style="color: #333333; font-size: 16px;">${escapeHtml(
+                      data.country
                     )}</span>
                   </td>
                 </tr>
@@ -325,15 +303,6 @@ export async function POST(request: Request) {
                   data.message
                 )}</p>
               </div>
-
-              ${
-                attachments.length > 0
-                  ? `<div style="background-color: #fafafa; padding: 15px 20px; border-radius: 4px; margin-top: 20px;">
-                      <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px;">Attachments</strong>
-                      <p style="margin: 0; color: #666666; font-size: 14px;">${attachments.length} file(s) attached to this email</p>
-                    </div>`
-                  : ""
-              }
             </td>
           </tr>
 
@@ -341,8 +310,8 @@ export async function POST(request: Request) {
           <tr>
             <td style="background-color: #fafafa; padding: 20px 30px; text-align: center; border-top: 1px solid #f0f0f0;">
               <p style="margin: 0; font-size: 12px; color: #999999; line-height: 1.5;">
-                This email was automatically generated from the KEO Careers contact form.<br>
-                Please reply directly to this email to contact the candidate.
+                This email was automatically generated from the KEO Sales contact form.<br>
+                Please reply directly to this email to follow up with the customer.
               </p>
             </td>
           </tr>
@@ -359,15 +328,14 @@ export async function POST(request: Request) {
     }
 
     // Send email
-    const recipientEmail = process.env.CAREERS_RECIPIENT_EMAIL;
+    const recipientEmail = process.env.SALES_RECIPIENT_EMAIL;
     try {
       await transporter.sendMail({
-        from: process.env.CAREERS_EMAIL_USER,
+        from: process.env.SALES_EMAIL_USER,
         to: recipientEmail,
-        subject: `New Career Application - ${data.firstName} ${data.lastName}`,
+        subject: `New Sales Inquiry - ${data.company}`,
         html: emailHtml,
         replyTo: data.email,
-        attachments: attachments,
       });
     } catch (err) {
       console.error("Error sending email:", err);
@@ -375,14 +343,14 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { success: true, message: "Application submitted successfully" },
+      { success: true, message: "Inquiry submitted successfully!" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Careers form submission error:", error);
+    console.error("Sales form submission error:", error);
     return NextResponse.json(
       {
-        error: "Failed to submit application",
+        error: "Failed to submit inquiry",
         details: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }

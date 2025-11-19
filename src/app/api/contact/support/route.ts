@@ -3,15 +3,13 @@ import nodemailer from "nodemailer";
 import { z } from "zod";
 
 // Server-side validation schema
-const careersFormSchema = z.object({
+const supportFormSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
   phone: z.string().min(2, "Phone number is required"),
-  company: z.string().optional(),
-  title: z.string().optional(),
-  position: z.string().optional(),
-  department: z.string().min(1, "Please select a department"),
+  issueType: z.string().min(1, "Please select an issue type"),
+  product: z.string().min(1, "Please select a product"),
   message: z.string().min(10, "Message must be at least 10 characters"),
   recaptcha: z.string().min(1, "Please complete the reCAPTCHA verification"),
 });
@@ -47,16 +45,15 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
 
 // Create email transporter
 function createTransporter() {
-  // Using Gmail as an example. Configure based on your email provider
-  const emailUser = process.env.CAREERS_EMAIL_USER;
-  const emailPassword = process.env.CAREERS_EMAIL_PASSWORD;
+  const emailUser = process.env.SUPPORT_EMAIL_USER;
+  const emailPassword = process.env.SUPPORT_EMAIL_PASSWORD;
 
   if (!emailUser || !emailPassword) {
     throw new Error("Email credentials not configured");
   }
 
   return nodemailer.createTransport({
-    service: "gmail", // or use host/port for other providers
+    service: "gmail",
     auth: {
       user: emailUser,
       pass: emailPassword,
@@ -83,10 +80,8 @@ export async function POST(request: Request) {
         lastName: formData.get("lastName") as string,
         email: formData.get("email") as string,
         phone: formData.get("phone") as string,
-        company: (formData.get("company") as string) || undefined,
-        title: (formData.get("title") as string) || undefined,
-        position: (formData.get("position") as string) || undefined,
-        department: formData.get("department") as string,
+        issueType: formData.get("issueType") as string,
+        product: formData.get("product") as string,
         message: formData.get("message") as string,
         recaptcha: formData.get("recaptcha") as string,
       };
@@ -96,7 +91,7 @@ export async function POST(request: Request) {
     }
 
     // Server-side validation
-    const validationResult = careersFormSchema.safeParse(data);
+    const validationResult = supportFormSchema.safeParse(data);
     if (!validationResult.success) {
       console.error("Validation failed:", validationResult.error.issues);
       return NextResponse.json(
@@ -135,10 +130,10 @@ export async function POST(request: Request) {
     }
 
     // Validate file count and size
-    if (files.length > 3) {
+    if (files.length > 5) {
       console.error("Too many files uploaded:", files.length);
       return NextResponse.json(
-        { error: "Maximum 3 files allowed" },
+        { error: "Maximum 5 files allowed" },
         { status: 400 }
       );
     }
@@ -158,10 +153,12 @@ export async function POST(request: Request) {
 
       // Validate file type
       const allowedTypes = [
+        "image/jpeg",
+        "image/jpg",
+        "image/png",
+        "video/mp4",
+        "video/quicktime",
         "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "text/plain",
       ];
 
       if (!allowedTypes.includes(file.type)) {
@@ -217,7 +214,7 @@ export async function POST(request: Request) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Career Application</title>
+  <title>New Support Request</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f5f5f5; line-height: 1.6;">
   <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #f5f5f5; padding: 20px 0;">
@@ -234,15 +231,15 @@ export async function POST(request: Request) {
           <!-- Title Section -->
           <tr>
             <td style="padding: 30px 30px 20px 30px; text-align: center; border-bottom: 2px solid #f0f0f0;">
-              <h1 style="margin: 0; font-size: 28px; font-weight: 600; color: #0a0a0a; letter-spacing: -0.02em;">New Career Application</h1>
-              <p style="margin: 10px 0 0 0; font-size: 16px; color: #666666; font-weight: 300;">A new candidate has submitted an application</p>
+              <h1 style="margin: 0; font-size: 28px; font-weight: 600; color: #0a0a0a; letter-spacing: -0.02em;">New Support Request</h1>
+              <p style="margin: 10px 0 0 0; font-size: 16px; color: #666666; font-weight: 300;">A customer needs assistance</p>
             </td>
           </tr>
 
           <!-- Content Section -->
           <tr>
             <td style="padding: 30px;">
-              <!-- Personal Information -->
+              <!-- Contact Information -->
               <table role="presentation" style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
@@ -272,47 +269,23 @@ export async function POST(request: Request) {
       )}</a>
                   </td>
                 </tr>
-                ${
-                  data.company
-                    ? `<tr>
-                        <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
-                          <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Current Company</strong>
-                          <span style="color: #333333; font-size: 16px;">${escapeHtml(
-                            data.company
-                          )}</span>
-                        </td>
-                      </tr>`
-                    : ""
-                }
-                ${
-                  data.title
-                    ? `<tr>
-                        <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
-                          <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Current Title</strong>
-                          <span style="color: #333333; font-size: 16px;">${escapeHtml(
-                            data.title
-                          )}</span>
-                        </td>
-                      </tr>`
-                    : ""
-                }
-                ${
-                  data.position
-                    ? `<tr>
-                        <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
-                          <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Position of Interest</strong>
-                          <span style="color: #333333; font-size: 16px;">${escapeHtml(
-                            data.position
-                          )}</span>
-                        </td>
-                      </tr>`
-                    : ""
-                }
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                    <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Issue Type</strong>
+                    <span style="color: #333333; font-size: 16px; text-transform: capitalize;">${escapeHtml(
+                      data.issueType.replace(/-/g, " ")
+                    )}</span>
+                  </td>
+                </tr>
                 <tr>
                   <td style="padding: 12px 0;">
-                    <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Department</strong>
-                    <span style="color: #333333; font-size: 16px; text-transform: capitalize;">${escapeHtml(
-                      data.department.replace(/-/g, " ")
+                    <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Product</strong>
+                    <span style="color: #333333; font-size: 16px;">${escapeHtml(
+                      data.product === "keo-rails"
+                        ? "KEO Rails"
+                        : data.product === "kena"
+                        ? "Kena"
+                        : data.product
                     )}</span>
                   </td>
                 </tr>
@@ -341,8 +314,8 @@ export async function POST(request: Request) {
           <tr>
             <td style="background-color: #fafafa; padding: 20px 30px; text-align: center; border-top: 1px solid #f0f0f0;">
               <p style="margin: 0; font-size: 12px; color: #999999; line-height: 1.5;">
-                This email was automatically generated from the KEO Careers contact form.<br>
-                Please reply directly to this email to contact the candidate.
+                This email was automatically generated from the KEO Support contact form.<br>
+                Please reply directly to this email to assist the customer.
               </p>
             </td>
           </tr>
@@ -359,12 +332,12 @@ export async function POST(request: Request) {
     }
 
     // Send email
-    const recipientEmail = process.env.CAREERS_RECIPIENT_EMAIL;
+    const recipientEmail = process.env.SUPPORT_RECIPIENT_EMAIL;
     try {
       await transporter.sendMail({
-        from: process.env.CAREERS_EMAIL_USER,
+        from: process.env.SUPPORT_EMAIL_USER,
         to: recipientEmail,
-        subject: `New Career Application - ${data.firstName} ${data.lastName}`,
+        subject: `New Support Request - ${data.issueType}`,
         html: emailHtml,
         replyTo: data.email,
         attachments: attachments,
@@ -375,14 +348,14 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { success: true, message: "Application submitted successfully" },
+      { success: true, message: "Support request submitted successfully" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Careers form submission error:", error);
+    console.error("Support form submission error:", error);
     return NextResponse.json(
       {
-        error: "Failed to submit application",
+        error: "Failed to submit support request",
         details: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }

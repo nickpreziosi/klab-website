@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import {
   TextField,
@@ -36,17 +36,32 @@ const products = [
   { id: "kena", name: "Kena" },
 ];
 
+const issueTypeIds = issueTypes.map((t) => t.id);
+const productIds = products.map((p) => p.id);
+
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
   phone: z.string().min(2, "Phone number is required"),
-  issueType: z.string().min(1, "Please select an issue type"),
-  product: z.string().min(1, "Please select a product"),
+  issueType: z
+    .string()
+    .min(1, "Please select an issue type")
+    .refine(
+      (val) => issueTypeIds.includes(val),
+      "Please select a valid issue type"
+    ),
+  product: z
+    .string()
+    .min(1, "Please select a product")
+    .refine(
+      (val) => productIds.includes(val),
+      "Please select a valid product"
+    ),
   message: z.string().min(10, "Message must be at least 10 characters"),
   files: z
     .array(z.instanceof(File))
-    .max(3, "Maximum 3 files allowed")
+    .max(5, "Maximum 5 files allowed")
     .optional(),
   emailUpdates: z.boolean().default(false),
   recaptcha: z.string().min(1, "Please complete the reCAPTCHA verification"),
@@ -57,6 +72,24 @@ type FormData = z.infer<typeof formSchema>;
 export function SupportContactForm() {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
+
+  // Scroll to top of page when submission is successful
+  useEffect(() => {
+    if (isSuccess) {
+      // Small delay to ensure the view is rendered
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }, 100);
+    }
+  }, [isSuccess]);
 
   const {
     control,
@@ -64,6 +97,8 @@ export function SupportContactForm() {
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
+    trigger,
   } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -82,15 +117,73 @@ export function SupportContactForm() {
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
-    try {
-      console.log("[v0] Support form submitted:", data);
-      // TODO: Implement form submission logic
+    setSubmitStatus({ type: null, message: "" });
 
-      // Reset reCAPTCHA after successful submission
+    try {
+      // Create FormData object
+      const formData = new FormData();
+
+      // Append all form fields
+      formData.append("firstName", data.firstName);
+      formData.append("lastName", data.lastName);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone);
+      formData.append("issueType", data.issueType);
+      formData.append("product", data.product);
+      formData.append("message", data.message);
+      formData.append("recaptcha", data.recaptcha);
+
+      // Append files
+      if (data.files && data.files.length > 0) {
+        data.files.forEach((file) => {
+          formData.append("files", file);
+        });
+      }
+
+      // Send to API route
+      const response = await fetch("/api/contact/support", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        // Handle validation errors
+        if (result.details && Array.isArray(result.details)) {
+          const errorMessages = result.details
+            .map((detail: { message?: string; path?: string[] }) => {
+              const field = detail.path?.[0] || "field";
+              return detail.message || `${field} is invalid`;
+            })
+            .join(", ");
+          throw new Error(errorMessages || result.error || "Validation failed");
+        }
+        throw new Error(
+          result.error || result.details || "Failed to submit support request"
+        );
+      }
+
+      // Success - reset form and reCAPTCHA
+      reset();
       recaptchaRef.current?.reset();
-      setValue("recaptcha", "");
+      setIsSuccess(true);
+      setSubmitStatus({
+        type: "success",
+        message: result.message || "Support request submitted successfully!",
+      });
     } catch (error) {
       console.error("Form submission error:", error);
+      setSubmitStatus({
+        type: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Failed to submit support request. Please try again.",
+      });
+      // Reset reCAPTCHA on error so user can try again
+      recaptchaRef.current?.reset();
+      setValue("recaptcha", "");
     } finally {
       setIsSubmitting(false);
     }
@@ -103,13 +196,107 @@ export function SupportContactForm() {
     try {
       const token = await recaptchaRef.current?.executeAsync();
       setValue("recaptcha", token || "");
-      handleSubmit(onSubmit)();
+      handleSubmit(
+        onSubmit,
+        () => {
+          // Error callback - validation failed
+          setIsSubmitting(false);
+        }
+      )();
     } catch (error) {
       console.error("reCAPTCHA execution error:", error);
       setIsSubmitting(false);
     }
   };
 
+  // Success view
+  if (isSuccess) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className={styles.formContainer}
+      >
+        <div className={styles.successContainer}>
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 200,
+              damping: 15,
+              delay: 0.2,
+            }}
+            className={styles.successIcon}
+          >
+            <svg
+              width="80"
+              height="80"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+              />
+            </svg>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className={styles.successContent}
+          >
+            <HeroText
+              maxWidth="800px"
+              text="Support Request Submitted!"
+              center={true}
+            />
+            <p className={styles.successMessage}>
+              Thank you for reaching out. We&apos;ve received your support
+              request and our team will review it promptly. We&apos;ll get back
+              to you as soon as possible to help resolve your issue.
+            </p>
+            <div className={styles.successActions}>
+              <Button
+                text="Submit Another Request"
+                width="fit"
+                variant="outline"
+                onClick={() => {
+                  setIsSuccess(false);
+                  setSubmitStatus({ type: null, message: "" });
+                  reset();
+                }}
+                icon={
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                }
+                iconPosition="end"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </motion.div>
+    );
+  }
+
+  // Form view
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -124,6 +311,12 @@ export function SupportContactForm() {
           center={true}
         ></HeroText>
       </div>
+
+      {submitStatus.type === "error" && (
+        <div className={`${styles.statusMessage} ${styles.statusError}`}>
+          {submitStatus.message}
+        </div>
+      )}
 
       <form onSubmit={handleRecaptchaAndSubmit} className={styles.form}>
         <div className={styles.grid}>
@@ -224,9 +417,11 @@ export function SupportContactForm() {
                 <ComboBox
                   className={styles.fieldGroup}
                   selectedKey={field.value}
-                  onSelectionChange={(key) =>
-                    setValue("issueType", key as string)
-                  }
+                  onSelectionChange={async (key) => {
+                    const value = key as string;
+                    setValue("issueType", value, { shouldValidate: true });
+                    await trigger("issueType");
+                  }}
                   isInvalid={!!errors.issueType}
                 >
                   <Label className={styles.label}>
@@ -235,7 +430,7 @@ export function SupportContactForm() {
                   <div className={styles.comboboxWrapper}>
                     <Input
                       autoComplete="off"
-                      placeholder="Select an issue type"
+                      placeholder="Choose or type an option"
                       className={`${styles.input} ${
                         errors.issueType && styles.inputError
                       }`}
@@ -283,9 +478,11 @@ export function SupportContactForm() {
                 <ComboBox
                   className={styles.fieldGroup}
                   selectedKey={field.value}
-                  onSelectionChange={(key) =>
-                    setValue("product", key as string)
-                  }
+                  onSelectionChange={async (key) => {
+                    const value = key as string;
+                    setValue("product", value, { shouldValidate: true });
+                    await trigger("product");
+                  }}
                   isInvalid={!!errors.product}
                 >
                   <Label className={styles.label}>
@@ -294,7 +491,7 @@ export function SupportContactForm() {
                   <div className={styles.comboboxWrapper}>
                     <Input
                       autoComplete="off"
-                      placeholder="Select a product"
+                      placeholder="Choose or type an option"
                       className={`${styles.input} ${
                         errors.product && styles.inputError
                       }`}
