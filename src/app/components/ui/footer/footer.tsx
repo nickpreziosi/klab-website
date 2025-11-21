@@ -3,17 +3,40 @@
 import Link from "next/link";
 import styles from "./footer.module.css";
 import { Logo } from "../logo/logo";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import Button from "@/app/components/ui/button/button";
 
-export const Footer = () => {
-  const [email, setEmail] = useState("");
+// Zod schema for email validation
+const subscribeSchema = z.object({
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Please enter a valid email address"),
+});
 
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
+type SubscribeFormData = z.infer<typeof subscribeSchema>;
+
+export const Footer = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<SubscribeFormData>({
+    resolver: zodResolver(subscribeSchema),
+    defaultValues: {
+      email: "",
+    },
+    mode: "onSubmit",
+  });
+
+  const handleSubscribe = async (data: SubscribeFormData) => {
     // Handle subscription logic here
-    console.log("Subscribe:", email);
-    setEmail(email);
+    console.log("Subscribe:", data.email);
+    // Reset form after successful submission
+    reset();
   };
 
   const navLinks = [
@@ -36,7 +59,7 @@ export const Footer = () => {
   // Subset used in the footer privacy policies section
   const _policyCountries = ["USA", "Canada", "Colombia", "Mexico", "Brazil"];
   const privacyPolicyLinks = privacyLinks.filter((p) =>
-    _policyCountries.includes(p.label)
+    _policyCountries.includes(p.label),
   );
 
   const socialLinks = [
@@ -154,15 +177,27 @@ export const Footer = () => {
                 </p>
               </div>
             </div>
-            <form onSubmit={handleSubscribe} className={styles.subscribeForm}>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="email@keoworld.com"
-                className={styles.emailInput}
-                required
-              />
+            <form
+              onSubmit={handleSubmit(handleSubscribe)}
+              className={styles.subscribeForm}
+            >
+              <div className={styles.emailInputWrapper}>
+                <input
+                  type="email"
+                  {...register("email")}
+                  placeholder="email@keoworld.com"
+                  className={`${styles.emailInput} ${
+                    errors.email ? styles.emailInputError : ""
+                  }`}
+                  aria-invalid={errors.email ? "true" : "false"}
+                  aria-describedby={errors.email ? "email-error" : undefined}
+                />
+                {errors.email && (
+                  <span id="email-error" className={styles.errorMessage}>
+                    {errors.email.message}
+                  </span>
+                )}
+              </div>
               <button type="submit" className={styles.subscribeButton}>
                 Subscribe
               </button>
