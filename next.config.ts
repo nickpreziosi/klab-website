@@ -10,16 +10,12 @@ const nextConfig: NextConfig = {
     ],
   },
   // Prevent Sanity packages from being bundled in client components
-  serverComponentsExternalPackages: [
+  serverExternalPackages: [
     "sanity",
     "next-sanity",
     "@sanity/image-url",
     "@sanity/client",
   ],
-  experimental: {
-    // Optimize package imports for Turbopack
-    optimizePackageImports: ["@portabletext/react"],
-  },
   webpack: (config, { isServer }) => {
     config.module.rules.push({
       test: /\.lottie$/,
