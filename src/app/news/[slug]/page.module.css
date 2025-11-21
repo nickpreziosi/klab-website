@@ -5,6 +5,14 @@
   width: 100%;
 }
 
+.main a {
+  transition: all 0.3s ease;
+}
+
+.main a:hover {
+  color: var(--accent-color) !important;
+}
+
 .hero {
   position: relative;
   width: 100%;
@@ -165,12 +173,25 @@
   overflow: hidden;
   background: rgba(var(--secondary-color-rgb), 0.03);
   aspect-ratio: 2 / 1;
+  position: relative;
 }
 
 .image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top;
+}
+
+.imageCaption {
+  margin-top: var(--padding-mobile);
+  padding: 0;
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--secondary-color);
+  opacity: 0.8;
+  text-align: center;
+  line-height: 1.5;
 }
 
 .videoWrapper {
@@ -178,13 +199,22 @@
   height: auto;
   aspect-ratio: 16/9;
   border-radius: 16px;
+  overflow: hidden;
+  background: rgba(var(--secondary-color-rgb), 0.03);
 }
 
 .video {
   width: 100%;
-  height: auto;
-  aspect-ratio: 16/9;
+  height: 100%;
   border-radius: 16px;
+  display: block;
+}
+
+/* Ensure video element fills the wrapper */
+.videoWrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .article {
@@ -308,6 +338,273 @@
   opacity: 0.7;
 }
 
+/* Gallery Styles */
+.gallerySection {
+  padding: 0 var(--padding-desktop) 80px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.galleryContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.galleryTitle {
+  font-size: 36px;
+  font-weight: 400;
+  margin: 0 0 40px 0;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--secondary-color);
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.galleryItem {
+  position: relative;
+  background: rgba(var(--secondary-color-rgb), 0.03);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.1);
+  cursor: pointer;
+  padding: 0;
+  width: 100%;
+  /* Safe transitions using only GPU-accelerated properties */
+  transition:
+    transform 200ms ease-out,
+    border-color 200ms ease-out,
+    box-shadow 200ms ease-out;
+  /* Hint to Chrome to use GPU acceleration */
+  will-change: transform;
+}
+
+.galleryItem:hover {
+  /* Only use transform (GPU-accelerated) for scale, not on click */
+  transform: scale(1.02);
+  border-color: rgba(var(--secondary-color-rgb), 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.galleryItem:active {
+  /* Subtle scale on click - safe because it's brief */
+  transform: scale(0.98);
+}
+
+.galleryImage {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+.galleryCaption {
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--secondary-color);
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+/* Dialog Styles - Using GPU-accelerated properties for safe transitions */
+.dialogOverlay {
+  background: rgba(0, 0, 0, 0.85);
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  /* Safe transition using opacity only (GPU-accelerated) */
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
+
+.dialogOverlay[data-state="open"] {
+  opacity: 1;
+}
+
+.dialogOverlay[data-state="closed"] {
+  opacity: 0;
+}
+
+.dialogContent {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  background-color: transparent;
+  border-radius: 12px;
+  width: min(90vw, 1200px);
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 40px);
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  outline: none;
+  /* Safe transitions using only GPU-accelerated properties */
+  opacity: 0;
+  transition:
+    opacity 200ms ease-out,
+    transform 200ms ease-out;
+  /* Hint to Chrome to use GPU acceleration */
+  will-change: opacity, transform;
+}
+
+.dialogContent[data-state="open"] {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.dialogContent[data-state="closed"] {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+/* Carousel Styles */
+.dialogCarousel {
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+.dialogCarouselContainer {
+  display: flex;
+  width: 100%;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dialogCarouselSlide {
+  position: relative;
+  min-width: 100%;
+  flex: 0 0 100%;
+  box-sizing: border-box;
+}
+
+.dialogImageContainer {
+  position: relative;
+  width: 100%;
+  max-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Subtle fade-in for image using transition */
+  opacity: 0;
+  transition: opacity 300ms ease-out 100ms;
+}
+
+.dialogContent[data-state="open"] .dialogImageContainer {
+  opacity: 1;
+}
+
+.dialogImage {
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 150px);
+  object-fit: contain;
+  border-radius: 12px;
+  background: rgba(var(--secondary-color-rgb), 0.05);
+  /* Prevent layout shifts in Chrome */
+  display: block;
+  max-width: 100%;
+}
+
+.dialogCaption {
+  margin-top: 16px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--secondary-color);
+  text-align: center;
+  opacity: 0.9;
+  max-width: 800px;
+}
+
+.dialogClose {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Safe transitions using only GPU-accelerated properties */
+  transition:
+    background-color 200ms ease-out,
+    transform 200ms ease-out;
+  z-index: 1002;
+  will-change: transform;
+}
+
+.dialogClose:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+/* Carousel Navigation Buttons */
+.carouselNavButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1002;
+  /* Safe transitions using only GPU-accelerated properties */
+  transition:
+    background-color 200ms ease-out,
+    opacity 200ms ease-out,
+    transform 200ms ease-out;
+  will-change: transform;
+}
+
+.carouselNavButtonPrev {
+  left: 20px;
+}
+
+.carouselNavButtonNext {
+  right: 20px;
+}
+
+.carouselNavButton:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.carouselNavButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.carouselNavButton:active:not(:disabled) {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.dialogClose:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Removed keyframe animations - using CSS transitions instead for better Chrome performance */
+
 @media (max-width: 1024px) {
   .hero {
     padding: 100px var(--padding-tablet) 60px;
@@ -327,6 +624,19 @@
 
   .backSection {
     padding: 0 var(--padding-tablet) 60px;
+  }
+
+  .gallerySection {
+    padding: 0 var(--padding-tablet) 60px;
+  }
+
+  .galleryTitle {
+    font-size: 32px;
+  }
+
+  .galleryGrid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
   }
 }
 
@@ -363,5 +673,52 @@
 
   .backSection {
     padding: 0 var(--padding-mobile) 60px;
+  }
+
+  .gallerySection {
+    padding: 0 var(--padding-mobile) 60px;
+  }
+
+  .galleryTitle {
+    font-size: 28px;
+    margin-bottom: 32px;
+  }
+
+  .galleryGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .galleryImage {
+    height: 200px;
+  }
+
+  .dialogContent {
+    width: calc(100vw - 20px);
+    max-width: calc(100vw - 20px);
+  }
+
+  .dialogImage {
+    max-height: calc(100vh - 120px);
+  }
+
+  .dialogClose {
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .carouselNavButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carouselNavButtonPrev {
+    left: 10px;
+  }
+
+  .carouselNavButtonNext {
+    right: 10px;
   }
 }

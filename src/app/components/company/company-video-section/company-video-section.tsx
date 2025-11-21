@@ -242,9 +242,9 @@ export default function CompanyVideoSection({
                 <Image
                   className={styles.thumbnailImage}
                   src={videoThumbnail || "/keo-video.jpg"}
-                  alt={videoTitle}
-                  layout="fill"
-                  objectFit="cover"
+                  alt={videoTitle || "Video thumbnail"}
+                  fill
+                  style={{ objectFit: "contain" }}
                 />
                 <DialogDemo onPlay={onPlayClick}></DialogDemo>
               </div>

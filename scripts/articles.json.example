@@ -1,0 +1,13 @@
+[
+  {
+    "title": "Example Article Title",
+    "excerpt": "This is a brief summary or excerpt of the article that will appear on the news listing page.",
+    "content": "<p>This is the full article content. You can use HTML tags like:</p><h2>Headings</h2><p>Paragraphs with <strong>bold text</strong> and <em>italic text</em>.</p><ul><li>Bullet point 1</li><li>Bullet point 2</li></ul><blockquote>This is a blockquote for important quotes or highlights.</blockquote>",
+    "imageUrl": "https://example.com/article-image.jpg",
+    "videoUrl": "https://www.youtube.com/watch?v=VIDEO_ID",
+    "publishedDate": "2024-01-15T00:00:00.000Z",
+    "category": "Company Updates",
+    "author": "Author Name",
+    "authorRole": "CEO"
+  }
+]

@@ -1,8 +1,22 @@
+/**
+ * Support Contact Form API Route
+ *
+ * Handles POST requests from the support request form at /contact/support.
+ * Validates form data, verifies reCAPTCHA, processes file attachments (screenshots, videos, etc.),
+ * and sends formatted email notifications with attachments to the support team.
+ *
+ * @route /api/contact/support
+ * @method POST
+ */
+
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
 
-// Server-side validation schema
+/**
+ * Server-side validation schema for support form submission.
+ * Validates issue type, product, and message fields.
+ */
 const supportFormSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
@@ -14,7 +28,13 @@ const supportFormSchema = z.object({
   recaptcha: z.string().min(1, "Please complete the reCAPTCHA verification"),
 });
 
-// Verify reCAPTCHA token
+/**
+ * Verifies reCAPTCHA token with Google's API.
+ * Prevents spam and bot submissions.
+ *
+ * @param token - reCAPTCHA token from client-side form submission
+ * @returns true if token is valid, false otherwise
+ */
 async function verifyRecaptcha(token: string): Promise<boolean> {
   const secretKey = process.env.RECAPTCHA_SECRET_KEY;
 
@@ -43,7 +63,13 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
   }
 }
 
-// Create email transporter
+/**
+ * Creates and configures Nodemailer transporter for sending emails.
+ * Uses Gmail service with credentials from environment variables.
+ *
+ * @returns Configured Nodemailer transporter
+ * @throws Error if email credentials are not configured
+ */
 function createTransporter() {
   const emailUser = process.env.SUPPORT_EMAIL_USER;
   const emailPassword = process.env.SUPPORT_EMAIL_PASSWORD;
@@ -61,9 +87,25 @@ function createTransporter() {
   });
 }
 
+/**
+ * POST handler for support contact form submissions.
+ *
+ * Process flow:
+ * 1. Parse multipart form data (includes file uploads)
+ * 2. Extract and validate form fields
+ * 3. Verify reCAPTCHA token
+ * 4. Process file attachments (screenshots, videos, examples)
+ * 5. Validate file types, sizes, and count (max 5 files)
+ * 6. Generate HTML email template with attachment info
+ * 7. Send email with attachments to support team
+ * 8. Return success/error response
+ *
+ * @param request - Incoming request with form data and file uploads
+ * @returns JSON response with success status or error details
+ */
 export async function POST(request: Request) {
   try {
-    // Parse multipart form data
+    // Parse multipart form data from request (includes file uploads)
     let formData;
     try {
       formData = await request.formData();
@@ -129,7 +171,7 @@ export async function POST(request: Request) {
       throw err;
     }
 
-    // Validate file count and size
+    // Validate file count (max 5 files allowed for support form)
     if (files.length > 5) {
       console.error("Too many files uploaded:", files.length);
       return NextResponse.json(
@@ -151,7 +193,8 @@ export async function POST(request: Request) {
         );
       }
 
-      // Validate file type
+      // Validate file type - allow images, videos, and PDFs for support requests
+      // Accepted: JPG, PNG, MP4, MOV, PDF
       const allowedTypes = [
         "image/jpeg",
         "image/jpg",

@@ -169,7 +169,8 @@ export function MobileThemeToggle() {
   }, [theme]);
 
   // control accordion open state so we can animate cleanly
-  const [open, setOpen] = useState<string | null>(null);
+  // Initialize with undefined to keep it controlled from the start
+  const [open, setOpen] = useState<string | undefined>(undefined);
 
   const getThemeIcon = (themeName: string) => {
     switch (themeName) {
@@ -258,8 +259,10 @@ export function MobileThemeToggle() {
     <Accordion.Root
       type="single"
       collapsible
-      value={open ?? undefined}
-      onValueChange={(v) => setOpen(v ?? null)}
+      value={open}
+      onValueChange={(value) => {
+        setOpen(value);
+      }}
       className={styles.accordionRoot}
     >
       <Accordion.Item value="theme" className={styles.accordionItem}>

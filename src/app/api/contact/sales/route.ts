@@ -1,8 +1,21 @@
+/**
+ * Sales Contact Form API Route
+ *
+ * Handles POST requests from the sales contact form at /contact/sales.
+ * Validates form data, verifies reCAPTCHA, and sends formatted email notifications.
+ *
+ * @route /api/contact/sales
+ * @method POST
+ */
+
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
 
-// Server-side validation schema
+/**
+ * Server-side validation schema for sales form submission.
+ * Validates all required fields including custom domain/URL validation for companyWebsite.
+ */
 const salesFormSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
@@ -32,7 +45,13 @@ const salesFormSchema = z.object({
   recaptcha: z.string().min(1, "Please complete the reCAPTCHA verification"),
 });
 
-// Verify reCAPTCHA token
+/**
+ * Verifies reCAPTCHA token with Google's API.
+ * Prevents spam and bot submissions.
+ *
+ * @param token - reCAPTCHA token from client-side form submission
+ * @returns true if token is valid, false otherwise
+ */
 async function verifyRecaptcha(token: string): Promise<boolean> {
   const secretKey = process.env.RECAPTCHA_SECRET_KEY;
 
@@ -61,7 +80,13 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
   }
 }
 
-// Create email transporter
+/**
+ * Creates and configures Nodemailer transporter for sending emails.
+ * Uses Gmail service with credentials from environment variables.
+ *
+ * @returns Configured Nodemailer transporter
+ * @throws Error if email credentials are not configured
+ */
 function createTransporter() {
   const emailUser = process.env.SALES_EMAIL_USER;
   const emailPassword = process.env.SALES_EMAIL_PASSWORD;
@@ -79,9 +104,23 @@ function createTransporter() {
   });
 }
 
+/**
+ * POST handler for sales contact form submissions.
+ *
+ * Process flow:
+ * 1. Parse multipart form data
+ * 2. Extract and validate form fields
+ * 3. Verify reCAPTCHA token
+ * 4. Generate HTML email template
+ * 5. Send email to sales team
+ * 6. Return success/error response
+ *
+ * @param request - Incoming request with form data
+ * @returns JSON response with success status or error details
+ */
 export async function POST(request: Request) {
   try {
-    // Parse multipart form data
+    // Parse multipart form data from request
     let formData;
     try {
       formData = await request.formData();
@@ -153,7 +192,10 @@ export async function POST(request: Request) {
     // Prepare email content
     let emailHtml;
     try {
-      // Escape HTML to prevent XSS
+      /**
+       * Escapes HTML special characters to prevent XSS attacks.
+       * Used when injecting user input into email HTML templates.
+       */
       const escapeHtml = (text: string) => {
         return text
           .replace(/&/g, "&amp;")
@@ -163,16 +205,27 @@ export async function POST(request: Request) {
           .replace(/'/g, "&#039;");
       };
 
+      /**
+       * Formats message text for HTML display.
+       * Escapes HTML and converts newlines to <br> tags.
+       */
       const formatMessage = (text: string) => {
         return escapeHtml(text).replace(/\n/g, "<br>");
       };
 
+      /**
+       * Formats company type by replacing hyphens with spaces and capitalizing words.
+       * Example: "technology-electronics" -> "Technology Electronics"
+       */
       const formatCompanyType = (type: string) => {
         return type.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
       };
 
+      /**
+       * Ensures URL has a protocol prefix for proper link functionality.
+       * Adds https:// if protocol is missing (e.g., "example.com" -> "https://example.com").
+       */
       const ensureUrlProtocol = (url: string) => {
-        // If URL doesn't start with http:// or https://, add https://
         if (!/^https?:\/\//i.test(url)) {
           return `https://${url}`;
         }
@@ -327,7 +380,8 @@ export async function POST(request: Request) {
       throw err;
     }
 
-    // Send email
+    // Send email to sales team
+    // Uses SALES_RECIPIENT_EMAIL environment variable or falls back to email user
     const recipientEmail = process.env.SALES_RECIPIENT_EMAIL;
     try {
       await transporter.sendMail({

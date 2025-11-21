@@ -19,108 +19,70 @@ const timelineData: TimelineEvent[] = [
     year: "2020",
     milestones: [
       "KEO World founded in Miami, Florida",
-      "Secured seed funding of $2M",
-      "Launched beta platform for inventory financing",
-    ],
-  },
-  {
-    quarter: "Q3",
-    year: "2020",
-    milestones: [
-      "Onboarded first 50 suppliers",
-      "Expanded to Canadian market",
-      "Launched mobile app for iOS and Android",
-    ],
-  },
-  {
-    quarter: "Q1",
-    year: "2021",
-    milestones: [
-      "Series A funding round: $15M raised",
-      "Opened first LATAM office in Mexico City",
-      "Reached $10M in processed transactions",
-    ],
-  },
-  {
-    quarter: "Q3",
-    year: "2021",
-    milestones: [
-      "Launched B2B payment solutions",
-      "Partnership with major logistics providers",
-      "Team expanded to 50+ employees",
+      "Revolutionizing B2B payments and embedded credit solutions with innovative technology, empowering financial institutions",
+      "Goal of making SMEs more efficient, successful, and, most importantly, creating more jobs",
     ],
   },
   {
     quarter: "Q1",
     year: "2022",
     milestones: [
-      "Expanded to Brazil and Argentina",
-      "Introduced AI-powered credit scoring",
-      "Processed over $100M in transactions",
+      "Launched Workeo, a digital lending a payment platform that simplifies B2B transactions",
+      "Provides revolving credit throught virtual cards with AI-powered underwriting and blockchain-based payments",
+      "Offers fast, flexible, multi-currency  financing that enhances  cash flow efficiency and eliminates traditional banking friction",
     ],
   },
   {
-    quarter: "Q4",
-    year: "2022",
-    milestones: [
-      "Series B funding: $40M raised",
-      "Launched enterprise tier for large suppliers",
-      'Won "Best Fintech Innovation" award',
-    ],
-  },
-  {
-    quarter: "Q2",
+    quarter: "Q1",
     year: "2023",
     milestones: [
-      "Opened offices in Colombia and Chile",
-      "Integrated blockchain for transaction security",
-      "Reached 1,000+ active suppliers",
+      "WorKEO reaches over $1B of transactions in multiple geographies",
     ],
   },
   {
-    quarter: "Q4",
-    year: "2023",
-    milestones: [
-      "Launched real-time payment processing",
-      "Partnership with major banks in LATAM",
-      "Team grew to 100+ employees across 5 countries",
-    ],
-  },
-  {
-    quarter: "Q2",
+    quarter: "Q1",
     year: "2024",
     milestones: [
-      "Series C funding: $75M raised",
-      "Introduced multi-currency support",
-      "Processed over $1B in cumulative transactions",
-    ],
-  },
-  {
-    quarter: "Q4",
-    year: "2024",
-    milestones: [
-      "Launched KEO Analytics dashboard",
-      "Expanded to Central America",
-      "Achieved profitability milestone",
+      "Launched KEO Rails, KEO's core payments infrastructure, enabling instant, multi-currency B2B transfers through integrated blockchain systems",
+      "Connects with networks like American Express and supports hybrid payments, wallets, and FX integration",
+      "As part of KEO's B2B-as-a-Service model, it provides configurable, secure modules for banks and enterprises to streamline global digital payments",
     ],
   },
   {
     quarter: "Q2",
     year: "2025",
     milestones: [
-      "Introduced embedded finance solutions",
-      "Partnership with e-commerce platforms",
-      "Launched API marketplace for developers",
+      "WorKEO is sold to a listed company for a total consideration ranging between $330M and $1.2B (depending on expected share price and earn-out)",
+      "KEO Rails expansion into US Market",
     ],
   },
   {
     quarter: "Q4",
     year: "2025",
     milestones: [
-      "Reached 5,000+ active suppliers",
-      "Opened innovation lab in Miami",
-      "Launched sustainability financing program",
+      "Releasing KAI: Talk To Your Data, an integrated AI layer that transforms entire dataset into a real-time conversational assistant, providing internal and external dialogue base support",
     ],
+  },
+  {
+    quarter: "Q1",
+    year: "2026",
+    milestones: [
+      "Launching KABL, which integrates systems, eliminates silos, automates processes with AI/blockchain for B2B productivity",
+    ],
+  },
+  {
+    quarter: "Q1",
+    year: "2027",
+    milestones: [
+      "Launching Kena, KEO's flagship AI initiative: a large-scale model built to leverage data from across KEO's ecosystem",
+      "Kena will deliver advanced credit intelligence, real-time risk assessment, and predictive insights for both corporations and individuals",
+      "By embedding AI deeply into KEO's infrastructure, Kena will transform how data is analyzed and delivered, driving smarter, data-driven decisions",
+    ],
+  },
+  {
+    quarter: "Q2",
+    year: "2027",
+    milestones: ["KEO World IPO and goes public on the stock market"],
   },
 ];
 

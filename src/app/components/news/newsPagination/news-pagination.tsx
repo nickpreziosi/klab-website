@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import styles from "./news-pagination.module.css";
 import Button from "@/app/components/ui/button/button";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
 interface NewsPaginationProps {
@@ -12,17 +12,15 @@ interface NewsPaginationProps {
 export default function NewsPagination({ totalPages }: NewsPaginationProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const sp = new URLSearchParams(window.location.search);
-    const raw = sp.get("page") ?? "1";
+    const raw = searchParams.get("page") ?? "1";
     const parsed = Number(raw);
     setCurrentPage(Number.isFinite(parsed) && parsed > 0 ? parsed : 1);
-    // update when pathname changes (e.g., route mount)
-  }, [pathname]);
+  }, [searchParams]);
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 

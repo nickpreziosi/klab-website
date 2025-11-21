@@ -53,18 +53,18 @@ export function ThemeToggle() {
 
     window.addEventListener(
       "themechange",
-      onExternalThemeChange as EventListener
+      onExternalThemeChange as EventListener,
     );
     window.addEventListener("storage", onExternalThemeChange as EventListener);
 
     return () => {
       window.removeEventListener(
         "themechange",
-        onExternalThemeChange as EventListener
+        onExternalThemeChange as EventListener,
       );
       window.removeEventListener(
         "storage",
-        onExternalThemeChange as EventListener
+        onExternalThemeChange as EventListener,
       );
     };
   }, []);
@@ -73,7 +73,7 @@ export function ThemeToggle() {
     if (typeof window === "undefined") return;
 
     const darkModeMediaQuery = window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: dark)",
     );
 
     // Stable handler so we can add/remove the same reference
@@ -81,20 +81,20 @@ export function ThemeToggle() {
       if (event.matches) {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "20, 20, 20"
+          "20, 20, 20",
         );
         document.documentElement.style.setProperty(
           "--secondary-color-rgb",
-          "250, 250, 250"
+          "250, 250, 250",
         );
       } else {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "250, 250, 250"
+          "250, 250, 250",
         );
         document.documentElement.style.setProperty(
           "--secondary-color-rgb",
-          "20, 20, 20"
+          "20, 20, 20",
         );
       }
     };
@@ -105,48 +105,48 @@ export function ThemeToggle() {
         if (darkModeMediaQuery.matches) {
           document.documentElement.style.setProperty(
             "--main-color-rgb",
-            "20, 20, 20"
+            "20, 20, 20",
           );
           document.documentElement.style.setProperty(
             "--secondary-color-rgb",
-            "250, 250, 250"
+            "250, 250, 250",
           );
         } else {
           document.documentElement.style.setProperty(
             "--main-color-rgb",
-            "250, 250, 250"
+            "250, 250, 250",
           );
           document.documentElement.style.setProperty(
             "--secondary-color-rgb",
-            "20, 20, 20"
+            "20, 20, 20",
           );
         }
       } else if (t === "dark") {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "20, 20, 20"
+          "20, 20, 20",
         );
         document.documentElement.style.setProperty(
           "--secondary-color-rgb",
-          "250, 250, 250"
+          "250, 250, 250",
         );
       } else if (t === "light") {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "250, 250, 250"
+          "250, 250, 250",
         );
         document.documentElement.style.setProperty(
           "--secondary-color-rgb",
-          "20, 20, 20"
+          "20, 20, 20",
         );
       } else if (t === "keo") {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "0, 23, 45"
+          "0, 23, 45",
         );
         document.documentElement.style.setProperty(
           "--secondary-color-rgb",
-          "250, 250, 250"
+          "250, 250, 250",
         );
       }
     };
@@ -164,7 +164,7 @@ export function ThemeToggle() {
           try {
             // also write a cookie so the server can render the correct theme on first paint
             document.cookie = `theme=${encodeURIComponent(
-              t
+              t,
             )}; path=/; max-age=${60 * 60 * 24 * 365}`;
           } catch {
             // ignore cookie write failures
@@ -183,7 +183,7 @@ export function ThemeToggle() {
       return () => {
         darkModeMediaQuery.removeEventListener(
           "change",
-          handleSystemThemeChange
+          handleSystemThemeChange,
         );
       };
     }

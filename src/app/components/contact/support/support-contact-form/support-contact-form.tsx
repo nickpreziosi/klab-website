@@ -1,3 +1,17 @@
+/**
+ * Support Contact Form Component
+ *
+ * A comprehensive support request form with:
+ * - Multi-field form with validation (personal info, issue type, product)
+ * - File upload support for screenshots/videos/examples (max 5 files, 10MB each)
+ * - Client and server-side validation using Zod
+ * - reCAPTCHA spam protection
+ * - Success/error state management with animations
+ * - Form reset and reCAPTCHA reset on successful submission
+ *
+ * @route /contact/support
+ */
+
 "use client";
 
 import { useForm, Controller } from "react-hook-form";
@@ -24,6 +38,7 @@ import Button from "@/app/components/ui/button/button";
 import { FileUpload } from "@/app/components/ui/file-upload/file-upload";
 import HeroText from "@/app/components/ui/hero-text/hero-text";
 
+// Available issue type options for support requests
 const issueTypes = [
   { id: "onboarding", name: "Onboarding" },
   { id: "account-issue", name: "Account Issue" },
@@ -31,14 +46,21 @@ const issueTypes = [
   { id: "software-bug", name: "Software Bug" },
 ];
 
+// Available product options for support requests
 const products = [
   { id: "keo-rails", name: "KEO Rails" },
   { id: "kena", name: "Kena" },
 ];
 
+// Extract IDs for validation purposes
 const issueTypeIds = issueTypes.map((t) => t.id);
 const productIds = products.map((p) => p.id);
 
+/**
+ * Client-side form validation schema using Zod.
+ * This schema matches the server-side validation for consistency.
+ * Includes file upload validation for screenshots/videos/examples.
+ */
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
@@ -59,6 +81,8 @@ const formSchema = z.object({
       "Please select a valid product"
     ),
   message: z.string().min(10, "Message must be at least 10 characters"),
+  // File upload validation: max 5 files (screenshots, videos, examples)
+  // Accepted types: JPG, PNG, MP4, MOV, PDF
   files: z
     .array(z.instanceof(File))
     .max(5, "Maximum 5 files allowed")
@@ -69,14 +93,18 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
+/**
+ * Main Support Contact Form Component
+ */
 export function SupportContactForm() {
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  // Refs and state management
+  const recaptchaRef = useRef<ReCAPTCHA>(null); // Reference to reCAPTCHA component
+  const [isSubmitting, setIsSubmitting] = useState(false); // Submission loading state
+  const [isSuccess, setIsSuccess] = useState(false); // Success state for showing success view
   const [submitStatus, setSubmitStatus] = useState<{
     type: "success" | "error" | null;
     message: string;
-  }>({ type: null, message: "" });
+  }>({ type: null, message: "" }); // Status message for errors/success
 
   // Scroll to top of page when submission is successful
   useEffect(() => {
@@ -133,7 +161,7 @@ export function SupportContactForm() {
       formData.append("message", data.message);
       formData.append("recaptcha", data.recaptcha);
 
-      // Append files
+      // Append file uploads (screenshots, videos, examples) to FormData
       if (data.files && data.files.length > 0) {
         data.files.forEach((file) => {
           formData.append("files", file);

@@ -1,3 +1,20 @@
+/**
+ * File Upload Component
+ *
+ * A reusable file upload component with drag-and-drop support.
+ * Features:
+ * - Drag and drop file upload
+ * - File type validation (by extension or MIME type)
+ * - Maximum file count limit
+ * - File size validation
+ * - Error toast notifications
+ * - Accessible keyboard navigation
+ *
+ * Used in:
+ * - Careers form (resume/cover letter uploads)
+ * - Support form (screenshot/video uploads)
+ */
+
 "use client";
 
 import type React from "react";
@@ -6,6 +23,9 @@ import { FieldError } from "react-aria-components";
 import * as ToastPrimitive from "@radix-ui/react-toast";
 import styles from "./file-upload.module.css";
 
+/**
+ * Props for FileUpload component
+ */
 interface FileUploadProps {
   files: File[];
   onChange: (files: File[]) => void;
@@ -14,6 +34,15 @@ interface FileUploadProps {
   maxFiles?: number;
 }
 
+/**
+ * FileUpload Component
+ *
+ * @param files - Current array of selected files
+ * @param onChange - Callback function when files change
+ * @param error - Optional error message to display
+ * @param fileTypes - Array of accepted file types (e.g., [".pdf", "image/*"])
+ * @param maxFiles - Maximum number of files allowed (default: 3)
+ */
 export function FileUpload({
   files,
   onChange,
@@ -21,9 +50,13 @@ export function FileUpload({
   fileTypes,
   maxFiles = 3,
 }: FileUploadProps) {
-  const [isDragging, setIsDragging] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isDragging, setIsDragging] = useState(false); // Drag state for visual feedback
+  const fileInputRef = useRef<HTMLInputElement>(null); // Reference to hidden file input
 
+  /**
+   * Checks if a file matches the accepted file types.
+   * Supports extensions (e.g., ".pdf"), MIME types (e.g., "image/png"), and wildcards (e.g., "image/*").
+   */
   const isFileAccepted = (file: File) => {
     if (!fileTypes || fileTypes.length === 0) return true;
     const accepts = fileTypes.map((s) => s.trim()).filter(Boolean);
@@ -60,11 +93,15 @@ export function FileUpload({
     return false;
   };
 
+  // Toast notification state for error messages
   type Toast = { id: number; message: string; items?: string[]; open: boolean };
   const [toasts, setToasts] = useState<Toast[]>([]);
   const nextToastId = useRef(1);
 
-  // Show a single toast summarizing errors. This replaces any existing toasts.
+  /**
+   * Shows an error toast notification with a list of error messages.
+   * Replaces any existing toasts. Auto-dismisses after TTL (default: 4 seconds).
+   */
   const showErrorToast = (items: string[], ttl = 4000) => {
     const id = nextToastId.current++;
     setToasts([{ id, message: "Upload error", items, open: true }]);
@@ -75,26 +112,31 @@ export function FileUpload({
     }, ttl);
   };
 
+  // Drag and drop event handlers
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    setIsDragging(true);
+    setIsDragging(true); // Visual feedback during drag
   };
 
   const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    setIsDragging(false);
+    setIsDragging(false); // Remove visual feedback when drag leaves
   };
 
+  /**
+   * Handles file drop event.
+   * Validates file types, checks max file count, and updates file list.
+   */
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
 
     const droppedFiles = Array.from(e.dataTransfer.files || []);
-    // filter by accepted file types (if provided)
+    // Filter files by accepted file types (if fileTypes prop provided)
     const accepted = droppedFiles.filter((f) => isFileAccepted(f));
     const rejected = droppedFiles.filter((f) => !isFileAccepted(f));
 
-    // Build a single errors array describing problems (max files and/or incorrect types)
+    // Build error messages array for validation issues
     const errors: string[] = [];
     if (rejected.length > 0) {
       errors.push(`Incorrect file type`);

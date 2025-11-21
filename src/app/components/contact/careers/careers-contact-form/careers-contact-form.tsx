@@ -1,3 +1,17 @@
+/**
+ * Careers Contact Form Component
+ *
+ * A comprehensive job application form with:
+ * - Multi-field form with validation (personal info, department, optional fields)
+ * - File upload support for resume/cover letter (max 3 files, 10MB each)
+ * - Client and server-side validation using Zod
+ * - reCAPTCHA spam protection
+ * - Success/error state management with animations
+ * - Form reset and reCAPTCHA reset on successful submission
+ *
+ * @route /contact/careers
+ */
+
 "use client";
 
 import { useForm, Controller } from "react-hook-form";
@@ -24,6 +38,7 @@ import Button from "@/app/components/ui/button/button";
 import { FileUpload } from "@/app/components/ui/file-upload/file-upload";
 import HeroText from "@/app/components/ui/hero-text/hero-text";
 
+// Available department options for job applications
 const departments = [
   { id: "engineering", name: "Engineering" },
   { id: "product", name: "Product" },
@@ -38,8 +53,14 @@ const departments = [
   { id: "other", name: "Other" },
 ];
 
+// Extract department IDs for validation
 const departmentIds = departments.map((d) => d.id);
 
+/**
+ * Client-side form validation schema using Zod.
+ * This schema matches the server-side validation for consistency.
+ * Includes optional fields (company, title, position) and file upload validation.
+ */
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
@@ -56,6 +77,8 @@ const formSchema = z.object({
       "Please select a valid department"
     ),
   message: z.string().min(10, "Message must be at least 10 characters"),
+  // File upload validation: max 3 files (resume, cover letter, etc.)
+  // Accepted types: PDF, DOC, DOCX, TXT
   files: z
     .array(z.instanceof(File))
     .max(3, "Maximum 3 files allowed")
@@ -66,14 +89,18 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
+/**
+ * Main Careers Contact Form Component
+ */
 export function CareersContactForm() {
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  // Refs and state management
+  const recaptchaRef = useRef<ReCAPTCHA>(null); // Reference to reCAPTCHA component
+  const [isSubmitting, setIsSubmitting] = useState(false); // Submission loading state
+  const [isSuccess, setIsSuccess] = useState(false); // Success state for showing success view
   const [submitStatus, setSubmitStatus] = useState<{
     type: "success" | "error" | null;
     message: string;
-  }>({ type: null, message: "" });
+  }>({ type: null, message: "" }); // Status message for errors/success
 
   // Scroll to top of page when submission is successful
   useEffect(() => {
@@ -139,7 +166,7 @@ export function CareersContactForm() {
       formData.append("message", data.message);
       formData.append("recaptcha", data.recaptcha);
 
-      // Append files
+      // Append file uploads (resume, cover letter, etc.) to FormData
       if (data.files && data.files.length > 0) {
         data.files.forEach((file) => {
           formData.append("files", file);

@@ -102,7 +102,7 @@ const AlgorandLogo = (props: LogoProps) => (
 
 const StablecorpLogo = (props: LogoProps) => (
   <svg
-    preserveAspectRatio="slice"
+    preserveAspectRatio="xMidYMid slice"
     viewBox="0 0 1408 276"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

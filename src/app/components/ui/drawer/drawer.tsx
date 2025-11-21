@@ -17,6 +17,7 @@ export const Drawer = () => {
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <VisuallyHidden>
         <Dialog.Title>Open Mobile Nav</Dialog.Title>
+        <Dialog.Description>Navigation menu</Dialog.Description>
       </VisuallyHidden>
       <Dialog.Trigger asChild>
         <button className={styles.hamburger} aria-label="Open menu">
@@ -275,21 +276,12 @@ export const Drawer = () => {
                 </nav>
 
                 <motion.div
-                  tabIndex={-1}
-                  aria-hidden
                   className={styles.themeToggleContainer}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35 }}
                 >
-                  <motion.span
-                    tabIndex={-1}
-                    aria-hidden
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <MobileThemeToggle></MobileThemeToggle>
-                  </motion.span>
+                  <MobileThemeToggle></MobileThemeToggle>
                 </motion.div>
               </motion.div>
             </Dialog.Content>

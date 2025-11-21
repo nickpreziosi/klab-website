@@ -1,3 +1,16 @@
+/**
+ * Sales Contact Form Component
+ *
+ * A comprehensive contact form for sales inquiries with:
+ * - Multi-field form with validation (company info, product interest, country selection)
+ * - Client and server-side validation using Zod
+ * - reCAPTCHA spam protection
+ * - Success/error state management with animations
+ * - Form reset and reCAPTCHA reset on successful submission
+ *
+ * @route /contact/sales
+ */
+
 "use client";
 
 import { useForm, Controller } from "react-hook-form";
@@ -18,14 +31,13 @@ import {
   Popover,
   Checkbox as AriaCheckbox,
   FieldError,
-  ListBoxSection,
-  Header,
 } from "react-aria-components";
 import { countries } from "@/app/lib/countries";
 import styles from "./sales-contact-form.module.css";
 import HeroText from "@/app/components/ui/hero-text/hero-text";
 import Button from "@/app/components/ui/button/button";
 
+// Available company type options for the sales form
 const companyTypes = [
   { id: "automotive", name: "Automotive" },
   { id: "construction", name: "Construction" },
@@ -39,17 +51,25 @@ const companyTypes = [
   { id: "other", name: "Other" },
 ];
 
+// Available product options for selection
 const products = [
   { id: "keo-rails", name: "KEO Rails" },
   { id: "kena", name: "Kena" },
 ];
 
+// Transform countries data for ComboBox component
 const countryOptions = countries.map((c) => ({ id: c.value, name: c.label }));
 
+// Extract IDs for validation purposes
 const companyTypeIds = companyTypes.map((t) => t.id);
 const productIds = products.map((p) => p.id);
 const countryIds = countryOptions.map((c) => c.id);
 
+/**
+ * Client-side form validation schema using Zod.
+ * This schema matches the server-side validation for consistency.
+ * Validates all required fields including custom domain/URL validation for companyWebsite.
+ */
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
@@ -57,12 +77,15 @@ const formSchema = z.object({
   phone: z.string().min(2, "Phone number is required"),
   company: z.string().min(1, "Company name is required"),
   position: z.string().min(1, "Position is required"),
+  // Custom validation for company website: accepts domains or full URLs
+  // Examples: "example.com", "www.example.com", "https://example.com"
   companyWebsite: z
     .string()
     .min(1, "Company website is required")
     .refine(
       (val) => {
-        // Accept domains (example.com, www.example.com) or full URLs (https://example.com)
+        // Regex pattern to validate both domain format (example.com) and full URLs (https://example.com)
+        // Accepts: domains with/without www, full URLs with http/https, paths and query strings
         const domainOrUrlPattern =
           /^((https?:\/\/)?(www\.)?)?[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+([\/?#].*)?$/;
         return domainOrUrlPattern.test(val);
@@ -94,14 +117,18 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
+/**
+ * Main Sales Contact Form Component
+ */
 export function SalesContactForm() {
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  // Refs and state management
+  const recaptchaRef = useRef<ReCAPTCHA>(null); // Reference to reCAPTCHA component
+  const [isSubmitting, setIsSubmitting] = useState(false); // Submission loading state
+  const [isSuccess, setIsSuccess] = useState(false); // Success state for showing success view
   const [submitStatus, setSubmitStatus] = useState<{
     type: "success" | "error" | null;
     message: string;
-  }>({ type: null, message: "" });
+  }>({ type: null, message: "" }); // Status message for errors/success
 
   // Scroll to top of page when submission is successful
   useEffect(() => {
@@ -116,6 +143,7 @@ export function SalesContactForm() {
     }
   }, [isSuccess]);
 
+  // React Hook Form setup with Zod validation resolver
   const {
     control,
     register,
@@ -125,7 +153,7 @@ export function SalesContactForm() {
     reset,
     trigger,
   } = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema), // Use Zod for validation
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -144,12 +172,20 @@ export function SalesContactForm() {
     mode: "onSubmit",
   });
 
+  /**
+   * Handles form submission:
+   * 1. Creates FormData object with all form fields
+   * 2. Sends POST request to /api/contact/sales
+   * 3. Handles validation errors and displays user-friendly messages
+   * 4. Resets form and reCAPTCHA on success
+   * 5. Shows success view with animation
+   */
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
 
     try {
-      // Create FormData object
+      // Create FormData object for multipart/form-data submission
       const formData = new FormData();
 
       // Append all form fields
@@ -166,7 +202,7 @@ export function SalesContactForm() {
       formData.append("message", data.message);
       formData.append("recaptcha", data.recaptcha);
 
-      // Send to API route
+      // Send form data to API route
       const response = await fetch("/api/contact/sales", {
         method: "POST",
         body: formData,
@@ -175,7 +211,8 @@ export function SalesContactForm() {
       const result = await response.json();
 
       if (!response.ok) {
-        // Handle validation errors
+        // Handle validation errors from server
+        // Server returns detailed validation errors in result.details array
         if (result.details && Array.isArray(result.details)) {
           const errorMessages = result.details
             .map((detail: { message?: string; path?: string[] }) => {
@@ -190,7 +227,7 @@ export function SalesContactForm() {
         );
       }
 
-      // Success - reset form and reCAPTCHA
+      // Success: reset form, clear reCAPTCHA, and show success view
       reset();
       recaptchaRef.current?.reset();
       setIsSuccess(true);
@@ -215,13 +252,18 @@ export function SalesContactForm() {
     }
   };
 
-  // Custom handler for submit button
+  /**
+   * Custom submit handler that executes reCAPTCHA before form submission.
+   * This ensures reCAPTCHA is completed before form validation runs.
+   */
   const handleRecaptchaAndSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
+      // Execute invisible reCAPTCHA and get token
       const token = await recaptchaRef.current?.executeAsync();
       setValue("recaptcha", token || "");
+      // Submit form with error callback to reset submitting state on validation failure
       handleSubmit(onSubmit, () => {
         // Error callback - validation failed
         setIsSubmitting(false);
@@ -487,7 +529,7 @@ export function SalesContactForm() {
                     autoComplete="off"
                     {...register("companyWebsite")}
                     type="text"
-                    placeholder="https://www.example.com"
+                    placeholder="example.com or https://www.example.com"
                     className={`${styles.input} ${
                       errors.companyWebsite && styles.inputError
                     }`}
@@ -615,15 +657,11 @@ export function SalesContactForm() {
                               key={product.id}
                               id={product.id}
                               className={styles.listboxItem}
-                              textValue={product.name} // <-- Add this
+                              textValue={product.name}
                             >
                               {product.name}
                             </ListBoxItem>
                           ))}
-                          <ListBoxSection>
-                            <Header />
-                            <ListBoxItem />
-                          </ListBoxSection>
                         </ListBox>
                       </Popover>
                       {errors.product && (

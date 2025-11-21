@@ -27,14 +27,14 @@ export default function KeoRailsDashboardPanels() {
           width <= 500
             ? "mobile"
             : width <= 1024
-            ? "tablet"
-            : width <= 1600
-            ? "desktop"
-            : "large";
+              ? "tablet"
+              : width <= 1600
+                ? "desktop"
+                : "large";
 
         // Only update if size actually changed
         setScreenSize((prevSize) =>
-          prevSize !== newSize ? newSize : prevSize
+          prevSize !== newSize ? newSize : prevSize,
         );
       }, 100);
     };
@@ -347,6 +347,18 @@ export default function KeoRailsDashboardPanels() {
     },
   };
 
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!isMounted) {
+    return (
+      <div
+        tabIndex={-1}
+        aria-hidden="true"
+        role="presentation"
+        className={styles.dashboardContainer}
+      />
+    );
+  }
+
   return (
     <motion.div
       animate={{
@@ -367,7 +379,7 @@ export default function KeoRailsDashboardPanels() {
         {/* Panel 1: API Reference Sidebar */}
         <motion.div
           key="panel-1"
-          initial={!isMounted ? panelOneVariants[screenSize].initial : false}
+          initial={panelOneVariants[screenSize].initial}
           animate={panelOneVariants[screenSize].animate}
           onAnimationComplete={() => setHasAnimated(true)}
           transition={
@@ -391,8 +403,8 @@ export default function KeoRailsDashboardPanels() {
               ? {
                   scale: 1.02,
                   z: 50,
-                  boxShadow:
-                    "0 40px 40px rgba(var(--accent-color-rgb), 0.4), 0 0 40px rgba(var(--accent-color-rgb), 0.3)",
+                  // Simplified boxShadow for better Chrome performance
+                  boxShadow: "0 20px 40px rgba(var(--accent-color-rgb), 0.3)",
                 }
               : {}
           }
@@ -507,7 +519,7 @@ export default function KeoRailsDashboardPanels() {
         {/* Panel 2: API Endpoint Details */}
         <motion.div
           key="panel-2"
-          initial={!isMounted ? panelTwoVariants[screenSize].initial : false}
+          initial={panelTwoVariants[screenSize].initial}
           animate={panelTwoVariants[screenSize].animate}
           transition={
             hasAnimated
@@ -530,8 +542,8 @@ export default function KeoRailsDashboardPanels() {
               ? {
                   scale: 1.02,
                   z: 50,
-                  boxShadow:
-                    "0 40px 40px rgba(var(--accent-color-rgb), 0.4), 0 0 40px rgba(var(--accent-color-rgb), 0.3)",
+                  // Simplified boxShadow for better Chrome performance
+                  boxShadow: "0 20px 40px rgba(var(--accent-color-rgb), 0.3)",
                 }
               : {}
           }
@@ -630,7 +642,7 @@ export default function KeoRailsDashboardPanels() {
         {/* Panel 3: Code Example */}
         <motion.div
           key="panel-3"
-          initial={!isMounted ? panelThreeVariants[screenSize].initial : false}
+          initial={panelThreeVariants[screenSize].initial}
           animate={panelThreeVariants[screenSize].animate}
           transition={
             hasAnimated
@@ -653,8 +665,8 @@ export default function KeoRailsDashboardPanels() {
               ? {
                   scale: 1.02,
                   z: 50,
-                  boxShadow:
-                    "0 40px 40px rgba(var(--accent-color-rgb), 0.4), 0 0 40px rgba(var(--accent-color-rgb), 0.3)",
+                  // Simplified boxShadow for better Chrome performance
+                  boxShadow: "0 20px 40px rgba(var(--accent-color-rgb), 0.3)",
                 }
               : {}
           }

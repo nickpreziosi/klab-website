@@ -2,154 +2,96 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
+import { getAllArticles } from "@/sanity/queries/articles";
+import { urlFor } from "@/sanity/lib/image";
 import NewsCard from "../components/news/newsCard/news-card";
 import NewsPagination from "../components/news/newsPagination/news-pagination";
 import NewsCardSkeleton from "../components/news/newsCardSkeleton/news-card-skeleton";
 import styles from "./page.module.css";
 
-// Mock articles data
-const articles = [
-  {
-    slug: "keo-rails-launches-blockchain-payment-platform",
-    title: "KEO Rails Launches Revolutionary Blockchain Payment Platform",
-    excerpt:
-      "Transforming B2B payments with instant settlement and zero friction transactions across borders.",
-    category: "Product Launch",
-    date: "2024-03-15",
-    readTime: "5 min read",
-    image: "/blockchain-payment-platform.jpg",
-    youtubeId: "Ivd6J240bNs",
-    author: "Sarah Chen",
-    authorRole: "CEO",
-  },
-  {
-    slug: "enterprise-adoption-stablecoins-2024",
-    title: "Enterprise Adoption of Stablecoins Reaches All-Time High",
-    excerpt:
-      "Major corporations are embracing stablecoin payments for faster, more efficient cross-border transactions.",
-    category: "Industry Insights",
-    date: "2024-03-10",
-    readTime: "4 min read",
-    image: "/stablecoin-enterprise-adoption.jpg",
-    author: "Michael Torres",
-    authorRole: "Head of Research",
-  },
-  {
-    slug: "self-custody-wallets-security-guide",
-    title: "The Complete Guide to Self-Custody Wallets for Enterprises",
-    excerpt:
-      "Understanding the security benefits and implementation strategies for enterprise-grade self-custody solutions.",
-    category: "Education",
-    date: "2024-03-05",
-    readTime: "8 min read",
-    image: "/digital-wallet-security.jpg",
-    author: "David Kim",
-    authorRole: "Chief Security Officer",
-  },
-  {
-    slug: "keo-rails-series-a-funding",
-    title: "KEO Rails Secures $50M Series A to Accelerate Global Expansion",
-    excerpt:
-      "Leading venture capital firms back our vision to revolutionize the global payments infrastructure.",
-    category: "Company News",
-    date: "2024-02-28",
-    readTime: "3 min read",
-    image: "/startup-funding-announcement.jpg",
-    author: "Sarah Chen",
-    authorRole: "CEO",
-  },
-  {
-    slug: "blockchain-payments-vs-traditional-banking",
-    title:
-      "Blockchain Payments vs Traditional Banking: A Comprehensive Comparison",
-    excerpt:
-      "Analyzing the cost, speed, and security advantages of blockchain-based payment systems.",
-    category: "Analysis",
-    date: "2024-02-20",
-    readTime: "6 min read",
-    image: "/blockchain-vs-traditional-banking.jpg",
-    author: "Jennifer Park",
-    authorRole: "Product Manager",
-  },
-  {
-    slug: "cross-border-payments-future",
-    title: "The Future of Cross-Border Payments: Trends to Watch in 2024",
-    excerpt:
-      "Exploring emerging technologies and regulatory changes shaping the future of international transactions.",
-    category: "Industry Insights",
-    date: "2024-02-15",
-    readTime: "7 min read",
-    image: "/global-payments-network.jpg",
-    author: "Michael Torres",
-    authorRole: "Head of Research",
-  },
-  {
-    slug: "keo-rails-partnership-major-banks",
-    title:
-      "KEO Rails Partners with Major Banks to Bridge Traditional and Digital Finance",
-    excerpt:
-      "Strategic partnerships enable seamless integration between traditional banking and blockchain infrastructure.",
-    category: "Partnerships",
-    date: "2024-02-10",
-    readTime: "4 min read",
-    image: "/banking-partnership-handshake.jpg",
-    author: "Sarah Chen",
-    authorRole: "CEO",
-  },
-  {
-    slug: "smart-contracts-b2b-payments",
-    title: "How Smart Contracts Are Revolutionizing B2B Payment Terms",
-    excerpt:
-      "Automated payment execution and programmable money are transforming business relationships.",
-    category: "Technology",
-    date: "2024-02-05",
-    readTime: "5 min read",
-    image: "/smart-contracts-automation.jpg",
-    author: "Alex Rivera",
-    authorRole: "Lead Engineer",
-  },
-  {
-    slug: "regulatory-compliance-blockchain-payments",
-    title: "Navigating Regulatory Compliance in Blockchain Payments",
-    excerpt:
-      "Understanding the evolving regulatory landscape and ensuring compliance in digital payment systems.",
-    category: "Compliance",
-    date: "2024-01-30",
-    readTime: "6 min read",
-    image: "/regulatory-compliance-legal.jpg",
-    author: "Rachel Martinez",
-    authorRole: "Chief Compliance Officer",
-  },
-];
-
 const ARTICLES_PER_PAGE = 6;
+
+// Helper function to extract YouTube ID from embed link
+function extractYouTubeId(embedLink?: string): string | undefined {
+  if (!embedLink) return undefined;
+  const match = embedLink.match(
+    /(?:youtube\.com\/embed\/|youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/live\/)([^&\n?#]+)/,
+  );
+  return match ? match[1] : undefined;
+}
+
+// Helper function to format date
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+}
+
+interface Article {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  date: string;
+  readTime: string;
+  image?: string;
+  youtubeId?: string;
+  author?: string;
+  authorRole?: string;
+}
 
 export default function NewsPage() {
   const [isLoading, setIsLoading] = useState(true);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  // Read page from URL on mount (client-side). Use an effect to avoid setState during render.
+  // Read page from URL and update when search params change
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const sp = new URLSearchParams(window.location.search);
-    const rawPage = sp.get("page") ?? "1";
+    const rawPage = searchParams.get("page") ?? "1";
     const parsed = Number(rawPage);
-    const initialPage = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
-    if (initialPage !== currentPage) setCurrentPage(initialPage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const page = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+    setCurrentPage(page);
+  }, [searchParams]);
+
+  // Fetch articles from Sanity
+  useEffect(() => {
+    async function fetchArticles() {
+      setIsLoading(true);
+      try {
+        const sanityArticles = await getAllArticles();
+
+        // Transform Sanity articles to match expected format
+        const transformedArticles = sanityArticles.map((article) => ({
+          slug: article.slug.current,
+          title: article.title,
+          excerpt: article.excerpt || "",
+          category: article.category || "Uncategorized",
+          date: formatDate(article.publishedAt),
+          readTime: article.readTime || "5 min read",
+          image: article.image ? urlFor(article.image).url() : undefined,
+          youtubeId: extractYouTubeId(article.embedLink),
+          embedLink: article.embedLink || undefined,
+          author: article.author || undefined,
+          authorRole: article.authorRole || undefined,
+        }));
+
+        setArticles(transformedArticles);
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchArticles();
   }, []);
 
-  useEffect(() => {
-    setIsLoading(true);
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 600);
-
-    return () => clearTimeout(timer);
-  }, [currentPage]);
-
   const totalPages = Math.ceil(articles.length / ARTICLES_PER_PAGE);
-  // clamp currentPage to valid range for slicing
   const safePage = Math.max(1, Math.min(totalPages, currentPage));
   const startIndex = (safePage - 1) * ARTICLES_PER_PAGE;
   const endIndex = startIndex + ARTICLES_PER_PAGE;
@@ -189,8 +131,7 @@ export default function NewsPage() {
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
-            Stay updated with the latest developments in blockchain payments and
-            digital finance
+            Stay updated with the latest developments in fintech and AI
           </motion.p>
         </div>
       </section>
@@ -208,7 +149,7 @@ export default function NewsPage() {
         </div>
 
         {/* Pagination (driven by URL ?page=) */}
-        <NewsPagination totalPages={totalPages} />
+        {!isLoading && <NewsPagination totalPages={totalPages} />}
       </section>
     </main>
   );

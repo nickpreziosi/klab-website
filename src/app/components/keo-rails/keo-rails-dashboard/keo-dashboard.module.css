@@ -418,7 +418,8 @@
   color: var(--secondary-foreground);
   font-size: 13px;
   cursor: pointer;
-  transition: all 0.2s;
+  /* Removed 'transition: all' for Chrome performance - use specific properties instead */
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .langButton:hover {
