@@ -2,13 +2,56 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
-import { PortableText } from "@portabletext/react";
+// Dynamic import for PortableText to prevent Sanity from being bundled
+const PortableText = dynamic(
+  () =>
+    import("@portabletext/react").then((mod) => ({
+      default: mod.PortableText,
+    })),
+  { ssr: true },
+);
 import * as Dialog from "@radix-ui/react-dialog";
 import useEmblaCarousel from "embla-carousel-react";
-import { SanityArticle } from "@/sanity/queries/articles";
 import styles from "./page.module.css";
+
+// Client-side article type (duplicated to avoid importing from Sanity queries)
+interface ClientArticle {
+  _id: string;
+  title: string;
+  slug: {
+    current: string;
+  };
+  publishedAt: string;
+  image?: {
+    asset: {
+      _ref?: string;
+      _type?: string;
+    };
+    caption?: string;
+    alt?: string;
+  };
+  embedLink?: string;
+  body?: Array<{
+    _type: string;
+    [key: string]: unknown;
+  }>;
+  author?: string;
+  authorRole?: string;
+  category?: string;
+  readTime?: string;
+  excerpt?: string;
+  gallery?: Array<{
+    asset: {
+      _ref?: string;
+      _type?: string;
+    };
+    caption?: string;
+    alt?: string;
+  }>;
+}
 
 interface GalleryImageUrl {
   url: string;
@@ -17,7 +60,7 @@ interface GalleryImageUrl {
 }
 
 interface ArticleClientProps {
-  article: SanityArticle;
+  article: ClientArticle;
   imageUrl?: string;
   formattedDate: string;
   galleryImageUrls: GalleryImageUrl[];
