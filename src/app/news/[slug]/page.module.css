@@ -374,23 +374,16 @@
   cursor: pointer;
   padding: 0;
   width: 100%;
-  /* Safe transitions using only GPU-accelerated properties */
-  transition:
-    transform 200ms ease-out,
-    border-color 200ms ease-out,
-    box-shadow 200ms ease-out;
-  /* Hint to Chrome to use GPU acceleration */
-  will-change: transform;
 }
 
-.galleryItem:hover {
+.galleryImage:hover {
   /* Only use transform (GPU-accelerated) for scale, not on click */
   transform: scale(1.02);
   border-color: rgba(var(--secondary-color-rgb), 0.2);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-.galleryItem:active {
+.galleryImage:active {
   /* Subtle scale on click - safe because it's brief */
   transform: scale(0.98);
 }
@@ -400,6 +393,13 @@
   height: 250px;
   object-fit: cover;
   display: block;
+  /* Safe transitions using only GPU-accelerated properties */
+  transition:
+    transform 200ms ease-out,
+    border-color 200ms ease-out,
+    box-shadow 200ms ease-out;
+  /* Hint to Chrome to use GPU acceleration */
+  will-change: transform;
 }
 
 .galleryCaption {

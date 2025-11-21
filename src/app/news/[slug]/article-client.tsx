@@ -7,20 +7,8 @@ import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import * as Dialog from "@radix-ui/react-dialog";
 import useEmblaCarousel from "embla-carousel-react";
-import createImageUrlBuilder from "@sanity/image-url";
 import { SanityArticle } from "@/sanity/queries/articles";
 import styles from "./page.module.css";
-
-// Client-safe image URL builder using public env variables
-const getImageUrl = (source: { asset?: { _ref?: string; _type?: string } }) => {
-  if (!source?.asset?._ref) return "";
-  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-  const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
-  if (!projectId || !dataset) return "";
-
-  const builder = createImageUrlBuilder({ projectId, dataset });
-  return builder.image(source).url();
-};
 
 interface GalleryImageUrl {
   url: string;
@@ -33,6 +21,11 @@ interface ArticleClientProps {
   imageUrl?: string;
   formattedDate: string;
   galleryImageUrls: GalleryImageUrl[];
+  processedBody?: Array<{
+    _type: string;
+    [key: string]: unknown;
+    url?: string;
+  }>;
 }
 
 // Helper function to check if embedLink is from YouTube or Vimeo
@@ -51,10 +44,14 @@ const portableTextComponents = {
     image: ({
       value,
     }: {
-      value: { asset?: { _ref: string; _type: string }; alt?: string };
+      value: {
+        url?: string;
+        alt?: string;
+        asset?: { _ref: string; _type: string };
+      };
     }) => {
-      if (!value?.asset) return null;
-      const imageUrl = getImageUrl(value);
+      // Use pre-processed URL if available, otherwise fallback to asset (shouldn't happen)
+      const imageUrl = value.url;
       if (!imageUrl) return null;
       return (
         <div style={{ margin: "24px 0" }}>
@@ -130,6 +127,7 @@ export default function ArticleClient({
   imageUrl,
   formattedDate,
   galleryImageUrls,
+  processedBody,
 }: ArticleClientProps) {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null,
@@ -351,9 +349,9 @@ export default function ArticleClient({
         transition={{ duration: 0.8, delay: 0.5 }}
       >
         <div className={styles.content}>
-          {article.body && (
+          {processedBody && (
             <PortableText
-              value={article.body}
+              value={processedBody}
               components={portableTextComponents}
             />
           )}

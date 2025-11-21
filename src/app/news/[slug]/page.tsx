@@ -62,12 +62,38 @@ export default async function ArticlePage({
           item !== null,
       ) || [];
 
+  // Pre-process PortableText body to convert image blocks to URLs
+  // This avoids importing Sanity packages in the client component
+  const processedBody = article.body
+    ? article.body.map((block) => {
+        if (
+          block._type === "image" &&
+          "asset" in block &&
+          block.asset &&
+          typeof block.asset === "object" &&
+          "_ref" in block.asset
+        ) {
+          const imageBlock = block as unknown as {
+            asset: { _ref: string; _type?: string };
+            alt?: string;
+            caption?: string;
+          };
+          return {
+            ...block,
+            url: urlFor(imageBlock).url(),
+          };
+        }
+        return block;
+      })
+    : undefined;
+
   return (
     <ArticleClient
       article={article}
       imageUrl={imageUrl}
       formattedDate={formattedDate}
       galleryImageUrls={galleryImageUrls}
+      processedBody={processedBody}
     />
   );
 }
