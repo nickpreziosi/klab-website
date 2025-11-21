@@ -7,14 +7,32 @@ import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import * as Dialog from "@radix-ui/react-dialog";
 import useEmblaCarousel from "embla-carousel-react";
-import { urlFor } from "@/sanity/lib/image";
+import createImageUrlBuilder from "@sanity/image-url";
 import { SanityArticle } from "@/sanity/queries/articles";
 import styles from "./page.module.css";
+
+// Client-safe image URL builder using public env variables
+const getImageUrl = (source: { asset?: { _ref?: string; _type?: string } }) => {
+  if (!source?.asset?._ref) return "";
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+  if (!projectId || !dataset) return "";
+
+  const builder = createImageUrlBuilder({ projectId, dataset });
+  return builder.image(source).url();
+};
+
+interface GalleryImageUrl {
+  url: string;
+  caption?: string;
+  alt?: string;
+}
 
 interface ArticleClientProps {
   article: SanityArticle;
   imageUrl?: string;
   formattedDate: string;
+  galleryImageUrls: GalleryImageUrl[];
 }
 
 // Helper function to check if embedLink is from YouTube or Vimeo
@@ -36,10 +54,12 @@ const portableTextComponents = {
       value: { asset?: { _ref: string; _type: string }; alt?: string };
     }) => {
       if (!value?.asset) return null;
+      const imageUrl = getImageUrl(value);
+      if (!imageUrl) return null;
       return (
         <div style={{ margin: "24px 0" }}>
           <Image
-            src={urlFor(value).url()}
+            src={imageUrl}
             alt={value.alt || "Article image"}
             width={800}
             height={450}
@@ -109,6 +129,7 @@ export default function ArticleClient({
   article,
   imageUrl,
   formattedDate,
+  galleryImageUrls,
 }: ArticleClientProps) {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null,
@@ -116,9 +137,8 @@ export default function ArticleClient({
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
-  const galleryImages = article.gallery || [];
   const selectedImage =
-    selectedImageIndex !== null ? galleryImages[selectedImageIndex] : null;
+    selectedImageIndex !== null ? galleryImageUrls[selectedImageIndex] : null;
 
   // Embla carousel setup
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -341,7 +361,7 @@ export default function ArticleClient({
       </motion.article>
 
       {/* Gallery Section */}
-      {galleryImages.length > 0 && (
+      {galleryImageUrls.length > 0 && (
         <motion.section
           className={styles.gallerySection}
           initial={{ opacity: 0, y: 40 }}
@@ -351,9 +371,8 @@ export default function ArticleClient({
           <div className={styles.galleryContainer}>
             <h2 className={styles.galleryTitle}>Gallery</h2>
             <div className={styles.galleryGrid}>
-              {galleryImages.map((galleryImage, index) => {
-                if (!galleryImage?.asset) return null;
-                const imageUrl = urlFor(galleryImage).url();
+              {galleryImageUrls.map((galleryImage, index) => {
+                if (!galleryImage) return null;
                 return (
                   <motion.div
                     key={index}
@@ -367,7 +386,7 @@ export default function ArticleClient({
                       type="button"
                     >
                       <Image
-                        src={imageUrl}
+                        src={galleryImage.url}
                         alt={galleryImage.alt || `Gallery image ${index + 1}`}
                         width={400}
                         height={300}
@@ -404,7 +423,7 @@ export default function ArticleClient({
               onEscapeKeyDown={() => handleOpenChange(false)}
             >
               {/* Carousel Navigation - Previous */}
-              {galleryImages.length > 1 && (
+              {galleryImageUrls.length > 1 && (
                 <button
                   className={`${styles.carouselNavButton} ${styles.carouselNavButtonPrev}`}
                   onClick={scrollPrev}
@@ -431,14 +450,14 @@ export default function ArticleClient({
               {/* Carousel */}
               <div className={styles.dialogCarousel} ref={emblaRef}>
                 <div className={styles.dialogCarouselContainer}>
-                  {galleryImages.map((galleryImage, index) => {
-                    if (!galleryImage?.asset) return null;
+                  {galleryImageUrls.map((galleryImage, index) => {
+                    if (!galleryImage) return null;
                     return (
                       <div key={index} className={styles.dialogCarouselSlide}>
                         <div className={styles.dialogImageContainer}>
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
-                            src={urlFor(galleryImage).url()}
+                            src={galleryImage.url}
                             alt={
                               galleryImage.alt || `Gallery image ${index + 1}`
                             }
@@ -458,7 +477,7 @@ export default function ArticleClient({
               </div>
 
               {/* Carousel Navigation - Next */}
-              {galleryImages.length > 1 && (
+              {galleryImageUrls.length > 1 && (
                 <button
                   className={`${styles.carouselNavButton} ${styles.carouselNavButtonNext}`}
                   onClick={scrollNext}

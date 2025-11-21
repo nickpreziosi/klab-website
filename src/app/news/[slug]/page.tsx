@@ -38,11 +38,36 @@ export default async function ArticlePage({
   const imageUrl = article.image ? urlFor(article.image).url() : undefined;
   const formattedDate = formatDate(article.publishedAt);
 
+  // Pre-process gallery image URLs to avoid importing urlFor in client component
+  const galleryImageUrls: Array<{
+    url: string;
+    caption?: string;
+    alt?: string;
+  }> =
+    article.gallery
+      ?.map(
+        (
+          galleryImage,
+        ): { url: string; caption?: string; alt?: string } | null => {
+          if (!galleryImage?.asset) return null;
+          return {
+            url: urlFor(galleryImage).url(),
+            caption: galleryImage.caption,
+            alt: galleryImage.alt,
+          };
+        },
+      )
+      .filter(
+        (item): item is { url: string; caption?: string; alt?: string } =>
+          item !== null,
+      ) || [];
+
   return (
     <ArticleClient
       article={article}
       imageUrl={imageUrl}
       formattedDate={formattedDate}
+      galleryImageUrls={galleryImageUrls}
     />
   );
 }
