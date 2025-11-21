@@ -294,10 +294,11 @@ export default function ArticleClient({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
       >
-        <div
-          className={styles.content}
-          dangerouslySetInnerHTML={bodyHTML ? { __html: bodyHTML } : undefined}
-        />
+        <div className={styles.content}>
+          {bodyHTML ? (
+            <div dangerouslySetInnerHTML={{ __html: bodyHTML }} />
+          ) : null}
+        </div>
       </motion.article>
 
       {/* Gallery Section */}
