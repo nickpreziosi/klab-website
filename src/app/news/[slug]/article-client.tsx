@@ -2,17 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
-// Dynamic import for PortableText to prevent Sanity from being bundled
-const PortableText = dynamic(
-  () =>
-    import("@portabletext/react").then((mod) => ({
-      default: mod.PortableText,
-    })),
-  { ssr: true },
-);
 import * as Dialog from "@radix-ui/react-dialog";
 import useEmblaCarousel from "embla-carousel-react";
 import styles from "./page.module.css";
@@ -64,11 +55,7 @@ interface ArticleClientProps {
   imageUrl?: string;
   formattedDate: string;
   galleryImageUrls: GalleryImageUrl[];
-  processedBody?: Array<{
-    _type: string;
-    [key: string]: unknown;
-    url?: string;
-  }>;
+  bodyHTML?: string;
 }
 
 // Helper function to check if embedLink is from YouTube or Vimeo
@@ -81,96 +68,12 @@ function isYouTubeOrVimeo(embedLink?: string): boolean {
   );
 }
 
-// Portable Text components for rendering - using CSS classes to match existing styling
-const portableTextComponents = {
-  types: {
-    image: ({
-      value,
-    }: {
-      value: {
-        url?: string;
-        alt?: string;
-        asset?: { _ref: string; _type: string };
-      };
-    }) => {
-      // Use pre-processed URL if available, otherwise fallback to asset (shouldn't happen)
-      const imageUrl = value.url;
-      if (!imageUrl) return null;
-      return (
-        <div style={{ margin: "24px 0" }}>
-          <Image
-            src={imageUrl}
-            alt={value.alt || "Article image"}
-            width={800}
-            height={450}
-            style={{ width: "100%", height: "auto", borderRadius: "8px" }}
-          />
-        </div>
-      );
-    },
-  },
-  block: {
-    // Normal paragraph - uses CSS from .content p
-    normal: (props: { children?: React.ReactNode }) => <p>{props.children}</p>,
-    h2: (props: { children?: React.ReactNode }) => <h2>{props.children}</h2>,
-    h3: (props: { children?: React.ReactNode }) => <h3>{props.children}</h3>,
-    blockquote: (props: { children?: React.ReactNode }) => (
-      <blockquote>{props.children}</blockquote>
-    ),
-  },
-  marks: {
-    strong: ({ children }: { children?: React.ReactNode }) => (
-      <strong>{children}</strong>
-    ),
-    em: ({ children }: { children?: React.ReactNode }) => <em>{children}</em>,
-    link: ({
-      children,
-      value,
-    }: {
-      children?: React.ReactNode;
-      value?: { href?: string };
-    }) => {
-      const href = value?.href || "#";
-      return (
-        <a
-          href={href}
-          target={href.startsWith("http") ? "_blank" : undefined}
-          rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-          style={{
-            color: "var(--secondary-color)",
-            textDecoration: "underline",
-            opacity: 0.8,
-          }}
-        >
-          {children}
-        </a>
-      );
-    },
-  },
-  list: {
-    bullet: (props: { children?: React.ReactNode }) => (
-      <ul>{props.children}</ul>
-    ),
-    number: (props: { children?: React.ReactNode }) => (
-      <ol>{props.children}</ol>
-    ),
-  },
-  listItem: {
-    bullet: (props: { children?: React.ReactNode }) => (
-      <li>{props.children}</li>
-    ),
-    number: (props: { children?: React.ReactNode }) => (
-      <li>{props.children}</li>
-    ),
-  },
-};
-
 export default function ArticleClient({
   article,
   imageUrl,
   formattedDate,
   galleryImageUrls,
-  processedBody,
+  bodyHTML,
 }: ArticleClientProps) {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null,
@@ -391,14 +294,10 @@ export default function ArticleClient({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
       >
-        <div className={styles.content}>
-          {processedBody && (
-            <PortableText
-              value={processedBody}
-              components={portableTextComponents}
-            />
-          )}
-        </div>
+        <div
+          className={styles.content}
+          dangerouslySetInnerHTML={bodyHTML ? { __html: bodyHTML } : undefined}
+        />
       </motion.article>
 
       {/* Gallery Section */}

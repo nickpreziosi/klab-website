@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getArticleBySlug } from "@/sanity/queries/articles";
 import { urlFor } from "@/sanity/lib/image";
+import { toHTML } from "@portabletext/to-html";
 import ArticleClient from "./article-client";
 import styles from "./page.module.css";
 
@@ -62,28 +63,47 @@ export default async function ArticlePage({
           item !== null,
       ) || [];
 
-  // Pre-process PortableText body to convert image blocks to URLs
-  // This avoids importing Sanity packages in the client component
-  const processedBody = article.body
-    ? article.body.map((block) => {
-        if (
-          block._type === "image" &&
-          "asset" in block &&
-          block.asset &&
-          typeof block.asset === "object" &&
-          "_ref" in block.asset
-        ) {
-          const imageBlock = block as unknown as {
-            asset: { _ref: string; _type?: string };
-            alt?: string;
-            caption?: string;
-          };
-          return {
-            ...block,
-            url: urlFor(imageBlock).url(),
-          };
-        }
-        return block;
+  // Render PortableText to HTML on the server to avoid bundling Sanity in client
+  const bodyHTML = article.body
+    ? toHTML(article.body, {
+        components: {
+          types: {
+            image: ({
+              value,
+            }: {
+              value: {
+                asset?: { _ref: string };
+                alt?: string;
+                caption?: string;
+              };
+            }) => {
+              if (!value?.asset) return "";
+              const imageUrl = urlFor(
+                value as { asset: { _ref: string } },
+              ).url();
+              const alt = value.alt || "Article image";
+              const caption = value.caption
+                ? `<figcaption>${value.caption}</figcaption>`
+                : "";
+              return `<figure style="margin: 24px 0;"><img src="${imageUrl}" alt="${alt}" style="width: 100%; height: auto; border-radius: 8px;" />${caption}</figure>`;
+            },
+          },
+          marks: {
+            link: ({
+              value,
+              children,
+            }: {
+              value?: { href?: string };
+              children?: string;
+            }) => {
+              const href = value?.href || "#";
+              const target = href.startsWith("http")
+                ? ' target="_blank" rel="noopener noreferrer"'
+                : "";
+              return `<a href="${href}"${target} style="color: var(--secondary-color); text-decoration: underline; opacity: 0.8;">${children || ""}</a>`;
+            },
+          },
+        },
       })
     : undefined;
 
@@ -93,7 +113,7 @@ export default async function ArticlePage({
       imageUrl={imageUrl}
       formattedDate={formattedDate}
       galleryImageUrls={galleryImageUrls}
-      processedBody={processedBody}
+      bodyHTML={bodyHTML}
     />
   );
 }
