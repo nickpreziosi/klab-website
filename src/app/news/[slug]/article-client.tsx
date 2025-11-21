@@ -7,6 +7,7 @@ import Image from "next/image";
 import * as Dialog from "@radix-ui/react-dialog";
 import useEmblaCarousel from "embla-carousel-react";
 import styles from "./page.module.css";
+import Button from "@/app/components/ui/button/button";
 
 // Client-side article type (duplicated to avoid importing from Sanity queries)
 interface ClientArticle {
@@ -473,24 +474,30 @@ export default function ArticleClient({
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.6 }}
       >
-        <Link href="/news" className={styles.backButton}>
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M16 10H4M4 10L10 16M4 10L10 4"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <span>Back to News</span>
-        </Link>
+        <Button
+          text="Back to News"
+          icon={
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16 10H4M4 10L10 16M4 10L10 4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          }
+          href="/news"
+          variant="outline"
+          iconPosition="start"
+          width="fit"
+        ></Button>
       </motion.div>
     </main>
   );

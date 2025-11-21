@@ -4,6 +4,10 @@ import NewsClient from "./news-client";
 
 const ARTICLES_PER_PAGE = 6;
 
+interface NewsPageProps {
+  searchParams: Promise<{ category?: string | string[]; page?: string }>;
+}
+
 // Helper function to extract YouTube ID from embed link
 function extractYouTubeId(embedLink?: string): string | undefined {
   if (!embedLink) return undefined;
@@ -36,12 +40,22 @@ interface Article {
   authorRole?: string;
 }
 
-export default async function NewsPage() {
+export default async function NewsPage({ searchParams }: NewsPageProps) {
+  const params = await searchParams;
+
+  // Get category filter from URL params (can be string or array)
+  const categoryParam = params.category;
+  const selectedCategories = Array.isArray(categoryParam)
+    ? categoryParam
+    : categoryParam
+      ? [categoryParam]
+      : [];
+
   // Fetch articles on the server
   const sanityArticles = await getAllArticles();
 
   // Transform Sanity articles to match expected format
-  const articles: Article[] = sanityArticles.map((article) => ({
+  const allArticles: Article[] = sanityArticles.map((article) => ({
     slug: article.slug.current,
     title: article.title,
     excerpt: article.excerpt || "",
@@ -55,5 +69,25 @@ export default async function NewsPage() {
     authorRole: article.authorRole || undefined,
   }));
 
-  return <NewsClient articles={articles} articlesPerPage={ARTICLES_PER_PAGE} />;
+  // Filter articles by selected categories
+  const filteredArticles =
+    selectedCategories.length > 0
+      ? allArticles.filter((article) =>
+          selectedCategories.includes(article.category),
+        )
+      : allArticles;
+
+  // Get all unique categories for the selector
+  const allCategories = Array.from(
+    new Set(allArticles.map((article) => article.category)),
+  ).sort();
+
+  return (
+    <NewsClient
+      articles={filteredArticles}
+      allCategories={allCategories}
+      selectedCategories={selectedCategories}
+      articlesPerPage={ARTICLES_PER_PAGE}
+    />
+  );
 }

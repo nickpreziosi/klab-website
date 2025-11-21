@@ -18,7 +18,7 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 120px var(--padding-desktop) 60px;
+  padding: var(--padding-desktop);
   overflow: hidden;
 }
 
@@ -607,7 +607,7 @@
 
 @media (max-width: 1024px) {
   .hero {
-    padding: 100px var(--padding-tablet) 60px;
+    padding: var(--padding-tablet);
   }
 
   .title {
@@ -642,7 +642,7 @@
 
 @media (max-width: 768px) {
   .hero {
-    padding: 80px var(--padding-mobile) 40px;
+    padding: var(--padding-tablet) var(--padding-mobile);
   }
 
   .title {

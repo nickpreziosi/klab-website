@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import NewsCard from "../components/news/newsCard/news-card";
 import NewsPagination from "../components/news/newsPagination/news-pagination";
 import NewsCardSkeleton from "../components/news/newsCardSkeleton/news-card-skeleton";
+import CategorySelector from "./category-selector";
 import styles from "./page.module.css";
 
 interface Article {
@@ -23,11 +24,15 @@ interface Article {
 
 interface NewsClientProps {
   articles: Article[];
+  allCategories: string[];
+  selectedCategories: string[];
   articlesPerPage: number;
 }
 
 export default function NewsClient({
   articles,
+  allCategories,
+  selectedCategories,
   articlesPerPage,
 }: NewsClientProps) {
   const searchParams = useSearchParams();
@@ -87,8 +92,13 @@ export default function NewsClient({
         </div>
       </section>
 
-      {/* Articles Grid */}
+      {/* Category Selector */}
       <section className={styles.articlesSection}>
+        <CategorySelector
+          categories={allCategories}
+          selectedCategories={selectedCategories}
+        />
+
         <div className={styles.articlesGrid}>
           {isLoading
             ? Array.from({ length: articlesPerPage }).map((_, index) => (

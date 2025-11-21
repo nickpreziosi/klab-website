@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  padding: 40px 20px;
 }
 
 .pages {
@@ -44,26 +43,36 @@
   border-color: var(--secondary-color);
 }
 
+.navButtonWrapper {
+  display: contents;
+}
+
 @media (max-width: 768px) {
   .pagination {
-    gap: 12px;
+    gap: var(--gap-sm);
   }
 
-  .navButton span {
-    display: none;
-  }
-
-  .navButton {
+  /* Hide text on navigation buttons but keep SVG icons visible */
+  .navButtonWrapper button,
+  .navButtonWrapper a {
+    font-size: 0;
     padding: 10px;
+    min-width: auto;
+    width: auto;
+    gap: 0;
+  }
+
+  /* Ensure SVG icons remain visible */
+  .navButtonWrapper button svg,
+  .navButtonWrapper a svg {
+    display: inline-block;
+    width: 20px !important;
+    height: 20px !important;
+    flex-shrink: 0;
+    vertical-align: middle;
   }
 
   .pages {
-    gap: 6px;
-  }
-
-  .pageButton {
-    width: 36px;
-    height: 36px;
-    font-size: 14px;
+    gap: var(--gap-sm);
   }
 }

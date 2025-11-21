@@ -27,8 +27,15 @@ export default function NewsPagination({ totalPages }: NewsPaginationProps) {
   const navigateTo = (page: number) => {
     // ensure page in range
     const target = Math.max(1, Math.min(totalPages, page));
-    // construct simple query (replace other query params)
-    const url = `${pathname}?page=${target}`;
+
+    // Preserve existing query params (like category filters)
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", target.toString());
+
+    // Construct URL with preserved params
+    const url = params.toString()
+      ? `${pathname}?${params.toString()}`
+      : pathname;
     router.push(url);
   };
 
@@ -51,30 +58,32 @@ export default function NewsPagination({ totalPages }: NewsPaginationProps) {
       transition={{ duration: 0.6 }}
       aria-label="Pagination"
     >
-      <Button
-        variant="outline"
-        icon={
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12 16L6 10L12 4"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        }
-        aria-label="Previous page"
-        text="Previous"
-        onClick={handlePrevious}
-        disabled={currentPage === 1}
-      ></Button>
+      <div className={styles.navButtonWrapper}>
+        <Button
+          variant="outline"
+          icon={
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 16L6 10L12 4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          }
+          aria-label="Previous page"
+          text="Previous"
+          onClick={handlePrevious}
+          disabled={currentPage === 1}
+        ></Button>
+      </div>
 
       <div className={styles.pages}>
         {pages.map((page) => (
@@ -90,31 +99,33 @@ export default function NewsPagination({ totalPages }: NewsPaginationProps) {
         ))}
       </div>
 
-      <Button
-        variant="outline"
-        icon={
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M8 4L14 10L8 16"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        }
-        iconPosition="end"
-        aria-label="Next page"
-        text="Next page"
-        onClick={handleNext}
-        disabled={currentPage === totalPages}
-      ></Button>
+      <div className={styles.navButtonWrapper}>
+        <Button
+          variant="outline"
+          icon={
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8 4L14 10L8 16"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          }
+          iconPosition="end"
+          aria-label="Next page"
+          text="Next"
+          onClick={handleNext}
+          disabled={currentPage === totalPages}
+        ></Button>
+      </div>
     </motion.nav>
   );
 }
