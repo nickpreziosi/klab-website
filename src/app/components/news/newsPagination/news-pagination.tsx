@@ -22,7 +22,70 @@ export default function NewsPagination({ totalPages }: NewsPaginationProps) {
     setCurrentPage(Number.isFinite(parsed) && parsed > 0 ? parsed : 1);
   }, [searchParams]);
 
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  // Calculate which pages to display with ellipsis
+  // Simple, reliable algorithm that always works correctly
+  const getVisiblePages = (): (number | "ellipsis")[] => {
+    const pages: (number | "ellipsis")[] = [];
+    const siblingCount = 1; // Pages to show on each side of current
+
+    // If 4 or fewer pages, show all
+    if (totalPages <= 4) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    // Always show first page
+    pages.push(1);
+
+    // Calculate the middle section (around current page)
+    const leftSiblingIndex = Math.max(2, currentPage - siblingCount);
+    const rightSiblingIndex = Math.min(
+      totalPages - 1,
+      currentPage + siblingCount,
+    );
+
+    // Add ellipsis and middle section
+    if (leftSiblingIndex > 2) {
+      pages.push("ellipsis");
+    }
+
+    // Add pages in the middle section
+    for (let i = leftSiblingIndex; i <= rightSiblingIndex; i++) {
+      pages.push(i);
+    }
+
+    // Add ellipsis before last page if needed
+    if (rightSiblingIndex < totalPages - 1) {
+      pages.push("ellipsis");
+    }
+
+    // Always show last page
+    if (totalPages > 1) {
+      pages.push(totalPages);
+    }
+
+    // Remove duplicates and clean up consecutive ellipsis
+    const cleaned: (number | "ellipsis")[] = [];
+    for (let i = 0; i < pages.length; i++) {
+      const current = pages[i];
+      const prev = pages[i - 1];
+
+      // Skip if it's a duplicate number
+      if (typeof current === "number" && cleaned.includes(current)) {
+        continue;
+      }
+
+      // Skip if it's ellipsis right after another ellipsis
+      if (current === "ellipsis" && prev === "ellipsis") {
+        continue;
+      }
+
+      cleaned.push(current);
+    }
+
+    return cleaned;
+  };
+
+  const visiblePages = getVisiblePages();
 
   const navigateTo = (page: number) => {
     // ensure page in range
@@ -86,17 +149,36 @@ export default function NewsPagination({ totalPages }: NewsPaginationProps) {
       </div>
 
       <div className={styles.pages}>
-        {pages.map((page) => (
-          <Button
-            key={page}
-            variant={currentPage === page ? "full" : "outline"}
-            aria-label={`Page ${page}`}
-            aria-current={page === currentPage ? "page" : undefined}
-            text={page.toString()}
-            onClick={() => handlePageClick(page)}
-            disabled={currentPage === page}
-          ></Button>
-        ))}
+        {/* Desktop: Show full pagination with ellipsis */}
+        <div className={styles.pagesDesktop}>
+          {visiblePages.map((page, index) => {
+            if (page === "ellipsis") {
+              return (
+                <span key={`ellipsis-${index}`} className={styles.ellipsis}>
+                  ...
+                </span>
+              );
+            }
+            return (
+              <Button
+                key={page}
+                variant={currentPage === page ? "full" : "outline"}
+                aria-label={`Page ${page}`}
+                aria-current={page === currentPage ? "page" : undefined}
+                text={page.toString()}
+                onClick={() => handlePageClick(page)}
+                disabled={currentPage === page}
+              ></Button>
+            );
+          })}
+        </div>
+
+        {/* Mobile: Show only current page and total */}
+        <div className={styles.pagesMobile}>
+          <span className={styles.pageInfo}>
+            Page {currentPage} of {totalPages}
+          </span>
+        </div>
       </div>
 
       <div className={styles.navButtonWrapper}>
