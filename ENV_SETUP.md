@@ -1,55 +1,75 @@
 # Environment Variables Setup
 
-## Setting up SANITY_API_TOKEN
+This project uses a single `.env.local` file for all environment variables.
 
-To run the article population script, you need to set your Sanity API token.
+## Quick Start
 
-### Step 1: Get Your Token
+1. Copy the example file:
+   ```bash
+   cp .env.local.example .env.local
+   ```
 
+2. Fill in your values in `.env.local`
+
+## Required Variables
+
+### Sanity CMS
+
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Your Sanity project ID |
+| `NEXT_PUBLIC_SANITY_DATASET` | Dataset name (usually `production`) |
+| `SANITY_API_TOKEN` | API token for server-side operations |
+
+**To get your Sanity API token:**
 1. Go to https://sanity.io/manage
-2. Select your project (mp87vpva)
+2. Select your project
 3. Navigate to **API** → **Tokens**
 4. Click **Add API token**
-5. Give it a name (e.g., "Article Population Script")
-6. Set permissions to **Editor**
-7. Copy the token
+5. Set permissions to **Editor**
+6. Copy the token
 
-### Step 2: Set the Token
+### Google reCAPTCHA v2
 
-Create a `.env` file in the project root (same directory as `package.json`):
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | Public site key |
+| `RECAPTCHA_SECRET_KEY` | Server-side secret key |
 
-```bash
-# In the project root directory
-touch .env
-```
+Get your keys from: https://www.google.com/recaptcha/admin
 
-Then add your token to the file:
+### Contact Form Email Configuration
 
-```
-SANITY_API_TOKEN=your-actual-token-here
-```
+Each contact form (Careers, Sales, Support) has its own email credentials to allow different sender addresses and recipients per department.
 
-**Important:**
-- `.env` is already in `.gitignore`, so it won't be committed to git
-- Never commit your API token to version control
-- Replace `your-actual-token-here` with the actual token you copied
+**For Gmail:** Enable 2FA and generate an App Password at https://myaccount.google.com/apppasswords
 
-### Alternative: Set in Terminal (Temporary)
+#### Careers Form
 
-You can also set it temporarily in your terminal session:
+| Variable | Description |
+|----------|-------------|
+| `CAREERS_EMAIL_USER` | Gmail address for sending career form emails |
+| `CAREERS_EMAIL_PASSWORD` | App password for the careers email |
+| `CAREERS_RECIPIENT_EMAIL` | Where career applications are sent |
 
-```bash
-export SANITY_API_TOKEN="your-token-here"
-```
+#### Sales Form
 
-This only lasts for the current terminal session.
+| Variable | Description |
+|----------|-------------|
+| `SALES_EMAIL_USER` | Gmail address for sending sales form emails |
+| `SALES_EMAIL_PASSWORD` | App password for the sales email |
+| `SALES_RECIPIENT_EMAIL` | Where sales inquiries are sent |
 
-### Verify It's Set
+#### Support Form
 
-You can verify the token is loaded by running:
+| Variable | Description |
+|----------|-------------|
+| `SUPPORT_EMAIL_USER` | Gmail address for sending support form emails |
+| `SUPPORT_EMAIL_PASSWORD` | App password for the support email |
+| `SUPPORT_RECIPIENT_EMAIL` | Where support requests are sent |
 
-```bash
-node -e "require('dotenv').config({ path: '.env' }); console.log(process.env.SANITY_API_TOKEN ? 'Token is set' : 'Token not found')"
-```
+## Security Notes
 
-Or the script will tell you if the token is missing when you run it.
+- `.env.local` is in `.gitignore` and will not be committed
+- Never commit API tokens or secrets to version control
+- Use `.env.local.example` as a template (it contains placeholder values only)

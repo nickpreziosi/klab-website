@@ -70,7 +70,7 @@
   gap: 0;
   width: 100%;
   border-radius: 8px;
-  align-items: stretch;
+  align-items: flex-start;
 }
 
 .subscribeForm > * {
@@ -86,7 +86,7 @@
 }
 
 .emailInput {
-  padding: 14px 16px;
+  padding: 0 16px;
   font-size: 14px;
   border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
   border-right: none;
@@ -96,7 +96,7 @@
   outline: none;
   transition: border-color 0.2s ease;
   width: 100%;
-  height: 100%;
+  height: 48px;
   box-sizing: border-box;
 }
 
@@ -122,6 +122,15 @@
   font-weight: 400;
 }
 
+.successMessage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0;
+  font-size: 12px;
+  color: rgb(13, 224, 13);
+}
+
 .subscribeForm:focus-within {
   outline: 2px solid var(--secondary-color);
   outline-offset: 2px;
@@ -140,7 +149,7 @@
 }
 
 .subscribeButton {
-  padding: 14px 32px;
+  padding: 0 32px;
   font-size: 16px;
   font-weight: 500;
   background-color: var(--secondary-color);
@@ -149,11 +158,11 @@
   border-left: none;
   border-radius: 0 8px 8px 0;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
   white-space: nowrap;
   flex-shrink: 0;
   box-sizing: border-box;
-  height: 100%;
+  height: 48px;
   flex: 0;
 }
 
@@ -298,6 +307,8 @@
   border-radius: 6px;
 }
 
+
+
 /* Responsive Design */
 @media (max-width: 1200px) {
   .linksGrid {
@@ -371,6 +382,26 @@
 }
 
 @media (max-width: 500px) {
+  .subscribeForm:focus-within {
+    outline: none;
+  }
+  
+  .subscribeForm:focus-within .emailInput {
+    border-color: rgba(var(--secondary-color-rgb), 0.2);
+  }
+  
+  .subscribeForm:has(.subscribeButton:focus) {
+    outline: none;
+  }
+  
+  .emailInput:focus {
+    outline: 2px solid var(--secondary-color) !important;
+    outline-offset: 2px !important;
+
+  }
+
+
+
   .subscribeForm {
     width: 100%;
     flex-direction: column;
@@ -388,9 +419,10 @@
 
   .emailInput {
     min-width: 0;
-    flex: 1;
+    flex: none;
     border-right: 1px solid rgba(var(--secondary-color-rgb), 0.2);
     border-radius: 8px;
+    height: 48px !important;
   }
 
   .emailInputError {
@@ -401,6 +433,8 @@
     border-left: 1px solid rgba(var(--main-color-rgb), 0.2);
     border-radius: 8px;
     width: 100%;
+    height: 48px !important;
+    flex: none;
   }
   .errorMessage {
     position: static;

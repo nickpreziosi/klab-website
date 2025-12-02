@@ -7,8 +7,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Button from "@/app/components/ui/button/button";
+import { useState } from "react";
 
-// Zod schema for email validation
+// Zod schema for email validation (client-side)
 const subscribeSchema = z.object({
   email: z
     .string()
@@ -19,6 +20,12 @@ const subscribeSchema = z.object({
 type SubscribeFormData = z.infer<typeof subscribeSchema>;
 
 export const Footer = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
+
   const {
     register,
     handleSubmit,
@@ -33,10 +40,40 @@ export const Footer = () => {
   });
 
   const handleSubscribe = async (data: SubscribeFormData) => {
-    // Handle subscription logic here
-    console.log("Subscribe:", data.email);
-    // Reset form after successful submission
-    reset();
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: data.email }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setSubmitStatus({
+          type: "success",
+          message: result.message || "Successfully subscribed!",
+        });
+        reset();
+      } else {
+        setSubmitStatus({
+          type: "error",
+          message: result.error || "Failed to subscribe. Please try again.",
+        });
+      }
+    } catch {
+      setSubmitStatus({
+        type: "error",
+        message: "Something went wrong. Please try again later.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const navLinks = [
@@ -183,7 +220,9 @@ export const Footer = () => {
             >
               <div className={styles.emailInputWrapper}>
                 <input
-                  type="email"
+                  formNoValidate
+                  autoComplete="off"
+                  type="text"
                   {...register("email")}
                   placeholder="email@keoworld.com"
                   className={`${styles.emailInput} ${
@@ -191,15 +230,32 @@ export const Footer = () => {
                   }`}
                   aria-invalid={errors.email ? "true" : "false"}
                   aria-describedby={errors.email ? "email-error" : undefined}
+                  disabled={isSubmitting}
                 />
                 {errors.email && (
                   <span id="email-error" className={styles.errorMessage}>
                     {errors.email.message}
                   </span>
                 )}
+                {submitStatus.type && (
+                  <span
+                    className={
+                      submitStatus.type === "success"
+                        ? styles.successMessage
+                        : styles.errorMessage
+                    }
+                  >
+                    {submitStatus.type === "success" && <svg  width="32" height="32" viewBox="0 0 15 15" color="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.49991 0.877045C3.84222 0.877045 0.877075 3.84219 0.877075 7.49988C0.877075 11.1575 3.84222 14.1227 7.49991 14.1227C11.1576 14.1227 14.1227 11.1575 14.1227 7.49988C14.1227 3.84219 11.1576 0.877045 7.49991 0.877045ZM1.82708 7.49988C1.82708 4.36686 4.36689 1.82704 7.49991 1.82704C10.6329 1.82704 13.1727 4.36686 13.1727 7.49988C13.1727 10.6329 10.6329 13.1727 7.49991 13.1727C4.36689 13.1727 1.82708 10.6329 1.82708 7.49988ZM10.1589 5.53774C10.3178 5.31191 10.2636 5.00001 10.0378 4.84109C9.81194 4.68217 9.50004 4.73642 9.34112 4.96225L6.51977 8.97154L5.35681 7.78706C5.16334 7.59002 4.84677 7.58711 4.64973 7.78058C4.45268 7.97404 4.44978 8.29061 4.64325 8.48765L6.22658 10.1003C6.33054 10.2062 6.47617 10.2604 6.62407 10.2483C6.77197 10.2363 6.90686 10.1591 6.99226 10.0377L10.1589 5.53774Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path></svg>}
+                    {submitStatus.message}
+                  </span>
+                )}
               </div>
-              <button type="submit" className={styles.subscribeButton}>
-                Subscribe
+              <button
+                type="submit"
+                className={styles.subscribeButton}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Subscribing..." : "Subscribe"}
               </button>
             </form>
           </div>
