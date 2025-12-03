@@ -74,6 +74,19 @@ export const articleType = defineType({
       type: "text",
     }),
     defineField({
+      name: "language",
+      title: "Language",
+      type: "string",
+      options: {
+        list: [
+          { title: "English", value: "en" },
+          { title: "Español", value: "es" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "en",
+    }),
+    defineField({
       name: "gallery",
       title: "Gallery",
       type: "array",

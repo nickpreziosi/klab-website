@@ -10,7 +10,7 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: var(--padding-desktop);
+  padding: var(--padding-desktop) var(--padding-desktop) var(--padding-tablet) var(--padding-desktop);
   overflow: hidden;
 }
 
@@ -84,76 +84,213 @@
   padding: 0 var(--padding-desktop) var(--padding-desktop);
 }
 
-.categorySelector {
+/* News Filters */
+.newsFilters {
   margin-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
 }
 
-.categoryButtons {
+.filtersRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-  justify-content: center;
+  gap: 16px;
+  align-items: flex-end;
 }
 
-.categoryButton {
+.clearFiltersButton {
+  padding: 10px 20px;
+  height: 42px;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.3);
+  background: transparent;
   color: var(--secondary-color);
-  transition:
-    background-color 0.2s,
-    border-color 0.2s,
-    color 0.2s,
-    transform 0.2s;
-  font-family: inherit;
-}
-
-.categoryButtonActive button {
-  border: 1px solid rgba(var(--accent-color-rgb), 0.5);
-  color: var(--accent-color) !important;
-}
-
-.clearButton {
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  border: 1px solid rgba(var(--secondary-color-rgb), 1);
-  background: var(--secondary-color);
-  color: var(--main-color);
   opacity: 0.7;
-  transition:
-    opacity 0.2s,
-    background-color 0.2s,
-    transform 0.2s;
+  transition: opacity 0.2s, border-color 0.2s;
   font-family: inherit;
-  align-self: flex-start;
 }
 
-/* Limit Hover Effects to Non Touch Devices */
-@media (pointer: fine) and (hover: hover) {
-  .categoryButton:hover {
-    background: rgba(var(--secondary-color-rgb), 0.1);
-    border-color: rgba(var(--secondary-color-rgb), 0.3);
-  }
+/* Multi-Select Styles */
+.multiSelectWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 
-  .categoryButtonActive:hover {
-    background: rgba(var(--secondary-color-rgb), 0.2);
-    border-color: rgba(var(--accent-color-rgb), 0.7);
-  }
+.multiSelectLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--secondary-color);
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
 
-  .clearButton:hover {
+.multiSelectButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  height: 42px;
+  background: rgba(var(--secondary-color-rgb), 0.05);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
+  border-radius: 6px;
+  color: var(--secondary-color);
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+  font-family: inherit;
+}
+
+.multiSelectButton[data-focus-visible] {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.multiSelectValue {
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.multiSelectChevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.multiSelectChevron[data-open="true"] {
+  transform: rotate(180deg);
+}
+
+.multiSelectPopover {
+  background: var(--main-color);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  min-width: var(--trigger-width);
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.multiSelectPopover[data-entering] {
+  animation: popoverEnter 0.15s ease-out;
+}
+
+.multiSelectPopover[data-exiting] {
+  animation: popoverExit 0.1s ease-in;
+}
+
+@keyframes popoverEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
     opacity: 1;
-    background: rgba(var(--secondary-color-rgb), 0.05);
+    transform: translateY(0);
   }
+}
+
+@keyframes popoverExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.multiSelectListBox {
+  padding: 4px;
+  outline: none;
+}
+
+.multiSelectItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  color: var(--secondary-color);
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.15s;
+  white-space: nowrap;
+}
+
+.multiSelectItem[data-focused] {
+  background: rgba(var(--secondary-color-rgb), 0.1);
+}
+
+.multiSelectItem[data-selected] {
+  color: var(--secondary-color);
+}
+
+.multiSelectItem[data-selected] svg {
+  color: var(--main-color);
+}
+
+.multiSelectCheckbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.3);
+  border-radius: 3px;
+  background: transparent;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.multiSelectCheckbox[data-selected="true"] {
+  background: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+/* No Results */
+.noResults {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.noResultsIcon {
+  color: var(--secondary-color);
+  opacity: 0.3;
+  margin-bottom: 24px;
+}
+
+.noResultsTitle {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--secondary-color);
+  margin: 0 0 12px 0;
+}
+
+.noResultsText {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--secondary-color);
+  opacity: 0.7;
+  margin: 0;
+  max-width: 400px;
 }
 
 .articlesGrid {
@@ -161,6 +298,23 @@
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   gap: var(--gap-md);
   margin-bottom: var(--padding-desktop);
+}
+
+/* Hover effects for non-touch devices */
+@media (pointer: fine) and (hover: hover) {
+  .clearFiltersButton:hover {
+    opacity: 1;
+    border-color: rgba(var(--secondary-color-rgb), 0.5);
+  }
+
+  .multiSelectButton:hover {
+    border-color: rgba(var(--secondary-color-rgb), 0.4);
+    background: rgba(var(--secondary-color-rgb), 0.08);
+  }
+
+  .multiSelectItem:hover {
+    background: rgba(var(--secondary-color-rgb), 0.1);
+  }
 }
 
 @media (max-width: 1024px) {
@@ -198,22 +352,33 @@
     font-size: 16px;
   }
 
-  .categorySelector {
+  .newsFilters {
     margin-bottom: 32px;
   }
 
-  .categoryButtons {
-    gap: 8px;
+  .filtersRow {
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .categoryButton {
-    font-size: 13px;
+  .multiSelectWrapper {
+    width: 100%;
+  }
+
+  .multiSelectPopover {
+    width: var(--trigger-width) !important;
+    max-width: var(--trigger-width) !important;
+  }
+
+  .clearFiltersButton {
+    width: 100%;
   }
 
   .articlesGrid {
     grid-template-columns: 1fr;
     gap: var(--gap-lg);
   }
+
   .articlesSection {
     padding: 0 var(--padding-mobile) var(--padding-tablet);
   }
@@ -222,5 +387,17 @@
   .gradientOrb2 {
     width: 400px;
     height: 400px;
+  }
+
+  .noResults {
+    padding: 60px 20px;
+  }
+
+  .noResultsTitle {
+    font-size: 20px;
+  }
+
+  .noResultsText {
+    font-size: 14px;
   }
 }

@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import NewsCard from "../components/news/newsCard/news-card";
 import NewsPagination from "../components/news/newsPagination/news-pagination";
 import NewsCardSkeleton from "../components/news/newsCardSkeleton/news-card-skeleton";
-import CategorySelector from "./category-selector";
+import NewsFilters from "./news-filters";
 import styles from "./page.module.css";
 
 interface Article {
@@ -26,6 +26,7 @@ interface NewsClientProps {
   articles: Article[];
   allCategories: string[];
   selectedCategories: string[];
+  selectedLanguages: string[];
   articlesPerPage: number;
 }
 
@@ -33,6 +34,7 @@ export default function NewsClient({
   articles,
   allCategories,
   selectedCategories,
+  selectedLanguages,
   articlesPerPage,
 }: NewsClientProps) {
   const searchParams = useSearchParams();
@@ -52,6 +54,9 @@ export default function NewsClient({
   const startIndex = (safePage - 1) * articlesPerPage;
   const endIndex = startIndex + articlesPerPage;
   const currentArticles = articles.slice(startIndex, endIndex);
+
+  const hasNoResults = articles.length === 0;
+  const hasFilters = selectedCategories.length > 0 || selectedLanguages.length > 0;
 
   return (
     <main className={styles.main}>
@@ -92,25 +97,57 @@ export default function NewsClient({
         </div>
       </section>
 
-      {/* Category Selector */}
+      {/* Filters Section */}
       <section className={styles.articlesSection}>
-        <CategorySelector
+        <NewsFilters
           categories={allCategories}
           selectedCategories={selectedCategories}
+          selectedLanguages={selectedLanguages}
         />
 
-        <div className={styles.articlesGrid}>
-          {isLoading
-            ? Array.from({ length: articlesPerPage }).map((_, index) => (
-                <NewsCardSkeleton key={index} />
-              ))
-            : currentArticles.map((article, index) => (
-                <NewsCard key={article.slug} article={article} index={index} />
-              ))}
-        </div>
+        {hasNoResults ? (
+          <motion.div
+            className={styles.noResults}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className={styles.noResultsIcon}>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <h3 className={styles.noResultsTitle}>No articles found</h3>
+            <p className={styles.noResultsText}>
+              {hasFilters
+                ? "Try adjusting your filters to find what you're looking for."
+                : "Check back soon for new content."}
+            </p>
+          </motion.div>
+        ) : (
+          <>
+            <div className={styles.articlesGrid}>
+              {isLoading
+                ? Array.from({ length: articlesPerPage }).map((_, index) => (
+                    <NewsCardSkeleton key={index} />
+                  ))
+                : currentArticles.map((article, index) => (
+                    <NewsCard key={article.slug} article={article} index={index} />
+                  ))}
+            </div>
 
-        {/* Pagination (driven by URL ?page=) */}
-        {!isLoading && <NewsPagination totalPages={totalPages} />}
+            {/* Pagination (driven by URL ?page=) */}
+            {!isLoading && totalPages > 1 && (
+              <NewsPagination totalPages={totalPages} />
+            )}
+          </>
+        )}
       </section>
     </main>
   );

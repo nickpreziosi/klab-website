@@ -26,6 +26,7 @@ export interface SanityArticle {
   category?: string;
   readTime?: string;
   excerpt?: string;
+  language?: "en" | "es";
   gallery?: Array<{
     asset: {
       _ref?: string;
@@ -51,7 +52,8 @@ export const articlesQuery = groq`
     authorRole,
     category,
     readTime,
-    excerpt
+    excerpt,
+    language
   }
 `;
 
