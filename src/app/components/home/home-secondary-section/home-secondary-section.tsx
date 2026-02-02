@@ -458,8 +458,8 @@ export default function HomeSecondarySection({
       <section className={styles.section}>
         <div className={styles.container}>
           <SectionHeader
-            heading="Built for Scale."
-            secondHeading="Powered by Intelligence."
+            heading="Full Deployment"
+            secondHeading="In Less Than 90 Days."
             align="left"
             animateOnce={animateOnce}
           />
@@ -495,9 +495,8 @@ export default function HomeSecondarySection({
                   <h3 className={styles.cardTitle}>{card.title}</h3>
                   <p className={styles.cardDescription}>{card.description}</p>
                   <Button
-                    text={`Learn About ${card.title}`}
                     href={card.link}
-                    variant="outline"
+                    variant="accent-brand"
                     icon={
                       <svg
                         width="15"
@@ -514,8 +513,10 @@ export default function HomeSecondarySection({
                         ></path>
                       </svg>
                     }
-                    iconPosition="end"
-                  />
+                    iconPosition="right"
+                  >
+                    {`Learn About ${card.title}`}
+                  </Button>
                 </div>
                 <div className={styles.cardImageWrapper}>
                   <Image

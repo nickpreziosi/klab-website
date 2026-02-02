@@ -291,9 +291,7 @@ export function SupportContactForm() {
             </p>
             <div className={styles.successActions}>
               <Button
-                text="Submit Another Request"
-                width="fit"
-                variant="outline"
+                variant="accent-brand-outline"
                 onClick={() => {
                   setIsSuccess(false);
                   setSubmitStatus({ type: null, message: "" });
@@ -315,8 +313,10 @@ export function SupportContactForm() {
                     />
                   </svg>
                 }
-                iconPosition="end"
-              />
+                iconPosition="right"
+              >
+                Submit Another Request
+              </Button>
             </div>
           </motion.div>
         </div>
@@ -672,11 +672,10 @@ export function SupportContactForm() {
 
           <div className={styles.submitWrapperDesktop}>
             <Button
-              text={isSubmitting ? "Submitting..." : "Submit Form"}
-              width="fit"
-              variant="full"
-              iconPosition="end"
+              variant="accent-brand"
+              iconPosition="right"
               disabled={isSubmitting}
+              loading={isSubmitting}
               icon={
                 <svg
                   width="20"
@@ -693,15 +692,17 @@ export function SupportContactForm() {
                   ></path>
                 </svg>
               }
-            />
+            >
+              {isSubmitting ? "Submitting..." : "Submit Form"}
+            </Button>
           </div>
           <div className={styles.submitWrapperMobile}>
             <Button
-              text={isSubmitting ? "Submitting..." : "Submit Form"}
-              width="full"
-              variant="full"
-              iconPosition="end"
+              variant="accent-brand"
+              iconPosition="right"
               disabled={isSubmitting}
+              loading={isSubmitting}
+              className={styles.buttonFullWidth}
               icon={
                 <svg
                   width="20"
@@ -718,7 +719,9 @@ export function SupportContactForm() {
                   ></path>
                 </svg>
               }
-            />
+            >
+              {isSubmitting ? "Submitting..." : "Submit Form"}
+            </Button>
           </div>
         </div>
       </form>

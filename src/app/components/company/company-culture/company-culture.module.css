@@ -3,19 +3,15 @@
   padding: 0 0 var(--padding-desktop);
   position: relative;
   background: linear-gradient(
-    180deg,
-    rgba(var(--secondary-color-rgb), 0.1) 0%,
-    rgba(var(--secondary-color-rgb), 0.1) 20%,
-    rgba(var(--main-color-rgb), 0.2) 40%,
-    rgba(var(--main-color-rgb), 0.5) 70%,
-    rgba(var(--main-color-rgb), 0.7) 80%,
-    rgba(var(--main-color-rgb), 1) 100%
+    to bottom,
+    rgba(var(--main-color-rgb), 1) 0%,
+    black 100%
   );
   padding: 0;
 }
 
 .section * {
-  font-family: "Poppins", sans-serif;
+  font-family: "Sora", sans-serif;
 }
 
 .container {

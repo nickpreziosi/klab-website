@@ -1,6 +1,6 @@
-# KEO Website
+# KLab Website
 
-A modern, full-featured website for KEO - a blockchain payment infrastructure company. Built with Next.js 15, React 19, and TypeScript, featuring dynamic animations, 3D graphics, contact forms with email integration, and a responsive design.
+A modern, full-featured website for KLab - a blockchain payment infrastructure company. Built with Next.js 15, React 19, and TypeScript, featuring dynamic animations, 3D graphics, contact forms with email integration, and a responsive design.
 
 ## 🚀 Features
 
@@ -9,7 +9,7 @@ A modern, full-featured website for KEO - a blockchain payment infrastructure co
 - **Homepage** - Video background hero section with animated content
 - **Company Page** - Team showcase, company culture, timeline, and statistics
 - **Technology Pages**:
-  - **KEO Rails** - B2B blockchain payment infrastructure product showcase with interactive dashboard demo
+  - **K Rails** - B2B blockchain payment infrastructure product showcase with interactive dashboard demo
   - **Kena AI** - AI-powered platform with 3D avatar visualization and password-protected sections
 - **News/Blog** - Dynamic news articles with pagination and SEO-friendly URLs
 - **Litepapers** - Multi-language documentation downloads
@@ -98,7 +98,7 @@ keo-website/
 │       │   ├── contact/      # Contact form components
 │       │   ├── home/         # Homepage components
 │       │   ├── kena/         # Kena AI page components
-│       │   ├── keo-rails/    # KEO Rails page components
+│       │   ├── k-rails/    # KRails page components
 │       │   ├── news/         # News/blog components
 │       │   └── ui/           # Reusable UI components
 │       ├── company/          # Company page

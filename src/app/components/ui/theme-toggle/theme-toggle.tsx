@@ -81,7 +81,7 @@ export function ThemeToggle() {
       if (event.matches) {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "20, 20, 20",
+          "23, 25, 32",
         );
         document.documentElement.style.setProperty(
           "--secondary-color-rgb",
@@ -124,7 +124,7 @@ export function ThemeToggle() {
       } else if (t === "dark") {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "20, 20, 20",
+          "23, 25, 32",
         );
         document.documentElement.style.setProperty(
           "--secondary-color-rgb",
@@ -133,11 +133,11 @@ export function ThemeToggle() {
       } else if (t === "light") {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "250, 250, 250",
+          "244, 231, 219",
         );
         document.documentElement.style.setProperty(
           "--secondary-color-rgb",
-          "20, 20, 20",
+          "23, 25, 32",
         );
       } else if (t === "keo") {
         document.documentElement.style.setProperty(

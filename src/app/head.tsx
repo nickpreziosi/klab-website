@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 
 function rgbForTheme(theme: string | null) {
   if (!theme) return { main: "250, 250, 250", white: "20, 20, 20" };
-  if (theme === "dark") return { main: "20, 20, 20", white: "250, 250, 250" };
+  if (theme === "dark") return { main: "23, 25, 32", white: "250, 250, 250" };
   if (theme === "light") return { main: "250, 250, 250", white: "20, 20, 20" };
   if (theme === "keo") return { main: "0, 23, 45", white: "250, 250, 250" };
   return { main: "250, 250, 250", white: "20, 20, 20" };
@@ -37,7 +37,7 @@ export default async function Head() {
       }
       var main = '250, 250, 250';
       var white = '20, 20, 20';
-      if (theme === 'dark') { main = '20, 20, 20'; white = '250, 250, 250'; }
+      if (theme === 'dark') { main = '23, 25, 32'; white = '250, 250, 250'; }
       else if (theme === 'light') { main = '250, 250, 250'; white = '20, 20, 20'; }
       else if (theme === 'keo') { main = '0, 23, 45'; white = '250, 250, 250'; }
       try { var r = document.documentElement; r.style.setProperty('--main-color-rgb', main); r.style.setProperty('--secondary-color-rgb', white); r.setAttribute('data-theme', theme); } catch (e) {}

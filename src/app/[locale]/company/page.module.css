@@ -1,0 +1,100 @@
+.page {
+  position: relative;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  width: 100%;
+  padding: 0;
+}
+
+.staffContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--main-color-rgb), 1) 0%,
+    black 100%
+  );
+}
+
+.cardGrid {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-lg);
+  height: fit-content;
+  margin-top: var(--padding-tablet);
+}
+
+.staffSection h1 {
+  font-size: var(--text-4xl);
+  text-align: left;
+  margin-bottom: var(--margin-lg);
+}
+
+.staffSection {
+  color: var(--secondary-color);
+  width: 100%;
+  max-width: 1440px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-desktop);
+}
+
+@media (max-width: 1280px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .staffSection {
+    padding: var(--padding-tablet);
+  }
+  .staffSection h1 {
+    font-size: var(--text-4xl);
+    text-align: center;
+    margin-bottom: var(--margin-lg);
+  }
+}
+
+@media (max-width: 769px) {
+  .staffSection {
+    padding: var(--padding-tablet);
+  }
+  .cardGrid {
+    grid-template-columns: 1fr;
+    gap: var(--gap-md);
+  }
+  .staffSection > div > h2 {
+    margin-left: calc(-1 * var(--padding-mobile));
+  }
+}
+
+@media (max-width: 500px) {
+  .staffSection {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+  .staffSection > div > h2 {
+    margin-left: 0;
+  }
+}

@@ -4,8 +4,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(var(--secondary-color-rgb), 0.05);
-}
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--main-color-rgb), 1) 0%,
+    black 100%
+  );}
 
 .container {
   width: 100%;
@@ -45,7 +48,7 @@
   width: fit-content;
   padding: 8px;
   padding-bottom: 0px;
-  background-color: rgba(var(--accent-color-rgb), 0.4);
+  background-color: rgba(var(--accent-color-rgb), 1);
 }
 
 /* Typing / highlight effects */
@@ -56,8 +59,8 @@
   /* limit the reveal width using ch units via a CSS variable set from React */
   max-width: 0ch;
   border-right: 2px solid rgba(var(--secondary-color-rgb), 0.9);
-  /* default: paused until the element is in view */
-  animation: typing 1.8s steps(30, end) forwards, blink 800ms step-end infinite;
+  /* default: paused until the element is in view; full cycle: type -> hold 2.5s -> reset -> repeat */
+  animation: typing 5s steps(30, end) infinite, blink 800ms step-end infinite;
   animation-play-state: paused;
 }
 
@@ -97,11 +100,17 @@
 }
 
 @keyframes typing {
-  from {
+  0% {
     max-width: 0ch;
   }
-  to {
+  36% {
     max-width: var(--typing-ch, 20ch);
+  }
+  86% {
+    max-width: var(--typing-ch, 20ch);
+  }
+  100% {
+    max-width: 0ch;
   }
 }
 

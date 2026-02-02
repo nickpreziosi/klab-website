@@ -8,8 +8,9 @@ import {
 } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import Image from "next/image";
+import { LoaderPinwheel } from "lucide-react";
 import styles from "./loading-progress-bar.module.css";
+import { KlabLogo } from "@/app/components/ui/klab-logo/klab-logo";
 
 export function LoadingProgressBar() {
   const [targetProgress, setTargetProgress] = useState(0);
@@ -158,30 +159,19 @@ export function LoadingProgressBar() {
                   ease: "linear",
                 }}
               >
-                <motion.svg
+                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
-                  viewBox="0 0 200 200"
                   className={styles.spinnerSvg}
                 >
-                  <circle
-                    cx="100"
-                    cy="100"
-                    r="80"
-                    fill="none"
-                    stroke="var(--secondary-color)"
-                    strokeWidth="8"
-                    strokeDasharray="20 20"
-                    strokeLinecap="round"
-                    style={{
-                      strokeDashoffset: `${
-                        502 - (502 * displayProgress) / 100
-                      }`,
-                      transition: "stroke-dashoffset 0.3s ease-out",
-                    }}
+                  <LoaderPinwheel
+                    color="var(--accent-color)"
+                    size={256}
+                    strokeWidth={1}
+                    className={styles.loaderIcon}
                   />
-                </motion.svg>
+                </motion.div>
               </motion.div>
 
               <motion.div
@@ -193,14 +183,7 @@ export function LoadingProgressBar() {
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 className={styles.logoCenter}
               >
-                <Image
-                  src="/keo-logo.png"
-                  alt="Keo Logo"
-                  width={140}
-                  height={140}
-                  className={styles.logo}
-                  priority
-                />
+                <KlabLogo color="orange" format="default" width={200} height={200} />
               </motion.div>
             </motion.div>
 

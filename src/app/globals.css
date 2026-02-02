@@ -30,7 +30,7 @@
 
   /* Accent color */
   --accent-color: rgba(var(--accent-color-rgb), 1);
-  --accent-color-rgb: 255, 0, 76;
+  --accent-color-rgb: 243, 113, 32;
 
   /* Blue color */
   --primary-blue: rgba(0, 23, 45, 1);
@@ -131,7 +131,8 @@ body {
 }
 
 html {
-  scroll-behavior: smooth;
+  overscroll-behavior: none;
+  scroll-behavior: auto;
 }
 
 #video {
@@ -144,7 +145,7 @@ html * {
 
 body {
   background: var(--main-color);
-  font-family: "Poppins", sans-serif;
+  font-family: "Sora", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
@@ -190,6 +191,9 @@ button:focus-visible {
 }
 
 @media (prefers-color-scheme: dark) {
+  :root {
+    --main-color-rgb: 23, 25, 32;
+  }
 }
 
 div[data-ui="Layer"] {

@@ -74,9 +74,8 @@ export default function KeoRailsDemo() {
             </div>
 
             <Button
-              text="Activate my profile"
-              variant="full"
-              iconPosition="end"
+              variant="accent-brand"
+              iconPosition="right"
               href="/contact/sales"
               icon={
                 <svg
@@ -95,7 +94,9 @@ export default function KeoRailsDemo() {
                   />
                 </svg>
               }
-            ></Button>
+            >
+              Activate my profile
+            </Button>
           </div>
 
           {/* Right column - Phone mockup */}

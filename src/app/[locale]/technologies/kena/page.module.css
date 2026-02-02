@@ -1,0 +1,49 @@
+.container * {
+  font-family: "Sora", sans-serif;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - var(--navbar-height));
+  min-height: fit-content;
+}
+
+.heroSection {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--main-color-rgb), 1) 0%,
+    black 100%
+  );
+}
+
+.kena3dSection {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+
+    to bottom,
+    rgba(var(--main-color-rgb), 1) 0%,
+    black 100%
+  );
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 768px) {
+}

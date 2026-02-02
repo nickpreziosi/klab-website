@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import styles from "./not-found.module.css";
-import { Logo } from "@/app/components/ui/logo/logo";
 import { useRouter } from "next/navigation";
 import Button from "@/app/components/ui/button/button";
 import Link from "next/link";
+import { KlabLogo } from "@/app/components/ui/klab-logo/klab-logo";
 
 export default function NotFound() {
   const router = useRouter();
@@ -34,7 +34,7 @@ export default function NotFound() {
             }}
           >
             <Link href="/">
-              <Logo className={styles.logoLarge} size="lg" animated></Logo>
+              <KlabLogo color="orange" format="default" width={100} height={100} />
             </Link>
           </motion.div>
 
@@ -77,7 +77,6 @@ export default function NotFound() {
           >
             <Button
               onClick={handleGoBack}
-              text="Go Back"
               variant="outline"
               iconPosition="start"
               icon={
@@ -96,12 +95,13 @@ export default function NotFound() {
                   ></path>
                 </svg>
               }
-            />
+            >
+              Go Back
+            </Button>
 
             <Button
               href="/"
-              text="Go Home"
-              variant="full"
+              variant="accent-brand"
               iconPosition="start"
               icon={
                 <svg
@@ -119,7 +119,9 @@ export default function NotFound() {
                   ></path>
                 </svg>
               }
-            />
+            >
+              Go Home
+            </Button>
           </motion.div>
         </div>
       </motion.div>

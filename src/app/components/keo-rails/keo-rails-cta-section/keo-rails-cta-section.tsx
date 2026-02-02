@@ -9,7 +9,7 @@ import Button from "@/app/components/ui/button/button";
 export default function KeoRailsCtaSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const highlightText = "TRANSFORM YOUR EFFICIENCY";
+  const highlightText = "TRANSFORM YOUR EFFICIENCY...";
 
   return (
     <section className={styles.section} ref={ref}>
@@ -55,9 +55,8 @@ export default function KeoRailsCtaSection() {
           >
             <Button
               href="https://docs.keorails.com/"
-              text="EMBED KEO RAILS"
               iconPosition="end"
-              variant="full"
+              variant="accent-brand"
               icon={
                 <svg
                   width="15"
@@ -74,7 +73,9 @@ export default function KeoRailsCtaSection() {
                   ></path>
                 </svg>
               }
-            ></Button>
+            >
+              Embed KRails
+            </Button>
           </motion.div>
         </motion.div>
       </div>

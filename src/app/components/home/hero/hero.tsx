@@ -4,10 +4,13 @@ import styles from "./hero.module.css";
 import "./hero.module.css";
 import HeroText from "@/app/components/ui/hero-text/hero-text";
 import VideoPlayer from "@/app/components/ui/video-player/video-player";
+import { useTranslations } from "@/app/lib/use-translations";
+import { useLocale } from "@/app/components/ui/locale-context/locale-context";
 
 export const Hero = () => {
-  // Reference to the video element
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const { t } = useTranslations();
+  const { localePath } = useLocale();
 
   // Pause video when not visible to save resources
   useEffect(() => {
@@ -29,11 +32,11 @@ export const Hero = () => {
       <div className={styles.content}>
         <div className={styles.mainContainer}>
           <HeroText
-            maxWidth="620px"
-            text="Building the Future of Financial Infrastructure"
-            subtitle="KEO develops the technology that automates risk, payments, and financial operations — all in one intelligent platform."
-            buttonText="Contact Sales"
-            buttonHref="/contact/sales"
+            maxWidth="680px"
+            text={t("hero.title")}
+            subtitle={t("hero.subtitle")}
+            buttonText={t("hero.contactSales")}
+            buttonHref={localePath("/contact/sales")}
           />
         </div>
 

@@ -1,77 +1,23 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import styles from "./dropdown-menu.module.css";
 
+import { motion, AnimatePresence } from "framer-motion";
+import styles from "./dropdown-menu.module.css";
 import { useEffect, useRef } from "react";
+import { TechnologiesShowcase } from "@/app/components/technologies-showcase/technologies-showcase";
+
+/**
+ * Original grid implementation is in dropdown-menu-grid.tsx.
+ * To revert to the grid: import { TechnologiesDropdownGrid } from "./dropdown-menu-grid"
+ * and render <TechnologiesDropdownGrid isOpen={isOpen} onClose={onClose} /> inside the content div.
+ */
 
 interface DesktopDropdownProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const solutions = [
-  {
-    title: "KEO Rails",
-    description:
-      "B2B blockchain-based payments and lending infrastructure with near instant settlements",
-    href: "/technologies/keo-rails",
-  },
-  {
-    title: "Kena AI",
-    description: "Kena is the world's first AI underwriter",
-    href: "/technologies/kena-ai",
-  },
-];
-
 export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const firstLinkRef = useRef<HTMLAnchorElement | null>(null);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      const links =
-        dropdownRef.current?.querySelectorAll<HTMLAnchorElement>(
-          'a[role="menuitem"]'
-        );
-      if (!links || links.length === 0) return;
-
-      const currentIndex = Array.from(links).findIndex(
-        (link) => link === document.activeElement
-      );
-
-      if (event.key === "ArrowDown") {
-        event.preventDefault();
-        // Loop to first item if at the end
-        const nextIndex =
-          currentIndex === links.length - 1 ? 0 : currentIndex + 1;
-        links[nextIndex]?.focus();
-      } else if (event.key === "ArrowUp") {
-        event.preventDefault();
-        // Loop to last item if at the beginning
-        const prevIndex =
-          currentIndex <= 0 ? links.length - 1 : currentIndex - 1;
-        links[prevIndex]?.focus();
-      } else if (event.key === "Tab") {
-        event.preventDefault();
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (isOpen && firstLinkRef.current) {
-      // Small delay to allow animation to start
-      const timer = setTimeout(() => {
-        firstLinkRef.current?.focus();
-      }, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen]);
 
   // Close dropdown when viewport shrinks from desktop to mobile while open
   useEffect(() => {
@@ -110,46 +56,20 @@ export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
               className={styles.content}
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -20, opacity: 0 }}
               transition={{
+                delay: 0.15,
                 duration: 0.3,
                 ease: [0.4, 0, 0.2, 1],
               }}
+              exit={{ y: -20, opacity: 0, transition: { delay: 0 } }}
+
             >
-              <h3 className={styles.heading}>Our Technologies</h3>
-              <ul
-                tabIndex={0}
-                id="nav-dropdown-menu"
-                role="menu"
-                className={styles.list}
-              >
-                {solutions.map((solution, index) => (
-                  <motion.li
-                    key={solution.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{
-                      duration: 0.4,
-                      delay: isOpen ? index * 0.2 : (3 - index) * 0.1,
-                      ease: "easeOut",
-                    }}
-                  >
-                    <Link
-                      role="menuitem"
-                      href={solution.href}
-                      className={styles.item}
-                      onClick={onClose}
-                      tabIndex={0}
-                    >
-                      <div className={styles.itemTitle}>{solution.title}</div>
-                      <div className={styles.itemDescription}>
-                        {solution.description}
-                      </div>
-                    </Link>
-                  </motion.li>
-                ))}
-              </ul>
+              <TechnologiesShowcase
+                onLinkClick={onClose}
+                expandOnFirstTap={false}
+                className={styles.technologiesShowcase}
+                headerTitle="Our Technologies"
+              />
             </motion.div>
           </div>
         </motion.div>

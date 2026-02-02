@@ -183,8 +183,9 @@ export default function KenaPassword({
               }
               type="submit"
               disabled={loading}
-              text={loading ? "Unlocking…" : "Unlock"}
-            ></Button>
+            >
+              {loading ? "Unlocking…" : "Unlock"}
+            </Button>
           </div>
 
           <div className={styles.row}>

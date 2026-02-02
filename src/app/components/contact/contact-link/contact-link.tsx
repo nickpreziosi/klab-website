@@ -34,11 +34,9 @@ export function ContactLink({
 
       <Button
         href={href}
-        text={buttonText}
-        variant="outline"
-        iconPosition="end"
+        variant="accent-brand"
+        iconPosition="right"
         size="sm"
-        fontWeight={300}
         icon={
           <svg
             width="20"
@@ -55,7 +53,9 @@ export function ContactLink({
             ></path>
           </svg>
         }
-      />
+      >
+        {buttonText}
+      </Button>
     </motion.div>
   );
 }

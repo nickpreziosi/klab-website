@@ -154,7 +154,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(var(--secondary-color-rgb), 0.05);
   position: relative;
 }
 
@@ -219,7 +218,7 @@
 
 .label {
   color: var(--secondary-color);
-  font-family: Poppins;
+  font-family: Sora;
   font-weight: 300;
   font-style: Light;
   font-size: 24px;

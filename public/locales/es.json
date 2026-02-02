@@ -1,0 +1,15 @@
+{
+  "hero": {
+    "title": "Construyendo el futuro de la infraestructura financiera",
+    "subtitle": "KLab desarrolla la tecnología que automatiza el riesgo, los pagos y las operaciones financieras — todo en una plataforma inteligente.",
+    "contactSales": "Contactar ventas"
+  },
+  "landing": {
+    "statusBar": "ESTADO_DEL_SISTEMA: PRÓXIMAMENTE",
+    "headline": "Construyendo el futuro de la infraestructura financiera",
+    "subline": "K Lab desarrolla la tecnología que automatiza el riesgo, los pagos y las operaciones financieras — todo en una plataforma inteligente.",
+    "learnMore": "Saber más",
+    "ourTechnologies": "Nuestras tecnologías",
+    "contactSales": "Contactar ventas"
+  }
+}

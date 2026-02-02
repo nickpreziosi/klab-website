@@ -7,13 +7,13 @@ import SectionHeader from "@/app/components/ui/section-header/section-header";
 
 const stats = [
   {
-    label: "People in five countries",
-    value: 112,
+    label: "People in six countries",
+    value: 40,
     suffix: "+",
   },
   {
     label: "Are women",
-    value: 36,
+    value: 25,
     suffix: "%",
   },
   {

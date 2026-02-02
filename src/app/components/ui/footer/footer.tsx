@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Button from "@/app/components/ui/button/button";
 import { useState } from "react";
+import { KlabLogo } from "@/app/components/ui/klab-logo/klab-logo";
 
 // Zod schema for email validation (client-side)
 const subscribeSchema = z.object({
@@ -78,8 +79,8 @@ export const Footer = () => {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/technologies/keo-rails", label: "Keo Rails" },
-    { href: "/technologies/kena-ai", label: "Kena AI" },
+    { href: "/technologies/k-rails", label: "KRails" },
+    { href: "/technologies/kena", label: "Kena" },
     { href: "/company", label: "Company" },
     { href: "/contact", label: "Contact" },
     { href: "/careers", label: "Careers" },
@@ -178,7 +179,7 @@ export const Footer = () => {
     },
     {
       name: "Email",
-      href: "mailto:hello@keo.com",
+      href: "mailto:info@k-lab.ai",
       label: "Send us an email",
       icon: (
         <svg
@@ -204,13 +205,13 @@ export const Footer = () => {
           {/* Newsletter Section */}
           <div className={styles.newsletter}>
             <div className={styles.newsletterContent}>
-              <Link className={styles.logo} href="/" aria-label="KEO Home">
-                <Logo size="md" animated></Logo>
+              <Link className={styles.logo} href="/" aria-label="KLab Home">
+                <KlabLogo color="orange" format="default" width={60} height={60} />
               </Link>
               <div className={styles.newsletterText}>
                 <h2 className={styles.newsletterHeading}>Stay in the loop</h2>
                 <p className={styles.newsletterSubheading}>
-                  Subscribe for KEO updates.
+                  Subscribe for KLab updates.
                 </p>
               </div>
             </div>
@@ -224,7 +225,7 @@ export const Footer = () => {
                   autoComplete="off"
                   type="text"
                   {...register("email")}
-                  placeholder="email@keoworld.com"
+                  placeholder="email@k-lab.ai"
                   className={`${styles.emailInput} ${
                     errors.email ? styles.emailInputError : ""
                   }`}
@@ -265,16 +266,14 @@ export const Footer = () => {
             <div className={styles.linkCard}>
               <h3 className={styles.linkCardTitle}>Read Our Blog</h3>
               <p className={styles.linkCardDescription}>
-                Explore articles on fintech trends, KEO updates, industry
+                Explore articles on fintech trends, KLab updates, industry
                 insights, and more.
               </p>
               <Button
                 size="sm"
-                fontWeight={300}
-                text="Read Blog"
-                variant="outline"
+                variant="accent-brand"
                 href="/news"
-                iconPosition="end"
+                iconPosition="right"
                 icon={
                   <svg
                     width="15"
@@ -291,22 +290,20 @@ export const Footer = () => {
                     ></path>
                   </svg>
                 }
-              ></Button>
+              >Read Blog</Button>
             </div>
 
             <div className={styles.linkCard}>
               <h3 className={styles.linkCardTitle}>Contact Us</h3>
               <p className={styles.linkCardDescription}>
-                Have questions about KEO or our solutions? Our team is ready to
+                Have questions about KLab or our solutions? Our team is ready to
                 help you find the right product or assistance.
               </p>
               <Button
                 size="sm"
-                fontWeight={300}
-                text="Contact Us"
-                variant="outline"
+                variant="accent-brand"
                 href="/contact"
-                iconPosition="end"
+                iconPosition="right"
                 icon={
                   <svg
                     width="15"
@@ -323,7 +320,7 @@ export const Footer = () => {
                     ></path>
                   </svg>
                 }
-              ></Button>
+              >Contact Us</Button>
             </div>
 
             <div className={styles.linkCard}>
@@ -334,11 +331,9 @@ export const Footer = () => {
               </p>
               <Button
                 size="sm"
-                fontWeight={300}
-                text="View Litepapers"
-                variant="outline"
+                variant="accent-brand"
                 href="/litepapers"
-                iconPosition="end"
+                iconPosition="right"
                 icon={
                   <svg
                     width="15"
@@ -355,22 +350,20 @@ export const Footer = () => {
                     ></path>
                   </svg>
                 }
-              ></Button>
+              >View Litepapers</Button>
             </div>
 
             <div className={styles.linkCard}>
               <h3 className={styles.linkCardTitle}>Developers</h3>
               <p className={styles.linkCardDescription}>
                 Explore our API docs, integration guides, and technical
-                resources to get started with KEO technologies.
+                resources to get started with KLab technologies.
               </p>
               <Button
                 size="sm"
-                fontWeight={300}
-                text="View Docs"
-                variant="outline"
+                variant="accent-brand"
                 href="https://docs.keorails.com/"
-                iconPosition="end"
+                iconPosition="right"
                 icon={
                   <svg
                     width="15"
@@ -387,7 +380,7 @@ export const Footer = () => {
                     ></path>
                   </svg>
                 }
-              ></Button>
+              >View Docs</Button>
             </div>
           </div>
 
@@ -429,15 +422,15 @@ export const Footer = () => {
           {/* Legal Section */}
           <div className={styles.legal}>
             <p className={styles.copyright}>
-              © 2025 KEO World, Inc. All rights reserved. • 328 NW 29th St.
+              © 2026 KLab. All rights reserved. • 328 NW 29th St.
               Miami, Florida 33127
             </p>
             <p className={styles.legalText}>
-              Use of this site constitutes acceptance of KEO&apos;s Privacy and
+              Use of this site constitutes acceptance of KLab&apos;s Privacy and
               Data Protection Policy.
             </p>
             <p className={styles.legalText}>
-              KEO World, Inc. and its affiliates collect and process personal
+              KLab and its affiliates collect and process personal
               data in accordance with applicable privacy laws. For questions,
               contact{" "}
               <a
@@ -463,139 +456,6 @@ export const Footer = () => {
           </div>
         </div>
       </footer>
-
-      {/* OLD FOOTER CODE
-      <footer className={styles.footer}>
-        <div className={styles.container}>
-          <div className={styles.topSection}>
-
-            <div className={styles.logoSection}>
-              <Link href="/" className={styles.logoMedium}>
-                <Logo size="md" animated></Logo>
-              </Link>
-
-
-              <div className={styles.socialLinks}>
-                {socialLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.socialLink}
-                    aria-label={link.name}
-                  >
-                    {link.icon}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-
-            <nav className={styles.navSection}>
-              <h3 className={styles.sectionTitle}>Quick Links</h3>
-              <ul className={styles.navList}>
-                {navLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className={styles.navLink}>
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-
-            <div className={styles.awardsSection}>
-              <h3 className={styles.sectionTitle}>Awards & Recognition</h3>
-              <div className={styles.awardsGrid}>
-                <Image
-                  src="/winner-bold-award.png"
-                  alt="Winner Bold Award"
-                  width={120}
-                  height={80}
-                  className={styles.awardImage}
-                />
-
-                <Image
-                  src="/global-finance-award.png"
-                  alt="Global Finance KEO Award"
-                  width={120}
-                  height={80}
-                  className={styles.awardImage}
-                />
-                <Image
-                  src="/best-tech-award.png"
-                  alt="Best Tech KEO Award"
-                  width={120}
-                  height={80}
-                  className={styles.awardImage}
-                />
-              </div>
-            </div>
-          </div>
-
-
-          <div className={styles.divider} />
-
-
-          <div className={styles.legalSection}>
-            <div className={styles.legalText}>
-              <p className={styles.disclaimer}>
-                *The entities belonging to KEO World that operated in Mexico
-                called KEO WORLD MEXICO S. de R.L de C.V. y KEO WORLD S.A. de
-                C.V. SOFOM E.N.R. are not entities authorized to operate as
-                Financial Technology Institutions (Instituciones de Tecnología
-                Financiera) under the terms of the Mexican Law that regulates
-                Financial Technology Institutions (Ley para regular las
-                Instituciones de Tecnología Financiera), nor do they carry out
-                operations reserved for said Financial Technology Institutions
-                under the terms of the aforementioned Law.
-              </p>
-              <p className={styles.disclaimer}>
-                American Express® is a brand of American Express. The Workeo
-                American Express® Card is issued by KEO under license from
-                American Express.
-              </p>
-              <div className={styles.privacyPolicies}>
-                <span className={styles.privacyLabel}>Privacy Policies:</span>
-                {privacyLinks.map((link, index) => (
-                  <span key={link.href}>
-                    <Link href={link.href} className={styles.privacyLink}>
-                      {link.label}
-                    </Link>
-                    {index < privacyLinks.length - 1 && " • "}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className={styles.addresses}>
-              <p className={styles.address}>
-                <strong>KEO WORLD INC</strong> • 328 NW 29th St. Miami, Florida
-                33127
-              </p>
-              <p className={styles.address}>
-                <strong>KEO Mexico</strong> • Blvd. Miguel de Cervantes Saavedra
-                193, Piso 6, Colonia Granada, Delegación Miguel Hidalgo, 11520
-                Ciudad de México, CDMX
-              </p>
-              <p className={styles.address}>
-                <strong>KEO Brazil Tecnologia LTDA</strong> • R. Elvira Ferraz,
-                250 9o Andar Conj 911 e 912- Vila Olímpia São Paulo - SP,
-                04552-040
-              </p>
-            </div>
-
-            <div className={styles.copyright}>
-              <p>
-                © {new Date().getFullYear()} KEO World Inc. All rights reserved.
-              </p>
-            </div>
-          </div>
-        </div>
-      </footer>
-      */}
     </>
   );
 };

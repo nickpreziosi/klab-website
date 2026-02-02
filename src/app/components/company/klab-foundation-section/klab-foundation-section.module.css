@@ -1,0 +1,120 @@
+/* Section: uses main background (light in light mode, dark in dark mode) */
+.section {
+  width: 100%;
+  padding: var(--padding-desktop) var(--padding-desktop);
+  background-color: var(--main-color);
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--main-color-rgb), 1) 0%,
+    black 100%
+  );
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--gap-lg);
+}
+
+/* Label: adapts to theme (dark text in light mode, light text in dark mode) */
+.label {
+  font-size: var(--text-base);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--secondary-color);
+  opacity: 0.9;
+  margin: 0;
+}
+
+.quote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+  gap: var(--gap-sm);
+}
+
+/* Line wrapper: bar and text as separate layers so bar can be shorter than line height */
+.quoteLine {
+  position: relative;
+  display: inline-block;
+}
+
+/* Highlight bar: fixed height, shorter than line; centered vertically, extends horizontally */
+.quoteLineBar {
+  position: absolute;
+  left: -0.5em;
+  right: -0.5em;
+  height: 0.5em;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--accent-color);
+  z-index: 0;
+}
+
+.quoteLineText {
+  position: relative;
+  z-index: 1;
+  color: var(--secondary-color);
+  text-transform: uppercase;
+}
+
+.learnMore {
+  margin-top: var(--margin-sm);
+  border-color: rgba(var(--secondary-color-rgb), 0.4);
+  color: var(--secondary-color);
+}
+
+.learnMore:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding: var(--padding-tablet);
+  }
+
+  .quote {
+    font-size: clamp(1.75rem, 4.5vw, 3rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--padding-mobile);
+  }
+
+  .content {
+    gap: var(--gap-md);
+  }
+
+  .quote {
+    font-size: clamp(1.5rem, 7vw, 2.25rem);
+    gap: var(--gap-xs);
+  }
+
+  .quoteLineBar {
+    height: 0.3em;
+    left: -0.4em;
+    right: -0.4em;
+  }
+
+  .label {
+    font-size: var(--text-sm);
+  }
+}

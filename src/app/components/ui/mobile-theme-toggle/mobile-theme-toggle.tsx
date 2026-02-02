@@ -66,7 +66,7 @@ export function MobileThemeToggle() {
       if (event.matches) {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "20, 20, 20"
+          "23, 25, 32"
         );
         document.documentElement.style.setProperty(
           "--secondary-color-rgb",
@@ -109,7 +109,7 @@ export function MobileThemeToggle() {
       } else if (t === "dark") {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "20, 20, 20"
+          "23, 25, 32"
         );
         document.documentElement.style.setProperty(
           "--secondary-color-rgb",

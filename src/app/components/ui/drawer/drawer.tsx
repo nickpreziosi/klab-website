@@ -6,8 +6,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import styles from "./drawer.module.css";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { Logo } from "../logo/logo";
 import { MobileThemeToggle } from "@/app/components/ui/mobile-theme-toggle/mobile-theme-toggle";
+import { LocaleSwitcher } from "@/app/components/ui/locale-switcher/locale-switcher";
+import { KlabLogo } from "@/app/components/ui/klab-logo/klab-logo";
+
 
 export const Drawer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,7 +69,7 @@ export const Drawer = () => {
                     href="/"
                     onClick={() => setIsOpen(false)}
                   >
-                    <Logo size="sm" animated></Logo>
+                    <KlabLogo color="orange" format="default" width={60} height={60} />
                   </Link>
 
                   <Dialog.Close asChild>
@@ -188,18 +190,18 @@ export const Drawer = () => {
                           transition={{ duration: 0.3 }}
                         >
                           <Link
-                            href="/technologies/keo-rails"
+                            href="/technologies/k-rails"
                             className={styles.dropdownItem}
                             onClick={() => setIsOpen(false)}
                           >
-                            KEO Rails
+                            KRails
                           </Link>
                           <Link
-                            href="/technologies/kena-ai"
+                            href="/technologies/kena"
                             className={styles.dropdownItem}
                             onClick={() => setIsOpen(false)}
                           >
-                            Kena AI
+                            Kena
                           </Link>
                         </motion.div>
                       )}
@@ -314,7 +316,9 @@ export const Drawer = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35 }}
+                  style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}
                 >
+                  <LocaleSwitcher />
                   <MobileThemeToggle></MobileThemeToggle>
                 </motion.div>
               </motion.div>

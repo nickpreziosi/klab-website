@@ -172,9 +172,8 @@ export default function KeoRailsGridSection() {
                 </p>
                 <div className={styles.ctaContainer}>
                   <Button
-                    text="Activate my profile"
-                    variant="full"
-                    iconPosition="end"
+                    variant="accent-brand"
+                    iconPosition="right"
                     href="/contact/sales"
                     icon={
                       <svg
@@ -193,7 +192,9 @@ export default function KeoRailsGridSection() {
                         />
                       </svg>
                     }
-                  ></Button>
+                  >
+                    Activate my profile
+                  </Button>
                 </div>
               </div>
             </motion.div>

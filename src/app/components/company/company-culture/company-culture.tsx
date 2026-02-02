@@ -26,7 +26,7 @@ export default function CompanyCulture() {
             animateOnce={true}
           />
           <p className={styles.description}>
-            KEO combines start-up energy with extensive industry experience to
+            KLab combines start-up energy with extensive industry experience to
             develop innovative technologies. We have a deep commitment to
             advancing diversity, equality, and inclusion, essential to our
             mission of helping businesses and attracting exceptional people who
@@ -34,10 +34,8 @@ export default function CompanyCulture() {
           </p>
           <Button
             size="md"
-            fontWeight={500}
             href="https://www.linkedin.com/company/keoworld"
-            text="KEO Careers"
-            variant="outline"
+            variant="accent-brand"
             iconPosition="end"
             icon={
               <svg
@@ -55,7 +53,9 @@ export default function CompanyCulture() {
                 ></path>
               </svg>
             }
-          />
+          >
+            KEO Careers
+          </Button>
         </motion.div>
 
         {/* */}

@@ -328,9 +328,7 @@ export function SalesContactForm() {
             </p>
             <div className={styles.successActions}>
               <Button
-                text="Submit Another Inquiry"
-                width="fit"
-                variant="outline"
+                variant="accent-brand-outline"
                 onClick={() => {
                   setIsSuccess(false);
                   setSubmitStatus({ type: null, message: "" });
@@ -352,8 +350,10 @@ export function SalesContactForm() {
                     />
                   </svg>
                 }
-                iconPosition="end"
-              />
+                iconPosition="right"
+              >
+                Submit Another Inquiry
+              </Button>
             </div>
           </motion.div>
         </div>
@@ -822,11 +822,10 @@ export function SalesContactForm() {
           <div className={styles.submitWrapperDesktop}>
             <Button
               type="submit"
-              text={isSubmitting ? "Submitting..." : "Submit Form"}
-              width="fit"
-              variant="full"
-              iconPosition="end"
+              variant="accent-brand"
+              iconPosition="right"
               disabled={isSubmitting}
+              loading={isSubmitting}
               icon={
                 <svg
                   width="20"
@@ -843,16 +842,18 @@ export function SalesContactForm() {
                   ></path>
                 </svg>
               }
-            />
+            >
+              {isSubmitting ? "Submitting..." : "Submit Form"}
+            </Button>
           </div>
           <div className={styles.submitWrapperMobile}>
             <Button
               type="submit"
-              text={isSubmitting ? "Submitting..." : "Submit Form"}
-              width="full"
-              variant="full"
-              iconPosition="end"
+              variant="accent-brand"
+              iconPosition="right"
               disabled={isSubmitting}
+              loading={isSubmitting}
+              className={styles.buttonFullWidth}
               icon={
                 <svg
                   width="20"
@@ -869,7 +870,9 @@ export function SalesContactForm() {
                   ></path>
                 </svg>
               }
-            />
+            >
+              {isSubmitting ? "Submitting..." : "Submit Form"}
+            </Button>
           </div>
         </div>
       </form>

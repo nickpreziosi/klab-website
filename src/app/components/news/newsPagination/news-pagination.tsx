@@ -142,10 +142,11 @@ export default function NewsPagination({ totalPages }: NewsPaginationProps) {
             </svg>
           }
           aria-label="Previous page"
-          text="Previous"
           onClick={handlePrevious}
           disabled={currentPage === 1}
-        ></Button>
+        >
+          Previous
+        </Button>
       </div>
 
       <div className={styles.pages}>
@@ -165,10 +166,11 @@ export default function NewsPagination({ totalPages }: NewsPaginationProps) {
                 variant={currentPage === page ? "full" : "outline"}
                 aria-label={`Page ${page}`}
                 aria-current={page === currentPage ? "page" : undefined}
-                text={page.toString()}
                 onClick={() => handlePageClick(page)}
                 disabled={currentPage === page}
-              ></Button>
+              >
+                {page}
+              </Button>
             );
           })}
         </div>
@@ -203,10 +205,11 @@ export default function NewsPagination({ totalPages }: NewsPaginationProps) {
           }
           iconPosition="end"
           aria-label="Next page"
-          text="Next"
           onClick={handleNext}
           disabled={currentPage === totalPages}
-        ></Button>
+        >
+          Next
+        </Button>
       </div>
     </motion.nav>
   );

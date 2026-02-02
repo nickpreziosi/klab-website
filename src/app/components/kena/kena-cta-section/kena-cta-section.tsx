@@ -31,9 +31,8 @@ export default function KenaCtaSection() {
           >
             <Button
               href="/contact/sales"
-              text="Request a Demo"
-              iconPosition="end"
-              variant="full"
+              iconPosition="right"
+              variant="accent-brand"
               icon={
                 <svg
                   width="15"
@@ -50,7 +49,9 @@ export default function KenaCtaSection() {
                   ></path>
                 </svg>
               }
-            ></Button>
+            >
+              Request a Demo
+            </Button>
           </motion.div>
         </motion.div>
       </div>

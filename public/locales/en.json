@@ -1,0 +1,15 @@
+{
+  "hero": {
+    "title": "Building the Future of Financial Infrastructure",
+    "subtitle": "KLab develops the technology that automates risk, payments, and financial operations — all in one intelligent platform.",
+    "contactSales": "Contact Sales"
+  },
+  "landing": {
+    "statusBar": "SYSTEM_STATUS: LAUNCHING_SOON",
+    "headline": "Building the future of financial infrastructure",
+    "subline": "KLab develops the technology that automates risk, payments, and financial operations — all in one intelligent platform.",
+    "learnMore": "Learn More",
+    "ourTechnologies": "Our Technologies",
+    "contactSales": "Contact Sales"
+  }
+}

@@ -5,6 +5,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--main-color-rgb), 1) 0%,
+    black 100%
+  );
 }
 
 .statsSection {
@@ -49,7 +54,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #ff004cff, transparent);
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -64,7 +69,7 @@
 .statValue {
   font-size: 4rem;
   font-weight: 700;
-  color: #ff004cff;
+  color: var(--accent-color);
   line-height: 1;
 }
 

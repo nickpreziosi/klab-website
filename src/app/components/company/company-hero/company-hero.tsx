@@ -1,6 +1,7 @@
 import SectionHeader from "@/app/components/ui/section-header/section-header";
 import styles from "./company-hero.module.css";
 import Image from "next/image";
+import { KlabLogo } from "@/app/components/ui/klab-logo/klab-logo";
 
 export const CompanyHero = () => {
   return (
@@ -12,33 +13,25 @@ export const CompanyHero = () => {
           width={1200}
           height={1405}
           alt="KEO Employee Image"
-          src="/keo-hero1.png"
+          src="/landing-bg-orange-2.png"
+          style={{ objectPosition: "center right" }}
         ></Image>
         <div className={styles.heroText}>
-          <h1 className={styles.heroHeader}>
-            We are <span className={styles.heroHeaderHighlight}>KEO</span>.
-          </h1>
-          <div style={{ display: "none" }}>
-            <SectionHeader
-              highlight={["KEO"]}
-              white={true}
-              size="8xl"
-              heading="We are KEO."
-              align="left"
-              subtitle="Founded in 2020, KEO World helps buyers and suppliers accelerate business
-            growth through all-digital inventory financing and B2B payment
-            solutions. Headquartered in Miami, Florida, KEO World operates in the
-            U.S., Canada and across LATAM."
-              animateOnce={true}
-            />
-            <p style={{ display: "none" }} className={styles.heroTextParagraph}>
-              Founded in 2020, KEO helps buyers and suppliers accelerate
-              business growth through all-digital inventory financing and B2B
-              payment solutions. Headquartered in Miami, Florida, KEO operates
-              in the U.S., Canada and across LATAM.
-            </p>
+          <div className={styles.heroHeaderContainer}>
+            <h1 className={styles.heroHeader}>
+              Where Capital Meets Code.
+            </h1>
+            <KlabLogo color="orange" format="default" height={120} />
+          </div>
+          
+          
+          <div className={styles.heroTaglinesContainer}>
+            <p>Programmable Trust for Global Trade.​</p>
+            <p>Finance, Rewritten.​</p>
+            <p>Smart Contracts. Real Impact.​</p>
           </div>
         </div>
+        
       </div>
     </section>
   );

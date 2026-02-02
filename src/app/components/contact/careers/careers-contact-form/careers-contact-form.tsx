@@ -293,9 +293,7 @@ export function CareersContactForm() {
             </p>
             <div className={styles.successActions}>
               <Button
-                text="Submit Another Application"
-                width="fit"
-                variant="outline"
+                variant="accent-brand-outline"
                 onClick={() => {
                   setIsSuccess(false);
                   setSubmitStatus({ type: null, message: "" });
@@ -317,8 +315,10 @@ export function CareersContactForm() {
                     />
                   </svg>
                 }
-                iconPosition="end"
-              />
+                iconPosition="right"
+              >
+                Submit Another Application
+              </Button>
             </div>
           </motion.div>
         </div>
@@ -621,11 +621,10 @@ export function CareersContactForm() {
 
           <div className={styles.submitWrapperDesktop}>
             <Button
-              text={isSubmitting ? "Submitting..." : "Submit Form"}
-              width="fit"
-              variant="full"
-              iconPosition="end"
+              variant="accent-brand"
+              iconPosition="right"
               disabled={isSubmitting}
+              loading={isSubmitting}
               icon={
                 <svg
                   width="20"
@@ -642,15 +641,17 @@ export function CareersContactForm() {
                   ></path>
                 </svg>
               }
-            />
+            >
+              {isSubmitting ? "Submitting..." : "Submit Form"}
+            </Button>
           </div>
           <div className={styles.submitWrapperMobile}>
             <Button
-              text={isSubmitting ? "Submitting..." : "Submit Form"}
-              width="full"
-              variant="full"
-              iconPosition="end"
+              variant="accent-brand"
+              iconPosition="right"
               disabled={isSubmitting}
+              loading={isSubmitting}
+              className={styles.buttonFullWidth}
               icon={
                 <svg
                   width="20"
@@ -667,7 +668,9 @@ export function CareersContactForm() {
                   ></path>
                 </svg>
               }
-            />
+            >
+              {isSubmitting ? "Submitting..." : "Submit Form"}
+            </Button>
           </div>
         </div>
       </form>

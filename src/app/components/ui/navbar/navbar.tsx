@@ -8,7 +8,9 @@ import { DesktopDropdown } from "@/app/components/ui/dropdown-menu/dropdownMenu"
 import { Logo } from "../logo/logo";
 import { Separator } from "radix-ui";
 import { ThemeToggle } from "@/app/components/ui/theme-toggle/theme-toggle";
+import { LocaleSwitcher } from "@/app/components/ui/locale-switcher/locale-switcher";
 import { usePathname } from "next/navigation";
+import { KlabLogo } from "@/app/components/ui/klab-logo/klab-logo";
 
 export const NavigationMenuDemo = () => {
   const path = usePathname();
@@ -98,16 +100,17 @@ export const NavigationMenuDemo = () => {
         <nav
           style={{
             height: "auto",
+            backdropFilter: !isAtTop || dropdownOpen ? "blur(8px)" : "none",
             background:
-              path === "/" && isAtTop && !dropdownOpen
+              /^\/(en|es)\/?$/.test(path) && isAtTop && !dropdownOpen
                 ? "transparent"
                 : "rgba(var(--main-color-rgb), 0.7)",
             borderBottom:
-              path !== "/" || dropdownOpen || !isAtTop
+              !/^\/(en|es)\/?$/.test(path) || dropdownOpen || !isAtTop
                 ? "solid 1px rgba(255, 255, 255, 0.2)"
                 : "solid 1px transparent",
             boxShadow:
-              path !== "/" || dropdownOpen || !isAtTop
+              !/^\/(en|es)\/?$/.test(path) || dropdownOpen || !isAtTop
                 ? "var(--shadow-black)"
                 : "none",
           }}
@@ -119,8 +122,11 @@ export const NavigationMenuDemo = () => {
         >
           <div className={styles.navbar}>
             <div className={styles.logoContainer}>
-              <Link aria-label="Go to Homepage" href="/">
-                <Logo size="sm" animated></Logo>
+              <Link aria-label="Go to Homepage" href="/" className={styles.logoLinkFull}>
+                <KlabLogo color="orange" format="full" height={48} />
+              </Link>
+              <Link aria-label="Go to Homepage" href="/" className={styles.logoLinkCompact}>
+                <KlabLogo color="orange" format="default" height={60} />
               </Link>
             </div>
 
@@ -286,6 +292,18 @@ export const NavigationMenuDemo = () => {
                 />
               </li>
 
+              <li
+                className={`${styles.navListItem} ${styles.themeToggleContainer}`}
+              >
+                <LocaleSwitcher />
+              </li>
+              <li className={styles.separatorRootListItem}>
+                <Separator.Root
+                  className={styles.separatorRoot}
+                  decorative
+                  orientation="vertical"
+                />
+              </li>
               <li
                 className={`${styles.navListItem} ${styles.themeToggleContainer}`}
               >
