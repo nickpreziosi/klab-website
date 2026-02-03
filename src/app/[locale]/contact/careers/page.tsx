@@ -1,10 +1,5 @@
-import { CareersContactForm } from "@/app/components/contact/careers/careers-contact-form/careers-contact-form";
-import styles from "./page.module.css";
+import { ContactCareersView } from "@/ui/contact/views/ContactCareersView/ContactCareersView";
 
 export default function CareersContactPage() {
-  return (
-    <main className={styles.main}>
-      <CareersContactForm />
-    </main>
-  );
+  return <ContactCareersView />;
 }

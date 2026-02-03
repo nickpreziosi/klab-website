@@ -1,0 +1,120 @@
+.logoContainer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: rgba(255, 0, 76, 1);
+  box-shadow:
+    0px 4px 16px rgba(255, 0, 76, 0.4),
+    0px 0px 20px rgba(255, 0, 76, 0.2);
+  transition: box-shadow 0.3s ease-out;
+  border-radius: 100%;
+}
+
+.logoContainer * {
+  border-radius: 100%;
+}
+
+/* Added flat variant with no box-shadow */
+.flat {
+  box-shadow: none !important;
+  background-color: transparent;
+}
+
+.flat .logoInner {
+  background-color: transparent;
+}
+
+.logoInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.3s ease-out;
+}
+
+/* Size variants */
+.sizeSm {
+  width: 48px;
+  height: 48px;
+}
+
+.sizeMd {
+  width: 80px;
+  height: 80px;
+}
+
+.sizeLg {
+  width: 120px;
+  height: 120px;
+}
+
+.sizeXl {
+  width: 160px;
+  height: 160px;
+}
+
+/* Fit variants */
+.fitContent {
+  width: fit-content;
+  height: fit-content;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.fitContain,
+.fitCover,
+.fitFill {
+  width: 100%;
+  height: 100%;
+}
+
+/* Object fit classes for image */
+.objectContain {
+  object-fit: contain;
+}
+
+.objectCover {
+  object-fit: cover;
+}
+
+.objectFill {
+  object-fit: fill;
+}
+
+/* Animation disabled state */
+.noAnimation {
+  transition: none;
+}
+
+.noAnimation .logoInner {
+  transition: none;
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .logoContainer:hover {
+    box-shadow:
+      0px 6px 20px rgba(255, 0, 76, 0.6),
+      0px 0px 30px rgba(255, 0, 76, 0.4);
+  }
+  .flat:hover {
+    box-shadow: none !important;
+  }
+  .flat:hover .logoInner {
+    background-color: transparent;
+  }
+  .logoContainer:hover .logoInner {
+    background-color: #e6003f;
+  }
+  .noAnimation:hover {
+    box-shadow:
+      0px 4px 16px rgba(255, 0, 76, 0.4),
+      0px 0px 20px rgba(255, 0, 76, 0.2);
+  }
+  .noAnimation:hover .logoInner {
+    background-color: rgba(255, 0, 76, 1);
+  }
+}

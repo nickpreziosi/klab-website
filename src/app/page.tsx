@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { DEFAULT_LOCALE } from "@/app/lib/i18n";
+import { DEFAULT_LOCALE } from "@/ui/shared/utils/i18n";
 
 /**
  * Root path has no page content; middleware redirects / to /en (or preferred locale).

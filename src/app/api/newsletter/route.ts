@@ -15,10 +15,7 @@ import { z } from "zod";
  * Server-side validation schema for newsletter subscription.
  */
 const newsletterSchema = z.object({
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Please enter a valid email address"),
+  email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
 });
 
 /**
@@ -39,10 +36,7 @@ export async function POST(request: Request) {
     try {
       body = await request.json();
     } catch {
-      return NextResponse.json(
-        { error: "Invalid request body" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
     }
 
     // Server-side validation
@@ -63,31 +57,25 @@ export async function POST(request: Request) {
     const hubspotApiKey = process.env.HUBSPOT_API_KEY;
     if (!hubspotApiKey || hubspotApiKey === "your_hubspot_api_key_here") {
       console.error("HUBSPOT_API_KEY not configured or still set to placeholder value");
-      return NextResponse.json(
-        { error: "Newsletter service not configured" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Newsletter service not configured" }, { status: 500 });
     }
 
     // Create or update contact in HubSpot
     // Using the HubSpot Contacts API v3
-    const hubspotResponse = await fetch(
-      "https://api.hubapi.com/crm/v3/objects/contacts",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${hubspotApiKey}`,
+    const hubspotResponse = await fetch("https://api.hubapi.com/crm/v3/objects/contacts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${hubspotApiKey}`,
+      },
+      body: JSON.stringify({
+        properties: {
+          email: email,
+          hs_lead_status: "NEW",
+          lifecyclestage: "subscriber",
         },
-        body: JSON.stringify({
-          properties: {
-            email: email,
-            hs_lead_status: "NEW",
-            lifecyclestage: "subscriber",
-          },
-        }),
-      }
-    );
+      }),
+    });
 
     // Handle HubSpot response
     if (hubspotResponse.ok) {

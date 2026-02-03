@@ -1,0 +1,175 @@
+/* Base Button Styles */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  transition: all 150ms ease-in-out;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.button:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.button:disabled:hover {
+  transform: scale(1);
+}
+
+.button:disabled:active {
+  transform: scale(1);
+}
+
+.button svg {
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+/* Size Variants */
+.sizeSm {
+  height: 2rem;
+  padding: 0 0.75rem;
+  font-size: 0.75rem;
+  border-radius: 6px;
+}
+
+.sizeMd {
+  height: 2.25rem;
+  padding: 0.5rem 1rem;
+}
+
+.sizeLg {
+  height: 2.5rem;
+  padding: 0 2rem;
+  border-radius: 6px;
+}
+
+.sizeXl {
+  height: 2.75rem;
+  padding: 0 2rem;
+  font-size: 1rem;
+  border-radius: 6px;
+}
+
+.sizeIcon {
+  height: 2.25rem;
+  width: 2.25rem;
+  padding: 0;
+}
+
+/* Variant Styles */
+.variantDefault {
+  background-color: var(--main-color);
+  color: var(--secondary-color);
+}
+
+.variantDefault:hover {
+  background-color: rgba(var(--main-color-rgb), 0.7);
+}
+
+.variantDestructive {
+  background-color: var(--primary-pink);
+  color: white;
+}
+
+.variantDestructive:hover {
+  background-color: rgba(255, 0, 76, 0.8);
+}
+
+.variantOutline {
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
+  background-color: var(--main-color);
+  color: var(--secondary-color);
+}
+
+.variantOutline:hover {
+  background-color: rgba(var(--secondary-color-rgb), 0.05);
+  color: var(--secondary-color);
+}
+
+.variantSecondary {
+  background-color: rgba(var(--secondary-color-rgb), 1);
+  color: var(--main-color);
+}
+
+.variantSecondary:hover {
+  background-color: rgba(var(--secondary-color-rgb), 0.8);
+}
+
+.variantGhost {
+  background-color: transparent;
+  color: var(--secondary-color);
+}
+
+.variantGhost:hover {
+  background-color: rgba(var(--secondary-color-rgb), 0.05);
+  color: var(--secondary-color);
+}
+
+.variantLink {
+  background-color: transparent;
+  color: var(--accent-color);
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+
+.variantLink:hover {
+  text-decoration: underline;
+  color: var(--accent-color);
+}
+
+.variantAccentBrand {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.variantAccentBrand:hover {
+  opacity: 0.8;
+}
+
+.variantAccentBrandOutline {
+  border: 1px solid var(--accent-color);
+  background-color: transparent;
+  color: var(--accent-color);
+}
+
+.variantAccentBrandOutline:hover {
+  background-color: rgba(var(--accent-color-rgb), 0.2);
+}
+
+/* Icon Container */
+.iconContainer {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Loading Spinner Margin */
+.loadingSpinner {
+  margin-right: 0.5rem;
+}
+
+/* Width utilities */
+.buttonFullWidth {
+  width: 100% !important;
+}
+
+.buttonFitWidth {
+  width: fit-content !important;
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+}

@@ -1,10 +1,5 @@
-import { SupportContactForm } from "@/app/components/contact/support/support-contact-form/support-contact-form";
-import styles from "./page.module.css";
+import { ContactSupportView } from "@/ui/contact/views/ContactSupportView/ContactSupportView";
 
 export default function SupportContactPage() {
-  return (
-    <main className={styles.main}>
-      <SupportContactForm />
-    </main>
-  );
+  return <ContactSupportView />;
 }

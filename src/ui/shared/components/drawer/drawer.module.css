@@ -1,0 +1,220 @@
+/* Hamburger Menu Button */
+.hamburger {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  width: 32px !important;
+  height: 24px !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  z-index: 1000 !important;
+  position: relative !important;
+}
+
+.logoLink {
+  border-radius: 100%;
+}
+
+.hamburgerLine {
+  width: 100%;
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 2px;
+  box-shadow: 0px 2px 8px rgba(var(--accent-color-rgb), 0.4);
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45); /* Made overlay darker for better focus on drawer */
+  backdrop-filter: blur(8px);
+  z-index: 999;
+}
+
+/* Drawer */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 85%;
+  max-width: 400px;
+  background: var(--main-color-75);
+  box-shadow: -2px 0px 8px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px;
+  overflow-y: auto; /* Added overflow-y auto to make drawer scrollable */
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.drawer * {
+  font-family: "Sora", sans-serif;
+}
+
+/* Drawer Header */
+.drawerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.themeToggleContainer {
+  width: 100%;
+  border-top: 1px solid rgba(var(--accent-color-rgb), 0.4);
+  margin-top: var(--padding-mobile);
+  padding-top: var(--padding-mobile);
+}
+
+/* Added close button styles */
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 2px solid rgba(var(--accent-color-rgb), 0.3);
+  border-radius: 50%;
+  color: rgba(var(--accent-color-rgb), 1);
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+
+.closeButton:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* Removed flex: 1 to allow natural height and scrolling */
+}
+
+.navLink {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 16px;
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 400;
+  border-radius: 12px;
+  transition: all 300ms ease-in-out;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
+
+.navLinkText {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Added chevron icon styles */
+.chevron {
+  margin-left: auto;
+}
+
+.icon {
+  margin-right: 12px;
+}
+
+.navLinkUnderline {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(var(--accent-color-rgb), 0),
+    rgba(var(--accent-color-rgb), 1)
+  );
+  transform-origin: left;
+  box-shadow: 0px 0px 8px rgba(var(--accent-color-rgb), 0.6);
+}
+
+/* Added dropdown styles */
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-left: 16px;
+  margin-top: 8px;
+}
+
+.dropdownItem {
+  padding: 16px 20px;
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 400;
+  transition: all 300ms ease-in-out;
+  border-radius: 0px 8px 8px 0px;
+  margin: var(--gap-xs) 0;
+  border-left: 2px solid rgba(var(--accent-color-rgb), 0.5);
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .dropdownItem:hover {
+    background-color: rgba(var(--secondary-color-rgb), 0.1);
+    padding-left: 28px;
+  }
+  .closeButton:hover {
+    background-color: rgba(var(--accent-color-rgb), 0.1);
+    border-color: rgba(var(--accent-color-rgb), 1);
+    box-shadow: 0px 0px 16px rgba(var(--accent-color-rgb), 0.4);
+    transform: rotate(90deg);
+  }
+  .navLink:hover {
+    background-color: rgba(var(--secondary-color-rgb), 0.1);
+    padding-left: 24px;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .drawer {
+    width: 80%;
+  }
+
+  .navLink {
+    font-size: 18px;
+    padding: 18px 16px;
+  }
+
+  .dropdownItem {
+    font-size: 15px;
+    padding: 14px 18px;
+  }
+}
+
+/* Responsive adjustments */
+@media (min-width: 1024px) {
+  .drawer,
+  .overlay,
+  .hamburger {
+    display: none;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+}

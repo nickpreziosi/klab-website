@@ -1,0 +1,620 @@
+/**
+ * Careers Contact Form Component
+ *
+ * A comprehensive job application form with:
+ * - Multi-field form with validation (personal info, department, optional fields)
+ * - File upload support for resume/cover letter (max 3 files, 10MB each)
+ * - Client and server-side validation using Zod
+ * - reCAPTCHA spam protection
+ * - Success/error state management with animations
+ * - Form reset and reCAPTCHA reset on successful submission
+ *
+ * @route /contact/careers
+ */
+
+"use client";
+
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { motion } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import {
+  TextField,
+  Label,
+  Input,
+  TextArea,
+  ComboBox,
+  ListBox,
+  Button as ComboboxButton,
+  ListBoxItem,
+  Popover,
+  FieldError,
+  Checkbox as AriaCheckbox,
+} from "react-aria-components";
+import styles from "./careers-contact-form.module.css";
+import Button from "@/ui/shared/components/button/button";
+import { FileUpload } from "@/ui/shared/components/file-upload/file-upload";
+import HeroText from "@/ui/shared/components/hero-text/hero-text";
+
+// Available department options for job applications
+const departments = [
+  { id: "engineering", name: "Engineering" },
+  { id: "product", name: "Product" },
+  { id: "design", name: "Design" },
+  { id: "marketing", name: "Marketing" },
+  { id: "sales", name: "Sales" },
+  { id: "operations", name: "Operations" },
+  { id: "finance", name: "Finance" },
+  { id: "legal", name: "Legal" },
+  { id: "hr", name: "Human Resources" },
+  { id: "customer-success", name: "Customer Success" },
+  { id: "other", name: "Other" },
+];
+
+// Extract department IDs for validation
+const departmentIds = departments.map((d) => d.id);
+
+/**
+ * Client-side form validation schema using Zod.
+ * This schema matches the server-side validation for consistency.
+ * Includes optional fields (company, title, position) and file upload validation.
+ */
+const formSchema = z.object({
+  firstName: z.string().min(2, "First name must be at least 2 characters"),
+  lastName: z.string().min(2, "Last name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  phone: z.string().min(2, "Phone number is required"),
+  company: z.string().optional(),
+  title: z.string().optional(),
+  position: z.string().optional(),
+  department: z
+    .string()
+    .min(1, "Please select a department")
+    .refine((val) => departmentIds.includes(val), "Please select a valid department"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+  // File upload validation: max 3 files (resume, cover letter, etc.)
+  // Accepted types: PDF, DOC, DOCX, TXT
+  files: z.array(z.instanceof(File)).max(3, "Maximum 3 files allowed").optional(),
+  emailUpdates: z.boolean().default(false),
+  recaptcha: z.string().min(1, "Please complete the reCAPTCHA verification"),
+});
+
+type FormData = z.infer<typeof formSchema>;
+
+/**
+ * Main Careers Contact Form Component
+ */
+export function CareersContactForm() {
+  // Refs and state management
+  const recaptchaRef = useRef<ReCAPTCHA>(null); // Reference to reCAPTCHA component
+  const [isSubmitting, setIsSubmitting] = useState(false); // Submission loading state
+  const [isSuccess, setIsSuccess] = useState(false); // Success state for showing success view
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" }); // Status message for errors/success
+
+  // Scroll to top of page when submission is successful
+  useEffect(() => {
+    if (isSuccess) {
+      // Small delay to ensure the view is rendered
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }, 100);
+    }
+  }, [isSuccess]);
+
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    reset,
+    trigger,
+  } = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      company: "",
+      title: "",
+      department: "",
+      message: "",
+      files: [],
+      emailUpdates: false,
+      recaptcha: "",
+    },
+  });
+
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
+
+    try {
+      // Create FormData object
+      const formData = new FormData();
+
+      // Append all form fields
+      formData.append("firstName", data.firstName);
+      formData.append("lastName", data.lastName);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone);
+      if (data.company) {
+        formData.append("company", data.company);
+      }
+      if (data.title) {
+        formData.append("title", data.title);
+      }
+      if (data.position) {
+        formData.append("position", data.position);
+      }
+      formData.append("department", data.department);
+      formData.append("message", data.message);
+      formData.append("recaptcha", data.recaptcha);
+
+      // Append file uploads (resume, cover letter, etc.) to FormData
+      if (data.files && data.files.length > 0) {
+        data.files.forEach((file) => {
+          formData.append("files", file);
+        });
+      }
+
+      // Send to API route
+      const response = await fetch("/api/contact/careers", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        // Handle validation errors
+        if (result.details && Array.isArray(result.details)) {
+          const errorMessages = result.details
+            .map((detail: { message?: string; path?: string[] }) => {
+              const field = detail.path?.[0] || "field";
+              return detail.message || `${field} is invalid`;
+            })
+            .join(", ");
+          throw new Error(errorMessages || result.error || "Validation failed");
+        }
+        throw new Error(result.error || result.details || "Failed to submit application");
+      }
+
+      // Success - reset form and reCAPTCHA
+      reset();
+      recaptchaRef.current?.reset();
+      setIsSuccess(true);
+      setSubmitStatus({
+        type: "success",
+        message: result.message || "Application submitted successfully!",
+      });
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitStatus({
+        type: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Failed to submit application. Please try again.",
+      });
+      // Reset reCAPTCHA on error so user can try again
+      recaptchaRef.current?.reset();
+      setValue("recaptcha", "");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Custom handler for submit button
+  const handleRecaptchaAndSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const token = await recaptchaRef.current?.executeAsync();
+      setValue("recaptcha", token || "");
+      handleSubmit(onSubmit, () => {
+        // Error callback - validation failed
+        setIsSubmitting(false);
+      })();
+    } catch (error) {
+      console.error("reCAPTCHA execution error:", error);
+      setIsSubmitting(false);
+    }
+  };
+
+  // Success view
+  if (isSuccess) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className={styles.formContainer}
+      >
+        <div className={styles.successContainer}>
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 200,
+              damping: 15,
+              delay: 0.2,
+            }}
+            className={styles.successIcon}
+          >
+            <svg
+              width="80"
+              height="80"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+              />
+            </svg>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className={styles.successContent}
+          >
+            <HeroText maxWidth="800px" text="Application Submitted Successfully!" center={true} />
+            <p className={styles.successMessage}>
+              Thank you for your interest in joining our team. We&apos;ve received your application
+              and will review it carefully. Our team will be in touch with you soon.
+            </p>
+            <div className={styles.successActions}>
+              <Button
+                variant="accent-brand-outline"
+                onClick={() => {
+                  setIsSuccess(false);
+                  setSubmitStatus({ type: null, message: "" });
+                  reset();
+                }}
+                icon={
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                }
+                iconPosition="right"
+              >
+                Submit Another Application
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      </motion.div>
+    );
+  }
+
+  // Form view
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={styles.formContainer}
+    >
+      <div className={styles.headingContainer}>
+        <HeroText
+          maxWidth="800px"
+          text="Ready to join our team? Let's get started!"
+          center={true}
+        ></HeroText>
+      </div>
+
+      {submitStatus.type === "error" && (
+        <div className={`${styles.statusMessage} ${styles.statusError}`}>
+          {submitStatus.message}
+        </div>
+      )}
+
+      <form onSubmit={handleRecaptchaAndSubmit} className={styles.form}>
+        <div className={styles.grid}>
+          {/* First Row: First Name, Last Name */}
+          <div className={styles.row}>
+            <TextField className={styles.fieldGroup} isInvalid={!!errors.firstName}>
+              <Label className={styles.label}>
+                First Name<span className={styles.required}>*</span>
+              </Label>
+              <Input
+                autoComplete="off"
+                {...register("firstName")}
+                placeholder="John"
+                className={`${styles.input} ${errors.firstName && styles.inputError}`}
+              />
+              {errors.firstName && (
+                <FieldError className={styles.error}>{errors.firstName.message}</FieldError>
+              )}
+            </TextField>
+            <TextField className={styles.fieldGroup} isInvalid={!!errors.lastName}>
+              <Label className={styles.label}>
+                Last Name<span className={styles.required}>*</span>
+              </Label>
+              <Input
+                autoComplete="off"
+                {...register("lastName")}
+                placeholder="Doe"
+                className={`${styles.input} ${errors.lastName && styles.inputError}`}
+              />
+              {errors.lastName && (
+                <FieldError className={styles.error}>{errors.lastName.message}</FieldError>
+              )}
+            </TextField>
+          </div>
+
+          {/* Second Row: Email, Phone */}
+          <div className={styles.row}>
+            <TextField className={styles.fieldGroup} isInvalid={!!errors.email}>
+              <Label className={styles.label}>
+                Email<span className={styles.required}>*</span>
+              </Label>
+              <Input
+                autoComplete="off"
+                {...register("email")}
+                type="email"
+                placeholder="john@example.com"
+                className={`${styles.input} ${errors.email && styles.inputError}`}
+              />
+              {errors.email && (
+                <FieldError className={styles.error}>{errors.email.message}</FieldError>
+              )}
+            </TextField>
+            <TextField className={styles.fieldGroup} isInvalid={!!errors.phone}>
+              <Label className={styles.label}>
+                Phone<span className={styles.required}>*</span>
+              </Label>
+              <Input
+                autoComplete="off"
+                {...register("phone")}
+                type="tel"
+                placeholder="+1 (555) 000-0000"
+                className={`${styles.input} ${errors.phone && styles.inputError}`}
+              />
+              {errors.phone && (
+                <FieldError className={styles.error}>{errors.phone.message}</FieldError>
+              )}
+            </TextField>
+          </div>
+
+          {/* Third Row: Company */}
+
+          <div className={styles.row}>
+            <TextField className={styles.fieldGroup} isInvalid={!!errors.title}>
+              <Label className={styles.label}>Position of Interest</Label>
+              <Input
+                autoComplete="off"
+                {...register("position")}
+                placeholder="Software Engineer"
+                className={`${styles.input} ${errors.position && styles.inputError}`}
+              />
+              {errors.position && (
+                <FieldError className={styles.error}>{errors.position.message}</FieldError>
+              )}
+            </TextField>
+            <Controller
+              name="department"
+              control={control}
+              render={({ field }) => (
+                <ComboBox
+                  className={styles.fieldGroup}
+                  selectedKey={field.value}
+                  onSelectionChange={async (key) => {
+                    const value = key as string;
+                    setValue("department", value, { shouldValidate: true });
+                    await trigger("department");
+                  }}
+                  isInvalid={!!errors.department}
+                >
+                  <Label className={styles.label}>
+                    Department of Interest
+                    <span className={styles.required}>*</span>
+                  </Label>
+                  <div className={styles.comboboxWrapper}>
+                    <Input
+                      autoComplete="off"
+                      placeholder="Choose or type an option"
+                      className={`${styles.input} ${errors.department && styles.inputError}`}
+                    />
+                    <ComboboxButton className={styles.comboboxButton}>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M4 6H11L7.5 10.5L4 6Z" fill="currentColor"></path>
+                      </svg>
+                    </ComboboxButton>
+                  </div>
+                  <Popover className={styles.popover}>
+                    <ListBox className={styles.listbox}>
+                      {departments.map((dept) => (
+                        <ListBoxItem key={dept.id} id={dept.id} className={styles.listboxItem}>
+                          {dept.name}
+                        </ListBoxItem>
+                      ))}
+                    </ListBox>
+                  </Popover>
+                  {errors.department && (
+                    <FieldError className={styles.error}>{errors.department.message}</FieldError>
+                  )}
+                </ComboBox>
+              )}
+            />
+          </div>
+
+          <div className={styles.rowEqualHeight}>
+            <Controller
+              name="files"
+              control={control}
+              render={({ field }) => (
+                <div className={styles.fieldGroup}>
+                  <Label className={styles.label}>Resume / Cover Letter</Label>
+
+                  <FileUpload
+                    maxFiles={3}
+                    files={field.value || []}
+                    onChange={field.onChange}
+                    error={errors.files?.message}
+                    fileTypes={[".pdf", ".doc", ".docx", ".txt"]}
+                  />
+                </div>
+              )}
+            />
+            <TextField className={styles.fieldGroup} isInvalid={!!errors.message}>
+              <Label className={styles.label}>
+                Message<span className={styles.required}>*</span>
+              </Label>
+              <TextArea
+                {...register("message")}
+                placeholder="Tell us about yourself and why you'd like to join our team..."
+                className={`${styles.textarea} ${errors.message && styles.inputError}`}
+              />
+              {errors.message && (
+                <FieldError className={styles.error}>{errors.message.message}</FieldError>
+              )}
+            </TextField>
+          </div>
+        </div>
+        <div className={styles.lastRow}>
+          <div className={styles.checkboxWrapper}>
+            <Controller
+              name="emailUpdates"
+              control={control}
+              render={({ field }) => (
+                <AriaCheckbox
+                  isSelected={field.value}
+                  onChange={field.onChange}
+                  className={styles.checkboxContainer}
+                >
+                  <div className={styles.checkboxBox}>
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span className={styles.checkboxLabel}>
+                    I would like to receive updates via email.
+                  </span>
+                </AriaCheckbox>
+              )}
+            />
+          </div>
+          <div className={styles.recaptchaWrapper}>
+            <Controller
+              name="recaptcha"
+              control={control}
+              render={() => (
+                <>
+                  <ReCAPTCHA
+                    className={styles.recaptcha}
+                    ref={recaptchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+                    onChange={(value) => setValue("recaptcha", value || "")}
+                    theme="dark"
+                    size="invisible"
+                  />
+                  {errors.recaptcha && (
+                    <FieldError className={styles.error}>{errors.recaptcha.message}</FieldError>
+                  )}
+                </>
+              )}
+            />
+          </div>
+
+          <div className={styles.submitWrapperDesktop}>
+            <Button
+              variant="accent-brand"
+              iconPosition="right"
+              disabled={isSubmitting}
+              loading={isSubmitting}
+              icon={
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              }
+            >
+              {isSubmitting ? "Submitting..." : "Submit Form"}
+            </Button>
+          </div>
+          <div className={styles.submitWrapperMobile}>
+            <Button
+              variant="accent-brand"
+              iconPosition="right"
+              disabled={isSubmitting}
+              loading={isSubmitting}
+              className={styles.buttonFullWidth}
+              icon={
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              }
+            >
+              {isSubmitting ? "Submitting..." : "Submit Form"}
+            </Button>
+          </div>
+        </div>
+      </form>
+    </motion.div>
+  );
+}

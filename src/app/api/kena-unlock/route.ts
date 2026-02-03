@@ -35,10 +35,7 @@ export async function POST(request: Request) {
 
     // Return error if password is not configured
     if (!secret) {
-      return NextResponse.json(
-        { message: "Server not configured" },
-        { status: 500 }
-      );
+      return NextResponse.json({ message: "Server not configured" }, { status: 500 });
     }
 
     // Server-side password verification - secret is never exposed to client
@@ -47,10 +44,7 @@ export async function POST(request: Request) {
     }
 
     // Password mismatch - return unauthorized error
-    return NextResponse.json(
-      { message: "Invalid password. Please try again." },
-      { status: 401 }
-    );
+    return NextResponse.json({ message: "Invalid password. Please try again." }, { status: 401 });
   } catch (e) {
     // Handle any unexpected errors
     return NextResponse.json({ message: "Server error" }, { status: 500 });

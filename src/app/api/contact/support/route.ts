@@ -44,16 +44,13 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
   }
 
   try {
-    const response = await fetch(
-      "https://www.google.com/recaptcha/api/siteverify",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: `secret=${secretKey}&response=${token}`,
-      }
-    );
+    const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `secret=${secretKey}&response=${token}`,
+    });
 
     const data = await response.json();
     return data.success === true;
@@ -155,10 +152,7 @@ export async function POST(request: Request) {
     }
     if (!isRecaptchaValid) {
       console.error("reCAPTCHA verification failed for token:", data.recaptcha);
-      return NextResponse.json(
-        { error: "reCAPTCHA verification failed" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "reCAPTCHA verification failed" }, { status: 400 });
     }
 
     // Extract files
@@ -174,10 +168,7 @@ export async function POST(request: Request) {
     // Validate file count (max 5 files allowed for support form)
     if (files.length > 5) {
       console.error("Too many files uploaded:", files.length);
-      return NextResponse.json(
-        { error: "Maximum 5 files allowed" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Maximum 5 files allowed" }, { status: 400 });
     }
 
     // Process files (convert to buffer for nodemailer)
@@ -206,10 +197,7 @@ export async function POST(request: Request) {
 
       if (!allowedTypes.includes(file.type)) {
         console.error(`File type ${file.type} not allowed`);
-        return NextResponse.json(
-          { error: `File type ${file.type} not allowed` },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: `File type ${file.type} not allowed` }, { status: 400 });
       }
 
       let buffer;
@@ -298,8 +286,8 @@ export async function POST(request: Request) {
                     <a href="mailto:${escapeHtml(
                       data.email
                     )}" style="color: #ff004c; font-size: 16px; text-decoration: none;">${escapeHtml(
-        data.email
-      )}</a>
+                      data.email
+                    )}</a>
                   </td>
                 </tr>
                 <tr>
@@ -308,8 +296,8 @@ export async function POST(request: Request) {
                     <a href="tel:${escapeHtml(
                       data.phone
                     )}" style="color: #333333; font-size: 16px; text-decoration: none;">${escapeHtml(
-        data.phone
-      )}</a>
+                      data.phone
+                    )}</a>
                   </td>
                 </tr>
                 <tr>
@@ -327,8 +315,8 @@ export async function POST(request: Request) {
                       data.product === "keo-rails"
                         ? "KEO Rails"
                         : data.product === "kena"
-                        ? "Kena"
-                        : data.product
+                          ? "Kena"
+                          : data.product
                     )}</span>
                   </td>
                 </tr>

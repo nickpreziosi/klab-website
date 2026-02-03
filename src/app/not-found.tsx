@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import styles from "./not-found.module.css";
 import { useRouter } from "next/navigation";
-import Button from "@/app/components/ui/button/button";
+import Button from "@/ui/shared/components/button/button";
 import Link from "next/link";
-import { KlabLogo } from "@/app/components/ui/klab-logo/klab-logo";
+import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 
 export default function NotFound() {
   const router = useRouter();
@@ -65,8 +65,7 @@ export default function NotFound() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.3 }}
           >
-            The page you&apos;re looking for doesn&apos;t exist or has been
-            moved.
+            The page you&apos;re looking for doesn&apos;t exist or has been moved.
           </motion.p>
 
           <motion.div

@@ -1,11 +1,9 @@
-import Link from "next/link";
 import { getArticleBySlug } from "@/sanity/queries/articles";
 import { urlFor } from "@/sanity/lib/image";
 import { toHTML } from "@portabletext/to-html";
-import ArticleClient from "./article-client";
-import styles from "./page.module.css";
+import { ArticleView } from "@/ui/news/views/ArticleView/ArticleView";
+import { ArticleNotFoundView } from "@/ui/news/views/ArticleNotFoundView/ArticleNotFoundView";
 
-// Helper function to format date
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", {
@@ -24,46 +22,25 @@ export default async function ArticlePage({
   const article = await getArticleBySlug(slug);
 
   if (!article) {
-    return (
-      <main className={styles.main}>
-        <div className={styles.notFound}>
-          <h1>Article Not Found</h1>
-          <Link href="/news" className={styles.backLink}>
-            ← Back to News
-          </Link>
-        </div>
-      </main>
-    );
+    return <ArticleNotFoundView />;
   }
 
   const imageUrl = article.image ? urlFor(article.image).url() : undefined;
   const formattedDate = formatDate(article.publishedAt);
 
-  // Pre-process gallery image URLs to avoid importing urlFor in client component
-  const galleryImageUrls: Array<{
-    url: string;
-    caption?: string;
-    alt?: string;
-  }> =
+  const galleryImageUrls: Array<{ url: string; caption?: string; alt?: string }> =
     article.gallery
-      ?.map(
-        (
-          galleryImage,
-        ): { url: string; caption?: string; alt?: string } | null => {
-          if (!galleryImage?.asset) return null;
-          return {
-            url: urlFor(galleryImage).url(),
-            caption: galleryImage.caption,
-            alt: galleryImage.alt,
-          };
-        },
-      )
-      .filter(
-        (item): item is { url: string; caption?: string; alt?: string } =>
-          item !== null,
-      ) || [];
+      ?.map((galleryImage): { url: string; caption?: string; alt?: string } | null => {
+        if (!galleryImage?.asset) return null;
+        return {
+          url: urlFor(galleryImage).url(),
+          caption: galleryImage.caption,
+          alt: galleryImage.alt,
+        };
+      })
+      .filter((item): item is { url: string; caption?: string; alt?: string } => item !== null) ||
+    [];
 
-  // Render PortableText to HTML on the server to avoid bundling Sanity in client
   const bodyHTML = article.body
     ? toHTML(article.body, {
         components: {
@@ -71,31 +48,17 @@ export default async function ArticlePage({
             image: ({
               value,
             }: {
-              value: {
-                asset?: { _ref: string };
-                alt?: string;
-                caption?: string;
-              };
+              value: { asset?: { _ref: string }; alt?: string; caption?: string };
             }) => {
               if (!value?.asset) return "";
-              const imageUrl = urlFor(
-                value as { asset: { _ref: string } },
-              ).url();
+              const imgUrl = urlFor(value as { asset: { _ref: string } }).url();
               const alt = value.alt || "Article image";
-              const caption = value.caption
-                ? `<figcaption>${value.caption}</figcaption>`
-                : "";
-              return `<figure style="margin: 24px 0;"><img src="${imageUrl}" alt="${alt}" style="width: 100%; height: auto; border-radius: 8px;" />${caption}</figure>`;
+              const caption = value.caption ? `<figcaption>${value.caption}</figcaption>` : "";
+              return `<figure style="margin: 24px 0;"><img src="${imgUrl}" alt="${alt}" style="width: 100%; height: auto; border-radius: 8px;" />${caption}</figure>`;
             },
           },
           marks: {
-            link: ({
-              value,
-              children,
-            }: {
-              value?: { href?: string };
-              children?: string;
-            }) => {
+            link: ({ value, children }: { value?: { href?: string }; children?: string }) => {
               const href = value?.href || "#";
               const target = href.startsWith("http")
                 ? ' target="_blank" rel="noopener noreferrer"'
@@ -108,7 +71,7 @@ export default async function ArticlePage({
     : undefined;
 
   return (
-    <ArticleClient
+    <ArticleView
       article={article}
       imageUrl={imageUrl}
       formattedDate={formattedDate}

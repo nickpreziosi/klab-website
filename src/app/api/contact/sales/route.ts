@@ -34,8 +34,7 @@ const salesFormSchema = z.object({
         return domainOrUrlPattern.test(val);
       },
       {
-        message:
-          "Please enter a valid domain (example.com) or URL (https://example.com)",
+        message: "Please enter a valid domain (example.com) or URL (https://example.com)",
       }
     ),
   companyType: z.string().min(1, "Company type is required"),
@@ -61,16 +60,13 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
   }
 
   try {
-    const response = await fetch(
-      "https://www.google.com/recaptcha/api/siteverify",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: `secret=${secretKey}&response=${token}`,
-      }
-    );
+    const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `secret=${secretKey}&response=${token}`,
+    });
 
     const data = await response.json();
     return data.success === true;
@@ -174,10 +170,7 @@ export async function POST(request: Request) {
     }
     if (!isRecaptchaValid) {
       console.error("reCAPTCHA verification failed for token:", data.recaptcha);
-      return NextResponse.json(
-        { error: "reCAPTCHA verification failed" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "reCAPTCHA verification failed" }, { status: 400 });
     }
 
     // Create email transporter
@@ -279,8 +272,8 @@ export async function POST(request: Request) {
                     <a href="mailto:${escapeHtml(
                       data.email
                     )}" style="color: #ff004c; font-size: 16px; text-decoration: none;">${escapeHtml(
-        data.email
-      )}</a>
+                      data.email
+                    )}</a>
                   </td>
                 </tr>
                 <tr>
@@ -289,8 +282,8 @@ export async function POST(request: Request) {
                     <a href="tel:${escapeHtml(
                       data.phone
                     )}" style="color: #333333; font-size: 16px; text-decoration: none;">${escapeHtml(
-        data.phone
-      )}</a>
+                      data.phone
+                    )}</a>
                   </td>
                 </tr>
                 <tr>
@@ -315,8 +308,8 @@ export async function POST(request: Request) {
                     <a href="${escapeHtml(
                       ensureUrlProtocol(data.companyWebsite)
                     )}" target="_blank" rel="noopener noreferrer" style="color: #ff004c; font-size: 16px; text-decoration: none;">${escapeHtml(
-        data.companyWebsite
-      )}</a>
+                      data.companyWebsite
+                    )}</a>
                   </td>
                 </tr>
                 <tr>
@@ -334,8 +327,8 @@ export async function POST(request: Request) {
                       data.product === "keo-rails"
                         ? "KEO Rails"
                         : data.product === "kena"
-                        ? "Kena"
-                        : data.product
+                          ? "Kena"
+                          : data.product
                     )}</span>
                   </td>
                 </tr>

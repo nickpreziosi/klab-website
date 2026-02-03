@@ -46,16 +46,13 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
   }
 
   try {
-    const response = await fetch(
-      "https://www.google.com/recaptcha/api/siteverify",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: `secret=${secretKey}&response=${token}`,
-      }
-    );
+    const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `secret=${secretKey}&response=${token}`,
+    });
 
     const data = await response.json();
     return data.success === true;
@@ -160,10 +157,7 @@ export async function POST(request: Request) {
     }
     if (!isRecaptchaValid) {
       console.error("reCAPTCHA verification failed for token:", data.recaptcha);
-      return NextResponse.json(
-        { error: "reCAPTCHA verification failed" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "reCAPTCHA verification failed" }, { status: 400 });
     }
 
     // Extract file uploads (resume, cover letter, etc.)
@@ -179,10 +173,7 @@ export async function POST(request: Request) {
     // Validate file count (max 3 files allowed for careers form)
     if (files.length > 3) {
       console.error("Too many files uploaded:", files.length);
-      return NextResponse.json(
-        { error: "Maximum 3 files allowed" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Maximum 3 files allowed" }, { status: 400 });
     }
 
     // Process files: convert File objects to buffers for email attachments
@@ -209,10 +200,7 @@ export async function POST(request: Request) {
 
       if (!allowedTypes.includes(file.type)) {
         console.error(`File type ${file.type} not allowed`);
-        return NextResponse.json(
-          { error: `File type ${file.type} not allowed` },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: `File type ${file.type} not allowed` }, { status: 400 });
       }
 
       let buffer;
@@ -301,8 +289,8 @@ export async function POST(request: Request) {
                     <a href="mailto:${escapeHtml(
                       data.email
                     )}" style="color: #ff004c; font-size: 16px; text-decoration: none;">${escapeHtml(
-        data.email
-      )}</a>
+                      data.email
+                    )}</a>
                   </td>
                 </tr>
                 <tr>
@@ -311,8 +299,8 @@ export async function POST(request: Request) {
                     <a href="tel:${escapeHtml(
                       data.phone
                     )}" style="color: #333333; font-size: 16px; text-decoration: none;">${escapeHtml(
-        data.phone
-      )}</a>
+                      data.phone
+                    )}</a>
                   </td>
                 </tr>
                 ${

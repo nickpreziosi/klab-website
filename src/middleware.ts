@@ -5,7 +5,7 @@ import {
   isSupportedLocale,
   LOCALE_COOKIE_NAME,
   type Locale,
-} from "@/app/lib/i18n";
+} from "@/ui/shared/utils/i18n";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -30,13 +30,14 @@ export function middleware(request: NextRequest) {
 
   // Prefer saved locale from cookie when redirecting (e.g. / -> /es if user chose es)
   const preferred = request.cookies.get(LOCALE_COOKIE_NAME)?.value;
-  const locale: Locale =
-    preferred && isSupportedLocale(preferred) ? preferred : DEFAULT_LOCALE;
+  const locale: Locale = preferred && isSupportedLocale(preferred) ? preferred : DEFAULT_LOCALE;
 
   const newPath = `/${locale}${pathname === "/" ? "" : pathname}`;
   return NextResponse.redirect(new URL(newPath, request.url));
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|svg|ico|webp|mp4|pdf|js|json)$).*)"],
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|svg|ico|webp|mp4|pdf|js|json)$).*)",
+  ],
 };

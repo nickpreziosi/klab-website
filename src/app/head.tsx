@@ -52,7 +52,5 @@ export default async function Head() {
     } catch (err) {}
   })();`;
 
-  return (
-    <script id="keo-theme-init" dangerouslySetInnerHTML={{ __html: script }} />
-  );
+  return <script id="keo-theme-init" dangerouslySetInnerHTML={{ __html: script }} />;
 }

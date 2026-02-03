@@ -1,5 +1,5 @@
-import LandingPageContent from "@/app/components/landing-page/landing-page-content";
+import { LandingPageView } from "@/ui/landing-page/views/LandingPageView/LandingPageView";
 
 export default function LandingPageOrange() {
-  return <LandingPageContent variant="orange" />;
+  return <LandingPageView variant="orange" />;
 }

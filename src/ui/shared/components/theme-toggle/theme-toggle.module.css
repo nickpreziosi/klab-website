@@ -1,0 +1,151 @@
+.toggleContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggleSkeleton {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Trigger: compact, no border (dropdown only uses k-lab styling below) */
+.selectTrigger {
+  background: transparent !important;
+  border: none !important;
+  color: #ffffff !important;
+  min-width: 48px !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 12px !important;
+  transition: all 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.span {
+  color: var(--secondary-color);
+  margin-left: var(--margin-xs);
+  font-size: var(--text-sm);
+  transition: all 200ms ease-in-out;
+}
+
+.selectTrigger svg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  color: var(--secondary-color) !important;
+  transition: all 200ms ease-in-out;
+}
+
+.selectTrigger span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectTrigger img {
+  width: 18px;
+  height: 18px;
+}
+
+/* Dropdown – matches k-lab-components/ui/shared/components/select.tsx */
+.selectContent {
+  position: absolute;
+  right: -50%;
+  transform: translateX(50%);
+  top: 2rem;
+  z-index: 50;
+  min-width: 8rem;
+  border-radius: 8px !important;
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.3) !important;
+  background: rgba(var(--main-color-rgb), 0.7) !important;
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  /* Allow viewport to size to content so items are visible */
+  overflow: visible;
+}
+
+.selectViewport {
+  padding: 4px;
+  /* Prevent flex:1 from collapsing to 0 when content has no fixed height */
+  min-height: min-content;
+}
+
+.selectItem {
+  position: relative;
+  gap: 6px;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding: 6px 32px 6px 8px !important;
+  border-radius: 8px !important;
+  color: var(--secondary-color) !important;
+  font-size: var(--text-sm) !important;
+  cursor: pointer !important;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease !important;
+  outline: none !important;
+}
+
+.selectItem:focus,
+.selectItem[data-highlighted] {
+  background: rgba(var(--accent-color-rgb), 0.15) !important;
+  color: var(--accent-color) !important;
+}
+
+.selectItem[data-state="checked"] {
+  color: var(--accent-color) !important;
+}
+
+.selectItemIndicator {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+.selectItemIndicator svg {
+  width: 14px;
+  height: 14px;
+  color: inherit;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* Added white filter for KEO logo */
+.keoLogo {
+  flex-shrink: 0;
+}

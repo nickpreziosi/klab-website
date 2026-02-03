@@ -1,0 +1,793 @@
+.section {
+  background: transparent;
+  width: 100%;
+  position: relative;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+  width: 100%;
+  max-width: 1440px;
+  padding: var(--padding-desktop);
+}
+
+.globe {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 838px;
+  height: 700px;
+  will-change: transform;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-md);
+  margin-top: 80px;
+}
+
+.card {
+  background-color: rgba(var(--main-color-rgb), 0.5);
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.1);
+  border-radius: 16px;
+  padding: var(--padding-mobile);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-black);
+  gap: var(--gap-md);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.cardTitle {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--secondary-color);
+}
+
+.cardDescription {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(var(--secondary-color-rgb), 1);
+  margin: 0;
+}
+
+.cardImageWrapper {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: fit-content;
+  position: relative;
+  border-radius: 16px;
+}
+
+.cardImage {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 6/4;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  flex: 1;
+}
+
+/* Deployment timeline – 1–2 week sprints */
+/* Wrapper so gap between section header and timeline is controlled here */
+.sectionHeaderAndTimeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-tablet);
+}
+
+.deploymentTimeline {
+  width: 100%;
+  padding: var(--padding-tablet) var(--padding-mobile);
+  margin-bottom: var(--margin-lg);
+  border-radius: 16px;
+  background-color: rgba(var(--secondary-color-rgb), 0.03);
+  background-image: radial-gradient(
+    circle,
+    rgba(var(--main-color-rgb), 0.2) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 20px 20px;
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.06);
+  backdrop-filter: blur(8px);
+}
+
+.timelineTitle {
+  margin: 0 0 var(--margin-md) 0;
+  font-size: clamp(var(--text-base), 1.5vw + 0.5rem, var(--text-lg));
+  font-weight: var(--font-bold);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  font-family: inherit;
+}
+
+.timelinePhases {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--margin-md) var(--margin-lg);
+}
+
+.timelinePhase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 0;
+  min-width: 100px;
+}
+
+/* 2-week phase takes twice the flex space */
+.timelinePhaseWide {
+  flex: 2 1 0;
+  min-width: 160px;
+}
+
+.timelinePhaseLine {
+  display: block;
+  width: 100%;
+  max-width: 140px;
+  height: 2px;
+  background-color: var(--accent-color);
+  border-radius: 1px;
+}
+
+.timelinePhaseWide .timelinePhaseLine {
+  max-width: 280px;
+}
+
+.timelinePhaseLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15em;
+  font-size: clamp(var(--text-xs), 1vw + 0.4rem, var(--text-sm));
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.timelinePhaseLabelTitle,
+.timelinePhaseLabelDuration {
+  display: block;
+}
+
+.timelinePhaseLabelSeparator {
+  display: none;
+}
+
+.playButton {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 70px;
+  width: 70px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.playIcon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+  color: rgba(250, 250, 250, 0.8);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .container {
+    padding: var(--padding-tablet);
+    gap: var(--gap-lg);
+  }
+  .cardsGrid {
+    grid-template-columns: 1fr;
+  }
+  .globe {
+    transform: scale(0.9);
+    transform-origin: right bottom;
+  }
+  .deploymentTimeline {
+    padding: var(--padding-mobile) var(--padding-mobile);
+    margin-bottom: var(--margin-md);
+  }
+  .timelinePhases {
+    gap: var(--margin-sm) var(--margin-md);
+  }
+  .timelinePhase {
+    min-width: 90px;
+  }
+  .timelinePhaseWide {
+    min-width: 180px;
+  }
+  .timelinePhaseLine {
+    max-width: 120px;
+  }
+  .timelinePhaseWide .timelinePhaseLine {
+    max-width: 240px;
+  }
+  .timelinePhaseLabel {
+    font-size: clamp(0.65rem, 1.2vw + 0.35rem, var(--text-sm));
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--padding-mobile) var(--padding-tablet);
+    gap: var(--gap-lg);
+  }
+  .card {
+    padding: var(--padding-mobile);
+    grid-template-columns: 1fr;
+  }
+  .globe {
+    transform: scale(0.8);
+    transform-origin: right bottom;
+  }
+  .sectionHeaderAndTimeline {
+    gap: var(--margin-md);
+  }
+
+  .deploymentTimeline {
+    padding: var(--padding-tablet) var(--padding-mobile);
+    margin-bottom: var(--margin-md);
+  }
+  .timelineTitle {
+    font-size: clamp(var(--text-sm), 2.5vw + 0.5rem, var(--text-base));
+    margin-bottom: var(--margin-lg);
+  }
+  .timelinePhases {
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--margin-lg);
+  }
+  .timelinePhase {
+    align-items: flex-start;
+    flex: 1 1 auto;
+  }
+  .timelinePhaseWide {
+    flex: 1 1 100%;
+  }
+  .timelinePhaseLine {
+    max-width: 100px;
+  }
+  .timelinePhaseWide .timelinePhaseLine {
+    max-width: 200px;
+  }
+  .timelinePhaseLabel {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+    font-size: clamp(0.625rem, 2vw + 0.25rem, var(--text-sm));
+  }
+
+  .timelinePhaseLabelSeparator {
+    display: inline;
+  }
+}
+
+/* Small mobile – timeline stays readable */
+@media (max-width: 480px) {
+  .deploymentTimeline {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+  .timelinePhases {
+    gap: var(--margin-sm);
+  }
+  .timelinePhase {
+    min-width: calc(50% - var(--margin-xs));
+  }
+  .timelinePhaseWide {
+    min-width: 100%;
+  }
+  .timelinePhaseLine {
+    max-width: 80px;
+  }
+  .timelinePhaseWide .timelinePhaseLine {
+    max-width: 160px;
+  }
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .playIcon:hover {
+    transform: scale(1.1);
+  }
+}
+
+.section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  padding: var(--padding-desktop);
+}
+
+/* Top Section - Two Column Layout */
+.topSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 500px;
+  margin-bottom: 120px;
+  align-items: center;
+  box-shadow: var(--shadow-black);
+  border-radius: 20px;
+}
+
+/* Left Column - Text Content */
+.textColumn {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  padding: var(--padding-tablet);
+  gap: 24px;
+  background: linear-gradient(
+    -90deg,
+    rgba(var(--secondary-color-rgb), 0.02) 0%,
+    rgba(var(--secondary-color-rgb), 0.01) 20%,
+    rgba(var(--main-color-rgb), 0.5) 40%,
+    rgba(var(--main-color-rgb), 1) 70%,
+    rgba(var(--main-color-rgb), 1) 80%,
+    rgba(var(--main-color-rgb), 1) 100%
+  );
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+/* Left Column - Text Content */
+.textColumnMobile {
+  height: 100%;
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: var(--padding-desktop) var(--padding-mobile) var(--padding-tablet) var(--padding-mobile);
+  gap: var(--gap-xl);
+  color: rgba(var(--secondary-color-rgb), 1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.label {
+  color: var(--secondary-color);
+  font-family: Sora;
+  font-weight: 300;
+  font-style: Light;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: 0%;
+}
+
+.heading {
+  color: var(--secondary-color);
+  margin: 0;
+  font-weight: 400;
+  font-size: 52px;
+  line-height: 62px;
+  letter-spacing: -1.5%;
+}
+
+/* Right Column - Video Player */
+.videoColumn {
+  width: 100% !important;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(var(--main-color-rgb), 0.5);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.videoCard {
+  position: relative;
+  width: 100% !important;
+  height: 100%;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.videoContainer {
+  width: 100% !important;
+  height: 100%;
+  overflow: hidden;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.thumbnailImage {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.videoThumbnail {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.keoLogo {
+  position: absolute;
+  font-size: 120px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.15);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Bottom Section - Centered Text */
+.bottomSection {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.bottomHeading {
+  color: var(--secondary-color);
+  margin: 0 0 24px 0;
+  font-weight: 400;
+  font-size: 52px;
+  line-height: 62px;
+  letter-spacing: -1.5%;
+  text-align: center;
+}
+
+.bottomDescription {
+  color: var(--secondary-color);
+  margin: 0;
+  font-weight: 300;
+  font-style: Light;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.5%;
+  text-align: center;
+}
+
+.dialogOverlay {
+  backdrop-filter: blur(8px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  inset: 0;
+  z-index: 1000;
+}
+
+.dialogOverlay[data-state="open"] {
+  animation: overlayShow 240ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+
+.dialogOverlay[data-state="closed"] {
+  animation: overlayHide 200ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+
+.dialogContainer {
+  /* center children inside the container */
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 1001;
+  border-radius: 12px;
+}
+
+.dialogContent {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  border-radius: 12px;
+  /* keep dialog content within viewport with a small inset */
+  width: min(1200px, calc(100vw - 40px));
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 40px);
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+
+/* Animate open/close using Radix data-state attribute so we get a proper exit animation */
+.dialogContent[data-loaded="false"] {
+  /* keep hidden and non-interactive until media is ready */
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Only run the entrance animation when the content has reported it's loaded */
+.dialogContent[data-state="open"][data-loaded="true"] {
+  animation: contentShow 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Closing animation should still run when Radix sets closed */
+.dialogContent[data-state="closed"] {
+  animation: contentHide 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.dialogContent:focus {
+  outline: none;
+}
+
+.dialogTitle {
+  margin: 0;
+  font-weight: 500;
+  color: white;
+  font-size: 17px;
+}
+
+.dialogDescription {
+  margin: 10px 0 20px;
+  color: white;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.videoEmbed {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  background-color: transparent;
+  /* ensure the embed fills the dialog and uses cover behavior */
+  object-fit: cover;
+}
+
+/* utility to hide an embed while keeping it in the DOM (for later toggle) */
+.hiddenEmbed {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+.dialogCloseButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(var(--accent-color-rgb), 0.2);
+  border: 1px solid rgba(var(--accent-color-rgb), 1);
+  color: rgba(var(--accent-color-rgb), 1);
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition:
+    transform 150ms ease,
+    opacity 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.dialogCloseButton:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-black);
+}
+
+.srOnly {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes overlayHide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    /* include the centering translate so we don't lose positioning during animation */
+    transform: translate(-50%, -50%) translateY(-2%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes contentHide {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(-2%) scale(0.96);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .topSection {
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 80px;
+  }
+
+  .heading {
+    font-size: 48px;
+  }
+
+  .bottomHeading {
+    font-size: 40px;
+  }
+
+  .keoLogo {
+    font-size: 80px;
+  }
+  .container {
+    padding: var(--padding-tablet);
+  }
+
+  /* tablet: use tablet padding around the dialog */
+  .dialogContainer {
+    padding: 0 !important;
+    width: 100vw !important;
+  }
+
+  .dialogContent {
+    max-width: calc(100vw - 0px);
+    max-height: calc(100vh - 0px) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+
+  .heading {
+    font-size: 52px;
+    line-height: 58px;
+  }
+
+  .label {
+    color: var(--secondary-color);
+    font-weight: 400;
+    font-size: 28px;
+  }
+
+  .bottomHeading {
+    font-size: 32px;
+  }
+
+  .bottomDescription {
+    font-size: 16px;
+  }
+
+  .keoLogo {
+    font-size: 60px;
+  }
+
+  .topSection {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: auto;
+    width: 100%;
+    aspect-ratio: 1/1;
+  }
+
+  /* Left Column - Text Content */
+  .textColumn {
+    display: none;
+  }
+
+  .textColumnMobile {
+    display: flex;
+  }
+
+  .videoContainer,
+  .thumbnailImage,
+  .videoThumbnail {
+    border-radius: 20px;
+  }
+
+  /* mobile: remove dialog padding so dialog can use full viewport */
+  .dialogContainer {
+    padding: 0 !important;
+  }
+
+  .dialogContent {
+    max-width: calc(100vw - 0px);
+    max-height: calc(100vh - 0px) !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .textColumnMobile {
+    padding: var(--padding-tablet) var(--padding-mobile) var(--padding-mobile);
+    gap: var(--gap-xl);
+  }
+
+  .heading {
+    font-size: 30px;
+    line-height: 42px;
+  }
+  .label {
+    font-size: 20px;
+  }
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .playIcon:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-black);
+  }
+}

@@ -1,10 +1,5 @@
-import { SalesContactForm } from "@/app/components/contact/sales/sales-contact-form/sales-contact-form";
-import styles from "./page.module.css";
+import { ContactSalesView } from "@/ui/contact/views/ContactSalesView/ContactSalesView";
 
 export default function SalesContactPage() {
-  return (
-    <main className={styles.main}>
-      <SalesContactForm />
-    </main>
-  );
+  return <ContactSalesView />;
 }

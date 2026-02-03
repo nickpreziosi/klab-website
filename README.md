@@ -81,39 +81,38 @@ A modern, full-featured website for KLab - a blockchain payment infrastructure c
 ## 📁 Project Structure
 
 ```
-keo-website/
-├── public/                    # Static assets (images, videos, PDFs, Lottie files)
-│   ├── lottie/               # Lottie animation files
-│   └── ...
+klab-website/
+├── public/                   # Static assets (images, videos, PDFs, Lottie, locales)
 ├── src/
-│   └── app/
-│       ├── api/              # API routes
-│       │   ├── contact/      # Contact form endpoints
-│       │   │   ├── sales/    # Sales inquiry API
-│       │   │   ├── support/  # Support request API
-│       │   │   └── careers/  # Career application API
-│       │   └── kena-unlock/  # Kena password verification
-│       ├── components/       # React components
-│       │   ├── company/      # Company page components
-│       │   ├── contact/      # Contact form components
-│       │   ├── home/         # Homepage components
-│       │   ├── kena/         # Kena AI page components
-│       │   ├── k-rails/    # KRails page components
-│       │   ├── news/         # News/blog components
-│       │   └── ui/           # Reusable UI components
-│       ├── company/          # Company page
-│       ├── contact/          # Contact pages (sales, support, careers)
-│       ├── litepapers/       # Litepapers page
-│       ├── news/             # News/blog pages
-│       ├── technologies/     # Technology showcase pages
-│       ├── globals.css       # Global styles
-│       ├── layout.tsx        # Root layout
-│       └── page.tsx          # Homepage
-├── next.config.ts            # Next.js configuration
-├── tsconfig.json             # TypeScript configuration
-├── package.json              # Dependencies and scripts
-├── test-forms.js            # Form API testing script
-└── README.md                # This file
+│   ├── app/                  # Next.js App Router
+│   │   ├── [locale]/         # Locale-prefixed routes (en, es)
+│   │   │   ├── company/      # Company page
+│   │   │   ├── contact/      # Contact (sales, support, careers)
+│   │   │   ├── landing-page/ # Landing variants
+│   │   │   ├── litepapers/   # Litepapers page
+│   │   │   ├── news/         # News/blog and article pages
+│   │   │   └── technologies/ # Kena, K Rails pages
+│   │   ├── api/              # API routes (contact, newsletter, kena-unlock)
+│   │   ├── studio/           # Sanity Studio
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx          # Root redirect
+│   ├── ui/                   # Presentation layer (views, components)
+│   │   ├── shared/           # Shared components, hooks, utils, providers
+│   │   │   ├── components/
+│   │   │   ├── containers/
+│   │   │   ├── hooks/
+│   │   │   ├── providers/
+│   │   │   └── utils/
+│   │   └── {context}/        # Feature contexts (home, company, contact, news, etc.)
+│   │       ├── views/        # Page-level views
+│   │       └── components/
+│   ├── sanity/               # Sanity schema and queries
+│   └── middleware.ts         # Locale redirect
+├── next.config.ts
+├── tsconfig.json
+├── package.json
+└── README.md
 ```
 
 ## 🔧 Setup Instructions
@@ -145,7 +144,13 @@ keo-website/
 
 3. **Create environment file**
 
-   Create a `.env.local` file in the root directory. See [Environment Variables](#-environment-variables) section for required variables.
+   Copy the example file and fill in your values:
+
+   ```bash
+   cp .env.local.example .env.local
+   ```
+
+   See [Environment Variables](#-environment-variables) for required variables.
 
 4. **Configure environment variables** (see [Environment Variables](#environment-variables) section)
 
@@ -165,6 +170,11 @@ Create a `.env.local` file in the root directory with the following variables:
 ### Required Variables
 
 ```env
+# Sanity CMS (News/Blog content)
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
+NEXT_PUBLIC_SANITY_DATASET=production
+SANITY_API_TOKEN=your_sanity_api_token
+
 # Google reCAPTCHA v2
 NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your_site_key_here
 RECAPTCHA_SECRET_KEY=your_secret_key_here
@@ -264,17 +274,7 @@ The website includes three specialized contact forms, each with distinct validat
 
 ### Testing Forms
 
-Run the automated test script:
-
-```bash
-# Make sure dev server is running
-npm run dev
-
-# In another terminal
-node test-forms.js
-```
-
-See `FORM_VALIDATION_TEST.md` for comprehensive testing checklist.
+Test the contact forms manually in the browser at `/contact/sales`, `/contact/support`, and `/contact/careers`. All three use client- and server-side validation with Zod.
 
 ## 🎨 Styling
 

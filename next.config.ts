@@ -10,12 +10,7 @@ const nextConfig: NextConfig = {
     ],
   },
   // Prevent Sanity packages from being bundled in client components
-  serverExternalPackages: [
-    "sanity",
-    "next-sanity",
-    "@sanity/image-url",
-    "@sanity/client",
-  ],
+  serverExternalPackages: ["sanity", "next-sanity", "@sanity/image-url", "@sanity/client"],
   webpack: (config, { isServer }) => {
     config.module.rules.push({
       test: /\.lottie$/,
@@ -25,7 +20,10 @@ const nextConfig: NextConfig = {
     // Externalize Sanity packages for client-side builds to prevent bundling issues
     if (!isServer) {
       const originalExternals = config.externals;
-      const externalsFunction = ({ request }: { request?: string }, callback: (err?: Error | null, result?: string) => void) => {
+      const externalsFunction = (
+        { request }: { request?: string },
+        callback: (err?: Error | null, result?: string) => void
+      ) => {
         // Externalize 'sanity' and related packages
         if (
           request === "sanity" ||

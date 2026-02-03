@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Sora } from "next/font/google";
-import { ConditionalShell } from "@/app/components/ui/conditional-shell/conditional-shell";
-import { LocaleProvider } from "@/app/components/ui/locale-context/locale-context";
-import { SmoothAnchorScroll } from "@/app/components/ui/smooth-anchor-scroll/smooth-anchor-scroll";
+import { ConditionalShell } from "@/ui/shared/containers/conditional-shell/conditional-shell";
+import { LocaleProvider } from "@/ui/shared/providers/locale-context/locale-context";
+import { SmoothAnchorScroll } from "@/ui/shared/components/smooth-anchor-scroll/smooth-anchor-scroll";
 import Head from "./head";
 
 const sora = Sora({
