@@ -1,27 +1,16 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
 import { useLocale } from "@/ui/shared/providers/locale-context/locale-context";
-import MultiSelect from "./MultiSelect";
+import { MultipleSelector } from "@/ui/shared/components/multiple-selector/multiple-selector";
 import styles from "./NewsView.module.css";
-
-const LANGUAGES = [
-  { value: "en", label: "English" },
-  { value: "es", label: "Español" },
-];
 
 interface NewsFiltersProps {
   categories: string[];
   selectedCategories: string[];
-  selectedLanguages: string[];
 }
 
-export default function NewsFilters({
-  categories,
-  selectedCategories,
-  selectedLanguages,
-}: NewsFiltersProps) {
+export default function NewsFilters({ categories, selectedCategories }: NewsFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { localePath } = useLocale();
@@ -40,49 +29,20 @@ export default function NewsFilters({
     router.push(newUrl ? `${localePath("/news")}${newUrl}` : localePath("/news"));
   };
 
-  const handleLanguageChange = (keys: Set<string>) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete("page");
-    params.delete("language");
-    keys.forEach((lang) => params.append("language", lang));
-    const newUrl = params.toString() ? `?${params.toString()}` : "";
-    router.push(newUrl ? `${localePath("/news")}${newUrl}` : localePath("/news"));
-  };
-
-  const hasFilters = selectedCategories.length > 0 || selectedLanguages.length > 0;
-
-  const handleClearAll = () => {
-    router.push(localePath("/news"));
-  };
-
   return (
-    <motion.div
-      className={styles.newsFilters}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.2 }}
-    >
+    <div className={styles.newsFilters}>
       <div className={styles.filtersRow}>
-        <MultiSelect
-          label="Language"
-          placeholder="All Languages"
-          items={LANGUAGES}
-          selectedKeys={new Set(selectedLanguages)}
-          onSelectionChange={handleLanguageChange}
-        />
-        <MultiSelect
+        <MultipleSelector
           label="Category"
           placeholder="All Categories"
-          items={categoryItems}
+          options={categoryItems}
           selectedKeys={new Set(selectedCategories)}
           onSelectionChange={handleCategoryChange}
+          minWidth={240}
+          maxWidth={480}
+          maxHeight={120}
         />
-        {hasFilters && (
-          <button className={styles.clearFiltersButton} onClick={handleClearAll}>
-            Clear filters
-          </button>
-        )}
       </div>
-    </motion.div>
+    </div>
   );
 }

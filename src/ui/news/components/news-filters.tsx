@@ -2,25 +2,15 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import MultiSelect from "./multi-select";
-import styles from "./page.module.css";
-
-const LANGUAGES = [
-  { value: "en", label: "English" },
-  { value: "es", label: "Español" },
-];
+import { MultipleSelector } from "@/ui/shared/components/multiple-selector/multiple-selector";
+import styles from "@/ui/news/views/NewsView/NewsView.module.css";
 
 interface NewsFiltersProps {
   categories: string[];
   selectedCategories: string[];
-  selectedLanguages: string[];
 }
 
-export default function NewsFilters({
-  categories,
-  selectedCategories,
-  selectedLanguages,
-}: NewsFiltersProps) {
+export default function NewsFilters({ categories, selectedCategories }: NewsFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -40,23 +30,6 @@ export default function NewsFilters({
     router.push(newUrl);
   };
 
-  const handleLanguageChange = (keys: Set<string>) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete("page");
-    params.delete("language");
-
-    keys.forEach((lang) => params.append("language", lang));
-
-    const newUrl = params.toString() ? `/news?${params.toString()}` : "/news";
-    router.push(newUrl);
-  };
-
-  const hasFilters = selectedCategories.length > 0 || selectedLanguages.length > 0;
-
-  const handleClearAll = () => {
-    router.push("/news");
-  };
-
   return (
     <motion.div
       className={styles.newsFilters}
@@ -65,25 +38,16 @@ export default function NewsFilters({
       transition={{ duration: 0.6, delay: 0.2 }}
     >
       <div className={styles.filtersRow}>
-        <MultiSelect
-          label="Language"
-          placeholder="All Languages"
-          items={LANGUAGES}
-          selectedKeys={new Set(selectedLanguages)}
-          onSelectionChange={handleLanguageChange}
-        />
-        <MultiSelect
+        <MultipleSelector
           label="Category"
           placeholder="All Categories"
-          items={categoryItems}
+          options={categoryItems}
           selectedKeys={new Set(selectedCategories)}
           onSelectionChange={handleCategoryChange}
+          minWidth={240}
+          maxWidth={400}
+          maxHeight={140}
         />
-        {hasFilters && (
-          <button className={styles.clearFiltersButton} onClick={handleClearAll}>
-            Clear filters
-          </button>
-        )}
       </div>
     </motion.div>
   );

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import NewsCard from "@/ui/news/components/newsCard/news-card";
-import NewsPagination from "@/ui/news/components/newsPagination/news-pagination";
+import { Pagination } from "@/ui/shared/components/pagination/pagination";
 import NewsCardSkeleton from "@/ui/news/components/newsCardSkeleton/news-card-skeleton";
 import NewsFilters from "./NewsFilters";
 import styles from "./NewsView.module.css";
@@ -26,7 +26,6 @@ export interface NewsViewProps {
   articles: NewsViewArticle[];
   allCategories: string[];
   selectedCategories: string[];
-  selectedLanguages: string[];
   articlesPerPage: number;
 }
 
@@ -34,7 +33,6 @@ export function NewsView({
   articles,
   allCategories,
   selectedCategories,
-  selectedLanguages,
   articlesPerPage,
 }: NewsViewProps) {
   const searchParams = useSearchParams();
@@ -55,7 +53,6 @@ export function NewsView({
   const currentArticles = articles.slice(startIndex, endIndex);
 
   const hasNoResults = articles.length === 0;
-  const hasFilters = selectedCategories.length > 0 || selectedLanguages.length > 0;
 
   return (
     <main className={styles.main}>
@@ -95,11 +92,7 @@ export function NewsView({
       </section>
 
       <section className={styles.articlesSection}>
-        <NewsFilters
-          categories={allCategories}
-          selectedCategories={selectedCategories}
-          selectedLanguages={selectedLanguages}
-        />
+        <NewsFilters categories={allCategories} selectedCategories={selectedCategories} />
 
         {hasNoResults ? (
           <motion.div
@@ -121,7 +114,7 @@ export function NewsView({
             </div>
             <h3 className={styles.noResultsTitle}>No articles found</h3>
             <p className={styles.noResultsText}>
-              {hasFilters
+              {selectedCategories.length > 0
                 ? "Try adjusting your filters to find what you're looking for."
                 : "Check back soon for new content."}
             </p>
@@ -137,7 +130,7 @@ export function NewsView({
                     <NewsCard key={article.slug} article={article} index={index} />
                   ))}
             </div>
-            {!isLoading && totalPages > 1 && <NewsPagination totalPages={totalPages} />}
+            {!isLoading && totalPages > 1 && <Pagination totalPages={totalPages} />}
           </>
         )}
       </section>

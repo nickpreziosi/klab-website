@@ -24,7 +24,6 @@ function extractYouTubeId(embedLink?: string): string | undefined {
 interface NewsPageProps {
   searchParams: Promise<{
     category?: string | string[];
-    language?: string | string[];
     page?: string;
   }>;
 }
@@ -37,13 +36,6 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
     ? categoryParam
     : categoryParam
       ? [categoryParam]
-      : [];
-
-  const languageParam = params.language;
-  const selectedLanguages = Array.isArray(languageParam)
-    ? languageParam
-    : languageParam
-      ? [languageParam]
       : [];
 
   const sanityArticles = await getAllArticles();
@@ -59,16 +51,9 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
     youtubeId: extractYouTubeId(article.embedLink),
     author: article.author || undefined,
     authorRole: article.authorRole || undefined,
-    language: article.language || "en",
   }));
 
   let filteredArticles = allArticles;
-
-  if (selectedLanguages.length > 0) {
-    filteredArticles = filteredArticles.filter((article) =>
-      selectedLanguages.includes(article.language || "en")
-    );
-  }
 
   if (selectedCategories.length > 0) {
     filteredArticles = filteredArticles.filter((article) =>
@@ -83,7 +68,6 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
       articles={filteredArticles}
       allCategories={allCategories}
       selectedCategories={selectedCategories}
-      selectedLanguages={selectedLanguages}
       articlesPerPage={ARTICLES_PER_PAGE}
     />
   );

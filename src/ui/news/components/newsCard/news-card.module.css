@@ -23,6 +23,16 @@
   justify-content: space-between;
 }
 
+.link:focus {
+  outline: none;
+}
+
+/* Keyboard focus ring on the card (only when focused via keyboard) */
+.card:has(.link:focus-visible) {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
 .imageContainer {
   position: relative;
   aspect-ratio: 16 / 9;

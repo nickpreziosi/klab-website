@@ -105,159 +105,6 @@
   font-family: inherit;
 }
 
-.multiSelectWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.multiSelectLabel {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--secondary-color);
-  opacity: 0.6;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.multiSelectButton {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  width: 100%;
-  padding: 10px 14px;
-  height: 42px;
-  background: rgba(var(--secondary-color-rgb), 0.05);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
-  border-radius: 6px;
-  color: var(--secondary-color);
-  font-size: 14px;
-  font-weight: 400;
-  cursor: pointer;
-  transition:
-    border-color 0.2s,
-    background-color 0.2s;
-  font-family: inherit;
-}
-
-.multiSelectButton[data-focus-visible] {
-  outline: 2px solid var(--accent-color);
-  outline-offset: 2px;
-}
-
-.multiSelectValue {
-  flex: 1;
-  text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.multiSelectChevron {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.6;
-  transition: transform 0.2s;
-  flex-shrink: 0;
-}
-
-.multiSelectChevron[data-open="true"] {
-  transform: rotate(180deg);
-}
-
-.multiSelectPopover {
-  background: var(--main-color);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
-  border-radius: 8px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-  min-width: var(--trigger-width);
-  max-height: 280px;
-  overflow-y: auto;
-}
-
-.multiSelectPopover[data-entering] {
-  animation: popoverEnter 0.15s ease-out;
-}
-
-.multiSelectPopover[data-exiting] {
-  animation: popoverExit 0.1s ease-in;
-}
-
-@keyframes popoverEnter {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes popoverExit {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-}
-
-.multiSelectListBox {
-  padding: 4px;
-  outline: none;
-}
-
-.multiSelectItem {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 4px;
-  font-size: 14px;
-  color: var(--secondary-color);
-  cursor: pointer;
-  outline: none;
-  transition: background-color 0.15s;
-  white-space: nowrap;
-}
-
-.multiSelectItem[data-focused] {
-  background: rgba(var(--secondary-color-rgb), 0.1);
-}
-
-.multiSelectItem[data-selected] {
-  color: var(--secondary-color);
-}
-
-.multiSelectItem[data-selected] svg {
-  color: var(--main-color);
-}
-
-.multiSelectCheckbox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.3);
-  border-radius: 3px;
-  background: transparent;
-  transition:
-    background-color 0.15s,
-    border-color 0.15s;
-}
-
-.multiSelectCheckbox[data-selected="true"] {
-  background: var(--secondary-color);
-  border-color: var(--secondary-color);
-}
-
 .noResults {
   display: flex;
   flex-direction: column;
@@ -301,13 +148,6 @@
     opacity: 1;
     border-color: rgba(var(--secondary-color-rgb), 0.5);
   }
-  .multiSelectButton:hover {
-    border-color: rgba(var(--secondary-color-rgb), 0.4);
-    background: rgba(var(--secondary-color-rgb), 0.08);
-  }
-  .multiSelectItem:hover {
-    background: rgba(var(--secondary-color-rgb), 0.1);
-  }
 }
 
 @media (max-width: 1024px) {
@@ -344,13 +184,6 @@
   .filtersRow {
     flex-direction: column;
     align-items: stretch;
-  }
-  .multiSelectWrapper {
-    width: 100%;
-  }
-  .multiSelectPopover {
-    width: var(--trigger-width) !important;
-    max-width: var(--trigger-width) !important;
   }
   .clearFiltersButton {
     width: 100%;
