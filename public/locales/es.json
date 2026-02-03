@@ -1,8 +1,32 @@
 {
+  "nav": {
+    "about": "Nosotros",
+    "technologies": "Tecnologías",
+    "company": "Empresa",
+    "news": "Noticias",
+    "contact": "Contacto",
+    "goToHomepage": "Ir al inicio",
+    "technologiesMenuLabel": "Menú de tecnologías, pulse enter o espacio para abrir",
+    "mainNav": "Navegación principal"
+  },
+  "drawer": {
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "dialogTitle": "Abrir menú móvil",
+    "dialogDescription": "Menú de navegación",
+    "home": "Inicio"
+  },
   "hero": {
     "title": "Construyendo el futuro de la infraestructura financiera",
     "subtitle": "KLab desarrolla la tecnología que automatiza el riesgo, los pagos y las operaciones financieras — todo en una plataforma inteligente.",
     "contactSales": "Contactar ventas"
+  },
+  "companyHero": {
+    "headlineLine1": "Donde el capital se",
+    "headlineLine2": "encuentra con el código.",
+    "tagline1": "Confianza programable para el comercio global.",
+    "tagline2": "Las finanzas, reescritas.",
+    "tagline3": "Contratos inteligentes. Impacto real."
   },
   "landing": {
     "statusBar": "ESTADO_DEL_SISTEMA: PRÓXIMAMENTE",

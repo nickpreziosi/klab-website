@@ -4,10 +4,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { KlabLogo } from "@/app/components/ui/klab-logo/klab-logo";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/app/components/ui/tooltip/tooltip";
 import styles from "./technologies-showcase.module.css";
 
-/* Technology data - same copy as navbar dropdown */
-const TECHNOLOGIES = [
+/* Technology data - same copy as navbar dropdown; exported for drawer/nav */
+export const TECHNOLOGIES = [
   {
     title: "K-Rails",
     logo: "/logos/01-KRails.svg",
@@ -180,11 +186,6 @@ export function TechnologiesShowcase({
     side: "left" | "right";
     index: number;
   } | null>(null);
-  const [floatingTooltip, setFloatingTooltip] = useState<{
-    description: string;
-    left: number;
-    top: number;
-  } | null>(null);
 
   const updateScrollState = useCallback(() => {
     const el = scrollRef.current;
@@ -245,16 +246,8 @@ export function TechnologiesShowcase({
       </div>
     ) : null;
 
-  const showTooltip = (description: string, anchor: DOMRect) => {
-    setFloatingTooltip({
-      description,
-      left: anchor.left + anchor.width / 2,
-      top: anchor.bottom + 8,
-    });
-  };
-  const hideTooltip = () => setFloatingTooltip(null);
-
   return (
+    <TooltipProvider delayDuration={200}>
     <div
       ref={wrapperRef}
       className={`${styles.wrapper} ${className ?? ""}`.trim()}
@@ -283,8 +276,6 @@ export function TechnologiesShowcase({
             }
             onLinkClick={onLinkClick}
             expandOnFirstTap={expandOnFirstTap}
-            onShowTooltip={showTooltip}
-            onHideTooltip={hideTooltip}
             SVGLogo={SVGLogo}
           />
         ))}
@@ -301,7 +292,7 @@ export function TechnologiesShowcase({
               />
             </div>
             <div className={styles.centerContent}>
-              <KlabLogo color="orange" format="full" height="auto" width="100%" />
+              <KlabLogo color="orange" format="full" fullLogoTheme="dark" height="auto" width="100%" />
             </div>
           </div>
         </div>
@@ -324,29 +315,14 @@ export function TechnologiesShowcase({
             }
             onLinkClick={onLinkClick}
             expandOnFirstTap={expandOnFirstTap}
-            onShowTooltip={showTooltip}
-            onHideTooltip={hideTooltip}
             SVGLogo={SVGLogo}
           />
         ))}
       </div>
 
       {!headerTitle && carouselNavEl}
-
-      {floatingTooltip && (
-        <div
-          className={styles.floatingTooltip}
-          style={{
-            left: floatingTooltip.left,
-            top: floatingTooltip.top,
-            transform: "translateX(-50%)",
-          }}
-          role="tooltip"
-        >
-          {floatingTooltip.description}
-        </div>
-      )}
     </div>
+    </TooltipProvider>
   );
 }
 
@@ -357,8 +333,6 @@ function TechSemiCircle({
   onToggle,
   onLinkClick,
   expandOnFirstTap,
-  onShowTooltip,
-  onHideTooltip,
   SVGLogo: LogoComponent,
 }: {
   tech: (typeof TECHNOLOGIES)[0];
@@ -367,8 +341,6 @@ function TechSemiCircle({
   onToggle: () => void;
   onLinkClick?: () => void;
   expandOnFirstTap?: boolean;
-  onShowTooltip?: (description: string, anchor: DOMRect) => void;
-  onHideTooltip?: () => void;
   SVGLogo: typeof SVGLogo;
 }) {
   return (
@@ -377,11 +349,6 @@ function TechSemiCircle({
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget)) onToggle();
       }}
-      onMouseEnter={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        onShowTooltip?.(tech.description, rect);
-      }}
-      onMouseLeave={() => onHideTooltip?.()}
     >
       <Link
         href={tech.href}
@@ -399,13 +366,24 @@ function TechSemiCircle({
         }}
         aria-label={tech.title}
       >
-        <div className={styles.techContent}>
-          <div className={styles.techLogo}>
-            <LogoComponent src={tech.logo} />
-          </div>
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className={styles.techContent}>
+              <div className={styles.techLogo}>
+                <LogoComponent src={tech.logo} />
+              </div>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent
+            side="bottom"
+            sideOffset={60}
+            className={styles.techTooltip}
+          >
+            {tech.description}
+          </TooltipContent>
+        </Tooltip>
       </Link>
-      {/* Inline description for touch/expanded only; hover uses floating tooltip */}
+      {/* Inline description for touch/expanded only; hover uses Radix Tooltip */}
       <div className={styles.description} role="tooltip" aria-hidden>
         {tech.description}
       </div>

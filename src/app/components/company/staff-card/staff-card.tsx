@@ -4,12 +4,17 @@ import styles from "./staff-card.module.css";
 import Image from "next/image";
 import { Accordion } from "radix-ui";
 import Link from "next/link";
+import { useTheme } from "@/app/lib/use-theme";
 
 interface StaffCardProps {
   name: string;
   position: string;
   bio: string;
   image: string;
+  /** Optional: use when both light and dark assets exist; otherwise `image` is used for both. */
+  imageLight?: string;
+  /** Optional: use when both light and dark assets exist; otherwise `image` is used for both. */
+  imageDark?: string;
   linkedin: string;
   x: string;
   email: string;
@@ -20,12 +25,23 @@ export const StaffCard = ({
   position,
   bio,
   image,
+  imageLight,
+  imageDark,
   linkedin,
   x,
   email,
 }: StaffCardProps) => {
   const accordionContentRef = useRef<HTMLDivElement | null>(null);
   const [accordionIsOpen, setAccordionIsOpen] = useState(false);
+  const { effectiveTheme } = useTheme();
+
+  const displayImage =
+    imageLight != null && imageDark != null
+      ? effectiveTheme === "light"
+        ? imageLight
+        : imageDark
+      : image;
+
   const handleAccordionTriggerClick = () => {
     setAccordionIsOpen(!accordionIsOpen);
   };
@@ -35,7 +51,7 @@ export const StaffCard = ({
       <div className={styles.card}>
         <Image
           priority
-          src={image}
+          src={displayImage}
           alt="Winner Bold Award"
           width={500}
           height={500}

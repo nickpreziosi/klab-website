@@ -1,11 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import styles from "./timeline-carousel.module.css";
 import { Separator } from "radix-ui";
-import SectionHeader from "@/app/components/ui/section-header/section-header";
+import CompanySectionTitle from "@/app/components/company/company-section-title/company-section-title";
 
 interface TimelineEvent {
   quarter: string;
@@ -87,6 +87,9 @@ const timelineData: TimelineEvent[] = [
 ];
 
 export default function TimelineCarousel() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInView(sectionRef, { once: true, amount: 0.1 });
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     slidesToScroll: 1,
@@ -122,6 +125,7 @@ export default function TimelineCarousel() {
       <div className={styles.overlay} />
 
       <motion.section
+        ref={sectionRef}
         className={styles.section}
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -130,11 +134,7 @@ export default function TimelineCarousel() {
       >
         <div className={styles.container}>
           <div className={styles.header}>
-            <SectionHeader
-              heading="Our Journey"
-              align="left"
-              animateOnce={true}
-            />
+            <CompanySectionTitle title="Our Journey" inView={inView} />
             <div className={styles.controls}>
               <button
                 className={styles.navButton}

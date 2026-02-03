@@ -7,54 +7,22 @@
   justify-content: center;
   background: var(--main-color);
   position: relative;
-  padding: var(--padding-desktop) var(--padding-desktop);
   overflow: hidden;
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--main-color-rgb), 1) 0%,
-    black 100%
-  );
+  background: var(--theme-gradient);
 }
 
+/* Match navbar: max-width 1440px with padding inside so content width aligns */
 .container {
   max-width: 1440px;
   width: 100%;
+  margin: 0 auto;
+  padding: var(--padding-desktop);
   position: relative;
 }
 
-/* Header */
+/* Header wrapper for CompanySectionTitle */
 .header {
-  display: flex;
-  align-items: center;
-  gap: var(--padding-md);
   margin-bottom: var(--margin-xl);
-}
-
-.headerLogo {
-  flex-shrink: 0;
-  height: auto;
-  width: 56px;
-  object-fit: contain;
-}
-
-.headerDivider {
-  width: 1px;
-  height: 32px;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(var(--secondary-color-rgb), 0.5),
-    transparent
-  );
-}
-
-.headerTitle {
-  margin: 0;
-  font-size: var(--text-2xl);
-  font-weight: var(--font-bold);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--secondary-color);
 }
 
 /* Radial diagram – desktop only */
@@ -159,8 +127,11 @@
 
 .listLogoWrap {
   flex-shrink: 0;
-  width: 80px;
+  width: 60px;
   height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .listLogoImage {
@@ -174,6 +145,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  padding-top: var(--padding-mobile);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -182,8 +154,8 @@
 
 .listItem {
   position: relative;
-  padding-left: var(--padding-lg);
-  border-left: 3px solid rgba(var(--accent-color-rgb), 0.5);
+  padding-left: var(--padding-md);
+  border-left: 3px solid var(--accent-color);
 }
 
 .listItemText {
@@ -194,16 +166,14 @@
 }
 
 .listItemText .highlight {
-  color: var(--accent-color);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 1.5px;
-  font-weight: var(--font-semibold);
+  color: rgba(var(--secondary-color-rgb), 0.98);
+  text-decoration: none;
+  font-weight: var(--font-medium);
 }
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .section {
+  .container {
     padding: var(--padding-tablet);
   }
 
@@ -231,25 +201,12 @@
 }
 
 @media (max-width: 768px) {
-  .section {
-    padding: var(--padding-mobile) var(--padding-mobile);
+  .container {
+    padding: var(--padding-tablet) var(--padding-mobile);
   }
 
   .header {
     margin-bottom: var(--margin-md);
-  }
-
-  .headerLogo {
-    width: 40px;
-  }
-
-  .headerDivider {
-    height: 24px;
-  }
-
-  .headerTitle {
-    font-size: var(--text-lg);
-    letter-spacing: 0.1em;
   }
 
   /* Hide radial, show list */

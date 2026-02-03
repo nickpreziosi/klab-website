@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useMemo, useRef } from "react";
 import { KlabLogo } from "@/app/components/ui/klab-logo/klab-logo";
+import CompanySectionTitle from "@/app/components/company/company-section-title/company-section-title";
 import styles from "./company-manifesto.module.css";
 
 const MANIFESTO_ITEMS = [
@@ -87,22 +88,9 @@ export default function CompanyManifesto() {
   return (
     <section ref={ref} className={styles.section}>
       <div className={styles.container}>
-        <motion.header
-          className={styles.header}
-          initial={{ opacity: 0, y: -16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <Image
-            src="/logos/01-K-Lab.svg"
-            alt="K-Lab"
-            width={56}
-            height={94}
-            className={styles.headerLogo}
-          />
-          <span className={styles.headerDivider} aria-hidden />
-          <h2 className={styles.headerTitle}>Manifesto</h2>
-        </motion.header>
+        <div className={styles.header}>
+          <CompanySectionTitle title="Manifesto" inView={inView} />
+        </div>
 
         {/* Desktop: radial diagram */}
         <div className={styles.radialWrapper}>
@@ -193,20 +181,6 @@ export default function CompanyManifesto() {
 
         {/* Mobile: stacked list with logo */}
         <div className={styles.listLayout}>
-          <motion.div
-            className={styles.listLogoWrap}
-            initial={{ opacity: 0, y: 12 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <Image
-              src="/logos/01-K-Lab.svg"
-              alt="K-Lab"
-              width={80}
-              height={134}
-              className={styles.listLogoImage}
-            />
-          </motion.div>
           <ul className={styles.list}>
             {MANIFESTO_ITEMS.map((item, i) => (
               <motion.li

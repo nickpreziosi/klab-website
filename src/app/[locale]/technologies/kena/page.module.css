@@ -19,11 +19,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--main-color-rgb), 1) 0%,
-    black 100%
-  );
+  background: var(--theme-gradient);
 }
 
 .kena3dSection {
@@ -33,12 +29,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(
-
-    to bottom,
-    rgba(var(--main-color-rgb), 1) 0%,
-    black 100%
-  );
+  background: var(--theme-gradient);
 }
 
 /* Responsive Design */

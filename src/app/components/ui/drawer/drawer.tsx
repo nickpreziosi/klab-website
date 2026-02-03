@@ -7,22 +7,26 @@ import Link from "next/link";
 import styles from "./drawer.module.css";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { MobileThemeToggle } from "@/app/components/ui/mobile-theme-toggle/mobile-theme-toggle";
-import { LocaleSwitcher } from "@/app/components/ui/locale-switcher/locale-switcher";
+import { MobileLocaleSwitcher } from "@/app/components/ui/mobile-locale-switcher/mobile-locale-switcher";
 import { KlabLogo } from "@/app/components/ui/klab-logo/klab-logo";
-
+import { TECHNOLOGIES } from "@/app/components/technologies-showcase/technologies-showcase";
+import { useTranslations } from "@/app/lib/use-translations";
+import { useLocale } from "@/app/components/ui/locale-context/locale-context";
 
 export const Drawer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+  const { t } = useTranslations();
+  const { localePath } = useLocale();
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <VisuallyHidden>
-        <Dialog.Title>Open Mobile Nav</Dialog.Title>
-        <Dialog.Description>Navigation menu</Dialog.Description>
+        <Dialog.Title>{t("drawer.dialogTitle")}</Dialog.Title>
+        <Dialog.Description>{t("drawer.dialogDescription")}</Dialog.Description>
       </VisuallyHidden>
       <Dialog.Trigger asChild>
-        <button className={styles.hamburger} aria-label="Open menu">
+        <button className={styles.hamburger} aria-label={t("drawer.openMenu")}>
           <motion.div
             className={styles.hamburgerLine}
             animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
@@ -69,13 +73,13 @@ export const Drawer = () => {
                     href="/"
                     onClick={() => setIsOpen(false)}
                   >
-                    <KlabLogo color="orange" format="default" width={60} height={60} />
+                    <KlabLogo color="orange" format="full" height={40} />
                   </Link>
 
                   <Dialog.Close asChild>
                     <button
                       className={styles.closeButton}
-                      aria-label="Close menu"
+                      aria-label={t("drawer.closeMenu")}
                     >
                       <svg
                         width="24"
@@ -103,7 +107,7 @@ export const Drawer = () => {
                     transition={{ delay: 0.1 }}
                   >
                     <Link
-                      href="/"
+                      href={localePath("/")}
                       className={styles.navLink}
                       onClick={() => setIsOpen(false)}
                     >
@@ -122,7 +126,7 @@ export const Drawer = () => {
                           clipRule="evenodd"
                         ></path>
                       </svg>
-                      <span className={styles.navLinkText}>Home</span>
+                      <span className={styles.navLinkText}>{t("drawer.home")}</span>
                       <motion.div
                         className={styles.navLinkUnderline}
                         whileHover={{ scaleX: 1 }}
@@ -156,7 +160,7 @@ export const Drawer = () => {
                         ></path>
                       </svg>
                       <span className={styles.navLinkText}>
-                        Technologies
+                        {t("nav.technologies")}
                         <motion.svg
                           width="30"
                           height="30"
@@ -189,20 +193,16 @@ export const Drawer = () => {
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <Link
-                            href="/technologies/k-rails"
-                            className={styles.dropdownItem}
-                            onClick={() => setIsOpen(false)}
-                          >
-                            KRails
-                          </Link>
-                          <Link
-                            href="/technologies/kena"
-                            className={styles.dropdownItem}
-                            onClick={() => setIsOpen(false)}
-                          >
-                            Kena
-                          </Link>
+                          {TECHNOLOGIES.map((tech) => (
+                            <Link
+                              key={tech.href}
+                              href={tech.href}
+                              className={styles.dropdownItem}
+                              onClick={() => setIsOpen(false)}
+                            >
+                              {tech.title}
+                            </Link>
+                          ))}
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -214,7 +214,7 @@ export const Drawer = () => {
                     transition={{ delay: 0.25 }}
                   >
                     <Link
-                      href="/company"
+                      href={localePath("/company")}
                       className={styles.navLink}
                       onClick={() => setIsOpen(false)}
                     >
@@ -233,7 +233,7 @@ export const Drawer = () => {
                           clipRule="evenodd"
                         ></path>
                       </svg>
-                      <span className={styles.navLinkText}>Company</span>
+                      <span className={styles.navLinkText}>{t("nav.company")}</span>
                       <motion.div
                         className={styles.navLinkUnderline}
                         whileHover={{ scaleX: 1 }}
@@ -248,7 +248,7 @@ export const Drawer = () => {
                     transition={{ delay: 0.25 }}
                   >
                     <Link
-                      href="/news"
+                      href={localePath("/news")}
                       className={styles.navLink}
                       onClick={() => setIsOpen(false)}
                     >
@@ -267,7 +267,7 @@ export const Drawer = () => {
                           clipRule="evenodd"
                         ></path>
                       </svg>
-                      <span className={styles.navLinkText}>News</span>
+                      <span className={styles.navLinkText}>{t("nav.news")}</span>
                       <motion.div
                         className={styles.navLinkUnderline}
                         whileHover={{ scaleX: 1 }}
@@ -282,7 +282,7 @@ export const Drawer = () => {
                     transition={{ delay: 0.3 }}
                   >
                     <Link
-                      href="/contact"
+                      href={localePath("/contact")}
                       className={styles.navLink}
                       onClick={() => setIsOpen(false)}
                     >
@@ -301,7 +301,7 @@ export const Drawer = () => {
                           clipRule="evenodd"
                         ></path>
                       </svg>
-                      <span className={styles.navLinkText}>Contact</span>
+                      <span className={styles.navLinkText}>{t("nav.contact")}</span>
                       <motion.div
                         className={styles.navLinkUnderline}
                         whileHover={{ scaleX: 1 }}
@@ -318,7 +318,7 @@ export const Drawer = () => {
                   transition={{ delay: 0.35 }}
                   style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}
                 >
-                  <LocaleSwitcher />
+                  <MobileLocaleSwitcher />
                   <MobileThemeToggle></MobileThemeToggle>
                 </motion.div>
               </motion.div>

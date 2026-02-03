@@ -14,7 +14,7 @@ export default function KeoRailsPage() {
       <KeoRailsHero
         heading='THE AGE OF "WAIT" IS OVER.'
         subheading="B2B Blockchain-Based Payments and Lending Infrastructure with Near Instant Settlements "
-        description="Keo Rails is an embedded payment and lending solution which combines immediate funds availability, settlement finality and instant confirmation - all in a payment made near instantaneously. Bringing together speed, data and communication for execution of payments."
+        description="KRails is an embedded payment and lending solution which combines immediate funds availability, settlement finality and instant confirmation - all in a payment made near instantaneously. Bringing together speed, data and communication for execution of payments."
         buttonText="Start my T+0 flow"
         buttonHref="/contact/sales"
         buttonTwoText="Learn More"

@@ -56,7 +56,7 @@ export default function KeoRailsCtaSection() {
             <Button
               href="https://docs.keorails.com/"
               iconPosition="end"
-              variant="accent-brand"
+              variant="secondary"
               icon={
                 <svg
                   width="15"

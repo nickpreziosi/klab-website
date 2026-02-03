@@ -1,21 +1,22 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectViewport,
+  SelectItemIndicator,
 } from "@radix-ui/react-select";
+import { Check } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
   TooltipProvider,
-  TooltipArrow,
-} from "@radix-ui/react-tooltip";
+} from "@/app/components/ui/tooltip/tooltip";
 import styles from "./theme-toggle.module.css";
 import { useEffect, useState } from "react";
 
@@ -24,12 +25,13 @@ export function ThemeToggle() {
     try {
       if (typeof window !== "undefined") {
         const stored = localStorage.getItem("theme");
-        return (stored as string) ?? "keo";
+        const t = (stored as string) ?? "system";
+        return t === "keo" ? "system" : t;
       }
     } catch {
       // ignore access errors and fall back to default
     }
-    return "keo";
+    return "system";
   });
 
   // Listen for theme changes from other components/tabs so multiple toggles stay in sync.
@@ -87,6 +89,10 @@ export function ThemeToggle() {
           "--secondary-color-rgb",
           "250, 250, 250",
         );
+        document.documentElement.style.setProperty(
+          "--theme-gradient",
+          "linear-gradient(to bottom, rgba(var(--main-color-rgb), 1) 0%, black 100%)",
+        );
       } else {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
@@ -96,8 +102,21 @@ export function ThemeToggle() {
           "--secondary-color-rgb",
           "20, 20, 20",
         );
+        document.documentElement.style.setProperty(
+          "--theme-gradient",
+          "linear-gradient(to bottom, white 0%, white 82%, #F3E7DB 100%)",
+        );
       }
     };
+
+    const resolveToLightOrDark = (t: string): "light" | "dark" =>
+      t === "light"
+        ? "light"
+        : t === "dark"
+          ? "dark"
+          : darkModeMediaQuery.matches
+            ? "dark"
+            : "light";
 
     const applyTheme = (t: string) => {
       if (t === "system") {
@@ -111,14 +130,22 @@ export function ThemeToggle() {
             "--secondary-color-rgb",
             "250, 250, 250",
           );
+          document.documentElement.style.setProperty(
+            "--theme-gradient",
+            "linear-gradient(to bottom, rgba(var(--main-color-rgb), 1) 0%, black 100%)",
+          );
         } else {
           document.documentElement.style.setProperty(
             "--main-color-rgb",
-            "250, 250, 250",
+            "255, 255, 255",
           );
           document.documentElement.style.setProperty(
             "--secondary-color-rgb",
             "20, 20, 20",
+          );
+          document.documentElement.style.setProperty(
+            "--theme-gradient",
+            "linear-gradient(to bottom, white 0%, white 82%, #F3E7DB 100%)",
           );
         }
       } else if (t === "dark") {
@@ -130,25 +157,28 @@ export function ThemeToggle() {
           "--secondary-color-rgb",
           "250, 250, 250",
         );
+        document.documentElement.style.setProperty(
+          "--theme-gradient",
+          "linear-gradient(to bottom, rgba(var(--main-color-rgb), 1) 0%, black 100%)",
+        );
       } else if (t === "light") {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "244, 231, 219",
+          "250, 250, 250",
         );
         document.documentElement.style.setProperty(
           "--secondary-color-rgb",
           "23, 25, 32",
         );
-      } else if (t === "keo") {
         document.documentElement.style.setProperty(
-          "--main-color-rgb",
-          "0, 23, 45",
-        );
-        document.documentElement.style.setProperty(
-          "--secondary-color-rgb",
-          "250, 250, 250",
+          "--theme-gradient",
+          "linear-gradient(to bottom, white 0%, white 82%, #F3E7DB 100%)",
         );
       }
+      document.documentElement.setAttribute(
+        "data-theme",
+        resolveToLightOrDark(t),
+      );
     };
 
     applyTheme(theme);
@@ -245,16 +275,6 @@ export function ThemeToggle() {
             ></path>
           </svg>
         );
-      case "keo":
-        return (
-          <Image
-            src="/keo-logo.png"
-            alt="KEO"
-            width={18}
-            height={18}
-            className={styles.keoLogo}
-          />
-        );
       default:
         return null;
     }
@@ -268,8 +288,6 @@ export function ThemeToggle() {
         return "Dark";
       case "system":
         return "System";
-      case "keo":
-        return "KEO";
       default:
         return themeName;
     }
@@ -277,7 +295,7 @@ export function ThemeToggle() {
 
   return (
     <div className={styles.toggleContainer}>
-      <TooltipProvider delayDuration={300}>
+      <TooltipProvider delayDuration={0}>
         <Tooltip>
           <Select value={theme} onValueChange={setTheme}>
             <TooltipTrigger asChild>
@@ -286,10 +304,10 @@ export function ThemeToggle() {
                 className={styles.selectTrigger}
               >
                 <SelectValue>{getThemeIcon(theme)}</SelectValue>
-                <span className={styles.span}>Theme</span>
               </SelectTrigger>
             </TooltipTrigger>
-            <SelectContent className={styles.selectContent}>
+            <SelectContent className={styles.selectContent} position="popper" sideOffset={-20} align="center">
+              <SelectViewport className={styles.selectViewport}>
               <SelectItem value="light" className={styles.selectItem}>
                 <svg
                   width="15"
@@ -306,6 +324,9 @@ export function ThemeToggle() {
                   ></path>
                 </svg>
                 <span>Light</span>
+                <SelectItemIndicator className={styles.selectItemIndicator}>
+                  <Check size={14} />
+                </SelectItemIndicator>
               </SelectItem>
               <SelectItem value="dark" className={styles.selectItem}>
                 <svg
@@ -323,16 +344,9 @@ export function ThemeToggle() {
                   ></path>
                 </svg>
                 <span>Dark</span>
-              </SelectItem>
-              <SelectItem value="keo" className={styles.selectItem}>
-                <Image
-                  src="/keo-logo.png"
-                  alt="KEO"
-                  width={18}
-                  height={18}
-                  className={styles.keoLogo}
-                />
-                <span>KEO</span>
+                <SelectItemIndicator className={styles.selectItemIndicator}>
+                  <Check size={14} />
+                </SelectItemIndicator>
               </SelectItem>
               <SelectItem value="system" className={styles.selectItem}>
                 <svg
@@ -350,17 +364,16 @@ export function ThemeToggle() {
                   ></path>
                 </svg>
                 <span>System</span>
+                <SelectItemIndicator className={styles.selectItemIndicator}>
+                  <Check size={14} />
+                </SelectItemIndicator>
               </SelectItem>
+              </SelectViewport>
             </SelectContent>
           </Select>
 
-          <TooltipContent
-            sideOffset={12}
-            className={styles.tooltip}
-            side="bottom"
-          >
+          <TooltipContent sideOffset={12} side="bottom">
             Theme: {getThemeLabel(theme)}
-            <TooltipArrow className={styles.tooltipArrow} />
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

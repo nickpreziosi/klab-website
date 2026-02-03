@@ -1,0 +1,33 @@
+.header {
+  margin-bottom: var(--margin-xl);
+}
+
+.tabWrap {
+  margin-top: var(--margin-lg);
+}
+
+.cardGrid {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-lg);
+  height: fit-content;
+  margin-top: var(--padding-tablet);
+}
+
+@media (max-width: 1280px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 769px) {
+  .cardGrid {
+    grid-template-columns: 1fr;
+    gap: var(--gap-md);
+  }
+}

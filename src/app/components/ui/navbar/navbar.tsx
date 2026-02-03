@@ -11,9 +11,13 @@ import { ThemeToggle } from "@/app/components/ui/theme-toggle/theme-toggle";
 import { LocaleSwitcher } from "@/app/components/ui/locale-switcher/locale-switcher";
 import { usePathname } from "next/navigation";
 import { KlabLogo } from "@/app/components/ui/klab-logo/klab-logo";
+import { useTranslations } from "@/app/lib/use-translations";
+import { useLocale } from "@/app/components/ui/locale-context/locale-context";
 
 export const NavigationMenuDemo = () => {
   const path = usePathname();
+  const { t } = useTranslations();
+  const { localePath } = useLocale();
   const [isAtTop, setIsAtTop] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const spacerRef = useRef<HTMLDivElement>(null);
@@ -102,37 +106,37 @@ export const NavigationMenuDemo = () => {
             height: "auto",
             backdropFilter: !isAtTop || dropdownOpen ? "blur(8px)" : "none",
             background:
-              /^\/(en|es)\/?$/.test(path) && isAtTop && !dropdownOpen
+               isAtTop && !dropdownOpen
                 ? "transparent"
                 : "rgba(var(--main-color-rgb), 0.7)",
             borderBottom:
-              !/^\/(en|es)\/?$/.test(path) || dropdownOpen || !isAtTop
+               dropdownOpen || !isAtTop
                 ? "solid 1px rgba(255, 255, 255, 0.2)"
                 : "solid 1px transparent",
             boxShadow:
-              !/^\/(en|es)\/?$/.test(path) || dropdownOpen || !isAtTop
+             dropdownOpen || !isAtTop
                 ? "var(--shadow-black)"
                 : "none",
           }}
           id="navbarContainer"
-          aria-label="Main navigation"
-          className={`${styles.container} ${
+          aria-label={t("nav.mainNav")}
+          className={`${styles.container} ${path !== "/en" && styles.forceNavStyles} ${
             !isAtTop && styles.containerScrolled
           } ${dropdownOpen && styles.containerDropdownOpen}`}
         >
           <div className={styles.navbar}>
             <div className={styles.logoContainer}>
-              <Link aria-label="Go to Homepage" href="/" className={styles.logoLinkFull}>
+              <Link aria-label={t("nav.goToHomepage")} href={localePath("/")} className={styles.logoLinkFull}>
                 <KlabLogo color="orange" format="full" height={48} />
               </Link>
-              <Link aria-label="Go to Homepage" href="/" className={styles.logoLinkCompact}>
-                <KlabLogo color="orange" format="default" height={60} />
+              <Link aria-label={t("nav.goToHomepage")} href={localePath("/")} className={styles.logoLinkCompact}>
+                <KlabLogo color="orange" format="default" height={48} />
               </Link>
             </div>
 
             <ul className={styles.navList}>
               <li className={styles.navListItem}>
-                <Link className={styles.navLink} href="/">
+                <Link className={styles.navLink} href={localePath("/")}>
                   <svg
                     className={styles.icon}
                     width="15"
@@ -148,7 +152,7 @@ export const NavigationMenuDemo = () => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  About
+                  {t("nav.about")}
                 </Link>
               </li>
               <li className={styles.separatorRootListItem}>
@@ -168,7 +172,7 @@ export const NavigationMenuDemo = () => {
                   aria-expanded={dropdownOpen}
                   aria-haspopup="true"
                   aria-controls="technologies-dropdown"
-                  aria-label="Technologies menu, press enter or space to open"
+                  aria-label={t("nav.technologiesMenuLabel")}
                 >
                   <svg
                     className={styles.icon}
@@ -185,7 +189,7 @@ export const NavigationMenuDemo = () => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  Technologies{" "}
+                  {t("nav.technologies")}{" "}
                   <svg
                     className={`${!dropdownOpen && styles.caretIconOpen} ${
                       styles.caretIcon
@@ -209,7 +213,7 @@ export const NavigationMenuDemo = () => {
                 />
               </li>
               <li className={styles.navListItem}>
-                <Link className={styles.navLink} href="/company">
+                <Link className={styles.navLink} href={localePath("/company")}>
                   <svg
                     className={styles.icon}
                     width="15"
@@ -225,7 +229,7 @@ export const NavigationMenuDemo = () => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  Company
+                  {t("nav.company")}
                 </Link>
               </li>
               <li className={styles.separatorRootListItem}>
@@ -237,7 +241,7 @@ export const NavigationMenuDemo = () => {
               </li>
 
               <li className={styles.navListItem}>
-                <Link className={styles.navLink} href="/news">
+                <Link className={styles.navLink} href={localePath("/news")}>
                   <svg
                     className={styles.icon}
                     width="15"
@@ -253,7 +257,7 @@ export const NavigationMenuDemo = () => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  News
+                  {t("nav.news")}
                 </Link>
               </li>
               <li className={styles.separatorRootListItem}>
@@ -265,7 +269,7 @@ export const NavigationMenuDemo = () => {
               </li>
 
               <li className={styles.navListItem}>
-                <Link className={styles.navLink} href="/contact">
+                <Link className={styles.navLink} href={localePath("/contact")}>
                   <svg
                     className={styles.icon}
                     width="15"
@@ -281,7 +285,7 @@ export const NavigationMenuDemo = () => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  Contact
+                  {t("nav.contact")}
                 </Link>
               </li>
               <li className={styles.separatorRootListItem}>

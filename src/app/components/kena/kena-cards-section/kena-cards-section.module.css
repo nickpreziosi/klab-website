@@ -1,11 +1,7 @@
 .section {
   width: 100%;
   background-color: var(--main-color);
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--main-color-rgb), 1) 0%,
-    black 100%
-  );
+  background: var(--theme-gradient);
   display: flex;
   flex-direction: column;
   justify-content: center;

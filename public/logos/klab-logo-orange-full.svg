@@ -4,6 +4,7 @@
     <style>
       .cls-1 {
         fill: none;
+        stroke: none;
       }
 
       .cls-2 {

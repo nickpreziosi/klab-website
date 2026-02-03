@@ -23,12 +23,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--main-color-rgb), 1) 0%,
-    black 100%
-  );
+  background: var(--theme-gradient);
 }
 
 .cardGrid {
@@ -77,22 +72,13 @@
   }
 }
 
-@media (max-width: 769px) {
+@media (max-width: 768px) {
   .staffSection {
-    padding: var(--padding-tablet);
+    padding: var(--padding-tablet) var(--padding-mobile);
   }
   .cardGrid {
     grid-template-columns: 1fr;
     gap: var(--gap-md);
-  }
-  .staffSection > div > h2 {
-    margin-left: calc(-1 * var(--padding-mobile));
-  }
-}
-
-@media (max-width: 500px) {
-  .staffSection {
-    padding: var(--padding-tablet) var(--padding-mobile);
   }
   .staffSection > div > h2 {
     margin-left: 0;

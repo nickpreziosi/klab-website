@@ -33,40 +33,6 @@
   height: 18px;
 }
 
-/* Tooltip Styles */
-.tooltipContent {
-  background: var(--main-color);
-  backdrop-filter: blur(10px);
-  color: var(--secondary-color);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border: 1px solid rgba(var(--accent-color-rgb), 0.3);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  z-index: 1001;
-  animation: slideIn 100ms ease-out;
-}
-
-.tooltipArrow {
-  fill: var(--main-color);
-  filter: drop-shadow(0 0 1px var(--accent-color));
-  clip-path: inset(0 -2px -2px -2px);
-  width: 16px;
-  height: 8px;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 /* Limit Hover Effects to Non Touch Devices */
 @media (pointer: fine) and (hover: hover) {
   .socialLink:hover {

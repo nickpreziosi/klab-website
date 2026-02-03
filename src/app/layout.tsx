@@ -13,9 +13,9 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "K-Lab",
+  title: "KLab",
   description:
-    "Founded in 2020, KLab helps buyers and suppliers accelerate business growth through all-digital inventory financing and B2B payment solutions. Headquartered in Miami, Florida, KLab operates in the U.S., Canada and across LATAM.",
+    "KLab develops the technology that automates risk, payments, and financial operations — all in one intelligent platform.",
 };
 
 export default function RootLayout({

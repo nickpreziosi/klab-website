@@ -1,15 +1,84 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useInView } from "framer-motion";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import styles from "./company-culture.module.css";
+import CompanySectionTitle from "@/app/components/company/company-section-title/company-section-title";
 import SectionHeader from "@/app/components/ui/section-header/section-header";
 import Button from "@/app/components/ui/button/button";
 
+const stats = [
+  {
+    label: "People in six countries",
+    value: 40,
+    suffix: "+",
+  },
+  {
+    label: "Are women",
+    value: 25,
+    suffix: "%",
+  },
+  {
+    label: "Different nationalities",
+    value: 10,
+    suffix: "+",
+  },
+  {
+    label: "Languages spoken",
+    value: 7,
+    suffix: "+",
+  },
+];
+
+function AnimatedCounter({
+  value,
+  delay = 0,
+}: {
+  value: number;
+  delay?: number;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const motionValue = useMotionValue(0);
+  const springValue = useSpring(motionValue, {
+    stiffness: 50,
+    damping: 30,
+    restDelta: 0.5,
+  });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+
+  useEffect(() => {
+    if (isInView) {
+      const timeout = setTimeout(() => {
+        motionValue.set(value);
+      }, delay);
+      return () => clearTimeout(timeout);
+    }
+  }, [isInView, value, delay, motionValue]);
+
+  useEffect(() => {
+    const unsubscribe = springValue.on("change", (latest) => {
+      if (ref.current) {
+        ref.current.textContent = Math.round(latest).toString();
+      }
+    });
+    return unsubscribe;
+  }, [springValue]);
+
+  return <span ref={ref}>0</span>;
+}
+
 export default function CompanyCulture() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.1 });
+
   return (
-    <section className={styles.section}>
+    <section ref={ref} className={styles.section}>
       <div className={styles.container}>
+        <div className={styles.header}>
+          <CompanySectionTitle title="Company Culture" inView={inView} />
+        </div>
+
         {/* Text Content */}
         <motion.div
           className={styles.content}
@@ -58,40 +127,49 @@ export default function CompanyCulture() {
           </Button>
         </motion.div>
 
-        {/* */}
-        <div style={{ display: "none" }} className={styles.imagesGrid}>
-          <motion.div
-            className={styles.imageWrapper}
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ amount: 0.3 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <Image
-              priority
-              src="/keo-company-2.jpeg"
-              alt="KEO team collaborating in modern office workspace"
-              fill
-              className={styles.image}
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </motion.div>
-          <motion.div
-            className={styles.imageWrapper}
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ amount: 0.3 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <Image
-              priority
-              src="/keo-company-3.jpeg"
-              alt="KEO team members enjoying foosball in office recreation area"
-              fill
-              className={styles.image}
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </motion.div>
+        {/* Stats Grid */}
+        <div className={styles.statsGrid}>
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              className={styles.statCard}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.1,
+              }}
+              whileHover={{
+                transition: { duration: 0.2 },
+              }}
+            >
+              <div className={styles.statValueContainer}>
+                <motion.span
+                  className={styles.statValue}
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: index * 0.1 + 0.2,
+                    type: "spring",
+                    stiffness: 100,
+                  }}
+                >
+                  <AnimatedCounter
+                    value={stat.value}
+                    delay={index * 100 + 200}
+                  />
+                </motion.span>
+                {stat.suffix && (
+                  <span className={styles.statSuffix}>{stat.suffix}</span>
+                )}
+              </div>
+              <p className={styles.statLabel}>{stat.label}</p>
+              <div className={styles.statGlow} />
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

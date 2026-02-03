@@ -74,7 +74,7 @@ export default function KeoRailsCodeSection() {
               <div className={styles.card}>
                 <h3 className={styles.cardHeading}>TRUST</h3>
                 <p className={styles.cardText}>
-                  KEO Rails payment infrastructure keeps a trusted record for
+                  KRails payment infrastructure keeps a trusted record for
                   all real-time transactions in a secure, authenticated, and
                   verifiable manner, preventing any party from altering executed
                   transactions.

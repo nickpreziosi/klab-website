@@ -1,0 +1,37 @@
+/* Company section title: logo + divider + h2 (shared by Manifesto, KLab Foundation, Our Journey) */
+.titleSection {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-md);
+}
+
+.divider {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(var(--secondary-color-rgb), 0.5),
+    transparent
+  );
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+  .divider {
+    height: 24px;
+  }
+
+  .title {
+    font-size: var(--text-lg);
+    letter-spacing: 0.1em;
+  }
+}

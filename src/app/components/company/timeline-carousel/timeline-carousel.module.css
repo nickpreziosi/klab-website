@@ -13,20 +13,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--main-color-rgb), 1) 0%,
-    black 100%
-  );
+  background: var(--theme-gradient);
 }
 
 .section * {
   font-family: "Sora", sans-serif;
 }
 
+/* Match navbar: max-width 1440px with padding inside so content width aligns */
 .container {
   max-width: 1440px;
   width: 100%;
+  margin: 0 auto;
   padding: var(--padding-desktop);
   display: flex;
   flex-direction: column;
@@ -213,6 +211,10 @@
 @media (max-width: 1024px) {
   .container {
     padding: var(--padding-tablet);
+  }
+
+  .header {
+    margin-bottom: var(--margin-lg);
   }
 }
 

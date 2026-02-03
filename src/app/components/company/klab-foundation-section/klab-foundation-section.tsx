@@ -1,7 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import Button from "@/app/components/ui/button/button";
+import CompanySectionTitle from "@/app/components/company/company-section-title/company-section-title";
 import styles from "./klab-foundation-section.module.css";
 
 const QUOTE_LINES = [
@@ -12,9 +14,16 @@ const QUOTE_LINES = [
 ];
 
 export default function KlabFoundationSection() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.1 });
+
   return (
-    <section className={styles.section}>
+    <section ref={ref} className={styles.section}>
       <div className={styles.container}>
+        <div className={styles.header}>
+          <CompanySectionTitle title="KLab Foundation" inView={inView} />
+        </div>
+
         <motion.div
           className={styles.content}
           initial={{ opacity: 0, y: 24 }}
@@ -22,15 +31,14 @@ export default function KlabFoundationSection() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <p className={styles.label}>KLab Foundation</p>
-          <h2 className={styles.quote}>
+          <h3 className={styles.quote}>
             {QUOTE_LINES.map((line, i) => (
               <span key={i} className={styles.quoteLine}>
                 <span className={styles.quoteLineBar} aria-hidden />
                 <span className={styles.quoteLineText}>{line}</span>
               </span>
             ))}
-          </h2>
+          </h3>
           <Button
             href="#"
             variant="accent-brand"

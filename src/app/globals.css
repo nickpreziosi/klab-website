@@ -123,6 +123,13 @@
 
   --rounded-full: 100px;
   --rounded-sm: 1rem;
+
+  --theme-gradient: linear-gradient(
+    to bottom,
+    white 0%,
+    white 82%,
+    #F3E7DB 100%
+  );
 }
 
 html,
@@ -193,6 +200,11 @@ button:focus-visible {
 @media (prefers-color-scheme: dark) {
   :root {
     --main-color-rgb: 23, 25, 32;
+    --theme-gradient: linear-gradient(
+      to bottom,
+      rgba(var(--main-color-rgb), 1) 0%,
+      black 100%
+    );
   }
 }
 

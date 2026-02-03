@@ -1,3 +1,16 @@
+/* Override theme-toggle trigger: use theme-aware color so text is visible in light mode */
+.selectTriggerLocale {
+  color: var(--secondary-color) !important;
+  /* Remove any native combobox dropdown arrow */
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Hide any Radix/default icon (e.g. chevron) on the trigger */
+.selectTriggerLocale [data-radix-select-icon] {
+  display: none;
+}
+
 .container {
   position: relative;
   display: flex;
@@ -13,7 +26,7 @@
   background: transparent;
   border: 1px solid transparent;
   border-radius: 6px;
-  color: var(--secondary-color);
+  color: var(--secondary-color)!important;
   font-family: "Sora", sans-serif;
   font-size: var(--text-sm);
   font-weight: 500;
@@ -85,4 +98,11 @@
 .optionActive {
   color: var(--accent-color);
   font-weight: 600;
+}
+
+.selectItemText {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
 }

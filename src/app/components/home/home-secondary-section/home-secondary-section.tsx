@@ -414,10 +414,10 @@ const DialogDemo = ({
 export default function HomeSecondarySection({
   cards = [
     {
-      title: "Keo Rails",
+      title: "KRails",
       description:
         "Our modular infrastructure platform enables rapid development and deployment of financial products at scale.",
-      link: "/technologies/keo-rails",
+      link: "/technologies/k-rails",
       image: "/keo-rails1.jpg",
       video: "/keo-rails.mp4",
     },
@@ -457,12 +457,49 @@ export default function HomeSecondarySection({
       <Globe></Globe>
       <section className={styles.section}>
         <div className={styles.container}>
-          <SectionHeader
-            heading="Full Deployment"
-            secondHeading="In Less Than 90 Days."
-            align="left"
-            animateOnce={animateOnce}
-          />
+          <div className={styles.sectionHeaderAndTimeline}>
+            <SectionHeader
+              heading="Full Deployment"
+              secondHeading="In Less Than 90 Days."
+              align="left"
+              animateOnce={animateOnce}
+            />
+            <div className={styles.deploymentTimeline}>
+            <h3 className={styles.timelineTitle}>1 – 2 WEEK SPRINTS</h3>
+            <div className={styles.timelinePhases}>
+              {[
+                { label: "SCOPING", duration: "1 WEEK", span: 1 },
+                { label: "ONBOARDING", duration: "1 WEEK", span: 1 },
+                { label: "INTEGRATE / QA", duration: "2 WEEKS", span: 2 },
+                { label: "DEPLOY", duration: "1 WEEK", span: 1 },
+                { label: "TEST", duration: "1 WEEK", span: 1 },
+                { label: "GO-LIVE", duration: "1 WEEK", span: 1 },
+              ].map((phase, index) => (
+                <div
+                  key={index}
+                  className={
+                    phase.span === 2
+                      ? `${styles.timelinePhase} ${styles.timelinePhaseWide}`
+                      : styles.timelinePhase
+                  }
+                >
+                  <span className={styles.timelinePhaseLine} aria-hidden />
+                  <span className={styles.timelinePhaseLabel}>
+                    <span className={styles.timelinePhaseLabelTitle}>
+                      {phase.label}
+                    </span>
+                    <span className={styles.timelinePhaseLabelSeparator} aria-hidden>
+                      {" "}–{" "}
+                    </span>
+                    <span className={styles.timelinePhaseLabelDuration}>
+                      {phase.duration}
+                    </span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          </div>
 
           <div ref={cardsRef} className={styles.cardsGrid}>
             {cards.map((card, index) => (

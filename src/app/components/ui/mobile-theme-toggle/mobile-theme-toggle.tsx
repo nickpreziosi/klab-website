@@ -4,19 +4,19 @@ import { useEffect, useState } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
 import { motion } from "framer-motion";
 import styles from "./mobile-theme-toggle.module.css";
-import Image from "next/image";
 
 export function MobileThemeToggle() {
   const [theme, setTheme] = useState<string>(() => {
     try {
       if (typeof window !== "undefined") {
         const stored = localStorage.getItem("theme");
-        return (stored as string) ?? "dark";
+        const t = (stored as string) ?? "system";
+        return t === "keo" ? "system" : t;
       }
     } catch {
       // ignore access errors and fall back to default
     }
-    return "keo";
+    return "system";
   });
 
   // Listen for theme changes from other components/tabs so multiple toggles stay in sync.
@@ -72,17 +72,34 @@ export function MobileThemeToggle() {
           "--secondary-color-rgb",
           "255, 255, 255"
         );
+        document.documentElement.style.setProperty(
+          "--theme-gradient",
+          "linear-gradient(to bottom, rgba(var(--main-color-rgb), 1) 0%, black 100%)"
+        );
       } else {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "255, 255, 255"
+          "250, 250, 250"
         );
         document.documentElement.style.setProperty(
           "--secondary-color-rgb",
           "20, 20, 20"
         );
+        document.documentElement.style.setProperty(
+          "--theme-gradient",
+          "linear-gradient(to bottom, white 0%, white 82%, #F3E7DB 100%)"
+        );
       }
     };
+
+    const resolveToLightOrDark = (t: string): "light" | "dark" =>
+      t === "light"
+        ? "light"
+        : t === "dark"
+          ? "dark"
+          : darkModeMediaQuery.matches
+            ? "dark"
+            : "light";
 
     const applyTheme = (t: string) => {
       if (t === "system") {
@@ -96,6 +113,10 @@ export function MobileThemeToggle() {
             "--secondary-color-rgb",
             "255, 255, 255"
           );
+          document.documentElement.style.setProperty(
+            "--theme-gradient",
+            "linear-gradient(to bottom, rgba(var(--main-color-rgb), 1) 0%, black 100%)"
+          );
         } else {
           document.documentElement.style.setProperty(
             "--main-color-rgb",
@@ -104,6 +125,10 @@ export function MobileThemeToggle() {
           document.documentElement.style.setProperty(
             "--secondary-color-rgb",
             "20, 20, 20"
+          );
+          document.documentElement.style.setProperty(
+            "--theme-gradient",
+            "linear-gradient(to bottom, white 0%, white 82%, #F3E7DB 100%)"
           );
         }
       } else if (t === "dark") {
@@ -115,25 +140,28 @@ export function MobileThemeToggle() {
           "--secondary-color-rgb",
           "255, 255, 255"
         );
+        document.documentElement.style.setProperty(
+          "--theme-gradient",
+          "linear-gradient(to bottom, rgba(var(--main-color-rgb), 1) 0%, black 100%)"
+        );
       } else if (t === "light") {
         document.documentElement.style.setProperty(
           "--main-color-rgb",
-          "255, 255, 255"
+          "250, 250, 250"
         );
         document.documentElement.style.setProperty(
           "--secondary-color-rgb",
           "20, 20, 20"
         );
-      } else if (t === "keo") {
         document.documentElement.style.setProperty(
-          "--main-color-rgb",
-          "0, 23, 45"
-        );
-        document.documentElement.style.setProperty(
-          "--secondary-color-rgb",
-          "255, 255, 255"
+          "--theme-gradient",
+          "linear-gradient(to bottom, white 0%, white 82%, #F3E7DB 100%)"
         );
       }
+      document.documentElement.setAttribute(
+        "data-theme",
+        resolveToLightOrDark(t),
+      );
     };
 
     applyTheme(theme);
@@ -225,16 +253,6 @@ export function MobileThemeToggle() {
             ></path>
           </svg>
         );
-      case "keo":
-        return (
-          <Image
-            src="/keo-logo.png"
-            alt="KEO"
-            width={18}
-            height={18}
-            className={styles.keoLogo}
-          />
-        );
       default:
         return null;
     }
@@ -248,8 +266,6 @@ export function MobileThemeToggle() {
         return "Dark";
       case "system":
         return "System";
-      case "keo":
-        return "KEO";
       default:
         return themeName;
     }
@@ -315,7 +331,7 @@ export function MobileThemeToggle() {
             style={{ overflow: "hidden" }}
           >
             <div className={styles.themeOptions}>
-              {["light", "dark", "keo", "system"].map((themeName) => (
+              {["light", "dark", "system"].map((themeName) => (
                 <button
                   key={themeName}
                   onClick={() => setTheme(themeName)}

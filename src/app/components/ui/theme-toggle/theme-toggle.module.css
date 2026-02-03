@@ -27,7 +27,7 @@
   }
 }
 
-/* Updated styles for Select dropdown instead of ToggleGroup */
+/* Trigger: compact, no border (dropdown only uses k-lab styling below) */
 .selectTrigger {
   background: transparent !important;
   border: none !important;
@@ -70,35 +70,71 @@
   height: 18px;
 }
 
+/* Dropdown – matches k-lab-components/ui/shared/components/select.tsx */
 .selectContent {
   position: absolute;
   right: -50%;
   transform: translateX(50%);
   top: 2rem;
-  background: var(--main-color-70) !important;
-  backdrop-filter: blur(7px);
-  min-width: fit-content !important;
-  min-height: fit-content !important;
-  border-radius: 6px !important;
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.3);
+  z-index: 50;
+  min-width: 8rem;
+  border-radius: 8px !important;
+  border: 1px solid rgba(var(--secondary-color-rgb), 0.3) !important;
+  background: rgba(var(--main-color-rgb), 0.7) !important;
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  /* Allow viewport to size to content so items are visible */
+  overflow: visible;
+}
+
+.selectViewport {
+  padding: 4px;
+  /* Prevent flex:1 from collapsing to 0 when content has no fixed height */
+  min-height: min-content;
 }
 
 .selectItem {
-  color: var(--secondary-color) !important;
+  position: relative;
+  gap: 6px;
   display: flex !important;
   align-items: center !important;
-  gap: 8px !important;
-  padding: 8px 12px !important;
+  width: 100% !important;
+  padding: 6px 32px 6px 8px !important;
+  border-radius: 8px !important;
+  color: var(--secondary-color) !important;
+  font-size: var(--text-sm) !important;
   cursor: pointer !important;
-  transition: all 0.2s ease !important;
+  transition: background 0.15s ease, color 0.15s ease !important;
+  outline: none !important;
 }
 
-.selectItem:focus {
-  color: #ff004cff !important;
+.selectItem:focus,
+.selectItem[data-highlighted] {
+  background: rgba(var(--accent-color-rgb), 0.15) !important;
+  color: var(--accent-color) !important;
 }
 
 .selectItem[data-state="checked"] {
-  color: #ff004cff !important;
+  color: var(--accent-color) !important;
+}
+
+.selectItemIndicator {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+.selectItemIndicator svg {
+  width: 14px;
+  height: 14px;
+  color: inherit;
 }
 
 .icon {
@@ -112,47 +148,3 @@
   flex-shrink: 0;
 }
 
-/* Tooltip Styles */
-.tooltip {
-  background: var(--main-color);
-  backdrop-filter: blur(10px);
-  color: var(--secondary-color);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border: 1px solid rgba(255, 0, 76, 0.3);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  z-index: 1001;
-  animation: slideIn 100ms ease-out;
-}
-
-.tooltipArrow {
-  fill: var(--main-color);
-  filter: drop-shadow(0 0 1px var(--accent-color));
-  clip-path: inset(0 -2px -2px -2px);
-  width: 16px;
-  height: 8px;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Limit Hover Effects to Non Touch Devices */
-@media (pointer: fine) and (hover: hover) {
-  .selectTrigger:hover svg,
-  .selectTrigger:hover span {
-    color: var(--accent-color) !important;
-  }
-  .selectItem:hover {
-    color: #ff004cff !important;
-  }
-}

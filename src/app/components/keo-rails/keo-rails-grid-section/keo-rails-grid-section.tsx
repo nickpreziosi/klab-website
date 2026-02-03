@@ -83,7 +83,7 @@ export default function KeoRailsGridSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            WHY KEO RAILS?
+            WHY KRAILS?
           </motion.h2>
           <motion.p
             className={styles.subheading}
@@ -92,7 +92,7 @@ export default function KeoRailsGridSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           >
-            The old system makes you wait. Keo Rails makes you move.
+            The old system makes you wait. KRails makes you move.
           </motion.p>
         </div>
 
@@ -114,7 +114,7 @@ export default function KeoRailsGridSection() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
                 >
-                  WHY KEO RAILS?
+                  WHY KRAILS?
                 </motion.h2>
                 <motion.p
                   className={styles.subheading}
@@ -123,7 +123,7 @@ export default function KeoRailsGridSection() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
                 >
-                  The old system makes you wait. Keo Rails makes you move.
+                  The old system makes you wait. KRails makes you move.
                 </motion.p>
               </div>
               <div className={styles.textBlock}>
@@ -155,7 +155,7 @@ export default function KeoRailsGridSection() {
                   THE FOUNDATION OF IMMUTABLE TRUST
                 </h3>
                 <p className={styles.description}>
-                  KEO Rails ensures enterprise-grade payment security through
+                  KRails ensures enterprise-grade payment security through
                   cutting edge blockchain-powered data tokenization, smart
                   contracts, self-custody wallets and stablecoins.
                 </p>

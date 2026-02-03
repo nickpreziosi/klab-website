@@ -4,7 +4,12 @@ import type React from "react";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import * as Tooltip from "@radix-ui/react-tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/app/components/ui/tooltip/tooltip";
 import styles from "./social-sidebar.module.css";
 
 interface SocialLink {
@@ -124,12 +129,12 @@ export default function SocialSidebar() {
   };
 
   return (
-    <Tooltip.Provider delayDuration={300}>
+    <TooltipProvider delayDuration={0}>
       <div className={styles.sidebar}>
         <div className={styles.linksContainer}>
           {socialLinks.map((link, index) => (
-            <Tooltip.Root key={link.name}>
-              <Tooltip.Trigger asChild>
+            <Tooltip key={link.name}>
+              <TooltipTrigger asChild>
                 <motion.a
                   href={link.href}
                   target="_blank"
@@ -149,21 +154,14 @@ export default function SocialSidebar() {
                 >
                   {link.icon}
                 </motion.a>
-              </Tooltip.Trigger>
-              <Tooltip.Portal>
-                <Tooltip.Content
-                  className={styles.tooltipContent}
-                  side="right"
-                  sideOffset={12}
-                >
-                  {link.label}
-                  <Tooltip.Arrow className={styles.tooltipArrow} />
-                </Tooltip.Content>
-              </Tooltip.Portal>
-            </Tooltip.Root>
+              </TooltipTrigger>
+              <TooltipContent side="right" sideOffset={12}>
+                {link.label}
+              </TooltipContent>
+            </Tooltip>
           ))}
         </div>
       </div>
-    </Tooltip.Provider>
+    </TooltipProvider>
   );
 }

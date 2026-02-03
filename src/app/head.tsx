@@ -5,7 +5,6 @@ function rgbForTheme(theme: string | null) {
   if (!theme) return { main: "250, 250, 250", white: "20, 20, 20" };
   if (theme === "dark") return { main: "23, 25, 32", white: "250, 250, 250" };
   if (theme === "light") return { main: "250, 250, 250", white: "20, 20, 20" };
-  if (theme === "keo") return { main: "0, 23, 45", white: "250, 250, 250" };
   return { main: "250, 250, 250", white: "20, 20, 20" };
 }
 
@@ -17,12 +16,22 @@ export default async function Head() {
   const cookieTheme = cookieStore?.get?.("theme")?.value ?? null;
 
   // If we have a concrete cookie theme (not 'system'), render a server-side
-  // <style> tag with the CSS variables so the browser computes the correct
-  // colors on first paint without any client-side JS.
+  // <style> tag with the CSS variables and set data-theme so logo/UI match on first paint.
   if (cookieTheme && cookieTheme !== "system") {
     const { main, white } = rgbForTheme(cookieTheme);
     const css = `:root{--main-color-rgb:${main};--secondary-color-rgb:${white};}`;
-    return <style id="keo-theme-inline">{css}</style>;
+    const theme = cookieTheme === "light" ? "light" : "dark";
+    return (
+      <>
+        <style id="keo-theme-inline">{css}</style>
+        <script
+          id="keo-theme-data"
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.setAttribute('data-theme','${theme}');`,
+          }}
+        />
+      </>
+    );
   }
 
   // Otherwise fall back to a small inline script that reads localStorage or
@@ -31,7 +40,7 @@ export default async function Head() {
     try {
       var theme = null;
       try { theme = localStorage.getItem('theme'); } catch (e) { theme = null; }
-      if (!theme) theme = 'keo';
+      if (!theme) theme = 'system';
       if (theme === 'system') {
         try { theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; } catch (e) { theme = 'light'; }
       }
@@ -39,7 +48,6 @@ export default async function Head() {
       var white = '20, 20, 20';
       if (theme === 'dark') { main = '23, 25, 32'; white = '250, 250, 250'; }
       else if (theme === 'light') { main = '250, 250, 250'; white = '20, 20, 20'; }
-      else if (theme === 'keo') { main = '0, 23, 45'; white = '250, 250, 250'; }
       try { var r = document.documentElement; r.style.setProperty('--main-color-rgb', main); r.style.setProperty('--secondary-color-rgb', white); r.setAttribute('data-theme', theme); } catch (e) {}
     } catch (err) {}
   })();`;

@@ -189,6 +189,13 @@
 }
 
 @media only screen and (max-width: 1024px) {
+  .logoContainer .logoLinkFull {
+    display: flex;
+  }
+
+  .logoContainer .logoLinkCompact {
+    display: none;
+  }
   .navList {
     display: none;
   }
@@ -197,6 +204,12 @@
   }
   .navbar {
     padding: 0 var(--padding-tablet);
+  }
+  .forceNavStyles {
+    border-bottom: solid 1px rgba(var(--secondary-color-rgb), 0.2) !important;
+    box-shadow: var(--shadow-black) !important;
+    backdrop-filter: blur(8px) !important;
+    background: rgba(var(--main-color-rgb), 0.75) !important;
   }
 }
 

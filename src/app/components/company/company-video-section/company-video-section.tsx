@@ -141,7 +141,7 @@ const DialogDemo = ({ onPlay }: { onPlay?: () => void }) => {
       <Dialog.Portal>
         <Dialog.Overlay className={styles.dialogOverlay} />
         <Dialog.Title className={styles.dialogTitle}>
-          Hear From KEO&apos;s Founder
+          Hear From KLab&apos;s Founder
         </Dialog.Title>
         <Dialog.Content
           className={styles.dialogContent}
@@ -193,8 +193,8 @@ const DialogDemo = ({ onPlay }: { onPlay?: () => void }) => {
 
 export default function CompanyVideoSection({
   label = "Discover the vision.",
-  heading = "Hear from KEO's founder",
-  videoTitle = "KEO",
+  heading = "Hear from KLab's founder",
+  videoTitle = "KLab",
   videoThumbnail = "",
   bottomHeading = "What we stand for",
   bottomDescription = "A concise overview of the product vision and core design principles. Hear why these choices matter, what problems the platform addresses, and how teams can integrate and move forward.",

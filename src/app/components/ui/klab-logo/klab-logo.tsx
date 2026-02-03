@@ -1,7 +1,9 @@
 "use client";
 
 import { cn } from "@/app/lib/utils";
+import { getEffectiveTheme } from "@/app/lib/use-theme";
 import styles from "./klab-logo.module.css";
+import { useEffect, useState } from "react";
 
 /** Color variant of the K-Lab logo */
 export type KlabLogoColor = "light" | "orange";
@@ -9,11 +11,20 @@ export type KlabLogoColor = "light" | "orange";
 /** Format variant: "default" = icon/mark only, "full" = with wordmark */
 export type KlabLogoFormat = "default" | "full";
 
+/** When format is "full": "auto" follows theme; "light" = gradient text; "dark" = all-orange */
+export type FullLogoTheme = "auto" | "light" | "dark";
+
 export type KlabLogoVariant = `${KlabLogoColor}-${KlabLogoFormat}`;
 
 /**
+ * Full logo with gradient text (#171920 → black). Shown in light mode when fullLogoTheme is "auto".
+ */
+const LOGO_FULL_LIGHT_PATH = "/logos/klab-logo-dark-text.svg";
+
+/**
  * Map of (color, format) -> public path for the SVG.
- * Add new variants here to keep the component extensible.
+ * Logo assets are SVG files but large (~4MB) due to embedded raster; we use <img> to avoid bundle bloat.
+ * For orange-full with fullLogoTheme "auto", src is chosen by effective theme (single img = no stacking outline).
  */
 const LOGO_PATHS: Record<KlabLogoVariant, string> = {
   "light-default": "/logos/klab-logo-light.svg",
@@ -34,6 +45,8 @@ export interface KlabLogoProps {
   color?: KlabLogoColor;
   format?: KlabLogoFormat;
   variant?: KlabLogoVariant;
+  /** When format is "full": "auto" = follow theme (default); "light" = gradient text; "dark" = all-orange */
+  fullLogoTheme?: FullLogoTheme;
   size?: "sm" | "md" | "lg" | "xl";
   width?: number | string;
   height?: number | string;
@@ -60,6 +73,7 @@ export function KlabLogo({
   color = "orange",
   format = "default",
   variant,
+  fullLogoTheme = "auto",
   size = "md",
   width,
   height,
@@ -68,7 +82,31 @@ export function KlabLogo({
   objectFit = "contain",
 }: KlabLogoProps) {
   const resolvedVariant = variant ?? getVariant(color, format);
-  const src = LOGO_PATHS[resolvedVariant];
+  const isOrangeFull = resolvedVariant === "orange-full";
+  const useThemeSwitch = isOrangeFull && fullLogoTheme === "auto";
+
+  const [effectiveTheme, setEffectiveTheme] = useState<"light" | "dark" | null>(
+    () => (typeof document !== "undefined" ? getEffectiveTheme() : null)
+  );
+  useEffect(() => {
+    if (!useThemeSwitch) return;
+    setEffectiveTheme(getEffectiveTheme());
+    const onThemeChange = () => setEffectiveTheme(getEffectiveTheme());
+    window.addEventListener("themechange", onThemeChange);
+    window.addEventListener("storage", onThemeChange);
+    return () => {
+      window.removeEventListener("themechange", onThemeChange);
+      window.removeEventListener("storage", onThemeChange);
+    };
+  }, [useThemeSwitch]);
+
+  const baseSrc = LOGO_PATHS[resolvedVariant];
+  const src =
+    useThemeSwitch && effectiveTheme === "light"
+      ? LOGO_FULL_LIGHT_PATH
+      : isOrangeFull && fullLogoTheme === "light"
+        ? LOGO_FULL_LIGHT_PATH
+        : baseSrc;
   const viewBox = LOGO_VIEWBOX[resolvedVariant];
 
   if (!src || !viewBox) {
@@ -108,6 +146,26 @@ export function KlabLogo({
     lineHeight: 0,
   };
 
+  const imgClass = cn(
+    styles.img,
+    objectFit === "contain" && styles.objectContain,
+    objectFit === "cover" && styles.objectCover,
+    objectFit === "fill" && styles.objectFill
+  );
+  const imgStyle =
+    typeof w === "string" || typeof h === "string"
+      ? { width: "100%" as const, height: "100%" as const }
+      : undefined;
+  const imgProps = {
+    alt,
+    width: typeof w === "number" ? w : undefined,
+    height: typeof h === "number" ? h : undefined,
+    className: imgClass,
+    style: imgStyle,
+    decoding: "async" as const,
+    fetchPriority: "low" as const,
+  };
+
   return (
     <span
       className={cn(styles.root, className)}
@@ -115,25 +173,7 @@ export function KlabLogo({
       role="img"
       aria-label={alt}
     >
-      <img
-        src={src}
-        alt={alt}
-        width={typeof w === "number" ? w : undefined}
-        height={typeof h === "number" ? h : undefined}
-        className={cn(
-          styles.img,
-          objectFit === "contain" && styles.objectContain,
-          objectFit === "cover" && styles.objectCover,
-          objectFit === "fill" && styles.objectFill
-        )}
-        style={
-          typeof w === "string" || typeof h === "string"
-            ? { width: "100%", height: "100%" }
-            : undefined
-        }
-        decoding="async"
-        fetchPriority="low"
-      />
+      <img {...imgProps} src={src} />
     </span>
   );
 }

@@ -4,11 +4,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--main-color-rgb), 1) 0%,
-    black 100%
-  );}
+  background: var(--theme-gradient);
+}
 
 .container {
   width: 100%;
@@ -49,6 +46,7 @@
   padding: 8px;
   padding-bottom: 0px;
   background-color: rgba(var(--accent-color-rgb), 1);
+  color: white;
 }
 
 /* Typing / highlight effects */

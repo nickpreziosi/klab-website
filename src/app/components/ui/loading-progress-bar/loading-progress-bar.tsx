@@ -8,7 +8,6 @@ import {
 } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { LoaderPinwheel } from "lucide-react";
 import styles from "./loading-progress-bar.module.css";
 import { KlabLogo } from "@/app/components/ui/klab-logo/klab-logo";
 
@@ -151,37 +150,14 @@ export function LoadingProgressBar() {
           <div className={styles.container}>
             <motion.div className={styles.spinnerContainer}>
               <motion.div
-                className={styles.spinner}
+                className={styles.logoCenter}
+                initial={{ rotate: 0 }}
                 animate={{ rotate: 360 }}
                 transition={{
-                  duration: 2,
+                  duration: 1.5,
                   repeat: Number.POSITIVE_INFINITY,
                   ease: "linear",
                 }}
-              >
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className={styles.spinnerSvg}
-                >
-                  <LoaderPinwheel
-                    color="var(--accent-color)"
-                    size={256}
-                    strokeWidth={1}
-                    className={styles.loaderIcon}
-                  />
-                </motion.div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{
-                  opacity: displayProgress / 100,
-                  scale: 0.8 + (displayProgress / 100) * 0.2,
-                }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className={styles.logoCenter}
               >
                 <KlabLogo color="orange" format="default" width={200} height={200} />
               </motion.div>

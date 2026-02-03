@@ -1,19 +1,21 @@
 /* Section: uses main background (light in light mode, dark in dark mode) */
 .section {
   width: 100%;
-  padding: var(--padding-desktop) var(--padding-desktop);
   background-color: var(--main-color);
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--main-color-rgb), 1) 0%,
-    black 100%
-  );
+  background: var(--theme-gradient);
 }
 
+/* Match navbar: max-width 1440px with padding inside so content width aligns */
 .container {
-  width: 100%;
   max-width: 1440px;
+  width: 100%;
   margin: 0 auto;
+  padding: var(--padding-desktop);
+}
+
+/* Header wrapper for CompanySectionTitle */
+.header {
+  margin-bottom: var(--margin-xl);
 }
 
 .content {
@@ -85,8 +87,12 @@
 }
 
 @media (max-width: 1024px) {
-  .section {
+  .container {
     padding: var(--padding-tablet);
+  }
+
+  .header {
+    margin-bottom: var(--margin-lg);
   }
 
   .quote {
@@ -95,8 +101,12 @@
 }
 
 @media (max-width: 768px) {
-  .section {
-    padding: var(--padding-mobile);
+  .container {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+
+  .header {
+    margin-bottom: var(--margin-md);
   }
 
   .content {
