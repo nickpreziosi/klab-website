@@ -9,18 +9,28 @@ type Translations = Record<string, unknown>;
 const cache = new Map<Locale, Translations>();
 
 function getNested(obj: unknown, path: string): string | undefined {
-  const value = path.split(".").reduce((current: unknown, key) => {
-    if (current != null && typeof current === "object" && key in current) {
-      return (current as Record<string, unknown>)[key];
-    }
-    return undefined;
-  }, obj);
-  return typeof value === "string" ? value : undefined;
+  if (obj == null || typeof obj !== "object") return undefined;
+  const keys = path.split(".");
+  let current: unknown = obj;
+  for (const key of keys) {
+    if (current == null || typeof current !== "object") return undefined;
+    if (!(key in (current as Record<string, unknown>))) return undefined;
+    current = (current as Record<string, unknown>)[key];
+  }
+  return typeof current === "string" ? current : undefined;
+}
+
+function getAnyCachedTranslations(preferLocale: Locale): Translations {
+  if (cache.has(preferLocale)) return cache.get(preferLocale)!;
+  const first = cache.values().next().value;
+  return first ?? {};
 }
 
 export function useTranslations() {
   const { locale } = useLocale();
-  const [translations, setTranslations] = useState<Translations>(() => cache.get(locale) ?? {});
+  const [translations, setTranslations] = useState<Translations>(
+    () => cache.get(locale) ?? getAnyCachedTranslations(locale)
+  );
   const [isLoading, setIsLoading] = useState(() => !cache.has(locale));
 
   useEffect(() => {
@@ -48,7 +58,8 @@ export function useTranslations() {
       .catch(() => {
         if (!cancelled) {
           if (locale !== DEFAULT_LOCALE && cache.has(DEFAULT_LOCALE)) {
-            setTranslations(cache.get(DEFAULT_LOCALE)!);
+            const fallback = cache.get(DEFAULT_LOCALE)!;
+            setTranslations(fallback);
           } else {
             setTranslations({});
           }
@@ -63,16 +74,15 @@ export function useTranslations() {
 
   const t = useCallback(
     (key: string): string => {
-      if (isLoading || !translations) return key;
-      const value = getNested(translations, key);
-      if (value !== undefined) return value;
-      if (locale !== DEFAULT_LOCALE && cache.has(DEFAULT_LOCALE)) {
-        const fallback = getNested(cache.get(DEFAULT_LOCALE)!, key);
-        if (fallback !== undefined) return fallback;
+      const fromCurrent = getNested(translations, key);
+      if (fromCurrent !== undefined) return fromCurrent;
+      for (const cachedLocale of cache.keys()) {
+        const value = getNested(cache.get(cachedLocale)!, key);
+        if (value !== undefined) return value;
       }
-      return key;
+      return "";
     },
-    [locale, translations, isLoading]
+    [translations]
   );
 
   return { t, isLoading };

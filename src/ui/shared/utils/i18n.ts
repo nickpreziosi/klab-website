@@ -1,7 +1,7 @@
 /**
  * Locale config for routing. Use these when building locale-prefixed paths.
  */
-export const SUPPORTED_LOCALES = ["en", "es"] as const;
+export const SUPPORTED_LOCALES = ["en", "es", "pt"] as const;
 export type Locale = (typeof SUPPORTED_LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = "en";

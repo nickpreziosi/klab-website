@@ -1,0 +1,390 @@
+/* ========== Shared (both variants) ========== */
+.wrapperDesktop,
+.wrapperMobile {
+  --icon-height: 40px;
+  --landing-semi-bg: rgb(250, 250, 250);
+  --landing-fg: #1a1a1a;
+  --landing-border: rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.techItem {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.techCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--landing-semi-bg);
+  color: var(--landing-fg);
+  cursor: pointer;
+  border: none;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.techContent {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.techLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto !important;
+  width: 100%;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+
+.techLogo svg {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  color: var(--landing-fg);
+  fill: currentColor;
+}
+
+.techLogo > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--icon-height);
+  width: auto;
+  max-width: 100%;
+}
+
+.techLogo > div svg {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.techLogo :global(.kabl-blue),
+.techLogo :global(.kabl-blue-stroke) {
+  fill: #306fc6 !important;
+  stroke: #306fc6 !important;
+}
+
+.description {
+  position: absolute;
+  padding: 12px 14px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  border-radius: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.techItem.expanded .description {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (pointer: fine) and (hover: hover) {
+  .description {
+    display: none;
+  }
+}
+
+.centerCircle {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  aspect-ratio: 1;
+  max-height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+.centerBackground {
+  position: absolute;
+  inset: 0;
+}
+
+.centerBackground img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.3);
+  object-position: 50% 75%;
+}
+
+.centerContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: rgb(250, 250, 250);
+  padding: 12px;
+}
+
+.centerContent svg {
+  width: 100% !important;
+  height: auto !important;
+  flex-shrink: 0;
+}
+
+/* ========== Desktop only (horizontal, adjusts to width) ========== */
+.wrapperDesktop {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1680px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: var(--padding-md);
+  overflow: visible;
+}
+
+.gridDesktop {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  grid-auto-rows: auto;
+  align-items: start;
+  width: 100%;
+  min-width: 0;
+  min-height: 100px;
+  overflow: visible;
+  padding: var(--padding-sm) 0;
+}
+
+.wrapperDesktop .centerItem {
+  grid-column: span 2;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.wrapperDesktop .techItem {
+  min-width: 0;
+  aspect-ratio: 1 / 2;
+}
+
+.wrapperDesktop .techCircle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 200%;
+  aspect-ratio: 1;
+  height: auto;
+}
+
+.wrapperDesktop .techCircle.leftHalf {
+  left: 0;
+  right: auto;
+}
+
+.wrapperDesktop .techCircle.rightHalf {
+  right: 0;
+  left: auto;
+}
+
+.wrapperDesktop .techCircle.leftHalf .techContent {
+  left: 25%;
+  transform: translate(-50%, -50%);
+}
+
+.wrapperDesktop .techCircle.rightHalf .techContent {
+  left: 75%;
+  transform: translate(-50%, -50%);
+}
+
+.wrapperDesktop .description {
+  bottom: calc(-1 * 40%);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max(200px, min(260px, 90vw));
+  background: var(--landing-semi-bg);
+  color: var(--landing-fg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--landing-border);
+}
+
+.techTooltip {
+  max-width: min(280px, 90vw);
+  white-space: normal;
+  line-height: 1.5;
+  background: rgb(250, 250, 250) !important;
+  color: var(--landing-fg) !important;
+  border: 1px solid var(--landing-border);
+}
+
+/* ========== Mobile/tablet only (vertical, no gaps) ========== */
+.wrapperMobile {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 400px);
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--padding-md) var(--padding-desktop);
+  padding-bottom: var(--padding-md);
+  overflow: visible;
+}
+
+.columnMobile {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.rowMobileTop,
+.rowMobileBottom {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.rowMobileTop {
+  order: 1;
+}
+
+/* Center: same width as semicircles (full column width), circle via aspect-ratio 1:1 */
+.wrapperMobile .centerItem {
+  position: relative;
+  flex-shrink: 0;
+  order: 2;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.wrapperMobile .centerItem .centerCircle {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+}
+
+.rowMobileBottom {
+  order: 3;
+}
+
+/* Semicircle slots: full width of column, 2:1 aspect (width = diameter, height = radius), overflow clips to half circle */
+.wrapperMobile .rowMobileTop .techItem,
+.wrapperMobile .rowMobileBottom .techItem {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* Top semicircles: circle diameter = slot width, positioned so only top half is visible */
+.wrapperMobile .rowMobileTop .techCircle.leftHalf {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.wrapperMobile .rowMobileTop .techCircle.leftHalf .techContent {
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%, -50%);
+}
+
+/* Bottom semicircles: circle diameter = slot width, positioned so only bottom half is visible */
+.wrapperMobile .rowMobileBottom .techCircle.rightHalf {
+  position: absolute;
+  bottom: 0;
+  top: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.wrapperMobile .rowMobileBottom .techCircle.rightHalf .techContent {
+  left: 50%;
+  top: 75%;
+  transform: translate(-50%, -50%);
+}
+
+.wrapperMobile .rowMobileTop .description {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 6px;
+  bottom: auto;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  background: rgb(255, 255, 255);
+  color: #1a1a1a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.wrapperMobile .rowMobileBottom .description {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 6px;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  background: rgb(255, 255, 255);
+  color: #1a1a1a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.techTooltipMobile {
+  max-width: 400px;
+  width: 100%;
+  white-space: normal;
+  line-height: 1.5;
+  background: rgb(255, 255, 255) !important;
+  color: #1a1a1a !important;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}

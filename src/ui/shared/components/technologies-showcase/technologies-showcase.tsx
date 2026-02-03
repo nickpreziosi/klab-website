@@ -10,73 +10,85 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/ui/shared/components/tooltip/tooltip";
+import { useTheme } from "@/ui/shared/hooks/use-theme";
 import styles from "./technologies-showcase.module.css";
 
 /* Technology data - same copy as navbar dropdown; exported for drawer/nav */
 export const TECHNOLOGIES = [
   {
     title: "K-Rails",
-    logo: "/logos/01-KRails.svg",
+    logoLight: "/logos/krails-logo-light.svg",
+    logoDark: "/logos/krails-logo-dark.svg",
     description: "B2B blockchain payments and lending with instant settlements",
     href: "/technologies/k-rails",
   },
   {
     title: "Kena",
-    logo: "/logos/03-Kena_2.svg",
+    logoLight: "/logos/kena-logo-light.svg",
+    logoDark: "/logos/kena-logo-dark.svg",
     description: "World's first AI underwriter for intelligent credit decisions",
     href: "/technologies/kena",
   },
   {
     title: "K-Talk",
-    logo: "/logos/05-KTalk.svg",
+    logoLight: "/logos/ktalk-logo-light.svg",
+    logoDark: "/logos/ktalk-logo-dark.svg",
     description: "AI-powered chatbot for internal and external support",
     href: "/technologies/k-talk",
   },
   {
     title: "K-Risk",
-    logo: "/logos/k-risk-logo.svg",
+    logoLight: "/logos/krisk-logo-light.svg",
+    logoDark: "/logos/krisk-logo-dark.svg",
     description: "AI-powered risk assessment and decision making",
     href: "/technologies/kena",
   },
   {
     title: "KABL",
-    logo: "/logos/KAbl.svg",
+    logoLight: "/logos/kabl-logo-light.svg",
+    logoDark: "/logos/kabl-logo-dark.svg",
     description: "Integrated automation eliminating silos with AI and blockchain",
     href: "/technologies/kabl",
   },
   {
     title: "K-Pay",
-    logo: "/logos/KCard.svg",
+    logoLight: "/logos/kcard-logo-light.svg",
+    logoDark: "/logos/kcard-logo-dark.svg",
     description: "Multi-currency payment gateway with real-time FX",
     href: "/technologies/k-pay",
   },
   {
     title: "K-Comply",
-    logo: "/logos/KBPM.svg",
+    logoLight: "/logos/kbpm-logo-light.svg",
+    logoDark: "/logos/kbpm-logo-dark.svg",
     description: "Regulatory compliance automation with blockchain",
     href: "/technologies/k-comply",
   },
   {
     title: "K-Ledger",
-    logo: "/logos/01-K-Lab.svg",
+    logoLight: "/logos/kim-logo-light.svg",
+    logoDark: "/logos/kim-logo-dark.svg",
     description: "Immutable transaction ledger with enterprise security",
     href: "/technologies/k-ledger",
   },
   {
     title: "K-Connect",
-    logo: "/logos/02-KAxis.svg",
+    logoLight: "/logos/kaxis-logo-light.svg",
+    logoDark: "/logos/kaxis-logo-dark.svg",
     description: "API-first platform connecting financial institutions",
     href: "/technologies/k-connect",
   },
   {
     title: "K-Insights",
-    logo: "/logos/KLeads.svg",
+    logoLight: "/logos/kleads-logo-light.svg",
+    logoDark: "/logos/kleads-logo-dark.svg",
     description: "Real-time analytics and predictive insights",
     href: "/technologies/k-insights",
   },
   {
     title: "K-Wallet",
-    logo: "/logos/06-Kai_2.svg",
+    logoLight: "/logos/kai-logo-light.svg",
+    logoDark: "/logos/kai-logo-dark.svg",
     description: "Enterprise digital wallet with multi-signature support",
     href: "/technologies/k-wallet",
   },
@@ -90,44 +102,16 @@ const RIGHT_ORDER_FIXED = [0, 1, 10, 4, 6, 7];
 
 function SVGLogo({ src, className }: { src: string; className?: string }) {
   const [svgContent, setSvgContent] = useState<string>("");
-  const isKabl = src.includes("KAbl.svg");
-  const isKAxis = src.includes("KAxis.svg");
 
   useEffect(() => {
     fetch(src)
       .then((res) => res.text())
       .then((text) => {
-        let processed = text;
-        if (isKabl) {
-          processed = processed
-            .replace(/fill="#f37022"/g, 'fill="currentColor"')
-            .replace(/fill='#f37022'/g, "fill='currentColor'")
-            .replace(
-              /(<(?:path|polygon|g)[^>]*fill=["']#306fc6["'][^>]*?)\s*(\/?>)/g,
-              '$1 class="kabl-blue"$2'
-            )
-            .replace(
-              /(<line[^>]*stroke=["']#306fc6["'][^>]*?)\s*(\/?>)/g,
-              '$1 class="kabl-blue-stroke"$2'
-            );
-        } else if (isKAxis) {
-          processed = processed
-            .replace(/fill="#f37022"/g, 'fill="currentColor"')
-            .replace(/fill='#f37022'/g, "fill='currentColor'")
-            .replace(/stroke="#f37022"/g, 'stroke="currentColor"')
-            .replace(/stroke='#f37022'/g, "stroke='currentColor'");
-        } else {
-          processed = processed
-            .replace(/fill="#f37022"/g, 'fill="currentColor"')
-            .replace(/fill='#f37022'/g, "fill='currentColor'")
-            .replace(/fill="#306fc6"/g, 'fill="currentColor"')
-            .replace(/fill='#306fc6'/g, "fill='currentColor'");
-        }
-        processed = processed.replace(/<\?xml[^>]*\?>/i, "");
+        const processed = text.replace(/<\?xml[^>]*\?>/i, "");
         setSvgContent(processed);
       })
       .catch((err) => console.error("Failed to load SVG:", err));
-  }, [src, isKabl, isKAxis]);
+  }, [src]);
 
   if (!svgContent) return null;
   return <div className={className} dangerouslySetInnerHTML={{ __html: svgContent }} />;
@@ -167,6 +151,7 @@ export function TechnologiesShowcase({
   /** When set, renders a top row with this title on the left and carousel buttons on the right (e.g. "Our Technologies"). */
   headerTitle?: string;
 } = {}) {
+  const { effectiveTheme } = useTheme();
   const scrollRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -175,6 +160,11 @@ export function TechnologiesShowcase({
     side: "left" | "right";
     index: number;
   } | null>(null);
+  const logoSrc = useCallback(
+    (tech: (typeof TECHNOLOGIES)[0]) =>
+      effectiveTheme === "dark" ? tech.logoDark : tech.logoLight,
+    [effectiveTheme]
+  );
 
   const updateScrollState = useCallback(() => {
     const el = scrollRef.current;
@@ -249,6 +239,7 @@ export function TechnologiesShowcase({
             <TechSemiCircle
               key={`left-${tech.href}-${index}`}
               tech={tech}
+              logoSrc={logoSrc(tech)}
               side="left"
               isExpanded={expandedIndex?.side === "left" && expandedIndex?.index === index}
               onToggle={() =>
@@ -289,6 +280,7 @@ export function TechnologiesShowcase({
             <TechSemiCircle
               key={`right-${tech.href}-${index}`}
               tech={tech}
+              logoSrc={logoSrc(tech)}
               side="right"
               isExpanded={expandedIndex?.side === "right" && expandedIndex?.index === index}
               onToggle={() =>
@@ -311,6 +303,7 @@ export function TechnologiesShowcase({
 
 function TechSemiCircle({
   tech,
+  logoSrc,
   side,
   isExpanded,
   onToggle,
@@ -319,6 +312,7 @@ function TechSemiCircle({
   SVGLogo: LogoComponent,
 }: {
   tech: (typeof TECHNOLOGIES)[0];
+  logoSrc: string;
   side: "left" | "right";
   isExpanded: boolean;
   onToggle: () => void;
@@ -351,7 +345,7 @@ function TechSemiCircle({
           <TooltipTrigger asChild>
             <div className={styles.techContent}>
               <div className={styles.techLogo}>
-                <LogoComponent src={tech.logo} />
+                <LogoComponent src={logoSrc} />
               </div>
             </div>
           </TooltipTrigger>

@@ -58,7 +58,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
       setLocaleCookie(newLocale);
       setLocaleState(newLocale);
       const newPath = pathWithLocale(pathname, newLocale);
-      router.push(newPath);
+      router.push(newPath, { scroll: false });
     },
     [locale, pathname, router]
   );

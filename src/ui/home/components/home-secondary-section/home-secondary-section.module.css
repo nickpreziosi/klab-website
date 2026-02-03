@@ -121,51 +121,56 @@
 
 .timelinePhases {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--margin-md) var(--margin-lg);
+  gap: var(--margin-lg);
+  width: 100%;
 }
 
 .timelinePhase {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
-  flex: 1 1 0;
-  min-width: 100px;
+  width: 100%;
 }
 
-/* 2-week phase takes twice the flex space */
-.timelinePhaseWide {
-  flex: 2 1 0;
-  min-width: 160px;
+.timelinePhaseLineWrapper {
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  min-width: 0;
+}
+
+.timelinePhaseLineCap {
+  width: 3px;
+  height: 10px;
+  background-color: var(--accent-color);
+  border-radius: 1px;
+  flex-shrink: 0;
 }
 
 .timelinePhaseLine {
   display: block;
   width: 100%;
-  max-width: 140px;
   height: 4px;
   background-color: var(--accent-color);
   border-radius: 1px;
-}
-
-.timelinePhaseWide .timelinePhaseLine {
-  max-width: 280px;
+  align-self: center;
+  min-width: 0;
 }
 
 .timelinePhaseLabel {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.15em;
   font-size: clamp(var(--text-xs), 1vw + 0.4rem, var(--text-sm));
   font-weight: var(--font-semibold);
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--accent-color);
-  text-align: center;
+  text-align: left;
   line-height: 1.3;
 }
 
@@ -221,19 +226,7 @@
     margin-bottom: var(--margin-md);
   }
   .timelinePhases {
-    gap: var(--margin-sm) var(--margin-md);
-  }
-  .timelinePhase {
-    min-width: 90px;
-  }
-  .timelinePhaseWide {
-    min-width: 180px;
-  }
-  .timelinePhaseLine {
-    max-width: 120px;
-  }
-  .timelinePhaseWide .timelinePhaseLine {
-    max-width: 240px;
+    gap: var(--margin-md);
   }
   .timelinePhaseLabel {
     font-size: clamp(0.65rem, 1.2vw + 0.35rem, var(--text-sm));
@@ -267,27 +260,12 @@
     margin-bottom: var(--margin-lg);
   }
   .timelinePhases {
-    flex-direction: column;
-    justify-content: center;
     gap: var(--margin-lg);
-  }
-  .timelinePhase {
-    align-items: flex-start;
-    flex: 1 1 auto;
-  }
-  .timelinePhaseWide {
-    flex: 1 1 100%;
-  }
-  .timelinePhaseLine {
-    max-width: 100px;
-  }
-  .timelinePhaseWide .timelinePhaseLine {
-    max-width: 200px;
   }
   .timelinePhaseLabel {
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 0;
     font-size: clamp(0.625rem, 2vw + 0.25rem, var(--text-sm));
   }
@@ -307,15 +285,6 @@
   }
   .timelinePhase {
     min-width: calc(50% - var(--margin-xs));
-  }
-  .timelinePhaseWide {
-    min-width: 100%;
-  }
-  .timelinePhaseLine {
-    max-width: 80px;
-  }
-  .timelinePhaseWide .timelinePhaseLine {
-    max-width: 160px;
   }
 }
 

@@ -11,12 +11,7 @@ export function ConditionalShell({ children }: { children: React.ReactNode }) {
   const isLandingPage = pathname.includes("/landing-page") || pathname.endsWith("/landing-page");
 
   if (isLandingPage) {
-    return (
-      <>
-        <SocialSidebar />
-        {children}
-      </>
-    );
+    return <>{children}</>;
   }
 
   return (

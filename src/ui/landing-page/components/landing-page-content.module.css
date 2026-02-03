@@ -21,6 +21,23 @@
   background-color: rgba(0, 0, 0, 0.6);
 }
 
+.translationsLoadingOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+.translationsLoadingOverlay .translationsSpinner {
+  flex-shrink: 0;
+}
+
 /* Orange gradient background – warm, vibrant */
 .pageOrange {
   background-color: rgb(180, 90, 40);
@@ -30,7 +47,7 @@
 
 .brandLogo {
   width: auto;
-  height: 160px;
+  height: 96px;
 }
 
 .pageOrange .statusBar {
@@ -101,6 +118,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 3rem;
   text-align: center;
   min-height: 100vh;
@@ -111,34 +129,21 @@
   padding: clamp(1.5rem, 6vw, 6rem);
 }
 
+@media (max-width: 768px) {
+  .page .container:first-of-type {
+    justify-content: center;
+  }
+}
+
 .topBar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
 }
 
 .topBar .brand {
   margin: 0;
-}
-
-.localeSwitcherWrap {
-  flex-shrink: 0;
-}
-
-.pageOrange .localeSwitcherWrap,
-.pageWave .localeSwitcherWrap {
-  color: rgb(255, 255, 255);
-}
-
-.pageOrange .localeSwitcherWrap :global(button),
-.pageWave .localeSwitcherWrap :global(button) {
-  color: inherit;
-}
-
-.pageOrange .localeSwitcherWrap :global(button:hover),
-.pageWave .localeSwitcherWrap :global(button:hover) {
-  color: rgba(255, 255, 255, 0.9);
 }
 
 .brand {
@@ -212,9 +217,21 @@
   height: 20px;
 }
 
+/* Learn More: white outline on landing (overrides ghost variant) */
+.ctaRow .learnMoreButton {
+  border: 1px solid rgb(255, 255, 255);
+  background: transparent !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.ctaRow .learnMoreButton:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
 /* Products section: wider so TechnologiesShowcase can use its layout */
 .productsSection {
-  max-width: 1440px;
+  max-width: 1680px;
   width: 100%;
 }
 
@@ -225,13 +242,11 @@
 
 @media (max-width: 1024px) {
   .container {
-    padding: 3rem;
+    padding-top: var(--padding-tablet) !important;
+    padding-bottom: var(--padding-tablet) !important;
     gap: 1.5rem;
   }
 }
 
 @media (max-width: 768px) {
-  .container {
-    padding: 3rem 1.5rem;
-  }
 }

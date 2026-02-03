@@ -452,33 +452,60 @@ export default function HomeSecondarySection({
             <div className={styles.deploymentTimeline}>
               <h3 className={styles.timelineTitle}>1 – 2 WEEK SPRINTS</h3>
               <div className={styles.timelinePhases}>
-                {[
-                  { label: "SCOPING", duration: "1 WEEK", span: 1 },
-                  { label: "ONBOARDING", duration: "1 WEEK", span: 1 },
-                  { label: "INTEGRATE / QA", duration: "2 WEEKS", span: 2 },
-                  { label: "DEPLOY", duration: "1 WEEK", span: 1 },
-                  { label: "TEST", duration: "1 WEEK", span: 1 },
-                  { label: "GO-LIVE", duration: "1 WEEK", span: 1 },
-                ].map((phase, index) => (
-                  <div
-                    key={index}
-                    className={
-                      phase.span === 2
-                        ? `${styles.timelinePhase} ${styles.timelinePhaseWide}`
-                        : styles.timelinePhase
-                    }
-                  >
-                    <span className={styles.timelinePhaseLine} aria-hidden />
-                    <span className={styles.timelinePhaseLabel}>
-                      <span className={styles.timelinePhaseLabelTitle}>{phase.label}</span>
-                      <span className={styles.timelinePhaseLabelSeparator} aria-hidden>
-                        {" "}
-                        –{" "}
-                      </span>
-                      <span className={styles.timelinePhaseLabelDuration}>{phase.duration}</span>
-                    </span>
-                  </div>
-                ))}
+                {(() => {
+                  const phases = [
+                    { label: "SCOPING", duration: "1 WEEK", span: 1 },
+                    { label: "ONBOARDING", duration: "1 WEEK", span: 1 },
+                    { label: "INTEGRATE / QA", duration: "2 WEEKS", span: 2 },
+                    { label: "DEPLOY", duration: "1 WEEK", span: 1 },
+                    { label: "TEST", duration: "1 WEEK", span: 1 },
+                    { label: "GO-LIVE", duration: "1 WEEK", span: 1 },
+                  ];
+                  const totalUnits = phases.reduce((sum, p) => sum + (p.span === 2 ? 2 : 1), 0);
+                  const unitPercent = 100 / totalUnits;
+                  let offsetUnits = 0;
+                  return phases.map((phase, index) => {
+                    const widthUnits = phase.span === 2 ? 2 : 1;
+                    const offsetPercent = (offsetUnits / totalUnits) * 100;
+                    const widthPercent = (widthUnits / totalUnits) * 100;
+                    offsetUnits += widthUnits;
+                    return (
+                      <div
+                        key={index}
+                        className={
+                          phase.span === 2
+                            ? `${styles.timelinePhase} ${styles.timelinePhaseWide}`
+                            : styles.timelinePhase
+                        }
+                      >
+                        <div
+                          className={styles.timelinePhaseLineWrapper}
+                          style={{
+                            marginLeft: `${offsetPercent}%`,
+                            width: `${widthPercent}%`,
+                          }}
+                        >
+                          <span className={styles.timelinePhaseLineCap} aria-hidden />
+                          <span className={styles.timelinePhaseLine} aria-hidden />
+                          <span className={styles.timelinePhaseLineCap} aria-hidden />
+                        </div>
+                        <span
+                          className={styles.timelinePhaseLabel}
+                          style={{ marginLeft: `${offsetPercent}%` }}
+                        >
+                          <span className={styles.timelinePhaseLabelTitle}>{phase.label}</span>
+                          <span className={styles.timelinePhaseLabelSeparator} aria-hidden>
+                            {" "}
+                            –{" "}
+                          </span>
+                          <span className={styles.timelinePhaseLabelDuration}>
+                            {phase.duration}
+                          </span>
+                        </span>
+                      </div>
+                    );
+                  });
+                })()}
               </div>
             </div>
           </div>
