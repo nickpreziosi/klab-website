@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import styles from "./company-hero.module.css";
 import Image from "next/image";
-import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 import { motion } from "motion/react";
-import { useTranslations } from "@/ui/shared/hooks/use-translations";
+import { useTranslations } from "next-intl";
+import type { CompanyHeroTranslations } from "@/ui/company/types";
+import { buildCompanyHeroTranslations } from "@/ui/company/types";
+import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
+import styles from "./company-hero.module.css";
 
 const fadeUp = {
   initial: { opacity: 0, y: 20, filter: "blur(10px)" },
@@ -46,9 +48,15 @@ function useHeroLogoHeight(): number {
   return height;
 }
 
-export const CompanyHero = () => {
+type CompanyHeroProps = {
+  /** When provided (from server), copy is SSR'd; otherwise use client useTranslations */
+  translations?: CompanyHeroTranslations;
+};
+
+export const CompanyHero = ({ translations: serverTranslations }: CompanyHeroProps = {}) => {
   const logoHeight = useHeroLogoHeight();
-  const { t } = useTranslations();
+  const t = useTranslations("companyHero");
+  const translations = serverTranslations ?? buildCompanyHeroTranslations(t);
 
   return (
     <section className={styles.content}>
@@ -69,9 +77,9 @@ export const CompanyHero = () => {
               animate={fadeUp.animate}
               transition={{ duration, ease }}
             >
-              {t("companyHero.headlineLine1")}
+              {translations.headlineLine1}
               <br />
-              {t("companyHero.headlineLine2")}
+              {translations.headlineLine2}
             </motion.h1>
             <div className={styles.heroLogo}>
               <motion.div
@@ -91,21 +99,21 @@ export const CompanyHero = () => {
               animate={fadeUp.animate}
               transition={{ duration, delay: stagger * 2, ease }}
             >
-              {t("companyHero.tagline1")}
+              {translations.tagline1}
             </motion.p>
             <motion.p
               initial={fadeUp.initial}
               animate={fadeUp.animate}
               transition={{ duration, delay: stagger * 3, ease }}
             >
-              {t("companyHero.tagline2")}
+              {translations.tagline2}
             </motion.p>
             <motion.p
               initial={fadeUp.initial}
               animate={fadeUp.animate}
               transition={{ duration, delay: stagger * 4, ease }}
             >
-              {t("companyHero.tagline3")}
+              {translations.tagline3}
             </motion.p>
           </div>
         </div>

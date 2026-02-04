@@ -1,5 +1,3 @@
-"use client";
-
 import { ContactLink } from "@/ui/contact/components/contact-link/contact-link";
 import styles from "./ContactView.module.css";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 import {
   Tooltip,
@@ -13,83 +14,105 @@ import {
 import { useTheme } from "@/ui/shared/hooks/use-theme";
 import styles from "./technologies-showcase.module.css";
 
-/* Technology data - same copy as navbar dropdown; exported for drawer/nav */
-export const TECHNOLOGIES = [
+const TECH_DESCRIPTION_KEYS = [
+  "krails",
+  "kena",
+  "ktalk",
+  "krisk",
+  "kabl",
+  "kcard",
+  "kbpm",
+  "kim",
+  "kaxis",
+  "kleads",
+  "kai",
+] as const;
+
+export type TechDescriptionKey = (typeof TECH_DESCRIPTION_KEYS)[number];
+
+/* Technology data - same copy as navbar dropdown; exported for drawer/nav. Descriptions come from landing.technologies. */
+export const TECHNOLOGIES: {
+  title: string;
+  logoLight: string;
+  logoDark: string;
+  descriptionKey: TechDescriptionKey;
+  href: string;
+}[] = [
   {
     title: "K-Rails",
     logoLight: "/logos/krails-logo-light.svg",
     logoDark: "/logos/krails-logo-dark.svg",
-    description: "B2B blockchain payments and lending with instant settlements",
+    descriptionKey: "krails",
     href: "/technologies/k-rails",
   },
   {
     title: "Kena",
     logoLight: "/logos/kena-logo-light.svg",
     logoDark: "/logos/kena-logo-dark.svg",
-    description: "World's first AI underwriter for intelligent credit decisions",
+    descriptionKey: "kena",
     href: "/technologies/kena",
   },
   {
     title: "K-Talk",
     logoLight: "/logos/ktalk-logo-light.svg",
     logoDark: "/logos/ktalk-logo-dark.svg",
-    description: "AI-powered chatbot for internal and external support",
+    descriptionKey: "ktalk",
     href: "/technologies/k-talk",
   },
   {
     title: "K-Risk",
     logoLight: "/logos/krisk-logo-light.svg",
     logoDark: "/logos/krisk-logo-dark.svg",
-    description: "AI-powered risk assessment and decision making",
+    descriptionKey: "krisk",
     href: "/technologies/kena",
   },
   {
     title: "KABL",
     logoLight: "/logos/kabl-logo-light.svg",
     logoDark: "/logos/kabl-logo-dark.svg",
-    description: "Integrated automation eliminating silos with AI and blockchain",
+    descriptionKey: "kabl",
     href: "/technologies/kabl",
   },
   {
     title: "K-Pay",
     logoLight: "/logos/kcard-logo-light.svg",
     logoDark: "/logos/kcard-logo-dark.svg",
-    description: "Multi-currency payment gateway with real-time FX",
+    descriptionKey: "kcard",
     href: "/technologies/k-pay",
   },
   {
     title: "K-Comply",
     logoLight: "/logos/kbpm-logo-light.svg",
     logoDark: "/logos/kbpm-logo-dark.svg",
-    description: "Regulatory compliance automation with blockchain",
+    descriptionKey: "kbpm",
     href: "/technologies/k-comply",
   },
   {
     title: "K-Ledger",
     logoLight: "/logos/kim-logo-light.svg",
     logoDark: "/logos/kim-logo-dark.svg",
-    description: "Immutable transaction ledger with enterprise security",
+    descriptionKey: "kim",
     href: "/technologies/k-ledger",
   },
   {
     title: "K-Connect",
     logoLight: "/logos/kaxis-logo-light.svg",
     logoDark: "/logos/kaxis-logo-dark.svg",
-    description: "API-first platform connecting financial institutions",
+    descriptionKey: "kaxis",
     href: "/technologies/k-connect",
   },
   {
     title: "K-Insights",
     logoLight: "/logos/kleads-logo-light.svg",
     logoDark: "/logos/kleads-logo-dark.svg",
-    description: "Real-time analytics and predictive insights",
+    descriptionKey: "kleads",
     href: "/technologies/k-insights",
   },
   {
     title: "K-Wallet",
     logoLight: "/logos/kai-logo-light.svg",
     logoDark: "/logos/kai-logo-dark.svg",
-    description: "Enterprise digital wallet with multi-signature support",
+    descriptionKey: "kai",
     href: "/technologies/k-wallet",
   },
 ];
@@ -151,6 +174,7 @@ export function TechnologiesShowcase({
   /** When set, renders a top row with this title on the left and carousel buttons on the right (e.g. "Our Technologies"). */
   headerTitle?: string;
 } = {}) {
+  const t = useTranslations("landing");
   const { effectiveTheme } = useTheme();
   const scrollRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -160,6 +184,10 @@ export function TechnologiesShowcase({
     side: "left" | "right";
     index: number;
   } | null>(null);
+  const getDescription = useCallback(
+    (tech: (typeof TECHNOLOGIES)[0]) => t(`technologies.${tech.descriptionKey}`),
+    [t]
+  );
   const logoSrc = useCallback(
     (tech: (typeof TECHNOLOGIES)[0]) =>
       effectiveTheme === "dark" ? tech.logoDark : tech.logoLight,
@@ -239,6 +267,7 @@ export function TechnologiesShowcase({
             <TechSemiCircle
               key={`left-${tech.href}-${index}`}
               tech={tech}
+              description={getDescription(tech)}
               logoSrc={logoSrc(tech)}
               side="left"
               isExpanded={expandedIndex?.side === "left" && expandedIndex?.index === index}
@@ -280,6 +309,7 @@ export function TechnologiesShowcase({
             <TechSemiCircle
               key={`right-${tech.href}-${index}`}
               tech={tech}
+              description={getDescription(tech)}
               logoSrc={logoSrc(tech)}
               side="right"
               isExpanded={expandedIndex?.side === "right" && expandedIndex?.index === index}
@@ -303,6 +333,7 @@ export function TechnologiesShowcase({
 
 function TechSemiCircle({
   tech,
+  description,
   logoSrc,
   side,
   isExpanded,
@@ -312,6 +343,7 @@ function TechSemiCircle({
   SVGLogo: LogoComponent,
 }: {
   tech: (typeof TECHNOLOGIES)[0];
+  description: string;
   logoSrc: string;
   side: "left" | "right";
   isExpanded: boolean;
@@ -327,36 +359,36 @@ function TechSemiCircle({
         if (!e.currentTarget.contains(e.relatedTarget)) onToggle();
       }}
     >
-      <Link
-        href={tech.href}
-        className={`${styles.techCircle} ${side === "left" ? styles.leftHalf : styles.rightHalf}`}
-        onFocus={() => expandOnFirstTap && onToggle()}
-        onClick={(e) => {
-          if (expandOnFirstTap && !isExpanded) {
-            e.preventDefault();
-            onToggle();
-            return;
-          }
-          onLinkClick?.();
-        }}
-        aria-label={tech.title}
-      >
-        <Tooltip>
-          <TooltipTrigger asChild>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Link
+            href={tech.href}
+            className={`${styles.techCircle} ${side === "left" ? styles.leftHalf : styles.rightHalf}`}
+            onFocus={() => expandOnFirstTap && onToggle()}
+            onClick={(e) => {
+              if (expandOnFirstTap && !isExpanded) {
+                e.preventDefault();
+                onToggle();
+                return;
+              }
+              onLinkClick?.();
+            }}
+            aria-label={tech.title}
+          >
             <div className={styles.techContent}>
               <div className={styles.techLogo}>
                 <LogoComponent src={logoSrc} />
               </div>
             </div>
-          </TooltipTrigger>
-          <TooltipContent side="bottom" sideOffset={60} className={styles.techTooltip}>
-            {tech.description}
-          </TooltipContent>
-        </Tooltip>
-      </Link>
+          </Link>
+        </TooltipTrigger>
+        <TooltipContent side="bottom" sideOffset={24} className={styles.techTooltip}>
+          {description}
+        </TooltipContent>
+      </Tooltip>
       {/* Inline description for touch/expanded only; hover uses Radix Tooltip */}
       <div className={styles.description} role="tooltip" aria-hidden>
-        {tech.description}
+        {description}
       </div>
     </div>
   );

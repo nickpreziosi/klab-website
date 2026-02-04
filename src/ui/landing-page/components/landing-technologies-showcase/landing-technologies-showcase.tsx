@@ -4,29 +4,33 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/ui/shared/components/popover/popover";
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/ui/shared/components/tooltip/tooltip";
-import { useTheme } from "@/ui/shared/hooks/use-theme";
-import { useTranslations } from "@/ui/shared/hooks/use-translations";
+import { useTranslations } from "next-intl";
 import styles from "./landing-technologies-showcase.module.css";
 
 const BREAKPOINT_DESKTOP = 1024;
 
 const TECH_KEYS = [
-  "kRails",
+  "krails",
   "kena",
-  "kTalk",
-  "kRisk",
+  "ktalk",
+  "krisk",
   "kabl",
-  "kPay",
-  "kComply",
-  "kLedger",
-  "kConnect",
-  "kInsights",
-  "kWallet",
+  "kcard",
+  "kbpm",
+  "kim",
+  "kaxis",
+  "kleads",
+  "kai",
 ] as const;
 
 type TechKey = (typeof TECH_KEYS)[number];
@@ -38,10 +42,10 @@ const TECHNOLOGIES: {
   descriptionKey: TechKey;
 }[] = [
   {
-    title: "K-Rails",
+    title: "KRails",
     logoLight: "/logos/krails-logo-light.svg",
     logoDark: "/logos/krails-logo-dark.svg",
-    descriptionKey: "kRails",
+    descriptionKey: "krails",
   },
   {
     title: "Kena",
@@ -50,58 +54,58 @@ const TECHNOLOGIES: {
     descriptionKey: "kena",
   },
   {
-    title: "K-Talk",
+    title: "KTalk",
     logoLight: "/logos/ktalk-logo-light.svg",
     logoDark: "/logos/ktalk-logo-dark.svg",
-    descriptionKey: "kTalk",
+    descriptionKey: "ktalk",
   },
   {
-    title: "K-Risk",
+    title: "KRisk",
     logoLight: "/logos/krisk-logo-light.svg",
     logoDark: "/logos/krisk-logo-dark.svg",
-    descriptionKey: "kRisk",
+    descriptionKey: "krisk",
   },
   {
-    title: "KABL",
+    title: "KAbl",
     logoLight: "/logos/kabl-logo-light.svg",
     logoDark: "/logos/kabl-logo-dark.svg",
     descriptionKey: "kabl",
   },
   {
-    title: "K-Pay",
+    title: "KCard",
     logoLight: "/logos/kcard-logo-light.svg",
     logoDark: "/logos/kcard-logo-dark.svg",
-    descriptionKey: "kPay",
+    descriptionKey: "kcard",
   },
   {
-    title: "K-Comply",
+    title: "KBpm",
     logoLight: "/logos/kbpm-logo-light.svg",
     logoDark: "/logos/kbpm-logo-dark.svg",
-    descriptionKey: "kComply",
+    descriptionKey: "kbpm",
   },
   {
-    title: "K-Ledger",
+    title: "Kim",
     logoLight: "/logos/kim-logo-light.svg",
     logoDark: "/logos/kim-logo-dark.svg",
-    descriptionKey: "kLedger",
+    descriptionKey: "kim",
   },
   {
-    title: "K-Connect",
+    title: "KAxis",
     logoLight: "/logos/kaxis-logo-light.svg",
     logoDark: "/logos/kaxis-logo-dark.svg",
-    descriptionKey: "kConnect",
+    descriptionKey: "kaxis",
   },
   {
-    title: "K-Insights",
+    title: "KLeads",
     logoLight: "/logos/kleads-logo-light.svg",
     logoDark: "/logos/kleads-logo-dark.svg",
-    descriptionKey: "kInsights",
+    descriptionKey: "kleads",
   },
   {
-    title: "K-Wallet",
+    title: "Kai",
     logoLight: "/logos/kai-logo-light.svg",
     logoDark: "/logos/kai-logo-dark.svg",
-    descriptionKey: "kWallet",
+    descriptionKey: "kai",
   },
 ];
 
@@ -125,14 +129,23 @@ function useIsDesktop() {
   return isDesktop;
 }
 
+// Cache SVG content by src so logos don't flash on locale change (remount)
+const svgCache = new Map<string, string>();
+
 function SVGLogo({ src, className }: { src: string; className?: string }) {
-  const [svgContent, setSvgContent] = useState<string>("");
+  const [svgContent, setSvgContent] = useState<string>(() => svgCache.get(src) ?? "");
 
   useEffect(() => {
+    const cached = svgCache.get(src);
+    if (cached) {
+      setSvgContent(cached);
+      return;
+    }
     fetch(src)
       .then((res) => res.text())
       .then((text) => {
         const processed = text.replace(/<\?xml[^>]*\?>/i, "");
+        svgCache.set(src, processed);
         setSvgContent(processed);
       })
       .catch((err) => console.error("Failed to load SVG:", err));
@@ -153,7 +166,11 @@ function CenterCircle({ variant }: { variant: LandingVariant }) {
           <Image src={centerBgSrc} alt="" fill sizes="(max-width: 1440px) 120px, 160px" priority />
         </div>
         <div className={styles.centerContent}>
-          <KlabLogo color="orange" format="full" fullLogoTheme="dark" height="auto" width="100%" />
+          {variant === "wave" ? (
+            <KlabLogo color="light" format="full" height="auto" width="100%" />
+          ) : (
+            <KlabLogo color="orange" format="full" fullLogoTheme="dark" height="auto" width="100%" />
+          )}
         </div>
       </div>
     </div>
@@ -179,8 +196,45 @@ function TechSlot({
   SVGLogo: typeof SVGLogo;
   variant: "desktop" | "mobile";
 }) {
-  const tooltipClass = variant === "mobile" ? styles.techTooltipMobile : styles.techTooltip;
-  const tooltipSide = variant === "mobile" ? (side === "left" ? "bottom" : "top") : "bottom";
+  const tooltipClass = styles.techTooltip;
+  const tooltipSide = "bottom";
+
+  if (variant === "mobile") {
+    return (
+      <div className={styles.techItem}>
+        <Popover open={isExpanded} onOpenChange={() => onToggle()}>
+          <PopoverTrigger asChild>
+            <div
+              role="button"
+              tabIndex={0}
+              className={`${styles.techCircle} ${side === "left" ? styles.leftHalf : styles.rightHalf}`}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onToggle();
+                }
+              }}
+              aria-label={tech.title}
+            >
+              <div className={styles.techContent}>
+                <div className={styles.techLogo}>
+                  <LogoComponent src={logoSrc} />
+                </div>
+              </div>
+            </div>
+          </PopoverTrigger>
+          <PopoverContent
+            side={side === "left" ? "bottom" : "top"}
+            sideOffset={12}
+            align="center"
+            className={styles.popoverMobile}
+          >
+            {description}
+          </PopoverContent>
+        </Popover>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -189,37 +243,33 @@ function TechSlot({
         if (!e.currentTarget.contains(e.relatedTarget)) onToggle();
       }}
     >
-      <div
-        role="button"
-        tabIndex={0}
-        className={`${styles.techCircle} ${side === "left" ? styles.leftHalf : styles.rightHalf}`}
-        onFocus={() => onToggle()}
-        onClick={() => onToggle()}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            onToggle();
-          }
-        }}
-        aria-label={tech.title}
-      >
-        <Tooltip>
-          <TooltipTrigger asChild>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div
+            role="button"
+            tabIndex={0}
+            className={`${styles.techCircle} ${side === "left" ? styles.leftHalf : styles.rightHalf}`}
+            onFocus={() => onToggle()}
+            onClick={() => onToggle()}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onToggle();
+              }
+            }}
+            aria-label={tech.title}
+          >
             <div className={styles.techContent}>
               <div className={styles.techLogo}>
                 <LogoComponent src={logoSrc} />
               </div>
             </div>
-          </TooltipTrigger>
-          <TooltipContent
-            side={tooltipSide}
-            sideOffset={variant === "mobile" ? 12 : 60}
-            className={tooltipClass}
-          >
-            {description}
-          </TooltipContent>
-        </Tooltip>
-      </div>
+          </div>
+        </TooltipTrigger>
+        <TooltipContent side={tooltipSide} sideOffset={24} className={tooltipClass}>
+          {description}
+        </TooltipContent>
+      </Tooltip>
       <div className={styles.description} role="tooltip" aria-hidden>
         {description}
       </div>
@@ -230,10 +280,15 @@ function TechSlot({
 export function LandingTechnologiesShowcase({
   variant = "orange",
   className,
-}: { variant?: LandingVariant; className?: string } = {}) {
+  /** When provided (from server), descriptions are SSR'd; otherwise use client useTranslations */
+  technologiesDescriptions,
+}: {
+  variant?: LandingVariant;
+  className?: string;
+  technologiesDescriptions?: Record<string, string>;
+} = {}) {
   const isDesktop = useIsDesktop();
-  const { effectiveTheme } = useTheme();
-  const { t } = useTranslations();
+  const t = useTranslations("landing");
   const [expandedIndex, setExpandedIndex] = useState<{
     side: "left" | "right";
     index: number;
@@ -249,10 +304,10 @@ export function LandingTechnologiesShowcase({
     );
 
   const getDescription = (tech: (typeof TECHNOLOGIES)[0]) =>
-    t(`landing.technologies.${tech.descriptionKey}`);
+    technologiesDescriptions?.[tech.descriptionKey] ?? t(`technologies.${tech.descriptionKey}`);
 
-  const logoSrc = (tech: (typeof TECHNOLOGIES)[0]) =>
-    effectiveTheme === "dark" ? tech.logoLight : tech.logoDark;
+  // Landing tech circles always use light background (--landing-semi-bg), so always use dark logos
+  const logoSrc = (tech: (typeof TECHNOLOGIES)[0]) => tech.logoDark;
 
   if (isDesktop) {
     return (
@@ -293,42 +348,40 @@ export function LandingTechnologiesShowcase({
   }
 
   return (
-    <TooltipProvider delayDuration={200}>
-      <div className={`${styles.wrapperMobile} ${className ?? ""}`.trim()}>
-        <div className={styles.columnMobile}>
-          <div className={styles.rowMobileTop}>
-            {leftTechs.map((tech, index) => (
-              <TechSlot
-                key={`left-${tech.title}-${index}`}
-                tech={tech}
-                logoSrc={logoSrc(tech)}
-                description={getDescription(tech)}
-                side="left"
-                isExpanded={expandedIndex?.side === "left" && expandedIndex?.index === index}
-                onToggle={() => setLeft(index)}
-                SVGLogo={SVGLogo}
-                variant="mobile"
-              />
-            ))}
-          </div>
-          <CenterCircle variant={variant} />
-          <div className={styles.rowMobileBottom}>
-            {rightTechs.map((tech, index) => (
-              <TechSlot
-                key={`right-${tech.title}-${index}`}
-                tech={tech}
-                logoSrc={logoSrc(tech)}
-                description={getDescription(tech)}
-                side="right"
-                isExpanded={expandedIndex?.side === "right" && expandedIndex?.index === index}
-                onToggle={() => setRight(index)}
-                SVGLogo={SVGLogo}
-                variant="mobile"
-              />
-            ))}
-          </div>
+    <div className={`${styles.wrapperMobile} ${className ?? ""}`.trim()}>
+      <div className={styles.columnMobile}>
+        <div className={styles.rowMobileTop}>
+          {leftTechs.map((tech, index) => (
+            <TechSlot
+              key={`left-${tech.title}-${index}`}
+              tech={tech}
+              logoSrc={logoSrc(tech)}
+              description={getDescription(tech)}
+              side="left"
+              isExpanded={expandedIndex?.side === "left" && expandedIndex?.index === index}
+              onToggle={() => setLeft(index)}
+              SVGLogo={SVGLogo}
+              variant="mobile"
+            />
+          ))}
+        </div>
+        <CenterCircle variant={variant} />
+        <div className={styles.rowMobileBottom}>
+          {rightTechs.map((tech, index) => (
+            <TechSlot
+              key={`right-${tech.title}-${index}`}
+              tech={tech}
+              logoSrc={logoSrc(tech)}
+              description={getDescription(tech)}
+              side="right"
+              isExpanded={expandedIndex?.side === "right" && expandedIndex?.index === index}
+              onToggle={() => setRight(index)}
+              SVGLogo={SVGLogo}
+              variant="mobile"
+            />
+          ))}
         </div>
       </div>
-    </TooltipProvider>
+    </div>
   );
 }

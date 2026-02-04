@@ -3,30 +3,44 @@
 import { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import styles from "./drawer.module.css";
+import { useTranslations } from "next-intl";
+import type { NavTranslations, DrawerTranslations } from "@/ui/shared/types/translations";
+import { buildDrawerTranslations, buildNavTranslations } from "@/ui/shared/types/translations";
+import { Link } from "@/i18n/navigation";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { MobileThemeToggle } from "@/ui/shared/components/mobile-theme-toggle/mobile-theme-toggle";
 import { MobileLocaleSwitcher } from "@/ui/shared/components/mobile-locale-switcher/mobile-locale-switcher";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 import { TECHNOLOGIES } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
-import { useTranslations } from "@/ui/shared/hooks/use-translations";
-import { useLocale } from "@/ui/shared/providers/locale-context/locale-context";
+import styles from "./drawer.module.css";
 
-export const Drawer = () => {
+export type DrawerProps = {
+  /** When provided (from layout via Navbar), drawer copy is SSR'd */
+  drawerTranslations?: DrawerTranslations;
+  /** When provided (from layout via Navbar), nav copy in drawer is SSR'd */
+  navTranslations?: NavTranslations;
+};
+
+export const Drawer = (props: DrawerProps) => {
+  const {
+    drawerTranslations: serverDrawerTranslations,
+    navTranslations: serverNavTranslations,
+  } = props ?? {};
   const [isOpen, setIsOpen] = useState(false);
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
-  const { t } = useTranslations();
-  const { localePath } = useLocale();
+  const t = useTranslations("drawer");
+  const tNav = useTranslations("nav");
+  const drawer = serverDrawerTranslations ?? buildDrawerTranslations(t);
+  const nav = serverNavTranslations ?? buildNavTranslations(tNav);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <VisuallyHidden>
-        <Dialog.Title>{t("drawer.dialogTitle")}</Dialog.Title>
-        <Dialog.Description>{t("drawer.dialogDescription")}</Dialog.Description>
+        <Dialog.Title>{drawer.dialogTitle}</Dialog.Title>
+        <Dialog.Description>{drawer.dialogDescription}</Dialog.Description>
       </VisuallyHidden>
       <Dialog.Trigger asChild>
-        <button className={styles.hamburger} aria-label={t("drawer.openMenu")}>
+        <button className={styles.hamburger} aria-label={drawer.openMenu}>
           <motion.div
             className={styles.hamburgerLine}
             animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
@@ -73,7 +87,7 @@ export const Drawer = () => {
                   </Link>
 
                   <Dialog.Close asChild>
-                    <button className={styles.closeButton} aria-label={t("drawer.closeMenu")}>
+                    <button className={styles.closeButton} aria-label={drawer.closeMenu}>
                       <svg
                         width="24"
                         height="24"
@@ -100,7 +114,7 @@ export const Drawer = () => {
                     transition={{ delay: 0.1 }}
                   >
                     <Link
-                      href={localePath("/")}
+                      href="/"
                       className={styles.navLink}
                       onClick={() => setIsOpen(false)}
                     >
@@ -119,7 +133,7 @@ export const Drawer = () => {
                           clipRule="evenodd"
                         ></path>
                       </svg>
-                      <span className={styles.navLinkText}>{t("drawer.home")}</span>
+                      <span className={styles.navLinkText}>{drawer.home}</span>
                       <motion.div
                         className={styles.navLinkUnderline}
                         whileHover={{ scaleX: 1 }}
@@ -153,7 +167,7 @@ export const Drawer = () => {
                         ></path>
                       </svg>
                       <span className={styles.navLinkText}>
-                        {t("nav.technologies")}
+                        {nav.technologies}
                         <motion.svg
                           width="30"
                           height="30"
@@ -204,7 +218,7 @@ export const Drawer = () => {
                     transition={{ delay: 0.25 }}
                   >
                     <Link
-                      href={localePath("/company")}
+                      href="/company"
                       className={styles.navLink}
                       onClick={() => setIsOpen(false)}
                     >
@@ -223,7 +237,7 @@ export const Drawer = () => {
                           clipRule="evenodd"
                         ></path>
                       </svg>
-                      <span className={styles.navLinkText}>{t("nav.company")}</span>
+                      <span className={styles.navLinkText}>{nav.company}</span>
                       <motion.div
                         className={styles.navLinkUnderline}
                         whileHover={{ scaleX: 1 }}
@@ -238,7 +252,7 @@ export const Drawer = () => {
                     transition={{ delay: 0.25 }}
                   >
                     <Link
-                      href={localePath("/news")}
+                      href="/news"
                       className={styles.navLink}
                       onClick={() => setIsOpen(false)}
                     >
@@ -257,7 +271,7 @@ export const Drawer = () => {
                           clipRule="evenodd"
                         ></path>
                       </svg>
-                      <span className={styles.navLinkText}>{t("nav.news")}</span>
+                      <span className={styles.navLinkText}>{nav.news}</span>
                       <motion.div
                         className={styles.navLinkUnderline}
                         whileHover={{ scaleX: 1 }}
@@ -272,7 +286,7 @@ export const Drawer = () => {
                     transition={{ delay: 0.3 }}
                   >
                     <Link
-                      href={localePath("/contact")}
+                      href="/contact"
                       className={styles.navLink}
                       onClick={() => setIsOpen(false)}
                     >
@@ -291,7 +305,7 @@ export const Drawer = () => {
                           clipRule="evenodd"
                         ></path>
                       </svg>
-                      <span className={styles.navLinkText}>{t("nav.contact")}</span>
+                      <span className={styles.navLinkText}>{nav.contact}</span>
                       <motion.div
                         className={styles.navLinkUnderline}
                         whileHover={{ scaleX: 1 }}

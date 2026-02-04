@@ -1,0 +1,37 @@
+/* Matches k-lab-components popover: glass-morphism, rounded, shadow */
+.content {
+  z-index: 1001;
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  outline: none;
+
+  /* Glass morphism: backdrop blur + semi-transparent background */
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.92);
+
+  /* Text */
+  color: #1a1a1a;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  white-space: normal;
+
+  /* Animations */
+  animation: popoverIn 150ms ease-out;
+}
+
+@keyframes popoverIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

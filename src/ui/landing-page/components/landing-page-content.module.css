@@ -13,6 +13,7 @@
   background-repeat: no-repeat;
   scroll-behavior: smooth;
   overflow-y: hidden;
+  padding-bottom: var(--padding-tablet);
 }
 
 .backgroundOverlay {
@@ -189,6 +190,14 @@
   line-height: 1.1;
   margin: 0;
   letter-spacing: -0.02em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.headlineWord {
+  display: inline-block;
+  white-space: pre;
 }
 
 .subline {
@@ -233,6 +242,21 @@
 .productsSection {
   max-width: 1680px;
   width: 100%;
+}
+
+/* Constrain Our Technologies headline + subline to match hero section width */
+.productsSectionHeader {
+  max-width: 640px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 3rem;
+}
+
+.productsSectionHeader .subline {
+  max-width: 520px;
 }
 
 .productsShowcaseWrap {

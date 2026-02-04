@@ -1,5 +1,3 @@
-"use client";
-
 import KeoRailsHero from "@/ui/keo-rails/components/keo-rails-hero/keo-rails-hero";
 import styles from "./KeoRailsView.module.css";
 import VideoPlayer from "@/ui/shared/components/video-player/video-player";

@@ -2,18 +2,11 @@
 
 import { motion } from "framer-motion";
 import styles from "./not-found.module.css";
-import { useRouter } from "next/navigation";
 import Button from "@/ui/shared/components/button/button";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 
 export default function NotFound() {
-  const router = useRouter();
-
-  const handleGoBack = () => {
-    router.back();
-  };
-
   return (
     <>
       <motion.div
@@ -33,7 +26,7 @@ export default function NotFound() {
               ease: [0.34, 1.56, 0.64, 1],
             }}
           >
-            <Link href="/">
+            <Link href="/" locale="en">
               <KlabLogo color="orange" format="default" width={100} height={100} />
             </Link>
           </motion.div>
@@ -58,7 +51,6 @@ export default function NotFound() {
             <motion.span>Page Not Found</motion.span>
           </motion.div>
 
-          {/* Description */}
           <motion.p
             className={styles.description}
             initial={{ opacity: 0 }}
@@ -75,7 +67,7 @@ export default function NotFound() {
             transition={{ delay: 0.5, duration: 0.3 }}
           >
             <Button
-              onClick={handleGoBack}
+              onClick={() => window.history.back()}
               variant="outline"
               iconPosition="start"
               icon={
@@ -99,7 +91,7 @@ export default function NotFound() {
             </Button>
 
             <Button
-              href="/"
+              href="/en"
               variant="accent-brand"
               iconPosition="start"
               icon={

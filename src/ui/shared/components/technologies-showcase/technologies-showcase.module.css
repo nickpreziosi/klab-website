@@ -136,21 +136,18 @@
   min-width: 0;
   aspect-ratio: 1 / 2;
   position: relative;
-  overflow: hidden;
   scroll-snap-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Full circle; slot clips to semicircle. Left = round left (left half visible), right = round right */
+/* True semicircles via border-radius (left/right halves) */
 .techCircle {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 200%;
-  aspect-ratio: 1;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -158,28 +155,21 @@
   color: var(--main-color);
   cursor: pointer;
   text-decoration: none;
-  overflow: hidden;
-  border-radius: 50%;
+  box-sizing: border-box;
   transition: background 0.2s ease;
 }
 
+/* Left semicircle: curved arc on left, flat vertical edge on right */
 .techCircle.leftHalf {
-  left: 0;
-  right: auto;
+  border-radius: 100% 0 0 100% / 50% 0 0 50%;
 }
 
+/* Right semicircle: curved arc on right, flat vertical edge on left */
 .techCircle.rightHalf {
-  right: 0;
-  left: auto;
+  border-radius: 0 100% 100% 0 / 0 50% 50% 0;
 }
 
-/* Same-size content box on both sides, centered in visible semicircle (25% or 75% of circle) */
 .techContent {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 50%;
-  height: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -188,16 +178,6 @@
   padding: 8px;
   text-align: center;
   box-sizing: border-box;
-}
-
-.techCircle.leftHalf .techContent {
-  left: 25%;
-  transform: translate(-50%, -50%);
-}
-
-.techCircle.rightHalf .techContent {
-  left: 75%;
-  transform: translate(-50%, -50%);
 }
 
 /* Same pixel height for all logos (--icon-height); width scales to fit within semicircle */

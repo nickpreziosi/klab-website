@@ -9,9 +9,12 @@ import {
   SelectItemIndicator,
 } from "@radix-ui/react-select";
 import { Check, ChevronDown } from "lucide-react";
-import { SUPPORTED_LOCALES, type Locale } from "@/ui/shared/utils/i18n";
-import { useLocale } from "@/ui/shared/providers/locale-context/locale-context";
-import { useTranslations } from "@/ui/shared/hooks/use-translations";
+import { useLocale } from "next-intl";
+import { useRouter, usePathname } from "@/i18n/navigation";
+import { saveScrollBeforeLocaleSwitch } from "@/ui/shared/utils/scroll-preservation";
+import { routing } from "@/i18n/routing";
+import type { Locale } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import styles from "./landing-locale-switcher.module.css";
 
 const LOCALE_CODE: Record<Locale, string> = {
@@ -26,12 +29,19 @@ const LOCALE_FULL_NAME: Record<Locale, string> = {
   pt: "Português",
 };
 
+const LOCALES = routing.locales;
+
 export function LandingLocaleSwitcher() {
-  const { locale: currentLocale, setLocale } = useLocale();
-  const { t } = useTranslations();
+  const currentLocale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+  const t = useTranslations("landing");
 
   const handleValueChange = (value: string) => {
-    setLocale(value as Locale);
+    const newLocale = value as Locale;
+    if (newLocale === currentLocale) return;
+    saveScrollBeforeLocaleSwitch();
+    router.push(pathname, { locale: newLocale, scroll: false });
   };
 
   return (
@@ -39,8 +49,8 @@ export function LandingLocaleSwitcher() {
       <Select value={currentLocale} onValueChange={handleValueChange}>
         <SelectTrigger aria-label="Change language" className={styles.trigger}>
           <span className={styles.labelGroup}>
-            <span className={styles.label}>{t("landing.languageLabel")}</span>
-            <span className={styles.value}>{LOCALE_CODE[currentLocale]}</span>
+            <span className={styles.label}>{t("languageLabel")}</span>
+            <span className={styles.value}>{LOCALE_CODE[currentLocale as Locale]}</span>
           </span>
           <ChevronDown className={styles.caret} aria-hidden />
         </SelectTrigger>
@@ -52,7 +62,7 @@ export function LandingLocaleSwitcher() {
           align="end"
         >
           <SelectViewport className={styles.viewport}>
-            {SUPPORTED_LOCALES.map((locale) => (
+            {LOCALES.map((locale) => (
               <SelectItem key={locale} value={locale} className={styles.item}>
                 <span className={styles.itemText}>
                   {LOCALE_CODE[locale]} – {LOCALE_FULL_NAME[locale]}

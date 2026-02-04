@@ -1,23 +1,34 @@
 "use client";
+
 import { useEffect, useRef, useState } from "react";
-import styles from "./navbar.module.css";
-import Link from "next/link";
-import { Drawer } from "../drawer/drawer";
 import * as React from "react";
+import { Separator } from "radix-ui";
+import { useTranslations } from "next-intl";
+import type { NavTranslations, DrawerTranslations } from "@/ui/shared/types/translations";
+import { buildNavTranslations } from "@/ui/shared/types/translations";
+import { Link, usePathname } from "@/i18n/navigation";
+import { Drawer } from "../drawer/drawer";
 import { DesktopDropdown } from "@/ui/shared/components/dropdown-menu/dropdownMenu";
 import { Logo } from "../logo/logo";
-import { Separator } from "radix-ui";
 import { ThemeToggle } from "@/ui/shared/components/theme-toggle/theme-toggle";
 import { LocaleSwitcher } from "@/ui/shared/components/locale-switcher/locale-switcher";
-import { usePathname } from "next/navigation";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
-import { useTranslations } from "@/ui/shared/hooks/use-translations";
-import { useLocale } from "@/ui/shared/providers/locale-context/locale-context";
+import styles from "./navbar.module.css";
 
-export const NavigationMenuDemo = () => {
+type NavigationMenuDemoProps = {
+  /** When provided (from layout), nav copy is SSR'd */
+  navTranslations?: NavTranslations;
+  /** When provided (from layout), passed to Drawer for SSR'd copy */
+  drawerTranslations?: DrawerTranslations;
+};
+
+export const NavigationMenuDemo = ({
+  navTranslations: serverNavTranslations,
+  drawerTranslations,
+}: NavigationMenuDemoProps = {}) => {
   const path = usePathname();
-  const { t } = useTranslations();
-  const { localePath } = useLocale();
+  const t = useTranslations("nav");
+  const nav = serverNavTranslations ?? buildNavTranslations(t);
   const [isAtTop, setIsAtTop] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const spacerRef = useRef<HTMLDivElement>(null);
@@ -35,14 +46,17 @@ export const NavigationMenuDemo = () => {
         setIsAtTop(elementTop >= 0);
       }
     };
+    // Re-check after route/locale change (after layout and any scroll restoration)
+    const raf = requestAnimationFrame(() => handleScroll());
     window.addEventListener("load", handleScroll);
     window.addEventListener("scroll", handleScroll);
 
     return () => {
+      cancelAnimationFrame(raf);
       window.removeEventListener("load", handleScroll);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []); // Empty dependency array ensures the effect runs once on mount
+  }, [path]);
 
   const handleTriggerKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -96,39 +110,43 @@ export const NavigationMenuDemo = () => {
     };
   }, [dropdownOpen]);
 
+  // usePathname() returns path without locale (e.g. "/" for homepage in any locale)
+  const isHomepage = path === "/";
+  const useTransparentNav = isHomepage && isAtTop && !dropdownOpen;
+
   return (
     <>
       <div ref={spacerRef} className={styles.spacer}>
         <nav
           style={{
             height: "auto",
-            backdropFilter: !isAtTop || dropdownOpen ? "blur(8px)" : "none",
-            background:
-              isAtTop && !dropdownOpen ? "transparent" : "rgba(var(--main-color-rgb), 0.7)",
-            borderBottom:
-              dropdownOpen || !isAtTop
-                ? "solid 1px rgba(255, 255, 255, 0.2)"
-                : "solid 1px transparent",
-            boxShadow: dropdownOpen || !isAtTop ? "var(--shadow-black)" : "none",
+            backdropFilter: useTransparentNav ? "none" : "blur(8px)",
+            background: useTransparentNav
+              ? "transparent"
+              : "rgba(var(--main-color-rgb), 0.7)",
+            borderBottom: useTransparentNav
+              ? "solid 1px transparent"
+              : "solid 1px rgba(255, 255, 255, 0.2)",
+            boxShadow: useTransparentNav ? "none" : "var(--shadow-black)",
           }}
           id="navbarContainer"
-          aria-label={t("nav.mainNav")}
-          className={`${styles.container} ${path !== "/en" && styles.forceNavStyles} ${
-            !isAtTop && styles.containerScrolled
+          aria-label={nav.mainNav}
+          className={`${styles.container} ${!isHomepage && styles.forceNavStyles} ${
+            !useTransparentNav && styles.containerScrolled
           } ${dropdownOpen && styles.containerDropdownOpen}`}
         >
           <div className={styles.navbar}>
             <div className={styles.logoContainer}>
               <Link
-                aria-label={t("nav.goToHomepage")}
-                href={localePath("/")}
+                aria-label={nav.goToHomepage}
+                href="/"
                 className={styles.logoLinkFull}
               >
                 <KlabLogo color="orange" format="full" height={48} />
               </Link>
               <Link
-                aria-label={t("nav.goToHomepage")}
-                href={localePath("/")}
+                aria-label={nav.goToHomepage}
+                href="/"
                 className={styles.logoLinkCompact}
               >
                 <KlabLogo color="orange" format="default" height={48} />
@@ -137,7 +155,7 @@ export const NavigationMenuDemo = () => {
 
             <ul className={styles.navList}>
               <li className={styles.navListItem}>
-                <Link className={styles.navLink} href={localePath("/")}>
+                <Link className={styles.navLink} href="/">
                   <svg
                     className={styles.icon}
                     width="15"
@@ -153,7 +171,7 @@ export const NavigationMenuDemo = () => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  {t("nav.about")}
+                  {nav.about}
                 </Link>
               </li>
               <li className={styles.separatorRootListItem}>
@@ -173,7 +191,7 @@ export const NavigationMenuDemo = () => {
                   aria-expanded={dropdownOpen}
                   aria-haspopup="true"
                   aria-controls="technologies-dropdown"
-                  aria-label={t("nav.technologiesMenuLabel")}
+                  aria-label={nav.technologiesMenuLabel}
                 >
                   <svg
                     className={styles.icon}
@@ -190,7 +208,7 @@ export const NavigationMenuDemo = () => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  {t("nav.technologies")}{" "}
+                  {nav.technologies}{" "}
                   <svg
                     className={`${!dropdownOpen && styles.caretIconOpen} ${styles.caretIcon}`}
                     width="30"
@@ -212,7 +230,7 @@ export const NavigationMenuDemo = () => {
                 />
               </li>
               <li className={styles.navListItem}>
-                <Link className={styles.navLink} href={localePath("/company")}>
+                <Link className={styles.navLink} href="/company">
                   <svg
                     className={styles.icon}
                     width="15"
@@ -228,7 +246,7 @@ export const NavigationMenuDemo = () => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  {t("nav.company")}
+                  {nav.company}
                 </Link>
               </li>
               <li className={styles.separatorRootListItem}>
@@ -240,7 +258,7 @@ export const NavigationMenuDemo = () => {
               </li>
 
               <li className={styles.navListItem}>
-                <Link className={styles.navLink} href={localePath("/news")}>
+                <Link className={styles.navLink} href="/news">
                   <svg
                     className={styles.icon}
                     width="15"
@@ -256,7 +274,7 @@ export const NavigationMenuDemo = () => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  {t("nav.news")}
+                  {nav.news}
                 </Link>
               </li>
               <li className={styles.separatorRootListItem}>
@@ -268,7 +286,7 @@ export const NavigationMenuDemo = () => {
               </li>
 
               <li className={styles.navListItem}>
-                <Link className={styles.navLink} href={localePath("/contact")}>
+                <Link className={styles.navLink} href="/contact">
                   <svg
                     className={styles.icon}
                     width="15"
@@ -284,7 +302,7 @@ export const NavigationMenuDemo = () => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  {t("nav.contact")}
+                  {nav.contact}
                 </Link>
               </li>
               <li className={styles.separatorRootListItem}>
@@ -311,7 +329,7 @@ export const NavigationMenuDemo = () => {
             </ul>
 
             <div className={styles.drawerContainer}>
-              <Drawer></Drawer>
+              <Drawer drawerTranslations={drawerTranslations} navTranslations={serverNavTranslations} />
             </div>
           </div>
 

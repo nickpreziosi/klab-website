@@ -1,5 +1,3 @@
-"use client";
-
 import KenaCardsSection from "@/ui/kena/components/kena-cards-section/kena-cards-section";
 import Kena3dSection from "@/ui/kena/components/kena-3d-section/kena-3d-section";
 import KenaHeroSection from "@/ui/kena/components/kena-hero-section/kena-hero-section";

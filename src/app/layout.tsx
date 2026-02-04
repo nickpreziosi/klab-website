@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Sora } from "next/font/google";
-import { ConditionalShell } from "@/ui/shared/containers/conditional-shell/conditional-shell";
-import { LocaleProvider } from "@/ui/shared/providers/locale-context/locale-context";
 import { SmoothAnchorScroll } from "@/ui/shared/components/smooth-anchor-scroll/smooth-anchor-scroll";
+import { LandingAnimationProvider } from "@/ui/landing-page/providers/landing-animation-provider";
 import Head from "./head";
 
 const sora = Sora({
@@ -24,16 +23,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className={sora.className} lang="en">
+    <html className={sora.className} lang="en" suppressHydrationWarning>
       <head>
         <Head></Head>
       </head>
 
       <body>
-        <LocaleProvider>
-          <SmoothAnchorScroll />
-          <ConditionalShell>{children}</ConditionalShell>
-        </LocaleProvider>
+        <SmoothAnchorScroll />
+        <LandingAnimationProvider>{children}</LandingAnimationProvider>
       </body>
     </html>
   );

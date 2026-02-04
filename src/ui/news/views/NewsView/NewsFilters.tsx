@@ -1,7 +1,7 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { useLocale } from "@/ui/shared/providers/locale-context/locale-context";
+import { useRouter, usePathname } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
 import { MultipleSelector } from "@/ui/shared/components/multiple-selector/multiple-selector";
 import styles from "./NewsView.module.css";
 
@@ -12,8 +12,8 @@ interface NewsFiltersProps {
 
 export default function NewsFilters({ categories, selectedCategories }: NewsFiltersProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { localePath } = useLocale();
 
   const categoryItems = categories.map((cat) => ({
     value: cat,
@@ -26,7 +26,7 @@ export default function NewsFilters({ categories, selectedCategories }: NewsFilt
     params.delete("category");
     keys.forEach((cat) => params.append("category", cat));
     const newUrl = params.toString() ? `?${params.toString()}` : "";
-    router.push(newUrl ? `${localePath("/news")}${newUrl}` : localePath("/news"));
+    router.push(newUrl ? `${pathname}${newUrl}` : pathname);
   };
 
   return (

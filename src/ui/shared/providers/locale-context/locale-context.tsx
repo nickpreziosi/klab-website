@@ -17,6 +17,7 @@ import {
   LOCALE_COOKIE_NAME,
   type Locale,
 } from "@/ui/shared/utils/i18n";
+import { saveScrollBeforeLocaleSwitch } from "@/ui/shared/utils/scroll-preservation";
 
 type LocaleContextValue = {
   locale: Locale;
@@ -57,6 +58,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
       if (newLocale === locale) return;
       setLocaleCookie(newLocale);
       setLocaleState(newLocale);
+      saveScrollBeforeLocaleSwitch();
       const newPath = pathWithLocale(pathname, newLocale);
       router.push(newPath, { scroll: false });
     },

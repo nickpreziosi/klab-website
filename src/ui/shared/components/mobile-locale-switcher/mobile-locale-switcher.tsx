@@ -3,18 +3,25 @@
 import { useState } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
 import { motion } from "framer-motion";
-import { SUPPORTED_LOCALES, type Locale } from "@/ui/shared/utils/i18n";
-import { useLocale } from "@/ui/shared/providers/locale-context/locale-context";
+import { useLocale } from "next-intl";
+import { useRouter, usePathname } from "@/i18n/navigation";
+import { saveScrollBeforeLocaleSwitch } from "@/ui/shared/utils/scroll-preservation";
+import { routing } from "@/i18n/routing";
+import type { Locale } from "@/i18n/routing";
 import styles from "./mobile-locale-switcher.module.css";
+
+const LOCALES = routing.locales;
 
 const LOCALE_CODE: Record<Locale, string> = {
   en: "EN",
   es: "ES",
+  pt: "PT",
 };
 
 const LOCALE_FULL_NAME: Record<Locale, string> = {
   en: "English",
   es: "Español",
+  pt: "Português",
 };
 
 function getLocaleLabel(locale: Locale): string {
@@ -22,11 +29,15 @@ function getLocaleLabel(locale: Locale): string {
 }
 
 export function MobileLocaleSwitcher() {
-  const { locale: currentLocale, setLocale } = useLocale();
+  const currentLocale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
   const [open, setOpen] = useState<string | undefined>(undefined);
 
   const switchLocale = (locale: Locale) => {
-    setLocale(locale);
+    if (locale === currentLocale) return;
+    saveScrollBeforeLocaleSwitch();
+    router.push(pathname, { locale, scroll: false });
   };
 
   return (
@@ -44,9 +55,9 @@ export function MobileLocaleSwitcher() {
               <div className={styles.triggerContent}>
                 <span className={styles.triggerLabel}>Language</span>
                 <span className={styles.currentLocale}>
-                  <span className={styles.currentLocaleCode}>{LOCALE_CODE[currentLocale]}</span>
-                  <span className={styles.currentLocaleLabel}>
-                    {LOCALE_FULL_NAME[currentLocale]}
+<span className={styles.currentLocaleCode}>{LOCALE_CODE[currentLocale as Locale]}</span>
+                <span className={styles.currentLocaleLabel}>
+                  {LOCALE_FULL_NAME[currentLocale as Locale]}
                   </span>
                 </span>
               </div>
@@ -74,7 +85,7 @@ export function MobileLocaleSwitcher() {
             style={{ overflow: "hidden" }}
           >
             <div className={styles.localeOptions}>
-              {SUPPORTED_LOCALES.map((locale) => (
+              {LOCALES.map((locale) => (
                 <button
                   key={locale}
                   onClick={() => switchLocale(locale)}

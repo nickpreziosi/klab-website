@@ -1,5 +1,3 @@
-"use client";
-
 import Button from "@/ui/shared/components/button/button";
 import styles from "./LitepapersView.module.css";
 

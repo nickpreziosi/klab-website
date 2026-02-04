@@ -1,5 +1,3 @@
-"use client";
-
 import { SalesContactForm } from "@/ui/contact/components/sales/sales-contact-form/sales-contact-form";
 import styles from "./ContactSalesView.module.css";
 

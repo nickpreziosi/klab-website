@@ -10,7 +10,6 @@
 
 .techItem {
   position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,16 +23,10 @@
   color: var(--landing-fg);
   cursor: pointer;
   border: none;
-  overflow: hidden;
-  border-radius: 50%;
+  box-sizing: border-box;
 }
 
 .techContent {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 50%;
-  height: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -197,33 +190,23 @@
   aspect-ratio: 1 / 2;
 }
 
+/* Desktop: true semicircles via border-radius (left/right halves) */
 .wrapperDesktop .techCircle {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 200%;
-  aspect-ratio: 1;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
 }
 
+/* Left semicircle: curved arc on left, flat vertical edge on right. 
+   Element is tall (aspect 1/2): radius = width, arc spans full height. */
 .wrapperDesktop .techCircle.leftHalf {
-  left: 0;
-  right: auto;
+  border-radius: 100% 0 0 100% / 50% 0 0 50%;
 }
 
+/* Right semicircle: curved arc on right, flat vertical edge on left */
 .wrapperDesktop .techCircle.rightHalf {
-  right: 0;
-  left: auto;
-}
-
-.wrapperDesktop .techCircle.leftHalf .techContent {
-  left: 25%;
-  transform: translate(-50%, -50%);
-}
-
-.wrapperDesktop .techCircle.rightHalf .techContent {
-  left: 75%;
-  transform: translate(-50%, -50%);
+  border-radius: 0 100% 100% 0 / 0 50% 50% 0;
 }
 
 .wrapperDesktop .description {
@@ -305,86 +288,36 @@
   order: 3;
 }
 
-/* Semicircle slots: full width of column, 2:1 aspect (width = diameter, height = radius), overflow clips to half circle */
+/* Mobile: true semicircles via border-radius (top/bottom halves) */
 .wrapperMobile .rowMobileTop .techItem,
 .wrapperMobile .rowMobileBottom .techItem {
   width: 100%;
   aspect-ratio: 2 / 1;
   flex-shrink: 0;
-  overflow: hidden;
 }
 
-/* Top semicircles: circle diameter = slot width, positioned so only top half is visible */
+.wrapperMobile .techCircle {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Top semicircles: curved on top, flat on bottom */
 .wrapperMobile .rowMobileTop .techCircle.leftHalf {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
 }
 
-.wrapperMobile .rowMobileTop .techCircle.leftHalf .techContent {
-  left: 50%;
-  top: 25%;
-  transform: translate(-50%, -50%);
-}
-
-/* Bottom semicircles: circle diameter = slot width, positioned so only bottom half is visible */
+/* Bottom semicircles: curved on bottom, flat on top */
 .wrapperMobile .rowMobileBottom .techCircle.rightHalf {
-  position: absolute;
-  bottom: 0;
-  top: auto;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
 }
 
-.wrapperMobile .rowMobileBottom .techCircle.rightHalf .techContent {
-  left: 50%;
-  top: 75%;
-  transform: translate(-50%, -50%);
-}
-
-.wrapperMobile .rowMobileTop .description {
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 6px;
-  bottom: auto;
-  width: 100%;
-  max-width: 400px;
+/* Popover styling for mobile - matches k-lab-components popover UI */
+.popoverMobile {
+  width: min(400px, calc(100vw - 2rem)) !important;
+  max-width: min(400px, calc(100vw - 2rem)) !important;
+  margin-left: 8px !important;
+  margin-right: 8px !important;
   box-sizing: border-box;
-  background: rgb(255, 255, 255);
-  color: #1a1a1a;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.wrapperMobile .rowMobileBottom .description {
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-bottom: 6px;
-  width: 100%;
-  max-width: 400px;
-  box-sizing: border-box;
-  background: rgb(255, 255, 255);
-  color: #1a1a1a;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.techTooltipMobile {
-  max-width: 400px;
-  width: 100%;
-  white-space: normal;
-  line-height: 1.5;
-  background: rgb(255, 255, 255) !important;
-  color: #1a1a1a !important;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }

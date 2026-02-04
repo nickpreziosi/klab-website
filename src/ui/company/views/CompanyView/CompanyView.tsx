@@ -1,7 +1,6 @@
-"use client";
-
-import styles from "./CompanyView.module.css";
+import type { CompanyHeroTranslations } from "@/ui/company/types";
 import { CompanyHero } from "@/ui/company/components/company-hero/company-hero";
+import styles from "./CompanyView.module.css";
 import TimelineCarousel from "@/ui/company/components/timeline-carousel/timeline-carousel";
 import CompanyCulture from "@/ui/company/components/company-culture/company-culture";
 import KlabFoundationSection from "@/ui/company/components/klab-foundation-section/klab-foundation-section";
@@ -165,10 +164,15 @@ const otherEmployees = [
   },
 ];
 
-export function CompanyView() {
+type CompanyViewProps = {
+  /** When provided (from server), company hero copy is SSR'd */
+  companyHeroTranslations?: CompanyHeroTranslations;
+};
+
+export function CompanyView({ companyHeroTranslations }: CompanyViewProps = {}) {
   return (
     <div className={styles.page}>
-      <CompanyHero />
+      <CompanyHero translations={companyHeroTranslations} />
       <main className={styles.main}>
         <TimelineCarousel />
         <CompanyManifesto />

@@ -4,6 +4,8 @@
   /* Remove any native combobox dropdown arrow */
   appearance: none;
   -webkit-appearance: none;
+  /* Keep code (e.g. PT) from wrapping in navbar */
+  white-space: nowrap;
 }
 
 /* Hide any Radix/default icon (e.g. chevron) on the trigger */
@@ -105,9 +107,16 @@
   font-weight: 600;
 }
 
+/* Dropdown wide enough for "PT Português" etc. on one line */
+.selectContentLocale {
+  min-width: max-content;
+}
+
 .selectItemText {
   display: flex;
   align-items: center;
   gap: 6px;
   width: 100%;
+  /* Keep code + full language name (e.g. PT Português) on one line */
+  white-space: nowrap;
 }
