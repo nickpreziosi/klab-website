@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { ClientOnly } from "@/ui/shared/components/client-only/client-only";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 import {
   Popover,
@@ -309,79 +310,87 @@ export function LandingTechnologiesShowcase({
   // Landing tech circles always use light background (--landing-semi-bg), so always use dark logos
   const logoSrc = (tech: (typeof TECHNOLOGIES)[0]) => tech.logoDark;
 
-  if (isDesktop) {
-    return (
-      <TooltipProvider delayDuration={200}>
-        <div className={`${styles.wrapperDesktop} ${className ?? ""}`.trim()}>
-          <div className={styles.gridDesktop}>
-            {leftTechs.map((tech, index) => (
-              <TechSlot
-                key={`left-${tech.title}-${index}`}
-                tech={tech}
-                logoSrc={logoSrc(tech)}
-                description={getDescription(tech)}
-                side="left"
-                isExpanded={expandedIndex?.side === "left" && expandedIndex?.index === index}
-                onToggle={() => setLeft(index)}
-                SVGLogo={SVGLogo}
-                variant="desktop"
-              />
-            ))}
-            <CenterCircle variant={variant} />
-            {rightTechs.map((tech, index) => (
-              <TechSlot
-                key={`right-${tech.title}-${index}`}
-                tech={tech}
-                logoSrc={logoSrc(tech)}
-                description={getDescription(tech)}
-                side="right"
-                isExpanded={expandedIndex?.side === "right" && expandedIndex?.index === index}
-                onToggle={() => setRight(index)}
-                SVGLogo={SVGLogo}
-                variant="desktop"
-              />
-            ))}
-          </div>
-        </div>
-      </TooltipProvider>
-    );
-  }
+  const placeholder = (
+    <div
+      className={`${styles.wrapperMobile} ${className ?? ""}`.trim()}
+      style={{ minHeight: 380 }}
+      aria-hidden
+    />
+  );
 
   return (
-    <div className={`${styles.wrapperMobile} ${className ?? ""}`.trim()}>
-      <div className={styles.columnMobile}>
-        <div className={styles.rowMobileTop}>
-          {leftTechs.map((tech, index) => (
-            <TechSlot
-              key={`left-${tech.title}-${index}`}
-              tech={tech}
-              logoSrc={logoSrc(tech)}
-              description={getDescription(tech)}
-              side="left"
-              isExpanded={expandedIndex?.side === "left" && expandedIndex?.index === index}
-              onToggle={() => setLeft(index)}
-              SVGLogo={SVGLogo}
-              variant="mobile"
-            />
-          ))}
+    <ClientOnly placeholder={placeholder}>
+      {isDesktop ? (
+        <TooltipProvider delayDuration={200}>
+          <div className={`${styles.wrapperDesktop} ${className ?? ""}`.trim()}>
+            <div className={styles.gridDesktop}>
+              {leftTechs.map((tech, index) => (
+                <TechSlot
+                  key={`left-${tech.title}-${index}`}
+                  tech={tech}
+                  logoSrc={logoSrc(tech)}
+                  description={getDescription(tech)}
+                  side="left"
+                  isExpanded={expandedIndex?.side === "left" && expandedIndex?.index === index}
+                  onToggle={() => setLeft(index)}
+                  SVGLogo={SVGLogo}
+                  variant="desktop"
+                />
+              ))}
+              <CenterCircle variant={variant} />
+              {rightTechs.map((tech, index) => (
+                <TechSlot
+                  key={`right-${tech.title}-${index}`}
+                  tech={tech}
+                  logoSrc={logoSrc(tech)}
+                  description={getDescription(tech)}
+                  side="right"
+                  isExpanded={expandedIndex?.side === "right" && expandedIndex?.index === index}
+                  onToggle={() => setRight(index)}
+                  SVGLogo={SVGLogo}
+                  variant="desktop"
+                />
+              ))}
+            </div>
+          </div>
+        </TooltipProvider>
+      ) : (
+        <div className={`${styles.wrapperMobile} ${className ?? ""}`.trim()}>
+          <div className={styles.columnMobile}>
+            <div className={styles.rowMobileTop}>
+              {leftTechs.map((tech, index) => (
+                <TechSlot
+                  key={`left-${tech.title}-${index}`}
+                  tech={tech}
+                  logoSrc={logoSrc(tech)}
+                  description={getDescription(tech)}
+                  side="left"
+                  isExpanded={expandedIndex?.side === "left" && expandedIndex?.index === index}
+                  onToggle={() => setLeft(index)}
+                  SVGLogo={SVGLogo}
+                  variant="mobile"
+                />
+              ))}
+            </div>
+            <CenterCircle variant={variant} />
+            <div className={styles.rowMobileBottom}>
+              {rightTechs.map((tech, index) => (
+                <TechSlot
+                  key={`right-${tech.title}-${index}`}
+                  tech={tech}
+                  logoSrc={logoSrc(tech)}
+                  description={getDescription(tech)}
+                  side="right"
+                  isExpanded={expandedIndex?.side === "right" && expandedIndex?.index === index}
+                  onToggle={() => setRight(index)}
+                  SVGLogo={SVGLogo}
+                  variant="mobile"
+                />
+              ))}
+            </div>
+          </div>
         </div>
-        <CenterCircle variant={variant} />
-        <div className={styles.rowMobileBottom}>
-          {rightTechs.map((tech, index) => (
-            <TechSlot
-              key={`right-${tech.title}-${index}`}
-              tech={tech}
-              logoSrc={logoSrc(tech)}
-              description={getDescription(tech)}
-              side="right"
-              isExpanded={expandedIndex?.side === "right" && expandedIndex?.index === index}
-              onToggle={() => setRight(index)}
-              SVGLogo={SVGLogo}
-              variant="mobile"
-            />
-          ))}
-        </div>
-      </div>
-    </div>
+      )}
+    </ClientOnly>
   );
 }
