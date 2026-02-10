@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getLocale, getTranslations, setRequestLocale } from "next-intl/server";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
+import { cookies } from "next/headers";
 import { routing } from "@/i18n/routing";
 import { ScrollToTopOnRouteChange } from "@/ui/shared/components/scroll-to-top-on-route-change/scroll-to-top-on-route-change";
 import { ConditionalShell } from "@/ui/shared/containers/conditional-shell/conditional-shell";
@@ -25,6 +26,11 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   setRequestLocale(locale);
 
+  const cookieStore = await cookies();
+  const cookieTheme = cookieStore?.get?.("theme")?.value ?? null;
+  const initialTheme =
+    cookieTheme === "light" || cookieTheme === "dark" ? (cookieTheme as "light" | "dark") : undefined;
+
   const [messages, currentLocale, tNav, tDrawer] = await Promise.all([
     getMessages(),
     getLocale(),
@@ -41,6 +47,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <ConditionalShell
         navTranslations={navTranslations}
         drawerTranslations={drawerTranslations}
+        initialTheme={initialTheme}
       >
         {children}
       </ConditionalShell>

@@ -3,7 +3,7 @@
 import { cn } from "@/ui/shared/utils/utils";
 import { getEffectiveTheme } from "@/ui/shared/hooks/use-theme";
 import styles from "./klab-logo.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 /** Color variant of the K-Lab logo */
 export type KlabLogoColor = "light" | "orange";
@@ -47,6 +47,8 @@ export interface KlabLogoProps {
   variant?: KlabLogoVariant;
   /** When format is "full": "auto" = follow theme (default); "light" = gradient text; "dark" = all-orange */
   fullLogoTheme?: FullLogoTheme;
+  /** Server-resolved theme for correct logo on first paint (e.g. from cookie). Omit for system preference. */
+  initialTheme?: "light" | "dark";
   size?: "sm" | "md" | "lg" | "xl";
   width?: number | string;
   height?: number | string;
@@ -71,6 +73,7 @@ export function KlabLogo({
   format = "default",
   variant,
   fullLogoTheme = "auto",
+  initialTheme,
   size = "md",
   width,
   height,
@@ -85,9 +88,13 @@ export function KlabLogo({
   const [effectiveTheme, setEffectiveTheme] = useState<"light" | "dark" | null>(() =>
     typeof document !== "undefined" ? getEffectiveTheme() : null
   );
-  useEffect(() => {
+  // Sync with head script / actual theme on mount for correct logo after hydration
+  useLayoutEffect(() => {
     if (!useThemeSwitch) return;
     setEffectiveTheme(getEffectiveTheme());
+  }, [useThemeSwitch]);
+  useEffect(() => {
+    if (!useThemeSwitch) return;
     const onThemeChange = () => setEffectiveTheme(getEffectiveTheme());
     window.addEventListener("themechange", onThemeChange);
     window.addEventListener("storage", onThemeChange);
@@ -98,8 +105,10 @@ export function KlabLogo({
   }, [useThemeSwitch]);
 
   const baseSrc = LOGO_PATHS[resolvedVariant];
+  // Use effectiveTheme when known; otherwise initialTheme (from cookie); otherwise default to dark (orange logo) so system dark mode paints correctly
+  const resolvedTheme = effectiveTheme ?? initialTheme ?? "dark";
   const src =
-    useThemeSwitch && effectiveTheme === "light"
+    useThemeSwitch && resolvedTheme === "light"
       ? LOGO_FULL_LIGHT_PATH
       : isOrangeFull && fullLogoTheme === "light"
         ? LOGO_FULL_LIGHT_PATH

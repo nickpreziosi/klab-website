@@ -80,9 +80,9 @@ export function MobileThemeToggle() {
 
     const applyTheme = (t: string) => {
       if (t === "system") {
-        // apply immediately based on current system preference
+        // apply immediately based on current system preference (use same colors as explicit dark/light)
         if (darkModeMediaQuery.matches) {
-          document.documentElement.style.setProperty("--main-color-rgb", "20, 20, 20");
+          document.documentElement.style.setProperty("--main-color-rgb", "23, 25, 32");
           document.documentElement.style.setProperty("--secondary-color-rgb", "255, 255, 255");
           document.documentElement.style.setProperty(
             "--theme-gradient",

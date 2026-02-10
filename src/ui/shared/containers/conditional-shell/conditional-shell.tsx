@@ -12,12 +12,15 @@ type ConditionalShellProps = {
   navTranslations?: NavTranslations;
   /** When provided (from layout), drawer copy is SSR'd */
   drawerTranslations?: DrawerTranslations;
+  /** Server-resolved theme from cookie for correct logo first paint */
+  initialTheme?: "light" | "dark";
 };
 
 export function ConditionalShell({
   children,
   navTranslations,
   drawerTranslations,
+  initialTheme,
 }: ConditionalShellProps) {
   const pathname = usePathname();
   // Paths are locale-prefixed (e.g. /en/landing-page, /es/landing-page/wave)
@@ -32,6 +35,7 @@ export function ConditionalShell({
       <NavigationMenuDemo
         navTranslations={navTranslations}
         drawerTranslations={drawerTranslations}
+        initialTheme={initialTheme}
       />
       <SocialSidebar />
       {children}

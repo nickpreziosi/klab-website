@@ -20,11 +20,14 @@ type NavigationMenuDemoProps = {
   navTranslations?: NavTranslations;
   /** When provided (from layout), passed to Drawer for SSR'd copy */
   drawerTranslations?: DrawerTranslations;
+  /** Server-resolved theme from cookie for correct logo first paint */
+  initialTheme?: "light" | "dark";
 };
 
 export const NavigationMenuDemo = ({
   navTranslations: serverNavTranslations,
   drawerTranslations,
+  initialTheme,
 }: NavigationMenuDemoProps = {}) => {
   const path = usePathname();
   const t = useTranslations("nav");
@@ -142,7 +145,7 @@ export const NavigationMenuDemo = ({
                 href="/"
                 className={styles.logoLinkFull}
               >
-                <KlabLogo color="orange" format="full" height={48} />
+                <KlabLogo color="orange" format="full" height={48} initialTheme={initialTheme} />
               </Link>
               <Link
                 aria-label={nav.goToHomepage}
