@@ -17,7 +17,7 @@ export function HomeView({ heroTranslations }: HomeViewProps = {}) {
       <Suspense fallback={null}>
         <LoadingProgressBar />
       </Suspense>
-      <VideoBackground videoUrl="./keo-home-loop.mp4" posterUrl="/keo-home-poster.jpg" />
+      <VideoBackground videoUrl="/videos/keo-home-loop.mp4" posterUrl="/images/keo-home-poster.jpg" />
       <div className={styles.page}>
         <main className={styles.main}>
           <Hero translations={heroTranslations} />

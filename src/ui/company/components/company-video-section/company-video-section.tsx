@@ -150,7 +150,7 @@ const DialogDemo = ({ onPlay }: { onPlay?: () => void }) => {
         >
           {/* Native HTML video element */}
           <video
-            src="/keo-home-main.mp4"
+            src="/videos/keo-home-main.mp4"
             ref={videoRef}
             className={styles.videoEmbed}
             controls
@@ -235,7 +235,7 @@ export default function CompanyVideoSection({
                 </motion.div>
                 <Image
                   className={styles.thumbnailImage}
-                  src={videoThumbnail || "/keo-video.jpg"}
+                  src={videoThumbnail || "/images/keo-video.jpg"}
                   alt={videoTitle || "Video thumbnail"}
                   fill
                   style={{ objectFit: "contain" }}

@@ -110,7 +110,7 @@ export default function VideoPlayer({
         <Image
           fetchPriority="high"
           priority
-          src={posterUrl ?? "/kena-video.jpg"}
+          src={posterUrl ?? "/images/kena-video.jpg"}
           alt="KENA AI Visualization"
           fill
         />

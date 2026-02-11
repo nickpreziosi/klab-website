@@ -47,7 +47,7 @@ export const Hero = ({ translations: serverTranslations }: HeroProps = {}) => {
           />
         </div>
 
-        <VideoPlayer posterUrl="/keo-home-main2.jpg" videoUrl="/keo-home-main.mp4"></VideoPlayer>
+        <VideoPlayer posterUrl="/images/keo-home-main2.jpg" videoUrl="/videos/keo-home-main.mp4"></VideoPlayer>
       </div>
     </section>
   );

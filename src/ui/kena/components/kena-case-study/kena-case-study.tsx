@@ -112,7 +112,7 @@ export default function KenaCaseStudy() {
       id: "circle",
       name: "Circle",
       logo: <CircleLogo />,
-      image: "/keo-hero.jpg",
+      image: "/images/placeholder.svg",
       title: "See how Circle unlocked instant liquidity across 12 markets with KEO Rails",
       description:
         "Circle, a global financial technology firm, replaced slow T+2 settlements with KEO Rails' instant payment infrastructure. By integrating KEO's blockchain-based settlement engine, Circle reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
@@ -139,7 +139,7 @@ export default function KenaCaseStudy() {
       id: "Algorand",
       name: "Algorand",
       logo: <AlgorandLogo />,
-      image: "/keo-company-2.jpeg",
+      image: "/images/placeholder.svg",
       title: "See how Algorand unlocked instant liquidity across 12 markets with KEO Rails",
       description:
         "Algorand, a leading blockchain platform, replaced slow T+2 settlements with KEO Rails' instant payment infrastructure. By integrating KEO's blockchain-based settlement engine, Algorand reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
@@ -167,7 +167,7 @@ export default function KenaCaseStudy() {
       id: "Stablecorp",
       name: "Stablecorp",
       logo: <StablecorpLogo />,
-      image: "/keo-company-3.jpeg",
+      image: "/images/placeholder.svg",
       title: "See how Stablecorp unlocked instant liquidity across 12 markets with KEO Rails",
       description:
         "Stablecorp, a multinational technology company, replaced slow T+2 settlements with KEO Rails' instant payment infrastructure. By integrating KEO's blockchain-based settlement engine, Stablecorp reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
@@ -194,7 +194,7 @@ export default function KenaCaseStudy() {
       id: "google",
       name: "Google",
       logo: <CircleLogo />,
-      image: "/keo-company-hero.jpeg",
+      image: "/images/placeholder.svg",
       title: "See how Google unlocked instant liquidity across 12 markets with KEO Rails",
       description:
         "Google, a multinational technology company, replaced slow T+2 settlements with KEO Rails' instant payment infrastructure. By integrating KEO's blockchain-based settlement engine, Google reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",

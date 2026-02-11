@@ -159,7 +159,7 @@ function SVGLogo({ src, className }: { src: string; className?: string }) {
 type LandingVariant = "orange" | "wave";
 
 function CenterCircle({ variant }: { variant: LandingVariant }) {
-  const centerBgSrc = variant === "wave" ? "/landing-bg-orange.png" : "/bg-wave.jpeg";
+  const centerBgSrc = variant === "wave" ? "/images/landing-bg-orange.png" : "/images/bg-wave.jpeg";
   return (
     <div className={styles.centerItem}>
       <div className={styles.centerCircle}>

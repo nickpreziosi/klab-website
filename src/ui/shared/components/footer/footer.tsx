@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import styles from "./footer.module.css";
-import { Logo } from "../logo/logo";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -75,20 +74,18 @@ export const Footer = () => {
   };
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/technologies/k-rails", label: "KRails" },
-    { href: "/technologies/kena", label: "Kena" },
+    { href: "/", label: "About" },
     { href: "/company", label: "Company" },
+    { href: "/news", label: "News" },
     { href: "/contact", label: "Contact" },
-    { href: "/careers", label: "Careers" },
   ];
 
   const privacyLinks = [
-    { href: "/keo-privacy-policy-usa.pdf", label: "USA" },
-    { href: "/keo-privacy-policy-canada.pdf", label: "Canada" },
-    { href: "/keo-aviso-de-privacidad-colombia.pdf", label: "Colombia" },
-    { href: "/keo-aviso-de-privacidad-méxico.pdf", label: "Mexico" },
-    { href: "/keo-privacy-policy-brazil.pdf", label: "Brazil" },
+    { href: "/assets/keo-privacy-policy-usa.pdf", label: "USA" },
+    { href: "/assets/keo-privacy-policy-canada.pdf", label: "Canada" },
+    { href: "/assets/keo-aviso-de-privacidad-colombia.pdf", label: "Colombia" },
+    { href: "/assets/keo-aviso-de-privacidad-méxico.pdf", label: "Mexico" },
+    { href: "/assets/keo-privacy-policy-brazil.pdf", label: "Brazil" },
   ];
 
   // Subset used in the footer privacy policies section

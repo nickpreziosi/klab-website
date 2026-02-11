@@ -286,7 +286,7 @@ export function TechnologiesShowcase({
             <div className={styles.centerCircle}>
               <div className={styles.centerBackground}>
                 <Image
-                  src="/bg-wave.jpeg"
+                  src="/images/bg-wave.jpeg"
                   alt=""
                   fill
                   sizes="(max-width: 1440px) 120px, 160px"

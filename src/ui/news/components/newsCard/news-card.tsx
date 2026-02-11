@@ -140,7 +140,7 @@ export default function NewsCard({ article, index }: NewsCardProps) {
               <Image
                 width={500}
                 height={500}
-                src={article.image || "/placeholder.svg"}
+                src={article.image || "/images/placeholder.svg"}
                 alt={article.title}
                 className={styles.image}
               />

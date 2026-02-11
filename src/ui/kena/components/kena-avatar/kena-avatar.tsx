@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, useTexture, Decal, useGLTF } from "@react-three/drei";
+import { OrbitControls, Environment, useGLTF } from "@react-three/drei";
 import { useRef } from "react";
 import * as THREE from "three";
 import styles from "./kena-avatar.module.css";
@@ -33,33 +33,6 @@ function HolographicAvatar() {
     <group ref={groupRef}>
       <primitive object={scene} scale={2} position={[0, 0, 0]} />
     </group>
-  );
-}
-
-function KeoSphere() {
-  const meshRef = useRef<THREE.Mesh>(null);
-
-  const logoTexture = useTexture("/keo-logo.png");
-
-  return (
-    <mesh ref={meshRef}>
-      <sphereGeometry args={[1.5, 64, 64]} />
-      <meshStandardMaterial
-        color={"#2B4A6F"}
-        metalness={0.8}
-        roughness={0.2}
-        emissive={"#2B4A6F"}
-        emissiveIntensity={0.1}
-      />
-
-      <Decal
-        position={[0, 0, 1.5]}
-        rotation={[0, 0, 0]}
-        scale={1.2}
-        map={logoTexture}
-        polygonOffsetFactor={-1}
-      />
-    </mesh>
   );
 }
 

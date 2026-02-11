@@ -1,15 +1,11 @@
 import Link from "next/link";
 import styles from "./company-video.module.css";
-import Lightbulb from "@/ui/shared/components/lightbulb/lightbulb";
 
 export const CompanyVideo = () => {
   return (
     <div className={styles.content}>
       <section className={styles.section}>
         <div className={styles.text}>
-          <div className={styles.lightbulb}>
-            <Lightbulb></Lightbulb>
-          </div>
           <div className={styles.textContainer}>
             <p className={styles.textParagraph}>Discover the vision.</p>
             <h2 className={styles.textHeader}>Hear from KEO&apos;s founder:</h2>

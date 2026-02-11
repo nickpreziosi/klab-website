@@ -202,6 +202,12 @@
   flex-grow: 1;
 }
 
+/* Slightly stronger text shadow for accent buttons in cards (small text needs more contrast) */
+.linkCard > a,
+.linkCard > button {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
 .nav {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

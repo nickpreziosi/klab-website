@@ -22,7 +22,7 @@ export function KeoRailsView() {
       />
       <KeoRailsDashboardPanels />
       <div className={styles.videoSection} id="video">
-        <VideoPlayer posterUrl="/keo-rails1.jpg" videoUrl="/keo-rails.mp4" />
+        <VideoPlayer posterUrl="/images/keo-rails1.jpg" videoUrl="/videos/keo-rails.mp4" />
       </div>
       <KeoRailsCodeSection />
       <KeoRailsGridSection />

@@ -7,7 +7,7 @@ import Button from "@/ui/shared/components/button/button";
 import KeoRailsAnimationOne from "../keo-rails-animation-one/keo-rails-animation-one";
 import KeoRailsAnimationTwo from "../keo-rails-animation-two/keo-rails-animation-two";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
-import animationData from "../../../../../public/lottie/keo-rails.json";
+import animationData from "../../../../../public/animations/keo-rails.json";
 
 export default function KeoRailsGridSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -212,16 +212,16 @@ export default function KeoRailsGridSection() {
             >
               <video hidden ref={videoRef} autoPlay loop muted playsInline className={styles.video}>
                 {isSafari ? (
-                  <source src="/keo-rails.mov" type="video/quicktime" />
+                  <source src="/videos/keo-rails.mov" type="video/quicktime" />
                 ) : (
-                  <source src="/keo-rails.webm" type="video/webm" />
+                  <source src="/videos/keo-rails.webm" type="video/webm" />
                 )}
               </video>
               <Lottie
                 lottieRef={lottieRef}
                 animationData={animationData}
                 loop={true}
-                assetsPath="/lottie/images/"
+                assetsPath="/animations/images/"
               />
             </div>
 

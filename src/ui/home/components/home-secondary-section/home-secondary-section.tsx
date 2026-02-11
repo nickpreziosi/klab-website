@@ -403,16 +403,16 @@ export default function HomeSecondarySection({
       description:
         "Our modular infrastructure platform enables rapid development and deployment of financial products at scale.",
       link: "/technologies/k-rails",
-      image: "/keo-rails1.jpg",
-      video: "/keo-rails.mp4",
+      image: "/images/keo-rails1.jpg",
+      video: "/videos/keo-rails.mp4",
     },
     {
       title: "Kena",
       description:
         "Kena, our proprietary risk AI, replicates the reasoning of financial underwriters and continuously self-trains with global data.",
       link: "/technologies/kena-ai",
-      image: "/kena.jpg",
-      video: "/kena.mp4",
+      image: "/images/kena.jpg",
+      video: "/videos/kena.mp4",
     },
   ],
   animateOnce = true,

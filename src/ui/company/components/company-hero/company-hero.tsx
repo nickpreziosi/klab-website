@@ -67,7 +67,7 @@ export const CompanyHero = ({ translations: serverTranslations }: CompanyHeroPro
           width={1200}
           height={1405}
           alt="KEO Employee Image"
-          src="/landing-bg-orange-2.png"
+          src="/images/landing-bg-orange-2.png"
         />
         <div className={styles.heroText}>
           <div className={styles.heroHeaderContainer}>

@@ -11,6 +11,7 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
+import { EMAIL_LOGO_URL } from "../email-config";
 
 /**
  * Server-side validation schema for sales form submission.
@@ -241,7 +242,7 @@ export async function POST(request: Request) {
           <!-- Header with Logo -->
           <tr>
             <td style="background: linear-gradient(135deg, #00172d 0%, #0a0a0a 100%); padding: 40px 30px; text-align: center;">
-              <img src="https://keo-website-pearl.vercel.app/keo-logo.png" alt="KEO Logo" style="max-width: 180px; height: auto; display: block; margin: 0 auto;">
+              <img src="${EMAIL_LOGO_URL}" alt="KEO Logo" style="max-width: 180px; height: auto; display: block; margin: 0 auto;">
             </td>
           </tr>
 

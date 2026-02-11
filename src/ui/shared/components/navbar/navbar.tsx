@@ -9,7 +9,6 @@ import { buildNavTranslations } from "@/ui/shared/types/translations";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Drawer } from "../drawer/drawer";
 import { DesktopDropdown } from "@/ui/shared/components/dropdown-menu/dropdownMenu";
-import { Logo } from "../logo/logo";
 import { ThemeToggle } from "@/ui/shared/components/theme-toggle/theme-toggle";
 import { LocaleSwitcher } from "@/ui/shared/components/locale-switcher/locale-switcher";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
