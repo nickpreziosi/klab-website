@@ -5,10 +5,14 @@ import { useEffect, useState, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import styles from "./loading-progress-bar.module.css";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
+import { useHomeAnimation } from "@/ui/home/providers/home-animation-provider";
 
 export function LoadingProgressBar() {
+  const homeAnimation = useHomeAnimation();
+  const skipAnimation = homeAnimation?.hasAnimated ?? false;
+
   const [targetProgress, setTargetProgress] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!skipAnimation);
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const isCompleteRef = useRef(false);
@@ -34,6 +38,8 @@ export function LoadingProgressBar() {
   }, [targetProgress, progressMotion]);
 
   useEffect(() => {
+    if (skipAnimation) return;
+
     setIsLoading(true);
     setTargetProgress(0);
     progressMotion.set(0);
@@ -61,7 +67,10 @@ export function LoadingProgressBar() {
         newProgress = 100;
         isCompleteRef.current = true;
         setTargetProgress(100);
-        setTimeout(() => setIsLoading(false), 600);
+        setTimeout(() => {
+          setIsLoading(false);
+          homeAnimation?.setHasAnimated();
+        }, 600);
         return;
       }
 
@@ -83,7 +92,10 @@ export function LoadingProgressBar() {
           newProgress = 100;
           isCompleteRef.current = true;
           setTargetProgress(100);
-          setTimeout(() => setIsLoading(false), 600);
+          setTimeout(() => {
+            setIsLoading(false);
+            homeAnimation?.setHasAnimated();
+          }, 600);
           return;
         }
       }
@@ -108,7 +120,10 @@ export function LoadingProgressBar() {
       if (!isCompleteRef.current) {
         isCompleteRef.current = true;
         setTargetProgress(100);
-        setTimeout(() => setIsLoading(false), 600);
+        setTimeout(() => {
+          setIsLoading(false);
+          homeAnimation?.setHasAnimated();
+        }, 600);
       }
     };
 
@@ -122,7 +137,10 @@ export function LoadingProgressBar() {
       if (!isCompleteRef.current) {
         isCompleteRef.current = true;
         setTargetProgress(100);
-        setTimeout(() => setIsLoading(false), 600);
+        setTimeout(() => {
+          setIsLoading(false);
+          homeAnimation?.setHasAnimated();
+        }, 600);
       }
     }, 5000);
 
@@ -131,7 +149,7 @@ export function LoadingProgressBar() {
       window.removeEventListener("load", handleLoad);
       clearTimeout(safetyTimeout);
     };
-  }, [pathname, searchParams, progressMotion]);
+  }, [pathname, searchParams, progressMotion, skipAnimation, homeAnimation]);
 
   return (
     <AnimatePresence>

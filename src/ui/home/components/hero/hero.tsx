@@ -12,9 +12,14 @@ import "./hero.module.css";
 type HeroProps = {
   /** When provided (from server), copy is SSR'd; otherwise use client useTranslations */
   translations?: HeroTranslations;
+  /** When true, skip entrance animations (e.g. locale switch). */
+  skipAnimation?: boolean;
 };
 
-export const Hero = ({ translations: serverTranslations }: HeroProps = {}) => {
+export const Hero = ({
+  translations: serverTranslations,
+  skipAnimation = false,
+}: HeroProps = {}) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const t = useTranslations("hero");
   const translations = serverTranslations ?? buildHeroTranslations(t);
@@ -44,10 +49,15 @@ export const Hero = ({ translations: serverTranslations }: HeroProps = {}) => {
             subtitle={translations.subtitle}
             buttonText={translations.contactSales}
             buttonHref="/contact/sales"
+            skipAnimation={skipAnimation}
           />
         </div>
 
-        <VideoPlayer posterUrl="/images/keo-home-main2.jpg" videoUrl="/videos/keo-home-main.mp4"></VideoPlayer>
+        <VideoPlayer
+          posterUrl="/images/klab-home-main-poster.jpg"
+          videoUrl="/videos/klab-home-main.mp4"
+          skipAnimation={skipAnimation}
+        />
       </div>
     </section>
   );

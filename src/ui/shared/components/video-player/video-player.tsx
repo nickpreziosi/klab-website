@@ -8,12 +8,15 @@ import Image from "next/image";
 interface VideoPlayerProps {
   videoUrl: string;
   posterUrl: string;
+  /** When true, skip entrance animations (e.g. locale switch). */
+  skipAnimation?: boolean;
 }
 
-export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
-  const [shouldAnimate, setShouldAnimate] = useState(false);
+export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false }: VideoPlayerProps) {
+  const [shouldAnimate, setShouldAnimate] = useState(skipAnimation);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const effectiveShouldAnimate = skipAnimation || shouldAnimate;
   const [isClicked, setIsClicked] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -29,10 +32,11 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
   };
 
   useEffect(() => {
+    if (skipAnimation) return;
     if (isInView) {
       setShouldAnimate(true);
     }
-  }, [isInView]);
+  }, [isInView, skipAnimation]);
 
   return (
     <motion.div
@@ -57,18 +61,18 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
           },
         },
       }}
-      initial="hidden"
-      animate={shouldAnimate ? "visible" : "hidden"}
+      initial={skipAnimation ? "visible" : "hidden"}
+      animate={effectiveShouldAnimate ? "visible" : "hidden"}
     >
       <div className={styles.videoWrapper}>
         <AnimatePresence>
           {/* Poster: show until iframe is mounted (external) OR until local video signals ready */}
           {(!isClicked || (isLocalVideo ? !videoReady : !isClicked)) && (
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={{ opacity: skipAnimation ? 1 : 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: skipAnimation ? 0 : 0.5 }}
               key="poster"
               className={styles.posterContainer}
             >
@@ -108,10 +112,10 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
           {!isLocalVideo && isClicked && (
             <motion.iframe
               key="iframe"
-              initial={{ opacity: 0 }}
+              initial={{ opacity: skipAnimation ? 1 : 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: skipAnimation ? 0 : 0.5 }}
               className={styles.videoEmbed}
               src={videoUrl}
               title="Video player"
@@ -128,10 +132,10 @@ export default function VideoPlayer({ videoUrl, posterUrl }: VideoPlayerProps) {
               key="video"
               ref={videoRef}
               className={styles.videoEmbed}
-              initial={{ opacity: 0 }}
+              initial={{ opacity: skipAnimation ? 1 : 0 }}
               animate={{ opacity: videoReady ? 1 : 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: skipAnimation ? 0 : 0.5 }}
               src={videoUrl}
               playsInline
               controls

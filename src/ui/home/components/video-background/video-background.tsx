@@ -9,26 +9,29 @@ interface VideoPlayerProps {
   videoUrl?: string;
   posterUrl?: string;
   fadeDurationMs?: number;
+  /** When true, skip entrance animations (e.g. locale switch). */
+  skipAnimation?: boolean;
 }
 
 export default function VideoPlayer({
   videoUrl,
   posterUrl,
   fadeDurationMs = 300,
+  skipAnimation = false,
 }: VideoPlayerProps) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const containerRef = useRef<HTMLElement | null>(null);
+  const [visible, setVisible] = useState(skipAnimation);
   const [mediaVisible, setMediaVisible] = useState(false);
+  const containerRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   // useInView to defer loading until the component is near/inside viewport
   const isInView = useInView(containerRef, { margin: "200px" });
 
   useEffect(() => {
-    // trigger entrance animation on mount
+    if (skipAnimation) return;
     requestAnimationFrame(() => setVisible(true));
-  }, []);
+  }, [skipAnimation]);
 
   useEffect(() => {
     if (!isInView) return;
@@ -45,9 +48,9 @@ export default function VideoPlayer({
     vid.playsInline = true;
     vid.preload = "metadata";
 
-    // prepare style for fade-in
-    vid.style.opacity = "0";
-    vid.style.transition = `opacity ${fadeDurationMs}ms ease`;
+    // prepare style for fade-in (skip transition when skipAnimation)
+    vid.style.opacity = skipAnimation ? "1" : "0";
+    vid.style.transition = `opacity ${skipAnimation ? 0 : fadeDurationMs}ms ease`;
     vid.style.willChange = "opacity";
 
     // attach source and load
@@ -81,7 +84,7 @@ export default function VideoPlayer({
         delete vid.dataset.initialized;
       } catch {}
     };
-  }, [isInView, videoUrl, fadeDurationMs]);
+  }, [isInView, videoUrl, fadeDurationMs, skipAnimation]);
 
   return (
     <div className={styles.backgroundVideo}>
@@ -91,9 +94,9 @@ export default function VideoPlayer({
           videoRef.current = el as HTMLVideoElement | null;
         }}
         className={styles.videoEmbedObjectFitCover}
-        initial={{ opacity: 0 }}
+        initial={{ opacity: skipAnimation ? 1 : 0 }}
         animate={{ opacity: mediaVisible ? 1 : 0 }}
-        transition={{ duration: 0.75, ease: "easeInOut" }}
+        transition={{ duration: skipAnimation ? 0 : 0.75, ease: "easeInOut" }}
         aria-hidden={!mediaVisible}
         playsInline
         muted
@@ -103,9 +106,9 @@ export default function VideoPlayer({
       {/* Poster shown until player reports loaded. We keep it mounted and fade it out */}
       <motion.div
         className={`${styles.poster} ${visible ? styles.posterEnter : ""}`}
-        initial={{ opacity: 0, y: 8 }}
+        initial={{ opacity: skipAnimation ? 1 : 0, y: skipAnimation ? 0 : 8 }}
         animate={{ opacity: isLoaded ? 0 : 1, y: visible ? 0 : 8 }}
-        transition={{ duration: 0.25, ease: "easeInOut" }}
+        transition={{ duration: skipAnimation ? 0 : 0.25, ease: "easeInOut" }}
       >
         <Image
           fetchPriority="high"

@@ -120,7 +120,7 @@
   --rounded-full: 100px;
   --rounded-sm: 1rem;
 
-  --theme-gradient: linear-gradient(to bottom, white 0%, white 82%, #f3e7db 100%);
+  --theme-gradient: linear-gradient(to bottom, #fff 0%, #fefdfc 33%, #fdf7f4 52%, #fbeee6 67%, #f9e1d2 80%, #f5d0b9 92%, #f3c3a5 100%);
 }
 
 html,

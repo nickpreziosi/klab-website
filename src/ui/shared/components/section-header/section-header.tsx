@@ -14,6 +14,8 @@ interface SectionHeaderProps {
   align?: "left" | "center" | "right";
   animateOnce?: boolean;
   maxWidth?: number;
+  /** When true, skip entrance animations (e.g. locale switch). */
+  skipAnimation?: boolean;
 }
 
 export default function SectionHeader({
@@ -26,18 +28,21 @@ export default function SectionHeader({
   align = "left",
   animateOnce = true,
   maxWidth,
+  skipAnimation = false,
 }: SectionHeaderProps) {
-  const [shouldAnimate, setShouldAnimate] = useState(false);
+  const [shouldAnimate, setShouldAnimate] = useState(skipAnimation);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: animateOnce, margin: "-100px" });
+  const effectiveShouldAnimate = skipAnimation || shouldAnimate;
 
   useEffect(() => {
+    if (skipAnimation) return;
     if (isInView) {
       setShouldAnimate(true);
     } else if (!animateOnce) {
       setShouldAnimate(false);
     }
-  }, [isInView, animateOnce]);
+  }, [isInView, animateOnce, skipAnimation]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -101,8 +106,8 @@ export default function SectionHeader({
         }}
         className={`${styles.heading} ${styles[`text${size}`]}`}
         variants={containerVariants}
-        initial="hidden"
-        animate={shouldAnimate ? "visible" : "hidden"}
+        initial={skipAnimation ? "visible" : "hidden"}
+        animate={effectiveShouldAnimate ? "visible" : "hidden"}
       >
         {headingWords.map((word, index) => (
           <motion.span
@@ -139,8 +144,8 @@ export default function SectionHeader({
           }}
           className={styles.heading}
           variants={containerVariants}
-          initial="hidden"
-          animate={shouldAnimate ? "visible" : "hidden"}
+          initial={skipAnimation ? "visible" : "hidden"}
+          animate={effectiveShouldAnimate ? "visible" : "hidden"}
         >
           {secondHeadingWords.map((word, index) => (
             <motion.span
@@ -191,8 +196,8 @@ export default function SectionHeader({
               },
             },
           }}
-          initial="hidden"
-          animate={shouldAnimate ? "visible" : "hidden"}
+          initial={skipAnimation ? "visible" : "hidden"}
+          animate={effectiveShouldAnimate ? "visible" : "hidden"}
         >
           {subtitle}
         </motion.p>

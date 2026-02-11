@@ -64,7 +64,7 @@ export function MobileThemeToggle() {
         document.documentElement.style.setProperty("--secondary-color-rgb", "20, 20, 20");
         document.documentElement.style.setProperty(
           "--theme-gradient",
-          "linear-gradient(to bottom, white 0%, white 82%, #F3E7DB 100%)"
+          "linear-gradient(to bottom, #fff 0%, #fefdfc 33%, #fdf7f4 52%, #fbeee6 67%, #f9e1d2 80%, #f5d0b9 92%, #f3c3a5 100%)"
         );
       }
     };
@@ -93,7 +93,7 @@ export function MobileThemeToggle() {
           document.documentElement.style.setProperty("--secondary-color-rgb", "20, 20, 20");
           document.documentElement.style.setProperty(
             "--theme-gradient",
-            "linear-gradient(to bottom, white 0%, white 82%, #F3E7DB 100%)"
+            "linear-gradient(to bottom, #fff 0%, #fefdfc 33%, #fdf7f4 52%, #fbeee6 67%, #f9e1d2 80%, #f5d0b9 92%, #f3c3a5 100%)"
           );
         }
       } else if (t === "dark") {
@@ -108,7 +108,7 @@ export function MobileThemeToggle() {
         document.documentElement.style.setProperty("--secondary-color-rgb", "20, 20, 20");
         document.documentElement.style.setProperty(
           "--theme-gradient",
-          "linear-gradient(to bottom, white 0%, white 82%, #F3E7DB 100%)"
+          "linear-gradient(to bottom, #fff 0%, #fefdfc 33%, #fdf7f4 52%, #fbeee6 67%, #f9e1d2 80%, #f5d0b9 92%, #f3c3a5 100%)"
         );
       }
       document.documentElement.setAttribute("data-theme", resolveToLightOrDark(t));

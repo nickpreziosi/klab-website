@@ -19,6 +19,8 @@ interface HeroTextProps {
   center?: boolean;
   onButtonClick?: () => void;
   onButtonTwoClick?: () => void;
+  /** When true, skip entrance animations (e.g. locale switch). */
+  skipAnimation?: boolean;
 }
 
 export default function HeroText({
@@ -34,14 +36,15 @@ export default function HeroText({
   center,
   onButtonClick,
   onButtonTwoClick,
+  skipAnimation = false,
 }: HeroTextProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(skipAnimation);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoaded(true);
-    }, 500);
-  }, []);
+    if (skipAnimation) return;
+    const id = setTimeout(() => setIsLoaded(true), 500);
+    return () => clearTimeout(id);
+  }, [skipAnimation]);
 
   // Split text into words for staggered animation
   const words = text.split(" ");
@@ -68,7 +71,7 @@ export default function HeroText({
             },
           },
         }}
-        initial="hidden"
+        initial={skipAnimation ? "visible" : "hidden"}
         animate={isLoaded ? "visible" : "hidden"}
       >
         {words.map((word, index) => (
@@ -99,7 +102,11 @@ export default function HeroText({
       {subheader && (
         <motion.h2
           className={styles.subheader}
-          initial={{ opacity: 0, filter: "blur(10px)", y: 10 }}
+          initial={
+            skipAnimation
+              ? { opacity: 1, filter: "blur(0px)", y: 0 }
+              : { opacity: 0, filter: "blur(10px)", y: 10 }
+          }
           animate={
             isLoaded
               ? { opacity: 1, filter: "blur(0px)", y: 0 }
@@ -113,7 +120,11 @@ export default function HeroText({
       {subtitle && (
         <motion.p
           className={styles.mainText}
-          initial={{ opacity: 0, filter: "blur(10px)", y: 10 }}
+          initial={
+            skipAnimation
+              ? { opacity: 1, filter: "blur(0px)", y: 0 }
+              : { opacity: 0, filter: "blur(10px)", y: 10 }
+          }
           animate={
             isLoaded
               ? { opacity: 1, filter: "blur(0px)", y: 0 }
@@ -127,7 +138,7 @@ export default function HeroText({
       {buttonText && (
         <motion.div
           className={styles.buttonGroup}
-          initial="hidden"
+          initial={skipAnimation ? "visible" : "hidden"}
           animate={isLoaded ? "visible" : "hidden"}
           variants={{
             hidden: {

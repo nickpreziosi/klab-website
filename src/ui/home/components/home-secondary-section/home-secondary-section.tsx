@@ -19,6 +19,8 @@ interface FeatureCard {
 interface HomeSecondarySection {
   cards?: FeatureCard[];
   animateOnce?: boolean;
+  /** When true, skip entrance animations (e.g. locale switch). */
+  skipAnimation?: boolean;
 }
 
 const Globe = () => {
@@ -416,9 +418,11 @@ export default function HomeSecondarySection({
     },
   ],
   animateOnce = true,
+  skipAnimation = false,
 }: HomeSecondarySection) {
   const cardsRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardsRef, { once: animateOnce, amount: 0.2 });
+  const effectiveIsInView = skipAnimation || isInView;
 
   const cardVariants = {
     hidden: {
@@ -448,6 +452,7 @@ export default function HomeSecondarySection({
               secondHeading="In Less Than 90 Days."
               align="left"
               animateOnce={animateOnce}
+              skipAnimation={skipAnimation}
             />
             <div className={styles.deploymentTimeline}>
               <h3 className={styles.timelineTitle}>1 – 2 WEEK SPRINTS</h3>
@@ -531,8 +536,8 @@ export default function HomeSecondarySection({
                     },
                   },
                 }}
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
+                initial={skipAnimation ? "visible" : "hidden"}
+                animate={effectiveIsInView ? "visible" : "hidden"}
                 transition={{
                   delay: index * 0.15, // Stagger each card by 0.15s
                 }}
