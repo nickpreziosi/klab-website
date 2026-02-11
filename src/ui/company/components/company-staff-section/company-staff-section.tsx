@@ -9,7 +9,7 @@ import styles from "./company-staff-section.module.css";
 
 export interface StaffMember {
   name: string;
-  position: string;
+  position?: string;
   bio: string;
   image: string;
   imageLight?: string;
@@ -44,7 +44,7 @@ export default function CompanyStaffSection({ employees, board }: CompanyStaffSe
                   <StaffCard
                     key={employee.email}
                     name={employee.name}
-                    position={employee.position}
+                    position={employee.position || ""}
                     bio={employee.bio}
                     image={employee.image}
                     imageLight={employee.imageLight}
@@ -62,7 +62,7 @@ export default function CompanyStaffSection({ employees, board }: CompanyStaffSe
                   <StaffCard
                     key={member.email}
                     name={member.name}
-                    position={member.position}
+                    position={member.position || ""}
                     bio={member.bio}
                     image={member.image}
                     imageLight={member.imageLight}
