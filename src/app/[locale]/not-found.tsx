@@ -5,9 +5,15 @@ import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import Button from "@/ui/shared/components/button/button";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
+import { LandingNotFound } from "@/ui/landing-page/components/landing-not-found/landing-not-found";
+import { IS_LANDING_ONLY } from "@/config/landing-only";
 import styles from "../not-found.module.css";
 
 export default function NotFoundPage() {
+  if (IS_LANDING_ONLY) {
+    return <LandingNotFound variant="orange" />;
+  }
+
   const t = useTranslations("NotFoundPage");
   const router = useRouter();
 

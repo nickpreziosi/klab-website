@@ -170,7 +170,7 @@ export default function LandingPageContent({
             </Link>
           </Button>
           <Button asChild variant="accent-brand" size="lg">
-            <Link href="mailto:carolina@k-lab.ai">
+            <Link href="mailto:sales@k-lab.ai">
               <MailIcon className={styles.mailIcon} />
               {translations.contactSales}
             </Link>
