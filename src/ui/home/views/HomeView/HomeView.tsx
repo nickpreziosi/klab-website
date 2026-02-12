@@ -25,7 +25,7 @@ export function HomeView({ heroTranslations }: HomeViewProps = {}) {
       </Suspense>
       <VideoBackground
         videoUrl="/videos/klab-home-loop.mp4"
-        posterUrl="/images/klab-home-loop-poster.jpg"
+        posterUrl="/images/klab-home-loop-poster.webp"
         skipAnimation={skipAnimation}
       />
       <div className={styles.page}>

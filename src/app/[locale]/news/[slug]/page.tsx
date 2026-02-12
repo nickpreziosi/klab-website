@@ -1,5 +1,5 @@
 import { getArticleBySlug } from "@/sanity/queries/articles";
-import { urlFor } from "@/sanity/lib/image";
+import { urlFor, urlForSized } from "@/sanity/lib/image";
 import { toHTML } from "@portabletext/to-html";
 import { ArticleView } from "@/ui/news/views/ArticleView/ArticleView";
 import { ArticleNotFoundView } from "@/ui/news/views/ArticleNotFoundView/ArticleNotFoundView";
@@ -25,7 +25,9 @@ export default async function ArticlePage({
     return <ArticleNotFoundView />;
   }
 
-  const imageUrl = article.image ? urlFor(article.image).url() : undefined;
+  const imageUrl = article.image
+    ? urlForSized(article.image, { width: 1200, height: 600 })
+    : undefined;
   const formattedDate = formatDate(article.publishedAt);
 
   const galleryImageUrls: Array<{ url: string; caption?: string; alt?: string }> =
@@ -33,7 +35,7 @@ export default async function ArticlePage({
       ?.map((galleryImage): { url: string; caption?: string; alt?: string } | null => {
         if (!galleryImage?.asset) return null;
         return {
-          url: urlFor(galleryImage).url(),
+          url: urlForSized(galleryImage, { width: 1200 }),
           caption: galleryImage.caption,
           alt: galleryImage.alt,
         };
@@ -51,7 +53,10 @@ export default async function ArticlePage({
               value: { asset?: { _ref: string }; alt?: string; caption?: string };
             }) => {
               if (!value?.asset) return "";
-              const imgUrl = urlFor(value as { asset: { _ref: string } }).url();
+              const imgUrl = urlForSized(value as { asset: { _ref: string } }, {
+                width: 800,
+                height: 600,
+              });
               const alt = value.alt || "Article image";
               const caption = value.caption ? `<figcaption>${value.caption}</figcaption>` : "";
               return `<figure style="margin: 24px 0;"><img src="${imgUrl}" alt="${alt}" style="width: 100%; height: auto; border-radius: var(--rounded-app);" />${caption}</figure>`;

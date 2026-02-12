@@ -9,3 +9,14 @@ const builder = createImageUrlBuilder({ projectId, dataset });
 export const urlFor = (source: SanityImageSource) => {
   return builder.image(source);
 };
+
+/** Build Sanity image URL with size hints for optimized delivery */
+export function urlForSized(
+  source: SanityImageSource,
+  options: { width?: number; height?: number }
+): string {
+  let img = builder.image(source);
+  if (options.width) img = img.width(options.width);
+  if (options.height) img = img.height(options.height);
+  return img.url();
+}

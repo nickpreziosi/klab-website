@@ -40,6 +40,13 @@
   background: hsl(var(--surface));
 }
 
+/* Next.js Image wrapper must fill container for full-width thumbnails */
+.imageContainer > span {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
 /* Play badge overlay for video thumbnails */
 .playBadge {
   position: absolute;

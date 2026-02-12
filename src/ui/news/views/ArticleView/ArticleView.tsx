@@ -222,6 +222,8 @@ export function ArticleView({
                 src={imageUrl}
                 alt={article.image?.alt || article.title}
                 className={styles.image}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                priority
               />
             </div>
             {article.image?.caption && (
@@ -272,6 +274,7 @@ export function ArticleView({
                         width={400}
                         height={300}
                         className={styles.galleryImage}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
                       />
                       {galleryImage.caption && (
                         <div className={styles.galleryCaption}>{galleryImage.caption}</div>
@@ -330,13 +333,16 @@ export function ArticleView({
                     return (
                       <div key={index} className={styles.dialogCarouselSlide}>
                         <div className={styles.dialogImageContainer}>
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={galleryImage.url}
-                            alt={galleryImage.alt || `Gallery image ${index + 1}`}
-                            className={styles.dialogImage}
-                            loading="eager"
-                          />
+                          <div className={styles.dialogImageWrapper}>
+                            <Image
+                              src={galleryImage.url}
+                              alt={galleryImage.alt || `Gallery image ${index + 1}`}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 1200px"
+                              className={styles.dialogImage}
+                              style={{ objectFit: "contain" }}
+                            />
+                          </div>
                           {galleryImage.caption && (
                             <div className={styles.dialogCaption}>{galleryImage.caption}</div>
                           )}

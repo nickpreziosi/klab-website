@@ -16,10 +16,38 @@
   padding-bottom: var(--padding-tablet);
 }
 
+.backgroundImage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  z-index: 0;
+  overflow: hidden;
+}
+
 .backgroundOverlay {
-  position: absolute;
-  inset: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+.pageContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .translationsLoadingOverlay {
@@ -39,11 +67,9 @@
   flex-shrink: 0;
 }
 
-/* Orange gradient background – warm, vibrant */
+/* Orange gradient background – warm, vibrant (fallback color; image via Next/Image) */
 .pageOrange {
   background-color: rgb(180, 90, 40);
-  background-image: url("/images/landing-bg-orange.png");
-  background-attachment: fixed;
 }
 
 .brandLogo {
@@ -77,11 +103,9 @@
   color: rgb(255, 255, 255);
 }
 
-/* Dark wave background – light trails, dark upper area */
+/* Dark wave background – light trails, dark upper area (fallback color; image via Next/Image) */
 .pageWave {
   background-color: rgb(22, 22, 22);
-  background-image: url("/images/landing-bg-wave.png");
-  background-attachment: fixed;
 }
 
 .pageWave .statusBar {

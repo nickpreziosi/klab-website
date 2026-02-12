@@ -22,7 +22,7 @@ export default function KenaHeroSection() {
         </div>
 
         {/* Video section */}
-        <VideoPlayer posterUrl="/images/kena.jpg" videoUrl="/videos/kena.mp4"></VideoPlayer>
+        <VideoPlayer posterUrl="/images/kena.webp" videoUrl="/videos/kena.mp4"></VideoPlayer>
 
         {/* Two-column content section */}
         <div className={styles.contentWrapper}>

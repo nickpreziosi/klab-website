@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import styles from "./video-player.module.css";
 import Image from "next/image";
+import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
 
 interface VideoPlayerProps {
   videoUrl: string;
@@ -83,7 +84,9 @@ export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false
                 alt="KENA AI Visualization"
                 className={styles.poster}
                 fill
-              ></Image>
+                placeholder="blur"
+                blurDataURL={BLUR_PLACEHOLDER}
+              />
               <button
                 onClick={handlePlayButtonClick}
                 className={styles.playButton}

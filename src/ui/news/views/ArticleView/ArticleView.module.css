@@ -500,6 +500,14 @@
   transition: opacity 300ms ease-out 100ms;
 }
 
+.dialogImageWrapper {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  max-height: calc(100vh - 150px);
+  flex: 1;
+}
+
 .dialogContent[data-state="open"] .dialogImageContainer {
   opacity: 1;
 }

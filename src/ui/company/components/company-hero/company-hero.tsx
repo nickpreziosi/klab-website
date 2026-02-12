@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import type { CompanyHeroTranslations } from "@/ui/company/types";
@@ -67,7 +68,9 @@ export const CompanyHero = ({ translations: serverTranslations }: CompanyHeroPro
           width={1200}
           height={1405}
           alt="KEO Employee Image"
-          src="/images/landing-bg-orange-2.png"
+          src="/images/landing-bg-orange-2.webp"
+          placeholder="blur"
+          blurDataURL={BLUR_PLACEHOLDER}
         />
         <div className={styles.heroText}>
           <div className={styles.heroHeaderContainer}>

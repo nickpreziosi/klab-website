@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useInView, motion } from "framer-motion";
 import styles from "./video-background.module.css";
 import Image from "next/image";
+import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
 
 interface VideoPlayerProps {
   videoUrl?: string;
@@ -113,9 +114,11 @@ export default function VideoPlayer({
         <Image
           fetchPriority="high"
           priority
-          src={posterUrl ?? "/images/kena-video.jpg"}
+          src={posterUrl ?? "/images/kena-video.webp"}
           alt="KENA AI Visualization"
           fill
+          placeholder="blur"
+          blurDataURL={BLUR_PLACEHOLDER}
         />
       </motion.div>
 

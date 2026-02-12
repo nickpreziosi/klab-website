@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { MailIcon, ArrowDown } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -68,14 +69,28 @@ export default function LandingPageContent({
   const viewport = { once: true, amount: 0.15 } as const;
   const productsTransition = (delay: number) => ({ delay, ...transition });
 
+  const bgSrc =
+    variant === "orange" ? "/images/landing-bg-orange.webp" : "/images/landing-bg-wave.webp";
+
   return (
     <main
       className={`${styles.page} ${styles[`page${variant === "orange" ? "Orange" : "Wave"}`]}`}
       data-variant={variant}
     >
+      <div className={styles.backgroundImage} aria-hidden>
+        <Image
+          src={bgSrc}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          style={{ objectFit: "cover", objectPosition: "center" }}
+        />
+      </div>
       <div className={styles.backgroundOverlay} />
-      <LandingLocaleSwitcher />
-      <div className={styles.container}>
+      <div className={styles.pageContent}>
+        <LandingLocaleSwitcher />
+        <div className={styles.container}>
         <motion.div
           className={styles.topBar}
           initial={fadeIn.initial}
@@ -161,9 +176,9 @@ export default function LandingPageContent({
             </Link>
           </Button>
         </motion.div>
-      </div>
+        </div>
 
-      <div id="products" className={`${styles.container} ${styles.productsSection}`}>
+        <div id="products" className={`${styles.container} ${styles.productsSection}`}>
         <div className={styles.productsSectionHeader}>
           <motion.h2
             className={styles.headline}
@@ -206,6 +221,7 @@ export default function LandingPageContent({
             technologiesDescriptions={translations.technologies}
           />
         </motion.div>
+        </div>
       </div>
     </main>
   );

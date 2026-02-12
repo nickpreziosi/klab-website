@@ -235,7 +235,7 @@ export default function CompanyVideoSection({
                 </motion.div>
                 <Image
                   className={styles.thumbnailImage}
-                  src={videoThumbnail || "/images/keo-video.jpg"}
+                  src={videoThumbnail || "/images/keo-video.webp"}
                   alt={videoTitle || "Video thumbnail"}
                   fill
                   style={{ objectFit: "contain" }}

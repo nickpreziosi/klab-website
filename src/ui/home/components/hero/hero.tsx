@@ -54,7 +54,7 @@ export const Hero = ({
         </div>
 
         <VideoPlayer
-          posterUrl="/images/klab-home-main-poster.jpg"
+          posterUrl="/images/klab-home-main-poster.webp"
           videoUrl="/videos/klab-home-main.mp4"
           skipAnimation={skipAnimation}
         />

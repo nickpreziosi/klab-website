@@ -518,7 +518,7 @@ export function SupportContactForm() {
                     onChange={field.onChange}
                     error={errors.files?.message}
                     maxFiles={5}
-                    fileTypes={[".jpg", ".png", ".jpeg", ".mp4", ".mov", ".pdf"]}
+                    fileTypes={[".jpg", ".jpeg", ".webp", ".png", ".mp4", ".mov", ".pdf"]}
                   />
                 </div>
               )}

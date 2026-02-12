@@ -406,7 +406,7 @@ export default function HomeSecondarySection({
       description:
         "Our modular infrastructure platform enables rapid development and deployment of financial products at scale.",
       link: "/technologies/k-rails",
-      image: "/images/keo-rails1.jpg",
+      image: "/images/keo-rails1.webp",
       video: "/videos/keo-rails.mp4",
     },
     {
@@ -414,7 +414,7 @@ export default function HomeSecondarySection({
       description:
         "Kena, our proprietary risk AI, replicates the reasoning of financial underwriters and continuously self-trains with global data.",
       link: "/technologies/kena-ai",
-      image: "/images/kena.jpg",
+      image: "/images/kena.webp",
       video: "/videos/kena.mp4",
     },
   ],
@@ -578,6 +578,7 @@ export default function HomeSecondarySection({
                         alt={card.title}
                         width={300}
                         height={200}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 300px"
                       />
                       <DialogDemo video={card.video} />
                     </div>
