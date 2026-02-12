@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Link } from "@/i18n/navigation";
 import Button from "@/ui/shared/components/button/button";
 import CompanySectionTitle from "@/ui/company/components/company-section-title/company-section-title";
 import styles from "./klab-foundation-section.module.css";
@@ -34,12 +35,7 @@ export default function KlabFoundationSection() {
               </span>
             ))}
           </h3>
-          <Button
-            href="#"
-            variant="accent-brand"
-            size="lg"
-            iconPosition="right"
-            icon={
+          <Button asChild variant="accent-brand" size="lg" iconPosition="right" icon={
               <svg
                 width="20"
                 height="20"
@@ -56,7 +52,7 @@ export default function KlabFoundationSection() {
               </svg>
             }
           >
-            Learn More
+            <Link href="/foundation">Learn More</Link>
           </Button>
         </motion.div>
       </div>

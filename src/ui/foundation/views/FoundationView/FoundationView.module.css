@@ -1,0 +1,143 @@
+.page {
+  min-height: calc(100vh - var(--navbar-height));
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.section {
+  flex: 1;
+  width: 100%;
+  background: var(--theme-gradient);
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* allows flex child to shrink/participate correctly */
+}
+
+.container {
+  flex: 1;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--padding-desktop);
+  display: flex;
+  flex-direction: column;
+}
+
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-xl);
+  align-items: start;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: var(--font-bold);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.titleBrand {
+  color: var(--accent-color);
+}
+
+.titleMain {
+  color: var(--secondary-color);
+}
+
+.subheading {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: var(--font-semibold);
+  color: var(--secondary-color);
+  margin: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.paragraph {
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--secondary-color);
+  margin: 0;
+  max-width: 36ch;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.rightBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.rightBlock:not(:last-child) {
+  margin-bottom: var(--gap-lg);
+}
+
+.paragraphRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gap-md);
+}
+
+.rightParagraph {
+  flex: 1;
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--secondary-color);
+  margin: 0;
+}
+
+.arrowIcon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  color: var(--secondary-color);
+  opacity: 0.8;
+}
+
+.divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid rgba(var(--secondary-color-rgb), 0.2);
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: var(--padding-tablet);
+  }
+
+  .grid {
+    gap: var(--gap-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--gap-xl);
+  }
+
+  .paragraph {
+    max-width: none;
+  }
+}
