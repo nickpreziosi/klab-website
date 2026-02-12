@@ -1,15 +1,9 @@
-/* Override Card component for contact-link layout */
+/* Layout overrides for contact-link Card */
 .card {
-  padding: 48px 40px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--gap-md);
   height: 100%;
-}
-
-/* Reset Card sub-component padding - we use card-level padding instead */
-.card > * {
-  padding: 0;
 }
 
 .iconWrapper {
@@ -60,10 +54,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .card {
-    padding: var(--padding-mobile);
-    gap: var(--gap-md);
-  }
 
   .iconWrapper {
     width: 48px;

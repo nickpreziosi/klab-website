@@ -73,6 +73,10 @@
   border-radius: var(--rounded-full);
 }
 
+.logoContainer a:focus-visible {
+  border-radius: var(--rounded-app);
+}
+
 /* Specificity must beat .logoContainer a (0,1,1) so logo show/hide works */
 .logoContainer .logoLinkFull {
   display: flex;

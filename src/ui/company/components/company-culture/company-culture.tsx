@@ -7,6 +7,7 @@ import styles from "./company-culture.module.css";
 import CompanySectionTitle from "@/ui/company/components/company-section-title/company-section-title";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
 import Button from "@/ui/shared/components/button/button";
+import { Card, CardContent } from "@/ui/shared/components/card/card";
 
 const stats = [
   {
@@ -94,7 +95,7 @@ export default function CompanyCulture() {
             essential to our mission of helping businesses and attracting exceptional people who
             think outside the box.
           </p>
-          <Button size="md" href="https://www.linkedin.com/company/keoworld" variant="accent-brand">
+          <Button size="md" href="/contact/careers" variant="accent-brand">
             KLab Careers
             <svg
               width="20"
@@ -116,40 +117,29 @@ export default function CompanyCulture() {
         {/* Stats Grid */}
         <div className={styles.statsGrid}>
           {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              className={styles.statCard}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.1,
-              }}
-              whileHover={{
-                transition: { duration: 0.2 },
-              }}
-            >
-              <div className={styles.statValueContainer}>
-                <motion.span
-                  className={styles.statValue}
-                  initial={{ scale: 0.5, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: index * 0.1 + 0.2,
-                    type: "spring",
-                    stiffness: 100,
-                  }}
-                >
-                  <AnimatedCounter value={stat.value} delay={index * 100 + 200} />
-                </motion.span>
-                {stat.suffix && <span className={styles.statSuffix}>{stat.suffix}</span>}
-              </div>
-              <p className={styles.statLabel}>{stat.label}</p>
+            <Card key={stat.label} className={styles.statCard}>
+              <CardContent className={styles.statCardContent}>
+                <div className={styles.statValueContainer}>
+                  <motion.span
+                    className={styles.statValue}
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{
+                      duration: 0.8,
+                      delay: index * 0.1 + 0.2,
+                      type: "spring",
+                      stiffness: 100,
+                    }}
+                  >
+                    <AnimatedCounter value={stat.value} delay={index * 100 + 200} />
+                  </motion.span>
+                  {stat.suffix && <span className={styles.statSuffix}>{stat.suffix}</span>}
+                </div>
+                <p className={styles.statLabel}>{stat.label}</p>
+              </CardContent>
               <div className={styles.statGlow} />
-            </motion.div>
+            </Card>
           ))}
         </div>
       </div>

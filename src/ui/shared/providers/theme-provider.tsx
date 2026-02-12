@@ -11,7 +11,7 @@ export interface ThemeProviderProps {
   defaultTheme?: Theme;
   /** localStorage key for persistence */
   storageKey?: string;
-  /** Initial theme from server (e.g. from cookie) - takes precedence over localStorage */
+  /** Resolved theme from server (e.g. from cookie) - used for SSR/systemResolvedTheme fallback only; user preference comes from localStorage */
   initialTheme?: EffectiveTheme;
 }
 
@@ -55,8 +55,8 @@ export function ThemeProvider({
   initialTheme,
 }: ThemeProviderProps) {
   const previousThemeRef = React.useRef<Theme | null>(null);
+  const themeRef = React.useRef<Theme>("system");
   const [theme, setThemeState] = React.useState<Theme>(() => {
-    if (initialTheme) return initialTheme;
     try {
       const stored = localStorage.getItem(storageKey);
       if (stored === "light" || stored === "dark" || stored === "system") return stored;
@@ -67,7 +67,16 @@ export function ThemeProvider({
     return defaultTheme;
   });
   const [mounted, setMounted] = React.useState(false);
-  const effectiveTheme = getResolvedTheme(theme);
+  const [systemResolvedTheme, setSystemResolvedTheme] = React.useState<EffectiveTheme>(() => {
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    return initialTheme ?? "dark";
+  });
+  const effectiveTheme =
+    theme === "system" ? systemResolvedTheme : (theme as EffectiveTheme);
+
+  themeRef.current = theme;
 
   // Apply theme immediately on mount (script may have already set class; we sync with our state)
   React.useLayoutEffect(() => {
@@ -117,23 +126,26 @@ export function ThemeProvider({
     return () => window.removeEventListener("storage", handleStorageChange);
   }, [storageKey]);
 
+  // Always keep systemResolvedTheme in sync so switching back to "system" shows correct theme
   React.useEffect(() => {
-    if (theme !== "system") return;
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const root = document.documentElement;
     const handleChange = () => {
-      root.classList.add("no-transitions");
       const resolved = getResolvedTheme("system");
-      root.classList.toggle("dark", resolved === "dark");
-      root.setAttribute("data-theme", resolved);
-      persistTheme("system", resolved, storageKey);
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => root.classList.remove("no-transitions"));
-      });
+      setSystemResolvedTheme(resolved);
+      if (themeRef.current === "system") {
+        root.classList.add("no-transitions");
+        root.classList.toggle("dark", resolved === "dark");
+        root.setAttribute("data-theme", resolved);
+        persistTheme("system", resolved, storageKey);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => root.classList.remove("no-transitions"));
+        });
+      }
     };
     media.addEventListener("change", handleChange);
     return () => media.removeEventListener("change", handleChange);
-  }, [theme, storageKey]);
+  }, [storageKey]);
 
   const setTheme = React.useCallback(
     (newTheme: Theme) => {

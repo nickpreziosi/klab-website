@@ -4,7 +4,6 @@ import styles from "./staff-card.module.css";
 import Image from "next/image";
 import { Accordion } from "radix-ui";
 import Link from "next/link";
-import { useTheme } from "@/ui/shared/hooks/use-theme";
 
 interface StaffCardProps {
   name: string;
@@ -33,14 +32,7 @@ export const StaffCard = ({
 }: StaffCardProps) => {
   const accordionContentRef = useRef<HTMLDivElement | null>(null);
   const [accordionIsOpen, setAccordionIsOpen] = useState(false);
-  const { effectiveTheme } = useTheme();
-
-  const displayImage =
-    imageLight != null && imageDark != null
-      ? effectiveTheme === "light"
-        ? imageLight
-        : imageDark
-      : image;
+  const hasThemeVariants = imageLight != null && imageDark != null;
 
   const handleAccordionTriggerClick = () => {
     setAccordionIsOpen(!accordionIsOpen);
@@ -49,14 +41,35 @@ export const StaffCard = ({
   return (
     <>
       <div className={styles.card}>
-        <Image
-          priority
-          src={displayImage}
-          alt="Winner Bold Award"
-          width={500}
-          height={500}
-          className={styles.cardImage}
-        />
+        {hasThemeVariants ? (
+          <div className={styles.imageWrapper}>
+            <Image
+              priority
+              src={imageLight}
+              alt={name}
+              width={500}
+              height={500}
+              className={`${styles.cardImage} ${styles.imageLight}`}
+            />
+            <Image
+              priority
+              src={imageDark}
+              alt={name}
+              width={500}
+              height={500}
+              className={`${styles.cardImage} ${styles.imageDark}`}
+            />
+          </div>
+        ) : (
+          <Image
+            priority
+            src={image}
+            alt={name}
+            width={500}
+            height={500}
+            className={styles.cardImage}
+          />
+        )}
 
         <Accordion.Root className={styles.accordionRoot} type="single" collapsible>
           <Accordion.Item className={styles.accordionItem} value="item-1">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import "./globals.css";
 import { Sora } from "next/font/google";
 import { SmoothAnchorScroll } from "@/ui/shared/components/smooth-anchor-scroll/smooth-anchor-scroll";
@@ -19,11 +20,18 @@ export const metadata: Metadata = {
     "KLab develops the technology that automates risk, payments, and financial operations — all in one intelligent platform.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const cookieTheme = cookieStore?.get?.("theme")?.value ?? null;
+  const initialTheme =
+    cookieTheme === "light" || cookieTheme === "dark"
+      ? (cookieTheme as "light" | "dark")
+      : undefined;
+
   return (
     <html className={sora.className} lang="en" suppressHydrationWarning>
       <head>
@@ -31,7 +39,7 @@ export default function RootLayout({
       </head>
 
       <body>
-        <ThemeProvider>
+        <ThemeProvider initialTheme={initialTheme}>
           <SmoothAnchorScroll />
           <LandingAnimationProvider>
             <HomeAnimationProvider>{children}</HomeAnimationProvider>

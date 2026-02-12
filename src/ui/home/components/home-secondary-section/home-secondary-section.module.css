@@ -36,7 +36,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--gap-md);
-  padding: var(--padding-mobile);
+  padding: var(--card-padding);
 }
 
 .cardContent {
@@ -239,7 +239,7 @@
     gap: var(--gap-lg);
   }
   .card {
-    padding: var(--padding-mobile);
+    padding: var(--card-padding);
     grid-template-columns: 1fr;
   }
   .globe {

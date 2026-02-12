@@ -1,11 +1,39 @@
-/* Override theme-toggle trigger: use theme-aware color so text is visible in light mode */
+/* Match cycle-toggle button styling: square trigger, same hover/active states */
 .selectTriggerLocale {
+  /* Size and layout – match cycle-toggle .cycleButtonDefault */
+  width: 2.5rem !important;
+  min-width: 2.5rem !important;
+  height: 2.5rem !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  /* Visual – match cycle-toggle */
   color: hsl(var(--foreground)) !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: var(--rounded-app);
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
+
   /* Remove any native combobox dropdown arrow */
   appearance: none;
   -webkit-appearance: none;
   /* Keep code (e.g. PT) from wrapping in navbar */
   white-space: nowrap;
+}
+
+.selectTriggerLocale:hover {
+  background: hsl(var(--foreground) / 0.05) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.selectTriggerLocale:active {
+  transform: scale(0.9);
 }
 
 /* Hide any Radix/default icon (e.g. chevron) on the trigger */

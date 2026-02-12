@@ -9,7 +9,7 @@
      -------------------------------------------------------------------------- */
   --background: 0 0% 100%;
   --foreground: 0 0% 8%;
-  --surface: 0 0% 98%;
+  --surface: 0 0% 96%;
   --surface-hover: 0 0% 96%;
   --surface-foreground: 0 0% 8%;
   --accent: 23 90% 54%;
@@ -103,6 +103,7 @@
   --card-border-radius: var(--rounded-app);
   --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
   --card-muted-foreground: hsl(var(--muted));
+  --card-padding: 1.5rem; /* 24px – consistent across all Card usages */
 
   /* --------------------------------------------------------------------------
      PAGE GRADIENTS (keo-rails, company, kena, footer, etc.)
@@ -125,7 +126,7 @@
 html.dark {
   --background: 225 20% 6%;
   --foreground: 0 0% 98%;
-  --surface: 225 20% 10%;
+  --surface: 225 20% 13%;
   --surface-hover: 225 20% 14%;
   --surface-foreground: 0 0% 98%;
   --accent: 23 90% 54%;
