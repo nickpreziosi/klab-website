@@ -1,7 +1,7 @@
 import type { CompanyHeroTranslations } from "@/ui/company/types";
 import { CompanyHero } from "@/ui/company/components/company-hero/company-hero";
 import styles from "./CompanyView.module.css";
-import TimelineCarousel from "@/ui/company/components/timeline-carousel/timeline-carousel";
+import JourneyTimeline from "@/ui/company/components/journey-timeline/journey-timeline";
 import CompanyCulture from "@/ui/company/components/company-culture/company-culture";
 import KlabFoundationSection from "@/ui/company/components/klab-foundation-section/klab-foundation-section";
 import CompanyManifesto from "@/ui/company/components/company-manifesto/company-manifesto";
@@ -148,7 +148,7 @@ export function CompanyView({ companyHeroTranslations }: CompanyViewProps = {}) 
     <div className={styles.page}>
       <CompanyHero translations={companyHeroTranslations} />
       <main className={styles.main}>
-        <TimelineCarousel />
+        <JourneyTimeline />
         <CompanyManifesto />
         <KlabFoundationSection />
         <CompanyCulture />
