@@ -43,7 +43,7 @@
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 0;
 }
 
@@ -52,7 +52,7 @@
   font-weight: 400;
   line-height: 1.3;
   letter-spacing: -0.01em;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 0;
 }
 
@@ -67,12 +67,12 @@
 
 .ctaButton {
   width: fit-content;
-  background: var(--secondary-color);
-  color: var(--main-color);
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
   padding: 12px 24px;
   font-size: 16px;
   font-weight: 500;
-  border-radius: 8px;
+  border-radius: var(--rounded-app);
   transition: all 0.2s ease;
 }
 
@@ -82,7 +82,7 @@
   width: 100%;
   height: 680px;
   z-index: -100 !important;
-  border-radius: 16px;
+  border-radius: var(--rounded-app);
   overflow: hidden;
 }
 /* 3D Transformed Container */
@@ -95,7 +95,7 @@
   height: 100%;
   perspective: 2000px;
   perspective-origin: center center;
-  border-radius: 16px;
+  border-radius: var(--rounded-app);
 }
 
 .transformedContent {
@@ -104,7 +104,7 @@
   transform-style: preserve-3d;
   transform: translate(15%, 7%) scale(1.2) rotateX(25deg) rotateY(30deg) rotate(334deg) !important;
   transition: transform 0.3s ease;
-  border-radius: var(--rounded-sm);
+  border-radius: var(--rounded-app);
 }
 
 /* Placeholder Content */
@@ -112,7 +112,7 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(135deg, rgba(30, 30, 30, 0.8), rgba(20, 20, 20, 0.9));
-  border-radius: 16px;
+  border-radius: var(--rounded-app);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.5),
@@ -152,7 +152,7 @@
 .placeholderItem {
   height: 32px;
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
 }
 
 .placeholderMain {
@@ -167,7 +167,7 @@
   height: 100px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
+  border-radius: var(--rounded-app);
 }
 
 /* Added styles for the invoice interface image */
@@ -176,15 +176,15 @@
   left: 2rem;
   max-width: 100%;
   height: 100%;
-  border-radius: 16px;
+  border-radius: var(--rounded-app);
 }
 
 .interfaceImage {
   object-fit: cover;
   object-position: top left;
   filter: invert(0.9);
-  border: 1px solid rgba(var(--main-color-rgb), 0.2);
-  border-radius: 16px;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--rounded-app);
 }
 
 /* Added black overlay with low opacity */
@@ -210,8 +210,8 @@
     to bottom,
     transparent 0%,
     transparent 25%,
-    rgba(var(--main-color-rgb), 1) 60%,
-    rgba(var(--main-color-rgb), 1) 100%
+    hsl(var(--background)) 60%,
+    hsl(var(--background)) 100%
   );
   z-index: 2;
   pointer-events: none;

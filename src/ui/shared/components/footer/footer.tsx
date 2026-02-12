@@ -6,6 +6,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Button from "@/ui/shared/components/button/button";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/ui/shared/components/card/card";
 import { useState } from "react";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 
@@ -257,132 +264,148 @@ export const Footer = () => {
 
           {/* Links Section */}
           <div className={styles.linksGrid}>
-            <div className={styles.linkCard}>
-              <h3 className={styles.linkCardTitle}>Read Our Blog</h3>
-              <p className={styles.linkCardDescription}>
-                Explore articles on fintech trends, KLab updates, industry insights, and more.
-              </p>
-              <Button
-                size="sm"
-                variant="accent-brand"
-                href="/news"
-                iconPosition="right"
-                icon={
-                  <svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                }
-              >
-                Read Blog
-              </Button>
-            </div>
+            <Card className={styles.linkCard}>
+              <CardHeader>
+                <CardTitle className={styles.linkCardTitle}>Read Our Blog</CardTitle>
+                <CardDescription className={styles.linkCardDescription}>
+                  Explore articles on fintech trends, KLab updates, industry insights, and more.
+                </CardDescription>
+              </CardHeader>
+              <CardFooter>
+                <Button
+                  size="sm"
+                  variant="accent-brand"
+                  href="/news"
+                  iconPosition="right"
+                  icon={
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                  }
+                >
+                  Read Blog
+                </Button>
+              </CardFooter>
+            </Card>
 
-            <div className={styles.linkCard}>
-              <h3 className={styles.linkCardTitle}>Contact Us</h3>
-              <p className={styles.linkCardDescription}>
-                Have questions about KLab or our solutions? Our team is ready to help you find the
-                right product or assistance.
-              </p>
-              <Button
-                size="sm"
-                variant="accent-brand"
-                href="/contact"
-                iconPosition="right"
-                icon={
-                  <svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                }
-              >
-                Contact Us
-              </Button>
-            </div>
+            <Card className={styles.linkCard}>
+              <CardHeader>
+                <CardTitle className={styles.linkCardTitle}>Contact Us</CardTitle>
+                <CardDescription className={styles.linkCardDescription}>
+                  Have questions about KLab or our solutions? Our team is ready to help you find the
+                  right product or assistance.
+                </CardDescription>
+              </CardHeader>
+              <CardFooter>
+                <Button
+                  size="sm"
+                  variant="accent-brand"
+                  href="/contact"
+                  iconPosition="right"
+                  icon={
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                  }
+                >
+                  Contact Us
+                </Button>
+              </CardFooter>
+            </Card>
 
-            <div className={styles.linkCard}>
-              <h3 className={styles.linkCardTitle}>Litepapers</h3>
-              <p className={styles.linkCardDescription}>
-                Explore our litepapers for concise technical overviews, integration guidance, and
-                implementation examples.
-              </p>
-              <Button
-                size="sm"
-                variant="accent-brand"
-                href="/litepapers"
-                iconPosition="right"
-                icon={
-                  <svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                }
-              >
-                View Litepapers
-              </Button>
-            </div>
+            <Card className={styles.linkCard}>
+              <CardHeader>
+                <CardTitle className={styles.linkCardTitle}>Litepapers</CardTitle>
+                <CardDescription className={styles.linkCardDescription}>
+                  Explore our litepapers for concise technical overviews, integration guidance, and
+                  implementation examples.
+                </CardDescription>
+              </CardHeader>
+              <CardFooter>
+                <Button
+                  size="sm"
+                  variant="accent-brand"
+                  href="/litepapers"
+                  iconPosition="right"
+                  icon={
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                  }
+                >
+                  View Litepapers
+                </Button>
+              </CardFooter>
+            </Card>
 
-            <div className={styles.linkCard}>
-              <h3 className={styles.linkCardTitle}>Developers</h3>
-              <p className={styles.linkCardDescription}>
-                Explore our API docs, integration guides, and technical resources to get started
-                with KLab technologies.
-              </p>
-              <Button
-                size="sm"
-                variant="accent-brand"
-                href="https://docs.keorails.com/"
-                iconPosition="right"
-                icon={
-                  <svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                }
-              >
-                View Docs
-              </Button>
-            </div>
+            <Card className={styles.linkCard}>
+              <CardHeader>
+                <CardTitle className={styles.linkCardTitle}>Developers</CardTitle>
+                <CardDescription className={styles.linkCardDescription}>
+                  Explore our API docs, integration guides, and technical resources to get started
+                  with KLab technologies.
+                </CardDescription>
+              </CardHeader>
+              <CardFooter>
+                <Button
+                  size="sm"
+                  variant="accent-brand"
+                  href="https://docs.keorails.com/"
+                  iconPosition="right"
+                  icon={
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                  }
+                >
+                  View Docs
+                </Button>
+              </CardFooter>
+            </Card>
           </div>
 
           <div className={styles.nav}>

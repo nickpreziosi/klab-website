@@ -13,7 +13,7 @@ export default function KeoMockDashboard() {
             rotateX: 8,
             scale: 0.98,
             filter: "blur(12px)",
-            boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+            boxShadow: "hsl(var(--accent) / 0.35) 0px 5px 15px",
           }}
           whileInView={{
             opacity: 1,
@@ -83,7 +83,7 @@ export default function KeoMockDashboard() {
             rotateX: 8,
             scale: 0.98,
             filter: "blur(12px)",
-            boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+            boxShadow: "hsl(var(--accent) / 0.35) 0px 5px 15px",
           }}
           whileInView={{
             opacity: 1,
@@ -159,7 +159,7 @@ export default function KeoMockDashboard() {
             rotateX: 8,
             scale: 0.98,
             filter: "blur(12px)",
-            boxShadow: "rgba(var(--accent-color-rgb), 0.35) 0px 5px 15px",
+            boxShadow: "hsl(var(--accent) / 0.35) 0px 5px 15px",
           }}
           whileInView={{
             opacity: 1,

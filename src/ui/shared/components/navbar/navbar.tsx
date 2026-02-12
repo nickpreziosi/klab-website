@@ -125,10 +125,10 @@ export const NavigationMenuDemo = ({
             backdropFilter: useTransparentNav ? "none" : "blur(8px)",
             background: useTransparentNav
               ? "transparent"
-              : "rgba(var(--main-color-rgb), 0.7)",
+              : "hsl(var(--background) / 0.7)",
             borderBottom: useTransparentNav
               ? "solid 1px transparent"
-              : "solid 1px rgba(255, 255, 255, 0.2)",
+              : "solid 1px hsl(var(--foreground) / 0.2)",
             boxShadow: useTransparentNav ? "none" : "var(--shadow-black)",
           }}
           id="navbarContainer"

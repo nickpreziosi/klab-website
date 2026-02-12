@@ -1,56 +1,43 @@
 import React from "react";
 import { cookies } from "next/headers";
 
-function rgbForTheme(theme: string | null) {
-  if (!theme) return { main: "250, 250, 250", white: "20, 20, 20" };
-  if (theme === "dark") return { main: "23, 25, 32", white: "250, 250, 250" };
-  if (theme === "light") return { main: "250, 250, 250", white: "20, 20, 20" };
-  return { main: "250, 250, 250", white: "20, 20, 20" };
-}
-
+/**
+ * Inline theme script - runs before React hydrates to prevent theme flash.
+ * Reads theme from localStorage, then cookie, then system preference.
+ * Applies class="dark" on html when dark theme; CSS vars in globals.css react to .dark.
+ */
 export default async function Head() {
-  // read server-side cookie if present
-  // cookies() typing can vary across Next versions; cast to any to be defensive
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  const cookieStore: any = await cookies();
+  const cookieStore = await cookies();
   const cookieTheme = cookieStore?.get?.("theme")?.value ?? null;
 
-  // If we have a concrete cookie theme (not 'system'), render a server-side
-  // <style> tag with the CSS variables and set data-theme so logo/UI match on first paint.
-  if (cookieTheme && cookieTheme !== "system") {
-    const { main, white } = rgbForTheme(cookieTheme);
-    const css = `:root{--main-color-rgb:${main};--secondary-color-rgb:${white};}`;
-    const theme = cookieTheme === "light" ? "light" : "dark";
-    return (
-      <>
-        <style id="keo-theme-inline">{css}</style>
-        <script
-          id="keo-theme-data"
-          dangerouslySetInnerHTML={{
-            __html: `document.documentElement.setAttribute('data-theme','${theme}');`,
-          }}
-        />
-      </>
-    );
-  }
-
-  // Otherwise fall back to a small inline script that reads localStorage or
-  // system preference on the client and sets inline styles before paint.
-  const script = `(() => {
+  // Script: 1) try localStorage, 2) try cookie, 3) system preference
+  const script = `(function() {
     try {
-      var theme = null;
-      try { theme = localStorage.getItem('theme'); } catch (e) { theme = null; }
-      if (!theme) theme = 'system';
+      var root = document.documentElement;
+      var theme = localStorage.getItem('theme');
+      if (!theme || theme === 'keo') theme = 'system';
       if (theme === 'system') {
-        try { theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; } catch (e) { theme = 'light'; }
+        var cookieMatch = document.cookie.match(/theme=([^;]+)/);
+        if (cookieMatch) {
+          var c = cookieMatch[1];
+          if (c === 'light' || c === 'dark') theme = c;
+        }
+        if (theme === 'system') {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
       }
-      var main = '250, 250, 250';
-      var white = '20, 20, 20';
-      if (theme === 'dark') { main = '23, 25, 32'; white = '250, 250, 250'; }
-      else if (theme === 'light') { main = '250, 250, 250'; white = '20, 20, 20'; }
-      try { var r = document.documentElement; r.style.setProperty('--main-color-rgb', main); r.style.setProperty('--secondary-color-rgb', white); r.setAttribute('data-theme', theme); } catch (e) {}
-    } catch (err) {}
+      var isDark = theme === 'dark';
+      root.classList.toggle('dark', isDark);
+      root.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    } catch (e) {}
   })();`;
 
-  return <script id="keo-theme-init" dangerouslySetInnerHTML={{ __html: script }} />;
+  return (
+    <>
+      <script
+        id="klab-theme-init"
+        dangerouslySetInnerHTML={{ __html: script }}
+      />
+    </>
+  );
 }

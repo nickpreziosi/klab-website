@@ -71,7 +71,7 @@
   width: fit-content;
   height: 44px;
   opacity: 1;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
   padding: var(--padding-mobile);
   gap: 10px;
   font-weight: 500;
@@ -93,7 +93,7 @@
   width: fit-content;
   height: 44px;
   opacity: 1;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
   padding: var(--padding-mobile);
   gap: 10px;
   font-weight: 500;
@@ -130,7 +130,7 @@
     transform: translateY(-2px);
   }
   .backButton:hover {
-    background: rgba(var(--secondary-color-rgb), 0.2);
+    background: hsl(var(--foreground) / 0.2);
     transform: translateY(-2px);
   }
 }

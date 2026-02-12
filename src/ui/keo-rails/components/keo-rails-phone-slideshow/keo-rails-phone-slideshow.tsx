@@ -317,8 +317,8 @@ export default function KeoRailsPhoneSlideshow() {
               <motion.div
                 className={styles.iconCircle}
                 animate={{
-                  background: isActive ? "rgba(var(--secondary-color-rgb), 1)" : "transparent",
-                  color: isActive ? "var(--main-color)" : "var(--secondary-color)",
+                  background: isActive ? "hsl(var(--foreground))" : "transparent",
+                  color: isActive ? "hsl(var(--background))" : "hsl(var(--foreground))",
                   scale: isActive ? 1.05 : 1,
                   boxShadow: isActive
                     ? "0 4px 16px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1)"
@@ -331,7 +331,7 @@ export default function KeoRailsPhoneSlideshow() {
               <motion.span
                 className={styles.iconLabel}
                 animate={{
-                  color: "var(--secondary-color)",
+                  color: "hsl(var(--foreground))",
                   opacity: isActive ? 1 : 0.7,
                   scale: isActive ? 1.05 : 1,
                 }}
@@ -345,7 +345,7 @@ export default function KeoRailsPhoneSlideshow() {
                   className={styles.curvedPath}
                   viewBox="0 0 400 400"
                   xmlns="http://www.w3.org/2000/svg"
-                  fill="var(--accent-color)"
+                  fill="hsl(var(--accent))"
                 >
                   <defs>
                     <linearGradient id={`gradient-${position}`} x1="0%" y1="0%" x2="100%" y2="0%">

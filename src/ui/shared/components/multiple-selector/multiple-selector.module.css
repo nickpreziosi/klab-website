@@ -8,7 +8,7 @@
 .label {
   font-size: var(--text-xs);
   font-weight: var(--font-base);
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.8;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -18,13 +18,13 @@
 .triggerWrapper {
   width: 100%;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
   outline: none;
   overflow: hidden;
 }
 
 .triggerWrapper:focus-within {
-  outline: 2px solid var(--secondary-color);
+  outline: 2px solid hsl(var(--foreground));
   outline-offset: 2px;
 }
 
@@ -40,22 +40,22 @@
   align-items: stretch;
   min-height: 2.25rem;
   width: 100%;
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
-  border-radius: 6px;
-  color: var(--secondary-color);
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--rounded-app);
+  color: hsl(var(--foreground));
   font-size: var(--text-sm);
   transition: border-color 150ms;
   isolation: isolate;
-  background: rgba(var(--main-color-rgb), 0.75);
+  background: hsl(var(--background) / 0.75);
 }
 
 .trigger:hover {
-  background: rgba(var(--main-color-rgb), 0.8);
-  border-color: rgba(var(--secondary-color-rgb), 0.3);
+  background: hsl(var(--background) / 0.8);
+  border-color: hsl(var(--border));
 }
 
 .triggerWrapper:focus-within .trigger {
-  background: rgba(var(--main-color-rgb), 0.85);
+  background: hsl(var(--background) / 0.85);
 }
 
 /* Inner scroll container – only this area scrolls when content wraps */
@@ -80,15 +80,15 @@
   align-items: center;
   gap: 4px;
   padding: 2px 6px;
-  border-radius: 4px;
-  background: rgba(var(--secondary-color-rgb), 0.12);
-  color: var(--secondary-color);
+  border-radius: var(--rounded-app);
+  background: hsl(var(--surface));
+  color: hsl(var(--foreground));
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
 }
 
 .badge:hover {
-  background: rgba(var(--secondary-color-rgb), 0.18);
+  background: hsl(var(--surface-hover));
 }
 
 .badgeRemove {
@@ -98,9 +98,9 @@
   padding: 0;
   margin: 0;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--rounded-full);
   background: transparent;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   cursor: pointer;
   opacity: 0.7;
   transition:
@@ -110,7 +110,7 @@
 
 .badgeRemove:hover {
   opacity: 1;
-  color: var(--main-color);
+  color: hsl(var(--background));
 }
 
 /* No inner focus ring – only outer container shows focus */
@@ -127,7 +127,7 @@
   padding: 0;
   border: none;
   background: transparent;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   font-size: var(--text-sm);
   font-family: inherit;
   outline: none;
@@ -140,7 +140,7 @@
 }
 
 .input::placeholder {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.6;
 }
 
@@ -157,7 +157,7 @@
   padding: 0;
   border: none;
   background: transparent;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   cursor: pointer;
   opacity: 0.5;
 }
@@ -189,8 +189,8 @@
 
 /* Popover – backdrop-filter applied via inline style for reliability */
 .popover {
-  border-radius: 8px;
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
+  border-radius: var(--rounded-app);
+  border: 1px solid hsl(var(--border));
   box-shadow: var(--shadow-black);
   overflow: hidden;
 }
@@ -199,7 +199,7 @@
   position: relative;
   border-radius: inherit;
   isolation: isolate;
-  background: rgba(var(--main-color-rgb), 0.7);
+  background: hsl(var(--background) / 0.7);
 }
 
 .popoverListScroll {
@@ -223,9 +223,9 @@
   gap: 6px;
   width: 100%;
   padding: 6px 32px 6px 8px;
-  border-radius: 8px;
+  border-radius: var(--rounded-app);
   font-size: var(--text-sm);
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   cursor: pointer;
   outline: none;
   transition:
@@ -235,21 +235,21 @@
 }
 
 .option:hover {
-  background: rgba(var(--secondary-color-rgb), 0.1);
-  color: var(--accent-color);
+  background: hsl(var(--foreground) / 0.05);
+  color: hsl(var(--accent));
 }
 
 .optionHighlighted {
-  background: rgba(var(--accent-color-rgb), 0.2);
-  color: var(--secondary-color);
+  background: hsl(var(--accent) / 0.2);
+  color: hsl(var(--foreground));
 }
 
 .optionHighlighted:hover {
-  background: rgba(var(--accent-color-rgb), 0.25);
+  background: hsl(var(--accent) / 0.25);
 }
 
 .optionSelected {
-  color: var(--accent-color);
+  color: hsl(var(--accent));
 }
 
 .optionLabel {
@@ -272,7 +272,7 @@
 }
 
 .optionCheckSelected {
-  color: var(--accent-color);
+  color: hsl(var(--accent));
 }
 
 .optionCheckIcon {
@@ -283,6 +283,6 @@
 .empty {
   padding: 12px;
   font-size: var(--text-sm);
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.8;
 }

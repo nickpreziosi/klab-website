@@ -39,14 +39,14 @@
   width: 1000px !important;
   min-width: 1000px;
   height: 720px !important;
-  border-radius: 12px;
+  border-radius: var(--rounded-app);
   background-color: white;
   background: linear-gradient(
     180deg,
-    rgba(var(--main-color-rgb), 1) 100%,
-    rgba(var(--main-color-rgb), 1) 100%
+    hsl(var(--background)) 100%,
+    hsl(var(--background)) 100%
   );
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
+  border: 1px solid hsl(var(--border));
   box-shadow: var(--shadow-black);
   overflow: hidden;
   backdrop-filter: blur(10px);
@@ -106,7 +106,7 @@
 .dot {
   width: 12px;
   height: 12px;
-  border-radius: 50%;
+  border-radius: var(--rounded-full);
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -126,7 +126,7 @@
   padding: 24px;
   height: calc(100% - 40px);
   overflow-x: hidden;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   font-size: 14px;
   line-height: 1.6;
 }
@@ -136,12 +136,12 @@
 }
 
 .panelContent::-webkit-scrollbar-track {
-  background: rgba(var(--main-color), 0.2);
+  background: hsl(var(--background) / 0.2);
 }
 
 .panelContent::-webkit-scrollbar-thumb {
-  background: rgba(var(--main-color-rgb), 0.1);
-  border-radius: 3px;
+  background: hsl(var(--background) / 0.1);
+  border-radius: var(--rounded-app);
 }
 
 .sidebarHeader {
@@ -155,7 +155,7 @@
 .sectionTitle {
   margin: 0;
   font-size: 11px;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-weight: 400;
@@ -170,15 +170,15 @@
 
 .searchBox {
   height: 36px;
-  background: rgba(var(--secondary-color-rgb), 0.03);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.06);
-  border-radius: 8px;
+  background: hsl(var(--foreground) / 0.03);
+  border: 1px solid hsl(var(--foreground) / 0.06);
+  border-radius: var(--rounded-app);
   padding: 0 12px;
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   margin-bottom: 24px;
   width: 260px;
 }
@@ -187,9 +187,9 @@
   padding: 0 4px;
   margin-left: auto;
   font-size: 16px;
-  color: rgba(var(--secondary-color-rgb), 1);
-  background-color: rgba(var(--secondary-color-rgb), 0.1);
-  border-radius: 5px;
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--foreground) / 0.1);
+  border-radius: var(--rounded-app);
 }
 
 .navList {
@@ -207,7 +207,7 @@
 
 .navGroupTitle {
   font-size: 11px;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-weight: 400;
@@ -222,8 +222,8 @@
   border: none;
   text-align: left;
   padding: 8px 12px;
-  border-radius: 6px;
-  color: rgba(var(--secondary-color-rgb), 1);
+  border-radius: var(--rounded-app);
+  color: hsl(var(--foreground));
   font-size: 13px;
   cursor: pointer;
   display: flex;
@@ -233,19 +233,19 @@
 }
 
 .navItemActive {
-  background: rgba(var(--secondary-color-rgb), 0.08);
-  color: rgba(var(--secondary-color-rgb), 1);
+  background: hsl(var(--foreground) / 0.08);
+  color: hsl(var(--foreground));
   font-weight: 400;
 }
 
 .navPath {
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   font-size: 12px;
 }
 
 .navIcon {
   margin-left: auto;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   font-size: 12px;
 }
 
@@ -254,7 +254,7 @@
   background: rgba(0, 159, 117, 1);
   color: white;
   padding: 3px 16px;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
   font-weight: 400;
   font-size: 12px;
   text-transform: uppercase;
@@ -271,7 +271,7 @@
 .endpointPath {
   font-size: 20px;
   font-weight: 700;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   margin: 0;
 }
 
@@ -279,7 +279,7 @@
   background: rgba(0, 159, 117, 1);
   color: white;
   padding: 3px 16px;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
   font-weight: 400;
   font-size: 12px;
   text-transform: uppercase;
@@ -287,12 +287,12 @@
 }
 
 .urlDisplay {
-  background: rgba(var(--main-color-rgb), 0.3);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.05);
-  border-radius: 6px;
+  background: hsl(var(--background) / 0.3);
+  border: 1px solid hsl(var(--foreground) / 0.05);
+  border-radius: var(--rounded-app);
   padding: 8px;
   font-size: 12px;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   font-family: "Monaco", "Courier New", monospace;
   margin-bottom: 24px;
   word-break: break-all;
@@ -305,7 +305,7 @@
 .sectionHeading {
   font-size: 12px;
   font-weight: 600;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin: 0 0 12px 0;
@@ -331,8 +331,8 @@
   flex-direction: column;
   gap: 4px;
   align-items: flex-start;
-  background: rgba(var(--secondary-color-rgb), 0.02);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.05);
+  background: hsl(var(--foreground) / 0.02);
+  border: 1px solid hsl(var(--foreground) / 0.05);
   padding: 12px;
   background: linear-gradient(90deg, #303b42 0%, #556b79 100%);
 }
@@ -350,7 +350,7 @@
 .statusDot {
   width: 14px;
   height: 14px;
-  border-radius: 50%;
+  border-radius: var(--rounded-full);
   display: inline-block;
   margin-right: 12px;
 }
@@ -380,10 +380,10 @@
   align-items: center;
   gap: 6px;
   font-size: 11px;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid rgba(var(--secondary-color-rgb), 0.05);
+  border-top: 1px solid hsl(var(--foreground) / 0.05);
 }
 
 .footerNav {
@@ -393,9 +393,9 @@
   gap: 8px;
   margin-top: 20px;
   padding-top: 16px;
-  border-top: 1px solid rgba(var(--secondary-color-rgb), 0.05);
+  border-top: 1px solid hsl(var(--foreground) / 0.05);
   font-size: 13px;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
 }
 
 .languageSection {
@@ -403,7 +403,7 @@
 }
 
 .languageLabel {
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 12px;
@@ -421,11 +421,11 @@
 }
 
 .langTab {
-  background: rgba(var(--secondary-color-rgb), 0.03);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.06);
+  background: hsl(var(--foreground) / 0.03);
+  border: 1px solid hsl(var(--foreground) / 0.06);
   padding: 6px 10px;
   font-size: 11px;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -446,31 +446,31 @@
   gap: 6px;
   font-family: inherit;
   padding: 6px;
-  background-color: rgba(var(--secondary-color-rgb), 0.07);
+  background-color: hsl(var(--foreground) / 0.07);
 }
 
 .langTabDots {
   background-color: transparent;
   border: none;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
 }
 
 .langTabActive {
-  background: rgba(var(--secondary-color-rgb), 0.1);
-  border-color: rgba(var(--secondary-color-rgb), 0.15);
-  color: rgba(var(--secondary-color-rgb), 1);
+  background: hsl(var(--foreground) / 0.1);
+  border-color: hsl(var(--foreground) / 0.15);
+  color: hsl(var(--foreground));
   font-weight: 600;
 }
 
 .langIcon {
   width: 20px;
   height: 20px;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
 }
 
 .langLabelText {
   font-size: 12px;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
 }
 
 .codeSection {
@@ -478,18 +478,18 @@
   background: linear-gradient(
     90deg,
     var(--main-color) 0%,
-    rgba(var(--secondary-color-rgb), 0.2) 200%
+    hsl(var(--foreground) / 0.2) 200%
   );
 
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
-  border-radius: 8px;
+  border: 1px solid hsl(var(--foreground) / 0.2);
+  border-radius: var(--rounded-app);
   padding: var(--padding-mobile) var(--padding-tablet);
 }
 
 .codeSectionTitle {
   font-size: 18px;
   font-weight: 400;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 8px;
@@ -498,7 +498,7 @@
 .codeBlock {
   padding: 16px;
   font-size: 11px;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   font-family: "Monaco", "Courier New", monospace;
   line-height: 1.6;
   overflow-x: auto;
@@ -516,7 +516,7 @@
   list-style: none;
   margin: 0;
   padding: 12px 8px;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   font-family: "Monaco", monospace;
   font-size: 11px;
   text-align: right;
@@ -567,8 +567,8 @@
   background: linear-gradient(
     180deg,
     transparent 30%,
-    rgba(var(--main-color-rgb), 0.5) 75%,
-    rgba(var(--main-color-rgb), 1) 90%
+    hsl(var(--background) / 0.5) 75%,
+    hsl(var(--background)) 90%
   );
 }
 

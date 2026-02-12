@@ -4,6 +4,7 @@ import { Sora } from "next/font/google";
 import { SmoothAnchorScroll } from "@/ui/shared/components/smooth-anchor-scroll/smooth-anchor-scroll";
 import { LandingAnimationProvider } from "@/ui/landing-page/providers/landing-animation-provider";
 import { HomeAnimationProvider } from "@/ui/home/providers/home-animation-provider";
+import { ThemeProvider } from "@/ui/shared/providers/theme-provider";
 import Head from "./head";
 
 const sora = Sora({
@@ -30,10 +31,12 @@ export default function RootLayout({
       </head>
 
       <body>
-        <SmoothAnchorScroll />
-        <LandingAnimationProvider>
-          <HomeAnimationProvider>{children}</HomeAnimationProvider>
-        </LandingAnimationProvider>
+        <ThemeProvider>
+          <SmoothAnchorScroll />
+          <LandingAnimationProvider>
+            <HomeAnimationProvider>{children}</HomeAnimationProvider>
+          </LandingAnimationProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

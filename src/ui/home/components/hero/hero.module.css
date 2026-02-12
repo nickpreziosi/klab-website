@@ -13,7 +13,7 @@
   width: 100%;
   height: auto;
   aspect-ratio: 16/9;
-  border-radius: 12px;
+  border-radius: var(--rounded-app);
 }
 
 .overlay {
@@ -25,12 +25,12 @@
   z-index: -1;
   background: linear-gradient(
     180deg,
-    var(--main-color) 0%,
-    var(--main-color-70) 20%,
-    var(--main-color-65) 40%,
-    var(--main-color-65) 70%,
-    var(--main-color-70) 80%,
-    var(--main-color) 100%
+    hsl(var(--background)) 0%,
+    hsl(var(--background) / 0.7) 20%,
+    hsl(var(--background) / 0.65) 40%,
+    hsl(var(--background) / 0.65) 70%,
+    hsl(var(--background) / 0.7) 80%,
+    hsl(var(--background)) 100%
   );
 }
 
@@ -71,7 +71,7 @@
   font-size: 52px;
   line-height: 62px;
   letter-spacing: -1.5%;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .mainText {
@@ -80,7 +80,7 @@
   font-size: 24px;
   line-height: 32px;
   letter-spacing: -0.5%;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .contactButton {
@@ -89,15 +89,15 @@
   top: 497px;
   left: 123px;
   opacity: 1;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
   padding: 10px;
   gap: 10px;
   font-weight: 500;
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
-  color: var(--main-color);
-  background: var(--secondary-color);
+  color: hsl(var(--background));
+  background: hsl(var(--foreground));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -128,13 +128,13 @@
   font-size: 52px;
   line-height: 62px;
   letter-spacing: -1.5%;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 /* Limit Hover Effects to Non Touch Devices */
 @media (pointer: fine) and (hover: hover) {
   .contactButton:hover {
-    background: rgba(var(--secondary-color-rgb), 0.75);
+    background: hsl(var(--foreground) / 0.75);
   }
 }
 

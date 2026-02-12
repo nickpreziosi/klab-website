@@ -1,7 +1,7 @@
 /* Completely restyled to match existing component patterns */
 .main {
   min-height: 100vh;
-  background: var(--main-color);
+  background: hsl(var(--background));
   width: 100%;
 }
 
@@ -10,7 +10,7 @@
 }
 
 .main a:hover {
-  color: var(--accent-color) !important;
+  color: hsl(var(--accent)) !important;
 }
 
 .hero {
@@ -35,8 +35,8 @@
   transform: translateX(-50%);
   width: 800px;
   height: 800px;
-  background: radial-gradient(circle, rgba(var(--main-color-rgb), 0.3) 0%, transparent 70%);
-  border-radius: 50%;
+  background: radial-gradient(circle, hsl(var(--background) / 0.3) 0%, transparent 70%);
+  border-radius: var(--rounded-full);
   filter: blur(100px);
 }
 
@@ -57,7 +57,7 @@
 }
 
 .breadcrumbLink {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.7;
   text-decoration: none;
   transition: opacity 0.2s;
@@ -68,21 +68,21 @@
 }
 
 .breadcrumbSeparator {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.5;
 }
 
 .breadcrumbCurrent {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.9;
 }
 
 .category {
   display: inline-block;
   padding: 6px 12px;
-  background: rgba(var(--secondary-color-rgb), 0.1);
-  color: var(--secondary-color);
-  border-radius: 6px;
+  background: hsl(var(--surface));
+  color: hsl(var(--foreground));
+  border-radius: var(--rounded-app);
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
@@ -95,7 +95,7 @@
   font-weight: 400;
   line-height: 1.2;
   margin: 0 0 32px 0;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   letter-spacing: -0.02em;
 }
 
@@ -115,13 +115,13 @@
 .authorAvatar {
   width: 48px;
   height: 48px;
-  border-radius: 50%;
-  background: rgba(var(--secondary-color-rgb), 0.2);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.3);
+  border-radius: var(--rounded-full);
+  background: hsl(var(--surface));
+  border: 1px solid hsl(var(--border));
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   font-weight: 600;
   font-size: 18px;
 }
@@ -134,19 +134,19 @@
 
 .authorName {
   font-weight: 400;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   font-size: 14px;
 }
 
 .authorRole {
   font-size: 14px;
   font-weight: 300;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.7;
 }
 
 .metaDivider {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.5;
 }
 
@@ -154,7 +154,7 @@
 .readTime {
   font-size: 14px;
   font-weight: 300;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.7;
 }
 
@@ -165,9 +165,9 @@
 }
 
 .imageContainer {
-  border-radius: 16px;
+  border-radius: var(--rounded-app);
   overflow: hidden;
-  background: rgba(var(--secondary-color-rgb), 0.03);
+  background: hsl(var(--surface));
   aspect-ratio: 2 / 1;
   position: relative;
 }
@@ -184,7 +184,7 @@
   padding: 0;
   font-size: 16px;
   font-weight: 300;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.8;
   text-align: center;
   line-height: 1.5;
@@ -194,15 +194,15 @@
   width: 100%;
   height: auto;
   aspect-ratio: 16/9;
-  border-radius: 16px;
+  border-radius: var(--rounded-app);
   overflow: hidden;
-  background: rgba(var(--secondary-color-rgb), 0.03);
+  background: hsl(var(--surface));
 }
 
 .video {
   width: 100%;
   height: 100%;
-  border-radius: 16px;
+  border-radius: var(--rounded-app);
   display: block;
 }
 
@@ -225,7 +225,7 @@
   font-size: 18px;
   font-weight: 300;
   line-height: 1.8;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .content p {
@@ -239,7 +239,7 @@
   margin: 48px 0 24px;
   line-height: 1.3;
   letter-spacing: -0.015em;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .content h3 {
@@ -248,7 +248,7 @@
   margin: 36px 0 20px;
   line-height: 1.4;
   letter-spacing: -0.01em;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .content ul,
@@ -265,17 +265,17 @@
 
 .content strong {
   font-weight: 600;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .content blockquote {
   margin: 32px 0;
   padding: 24px 32px;
-  border-left: 4px solid rgba(var(--accent-color-rgb), 0.3);
-  background: rgba(var(--secondary-color-rgb), 0.05);
-  border-radius: 0 8px 8px 0;
+  border-left: 4px solid hsl(var(--accent) / 0.3);
+  background: hsl(var(--surface));
+  border-radius: 0 var(--rounded-app) var(--rounded-app) 0;
   font-style: italic;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.9;
 }
 
@@ -290,19 +290,19 @@
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: rgba(var(--secondary-color-rgb), 0.05);
-  color: var(--secondary-color);
+  background: hsl(var(--surface));
+  color: hsl(var(--foreground));
   text-decoration: none;
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.15);
-  border-radius: 8px;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--rounded-app);
   font-weight: 400;
   font-size: 14px;
   transition: all 0.3s ease;
 }
 
 .backButton:hover {
-  background: rgba(var(--secondary-color-rgb), 0.08);
-  border-color: rgba(var(--secondary-color-rgb), 0.25);
+  background: hsl(var(--surface-hover));
+  border-color: hsl(var(--border));
   transform: translateX(-4px);
 }
 
@@ -319,12 +319,12 @@
 .notFound h1 {
   font-size: 36px;
   font-weight: 400;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   letter-spacing: -0.015em;
 }
 
 .backLink {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   text-decoration: none;
   font-weight: 400;
   transition: opacity 0.2s;
@@ -352,7 +352,7 @@
   margin: 0 0 40px 0;
   line-height: 1.3;
   letter-spacing: -0.015em;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .galleryGrid {
@@ -363,10 +363,10 @@
 
 .galleryItem {
   position: relative;
-  background: rgba(var(--secondary-color-rgb), 0.03);
-  border-radius: 12px;
+  background: hsl(var(--surface));
+  border-radius: var(--rounded-app);
   overflow: hidden;
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.1);
+  border: 1px solid hsl(var(--border));
   cursor: pointer;
   padding: 0;
   width: 100%;
@@ -375,8 +375,8 @@
 .galleryImage:hover {
   /* Only use transform (GPU-accelerated) for scale, not on click */
   transform: scale(1.02);
-  border-color: rgba(var(--secondary-color-rgb), 0.2);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-color: hsl(var(--border));
+  box-shadow: 0 8px 24px hsl(0 0% 0% / 0.1);
 }
 
 .galleryImage:active {
@@ -404,14 +404,14 @@
   padding: 12px 16px;
   font-size: 14px;
   font-weight: 300;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.8;
   line-height: 1.5;
 }
 
 /* Dialog Styles - Using GPU-accelerated properties for safe transitions */
 .dialogOverlay {
-  background: rgba(0, 0, 0, 0.85);
+  background: hsl(0 0% 0% / 0.85);
   position: fixed;
   inset: 0;
   z-index: 1000;
@@ -434,7 +434,7 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.95);
   background-color: transparent;
-  border-radius: 12px;
+  border-radius: var(--rounded-app);
   width: min(90vw, 1200px);
   max-width: calc(100vw - 40px);
   max-height: calc(100vh - 40px);
@@ -510,8 +510,8 @@
   max-width: 100%;
   max-height: calc(100vh - 150px);
   object-fit: contain;
-  border-radius: 12px;
-  background: rgba(var(--secondary-color-rgb), 0.05);
+  border-radius: var(--rounded-app);
+  background: hsl(var(--surface));
   /* Prevent layout shifts in Chrome */
   display: block;
 }
@@ -521,7 +521,7 @@
   padding: 12px 20px;
   font-size: 16px;
   font-weight: 300;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   text-align: center;
   opacity: 0.9;
   max-width: 800px;
@@ -533,8 +533,8 @@
   right: 20px;
   width: 40px;
   height: 40px;
-  border-radius: 6px;
-  background: rgba(0, 0, 0, 0.6);
+  border-radius: var(--rounded-app);
+  background: hsl(0 0% 0% / 0.6);
   border: none;
   color: white;
   cursor: pointer;
@@ -550,7 +550,7 @@
 }
 
 .dialogClose:hover {
-  background: rgba(0, 0, 0, 0.8);
+  background: hsl(0 0% 0% / 0.8);
   transform: scale(1.1);
 }
 
@@ -561,8 +561,8 @@
   transform: translateY(-50%);
   width: 48px;
   height: 48px;
-  border-radius: 6px;
-  background: rgba(0, 0, 0, 0.6);
+  border-radius: var(--rounded-app);
+  background: hsl(0 0% 0% / 0.6);
   border: none;
   color: white;
   cursor: pointer;
@@ -587,7 +587,7 @@
 }
 
 .carouselNavButton:hover:not(:disabled) {
-  background: rgba(0, 0, 0, 0.8);
+  background: hsl(0 0% 0% / 0.8);
 }
 
 .carouselNavButton:disabled {
@@ -600,7 +600,7 @@
 }
 
 .dialogClose:focus {
-  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline: 2px solid hsl(var(--foreground) / 0.5);
   outline-offset: 2px;
 }
 

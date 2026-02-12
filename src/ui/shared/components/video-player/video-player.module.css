@@ -3,13 +3,13 @@
   max-width: 1440px !important;
   padding: 0;
   margin: 0 auto;
-  border-radius: var(--rounded-sm);
+  border-radius: var(--rounded-app);
 }
 
 .videoWrapper {
   position: relative;
   width: 100%;
-  border-radius: 16px;
+  border-radius: var(--rounded-app);
   overflow: hidden;
   aspect-ratio: 16 / 9;
   cursor: pointer;
@@ -21,8 +21,8 @@
   width: 100%;
   height: auto;
   aspect-ratio: 16/9;
-  border-radius: 12px;
-  background-color: rgba(var(--main-color-rgb));
+  border-radius: var(--rounded-app);
+  background-color: hsl(var(--background));
 }
 
 .posterContainer {
@@ -48,7 +48,7 @@
   transform: translate(-50%, -50%);
   width: 100px;
   height: 100px;
-  border-radius: 50%;
+  border-radius: var(--rounded-full);
   background: transparent;
   border: none;
   cursor: pointer;

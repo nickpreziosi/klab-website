@@ -84,7 +84,7 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
-  border-radius: 8px;
+  border-radius: var(--rounded-app);
   opacity: 0;
   visibility: hidden;
   transition:
@@ -112,7 +112,7 @@
   width: 100%;
   aspect-ratio: 1;
   max-height: 100%;
-  border-radius: 50%;
+  border-radius: var(--rounded-full);
   overflow: hidden;
   display: flex;
   align-items: center;

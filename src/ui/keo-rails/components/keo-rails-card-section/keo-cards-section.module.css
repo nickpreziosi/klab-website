@@ -1,14 +1,14 @@
 .section {
   width: 100%;
-  background-color: var(--main-color);
+  background-color: hsl(var(--background));
   background: linear-gradient(
     180deg,
-    rgba(var(--secondary-color-rgb), 0.1) 0%,
-    rgba(var(--secondary-color-rgb), 0.1) 20%,
-    rgba(var(--main-color-rgb), 0.2) 40%,
-    rgba(var(--main-color-rgb), 0.5) 70%,
-    rgba(var(--main-color-rgb), 0.7) 80%,
-    rgba(var(--main-color-rgb), 1) 100%
+    hsl(var(--foreground) / 0.1) 0%,
+    hsl(var(--foreground) / 0.1) 20%,
+    hsl(var(--background) / 0.2) 40%,
+    hsl(var(--background) / 0.5) 70%,
+    hsl(var(--background) / 0.7) 80%,
+    hsl(var(--background)) 100%
   );
   display: flex;
   flex-direction: column;
@@ -32,9 +32,9 @@
 }
 
 .featureCard {
-  background-color: rgba(var(--secondary-color-rgb), 0.03);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.1);
-  border-radius: 16px;
+  background-color: hsl(var(--foreground) / 0.03);
+  border: 1px solid hsl(var(--foreground) / 0.1);
+  border-radius: var(--rounded-app);
   padding: var(--padding-tablet) var(--padding-mobile);
   transition: all 0.3s ease;
   display: flex;
@@ -45,7 +45,7 @@
 .featureTitle {
   font-size: 24px;
   font-weight: 600;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 0;
   font-size: 18px;
   line-height: 22px;
@@ -53,7 +53,7 @@
 }
 
 .featureDescription {
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   margin: 0;
   font-weight: 300;
   font-style: Light;
@@ -65,7 +65,7 @@
   text-align: center;
   font-size: 40px;
   font-weight: 500;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   line-height: 1.4;
   max-width: 900px;
   margin: 0 auto;
@@ -135,8 +135,8 @@
 /* Limit Hover Effects to Non Touch Devices */
 @media (pointer: fine) and (hover: hover) {
   .featureCard:hover {
-    background-color: rgba(var(--secondary-color-rgb), 0.05);
-    border-color: rgba(var(--secondary-color-rgb), 0.2);
+    background-color: hsl(var(--foreground) / 0.05);
+    border-color: hsl(var(--foreground) / 0.2);
     transform: translateY(-4px);
   }
 }

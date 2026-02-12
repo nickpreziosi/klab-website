@@ -232,7 +232,7 @@ export default function KeoRailsAnimationOne() {
           y1="0"
           x2="0"
           y2="96"
-          stroke="rgba(var(--secondary-color-rgb), 0.2)"
+          stroke="hsl(var(--foreground) / 0.2)"
           strokeWidth="4"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={selected ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
@@ -266,7 +266,7 @@ export default function KeoRailsAnimationOne() {
             key={0}
             d={d}
             fill="none"
-            stroke="rgba(var(--secondary-color-rgb), 0.2)"
+            stroke="hsl(var(--foreground) / 0.2)"
             strokeWidth={4}
             strokeLinecap="round"
             initial={{ pathLength: 0, opacity: 0 }}

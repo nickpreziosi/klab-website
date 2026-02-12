@@ -24,7 +24,7 @@
 }
 
 .mainHeading {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 0;
   font-weight: 600;
   font-size: clamp(2.5rem, 5vw, 4rem);
@@ -34,7 +34,7 @@
 }
 
 .subheading {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 1.5rem 0 0 0;
   font-weight: 400;
   font-size: clamp(1.125rem, 2vw, 1.5rem);
@@ -98,7 +98,7 @@
 }
 
 .heading {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 0;
   font-weight: 700;
   font-size: clamp(1.5rem, 3vw, 2.25rem);
@@ -107,7 +107,7 @@
 }
 
 .description {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 0;
   font-weight: 400;
   font-size: clamp(1rem, 1.5vw, 1.125rem);
@@ -145,7 +145,7 @@
 .progressTrack {
   width: 4px;
   height: 100vh;
-  border-radius: 4px;
+  border-radius: var(--rounded-app);
   position: relative;
   overflow: visible;
 }
@@ -155,8 +155,8 @@
   left: 0;
   top: 0;
   width: 100%;
-  background: var(--secondary-color);
-  border-radius: 4px;
+  background: hsl(var(--foreground));
+  border-radius: var(--rounded-app);
   transform-origin: top;
 }
 
@@ -167,8 +167,8 @@
   transform: translate(-50%, -50%) rotate(0deg) scale(1);
   width: 34px;
   height: 34px;
-  border-radius: 4px;
-  background: var(--secondary-color);
+  border-radius: var(--rounded-app);
+  background: hsl(var(--foreground));
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   transition:
     opacity 200ms ease,

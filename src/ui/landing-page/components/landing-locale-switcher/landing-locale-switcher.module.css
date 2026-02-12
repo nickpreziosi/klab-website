@@ -14,7 +14,7 @@
   min-width: 11rem;
   padding: 0.5rem 1rem;
   border: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 8px;
+  border-radius: var(--rounded-app);
   background: rgba(255, 255, 255, 0.12);
   color: rgb(255, 255, 255);
   font-family: "Sora", sans-serif;
@@ -94,7 +94,7 @@
 .content {
   width: 11rem;
   min-width: 11rem;
-  border-radius: 8px;
+  border-radius: var(--rounded-app);
   border: 1px solid rgba(0, 0, 0, 0.1);
   background: rgb(250, 250, 250);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
@@ -111,7 +111,7 @@
   align-items: center;
   width: 100%;
   padding: 8px 32px 8px 12px;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
   color: #1a1a1a;
   font-size: 0.875rem;
   cursor: pointer;

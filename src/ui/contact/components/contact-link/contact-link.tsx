@@ -4,6 +4,14 @@ import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import styles from "./contact-link.module.css";
 import Button from "@/ui/shared/components/button/button";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/ui/shared/components/card/card";
+
 interface ContactLinkProps {
   icon: ReactNode;
   title: string;
@@ -15,18 +23,18 @@ interface ContactLinkProps {
 export function ContactLink({ icon, title, description, href, buttonText }: ContactLinkProps) {
   return (
     <motion.div
-      className={styles.card}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.2 }}
-      whileHover={{ y: -4 }}
     >
-      <h3 className={styles.title}>{title}</h3>
-
-      <p className={styles.description}>{description}</p>
-
-      <Button
+      <Card className={styles.card}>
+        <CardHeader>
+          <CardTitle className={styles.title}>{title}</CardTitle>
+          <CardDescription className={styles.description}>{description}</CardDescription>
+        </CardHeader>
+        <CardFooter>
+          <Button
         href={href}
         variant="accent-brand"
         iconPosition="right"
@@ -48,8 +56,10 @@ export function ContactLink({ icon, title, description, href, buttonText }: Cont
           </svg>
         }
       >
-        {buttonText}
-      </Button>
+            {buttonText}
+          </Button>
+        </CardFooter>
+      </Card>
     </motion.div>
   );
 }

@@ -1,7 +1,7 @@
 .card {
-  background: rgba(var(--secondary-color-rgb), 0.05);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.15);
-  border-radius: 16px;
+  background: hsl(var(--foreground) / 0.05);
+  border: 1px solid hsl(var(--foreground) / 0.15);
+  border-radius: var(--rounded-app);
   overflow: hidden;
   transition: all 0.3s ease;
 }
@@ -45,13 +45,13 @@
 .skeleton {
   background: linear-gradient(
     90deg,
-    rgba(var(--secondary-color-rgb), 0.08) 0%,
-    rgba(var(--secondary-color-rgb), 0.12) 50%,
-    rgba(var(--secondary-color-rgb), 0.08) 100%
+    hsl(var(--foreground) / 0.08) 0%,
+    hsl(var(--foreground) / 0.12) 50%,
+    hsl(var(--foreground) / 0.08) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
-  border-radius: 8px;
+  border-radius: var(--rounded-app);
 }
 
 @keyframes shimmer {
@@ -91,7 +91,7 @@
 .avatar {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: var(--rounded-full);
   flex-shrink: 0;
 }
 

@@ -7,12 +7,12 @@
   align-items: center;
   background: linear-gradient(
     180deg,
-    rgba(var(--secondary-color-rgb), 0.1) 0%,
-    rgba(var(--secondary-color-rgb), 0.1) 20%,
-    rgba(var(--main-color-rgb), 0.2) 40%,
-    rgba(var(--main-color-rgb), 0.5) 70%,
-    rgba(var(--main-color-rgb), 0.7) 80%,
-    rgba(var(--main-color-rgb), 1) 100%
+    hsl(var(--foreground) / 0.1) 0%,
+    hsl(var(--foreground) / 0.1) 20%,
+    hsl(var(--background) / 0.2) 40%,
+    hsl(var(--background) / 0.5) 70%,
+    hsl(var(--background) / 0.7) 80%,
+    hsl(var(--background)) 100%
   );
 }
 
@@ -45,7 +45,7 @@
 
 .heading {
   width: 100%;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   font-weight: 500;
   font-style: Medium;
   font-size: 42px;
@@ -54,7 +54,7 @@
 }
 
 .mainText {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   font-weight: 300;
   font-style: Medium;
   font-size: 20px;
@@ -101,7 +101,7 @@
   max-width: 100%;
   height: auto;
   display: block;
-  border-radius: 20px;
+  border-radius: var(--rounded-app);
 }
 
 .highlightWrapper {
@@ -124,12 +124,12 @@
   justify-content: flex-end;
   gap: var(--gap-sm);
   padding: var(--padding-tablet);
-  border-radius: 20px;
+  border-radius: var(--rounded-app);
   color: white;
 }
 
 .leftColumn {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   display: flex;
   flex-direction: column;
   gap: var(--gap-lg);
@@ -145,7 +145,7 @@
   .backgroundLayers {
     position: absolute;
     inset: 0;
-    border-radius: 20px;
+    border-radius: var(--rounded-app);
     overflow: hidden;
     z-index: 0; /* background layer sits under content */
   }
@@ -177,7 +177,7 @@
   font-size: 24px;
   line-height: 32px;
   letter-spacing: -0.5%;
-  border-left: 2px solid rgba(var(--secondary-color-rgb));
+  border-left: 2px solid hsl(var(--foreground));
   padding: 0 var(--padding-mobile);
 }
 
@@ -196,7 +196,7 @@
   flex-direction: column;
   justify-content: flex-end;
   gap: var(--gap-sm);
-  border-radius: 20px;
+  border-radius: var(--rounded-app);
   color: black;
   box-shadow: var(--shadow-black);
   overflow: hidden;
@@ -206,7 +206,7 @@
 .backgroundLayers {
   position: absolute;
   inset: 0;
-  border-radius: 20px;
+  border-radius: var(--rounded-app);
   overflow: hidden;
   z-index: 0;
 }
@@ -226,11 +226,11 @@
   position: absolute;
   background: linear-gradient(
     180deg,
-    rgba(var(--accent-color-rgb), 0.1) 0%,
-    rgba(var(--accent-color-rgb), 0.2) 20%,
-    rgba(var(--accent-color-rgb), 0.3) 40%,
-    rgba(var(--accent-color-rgb), 0.7) 80%,
-    rgba(var(--accent-color-rgb), 0.7) 100%
+    hsl(var(--accent) / 0.1) 0%,
+    hsl(var(--accent) / 0.2) 20%,
+    hsl(var(--accent) / 0.3) 40%,
+    hsl(var(--accent) / 0.7) 80%,
+    hsl(var(--accent) / 0.7) 100%
   );
 }
 
@@ -271,7 +271,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 20px;
+  border-radius: var(--rounded-app);
   z-index: -1;
 }
 
@@ -282,7 +282,7 @@
   justify-content: center;
   align-items: center;
   margin-top: var(--gap-lg);
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .logoButton {
@@ -294,15 +294,15 @@
   font-size: 2rem;
   background-color: transparent;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--rounded-app);
 }
 
 .logoButton svg {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .active {
-  background-color: rgba(var(--secondary-color-rgb), 0.1);
+  background-color: hsl(var(--foreground) / 0.1);
 }
 
 /* Mobile / tablet controls (arrows + indicators). Hidden by default (desktop), enabled via media query */
@@ -317,11 +317,11 @@
 .arrowButton {
   width: 48px;
   height: 48px;
-  border-radius: 50%;
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
-  background: rgba(var(--secondary-color-rgb), 0.05);
+  border-radius: var(--rounded-full);
+  border: 1px solid hsl(var(--foreground) / 0.2);
+  background: hsl(var(--foreground) / 0.05);
   backdrop-filter: blur(10px);
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -343,15 +343,15 @@
 .indicator {
   width: 40px;
   height: 10px;
-  border-radius: 999px;
-  background: rgba(var(--secondary-color-rgb), 0.2);
+  border-radius: var(--rounded-full);
+  background: hsl(var(--foreground) / 0.2);
   border: none;
   padding: 0;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
 .activeIndicator {
-  background: rgba(var(--secondary-color-rgb), 0.9);
+  background: hsl(var(--foreground) / 0.9);
 }
 
 @media (max-width: 1024px) {
@@ -440,10 +440,10 @@
 /* Limit Hover Effects to Non Touch Devices */
 @media (pointer: fine) and (hover: hover) {
   .arrowButton:hover {
-    background: rgba(var(--accent-color-rgb), 0.1);
+    background: hsl(var(--accent) / 0.1);
     color: var(--accent-color);
     border-color: var(--accent-color);
     transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(var(--accent-color-rgb), 0.3);
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
   }
 }

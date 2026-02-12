@@ -167,7 +167,7 @@
 .statusDot {
   width: 6px;
   height: 6px;
-  border-radius: 50%;
+  border-radius: var(--rounded-full);
   animation: pulse 2s ease-in-out infinite;
 }
 

@@ -5,7 +5,7 @@
   justify-content: center;
   gap: 0.5rem;
   white-space: nowrap;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1;
@@ -43,7 +43,7 @@
   height: 2rem;
   padding: 0 0.75rem;
   font-size: 0.75rem;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
 }
 
 .sizeMd {
@@ -54,14 +54,14 @@
 .sizeLg {
   height: 2.5rem;
   padding: 0 2rem;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
 }
 
 .sizeXl {
   height: 2.75rem;
   padding: 0 2rem;
   font-size: 1rem;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
 }
 
 .sizeIcon {
@@ -72,12 +72,12 @@
 
 /* Variant Styles */
 .variantDefault {
-  background-color: var(--main-color);
-  color: var(--secondary-color);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
 }
 
 .variantDefault:hover {
-  background-color: rgba(var(--main-color-rgb), 0.7);
+  background-color: hsl(var(--surface));
 }
 
 .variantDestructive {
@@ -90,51 +90,51 @@
 }
 
 .variantOutline {
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
-  background-color: var(--main-color);
-  color: var(--secondary-color);
+  border: 1px solid hsl(var(--border));
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
 }
 
 .variantOutline:hover {
-  background-color: rgba(var(--secondary-color-rgb), 0.05);
-  color: var(--secondary-color);
+  background-color: hsl(var(--surface));
+  color: hsl(var(--foreground));
 }
 
 .variantSecondary {
-  background-color: rgba(var(--secondary-color-rgb), 1);
-  color: var(--main-color);
+  background-color: hsl(var(--foreground));
+  color: hsl(var(--background));
 }
 
 .variantSecondary:hover {
-  background-color: rgba(var(--secondary-color-rgb), 0.8);
+  background-color: hsl(var(--foreground) / 0.9);
 }
 
 .variantGhost {
   background-color: transparent;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .variantGhost:hover {
-  background-color: rgba(var(--secondary-color-rgb), 0.05);
-  color: var(--secondary-color);
+  background-color: hsl(var(--foreground) / 0.05);
+  color: hsl(var(--foreground));
 }
 
 .variantLink {
   background-color: transparent;
-  color: var(--accent-color);
+  color: hsl(var(--accent));
   text-decoration: none;
   text-underline-offset: 4px;
 }
 
 .variantLink:hover {
   text-decoration: underline;
-  color: var(--accent-color);
+  color: hsl(var(--accent));
 }
 
 .variantAccentBrand {
-  background-color: var(--accent-color);
+  background-color: hsl(var(--accent));
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
-  color: white;
+  color: hsl(var(--accent-foreground));
 }
 
 .variantAccentBrand:hover {
@@ -142,13 +142,13 @@
 }
 
 .variantAccentBrandOutline {
-  border: 1px solid var(--accent-color);
+  border: 1px solid hsl(var(--accent));
   background-color: transparent;
-  color: var(--accent-color);
+  color: hsl(var(--accent));
 }
 
 .variantAccentBrandOutline:hover {
-  background-color: rgba(var(--accent-color-rgb), 0.2);
+  background-color: hsl(var(--accent) / 0.2);
 }
 
 /* Icon Container */

@@ -61,7 +61,7 @@
   width: fit-content;
   height: 44px;
   opacity: 1;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
   padding: var(--padding-mobile);
   gap: 10px;
   font-weight: 500;
@@ -93,7 +93,7 @@
 /* Limit Hover Effects to Non Touch Devices */
 @media (pointer: fine) and (hover: hover) {
   .contactButton:hover {
-    background: rgba(var(--secondary-color-rgb), 0.6);
+    background: hsl(var(--foreground) / 0.6);
   }
 }
 

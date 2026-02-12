@@ -1,0 +1,44 @@
+/* Card - matches original k-lab-components: rounded-app-radius border bg-card text-card-foreground shadow */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-border-radius);
+  color: var(--card-foreground);
+  box-shadow: var(--card-shadow);
+}
+
+/* CardHeader - flex flex-col space-y-1.5 p-6 */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem; /* space-y-1.5 */
+  padding: 1.5rem; /* p-6 */
+}
+
+/* CardTitle - font-semibold leading-none tracking-tight */
+.title {
+  font-weight: var(--font-semibold);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+
+/* CardDescription - text-sm text-muted-foreground */
+.description {
+  font-size: var(--text-sm);
+  color: var(--card-muted-foreground);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* CardContent - p-6 pt-0 */
+.content {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+/* CardFooter - flex items-center p-6 pt-0 */
+.footer {
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}

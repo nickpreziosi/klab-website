@@ -54,7 +54,7 @@ export default async function ArticlePage({
               const imgUrl = urlFor(value as { asset: { _ref: string } }).url();
               const alt = value.alt || "Article image";
               const caption = value.caption ? `<figcaption>${value.caption}</figcaption>` : "";
-              return `<figure style="margin: 24px 0;"><img src="${imgUrl}" alt="${alt}" style="width: 100%; height: auto; border-radius: 8px;" />${caption}</figure>`;
+              return `<figure style="margin: 24px 0;"><img src="${imgUrl}" alt="${alt}" style="width: 100%; height: auto; border-radius: var(--rounded-app);" />${caption}</figure>`;
             },
           },
           marks: {
@@ -63,7 +63,7 @@ export default async function ArticlePage({
               const target = href.startsWith("http")
                 ? ' target="_blank" rel="noopener noreferrer"'
                 : "";
-              return `<a href="${href}"${target} style="color: var(--secondary-color); text-decoration: underline; opacity: 0.8;">${children || ""}</a>`;
+              return `<a href="${href}"${target} style="color: hsl(var(--foreground)); text-decoration: underline; opacity: 0.8;">${children || ""}</a>`;
             },
           },
         },

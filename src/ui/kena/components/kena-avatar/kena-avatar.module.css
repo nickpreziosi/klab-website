@@ -8,7 +8,7 @@
   aspect-ratio: 4/6;
   margin: 0 auto; /* center horizontally */
   background: transparent;
-  border-radius: 16px;
+  border-radius: var(--rounded-app);
   overflow: hidden;
   object-fit: cover;
   /* cap height so it doesn't overflow very short viewports */
@@ -24,7 +24,7 @@
   height: 100% !important; /* fills the container determined by aspect-ratio */
   display: block;
   cursor: grab;
-  border-radius: 16px;
+  border-radius: var(--rounded-app);
 }
 
 .canvas:active {

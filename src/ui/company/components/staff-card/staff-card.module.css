@@ -8,7 +8,7 @@
   width: 100% !important;
   height: fit-content;
   color: var(--main-color);
-  border-radius: var(--rounded-sm);
+  border-radius: var(--rounded-app);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -21,7 +21,7 @@
   height: 100%;
   width: 100%;
   object-fit: cover;
-  border-radius: var(--rounded-sm);
+  border-radius: var(--rounded-app);
   z-index: 0; /* put image at the back */
 }
 
@@ -79,7 +79,7 @@
   height: 100%;
   color: white;
   overflow: hidden;
-  border-radius: var(--rounded-sm);
+  border-radius: var(--rounded-app);
   transition: all 300ms ease-in-out;
   overflow: scroll;
 }
@@ -119,7 +119,7 @@
   height: 36px;
   background: rgba(0, 0, 0, 0.6);
   border: solid 1px rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
+  border-radius: var(--rounded-app);
   color: white;
   text-decoration: none;
   transition: all 150ms ease-in-out;
@@ -139,7 +139,7 @@
   gap: var(--gap-md);
   padding: var(--padding-mobile);
   border: transparent 1px var(--main-color);
-  border-radius: var(--rounded-sm) var(--rounded-sm) 0 0;
+  border-radius: var(--rounded-app) var(--rounded-app) 0 0;
   color: var(--secondary-color);
   text-decoration: none;
   transition: all 150ms ease-in-out;
@@ -170,7 +170,7 @@
   font-size: var(--text-sm);
   color: white;
   padding: 6px;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
 }
 
 .accordionTriggerBio,

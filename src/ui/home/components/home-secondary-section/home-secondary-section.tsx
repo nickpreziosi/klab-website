@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
+import { Card, CardContent } from "@/ui/shared/components/card/card";
 import styles from "./home-secondary-section.module.css";
 import Button from "@/ui/shared/components/button/button";
 import Image from "next/image";
@@ -519,7 +520,6 @@ export default function HomeSecondarySection({
             {cards.map((card, index) => (
               <motion.div
                 key={index}
-                className={styles.card}
                 variants={{
                   hidden: {
                     opacity: 0,
@@ -542,10 +542,12 @@ export default function HomeSecondarySection({
                   delay: index * 0.15, // Stagger each card by 0.15s
                 }}
               >
-                <div className={styles.cardText}>
-                  <h3 className={styles.cardTitle}>{card.title}</h3>
-                  <p className={styles.cardDescription}>{card.description}</p>
-                  <Button
+                <Card className={styles.card}>
+                  <CardContent className={styles.cardContent}>
+                    <div className={styles.cardText}>
+                      <h3 className={styles.cardTitle}>{card.title}</h3>
+                      <p className={styles.cardDescription}>{card.description}</p>
+                      <Button
                     href={card.link}
                     variant="accent-brand"
                     icon={
@@ -566,19 +568,21 @@ export default function HomeSecondarySection({
                     }
                     iconPosition="right"
                   >
-                    {`Learn About ${card.title}`}
-                  </Button>
-                </div>
-                <div className={styles.cardImageWrapper}>
-                  <Image
-                    className={styles.cardImage}
-                    src={card.image}
-                    alt={card.title}
-                    width={300}
-                    height={200}
-                  />
-                  <DialogDemo video={card.video} />
-                </div>
+                        {`Learn About ${card.title}`}
+                      </Button>
+                    </div>
+                    <div className={styles.cardImageWrapper}>
+                      <Image
+                        className={styles.cardImage}
+                        src={card.image}
+                        alt={card.title}
+                        width={300}
+                        height={200}
+                      />
+                      <DialogDemo video={card.video} />
+                    </div>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>

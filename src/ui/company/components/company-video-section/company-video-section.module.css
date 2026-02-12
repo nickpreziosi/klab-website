@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(var(--secondary-color-rgb), 0.05);
+  background-color: hsl(var(--foreground) / 0.05);
   position: relative;
 }
 
@@ -22,7 +22,7 @@
   margin-bottom: 120px;
   align-items: center;
   box-shadow: var(--shadow-black);
-  border-radius: 20px;
+  border-radius: var(--rounded-app);
 }
 
 /* Left Column - Text Content */
@@ -37,12 +37,12 @@
   gap: 24px;
   background: linear-gradient(
     -90deg,
-    rgba(var(--secondary-color-rgb), 0.02) 0%,
-    rgba(var(--secondary-color-rgb), 0.01) 20%,
-    rgba(var(--main-color-rgb), 0.5) 40%,
-    rgba(var(--main-color-rgb), 1) 70%,
-    rgba(var(--main-color-rgb), 1) 80%,
-    rgba(var(--main-color-rgb), 1) 100%
+    hsl(var(--foreground) / 0.02) 0%,
+    hsl(var(--foreground) / 0.01) 20%,
+    hsl(var(--background) / 0.5) 40%,
+    hsl(var(--background)) 70%,
+    hsl(var(--background)) 80%,
+    hsl(var(--background)) 100%
   );
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
@@ -59,7 +59,7 @@
   text-align: center;
   padding: var(--padding-desktop) var(--padding-mobile) var(--padding-tablet) var(--padding-mobile);
   gap: var(--gap-xl);
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   position: absolute;
   top: 50%;
   left: 50%;
@@ -90,7 +90,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(var(--main-color-rgb), 0.5);
+  background-color: hsl(var(--background) / 0.5);
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
 }
@@ -156,16 +156,16 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  border-radius: 50%;
+  border-radius: var(--rounded-full);
 }
 
 .playIcon {
   width: 100%;
   height: 100%;
   background-color: transparent;
-  border-radius: 50%;
+  border-radius: var(--rounded-full);
   transition: all 0.3s ease-in-out;
-  color: rgba(var(--secondary-color-rgb), 0.7);
+  color: hsl(var(--muted-foreground));
 }
 
 /* Bottom Section - Centered Text */
@@ -222,7 +222,7 @@
   width: 100vw !important;
   height: 100vh !important;
   z-index: 1001;
-  border-radius: 12px;
+  border-radius: var(--rounded-app);
 }
 
 .dialogContent {
@@ -231,7 +231,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: transparent;
-  border-radius: 12px;
+  border-radius: var(--rounded-app);
   /* keep dialog content within viewport with a small inset */
   width: min(1200px, calc(100vw - 40px));
   max-width: calc(100vw - 40px);
@@ -283,7 +283,7 @@
   max-width: 100%;
   max-height: 100%;
   aspect-ratio: 16/9;
-  border-radius: 12px;
+  border-radius: var(--rounded-app);
   background-color: transparent;
   /* ensure the embed fills the dialog and uses cover behavior */
   object-fit: cover;
@@ -300,9 +300,9 @@
   position: absolute;
   top: 16px;
   right: 16px;
-  background: rgba(var(--accent-color-rgb), 0.2);
-  border: 1px solid rgba(var(--accent-color-rgb), 1);
-  color: rgba(var(--accent-color-rgb), 1);
+  background: hsl(var(--accent) / 0.2);
+  border: 1px solid hsl(var(--accent));
+  color: hsl(var(--accent));
   font-size: 14px;
   cursor: pointer;
   display: inline-flex;
@@ -310,7 +310,7 @@
   justify-content: center;
   gap: 8px;
   padding: 8px;
-  border-radius: 100%;
+  border-radius: var(--rounded-full);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   transition:
     transform 150ms ease,
@@ -458,7 +458,7 @@
   .videoContainer,
   .thumbnailImage,
   .videoThumbnail {
-    border-radius: 20px;
+    border-radius: var(--rounded-app);
   }
 
   /* mobile: remove dialog padding so dialog can use full viewport */

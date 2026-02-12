@@ -25,7 +25,7 @@
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
   font-size: var(--text-sm);
   font-weight: var(--font-base);
   transition:
@@ -47,7 +47,7 @@
 .linkPage:focus-visible,
 .linkPageActive:focus-visible,
 .linkPrevNext:focus-visible {
-  outline: 2px solid var(--secondary-color);
+  outline: 2px solid hsl(var(--foreground));
   outline-offset: 2px;
 }
 
@@ -60,19 +60,19 @@
 }
 
 .linkPage {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   cursor: pointer;
   background: transparent;
 }
 
 .linkPage:hover {
-  background: rgba(var(--secondary-color-rgb), 0.08);
-  color: var(--secondary-color);
+  background: hsl(var(--surface));
+  color: hsl(var(--foreground));
 }
 
 .linkPageActive {
-  background: var(--accent-color);
-  color: var(--main-color);
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
   pointer-events: none;
   cursor: default;
 }
@@ -83,14 +83,14 @@
   width: fit-content;
   min-width: auto;
   height: 2.25rem;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   cursor: pointer;
   background: transparent;
 }
 
 .linkPrevNext:hover {
-  background: rgba(var(--secondary-color-rgb), 0.08);
-  color: var(--secondary-color);
+  background: hsl(var(--surface));
+  color: hsl(var(--foreground));
 }
 
 .linkPrevNext[aria-disabled="true"] {
@@ -125,7 +125,7 @@
   height: 2.25rem;
   align-items: center;
   justify-content: center;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   user-select: none;
 }
 

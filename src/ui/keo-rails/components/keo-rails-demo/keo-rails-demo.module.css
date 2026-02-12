@@ -1,6 +1,6 @@
 .section {
   width: 100%;
-  background-color: rgba(var(--secondary-color-rgb), 0.05);
+  background-color: hsl(var(--surface));
   position: relative;
   display: flex;
   justify-content: center;
@@ -25,7 +25,7 @@
 }
 
 .mainHeading {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 0;
   font-weight: 400;
   font-size: 78px;
@@ -35,7 +35,7 @@
 }
 
 .subheading {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 16px 0 0 0;
   font-weight: 300;
   font-size: 24px;
@@ -67,7 +67,7 @@
 }
 
 .heading {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 0;
   font-weight: 500;
   font-style: Bold;
@@ -77,7 +77,7 @@
 }
 
 .description {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 0;
   font-weight: 300;
   font-style: Light;
@@ -91,11 +91,11 @@
   align-items: center;
   gap: 12px;
   padding: 18px 36px;
-  background-color: var(--secondary-color);
-  color: var(--main-color);
+  background-color: hsl(var(--foreground));
+  color: hsl(var(--background));
   font-size: 1.125rem;
   font-weight: 500;
-  border-radius: 8px;
+  border-radius: var(--rounded-app);
   text-decoration: none;
   transition: all 0.3s ease;
   width: fit-content;
@@ -103,7 +103,7 @@
 }
 
 .ctaButton:hover {
-  background-color: var(--accent-color);
+  background-color: hsl(var(--accent));
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(233, 30, 99, 0.3);
 }

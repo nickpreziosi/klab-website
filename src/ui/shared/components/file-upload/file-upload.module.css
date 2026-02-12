@@ -13,13 +13,13 @@
 }
 
 .optional {
-  color: rgba(var(--secondary-color-rgb), 0.6);
+  color: hsl(var(--foreground) / 0.6);
   font-size: 12px;
 }
 
 .dropzone {
-  border: 2px dashed rgba(var(--secondary-color-rgb), 0.2);
-  border-radius: 8px;
+  border: 2px dashed hsl(var(--foreground) / 0.2);
+  border-radius: var(--rounded-app);
   padding: 40px 24px;
   text-align: center;
   cursor: pointer;
@@ -44,13 +44,13 @@
 
 /* Added focus state for keyboard navigation */
 .dropzone:focus {
-  border-color: rgba(var(--secondary-color-rgb), 1);
-  background-color: rgba(var(--secondary-color-rgb), 0.03);
+  border-color: hsl(var(--foreground));
+  background-color: hsl(var(--foreground) / 0.03);
 }
 
 .dropzone.dragging {
   border-color: var(--secondary-color);
-  background-color: rgba(var(--secondary-color-rgb), 0.05);
+  background-color: hsl(var(--foreground) / 0.05);
 }
 
 .dropzone.error {
@@ -71,7 +71,7 @@
 .uploadIcon {
   width: 48px;
   height: 48px;
-  color: rgba(var(--secondary-color-rgb), 0.4);
+  color: hsl(var(--foreground) / 0.4);
 }
 
 .dropzoneText {
@@ -82,7 +82,7 @@
 
 .dropzoneSubtext {
   font-size: 12px;
-  color: rgba(var(--secondary-color-rgb), 0.6);
+  color: hsl(var(--foreground) / 0.6);
   margin: 0;
 }
 
@@ -101,9 +101,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 12px;
-  background-color: rgba(var(--secondary-color-rgb), 0.05);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.15);
-  border-radius: 6px;
+  background-color: hsl(var(--foreground) / 0.05);
+  border: 1px solid hsl(var(--foreground) / 0.15);
+  border-radius: var(--rounded-app);
   transition: all 0.2s ease;
 }
 
@@ -139,7 +139,7 @@
 
 .fileSize {
   font-size: 11px;
-  color: rgba(var(--secondary-color-rgb), 0.6);
+  color: hsl(var(--foreground) / 0.6);
 }
 
 .removeButton {
@@ -150,7 +150,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(var(--secondary-color-rgb), 0.6);
+  color: hsl(var(--foreground) / 0.6);
   transition: all 0.2s ease;
   flex-shrink: 0;
 }
@@ -163,7 +163,7 @@
 /* Added helper text when files are present to indicate more can be added */
 .addMoreText {
   font-size: 12px;
-  color: rgba(var(--secondary-color-rgb), 0.5);
+  color: hsl(var(--foreground) / 0.5);
   text-align: center;
   margin: 12px 0 0 0;
   font-style: italic;
@@ -213,13 +213,13 @@
   height: fit-content;
   max-height: 100px;
   overflow: scroll;
-  border-radius: 6px;
-  border: 1px solid rgba(var(--accent-color-rgb), 0.7);
+  border-radius: var(--rounded-app);
+  border: 1px solid hsl(var(--accent) / 0.7);
 }
 
 .toastContent {
-  background-color: rgba(var(--accent-color-rgb), 0.05);
-  color: rgba(var(--secondary-color-rgb));
+  background-color: hsl(var(--accent) / 0.05);
+  color: hsl(var(--foreground));
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -276,10 +276,10 @@
     color: #ef4444;
   }
   .fileItem:hover {
-    background-color: rgba(var(--secondary-color-rgb), 0.08);
+    background-color: hsl(var(--foreground) / 0.08);
   }
   .dropzone:hover {
-    border-color: rgba(var(--secondary-color-rgb), 0.4);
-    background-color: rgba(var(--secondary-color-rgb), 0.02);
+    border-color: hsl(var(--foreground) / 0.4);
+    background-color: hsl(var(--foreground) / 0.02);
   }
 }

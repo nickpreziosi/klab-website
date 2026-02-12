@@ -22,7 +22,7 @@
 }
 
 .heading {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin-bottom: 24px;
   letter-spacing: -0.02em;
   font-weight: 400;
@@ -32,7 +32,7 @@
 }
 
 .subheading {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin-bottom: 40px;
   font-weight: 300;
   font-style: Light;
@@ -45,7 +45,7 @@
   width: fit-content;
   padding: 8px;
   padding-bottom: 0px;
-  background-color: rgba(var(--accent-color-rgb), 1);
+  background-color: hsl(var(--accent));
   color: white;
 }
 
@@ -56,7 +56,7 @@
   white-space: nowrap;
   /* limit the reveal width using ch units via a CSS variable set from React */
   max-width: 0ch;
-  border-right: 2px solid rgba(var(--secondary-color-rgb), 0.9);
+  border-right: 2px solid hsl(var(--foreground) / 0.9);
   /* default: paused until the element is in view; full cycle: type -> hold 2.5s -> reset -> repeat */
   animation:
     typing 5s steps(30, end) infinite,
@@ -120,7 +120,7 @@
     border-color: transparent;
   }
   50% {
-    border-color: rgba(var(--secondary-color-rgb), 0.9);
+    border-color: hsl(var(--foreground) / 0.9);
   }
 }
 

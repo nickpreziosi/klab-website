@@ -389,7 +389,7 @@ export default function KeoRailsDashboardPanels() {
                   scale: 1.02,
                   z: 50,
                   // Simplified boxShadow for better Chrome performance
-                  boxShadow: "0 20px 40px rgba(var(--accent-color-rgb), 1)",
+                  boxShadow: "0 20px 40px hsl(var(--accent))",
                 }
               : {}
           }
@@ -528,7 +528,7 @@ export default function KeoRailsDashboardPanels() {
                   scale: 1.02,
                   z: 50,
                   // Simplified boxShadow for better Chrome performance
-                  boxShadow: "0 20px 40px rgba(var(--accent-color-rgb), 1)",
+                  boxShadow: "0 20px 40px hsl(var(--accent))",
                 }
               : {}
           }
@@ -647,7 +647,7 @@ export default function KeoRailsDashboardPanels() {
                   scale: 1.02,
                   z: 50,
                   // Simplified boxShadow for better Chrome performance
-                  boxShadow: "0 20px 40px rgba(var(--accent-color-rgb), 1)",
+                  boxShadow: "0 20px 40px hsl(var(--accent))",
                 }
               : {}
           }

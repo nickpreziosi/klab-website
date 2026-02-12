@@ -1,23 +1,23 @@
+/* Override Card component for contact-link layout */
 .card {
-  background-color: rgba(var(--secondary-color-rgb), 0.02);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.1);
-  border-radius: 16px;
   padding: 48px 40px;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  transition: all 200ms ease-in-out;
-  backdrop-filter: blur(10px);
   height: 100%;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 8px;
+}
+
+/* Reset Card sub-component padding - we use card-level padding instead */
+.card > * {
+  padding: 0;
 }
 
 .iconWrapper {
   width: 56px;
   height: 56px;
-  border-radius: 12px;
-  background: rgba(var(--secondary-color-rgb), 0.05);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.1);
+  border-radius: var(--rounded-app);
+  background: hsl(var(--surface));
+  border: 1px solid hsl(var(--border));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,12 +25,12 @@
 }
 
 .icon {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   transition: all 200ms ease-in-out;
 }
 
 .title {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 0;
   font-weight: 500;
   font-style: Bold;
@@ -40,33 +40,22 @@
 }
 
 .description {
-  font-family: var(--font-sans), sans-serif;
-  font-size: 1.0625rem;
-  line-height: 1.7;
-  color: var(--secondary-color);
+  font-size: var(--text-sm);
+  line-height: 22px;
+  color: hsl(var(--foreground));
   margin: 0;
   flex-grow: 1;
-  font-weight: 300;
-  font-size: 14px;
-  line-height: 22px;
+  font-weight: var(--font-thin);
   letter-spacing: 0%;
 }
 
 .iconWrapper > svg > path,
 .button > svg > path {
-  fill: var(--secondary-color);
+  fill: hsl(var(--foreground));
 }
 
 .arrow {
   transition: all 150ms ease-in-out;
-}
-
-/* Limit Hover Effects to Non Touch Devices */
-@media (pointer: fine) and (hover: hover) {
-  .button:hover .arrow {
-    transform: translateX(4px);
-    color: var(--accent-color);
-  }
 }
 
 /* Responsive Design */

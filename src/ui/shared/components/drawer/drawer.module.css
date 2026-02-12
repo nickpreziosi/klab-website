@@ -14,22 +14,22 @@
 }
 
 .logoLink {
-  border-radius: 100%;
+  border-radius: var(--rounded-full);
 }
 
 .hamburgerLine {
   width: 100%;
   height: 3px;
-  background-color: var(--accent-color);
+  background-color: hsl(var(--accent));
   border-radius: 2px;
-  box-shadow: 0px 2px 8px rgba(var(--accent-color-rgb), 0.4);
+  box-shadow: 0px 2px 8px hsl(var(--accent) / 0.4);
 }
 
 /* Overlay */
 .overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.45); /* Made overlay darker for better focus on drawer */
+  background-color: hsl(0 0% 0% / 0.45); /* Made overlay darker for better focus on drawer */
   backdrop-filter: blur(8px);
   z-index: 999;
 }
@@ -42,14 +42,14 @@
   bottom: 0;
   width: 85%;
   max-width: 400px;
-  background: var(--main-color-75);
-  box-shadow: -2px 0px 8px rgba(0, 0, 0, 0.5);
+  background: hsl(var(--background) / 0.75);
+  box-shadow: -2px 0px 8px hsl(0 0% 0% / 0.5);
   z-index: 1000;
   display: flex;
   flex-direction: column;
   padding: 32px 24px;
   overflow-y: auto; /* Added overflow-y auto to make drawer scrollable */
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid hsl(var(--foreground) / 0.5);
 }
 
 .drawer * {
@@ -66,7 +66,7 @@
 
 .themeToggleContainer {
   width: 100%;
-  border-top: 1px solid rgba(var(--accent-color-rgb), 0.4);
+  border-top: 1px solid hsl(var(--accent) / 0.4);
   margin-top: var(--padding-mobile);
   padding-top: var(--padding-mobile);
 }
@@ -79,9 +79,9 @@
   width: 40px;
   height: 40px;
   background: transparent;
-  border: 2px solid rgba(var(--accent-color-rgb), 0.3);
-  border-radius: 50%;
-  color: rgba(var(--accent-color-rgb), 1);
+  border: 2px solid hsl(var(--accent) / 0.3);
+  border-radius: var(--rounded-full);
+  color: hsl(var(--accent));
   cursor: pointer;
   transition: all 300ms ease-in-out;
 }
@@ -104,11 +104,11 @@
   flex-direction: row;
   align-items: center;
   padding: 20px 16px;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   text-decoration: none;
   font-size: 20px;
   font-weight: 400;
-  border-radius: 12px;
+  border-radius: var(--rounded-app);
   transition: all 300ms ease-in-out;
   overflow: hidden;
   background: transparent;
@@ -143,11 +143,11 @@
   height: 2px;
   background: linear-gradient(
     90deg,
-    rgba(var(--accent-color-rgb), 0),
-    rgba(var(--accent-color-rgb), 1)
+    hsl(var(--accent) / 0),
+    hsl(var(--accent))
   );
   transform-origin: left;
-  box-shadow: 0px 0px 8px rgba(var(--accent-color-rgb), 0.6);
+  box-shadow: 0px 0px 8px hsl(var(--accent) / 0.6);
 }
 
 /* Added dropdown styles */
@@ -161,30 +161,30 @@
 
 .dropdownItem {
   padding: 16px 20px;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   text-decoration: none;
   font-size: 16px;
   font-weight: 400;
   transition: all 300ms ease-in-out;
-  border-radius: 0px 8px 8px 0px;
+  border-radius: 0 var(--rounded-app) var(--rounded-app) 0;
   margin: var(--gap-xs) 0;
-  border-left: 2px solid rgba(var(--accent-color-rgb), 0.5);
+  border-left: 2px solid hsl(var(--accent) / 0.5);
 }
 
 /* Limit Hover Effects to Non Touch Devices */
 @media (pointer: fine) and (hover: hover) {
   .dropdownItem:hover {
-    background-color: rgba(var(--secondary-color-rgb), 0.1);
+    background-color: hsl(var(--surface-hover));
     padding-left: 28px;
   }
   .closeButton:hover {
-    background-color: rgba(var(--accent-color-rgb), 0.1);
-    border-color: rgba(var(--accent-color-rgb), 1);
-    box-shadow: 0px 0px 16px rgba(var(--accent-color-rgb), 0.4);
+    background-color: hsl(var(--accent) / 0.1);
+    border-color: hsl(var(--accent));
+    box-shadow: 0px 0px 16px hsl(var(--accent) / 0.4);
     transform: rotate(90deg);
   }
   .navLink:hover {
-    background-color: rgba(var(--secondary-color-rgb), 0.1);
+    background-color: hsl(var(--surface-hover));
     padding-left: 24px;
   }
 }

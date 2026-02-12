@@ -1,13 +1,13 @@
 .accordionRoot {
   width: 100%;
-  border-radius: 16px;
+  border-radius: var(--rounded-app);
   font-family: "Sora", sans-serif;
 }
 
 .accordionItem {
-  background: rgba(var(--secondary-color-rgb), 0.03);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.1);
-  border-radius: 0.75rem;
+  background: hsl(var(--foreground) / 0.03);
+  border: 1px solid hsl(var(--foreground) / 0.1);
+  border-radius: var(--rounded-app);
   overflow: hidden;
 }
 
@@ -35,7 +35,7 @@
   justify-content: space-between;
   cursor: pointer;
   transition: all 0.2s ease;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
   padding: 0.5rem;
 }
 
@@ -57,7 +57,7 @@
 .triggerLabel {
   font-size: var(--text-md);
   font-weight: 400;
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -67,9 +67,9 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.375rem 0.75rem;
-  background: rgba(var(--accent-color-rgb), 0.1);
+  background: hsl(var(--accent) / 0.1);
   border: 1px solid rgb(var(--accent-color-rgb));
-  border-radius: 0.375rem;
+  border-radius: var(--rounded-app);
 }
 
 .currentThemeIcon {
@@ -86,7 +86,7 @@
 }
 
 .caretIcon {
-  color: rgba(var(--secondary-color-rgb), 1);
+  color: hsl(var(--foreground));
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
   margin-left: 6px;
@@ -115,10 +115,10 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 0.875rem 0.75rem;
-  background: rgba(var(--secondary-color-rgb), 0.05);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.1);
-  border-radius: 0.5rem;
-  color: rgba(var(--secondary-color-rgb), 1);
+  background: hsl(var(--foreground) / 0.05);
+  border: 1px solid hsl(var(--foreground) / 0.1);
+  border-radius: var(--rounded-app);
+  color: hsl(var(--foreground));
   font-size: 0.875rem;
   font-weight: 400;
   cursor: pointer;
@@ -131,7 +131,7 @@
 }
 
 .themeOptionActive {
-  background: rgba(var(--accent-color-rgb), 0.15);
+  background: hsl(var(--accent) / 0.15);
   border-color: rgb(var(--accent-color-rgb));
   color: rgb(var(--accent-color-rgb));
 }
@@ -155,15 +155,15 @@
 /* Limit Hover Effects to Non Touch Devices */
 @media (pointer: fine) and (hover: hover) {
   .accordionTrigger:hover {
-    background: rgba(var(--secondary-color-rgb), 0.05);
+    background: hsl(var(--foreground) / 0.05);
   }
   .themeOption:hover {
-    background: rgba(var(--secondary-color-rgb), 0.1);
-    border-color: rgba(var(--secondary-color-rgb), 0.2);
-    color: rgba(var(--secondary-color-rgb), 1);
+    background: hsl(var(--foreground) / 0.1);
+    border-color: hsl(var(--foreground) / 0.2);
+    color: hsl(var(--foreground));
   }
   .themeOptionActive:hover {
-    background: rgba(var(--accent-color-rgb), 0.2);
+    background: hsl(var(--accent) / 0.2);
     border-color: rgb(var(--accent-color-rgb));
     color: rgb(var(--accent-color-rgb));
   }

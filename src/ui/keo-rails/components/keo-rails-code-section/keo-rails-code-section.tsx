@@ -4,6 +4,12 @@ import {
   exampleApiSections,
   KeoRailsCode,
 } from "@/ui/keo-rails/components/keo-rails-code/keo-rails-code";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/ui/shared/components/card/card";
 import styles from "./keo-rails-code-section.module.css";
 import { useRef, useEffect } from "react";
 
@@ -64,22 +70,30 @@ export default function KeoRailsCodeSection() {
           </div>
           <div className={styles.rightColumn}>
             <div ref={cardsContainerRef} className={styles.cardsContainer}>
-              <div className={styles.card}>
-                <h3 className={styles.cardHeading}>TRUST</h3>
-                <p className={styles.cardText}>
-                  KRails payment infrastructure keeps a trusted record for all real-time
-                  transactions in a secure, authenticated, and verifiable manner, preventing any
-                  party from altering executed transactions.
-                </p>
-              </div>
-              <div className={styles.card}>
-                <h3 className={styles.cardHeading}>CERTAINTY</h3>
-                <p className={styles.cardText}>
-                  It&apos;s not just security — it&apos;s immutable and absolute certainty in
-                  execution for B2B trade. This is a payment record that is unbreakable and
-                  unchangeable, directly powering your growth.
-                </p>
-              </div>
+              <Card>
+                <CardHeader>
+                  <CardTitle className={styles.cardHeading}>TRUST</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className={styles.cardText}>
+                    KRails payment infrastructure keeps a trusted record for all real-time
+                    transactions in a secure, authenticated, and verifiable manner, preventing any
+                    party from altering executed transactions.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className={styles.cardHeading}>CERTAINTY</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className={styles.cardText}>
+                    It&apos;s not just security — it&apos;s immutable and absolute certainty in
+                    execution for B2B trade. This is a payment record that is unbreakable and
+                    unchangeable, directly powering your growth.
+                  </p>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>

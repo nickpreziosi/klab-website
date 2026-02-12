@@ -1,13 +1,13 @@
 /* NEW FOOTER CSS */
 
 .footer {
-  background-color: rgba(var(--main-color-rgb), 0.75);
-  color: var(--secondary-color);
+  /* Keep theme-gradient for transparency/blend effect */
+  background: var(--theme-gradient);
+  color: hsl(var(--foreground));
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid rgba(var(--secondary-color-rgb), 0.2);
-  background: var(--theme-gradient);
+  border-top: 1px solid hsl(var(--border));
 }
 
 .container {
@@ -37,7 +37,7 @@
 }
 
 .logo {
-  border-radius: 100%;
+  border-radius: var(--rounded-full);
   flex-shrink: 0;
 }
 
@@ -53,21 +53,21 @@
   line-height: 1.2;
   margin: 0;
   width: 100%;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .newsletterSubheading {
   font-size: 20px;
   font-weight: 300;
   margin: 0;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .subscribeForm {
   display: flex;
   gap: 0;
   width: 100%;
-  border-radius: 8px;
+  border-radius: var(--rounded-app);
   align-items: flex-start;
 }
 
@@ -86,11 +86,11 @@
 .emailInput {
   padding: 0 16px;
   font-size: 14px;
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
+  border: 1px solid hsl(var(--border));
   border-right: none;
-  border-radius: 8px 0 0 8px;
-  background-color: var(--main-color);
-  color: var(--secondary-color);
+  border-radius: var(--rounded-app) 0 0 var(--rounded-app);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
   outline: none;
   transition: border-color 0.2s ease;
   width: 100%;
@@ -99,7 +99,7 @@
 }
 
 .emailInput::placeholder {
-  color: rgba(var(--secondary-color-rgb), 0.5);
+  color: hsl(var(--muted));
 }
 
 .emailInputError {
@@ -130,12 +130,12 @@
 }
 
 .subscribeForm:focus-within {
-  outline: 2px solid var(--secondary-color);
+  outline: 2px solid hsl(var(--foreground));
   outline-offset: 2px;
 }
 
 .subscribeForm:focus-within .emailInput {
-  border-color: var(--secondary-color);
+  border-color: hsl(var(--foreground));
 }
 
 .subscribeForm:has(.subscribeButton:focus) {
@@ -150,11 +150,11 @@
   padding: 0 32px;
   font-size: 16px;
   font-weight: 500;
-  background-color: var(--secondary-color);
-  color: var(--main-color);
-  border: 1px solid rgba(var(--main-color-rgb), 0.2);
+  background-color: hsl(var(--foreground));
+  color: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
   border-left: none;
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 var(--rounded-app) var(--rounded-app) 0;
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -174,23 +174,23 @@
   margin-bottom: 60px;
 }
 
+/* Card layout overrides for footer */
 .linkCard {
-  background-color: rgba(var(--main-color-rgb), 0.75);
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
-  border-radius: 12px;
   padding: 32px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  transition: transform 0.3s ease;
-  box-shadow: var(--shadow-black);
+}
+
+.linkCard > * {
+  padding: 0;
 }
 
 .linkCardTitle {
   font-size: 20px;
   font-weight: 500;
   margin: 0;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .linkCardDescription {
@@ -198,14 +198,8 @@
   font-weight: 300;
   line-height: 1.6;
   margin: 0;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   flex-grow: 1;
-}
-
-/* Slightly stronger text shadow for accent buttons in cards (small text needs more contrast) */
-.linkCard > a,
-.linkCard > button {
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
 }
 
 .nav {
@@ -227,7 +221,7 @@
   font-size: 20px;
   font-weight: 500;
   margin: 0;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .navLinks {
@@ -260,10 +254,10 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
-  background: rgba(var(--secondary-color-rgb), 0.05);
-  border-radius: 6px;
-  color: var(--secondary-color);
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--surface));
+  border-radius: var(--rounded-app);
+  color: hsl(var(--foreground));
   text-decoration: none;
   transition:
     background-color 150ms ease-in-out,
@@ -281,7 +275,7 @@
 
 /* Legal Section */
 .legal {
-  border-top: 1px solid rgba(var(--secondary-color-rgb), 0.2);
+  border-top: 1px solid hsl(var(--border));
   padding-top: 32px;
   display: flex;
   flex-direction: column;
@@ -292,7 +286,7 @@
   font-size: 14px;
   font-weight: 400;
   margin: 0;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .legalText {
@@ -300,17 +294,17 @@
   font-weight: 300;
   line-height: 1.6;
   margin: 0;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
 }
 
 .legalLink {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   text-decoration: underline;
   transition: color 0.2s ease;
 }
 .legalLink,
 .navLink {
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
 }
 
 /* Responsive Design */
@@ -391,7 +385,7 @@
   }
 
   .subscribeForm:focus-within .emailInput {
-    border-color: rgba(var(--secondary-color-rgb), 0.2);
+    border-color: hsl(var(--border));
   }
 
   .subscribeForm:has(.subscribeButton:focus) {
@@ -399,7 +393,7 @@
   }
 
   .emailInput:focus {
-    outline: 2px solid var(--secondary-color) !important;
+    outline: 2px solid hsl(var(--foreground)) !important;
     outline-offset: 2px !important;
   }
 
@@ -421,8 +415,8 @@
   .emailInput {
     min-width: 0;
     flex: none;
-    border-right: 1px solid rgba(var(--secondary-color-rgb), 0.2);
-    border-radius: 8px;
+    border-right: 1px solid hsl(var(--border));
+    border-radius: var(--rounded-app);
     height: 48px !important;
   }
 
@@ -431,8 +425,8 @@
   }
 
   .subscribeButton {
-    border-left: 1px solid rgba(var(--main-color-rgb), 0.2);
-    border-radius: 8px;
+    border-left: 1px solid hsl(var(--border));
+    border-radius: var(--rounded-app);
     width: 100%;
     height: 48px !important;
     flex: none;
@@ -464,21 +458,18 @@
 /* Limit Hover Effects to Non Touch Devices */
 @media (pointer: fine) and (hover: hover) {
   .subscribeButton:hover {
-    background-color: rgba(var(--secondary-color-rgb), 0.8);
-  }
-  .linkCard:hover {
-    transform: translateY(-2px);
+    background-color: hsl(var(--foreground) / 0.9);
   }
   .legalLink:hover,
   .navLink:hover {
-    color: var(--accent-color);
-    border-radius: 6px;
+    color: hsl(var(--accent));
+    border-radius: var(--rounded-app);
   }
 
   .socialLink:hover {
-    background: rgba(var(--accent-color-rgb), 0.1);
-    border-color: var(--accent-color);
-    color: var(--accent-color);
-    box-shadow: 0 0 20px rgba(var(--accent-color-rgb), 0.3);
+    background: hsl(var(--accent) / 0.1);
+    border-color: hsl(var(--accent));
+    color: hsl(var(--accent));
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
   }
 }

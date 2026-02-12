@@ -3,7 +3,7 @@
   left: 2rem;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 50;
+  z-index: 5; /* Below navbar (10) so dropdown menu appears on top */
 }
 
 .linksContainer {
@@ -18,13 +18,12 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.2);
-  background: rgba(var(--secondary-color-rgb), 0.05);
-  border-radius: 6px;
-  color: rgba(var(--secondary-color-rgb), 1);
+  border: 1px solid hsl(var(--foreground));
+  border-radius: var(--rounded-app);
+  color: hsl(var(--foreground));
   text-decoration: none;
   transition: all 50ms ease-in-out;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
   cursor: pointer;
 }
 
@@ -36,10 +35,9 @@
 /* Limit Hover Effects to Non Touch Devices */
 @media (pointer: fine) and (hover: hover) {
   .socialLink:hover {
-    background: rgba(var(--accent-color-rgb), 0.1);
-    border-color: var(--accent-color);
-    color: var(--accent-color);
-    box-shadow: 0 0 20px rgba(var(--accent-color-rgb), 0.3);
+    border-color: hsl(var(--accent));
+    color: hsl(var(--accent));
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
   }
 }
 

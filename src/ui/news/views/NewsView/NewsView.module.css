@@ -1,7 +1,7 @@
 /* Completely restyled to match existing component patterns */
 .main {
   min-height: 100vh;
-  background: var(--main-color);
+  background: hsl(var(--background));
   width: 100%;
 }
 
@@ -27,8 +27,8 @@
   left: -10%;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(var(--main-color-rgb), 0.3) 0%, transparent 70%);
-  border-radius: 50%;
+  background: radial-gradient(circle, hsl(var(--background) / 0.3) 0%, transparent 70%);
+  border-radius: var(--rounded-full);
   filter: blur(80px);
 }
 
@@ -38,8 +38,8 @@
   right: -10%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(var(--main-color-rgb), 0.2) 0%, transparent 70%);
-  border-radius: 50%;
+  background: radial-gradient(circle, hsl(var(--background) / 0.2) 0%, transparent 70%);
+  border-radius: var(--rounded-full);
   filter: blur(80px);
 }
 
@@ -56,7 +56,7 @@
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 0 0 24px 0;
 }
 
@@ -65,7 +65,7 @@
   font-weight: 300;
   line-height: 1.6;
   letter-spacing: -0.005em;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.8;
   margin: 0;
 }
@@ -91,13 +91,13 @@
 .clearFiltersButton {
   padding: 10px 20px;
   height: 42px;
-  border-radius: 6px;
+  border-radius: var(--rounded-app);
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  border: 1px solid rgba(var(--secondary-color-rgb), 0.3);
+  border: 1px solid hsl(var(--border));
   background: transparent;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.7;
   transition:
     opacity 0.2s,
@@ -115,7 +115,7 @@
 }
 
 .noResultsIcon {
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.3;
   margin-bottom: 24px;
 }
@@ -123,14 +123,14 @@
 .noResultsTitle {
   font-size: 24px;
   font-weight: 500;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 0 0 12px 0;
 }
 
 .noResultsText {
   font-size: 16px;
   font-weight: 300;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   opacity: 0.7;
   margin: 0;
   max-width: 500px;
@@ -146,7 +146,7 @@
 @media (pointer: fine) and (hover: hover) {
   .clearFiltersButton:hover {
     opacity: 1;
-    border-color: rgba(var(--secondary-color-rgb), 0.5);
+    border-color: hsl(var(--border));
   }
 }
 

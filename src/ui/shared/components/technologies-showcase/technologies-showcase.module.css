@@ -30,7 +30,7 @@
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   margin: 0;
 }
 
@@ -57,13 +57,13 @@
 }
 
 .scrollContainer::-webkit-scrollbar-track {
-  background: var(--main-color-10);
-  border-radius: 4px;
+  background: hsl(var(--foreground) / 0.05);
+  border-radius: var(--rounded-app);
 }
 
 .scrollContainer::-webkit-scrollbar-thumb {
-  background: var(--main-color-40);
-  border-radius: 4px;
+  background: hsl(var(--foreground) / 0.2);
+  border-radius: var(--rounded-app);
 }
 
 .centerItem {
@@ -85,12 +85,11 @@
   width: 100%;
   aspect-ratio: 1;
   max-height: 100%;
-  border-radius: 50%;
+  border-radius: var(--rounded-full);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
 }
 
 .centerBackground {
@@ -113,7 +112,7 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  color: var(--secondary-color);
+  color: hsl(var(--foreground));
   padding: 12px;
 }
 
@@ -151,8 +150,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--secondary-color);
-  color: var(--main-color);
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
   cursor: pointer;
   text-decoration: none;
   box-sizing: border-box;
@@ -196,7 +195,7 @@
   width: auto;
   max-width: 100%;
   object-fit: contain;
-  color: var(--main-color);
+  color: hsl(var(--background));
   fill: currentColor;
 }
 
@@ -239,13 +238,13 @@
   transform: translateX(-50%);
   width: max(200px, min(260px, 90vw));
   padding: 12px 14px;
-  background: var(--secondary-color);
-  color: var(--main-color);
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  border-radius: var(--rounded-app);
+  box-shadow: 0 8px 24px hsl(0 0% 0% / 0.25);
   opacity: 0;
   visibility: hidden;
   transition:
@@ -284,8 +283,8 @@
   justify-content: center;
   width: 48px;
   height: 48px;
-  border-radius: 50%;
-  color: var(--main-color);
+  border-radius: var(--rounded-full);
+  color: hsl(var(--background));
   opacity: 0;
   visibility: hidden;
   transition:
@@ -317,7 +316,7 @@
 }
 
 .techCircle:hover svg {
-  color: var(--accent-color);
+  color: hsl(var(--accent));
 }
 
 @media (pointer: coarse), (hover: none) {
@@ -337,10 +336,10 @@
 
 .carouselBtn {
   padding: 8px 16px;
-  border-radius: 8px;
-  border: 1px solid var(--main-color-30);
-  background: var(--main-color-05);
-  color: var(--secondary-color);
+  border-radius: var(--rounded-app);
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--surface));
+  color: hsl(var(--foreground));
   font-size: var(--text-sm);
   cursor: pointer;
   transition:
@@ -349,8 +348,8 @@
 }
 
 .carouselBtn:hover {
-  background: var(--main-color-15);
-  border-color: var(--main-color-50);
+  background: hsl(var(--surface-hover));
+  border-color: hsl(var(--border));
 }
 
 .carouselBtn:disabled {

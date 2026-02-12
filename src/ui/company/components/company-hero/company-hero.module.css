@@ -1,6 +1,6 @@
 .content {
   width: 100%;
-  border-radius: var(--rounded-sm);
+  border-radius: var(--rounded-app);
 }
 
 .hero {

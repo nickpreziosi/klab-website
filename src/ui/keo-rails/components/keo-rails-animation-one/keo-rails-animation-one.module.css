@@ -52,7 +52,7 @@
   font-weight: 300;
   line-height: 1.6;
   letter-spacing: -0.005em;
-  color: rgba(var(--secondary-color-rgb), 0.8);
+  color: hsl(var(--foreground) / 0.8);
   margin: 0;
 }
 
@@ -60,7 +60,7 @@
 .divider {
   width: 1px;
   height: 600px;
-  background: rgba(var(--secondary-color-rgb), 0.15);
+  background: hsl(var(--foreground) / 0.15);
   position: relative;
 }
 
@@ -72,9 +72,9 @@
   transform: translate(-50%, -50%);
   width: 12px;
   height: 12px;
-  background: var(--secondary-color);
-  border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(var(--secondary-color-rgb), 0.2);
+  background: hsl(var(--foreground));
+  border-radius: var(--rounded-full);
+  box-shadow: 0 0 0 4px hsl(var(--foreground) / 0.2);
 }
 
 /* Right Content - Diamond Cards Container */
@@ -111,7 +111,7 @@
 }
 
 .cardIcon {
-  color: rgba(var(--secondary-color-rgb), 0.2);
+  color: hsl(var(--foreground) / 0.2);
 }
 
 .centerCard {
@@ -124,8 +124,8 @@
   transform: rotate(-45deg);
   background: linear-gradient(
     135deg,
-    rgba(var(--secondary-color-rgb), 0.8),
-    rgba(var(--secondary-color-rgb), 0.9)
+    hsl(var(--foreground) / 0.8),
+    hsl(var(--foreground) / 0.9)
   );
   box-shadow: var(--shadow-black);
 }
@@ -139,7 +139,7 @@
 }
 
 .centerCard .cardIcon {
-  color: rgba(var(--main-color-rgb), 0.9);
+  color: hsl(var(--background) / 0.9);
 }
 
 .cardContent {
@@ -156,9 +156,9 @@
   height: 100%;
   background-color: transparent;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--rounded-app);
   overflow: hidden;
-  border: 2px solid rgba(var(--secondary-color-rgb), 0.1);
+  border: 2px solid hsl(var(--foreground) / 0.1);
 }
 
 .cardLabel {
@@ -172,7 +172,7 @@
   letter-spacing: 0%;
   text-align: center;
   opacity: 0;
-  color: rgba(var(--main-color-rgb), 0.9);
+  color: hsl(var(--background) / 0.9);
 }
 
 .cardImage {
