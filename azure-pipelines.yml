@@ -24,4 +24,4 @@ steps:
 
   - template: firebase/steps-deploy-firebase-hosting-site.yml@keo-azure-devops-templates
     parameters:
-      NODE_VERSION: '18.x'   # recommended; 14.x is EOL
+      NODE_VERSION: '18.x' 
