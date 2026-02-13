@@ -29,17 +29,17 @@ const LOGO_FULL_LIGHT_PATH = "/logos/klab-logo-dark-text.svg";
  * For orange-full with fullLogoTheme "auto", src is chosen by effective theme (single img = no stacking outline).
  */
 const LOGO_PATHS: Record<KlabLogoVariant, string> = {
-  "light-default": "/logos/klab-logo-light.svg",
+  "light-default": "/logos/klab-logo-icon.svg",
   "light-full": "/logos/klab-logo-light-full.svg",
-  "orange-default": "/logos/klab-logo-orange.svg",
+  "orange-default": "/logos/klab-logo-icon.svg",
   "orange-full": "/logos/klab-logo-orange-full.svg",
 };
 
 /** ViewBox dimensions per variant for aspect-ratio sizing when only one dimension is set */
 const LOGO_VIEWBOX: Record<KlabLogoVariant, { w: number; h: number }> = {
-  "light-default": { w: 273.66, h: 273.66 },
+  "light-default": { w: 167.66, h: 167.66 },
   "light-full": { w: 867.95, h: 248.85 },
-  "orange-default": { w: 274.92, h: 274.92 },
+  "orange-default": { w: 167.66, h: 167.66 },
   "orange-full": { w: 576.81, h: 168 },
 };
 
