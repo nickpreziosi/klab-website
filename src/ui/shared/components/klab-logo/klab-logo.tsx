@@ -4,6 +4,8 @@ import { cn } from "@/ui/shared/utils/utils";
 import { getEffectiveTheme } from "@/ui/shared/hooks/use-theme";
 import styles from "./klab-logo.module.css";
 import { useEffect, useLayoutEffect, useState } from "react";
+import { KlabLogoDarkTextSvg } from "./klab-logo-dark-text-svg";
+import { KlabLogoOrangeFullSvg } from "./klab-logo-orange-full-svg";
 
 /** Color variant of the K-Lab logo */
 export type KlabLogoColor = "light" | "orange";
@@ -38,8 +40,11 @@ const LOGO_VIEWBOX: Record<KlabLogoVariant, { w: number; h: number }> = {
   "light-default": { w: 273.66, h: 273.66 },
   "light-full": { w: 867.95, h: 248.85 },
   "orange-default": { w: 274.92, h: 274.92 },
-  "orange-full": { w: 867.95, h: 248.85 },
+  "orange-full": { w: 576.81, h: 168 },
 };
+
+/** Variants that use inline SVG (self-contained gradients) instead of img */
+const INLINE_SVG_VARIANTS = [LOGO_FULL_LIGHT_PATH, "/logos/klab-logo-orange-full.svg"] as const;
 
 export interface KlabLogoProps {
   color?: KlabLogoColor;
@@ -172,9 +177,31 @@ export function KlabLogo({
     fetchPriority: "low" as const,
   };
 
+  const useInlineSvg = INLINE_SVG_VARIANTS.includes(src as (typeof INLINE_SVG_VARIANTS)[number]);
+  const svgPreserveAspectRatio =
+    objectFit === "contain" ? "xMidYMid meet" : objectFit === "cover" ? "xMidYMid slice" : "none";
+
   return (
     <span className={cn(styles.root, className)} style={wrapperStyle} role="img" aria-label={alt}>
-      <img {...imgProps} src={src} />
+      {useInlineSvg ? (
+        <span className={imgClass} style={imgStyle ?? { width: "100%", height: "100%" }}>
+          {src === LOGO_FULL_LIGHT_PATH ? (
+            <KlabLogoDarkTextSvg
+              className={styles.svg}
+              preserveAspectRatio={svgPreserveAspectRatio}
+              style={{ width: "100%", height: "100%" }}
+            />
+          ) : (
+            <KlabLogoOrangeFullSvg
+              className={styles.svg}
+              preserveAspectRatio={svgPreserveAspectRatio}
+              style={{ width: "100%", height: "100%" }}
+            />
+          )}
+        </span>
+      ) : (
+        <img {...imgProps} src={src} />
+      )}
     </span>
   );
 }

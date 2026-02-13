@@ -4,11 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ClientOnly } from "@/ui/shared/components/client-only/client-only";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/ui/shared/components/popover/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/ui/shared/components/popover/popover";
 import {
   Tooltip,
   TooltipContent,
@@ -159,7 +155,8 @@ function SVGLogo({ src, className }: { src: string; className?: string }) {
 type LandingVariant = "orange" | "wave";
 
 function CenterCircle({ variant }: { variant: LandingVariant }) {
-  const centerBgSrc = variant === "wave" ? "/images/landing-bg-orange.webp" : "/images/bg-wave.webp";
+  const centerBgSrc =
+    variant === "wave" ? "/images/landing-bg-orange.webp" : "/images/bg-wave.webp";
   return (
     <div className={styles.centerItem}>
       <div className={styles.centerCircle}>
@@ -170,7 +167,13 @@ function CenterCircle({ variant }: { variant: LandingVariant }) {
           {variant === "wave" ? (
             <KlabLogo color="light" format="full" height="auto" width="100%" />
           ) : (
-            <KlabLogo color="orange" format="full" fullLogoTheme="dark" height="auto" width="100%" />
+            <KlabLogo
+              color="orange"
+              format="full"
+              fullLogoTheme="dark"
+              height="auto"
+              width="100%"
+            />
           )}
         </div>
       </div>

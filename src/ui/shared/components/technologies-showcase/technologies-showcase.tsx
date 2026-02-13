@@ -123,7 +123,7 @@ const LEFT_ORDER = [5, 9, 2, 8, 3];
 /* Right row (6): K-Rails, Kena, K-Wallet, KABL, K-Comply, K-Ledger */
 const RIGHT_ORDER_FIXED = [0, 1, 10, 4, 6, 7];
 
-function SVGLogo({ src, className }: { src: string; className?: string }) {
+export function SVGLogo({ src, className }: { src: string; className?: string }) {
   const [svgContent, setSvgContent] = useState<string>("");
 
   useEffect(() => {
@@ -161,6 +161,9 @@ const ArrowIcon = (props: React.SVGProps<SVGSVGElement>) => (
 const leftTechs = LEFT_ORDER.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 const rightTechs = RIGHT_ORDER_FIXED.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 
+/** KLeads is the widest logo - used as the full-width reference; others match its height. */
+const WIDEST_LOGO_KEY: TechDescriptionKey = "kleads";
+
 export function TechnologiesShowcase({
   onLinkClick,
   className,
@@ -178,8 +181,10 @@ export function TechnologiesShowcase({
   const { effectiveTheme } = useTheme();
   const scrollRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const kleadsLogoRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const [logoHeight, setLogoHeight] = useState<number>(40);
   const [expandedIndex, setExpandedIndex] = useState<{
     side: "left" | "right";
     index: number;
@@ -219,6 +224,32 @@ export function TechnologiesShowcase({
     };
   }, [updateScrollState]);
 
+  // Measure KLeads logo height when full-width; other logos match this height
+  useEffect(() => {
+    const el = kleadsLogoRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => {
+      const svg = el.querySelector("svg");
+      if (svg) {
+        const h = svg.getBoundingClientRect().height;
+        if (h > 0) setLogoHeight(h);
+      }
+    });
+    ro.observe(el);
+    // Initial measure after a tick (SVG may not be loaded yet)
+    const t = setTimeout(() => {
+      const svg = el.querySelector("svg");
+      if (svg) {
+        const h = svg.getBoundingClientRect().height;
+        if (h > 0) setLogoHeight(h);
+      }
+    }, 100);
+    return () => {
+      ro.disconnect();
+      clearTimeout(t);
+    };
+  }, [effectiveTheme]);
+
   const scroll = (direction: "left" | "right") => {
     const el = scrollRef.current;
     if (!el) return;
@@ -255,7 +286,11 @@ export function TechnologiesShowcase({
 
   return (
     <TooltipProvider delayDuration={200}>
-      <div ref={wrapperRef} className={`${styles.wrapper} ${className ?? ""}`.trim()}>
+      <div
+        ref={wrapperRef}
+        className={`${styles.wrapper} ${className ?? ""}`.trim()}
+        style={{ "--tech-logo-height": `${logoHeight}px` } as React.CSSProperties}
+      >
         {headerTitle ? (
           <div className={styles.headerRow}>
             <h3 className={styles.headerTitle}>{headerTitle}</h3>
@@ -279,6 +314,8 @@ export function TechnologiesShowcase({
               onLinkClick={onLinkClick}
               expandOnFirstTap={expandOnFirstTap}
               SVGLogo={SVGLogo}
+              isWidestLogo={tech.descriptionKey === WIDEST_LOGO_KEY}
+              logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? kleadsLogoRef : undefined}
             />
           ))}
 
@@ -321,6 +358,8 @@ export function TechnologiesShowcase({
               onLinkClick={onLinkClick}
               expandOnFirstTap={expandOnFirstTap}
               SVGLogo={SVGLogo}
+              isWidestLogo={tech.descriptionKey === WIDEST_LOGO_KEY}
+              logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? kleadsLogoRef : undefined}
             />
           ))}
         </div>
@@ -341,6 +380,8 @@ function TechSemiCircle({
   onLinkClick,
   expandOnFirstTap,
   SVGLogo: LogoComponent,
+  isWidestLogo,
+  logoRef,
 }: {
   tech: (typeof TECHNOLOGIES)[0];
   description: string;
@@ -351,6 +392,8 @@ function TechSemiCircle({
   onLinkClick?: () => void;
   expandOnFirstTap?: boolean;
   SVGLogo: typeof SVGLogo;
+  isWidestLogo: boolean;
+  logoRef?: React.RefObject<HTMLDivElement | null>;
 }) {
   return (
     <div
@@ -376,7 +419,10 @@ function TechSemiCircle({
             aria-label={tech.title}
           >
             <div className={styles.techContent}>
-              <div className={styles.techLogo}>
+              <div
+                ref={logoRef}
+                className={`${styles.techLogo} ${isWidestLogo ? styles.techLogoWidest : ""} ${tech.descriptionKey === "kbpm" ? styles.techLogoKbpm : ""}`}
+              >
                 <LogoComponent src={logoSrc} />
               </div>
             </div>

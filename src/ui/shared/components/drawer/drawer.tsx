@@ -11,8 +11,27 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { MobileThemeToggle } from "@/ui/shared/components/mobile-theme-toggle/mobile-theme-toggle";
 import { MobileLocaleSwitcher } from "@/ui/shared/components/mobile-locale-switcher/mobile-locale-switcher";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
-import { TECHNOLOGIES } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
+import {
+  TECHNOLOGIES,
+  SVGLogo,
+} from "@/ui/shared/components/technologies-showcase/technologies-showcase";
+import { useTheme } from "@/ui/shared/hooks/use-theme";
 import styles from "./drawer.module.css";
+
+function TechLogo({
+  src,
+  className,
+}: {
+  src: string;
+  title: string;
+  className?: string;
+}) {
+  return (
+    <div className={className} aria-hidden>
+      <SVGLogo src={src} className={styles.dropdownItemLogoSvg} />
+    </div>
+  );
+}
 
 export type DrawerProps = {
   /** When provided (from layout via Navbar), drawer copy is SSR'd */
@@ -28,6 +47,7 @@ export const Drawer = (props: DrawerProps) => {
   } = props ?? {};
   const [isOpen, setIsOpen] = useState(false);
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+  const { effectiveTheme } = useTheme();
   const t = useTranslations("drawer");
   const tNav = useTranslations("nav");
   const drawer = serverDrawerTranslations ?? buildDrawerTranslations(t);
@@ -197,16 +217,25 @@ export const Drawer = (props: DrawerProps) => {
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          {TECHNOLOGIES.map((tech) => (
-                            <Link
-                              key={tech.href}
-                              href={tech.href}
-                              className={styles.dropdownItem}
-                              onClick={() => setIsOpen(false)}
-                            >
-                              {tech.title}
-                            </Link>
-                          ))}
+                          {TECHNOLOGIES.map((tech) => {
+                            const logoSrc =
+                              effectiveTheme === "dark" ? tech.logoLight : tech.logoDark;
+                            return (
+                              <Link
+                                key={tech.href}
+                                href={tech.href}
+                                className={styles.dropdownItem}
+                                onClick={() => setIsOpen(false)}
+                              >
+                                <TechLogo
+                                  src={logoSrc}
+                                  title={tech.title}
+                                  className={`${styles.dropdownItemLogo} ${tech.descriptionKey === "kbpm" ? styles.dropdownItemLogoKbpm : ""}`}
+                                />
+                                <VisuallyHidden>{tech.title}</VisuallyHidden>
+                              </Link>
+                            );
+                          })}
                         </motion.div>
                       )}
                     </AnimatePresence>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420.72 124.52">
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="1 14 414 86" width="597" height="124">
   <g id="Capa_1-2" data-name="Capa 1">
-    <g>
+    <g id="content">
       <path d="M88.51,61.39h-17.4v36.19h-4.91c-4.34,0-7.85-3.51-7.85-7.85V23.39c0-3.87,3.14-7.01,7.01-7.01h5.75v32.83h17.05l17.75-32.83h13.22v1.16l-19.95,37.24,21.11,41.64v1.16h-13.22l-18.56-36.19Z" fill="#171920"/>
       <g>
         <path d="M141.32,17.12h12.56v67.91h37.09v11.98h-49.65V17.12Z" fill="#171920"/>
