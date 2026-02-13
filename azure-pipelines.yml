@@ -19,6 +19,7 @@ resources:
   - repository: keo-azure-devops-templates
     type: git
     name: core-infra/keo-azure-devops-templates
+    ref: refs/heads/main
 
 steps:
 
