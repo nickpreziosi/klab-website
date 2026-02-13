@@ -1,0 +1,25 @@
+#old organization app engine deployment
+trigger:
+  batch: false
+  branches:
+    include: 
+      - 'main'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - template: utils/variablesCustom.yml@keo-azure-devops-templates
+    parameters:
+      RepositoryName: ${{ variables['Build.Repository.Name'] }}
+  - group: GCP-WIF
+
+resources:
+  repositories:
+  - repository: keo-azure-devops-templates
+    type: git
+    name: core-infra/keo-azure-devops-templates
+
+steps:
+
+- template: firebase/steps-deploy-firebase-hosting-site.yml@keo-azure-devops-templates
