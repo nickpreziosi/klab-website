@@ -1,10 +1,26 @@
+/* Grid lets overlay + container occupy same cell → overlay doesn't add flow space */
 .section {
   width: 100%;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-areas: "main";
+  align-items: start;
+  justify-items: center;
+  position: relative;
+}
+.section > * {
+  grid-area: main;
+  width: 100%;
+  max-width: 100%;
+}
+.gradientOverlay {
+  background: var(--theme-gradient);
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
 }
 
 .container {
@@ -125,8 +141,8 @@
 /* Improved sticky positioning - starts at top, centers in viewport, ends at bottom of grid */
 .rightColumn {
   position: relative;
-  height: fit-content;
   height: calc(100vh - var(--navbar-height));
+  min-height: 0; /* Allow shrink so overflow:hidden clips correctly */
 }
 
 .progressContainer {
@@ -189,6 +205,7 @@
   transition: all 0.5 ease-in-out;
   width: 100%;
   height: 100%;
+  min-height: 0;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -197,11 +214,11 @@
 
 .animationContainer > div {
   width: 120% !important;
-  height: 125% !important;
+  height: 100% !important;
   display: flex !important;
   align-items: center !important;
   justify-content: flex-start !important;
-  transform: translateX(-8.5%);
+  transform: translateX(-5.5%);
 }
 
 .animationContainer svg {
@@ -213,7 +230,7 @@
 
 .video {
   width: 100%;
-  height: 125%;
+  height: 100%;
   object-fit: contain;
   object-position: calc(-1 * 3rem) center;
   position: relative;

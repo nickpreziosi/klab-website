@@ -71,6 +71,7 @@ export default function KeoRailsGridSection() {
 
   return (
     <section className={styles.section} ref={sectionRef}>
+      <div className={styles.gradientOverlay}></div>
       <div className={styles.container}>
         <div style={{ display: "none" }} className={styles.topHeading}>
           <motion.h2

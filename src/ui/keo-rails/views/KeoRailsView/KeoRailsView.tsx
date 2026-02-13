@@ -26,8 +26,10 @@ export function KeoRailsView() {
       </div>
       <KeoRailsCodeSection />
       <KeoRailsGridSection />
-      <KeoRailsBuiltWithSection />
-      <KeoRailsCtaSection />
+      <div className={styles.lastSection}>
+        <KeoRailsBuiltWithSection />
+        <KeoRailsCtaSection />
+      </div>
     </main>
   );
 }
