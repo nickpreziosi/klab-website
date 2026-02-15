@@ -19,8 +19,8 @@ resources:
   - repository: keo-azure-devops-templates
     type: git
     name: core-infra/keo-azure-devops-templates
-    ref: 54a6532c
-
+    ref: refs/heads/main
+    
 steps:
 
   - template: firebase/steps-deploy-firebase-hosting-site.yml@keo-azure-devops-templates
