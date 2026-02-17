@@ -40,8 +40,12 @@ export default function VideoPlayer({
     const vid = videoRef.current;
     if (!vid) return;
 
-    // If the source is already set, avoid re-initializing
-    if (vid.dataset?.initialized) return;
+    // Re-initialize when videoUrl changes (e.g. theme switch)
+    const previousUrl = vid.dataset?.initializedUrl;
+    if (previousUrl === videoUrl) return;
+
+    setIsLoaded(false);
+    setMediaVisible(false);
 
     // set attributes and prepare for fade
     vid.muted = true;
@@ -56,8 +60,7 @@ export default function VideoPlayer({
 
     // attach source and load
     vid.src = videoUrl as string;
-    // mark initialized to avoid duplicate work
-    vid.dataset.initialized = "1";
+    vid.dataset.initializedUrl = videoUrl;
 
     const onCanPlay = () => {
       requestAnimationFrame(() => {
@@ -81,9 +84,9 @@ export default function VideoPlayer({
     return () => {
       vid.pause();
       vid.removeEventListener("canplay", onCanPlay);
-      try {
-        delete vid.dataset.initialized;
-      } catch {}
+      vid.removeAttribute("data-initialized-url");
+      vid.removeAttribute("src");
+      vid.load();
     };
   }, [isInView, videoUrl, fadeDurationMs, skipAnimation]);
 

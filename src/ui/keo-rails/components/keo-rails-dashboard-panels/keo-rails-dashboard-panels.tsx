@@ -1,11 +1,18 @@
 "use client";
 
+import { useEffectiveThemeSync } from "@/ui/shared/hooks/use-theme";
 import { easeInOut, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import styles from "./keo-rails-dashboard-panels.module.css";
+
+const LOGO_LIGHT = "/logos/krails-logo-light.svg";
+const LOGO_DARK = "/logos/krails-logo-dark.svg";
 // using inline SVGs for language icons instead of raster Image imports
 
 export default function KeoRailsDashboardPanels() {
+  const effectiveTheme = useEffectiveThemeSync();
+  const logoSrc = effectiveTheme === "dark" ? LOGO_LIGHT : LOGO_DARK;
+
   const [screenSize, setScreenSize] = useState<"large" | "desktop" | "tablet" | "mobile">("large");
   const [hasAnimated, setHasAnimated] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -417,7 +424,14 @@ export default function KeoRailsDashboardPanels() {
               <span className={styles.searchIcon}>⌘</span>
             </div>
             <nav tabIndex={-1} className={styles.navList}>
-              <div className={styles.navGroupTitle}>KEO Rails API</div>
+              <div className={styles.navGroupTitle}>
+                <img
+                  className={styles.navGroupTitleIcon}
+                  src={logoSrc}
+                  alt="KRails Logo"
+                />{" "}
+                API
+              </div>
 
               <div className={styles.navGroup}>
                 <button tabIndex={-1} className={styles.navItem}>
@@ -549,11 +563,16 @@ export default function KeoRailsDashboardPanels() {
           </div>
           <div className={styles.panelContent}>
             <div className={styles.endpointHeader}>
+              <img
+                className={styles.endpointIcon}
+                src={logoSrc}
+                alt="KRails Logo"
+              />
               <h1 className={styles.endpointPath}>/api/health</h1>
             </div>
             <div className={styles.urlDisplay}>
               <span className={styles.methodBadge}>GET</span>
-              https://staging.ablkeor.com/api/health
+              https://staging.krails.com/api/health
             </div>
 
             <div className={styles.section}>
@@ -668,7 +687,14 @@ export default function KeoRailsDashboardPanels() {
           </div>
           <div tabIndex={-1} className={styles.panelContent}>
             <div className={styles.languageSection}>
-              <div className={styles.languageLabel}>LANGUAGE</div>
+              <div className={styles.languageLabel}>
+                <img
+                  className={styles.languageIcon}
+                  src={logoSrc}
+                  alt="KRails Logo"
+                />{" "}
+                <span>LANGUAGE</span>
+              </div>
               <div className={styles.langTabs}>
                 <button tabIndex={-1} className={styles.langTab} aria-label="Shell">
                   <div className={styles.langTabContent}>
@@ -1025,7 +1051,7 @@ export default function KeoRailsDashboardPanels() {
                     {"\n\n"}
                     <span className={styles.codeVariable}>url</span> ={" "}
                     <span className={styles.codeString}>
-                      &quot;https://staging.ablkeor.com/api/health&quot;
+                      &quot;https://staging.krails.com/api/health&quot;
                     </span>
                     {"\n\n"}
                     <span className={styles.codeVariable}>headers</span> = {"{"}

@@ -4,6 +4,7 @@
  */
 export {
   useTheme,
+  useEffectiveThemeSync,
   getEffectiveTheme,
   type Theme,
   type EffectiveTheme,

@@ -95,7 +95,7 @@ export default function CompanyCulture() {
             essential to our mission of helping businesses and attracting exceptional people who
             think outside the box.
           </p>
-          <Button size="md" href="/contact/careers" variant="accent-brand">
+          <Button size="lg" href="/contact/careers" variant="accent-brand">
             KLab Careers
             <svg
               width="20"

@@ -178,6 +178,32 @@ export function useTheme(): ThemeProviderContextValue {
 }
 
 /**
+ * Hook that syncs with DOM theme (html.dark, data-theme) for media like images/videos.
+ * Mirrors the StaffCard pattern: reads from the same DOM state the head script sets,
+ * subscribes to themechange + matchMedia for system preference changes.
+ * Use for theme-dependent media that must be correct on initial load and system changes.
+ */
+export function useEffectiveThemeSync(): EffectiveTheme {
+  const [effectiveTheme, setEffectiveTheme] = React.useState<EffectiveTheme>(() =>
+    typeof document !== "undefined" ? getEffectiveTheme() : "dark"
+  );
+  React.useLayoutEffect(() => {
+    setEffectiveTheme(getEffectiveTheme());
+  }, []);
+  React.useEffect(() => {
+    const onThemeChange = () => setEffectiveTheme(getEffectiveTheme());
+    window.addEventListener("themechange", onThemeChange);
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    media.addEventListener("change", onThemeChange);
+    return () => {
+      window.removeEventListener("themechange", onThemeChange);
+      media.removeEventListener("change", onThemeChange);
+    };
+  }, []);
+  return effectiveTheme;
+}
+
+/**
  * Resolves the current effective theme from the DOM (class="dark" on html).
  * Safe to call in browser. Used for initial state before ThemeProvider hydrates.
  */

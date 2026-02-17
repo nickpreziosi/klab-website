@@ -4,6 +4,8 @@
  */
 const baseUrl =
   process.env.SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://keo-website-pearl.vercel.app");
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "https://klab-website.vercel.app");
 
 export const EMAIL_LOGO_URL = `${baseUrl}/logos/keo-logo.png`;

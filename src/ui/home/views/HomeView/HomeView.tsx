@@ -7,7 +7,11 @@ import VideoBackground from "@/ui/home/components/video-background/video-backgro
 import HomeSecondarySection from "@/ui/home/components/home-secondary-section/home-secondary-section";
 import { LoadingProgressBar } from "@/ui/shared/components/loading-progress-bar/loading-progress-bar";
 import { useHomeAnimation } from "@/ui/home/providers/home-animation-provider";
+import { useEffectiveThemeSync } from "@/ui/shared/hooks/use-theme";
 import styles from "./HomeView.module.css";
+
+const VIDEO_DARK = "/videos/klab-home-loop.mp4";
+const VIDEO_LIGHT = "/videos/klab-home-loop-light.mp4";
 
 type HomeViewProps = {
   /** When provided (from server), hero copy is SSR'd */
@@ -17,6 +21,8 @@ type HomeViewProps = {
 export function HomeView({ heroTranslations }: HomeViewProps = {}) {
   const homeAnimation = useHomeAnimation();
   const skipAnimation = homeAnimation?.hasAnimated ?? false;
+  const effectiveTheme = useEffectiveThemeSync();
+  const videoUrl = effectiveTheme === "dark" ? VIDEO_DARK : VIDEO_LIGHT;
 
   return (
     <>
@@ -24,7 +30,7 @@ export function HomeView({ heroTranslations }: HomeViewProps = {}) {
         <LoadingProgressBar />
       </Suspense>
       <VideoBackground
-        videoUrl="/videos/klab-home-loop.mp4"
+        videoUrl={videoUrl}
         posterUrl="/images/klab-home-loop-poster.webp"
         skipAnimation={skipAnimation}
       />

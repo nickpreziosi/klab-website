@@ -65,8 +65,7 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
 
 /**
  * Creates and configures Nodemailer transporter for sending emails.
- * Uses Gmail service with credentials from environment variables.
- * Can be configured for other email providers (SendGrid, AWS SES, etc.).
+ * Uses Microsoft 365 (Outlook) SMTP with credentials from environment variables.
  *
  * @returns Configured Nodemailer transporter
  * @throws Error if email credentials are not configured
@@ -80,7 +79,9 @@ function createTransporter() {
   }
 
   return nodemailer.createTransport({
-    service: "gmail", // Can be changed to other providers (SendGrid, AWS SES, etc.)
+    host: "smtp.office365.com",
+    port: 587,
+    secure: false,
     auth: {
       user: emailUser,
       pass: emailPassword,
