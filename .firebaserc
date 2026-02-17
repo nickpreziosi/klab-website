@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "pro": "gc-k-gbl-corporate-web-pro"
+  },
+  "targets": {
+    "gc-k-gbl-corporate-web-pro": {
+      "hosting": {
+        "default": [
+          "gc-k-gbl-corporate-web-pro"
+        ]
+      }
+    }
+  }
+}
