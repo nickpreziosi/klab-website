@@ -25,4 +25,4 @@ steps:
 
   - template: firebase/steps-deploy-firebase-hosting-site.yml@keo-azure-devops-templates
     parameters:
-      NODE_VERSION: '18.x' 
+      NODE_VERSION: '20.x' 
