@@ -22,12 +22,13 @@ const nextConfig: NextConfig = {
 
   // Required for static hosting (Firebase does not run a Next.js server)
   // This tells Next.js to generate a fully static site in the "out" folder.
-  output: "export",
+  
+  // output: "export",
 
   // Recommended for static export.
   // Ensures each route becomes a folder with index.html,
   // which works better with Firebase Hosting rewrites.
-  trailingSlash: true,
+  // trailingSlash: true,
 
   images: {
     /**
@@ -37,7 +38,7 @@ const nextConfig: NextConfig = {
      * Images will still work, but without automatic resizing optimization.
      * If server-side hosting is added later, this can be removed.
      */
-    unoptimized: true,
+    //unoptimized: true,
 
     remotePatterns: [
       {
