@@ -82,7 +82,7 @@ const solutions = [
     title: "K-Risk",
     logo: "/logos/k-risk-logo.svg",
     description: "AI-powered risk assessment and decision making",
-    href: "/technologies/kena",
+    href: "/technologies/krisk",
   },
   {
     title: "KABL",

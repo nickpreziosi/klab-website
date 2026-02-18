@@ -64,7 +64,7 @@ export const TECHNOLOGIES: {
     logoLight: "/logos/krisk-logo-light.svg",
     logoDark: "/logos/krisk-logo-dark.svg",
     descriptionKey: "krisk",
-    href: "/technologies/kena",
+    href: "/technologies/krisk",
   },
   {
     title: "KABL",

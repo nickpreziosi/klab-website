@@ -12,12 +12,14 @@ export interface TechnologyMockup {
 }
 
 export interface TechnologyHero {
-  /** Main title, e.g. "Expected Benefits" */
+  /** Subtitle or section label (e.g. "AI Risk Engine", "Expected Benefits") */
   title: string;
-  /** Large tagline */
+  /** Main headline / tagline */
   tagline?: string;
-  /** Intro paragraph (e.g. next to tagline) */
+  /** Intro paragraph */
   intro?: string;
+  /** Optional short list of highlights (e.g. hero bullet points) */
+  highlights?: string[];
 }
 
 /** One benefit category with a list of points (for column layout). */
@@ -63,8 +65,12 @@ export type TechnologyInfoSection =
     };
 
 export interface TechnologyPageLayoutProps {
-  /** Technology name for logo/heading context (e.g. "Kai") */
+  /** Technology name for fallback when no logo (e.g. "Kai") */
   technologyName: string;
+  /** Logo for hero: light theme variant */
+  logoLight?: string;
+  /** Logo for hero: dark theme variant */
+  logoDark?: string;
   /** Optional hero block */
   hero?: TechnologyHero;
   /** Mockup images with device frame variant */

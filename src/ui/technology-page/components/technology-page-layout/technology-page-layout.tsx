@@ -3,7 +3,15 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { ArrowRight, Check } from "lucide-react";
 import Button from "@/ui/shared/components/button/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/ui/shared/components/card/card";
+import { useTheme } from "@/ui/shared/hooks/use-theme";
 import type {
   TechnologyPageLayoutProps,
   TechnologyInfoSection,
@@ -57,6 +65,7 @@ function BenefitColumnsSection({
         <div className={styles.categoryPills}>
           {section.categoryLabels.map((label) => (
             <span key={label} className={styles.pill}>
+              <Check className={styles.pillCheck} aria-hidden />
               {label}
             </span>
           ))}
@@ -67,11 +76,11 @@ function BenefitColumnsSection({
           {section.columns.map((col, i) => (
             <div key={i} className={styles.benefitColumn}>
               <p className={styles.benefitMainPoint}>{col.mainPoint}</p>
-              {col.subPoints.map((point, j) => (
-                <p key={j} className={styles.benefitSubPoint}>
-                  {point}
-                </p>
-              ))}
+              <ul className={styles.benefitSubPoints}>
+                {col.subPoints.map((point, j) => (
+                  <li key={j}>{point}</li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
@@ -92,10 +101,16 @@ function ModulesSection({
       )}
       <div className={styles.modulesGrid}>
         {section.modules.map((mod, i) => (
-          <div key={i} className={styles.moduleCard}>
-            <h3 className={styles.moduleTitle}>{mod.title}</h3>
-            <p className={styles.moduleDescription}>{mod.description}</p>
-          </div>
+          <Card key={i}>
+            <CardHeader>
+              <CardTitle className={styles.moduleCardTitle}>
+                {mod.title}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className={styles.moduleCardDescription}>{mod.description}</p>
+            </CardContent>
+          </Card>
         ))}
       </div>
     </>
@@ -111,23 +126,33 @@ function BlocksSection({
     <div className={styles.blocksSection}>
       {section.featureTitle && (
         <div className={styles.featureTitleBlock}>
-          <h3 className={styles.featureTitle}>{section.featureTitle}</h3>
+          <h2 className={styles.featureTitle}>{section.featureTitle}</h2>
           {section.featureSubline && (
             <p className={styles.featureSubline}>{section.featureSubline}</p>
           )}
         </div>
       )}
-      {section.blocks.map((block, i) => (
-        <div key={i} className={styles.block}>
-          <h4 className={styles.blockHeading}>{block.heading}</h4>
-          <p className={styles.blockSubheading}>{block.subheading}</p>
-          <ul className={styles.blockBullets}>
-            {block.bullets.map((b, j) => (
-              <li key={j}>{b}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      <div className={styles.blocksGrid}>
+        {section.blocks.map((block, i) => (
+          <Card key={i} className={styles.blockCard}>
+            <CardHeader>
+              <CardTitle className={styles.blockCardTitle}>
+                {block.heading}
+              </CardTitle>
+              <p className={styles.blockCardSubheading}>{block.subheading}</p>
+            </CardHeader>
+            <CardContent>
+              {block.bullets.length > 0 && (
+                <ul className={styles.blockCardBullets}>
+                  {block.bullets.map((b, j) => (
+                    <li key={j}>{b}</li>
+                  ))}
+                </ul>
+              )}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }
@@ -155,20 +180,28 @@ function InfoSectionRenderer({
 
 export function TechnologyPageLayout({
   technologyName,
+  logoLight,
+  logoDark,
   hero,
   mockups,
   sections,
   cta,
 }: TechnologyPageLayoutProps) {
+  const { effectiveTheme } = useTheme();
   const heroRef = useRef<HTMLElement>(null);
-  const mockupRef = useRef<HTMLElement>(null);
   const sectionsRef = useRef<HTMLElement>(null);
   const heroInView = useInView(heroRef, { once: true, amount: 0.2 });
-  const mockupInView = useInView(mockupRef, { once: true, amount: 0.1 });
   const sectionsInView = useInView(sectionsRef, { once: true, amount: 0.1 });
 
   const firstMockupInHero = hero && mockups && mockups.length > 0;
   const mockupsBelow = firstMockupInHero ? mockups!.slice(1) : mockups ?? [];
+  /* Dark theme = light-colored logo (logoLight); light theme = dark-colored logo (logoDark) */
+  const logoSrc =
+    logoLight && logoDark
+      ? effectiveTheme === "dark"
+        ? logoLight
+        : logoDark
+      : null;
 
   return (
     <main className={styles.container}>
@@ -181,89 +214,130 @@ export function TechnologyPageLayout({
           transition={fadeIn.transition}
         >
           <div className={styles.heroInner}>
-            <div className={styles.heroTextCol}>
-              <div className={styles.heroTitleRow}>
-                <span className={styles.heroTitle}>{technologyName}</span>
-                <span className={styles.heroTitle}>{hero.title}</span>
-              </div>
-              {hero.tagline && (
-                <h1 className={styles.heroTagline}>{hero.tagline}</h1>
-              )}
-              <div className={styles.heroRow}>
+            <div className={styles.heroRow}>
+              <div className={styles.heroTextCol}>
+                <div className={styles.heroTitleRow}>
+                {logoSrc ? (
+                  <Image
+                    key={logoSrc}
+                    src={logoSrc}
+                    alt=""
+                    width={160}
+                    height={48}
+                    className={styles.heroLogo}
+                    priority
+                  />
+                ) : (
+                    <>
+                      <span className={styles.heroTitle}>{technologyName}</span>
+                      <span className={styles.heroTitle}>{hero.title}</span>
+                    </>
+                  )}
+                </div>
+                {hero.tagline && (
+                  <h1 className={styles.heroTagline}>{hero.tagline}</h1>
+                )}
+                {hero.title && (
+                  <p className={styles.heroSubtitle}>{hero.title}</p>
+                )}
                 {hero.intro && (
-                  <>
-                    <span className={styles.heroIntroIcon} aria-hidden>
-                      →
-                    </span>
-                    <p className={styles.heroIntro}>{hero.intro}</p>
-                  </>
+                  <p className={styles.heroIntro}>{hero.intro}</p>
+                )}
+                {hero.highlights && hero.highlights.length > 0 && (
+                  <ul className={styles.heroHighlights}>
+                    {hero.highlights.map((item, i) => (
+                      <li key={i} className={styles.heroHighlightItem}>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {cta && (
+                  <div className={styles.heroCtaWrap}>
+                    <Button
+                      href={cta.href}
+                      variant="accent-brand"
+                      iconPosition="end"
+                      icon={<ArrowRight className={styles.heroCtaIcon} />}
+                    >
+                      {cta.label}
+                    </Button>
+                  </div>
                 )}
               </div>
-              {sections?.some((s) => s.type === "benefit-columns") && (
-                <BenefitColumnsSection
-                  section={
-                    sections.find((s) => s.type === "benefit-columns") as Extract<
-                      TechnologyInfoSection,
-                      { type: "benefit-columns" }
-                    >
-                  }
-                  pillsOnly
-                />
+              {firstMockupInHero && mockups![0] && (
+                <div className={styles.heroImageCol}>
+                  <MockupCard mockup={mockups![0]} />
+                </div>
               )}
             </div>
-            {firstMockupInHero && mockups![0] && (
-              <div className={styles.heroImageCol}>
-                <MockupCard mockup={mockups![0]} />
-              </div>
+            {sections?.some((s) => s.type === "benefit-columns") && (
+              <>
+                <div className={styles.heroPillsRow}>
+                  <BenefitColumnsSection
+                    section={
+                      sections.find((s) => s.type === "benefit-columns") as Extract<
+                        TechnologyInfoSection,
+                        { type: "benefit-columns" }
+                      >
+                    }
+                    pillsOnly
+                  />
+                </div>
+                <div className={styles.heroBenefitColumns}>
+                  <BenefitColumnsSection
+                    section={
+                      sections.find((s) => s.type === "benefit-columns") as Extract<
+                        TechnologyInfoSection,
+                        { type: "benefit-columns" }
+                      >
+                    }
+                    hidePills
+                  />
+                </div>
+              </>
             )}
           </div>
         </motion.section>
       )}
 
-      {mockupsBelow.length > 0 && (
+      {((mockupsBelow.length > 0) || (sections && sections.some((s) => s.type !== "benefit-columns"))) && (
         <motion.section
-          ref={mockupRef}
-          className={styles.mockupSection}
+          ref={sectionsRef}
+          className={styles.contentSection}
           initial={fadeIn.initial}
-          animate={mockupInView ? fadeIn.animate : {}}
+          animate={sectionsInView ? fadeIn.animate : {}}
           transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] as const }}
         >
-          <div className={styles.mockupInner}>
-            <div className={styles.mockupGrid}>
-              {mockupsBelow.map((m, i) => (
-                <MockupCard key={i} mockup={m} />
-              ))}
-            </div>
+          <div className={styles.contentInner}>
+            {mockupsBelow.length > 0 && (
+              <div className={styles.mockupGrid}>
+                {mockupsBelow.map((m, i) => (
+                  <MockupCard key={i} mockup={m} />
+                ))}
+              </div>
+            )}
+            {sections && (() => {
+              const sectionsToShow = sections.filter((s) => s.type !== "benefit-columns");
+              if (sectionsToShow.length === 0) return null;
+              return (
+                <>
+                  {sectionsToShow.map((section, i) => (
+                    <div key={i} className={styles.sectionBlock}>
+                      <InfoSectionRenderer
+                        section={section}
+                        benefitColumnsHidePills={false}
+                      />
+                    </div>
+                  ))}
+                </>
+              );
+            })()}
           </div>
         </motion.section>
       )}
 
-      {sections && (() => {
-        const sectionsToShow = sections;
-        if (sectionsToShow.length === 0) return null;
-        return (
-          <motion.section
-            ref={sectionsRef}
-            className={styles.infoSection}
-            initial={fadeIn.initial}
-            animate={sectionsInView ? fadeIn.animate : {}}
-            transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] as const }}
-          >
-            <div className={styles.infoInner}>
-              {sectionsToShow.map((section, i) => (
-                <div key={i} className={styles.sectionBlock}>
-                  <InfoSectionRenderer
-                    section={section}
-                    benefitColumnsHidePills={!!hero}
-                  />
-                </div>
-              ))}
-            </div>
-          </motion.section>
-        );
-      })()}
-
-      {cta && (
+      {cta && !hero && (
         <section className={styles.ctaSection}>
           <div className={styles.ctaInner}>
             <Button href={cta.href} variant="secondary">
