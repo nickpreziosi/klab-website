@@ -14,8 +14,8 @@ export interface StaffMember {
   image: string;
   imageLight?: string;
   imageDark?: string;
-  linkedin: string;
-  x: string;
+  linkedin?: string;
+  x?: string;
   email: string;
 }
 

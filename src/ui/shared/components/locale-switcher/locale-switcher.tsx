@@ -17,6 +17,7 @@ import {
   TooltipTrigger,
   TooltipProvider,
 } from "@/ui/shared/components/tooltip/tooltip";
+import { ClientOnly } from "@/ui/shared/components/client-only/client-only";
 import { useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { saveScrollBeforeLocaleSwitch } from "@/ui/shared/utils/scroll-preservation";
@@ -55,45 +56,59 @@ export function LocaleSwitcher() {
     router.push(pathname, { locale: newLocale, scroll: false });
   };
 
+  const localePlaceholder = (
+    <button
+      type="button"
+      className={`${themeToggleStyles.selectTrigger} ${styles.selectTriggerLocale}`}
+      aria-label="Change language"
+    >
+      {LOCALE_CODE[currentLocale as Locale]}
+    </button>
+  );
+
   return (
     <div className={themeToggleStyles.toggleContainer}>
-      <TooltipProvider delayDuration={0}>
-        <Tooltip>
-          <Select value={currentLocale} onValueChange={handleValueChange}>
-            <TooltipTrigger asChild>
-              <SelectTrigger
-                aria-label="Change language"
-                className={`${themeToggleStyles.selectTrigger} ${styles.selectTriggerLocale}`}
+      <ClientOnly
+        placeholder={localePlaceholder}
+      >
+        <TooltipProvider delayDuration={0}>
+          <Tooltip>
+            <Select value={currentLocale} onValueChange={handleValueChange}>
+              <TooltipTrigger asChild>
+                <SelectTrigger
+                  aria-label="Change language"
+                  className={`${themeToggleStyles.selectTrigger} ${styles.selectTriggerLocale}`}
+                >
+                  <SelectValue>{LOCALE_CODE[currentLocale as Locale]}</SelectValue>
+                </SelectTrigger>
+              </TooltipTrigger>
+              <SelectContent
+                className={`${themeToggleStyles.selectContent} ${styles.selectContentLocale}`}
+                position="popper"
+                sideOffset={-20}
+                align="center"
               >
-                <SelectValue>{LOCALE_CODE[currentLocale as Locale]}</SelectValue>
-              </SelectTrigger>
-            </TooltipTrigger>
-            <SelectContent
-              className={`${themeToggleStyles.selectContent} ${styles.selectContentLocale}`}
-              position="popper"
-              sideOffset={-20}
-              align="center"
-            >
-              <SelectViewport className={themeToggleStyles.selectViewport}>
-                {LOCALES.map((locale) => (
-                  <SelectItem key={locale} value={locale} className={themeToggleStyles.selectItem}>
-                    <span className={styles.selectItemText}>
-                      {LOCALE_CODE[locale]} {LOCALE_FULL_NAME[locale]}
-                    </span>
-                    <SelectItemIndicator className={themeToggleStyles.selectItemIndicator}>
-                      <Check size={14} />
-                    </SelectItemIndicator>
-                  </SelectItem>
-                ))}
-              </SelectViewport>
-            </SelectContent>
-          </Select>
+                <SelectViewport className={themeToggleStyles.selectViewport}>
+                  {LOCALES.map((locale) => (
+                    <SelectItem key={locale} value={locale} className={themeToggleStyles.selectItem}>
+                      <span className={styles.selectItemText}>
+                        {LOCALE_CODE[locale]} {LOCALE_FULL_NAME[locale]}
+                      </span>
+                      <SelectItemIndicator className={themeToggleStyles.selectItemIndicator}>
+                        <Check size={14} />
+                      </SelectItemIndicator>
+                    </SelectItem>
+                  ))}
+                </SelectViewport>
+              </SelectContent>
+            </Select>
 
-          <TooltipContent sideOffset={12} side="bottom">
-            Language: {LOCALE_FULL_NAME[currentLocale as Locale]}
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+            <TooltipContent sideOffset={12} side="bottom">
+              Language: {LOCALE_FULL_NAME[currentLocale as Locale]}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </ClientOnly>
     </div>
   );
 }

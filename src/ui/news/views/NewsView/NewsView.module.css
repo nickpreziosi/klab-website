@@ -1,6 +1,6 @@
 /* Completely restyled to match existing component patterns */
 .main {
-  min-height: 100vh;
+  min-height: calc(100vh - var(--navbar-height));
   background: hsl(var(--background));
   width: 100%;
 }
@@ -60,6 +60,37 @@
   margin: 0 0 24px 0;
 }
 
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.breadcrumbLink {
+  color: hsl(var(--foreground));
+  opacity: 0.7;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.breadcrumbLink:hover {
+  opacity: 1;
+}
+
+.breadcrumbSeparator {
+  color: hsl(var(--foreground));
+  opacity: 0.5;
+}
+
+.breadcrumbCurrent {
+  color: hsl(var(--foreground));
+  opacity: 0.9;
+}
+
 .heroSubtitle {
   font-size: 20px;
   font-weight: 300;
@@ -68,6 +99,20 @@
   color: hsl(var(--foreground));
   opacity: 0.8;
   margin: 0;
+}
+
+.cardsSection {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--padding-desktop) var(--padding-desktop);
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-md);
+  width: 100%;
 }
 
 .articlesSection {
@@ -160,6 +205,12 @@
   .heroSubtitle {
     font-size: 18px;
   }
+  .cardsSection {
+    padding: 0 var(--padding-tablet) var(--padding-tablet);
+  }
+  .cardsGrid {
+    grid-template-columns: 1fr;
+  }
   .articlesSection {
     padding: 0 var(--padding-tablet) var(--padding-tablet);
   }
@@ -177,6 +228,9 @@
   }
   .heroSubtitle {
     font-size: 16px;
+  }
+  .cardsSection {
+    padding: 0 var(--padding-mobile) var(--padding-tablet);
   }
   .newsFilters {
     margin-bottom: 32px;

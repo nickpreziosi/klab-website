@@ -48,7 +48,7 @@ const issueTypes = [
 
 // Available product options for support requests
 const products = [
-  { id: "keo-rails", name: "KEO Rails" },
+  { id: "krails", name: "KRails" },
   { id: "kena", name: "Kena" },
 ];
 

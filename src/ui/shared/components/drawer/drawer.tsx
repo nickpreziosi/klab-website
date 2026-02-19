@@ -8,6 +8,7 @@ import type { NavTranslations, DrawerTranslations } from "@/ui/shared/types/tran
 import { buildDrawerTranslations, buildNavTranslations } from "@/ui/shared/types/translations";
 import { Link } from "@/i18n/navigation";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { ClientOnly } from "@/ui/shared/components/client-only/client-only";
 import { MobileThemeToggle } from "@/ui/shared/components/mobile-theme-toggle/mobile-theme-toggle";
 import { MobileLocaleSwitcher } from "@/ui/shared/components/mobile-locale-switcher/mobile-locale-switcher";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
@@ -53,31 +54,40 @@ export const Drawer = (props: DrawerProps) => {
   const drawer = serverDrawerTranslations ?? buildDrawerTranslations(t);
   const nav = serverNavTranslations ?? buildNavTranslations(tNav);
 
+  const hamburgerPlaceholder = (
+    <button type="button" className={styles.hamburger} aria-label={drawer.openMenu}>
+      <span className={styles.hamburgerLine} />
+      <span className={styles.hamburgerLine} />
+      <span className={styles.hamburgerLine} />
+    </button>
+  );
+
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-      <VisuallyHidden>
-        <Dialog.Title>{drawer.dialogTitle}</Dialog.Title>
-        <Dialog.Description>{drawer.dialogDescription}</Dialog.Description>
-      </VisuallyHidden>
-      <Dialog.Trigger asChild>
-        <button className={styles.hamburger} aria-label={drawer.openMenu}>
-          <motion.div
-            className={styles.hamburgerLine}
-            animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-          <motion.div
-            className={styles.hamburgerLine}
-            animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-          <motion.div
-            className={styles.hamburgerLine}
-            animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-        </button>
-      </Dialog.Trigger>
+    <ClientOnly placeholder={hamburgerPlaceholder}>
+      <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+        <VisuallyHidden>
+          <Dialog.Title>{drawer.dialogTitle}</Dialog.Title>
+          <Dialog.Description>{drawer.dialogDescription}</Dialog.Description>
+        </VisuallyHidden>
+        <Dialog.Trigger asChild>
+          <button className={styles.hamburger} aria-label={drawer.openMenu}>
+            <motion.div
+              className={styles.hamburgerLine}
+              animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div
+              className={styles.hamburgerLine}
+              animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div
+              className={styles.hamburgerLine}
+              animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+          </button>
+        </Dialog.Trigger>
 
       <AnimatePresence>
         {isOpen && (
@@ -359,6 +369,7 @@ export const Drawer = (props: DrawerProps) => {
           </Dialog.Portal>
         )}
       </AnimatePresence>
-    </Dialog.Root>
+      </Dialog.Root>
+    </ClientOnly>
   );
 };

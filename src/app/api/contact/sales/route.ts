@@ -327,7 +327,7 @@ export async function POST(request: Request) {
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Product of Interest</strong>
                     <span style="color: #333333; font-size: 16px;">${escapeHtml(
-                      data.product === "keo-rails"
+                      data.product === "krails"
                         ? "KEO Rails"
                         : data.product === "kena"
                           ? "Kena"

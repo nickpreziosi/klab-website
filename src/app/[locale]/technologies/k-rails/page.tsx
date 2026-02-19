@@ -1,5 +1,5 @@
-import { KeoRailsView } from "@/ui/keo-rails/views/KeoRailsView/KeoRailsView";
+import { KRailsView } from "@/ui/krails/views/KRailsView/KRailsView";
 
-export default function KeoRailsPage() {
-  return <KeoRailsView />;
+export default function KRailsPage() {
+  return <KRailsView />;
 }

@@ -53,7 +53,7 @@ const companyTypes = [
 
 // Available product options for selection
 const products = [
-  { id: "keo-rails", name: "KEO Rails" },
+  { id: "krails", name: "KRails" },
   { id: "kena", name: "Kena" },
 ];
 

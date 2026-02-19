@@ -106,7 +106,7 @@
   --card-padding: 1.5rem; /* 24px – consistent across all Card usages */
 
   /* --------------------------------------------------------------------------
-     PAGE GRADIENTS (keo-rails, company, kena, footer, etc.)
+     PAGE GRADIENTS (krails, company, kena, footer, etc.)
      -------------------------------------------------------------------------- */
   --theme-gradient: linear-gradient(
     to bottom,

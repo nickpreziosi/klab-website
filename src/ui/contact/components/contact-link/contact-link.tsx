@@ -15,7 +15,7 @@ import {
 interface ContactLinkProps {
   icon: ReactNode;
   title: string;
-  description: string;
+  description?: string;
   href: string;
   buttonText: string;
 }
@@ -31,7 +31,9 @@ export function ContactLink({ icon, title, description, href, buttonText }: Cont
       <Card className={styles.card}>
         <CardHeader>
           <CardTitle className={styles.title}>{title}</CardTitle>
-          <CardDescription className={styles.description}>{description}</CardDescription>
+          {description ? (
+            <CardDescription className={styles.description}>{description}</CardDescription>
+          ) : null}
         </CardHeader>
         <CardFooter>
           <Button
