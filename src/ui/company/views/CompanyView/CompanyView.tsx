@@ -56,16 +56,16 @@ const employees = [
   {
     name: "Juan Silva",
     position: "Legal",
-    bio: "Alessandro is a senior financial executive based in Switzerland, advisor to many Financial bodies and Government institutions, and expert on international banking and Government relations. Alessandro is a founding member and sits on KEO's board.",
+    bio: "Juan Gabriel Silva is Chief Legal Officer at KLab, where he leads the company's legal and compliance strategy across multiple jurisdictions. With experience building regulatory frameworks for fintech operations throughout the Americas, he specializes in cross-border regulation, corporate governance, and risk management in technology-driven financial services.",
     image: "/images/people/juan-silva.webp",
     imageLight: "/images/people/juan-silva.webp",
     imageDark: "/images/people/juan-silva-black.webp",
     email: "juan@k-lab.ai",
   },
   {
-    name: "Tomas Guzman",
+    name: "Tomás Guzmán",
     position: "Government & Institutional Relations",
-    bio: "Alessandro is a senior financial executive based in Switzerland, advisor to many Financial bodies and Government institutions, and expert on international banking and Government relations. Alessandro is a founding member and sits on KEO's board.",
+    bio: "Tomás is Director of Institutional & Government Relations at KLab, leading stakeholder engagement and strategic partnerships. A trained lawyer and former Minister Counsellor at Venezuela's Embassy in Brazil, he brings diplomacy and public-private sector expertise and excels in negotiation, institutional positioning, and long-term growth.",
     image: "/images/people/tomas-guzman.webp",
     imageLight: "/images/people/tomas-guzman.webp",
     imageDark: "/images/people/tomas-guzman-black.webp",
@@ -100,7 +100,7 @@ const board = [
   },
   {
     name: "Dan Turner",
-    bio: "DAN is an entrepreneur and venture capitalist / private equity investor for over 30 years, building leading companies across multiple industries, including fintech and AI.",
+    bio: "Dan is an entrepreneur and venture capitalist / private equity investor for over 30 years, building leading companies across multiple industries, including fintech and AI.",
     image: "/images/people/dan-turner-black.webp",
     imageLight: "/images/people/dan-turner.webp",
     imageDark: "/images/people/dan-turner-black.webp",
@@ -108,7 +108,7 @@ const board = [
   },
   {
     name: "Chris Preziosi",
-    bio: "Hernan brings more than 20 years of financial advisory and transactional experience to KEO. Hernan has led the acquisition and disposition of dozens of companies and assets with an aggregate value of over $20 billion.",
+    bio: "Chris is an entrepreneur, investor, and owner of World Auto Group, a multi-brand automotive retail group based in NJ. He specializes in optimization, acquisitions, and scaling operations, building high-performing teams and award-winning businesses while creating long-term enterprise value across his portfolio.",
     image: "/images/people/chris-preziosi-black.webp",
     imageLight: "/images/people/chris-preziosi.webp",
     imageDark: "/images/people/chris-preziosi-black.webp",
