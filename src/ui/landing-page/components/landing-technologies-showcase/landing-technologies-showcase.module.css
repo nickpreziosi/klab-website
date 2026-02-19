@@ -144,10 +144,17 @@
   padding: 12px;
 }
 
-.centerContent svg {
+/* Center K-Lab logo (inline SVG from KlabLogo) */
+.centerContent svg,
+.centerContent span[role="img"] {
   width: 100% !important;
   height: auto !important;
   flex-shrink: 0;
+  display: block;
+}
+.centerContent span[role="img"] svg {
+  width: 100%;
+  height: auto;
 }
 
 /* ========== Desktop only (horizontal, adjusts to width) ========== */
@@ -231,6 +238,7 @@
 
 /* ========== Mobile/tablet only (vertical, no gaps) ========== */
 .wrapperMobile {
+  --icon-height: 28px; /* Constrain so widest logo (KLeads) fits in semicircles; all logos match this height */
   display: flex;
   flex-direction: column;
   width: min(100%, 400px);
