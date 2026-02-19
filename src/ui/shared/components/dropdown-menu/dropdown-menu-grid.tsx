@@ -64,7 +64,7 @@ const solutions = [
     title: "K-Rails",
     logo: "/logos/01-KRails.svg",
     description: "B2B blockchain payments and lending with instant settlements",
-    href: "/technologies/k-rails",
+    href: "/technologies/krails",
   },
   {
     title: "Kena",
@@ -76,7 +76,7 @@ const solutions = [
     title: "K-Talk",
     logo: "/logos/05-KTalk.svg",
     description: "AI-powered chatbot for internal and external support",
-    href: "/technologies/k-talk",
+    href: "/technologies/ktalk",
   },
   {
     title: "K-Risk",
@@ -94,37 +94,37 @@ const solutions = [
     title: "K-Pay",
     logo: "/logos/KCard.svg",
     description: "Multi-currency payment gateway with real-time FX",
-    href: "/technologies/k-pay",
+    href: "/technologies/kcard",
   },
   {
     title: "K-Comply",
     logo: "/logos/KBPM.svg",
     description: "Regulatory compliance automation with blockchain",
-    href: "/technologies/k-comply",
+    href: "/technologies/kbpm",
   },
   {
     title: "K-Ledger",
     logo: "/logos/01-K-Lab.svg",
     description: "Immutable transaction ledger with enterprise security",
-    href: "/technologies/k-ledger",
+    href: "/technologies/kim",
   },
   {
     title: "K-Connect",
     logo: "/logos/02-KAxis.svg",
     description: "API-first platform connecting financial institutions",
-    href: "/technologies/k-connect",
+    href: "/technologies/kaxis",
   },
   {
     title: "K-Insights",
     logo: "/logos/KLeads.svg",
     description: "Real-time analytics and predictive insights",
-    href: "/technologies/k-insights",
+    href: "/technologies/kleads",
   },
   {
     title: "K-Wallet",
     logo: "/logos/06-Kai_2.svg",
     description: "Enterprise digital wallet with multi-signature support",
-    href: "/technologies/k-wallet",
+    href: "/technologies/kai",
   },
 ];
 

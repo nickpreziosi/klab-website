@@ -5,10 +5,8 @@ import type {
 } from "@/ui/technology-page/types";
 
 export const kaiHero: TechnologyHero = {
-  title: "Expected Benefits",
+  title: "Don't compromise. Now businesses can work harder and smarter.",
   tagline:
-    "Don't compromise. Now businesses can work harder and smarter.",
-  intro:
     "Kai delivers comprehensive solutions that enhance your existing infrastructure while adding revolutionary capabilities for tomorrow's financial challenges.",
 };
 

@@ -12,9 +12,9 @@ export interface TechnologyMockup {
 }
 
 export interface TechnologyHero {
-  /** Subtitle or section label (e.g. "AI Risk Engine", "Expected Benefits") */
+  /** Short title (displayed as main heading) */
   title: string;
-  /** Main headline / tagline */
+  /** Longer subtitle below the title */
   tagline?: string;
   /** Intro paragraph */
   intro?: string;

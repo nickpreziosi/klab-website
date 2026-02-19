@@ -38,8 +38,8 @@ function MockupCard({ mockup }: { mockup: TechnologyMockup }) {
       <Image
         src={mockup.src}
         alt={mockup.alt ?? "Technology screenshot"}
-        width={mockup.variant === "phone" ? 280 : mockup.variant === "laptop" ? 560 : 720}
-        height={mockup.variant === "phone" ? 560 : 360}
+        width={mockup.variant === "phone" ? 380 : mockup.variant === "laptop" ? 560 : 720}
+        height={mockup.variant === "phone" ? 760 : 360}
         className={styles.mockupImage}
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
       />
@@ -132,7 +132,10 @@ function BlocksSection({
           )}
         </div>
       )}
-      <div className={styles.blocksGrid}>
+      <div
+        className={styles.blocksGrid}
+        data-count={section.blocks.length}
+      >
         {section.blocks.map((block, i) => (
           <Card key={i} className={styles.blockCard}>
             <CardHeader>
@@ -228,17 +231,14 @@ export function TechnologyPageLayout({
                     priority
                   />
                 ) : (
-                    <>
-                      <span className={styles.heroTitle}>{technologyName}</span>
-                      <span className={styles.heroTitle}>{hero.title}</span>
-                    </>
-                  )}
-                </div>
-                {hero.tagline && (
-                  <h1 className={styles.heroTagline}>{hero.tagline}</h1>
+                  <span className={styles.heroTitle}>{technologyName}</span>
                 )}
+                </div>
                 {hero.title && (
-                  <p className={styles.heroSubtitle}>{hero.title}</p>
+                  <h1 className={styles.heroTagline}>{hero.title}</h1>
+                )}
+                {hero.tagline && (
+                  <p className={styles.heroSubtitle}>{hero.tagline}</p>
                 )}
                 {hero.intro && (
                   <p className={styles.heroIntro}>{hero.intro}</p>

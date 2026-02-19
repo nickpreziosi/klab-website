@@ -5,9 +5,8 @@ import type {
 } from "@/ui/technology-page/types";
 
 export const kriskHero: TechnologyHero = {
-  title: "AI Risk Engine",
-  tagline: "Know Your Customer To Serve Them Better",
-  intro:
+  title: "Know Your Customer To Serve Them Better",
+  tagline:
     "Comprehensive intelligence engine that integrates internal history and external data sources to fortify underwriting, proactively protect the portfolio, and drive data-based strategic decisions.",
   highlights: [
     "Risk Assessment with more insights enhanced by AI",
@@ -24,10 +23,7 @@ export const kriskMockups: TechnologyMockup[] = [
   },
 ];
 
-export const kriskBlocksSection: Extract<
-  TechnologyInfoSection,
-  { type: "blocks" }
-> = {
+export const kriskBlocksSection: Extract<TechnologyInfoSection, { type: "blocks" }> = {
   type: "blocks",
   featureTitle: "Key capabilities",
   blocks: [

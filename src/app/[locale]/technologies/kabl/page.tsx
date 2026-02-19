@@ -1,5 +1,5 @@
-import { TechnologyPlaceholderView } from "@/ui/technology-page/views/TechnologyPlaceholderView/TechnologyPlaceholderView";
+import { KablView } from "@/ui/technology-page/views/KablView/KablView";
 
 export default function KablPage() {
-  return <TechnologyPlaceholderView slug="kabl" />;
+  return <KablView />;
 }
