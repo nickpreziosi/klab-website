@@ -5,28 +5,38 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import styles from "./kena-cta-section.module.css";
 import Button from "@/ui/shared/components/button/button";
+import type { KenaTranslations } from "@/ui/kena/views/KenaView/KenaView";
 
-export default function KenaCtaSection() {
+export default function KenaCtaSection({
+  translations,
+  skipAnimation = false,
+}: {
+  translations: KenaTranslations;
+  skipAnimation?: boolean;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const effectiveInView = skipAnimation || isInView;
 
   return (
     <section className={styles.section} ref={ref}>
       <div className={styles.container}>
         <motion.div
-          initial={{ opacity: 0, filter: "blur(10px)" }}
-          animate={isInView ? { opacity: 1, filter: "blur(0px)" } : {}}
+          initial={
+            skipAnimation ? { opacity: 1, filter: "blur(0px)" } : { opacity: 0, filter: "blur(10px)" }
+          }
+          animate={effectiveInView ? { opacity: 1, filter: "blur(0px)" } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
           className={styles.content}
         >
-          <h2 className={styles.heading}>
-            Transform your risk strategy with intelligent automation.
-          </h2>
+          <h2 className={styles.heading}>{translations.ctaHeading}</h2>
 
           <motion.div
             className={styles.ctaButton}
-            initial={{ opacity: 0, filter: "blur(10px)" }}
-            animate={isInView ? { opacity: 1, filter: "blur(0px)" } : {}}
+            initial={
+              skipAnimation ? { opacity: 1, filter: "blur(0px)" } : { opacity: 0, filter: "blur(10px)" }
+            }
+            animate={effectiveInView ? { opacity: 1, filter: "blur(0px)" } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <Button
@@ -50,7 +60,7 @@ export default function KenaCtaSection() {
                 </svg>
               }
             >
-              Request a Demo
+              {translations.ctaButton}
             </Button>
           </motion.div>
         </motion.div>

@@ -7,8 +7,15 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/shared/components/card/card";
 import styles from "./krails-code-section.module.css";
 import { useRef, useEffect } from "react";
+import type { KRailsTranslations } from "@/ui/krails/views/KRailsView/KRailsView";
 
-export default function KRailsCodeSection() {
+export default function KRailsCodeSection({
+  translations,
+  skipAnimation = false,
+}: {
+  translations: KRailsTranslations;
+  skipAnimation?: boolean;
+}) {
   const leftColRef = useRef<HTMLDivElement | null>(null);
   const cardsContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -51,15 +58,16 @@ export default function KRailsCodeSection() {
     >
       <motion.div
         className={styles.container}
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+        whileInView={skipAnimation ? undefined : { opacity: 1, y: 0 }}
+        animate={skipAnimation ? { opacity: 1, y: 0 } : undefined}
         viewport={{ once: true, amount: 0.18 }}
         transition={{ duration: 0.55, ease: "easeOut" }}
       >
         <h2 className={styles.heading}>
-          ENTERPRISE TRUST.
+          {translations.codeSectionHeadingLine1}
           <br />
-          IMPOSSIBLE TO ALTER. PERIOD.
+          {translations.codeSectionHeadingLine2}
         </h2>
         <div className={styles.grid}>
           <div className={styles.leftColumn} ref={leftColRef}>
@@ -74,25 +82,25 @@ export default function KRailsCodeSection() {
             <div ref={cardsContainerRef} className={styles.cardsContainer}>
               <Card>
                 <CardHeader>
-                  <CardTitle className={styles.cardHeading}>TRUST</CardTitle>
+                  <CardTitle className={styles.cardHeading}>
+                    {translations.codeSectionCardTrustTitle}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className={styles.cardText}>
-                    KRails payment infrastructure keeps a trusted record for all real-time
-                    transactions in a secure, authenticated, and verifiable manner, preventing any
-                    party from altering executed transactions.
+                    {translations.codeSectionCardTrustDescription}
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle className={styles.cardHeading}>CERTAINTY</CardTitle>
+                  <CardTitle className={styles.cardHeading}>
+                    {translations.codeSectionCardCertaintyTitle}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className={styles.cardText}>
-                    It&apos;s not just security — it&apos;s immutable and absolute certainty in
-                    execution for B2B trade. This is a payment record that is unbreakable and
-                    unchangeable, directly powering your growth.
+                    {translations.codeSectionCardCertaintyDescription}
                   </p>
                 </CardContent>
               </Card>

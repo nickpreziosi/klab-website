@@ -1,18 +1,22 @@
 "use client";
 
 import { TechnologyPageLayout } from "@/ui/technology-page/components/technology-page-layout/technology-page-layout";
-import { kaiHero, kaiMockups, kaiSections } from "./kai-content";
+import type { TechnologyPageContentProps } from "@/ui/technology-page/types";
+import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 
-export function KaiView() {
+export function KaiView({ translations, hero, mockups, sections }: TechnologyPageContentProps) {
+  const skipAnimation = useSkipAnimationOnLocaleSwitch();
   return (
     <TechnologyPageLayout
       technologyName="Kai"
       logoLight="/logos/kai-logo-light.svg"
       logoDark="/logos/kai-logo-dark.svg"
-      hero={kaiHero}
-      mockups={kaiMockups}
-      sections={kaiSections}
-      cta={{ label: "Contact sales", href: "/contact/sales" }}
+      hero={hero}
+      mockups={mockups}
+      sections={sections}
+      cta={{ label: translations.contactSales, href: "/contact/sales" }}
+      defaultAlt={translations.technologyScreenshot}
+      skipAnimation={skipAnimation}
     />
   );
 }

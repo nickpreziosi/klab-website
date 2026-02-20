@@ -1,21 +1,51 @@
+"use client";
+
 import { ContactLink } from "@/ui/contact/components/contact-link/contact-link";
+import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import styles from "./ContactView.module.css";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
 
-export function ContactView() {
+export type ContactTranslations = {
+  heading: string;
+  subtitle: string;
+  salesTitle: string;
+  salesDescription: string;
+  salesButton: string;
+  supportTitle: string;
+  supportDescription: string;
+  supportButton: string;
+  careersTitle: string;
+  careersDescription: string;
+  careersButton: string;
+};
+
+type ContactViewProps = {
+  contactTranslations?: ContactTranslations;
+};
+
+export function ContactView({ contactTranslations }: ContactViewProps = {}) {
+  const skipAnimation = useSkipAnimationOnLocaleSwitch();
+  if (!contactTranslations) {
+    return null;
+  }
+  const t = contactTranslations;
   return (
     <main className={styles.page}>
       <section className={styles.heroSection}>
         <div className={styles.container}>
           <SectionHeader
-            heading="How can we help?"
-            subtitle="Get in touch with our sales, support, and careers teams for demos,
-               product questions, or career opportunities."
+            heading={t.heading}
+            subtitle={t.subtitle}
             align="center"
             animateOnce={true}
+            skipAnimation={skipAnimation}
           />
           <div className={styles.cardsGrid}>
             <ContactLink
+              title={t.salesTitle}
+              description={t.salesDescription}
+              buttonText={t.salesButton}
+              skipAnimation={skipAnimation}
               icon={
                 <svg
                   width="15"
@@ -32,12 +62,10 @@ export function ContactView() {
                   />
                 </svg>
               }
-              title="Sales"
-              description="Interested in learning more about KLab's products and services? Our sales team is here to answer your questions, provide personalized demos, and help you find the perfect solution for your business needs."
               href="mailto:sales@k-lab.ai"
-              buttonText="Talk to sales"
             />
             <ContactLink
+              skipAnimation={skipAnimation}
               icon={
                 <svg
                   width="15"
@@ -54,12 +82,13 @@ export function ContactView() {
                   />
                 </svg>
               }
-              title="Help & Support"
-              description="Need assistance with onboarding, technical issues, or product questions? Our support team is ready to help you resolve any technical issues."
+              title={t.supportTitle}
+              description={t.supportDescription}
+              buttonText={t.supportButton}
               href="mailto:support@k-lab.ai"
-              buttonText="Contact support"
             />
             <ContactLink
+              skipAnimation={skipAnimation}
               icon={
                 <svg
                   width="15"
@@ -76,10 +105,10 @@ export function ContactView() {
                   />
                 </svg>
               }
-              title="Careers"
-              description="Excited about shaping the future of financial technology? Reach out to our careers team to explore opportunities to join KLab and contribute to our mission."
+              title={t.careersTitle}
+              description={t.careersDescription}
+              buttonText={t.careersButton}
               href="mailto:careers@k-lab.ai"
-              buttonText="Contact careers"
             />
           </div>
         </div>

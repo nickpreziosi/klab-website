@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { getAllArticles } from "@/sanity/queries/articles";
 import { urlFor } from "@/sanity/lib/image";
 import { NewsView } from "@/ui/news/views/NewsView/NewsView";
@@ -63,6 +64,7 @@ export default async function NewsKeoPage({ searchParams }: NewsKeoPageProps) {
 
   const allCategories = Array.from(new Set(allArticles.map((article) => article.category))).sort();
 
+  const t = await getTranslations("newsPage");
   return (
     <NewsView
       articles={filteredArticles}
@@ -70,9 +72,9 @@ export default async function NewsKeoPage({ searchParams }: NewsKeoPageProps) {
       selectedCategories={selectedCategories}
       articlesPerPage={ARTICLES_PER_PAGE}
       showNewsCards={false}
-      heroTitle="KEO World News"
+      heroTitle={t("heroTitleKeo")}
       heroSubtitle=""
-      breadcrumbCurrent="KEO World News"
+      breadcrumbCurrent={t("breadcrumbKeo")}
     />
   );
 }

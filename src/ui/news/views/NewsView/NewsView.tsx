@@ -3,12 +3,13 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import NewsCard from "@/ui/news/components/newsCard/news-card";
 import { Pagination } from "@/ui/shared/components/pagination/pagination";
 import NewsCardSkeleton from "@/ui/news/components/newsCardSkeleton/news-card-skeleton";
 import { ContactLink } from "@/ui/contact/components/contact-link/contact-link";
+import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import NewsFilters from "./NewsFilters";
 import styles from "./NewsView.module.css";
 
@@ -51,13 +52,17 @@ export function NewsView({
   articlesPerPage,
   showNewsCards = true,
   showArticles = true,
-  heroTitle = "News & Insights",
-  heroSubtitle = "Stay updated with the latest developments in fintech and AI",
+  heroTitle,
+  heroSubtitle,
   breadcrumbCurrent,
   emptyStateMessage,
 }: NewsViewProps) {
+  const t = useTranslations("newsPage");
   const locale = useLocale();
   const searchParams = useSearchParams();
+  const skipAnimation = useSkipAnimationOnLocaleSwitch();
+  const resolvedHeroTitle = heroTitle ?? t("heroTitle");
+  const resolvedHeroSubtitle = heroSubtitle ?? t("heroSubtitle");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -82,13 +87,13 @@ export function NewsView({
         <div className={styles.heroBackground}>
           <motion.div
             className={styles.gradientOrb1}
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={skipAnimation ? { opacity: 0.15, scale: 1 } : { opacity: 0, scale: 0.8 }}
             animate={{ opacity: 0.15, scale: 1 }}
             transition={{ duration: 1.2 }}
           />
           <motion.div
             className={styles.gradientOrb2}
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={skipAnimation ? { opacity: 0.1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             animate={{ opacity: 0.1, scale: 1 }}
             transition={{ duration: 1.2, delay: 0.2 }}
           />
@@ -96,35 +101,35 @@ export function NewsView({
         <div className={styles.heroContent}>
           <motion.h1
             className={styles.heroTitle}
-            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+            initial={skipAnimation ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            {heroTitle}
+            {resolvedHeroTitle}
           </motion.h1>
           {breadcrumbCurrent ? (
             <motion.nav
               className={styles.breadcrumb}
-              initial={{ opacity: 0, y: 20 }}
+              initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              aria-label="Breadcrumb"
+              aria-label={t("breadcrumbAriaLabel")}
             >
               <Link href="/news" className={styles.breadcrumbLink}>
-                News
+                {t("breadcrumbNews")}
               </Link>
               <span className={styles.breadcrumbSeparator}>/</span>
               <span className={styles.breadcrumbCurrent}>{breadcrumbCurrent}</span>
             </motion.nav>
           ) : null}
-          {heroSubtitle ? (
+          {resolvedHeroSubtitle ? (
             <motion.p
               className={styles.heroSubtitle}
-              initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+              initial={skipAnimation ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 20, filter: "blur(10px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
-              {heroSubtitle}
+              {resolvedHeroSubtitle}
             </motion.p>
           ) : null}
         </div>
@@ -134,6 +139,7 @@ export function NewsView({
         <section className={styles.cardsSection}>
           <div className={styles.cardsGrid}>
             <ContactLink
+              skipAnimation={skipAnimation}
               icon={
                 <svg
                   width="15"
@@ -150,12 +156,13 @@ export function NewsView({
                   />
                 </svg>
               }
-              title="Our Present"
-              description="Stay up to date with the latest from KLab with product updates, company news, and industry insights."
+              title={t("cardOurPresentTitle")}
+              description={t("cardOurPresentDescription")}
               href={`/${locale}/news/klab`}
-              buttonText="View KLab news"
+              buttonText={t("cardOurPresentButton")}
             />
             <ContactLink
+              skipAnimation={skipAnimation}
               icon={
                 <svg
                   width="15"
@@ -172,10 +179,10 @@ export function NewsView({
                   />
                 </svg>
               }
-              title="Our Past"
-              description="Explore news and insights from KEO World, including our history and the foundation that led to KLab."
+              title={t("cardOurPastTitle")}
+              description={t("cardOurPastDescription")}
               href={`/${locale}/news/keo`}
-              buttonText="View KEO news"
+              buttonText={t("cardOurPastButton")}
             />
           </div>
         </section>
@@ -188,7 +195,7 @@ export function NewsView({
           {hasNoResults ? (
             <motion.div
               className={styles.noResults}
-              initial={{ opacity: 0, y: 20 }}
+              initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
@@ -203,12 +210,12 @@ export function NewsView({
                   />
                 </svg>
               </div>
-              <h3 className={styles.noResultsTitle}>No articles found</h3>
+              <h3 className={styles.noResultsTitle}>{t("noArticlesFound")}</h3>
               <p className={styles.noResultsText}>
                 {emptyStateMessage ??
                   (selectedCategories.length > 0
-                    ? "Try adjusting your filters to find what you're looking for."
-                    : "Check back soon for new content.")}
+                    ? t("emptyStateTryFilters")
+                    : t("emptyStateCheckBack"))}
               </p>
             </motion.div>
           ) : (

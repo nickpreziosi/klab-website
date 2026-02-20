@@ -1,33 +1,67 @@
+"use client";
+
 import KRailsHero from "@/ui/krails/components/krails-hero/krails-hero";
+import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import styles from "./KRailsView.module.css";
 import KRailsBuiltWith from "@/ui/krails/components/krails-built-with/krails-built-with";
 import KRailsCta from "@/ui/krails/components/krails-cta/krails-cta";
 import KRailsCodeSection from "@/ui/krails/components/krails-code-section/krails-code-section";
-import KRailsCaseStudy from "@/ui/krails/components/krails-case-study/krails-case-study";
 import KRailsWhy from "@/ui/krails/components/krails-why/krails-why";
 import KRailsDashboard from "@/ui/krails/components/krails-dashboard/krails-dashboard";
 
-export function KRailsView() {
+export interface KRailsTranslations {
+  heroHeading: string;
+  heroSubheading: string;
+  heroDescription: string;
+  heroButtonPrimary: string;
+  heroButtonSecondary: string;
+  whyHeading: string;
+  whySubheading: string;
+  whyBlock0Heading: string;
+  whyBlock0Description: string;
+  whyBlock1Heading: string;
+  whyBlock1Description: string;
+  whyBlock2Heading: string;
+  whyBlock2Description: string;
+  whyBlock3Heading: string;
+  whyBlock3Description: string;
+  whyCtaButton: string;
+  builtWithHeading: string;
+  ctaHeading: string;
+  ctaSubheading: string;
+  ctaHighlight: string;
+  ctaButton: string;
+  codeSectionHeadingLine1: string;
+  codeSectionHeadingLine2: string;
+  codeSectionCardTrustTitle: string;
+  codeSectionCardTrustDescription: string;
+  codeSectionCardCertaintyTitle: string;
+  codeSectionCardCertaintyDescription: string;
+}
+
+export function KRailsView({ translations }: { translations: KRailsTranslations }) {
+  const skipAnimation = useSkipAnimationOnLocaleSwitch();
   return (
     <main className={styles.container}>
       <div className={styles.background}>
         <KRailsHero
-          heading='THE AGE OF "WAIT" IS OVER.'
-          subheading="B2B Blockchain-Based Payments and Lending Infrastructure with Near Instant Settlements "
-          description="KRails is an embedded payment and lending solution which combines immediate funds availability, settlement finality and instant confirmation - all in a payment made near instantaneously. Bringing together speed, data and communication for execution of payments."
-          buttonText="Start my T+0 flow"
+          heading={translations.heroHeading}
+          subheading={translations.heroSubheading}
+          description={translations.heroDescription}
+          buttonText={translations.heroButtonPrimary}
           buttonHref="/contact/sales"
-          buttonTwoText="Learn More"
+          buttonTwoText={translations.heroButtonSecondary}
           buttonTwoHref="#code"
+          skipAnimation={skipAnimation}
         />
         <KRailsDashboard />
-        <KRailsCodeSection />
+        <KRailsCodeSection translations={translations} skipAnimation={skipAnimation} />
       </div>
 
-      <KRailsWhy />
+      <KRailsWhy translations={translations} skipAnimation={skipAnimation} />
       <div className={styles.lastSection}>
-        <KRailsBuiltWith />
-        <KRailsCta />
+        <KRailsBuiltWith translations={translations} skipAnimation={skipAnimation} />
+        <KRailsCta translations={translations} skipAnimation={skipAnimation} />
       </div>
     </main>
   );

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
 import { routing } from "@/i18n/routing";
 import { ScrollToTopOnRouteChange } from "@/ui/shared/components/scroll-to-top-on-route-change/scroll-to-top-on-route-change";
+import { SkipAnimationOnLocaleSwitchProvider } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import { ConditionalShell } from "@/ui/shared/containers/conditional-shell/conditional-shell";
 import { buildNavTranslations, buildDrawerTranslations } from "@/ui/shared/types/translations";
 
@@ -43,14 +44,16 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <NextIntlClientProvider locale={currentLocale} messages={messages}>
-      <ScrollToTopOnRouteChange />
-      <ConditionalShell
+      <SkipAnimationOnLocaleSwitchProvider>
+        <ScrollToTopOnRouteChange />
+        <ConditionalShell
         navTranslations={navTranslations}
         drawerTranslations={drawerTranslations}
         initialTheme={initialTheme}
       >
         {children}
       </ConditionalShell>
+      </SkipAnimationOnLocaleSwitchProvider>
     </NextIntlClientProvider>
   );
 }

@@ -3,18 +3,7 @@ import type {
   TechnologyMockup,
   TechnologyInfoSection,
 } from "@/ui/technology-page/types";
-
-export const ktalkHero: TechnologyHero = {
-  title: "Conversational AI",
-  tagline:
-    "Conversational AI interface—accessible via text and voice—connected directly to all internal and external data sources across the organization.",
-  highlights: [
-    "Instantly request accurate insights, summaries, and visualizations using natural language.",
-    "Enables faster, data-driven decisions by reducing organizational friction.",
-    "Conversational immediate access to portfolio data, eliminating manual reporting.",
-    "Integrates with core systems, ensuring secure access to current data.",
-  ],
-};
+import type { TechPageTranslator } from "@/ui/technology-page/types";
 
 export const ktalkMockups: TechnologyMockup[] = [
   {
@@ -24,4 +13,21 @@ export const ktalkMockups: TechnologyMockup[] = [
   },
 ];
 
-export const ktalkSections: TechnologyInfoSection[] = [];
+export function buildKtalkContent(t: TechPageTranslator): {
+  hero: TechnologyHero;
+  sections: TechnologyInfoSection[];
+} {
+  return {
+    hero: {
+      title: t("ktalk.heroTitle"),
+      tagline: t("ktalk.heroTagline"),
+      highlights: [
+        t("ktalk.heroHighlight0"),
+        t("ktalk.heroHighlight1"),
+        t("ktalk.heroHighlight2"),
+        t("ktalk.heroHighlight3"),
+      ],
+    },
+    sections: [],
+  };
+}

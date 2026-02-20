@@ -11,7 +11,10 @@ import {
 import { Check, ChevronDown } from "lucide-react";
 import { useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
-import { saveScrollBeforeLocaleSwitch } from "@/ui/shared/utils/scroll-preservation";
+import {
+  saveScrollBeforeLocaleSwitch,
+  setSkipAnimationsOnNextPageLoad,
+} from "@/ui/shared/utils/scroll-preservation";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
@@ -42,6 +45,7 @@ export function LandingLocaleSwitcher() {
     const newLocale = value as Locale;
     if (newLocale === currentLocale) return;
     saveScrollBeforeLocaleSwitch();
+    setSkipAnimationsOnNextPageLoad();
     router.push(pathname, { locale: newLocale, scroll: false });
   };
 

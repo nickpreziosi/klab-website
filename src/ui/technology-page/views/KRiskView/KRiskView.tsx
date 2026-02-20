@@ -1,22 +1,22 @@
 "use client";
 
 import { TechnologyPageLayout } from "@/ui/technology-page/components/technology-page-layout/technology-page-layout";
-import {
-  kriskHero,
-  kriskMockups,
-  kriskSections,
-} from "./krisk-content";
+import type { TechnologyPageContentProps } from "@/ui/technology-page/types";
+import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 
-export function KRiskView() {
+export function KRiskView({ translations, hero, mockups, sections }: TechnologyPageContentProps) {
+  const skipAnimation = useSkipAnimationOnLocaleSwitch();
   return (
     <TechnologyPageLayout
       technologyName="KRisk"
       logoLight="/logos/krisk-logo-light.svg"
       logoDark="/logos/krisk-logo-dark.svg"
-      hero={kriskHero}
-      mockups={kriskMockups}
-      sections={kriskSections}
-      cta={{ label: "Contact sales", href: "/contact/sales" }}
+      hero={hero}
+      mockups={mockups}
+      sections={sections}
+      cta={{ label: translations.contactSales, href: "/contact/sales" }}
+      defaultAlt={translations.technologyScreenshot}
+      skipAnimation={skipAnimation}
     />
   );
 }

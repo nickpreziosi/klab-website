@@ -117,9 +117,18 @@ const StablecorpLogo = (props: LogoProps) => (
   </svg>
 );
 
-export default function KRailsBuiltWith() {
+import type { KRailsTranslations } from "@/ui/krails/views/KRailsView/KRailsView";
+
+export default function KRailsBuiltWith({
+  translations,
+  skipAnimation = false,
+}: {
+  translations: KRailsTranslations;
+  skipAnimation?: boolean;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const effectiveInView = skipAnimation || isInView;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -155,8 +164,8 @@ export default function KRailsBuiltWith() {
         <motion.div
           className={styles.content}
           variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          initial={skipAnimation ? "visible" : "hidden"}
+          animate={effectiveInView ? "visible" : "hidden"}
         >
           <motion.div
             className={styles.headingContainer}
@@ -177,7 +186,7 @@ export default function KRailsBuiltWith() {
               },
             }}
           >
-            <h2 className={styles.heading}>Built With The Best</h2>
+            <h2 className={styles.heading}>{translations.builtWithHeading}</h2>
           </motion.div>
 
           <motion.div

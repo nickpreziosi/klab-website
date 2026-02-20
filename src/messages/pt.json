@@ -56,5 +56,557 @@
       "kleads": "Surjam mais leads qualificados para maximizar a eficiência comercial e acelerar o crescimento e o fluxo de negócios.",
       "kai": "No núcleo de nossa suíte de módulos. Kai suporta orquestração de ciclo de vida completo desde onboarding, originación até gestão de empréstimos e liquidação."
     }
+  },
+  "footer": {
+    "quickLinks": "Links rápidos",
+    "followUs": "Siga-nos nas redes",
+    "about": "Sobre",
+    "company": "Empresa",
+    "news": "Notícias",
+    "contact": "Contato",
+    "copyright": "© 2026 KLab. Todos os direitos reservados. • 328 NW 29th St. Miami, Florida 33127",
+    "legal1": "O uso deste site constitui aceitação da Política de Privacidade e Proteção de Dados da KLab.",
+    "legal2": "A KLab e suas afiliadas coletam e processam dados pessoais de acordo com as leis de privacidade aplicáveis."
+  },
+  "contact": {
+    "heading": "Como podemos ajudar?",
+    "subtitle": "Entre em contato com nossas equipes de vendas, suporte e carreiras para demos, dúvidas sobre produtos ou oportunidades de carreira.",
+    "salesTitle": "Vendas",
+    "salesDescription": "Interessado em saber mais sobre os produtos e serviços da KLab? Nossa equipe de vendas está aqui para responder suas perguntas, oferecer demos personalizados e ajudá-lo a encontrar a solução ideal para seu negócio.",
+    "salesButton": "Falar com vendas",
+    "supportTitle": "Ajuda e suporte",
+    "supportDescription": "Precisa de ajuda com onboarding, problemas técnicos ou dúvidas sobre produtos? Nossa equipe de suporte está pronta para ajudá-lo a resolver qualquer problema técnico.",
+    "supportButton": "Contatar suporte",
+    "careersTitle": "Carreiras",
+    "careersDescription": "Animado para moldar o futuro da tecnologia financeira? Entre em contato com nossa equipe de carreiras para explorar oportunidades de se juntar à KLab.",
+    "careersButton": "Contatar carreiras"
+  },
+  "companyCulture": {
+    "title": "Cultura da empresa",
+    "heading": "Inovação através do trabalho em equipe e inclusão.",
+    "highlight1": "Trabalho em equipe",
+    "highlight2": "Inclusão",
+    "description": "A KLab combina a energia de uma startup com ampla experiência do setor para desenvolver tecnologias inovadoras. Temos um compromisso profundo com diversidade, igualdade e inclusão, essenciais para nossa missão de ajudar empresas e atrair pessoas excepcionais.",
+    "button": "Carreiras KLab",
+    "statPeople": "Pessoas em seis países",
+    "statWomen": "São mulheres",
+    "statNationalities": "Nacionalidades diferentes",
+    "statLanguages": "Idiomas falados"
+  },
+  "companyManifesto": {
+    "title": "Manifesto",
+    "item0": "No código confiamos. Nas pessoas investimos.",
+    "item1": "Zero atrito. Zero fraude. Zero desculpas.",
+    "item2": "Não construímos tecnologia. Construímos confiança.",
+    "item3": "Nossa arquitetura não dorme.",
+    "item4": "Sucesso só é sucesso se for compartilhado.",
+    "item5": "Progresso, acelerado.",
+    "item6": "Incorruptível por design.",
+    "item7": "Combatemos a fraude. Financiamos sonhos.",
+    "item8": "Defendendo o futuro do atrito do passado.",
+    "item9": "Infraestrutura para o inalterável.",
+    "item10": "Quanto mais criamos, mais damos."
+  },
+  "journeyTimeline": {
+    "title": "Nossa jornada",
+    "subtitle": "CONSTRUINDO O FUTURO DA IA COM CINCO ANOS DE INTELIGÊNCIA FINANCEIRA COMPROVADA.",
+    "paragraph1": "HERDAMOS 5 ANOS DE P&D E DADOS PROPRIETÁRIOS DA KEO WORLD—APÓS SUA AQUISIÇÃO ESTRATÉGICA PELA MAMA CAPITAL.",
+    "paragraph2": "POR MEIO DE UM ACORDO DEFINITIVO COM A MAHA CAPITAL, A K LAB AGORA APROVEITA ESTE ECOSSISTEMA MACIÇO DE DADOS PARA TREINAR MODELOS DE IA ESPECIALIZADOS. ESTAMOS TRANSFORMANDO ANOS DE TRANSAÇÕES NA INTELIGÊNCIA DE AMANHÃ.",
+    "year2020": "2020",
+    "year2025": "2025",
+    "sold": "VENDIDO!",
+    "future": "FUTURO",
+    "event1": "AQUISIÇÃO DE 5 ANOS DE PROJETOS DE P&D DE IA DA KEO WORLD",
+    "event2": "AQUISIÇÃO DE DIREITOS DE CÓPIA E LICENCIAMENTO DE RAILS DE PAGAMENTO BLOCKCHAIN",
+    "event3": "ACORDO DE ACESSO A DADOS PARA TREINAR MODELOS PROPRIETÁRIOS"
+  },
+  "klabFoundation": {
+    "title": "Fundação KLab",
+    "quote1": "QUANTO MAIS",
+    "quote2": "CRIAMOS",
+    "quote3": "MAIS",
+    "quote4": "DEMOS.",
+    "learnMore": "Saiba mais"
+  },
+  "companyStaff": {
+    "title": "Nossa equipe",
+    "tabLeadership": "Liderança",
+    "tabBoard": "Conselho",
+    "employees": {
+      "paoloFidanza": {
+        "position": "CEO e fundador",
+        "bio": "Empresário em série e engenheiro aeroespacial, com paixão por tornar o mundo um lugar melhor. Paolo tem liderado e desenvolvido empresas de tecnologia revolucionárias nas últimas duas décadas."
+      },
+      "faridShidfar": {
+        "position": "Inovação",
+        "bio": "Como empresário em série e líder visionário, Farid tem 30 anos de experiência lançando tecnologias inovadoras. Passou mais de 15 anos na Accenture ajudando empresas a alcançar maior valor."
+      },
+      "hernanMagarinos": {
+        "position": "Desenvolvimento corporativo",
+        "bio": "Hernan traz mais de 20 anos de experiência em assessoria financeira e transacional para a KEO. Liderou a aquisição e disposição de dezenas de empresas e ativos com valor agregado superior a US$ 20 bilhões."
+      },
+      "andresRosso": {
+        "position": "Tecnologia",
+        "bio": "Especialista em modelos baseados em IA com doutorado em Ciência da Computação e métodos de deep learning para PLN. Andres liderou equipes de ciência de dados, desenvolvimento e tecnologia por mais de 10 anos."
+      },
+      "gabrielSinopoli": {
+        "position": "Finanças e RH",
+        "bio": "Gabriel passou 17 anos na American Express como CFO da Espanha. Dirigiu com sucesso o crescimento responsável e sustentável na SafetyPay e 4Finance, com mais de 11 milhões de empréstimos no valor de 5 bilhões de euros."
+      },
+      "juanSilva": {
+        "position": "Jurídico",
+        "bio": "Juan Gabriel combina mais de 15 anos de experiência em escritórios de advocacia internacionais e empresas de tecnologia, assessorando em questões corporativas, financeiras e regulatórias que apoiam o crescimento em mercados transfronteiriços complexos."
+      },
+      "tomasGuzman": {
+        "position": "Relações governamentais e institucionais",
+        "bio": "Tomás é Diretor de Relações Institucionais e Governamentais na KLab, liderando o engajamento com partes interessadas e parcerias estratégicas. Advogado e ex-Conselheiro Ministerial na Embaixada da Venezuela no Brasil, traz experiência em diplomacia e setor público-privado, destacando-se em negociação, posicionamento institucional e crescimento de longo prazo."
+      }
+    },
+    "board": {
+      "paoloFidanza": {
+        "bio": "Empresário em série e engenheiro aeroespacial, com paixão por tornar o mundo um lugar melhor. Paolo tem liderado e desenvolvido empresas de tecnologia revolucionárias nas últimas duas décadas."
+      },
+      "faridShidfar": {
+        "bio": "Como empresário em série e líder visionário, Farid tem 30 anos de experiência lançando tecnologias inovadoras. Passou mais de 15 anos na Accenture ajudando empresas a alcançar maior valor."
+      },
+      "alessandroCiacchini": {
+        "bio": "Alessandro é um alto executivo financeiro sediado na Suíça, assessor de diversos organismos financeiros e instituições governamentais, e especialista em banca internacional e relações governamentais. É membro fundador e integra o conselho da KEO."
+      },
+      "danTurner": {
+        "bio": "Dan é empresário e investidor de capital de risco e private equity há mais de 30 anos, construindo empresas líderes em múltiplos setores, incluindo fintech e IA."
+      },
+      "chrisPreziosi": {
+        "bio": "Chris é empresário, investidor e proprietário da World Auto Group, um grupo varejista automotivo multimarca sediado em NJ. Especializa-se em desenvolvimento de negócios, aquisições e escalonamento de operações, construindo equipes de alta performance e negócios premiados, criando valor de longo prazo em seu portfólio."
+      },
+      "davideTomassoni": {
+        "bio": "Membro do conselho e Diretor Principal de Assuntos Globais na KLabs Inc., Davide traz sua ampla experiência empreendedora em relações internacionais, parcerias estratégicas e iniciativas transfronteiriças. Assessora em estratégia geopolítica, engajamento com partes interessadas e expansão de mercados globais, alinhando visão de política à execução comercial em tecnologia, finanças e empresas impulsionadas pela inovação."
+      }
+    }
+  },
+  "foundation": {
+    "titleBrand": "KFoundation",
+    "titleMain": "Doar",
+    "subheading": "Inovação com propósito",
+    "paragraph": "Na KLab acreditamos que inovação é transformação, mas a verdadeira transformação vai além da tecnologia; deve incluir impacto social. Nosso sucesso é projetado para ser cíclico, fluindo de volta para as comunidades.",
+    "section1": "Nosso compromisso com a KLab é implantar continuamente seu ecossistema de tecnologia inovador e desenvolver modelos de IA avançados. Uma parte fundamental de nossa missão é destinar 10% de todos os lucros diretamente à K Foundation.",
+    "section2": "Capacitando a próxima geração através da K Foundation, nos esforçamos para criar oportunidades para crianças e jovens em todo o mundo. Nosso objetivo é fomentar suas paixões e talentos, especialmente em comunidades com poucos recursos.",
+    "section3": "Impulsionados pela criatividade e pelo propósito, somos uma equipe de criativos profundamente apaixonados por inovação e sucesso com um propósito profundo. Os funcionários da KLab contribuem com sua expertise tanto para os negócios da KLab quanto para as iniciativas da K Foundation."
+  },
+  "litepapers": {
+    "label": "KLab LITEPAPER",
+    "heading": "Explore como a KLab reimagina os pagamentos blockchain com estabilidade e previsibilidade em seu núcleo",
+    "description": "A KLab é uma blockchain Layer-1 compatível com EVM construída com propósito que avança a fronteira das finanças de stablecoins e tokenização. Possui USDC como gas nativo, finalidade de liquidação determinística, privacidade opcional e arquitetura de taxa de transação estável. Otimizada para casos de uso nativos de stablecoins, como pagamentos globais, FX e mercados de capital, a KLab serve como camada de liquidação fundamental para dinheiro programável na internet.",
+    "readFullLitepaper": "LEIA O LITEPAPER COMPLETO",
+    "english": "Inglês",
+    "spanish": "Espanhol",
+    "portuguese": "Português"
+  },
+  "technologiesDropdown": {
+    "heading": "Nossas tecnologias",
+    "krailsDesc": "Pagamentos e empréstimos B2B blockchain com liquidações instantâneas",
+    "kenaDesc": "O primeiro subscritor de risco com IA do mundo para decisões de crédito inteligentes",
+    "ktalkDesc": "Chatbot com IA para suporte interno e externo",
+    "kriskDesc": "Avaliação de risco e tomada de decisão com IA",
+    "kablDesc": "Automação integrada que elimina silos com IA e blockchain",
+    "kcardDesc": "Gateway de pagamento multimoeda com FX em tempo real",
+    "kbpmDesc": "Automação de conformidade regulatória com blockchain",
+    "kimDesc": "Livro-razão de transações imutável com segurança empresarial",
+    "kaxisDesc": "Plataforma API-first que conecta instituições financeiras",
+    "kleadsDesc": "Análises em tempo real e insights preditivos",
+    "kaiDesc": "Carteira digital empresarial com suporte multisignatura"
+  },
+  "techPlaceholder": {
+    "contactSales": "Falar com vendas",
+    "comingSoonSubline": "Casos de uso e benefícios detalhados para esta tecnologia em breve.",
+    "overview": "Visão geral",
+    "learnMoreSoon": "Mais informações em breve",
+    "bullet1": "Esta página incluirá mockups, casos de uso e informações detalhadas.",
+    "bullet2": "Entre em contato para acesso antecipado ou demos."
+  },
+  "homeSecondary": {
+    "kenaTitle": "Kena",
+    "kenaDescription": "A Kena, nossa IA de risco proprietária, replica o raciocínio dos subscritores financeiros e se treina continuamente com dados globais.",
+    "timelineTitlePrimary": "SPRINTS SEMANAIS.",
+    "timelineTitleAccent": "IMPLANTAÇÃO EM 90 DIAS",
+    "stepScoping": "ESCOPO",
+    "stepOnboarding": "ONBOARDING",
+    "stepIntegrate": "INTEGRAR / QA",
+    "stepDeploy": "IMPLANTAR",
+    "stepTest": "TESTAR / OTIMIZAR",
+    "stepGoLive": "AO VIVO",
+    "stepN": "Etapa {n}"
+  },
+  "supportForm": {
+    "heading": "Obter suporte",
+    "successTitle": "Solicitação de suporte enviada!",
+    "successMessage": "Recebemos sua solicitação e retornaremos em breve.",
+    "submitAnother": "Enviar outra solicitação",
+    "firstName": "Nome",
+    "lastName": "Sobrenome",
+    "email": "E-mail",
+    "phone": "Telefone",
+    "issueType": "Tipo de problema",
+    "product": "Produto",
+    "message": "Mensagem",
+    "screenshotsLabel": "Capturas de tela, vídeos ou exemplos",
+    "submit": "Enviar",
+    "required": "Obrigatório",
+    "placeholders": {
+      "firstName": "João",
+      "lastName": "Silva",
+      "email": "joao@exemplo.com",
+      "phone": "+55 11 00000-0000",
+      "issueType": "Escolha ou digite uma opção",
+      "product": "Escolha ou digite uma opção"
+    },
+    "validation": {
+      "firstNameMin": "O nome deve ter pelo menos 2 caracteres",
+      "lastNameMin": "O sobrenome deve ter pelo menos 2 caracteres",
+      "emailInvalid": "Digite um endereço de e-mail válido",
+      "phoneRequired": "O telefone é obrigatório",
+      "issueTypeRequired": "Selecione um tipo de problema",
+      "issueTypeInvalid": "Selecione um tipo de problema válido",
+      "productRequired": "Selecione um produto",
+      "productInvalid": "Selecione um produto válido",
+      "messageMin": "A mensagem deve ter pelo menos 10 caracteres",
+      "maxFiles": "Máximo de 5 arquivos"
+    },
+    "issueTypes": {
+      "onboarding": "Onboarding",
+      "accountIssue": "Problema de conta",
+      "technicalIssue": "Problema técnico",
+      "softwareBug": "Bug de software"
+    },
+    "products": {
+      "krails": "KRails",
+      "kena": "Kena"
+    }
+  },
+  "salesForm": {
+    "heading": "Falar com vendas",
+    "successTitle": "Solicitação enviada!",
+    "successMessage": "Nossa equipe de vendas entrará em contato em breve.",
+    "submitAnother": "Enviar outra solicitação",
+    "firstName": "Nome",
+    "lastName": "Sobrenome",
+    "email": "E-mail",
+    "phone": "Telefone",
+    "company": "Empresa",
+    "position": "Cargo",
+    "companyWebsite": "Site da empresa",
+    "companyType": "Tipo de empresa",
+    "productInterest": "Interesse em produto",
+    "country": "País",
+    "message": "Mensagem",
+    "submit": "Enviar",
+    "placeholders": {
+      "firstName": "João",
+      "lastName": "Silva",
+      "email": "joao@exemplo.com",
+      "phone": "+55 11 00000-0000",
+      "company": "Acme Inc.",
+      "position": "Diretor de finanças",
+      "companyWebsite": "https://exemplo.com"
+    },
+    "validation": {
+      "firstNameMin": "O nome deve ter pelo menos 2 caracteres",
+      "lastNameMin": "O sobrenome deve ter pelo menos 2 caracteres",
+      "emailInvalid": "Digite um endereço de e-mail válido",
+      "phoneRequired": "O telefone é obrigatório",
+      "companyRequired": "O nome da empresa é obrigatório",
+      "positionRequired": "O cargo é obrigatório"
+    }
+  },
+  "careersForm": {
+    "heading": "Carreiras",
+    "successTitle": "Candidatura enviada!",
+    "successMessage": "Recebemos sua candidatura e a analisaremos em breve.",
+    "submitAnother": "Enviar outra candidatura"
+  },
+  "theme": {
+    "light": "Claro",
+    "dark": "Escuro",
+    "system": "Sistema",
+    "themeLabel": "Tema"
+  },
+  "common": {
+    "contactSales": "Fale com vendas",
+    "learnMore": "Saiba mais",
+    "loading": "Carregando",
+    "dismiss": "Fechar",
+    "playVideo": "Reproduzir vídeo",
+    "closeVideo": "Fechar vídeo",
+    "changeLanguage": "Mudar idioma",
+    "changeTheme": "Mudar tema do site",
+    "technologyScreenshot": "Captura de tecnologia",
+    "ourEcosystem": "Nosso ecossistema",
+    "edit": "EDITAR"
+  },
+  "multipleSelector": {
+    "noResultsFound": "Nenhum resultado encontrado.",
+    "selectItems": "Selecionar itens...",
+    "removeItem": "Remover {label}",
+    "open": "Abrir",
+    "close": "Fechar"
+  },
+  "fileUpload": {
+    "uploadError": "Erro de envio",
+    "incorrectFileType": "Tipo de arquivo incorreto",
+    "maximumFiles": "Máximo de {count} arquivos",
+    "dragDrop": "Arraste e solte arquivos aqui ou clique para procurar"
+  },
+  "pagination": {
+    "ariaLabel": "paginação",
+    "previousPage": "Ir para página anterior",
+    "nextPage": "Ir para próxima página",
+    "page": "Página {number}"
+  },
+  "technologiesShowcase": {
+    "scrollLeft": "Rolar para esquerda",
+    "scrollRight": "Rolar para direita"
+  },
+  "localeSwitcher": {
+    "changeLanguage": "Mudar idioma",
+    "label": "Idioma",
+    "tooltipPrefix": "Idioma:",
+    "localeEn": "Inglês",
+    "localeEs": "Espanhol",
+    "localePt": "Português"
+  },
+  "socialSidebar": {
+    "connectLinkedIn": "Conectar no LinkedIn",
+    "followX": "Seguir no X",
+    "followInstagram": "Seguir no Instagram",
+    "followYouTube": "Seguir no YouTube",
+    "sendEmail": "Enviar um e-mail"
+  },
+  "newsPage": {
+    "heroTitle": "Notícias e insights",
+    "heroSubtitle": "Fique por dentro dos últimos desenvolvimentos em fintech e IA",
+    "breadcrumbNews": "Notícias",
+    "breadcrumbAriaLabel": "Navegação estrutural",
+    "cardOurPresentTitle": "Nosso presente",
+    "cardOurPresentDescription": "Fique por dentro das últimas novidades da KLab: atualizações de produtos, notícias da empresa e insights do setor.",
+    "cardOurPresentButton": "Ver notícias da KLab",
+    "cardOurPastTitle": "Nosso passado",
+    "cardOurPastDescription": "Explore notícias e insights da KEO World, incluindo nossa história e a base que levou à KLab.",
+    "cardOurPastButton": "Ver notícias da KEO",
+    "noArticlesFound": "Nenhum artigo encontrado",
+    "emptyStateTryFilters": "Tente ajustar os filtros para encontrar o que procura.",
+    "emptyStateCheckBack": "Volte em breve para novo conteúdo.",
+    "heroTitleKlab": "Notícias KLab",
+    "breadcrumbKlab": "Notícias KLab",
+    "emptyStateKlab": "Nenhuma notícia disponível. Volte em breve.",
+    "heroTitleKeo": "Notícias KEO World",
+    "breadcrumbKeo": "Notícias KEO World",
+    "filterCategoryLabel": "Categoria",
+    "filterAllCategories": "Todas as categorias",
+    "articleNotFoundTitle": "Artigo não encontrado",
+    "backToNews": "← Voltar para Notícias"
+  },
+  "kena": {
+    "heroHeading": "IA que entende risco do jeito",
+    "heroSecondHeading": "que humanos entendem — só que mais inteligente.",
+    "heroSubtitle": "Kena é a primeira IA de risco do mundo que replica a tomada de decisão de subscritores financeiros — analisando, conversando e melhorando em tempo real.",
+    "twoColLeft": "Kena é o primeiro agente de IA de inteligência financeira do mundo.",
+    "twoColRight": "Um especialista financeiro que entende, analisa e previne risco financeiro em tempo real com raciocínio de nível humano e precisão de máquina. Da avaliação de crédito e modelagem financeira à análise preditiva e detecção de padrões, a Kena evolui continuamente com milhões de dados de PMEs — impulsionando decisões inteligentes e rápidas.",
+    "cardsHeading": "Por que Kena muda tudo",
+    "cardsImageAlt": "Kena — Inteligência de risco com IA",
+    "feature0Title": "Raciocínio de nível humano",
+    "feature0Description": "Entende lógica financeira e sinais qualitativos como um verdadeiro oficial de risco.",
+    "feature1Title": "Autoaprendizado contínuo",
+    "feature1Description": "Melhora precisão e consciência de contexto a cada novo conjunto de dados.",
+    "feature2Title": "Integração fluida",
+    "feature2Description": "Conecta-se aos fluxos existentes por chat, APIs e sistemas centrais.",
+    "feature3Title": "Automação de risco escalável",
+    "feature3Description": "De uma única PME a carteiras globais — Kena evolui com seu negócio.",
+    "section3dHeading": "Como a Kena pensa, aprende e decide",
+    "step0Heading": "Entrada e contexto",
+    "step0Text": "Usuários compartilham dados e documentos por chat ou integração de sistemas.",
+    "step1Heading": "Compreensão e raciocínio",
+    "step1Text": "Kena interpreta cada caso como um subscritor: lógica, índices e narrativa.",
+    "step2Heading": "Decisão",
+    "step2Text": "Gera resultados de risco de crédito em tempo real com lógica transparente e explicável.",
+    "step3Heading": "Ciclo de aprendizado",
+    "step3Text": "Cada decisão e resultado retroalimenta sua estrutura neural — refinando a precisão continuamente.",
+    "step4Heading": "Escala e implantação",
+    "step4Text": "Organizações podem treinar modelos Kena para novos mercados, produtos ou regulamentos.",
+    "ctaHeading": "Transforme sua estratégia de risco com automação inteligente.",
+    "ctaButton": "Solicitar uma demo"
+  },
+  "krails": {
+    "heroHeading": "A ERA DO \"ESPERAR\" ACABOU.",
+    "heroSubheading": "Infraestrutura de pagamentos e empréstimos B2B baseada em blockchain com liquidações quase instantâneas",
+    "heroDescription": "KRails é uma solução de pagamentos e empréstimos embarcada que combina disponibilidade imediata de fundos, finalidade de liquidação e confirmação instantânea em um único pagamento quase instantâneo. Unindo velocidade, dados e comunicação para execução de pagamentos.",
+    "heroButtonPrimary": "Iniciar meu fluxo T+0",
+    "heroButtonSecondary": "Saiba mais",
+    "whyHeading": "POR QUE KRAILS?",
+    "whySubheading": "O sistema antigo te faz esperar. KRails te faz avançar.",
+    "whyBlock0Heading": "CAPITAL LIBERADO. RECEITA ACELERADA.",
+    "whyBlock0Description": "Eliminamos períodos de retenção, transferências perdidas e custos de processamento desnecessários para seu negócio capturar mais receita, mais rápido.",
+    "whyBlock1Heading": "SOBERANIA EM CADA TRANSAÇÃO.",
+    "whyBlock1Description": "Com carteiras digitais de auto-custódia totalmente personalizáveis, você recupera o controle. Execute pagos domésticos e transfronteiriços com zero fricção e mova fundos entre contas bancárias tradicionais e stablecoins.",
+    "whyBlock2Heading": "A BASE DA CONFIANÇA IMUTÁVEL",
+    "whyBlock2Description": "KRails garante segurança de pagamentos de nível empresarial por meio de tokenização de dados com blockchain, contratos inteligentes, carteiras de auto-custódia e stablecoins.",
+    "whyBlock3Heading": "EMPRÉSTIMOS EM UM CLIQUE.",
+    "whyBlock3Description": "Rails oferece uma solução de financiamento integrada para credores que desejam financiar pagamentos B2B. Integramos a capacidade de financiar pagamentos B2B diretamente na infraestrutura. É alavancagem instantânea para credores com visão para se mover à nossa velocidade.",
+    "whyCtaButton": "Ativar meu perfil",
+    "builtWithHeading": "Construído com os melhores",
+    "ctaHeading": "SUA PRÓXIMA JOGADA. AGORA.\nDOMINE A ECONOMIA API.",
+    "ctaSubheading": "Pronto para a verdadeira vantagem competitiva? Integre e personalize a infraestrutura de pagamentos mais avançada do mercado no seu produto ou serviço via nossa suíte de desenvolvedores API.",
+    "ctaHighlight": "TRANSFORME SUA EFICIÊNCIA...",
+    "ctaButton": "Integrar KRails",
+    "codeSectionHeadingLine1": "CONFIANÇA EMPRESARIAL.",
+    "codeSectionHeadingLine2": "IMPOSSÍVEL DE ALTERAR. PONTO.",
+    "codeSectionCardTrustTitle": "CONFIANÇA",
+    "codeSectionCardTrustDescription": "A infraestrutura de pagamentos KRails mantém um registro confiável de todas as transações em tempo real de forma segura, autenticada e verificável, impedindo que qualquer parte altere transações executadas.",
+    "codeSectionCardCertaintyTitle": "CERTEZA",
+    "codeSectionCardCertaintyDescription": "Não é só segurança — é certeza imutável e absoluta na execução do comércio B2B. Um registro de pagamento inquebrantável e inalterável que impulsiona diretamente seu crescimento."
+  },
+  "techPages": {
+    "kabl": {
+      "heroTitle": "Em breve..."
+    },
+    "krisk": {
+      "heroTitle": "Conheça seu cliente para servi-lo melhor",
+      "heroTagline": "Motor de inteligência que integra histórico interno e fontes de dados externas para fortalecer subscrição, proteger a carteira de forma proativa e impulsionar decisões estratégicas baseadas em dados.",
+      "heroHighlight0": "Avaliação de risco com mais informações potencializadas por IA",
+      "heroHighlight1": "Maior precisão que desbloqueia mais relacionamentos",
+      "heroHighlight2": "Aprovações mais rápidas e consistentes",
+      "blocksFeatureTitle": "Capacidades principais",
+      "block0Heading": "Scoring preditivo com IA",
+      "block0Subheading": "Gera pontuações de elegibilidade e risco totalmente explicáveis usando modelos de IA avançados.",
+      "block1Heading": "Inteligência de mercado e segmentação",
+      "block1Subheading": "Usa um algoritmo avançado para analisar a rede comprador-fornecedor e identificar os leads de maior potencial.",
+      "block2Heading": "Monitoramento proativo",
+      "block2Subheading": "Sistema avançado de detecção de anomalias que alerta as equipes sobre mudanças incomuns em vendas ou inadimplência.",
+      "block3Heading": "Visão estratégica",
+      "block3Subheading": "Fornece previsões e segmentação de carteira contra benchmarks para guiar a estratégia comercial."
+    },
+    "kleads": {
+      "heroTitle": "Geração de leads",
+      "heroTagline": "Geração de leads que triplica a conversão de prospectos, maximiza a eficiência comercial e acelera o crescimento.",
+      "heroHighlight0": "Tripla conversão de prospectos",
+      "heroHighlight1": "Maximizar a eficiência comercial",
+      "heroHighlight2": "Acelerar o crescimento"
+    },
+    "kaxis": {
+      "heroTitle": "CRM financeiro do cliente",
+      "heroTagline": "Um CRM poderoso com visibilidade em tempo real de cada aspecto da jornada financeira do cliente: linhas de crédito, empréstimos, pagamentos e saldos em uma única plataforma fácil de usar."
+    },
+    "kim": {
+      "heroTitle": "Gestão de faturas com IA",
+      "heroTagline": "Nossa solução de gestão de faturas com IA transforma um processo tradicionalmente manual e propenso a erros em um fluxo digital totalmente automatizado, inteligente e confiável, desbloqueando velocidade, liquidez e confiança na cadeia de suprimentos.",
+      "block0Heading": "Processamento e financiamento mais rápidos",
+      "block0Bullet0": "Reduz o processamento de dias para minutos",
+      "block0Bullet1": "Acelera aprovações e acesso a financiamento",
+      "block0Bullet2": "Habilita descontos dinâmicos e programas de pagamento antecipado",
+      "block1Heading": "Reduzir risco e erros",
+      "block1Bullet0": "Elimina entrada manual de dados e conciliação",
+      "block1Bullet1": "Contratos inteligentes aplicam os termos acordados automaticamente",
+      "block1Bullet2": "Registros blockchain imutáveis previnem disputas e fraude",
+      "block2Heading": "Melhor visibilidade do fluxo de caixa",
+      "block2Bullet0": "Visão em tempo real do status de faturas e prazos de pagamento",
+      "block2Bullet1": "Alertas preditivos baseados no comportamento histórico de pagamentos",
+      "block2Bullet2": "Visão clara de passivos e recebíveis com fornecedores",
+      "block3Heading": "Projetado para confiança e conformidade",
+      "block3Bullet0": "Uma única fonte de verdade compartilhada por todas as partes",
+      "block3Bullet1": "Rastreabilidade à prova de adulteração para reguladores e auditores",
+      "block3Bullet2": "Maior transparência fortalece as relações comprador-fornecedor"
+    },
+    "kbpm": {
+      "heroTitle": "Conformidade e automação de processos",
+      "heroTagline": "Conformidade regulatória e automação de processos de negócios para onboarding, roteamento, emissão de cartões e fluxos unificados.",
+      "module0Title": "Onboarding de clientes",
+      "module0Description": "Automatiza o onboarding para que PMEs e empresas entrem no sistema mais rápido e com menos etapas manuais.",
+      "module1Title": "Roteamento de tarefas",
+      "module1Description": "Direciona cada tarefa à equipe certa (Risco, Jurídico, Operações, Cobrança, Vendas) conforme carga e permissões.",
+      "module2Title": "Emissão e ativação de cartões",
+      "module2Description": "Gerencia emissão de cartões e ativação de contas de ponta a ponta, reduzindo erros manuais.",
+      "module3Title": "Fluxo unificado",
+      "module3Description": "Orquestra desembolsos, pagamentos, lembretes e cobranças em um fluxo unificado.",
+      "module4Title": "Visibilidade em tempo real",
+      "module4Description": "Oferece visibilidade em tempo real de gargalos, atrasos, SLAs e carga operacional entre equipes.",
+      "module5Title": "Blocos de construção",
+      "module5Description": "Reutiliza blocos para lançar novos produtos financeiros ou variações regionais rapidamente.",
+      "module6Title": "Rastros de auditoria",
+      "module6Description": "Fornece rastros de auditoria completos de cada etapa, decisão, documento e ação do usuário.",
+      "module7Title": "Operações padronizadas",
+      "module7Description": "Padroniza operações em todos os países e linhas de produto com adaptações locais controladas."
+    },
+    "kcard": {
+      "heroTitle": "Gestão de despesas",
+      "heroTagline": "Controle global para emissão de cartões corporativos, gestão de crédito, processamento de despesas e supervisão de políticas.",
+      "heroHighlight0": "Emissão de cartões corporativos",
+      "heroHighlight1": "Gestão de crédito",
+      "heroHighlight2": "Plataforma de processamento de despesas",
+      "heroHighlight3": "Cumprimento de políticas e supervisão de relatórios"
+    },
+    "ktalk": {
+      "heroTitle": "IA conversacional",
+      "heroTagline": "Interface de IA conversacional (texto e voz) conectada diretamente a todas as fontes de dados internas e externas da organização.",
+      "heroHighlight0": "Solicite instantaneamente insights, resumos e visualizações precisas em linguagem natural.",
+      "heroHighlight1": "Permite decisões mais rápidas e baseadas em dados reduzindo o atrito organizacional.",
+      "heroHighlight2": "Acesso imediato conversacional a dados de carteira, eliminando relatórios manuais.",
+      "heroHighlight3": "Integra-se com sistemas centrais garantindo acesso seguro a dados atuais."
+    },
+    "kai": {
+      "heroTitle": "Não comprometa. Agora as empresas podem trabalhar mais e melhor.",
+      "heroTagline": "Kai oferece soluções abrangentes que aprimoram sua infraestrutura existente e adicionam capacidades revolucionárias para os desafios financeiros de amanhã.",
+      "benefitCategory0": "Proposta de valor",
+      "benefitCategory1": "Melhorias de eficiência",
+      "benefitCategory2": "Tomada de decisão aprimorada",
+      "benefitCategory3": "Economia de custos",
+      "benefitCategory4": "Segurança e privacidade",
+      "benefit0MainPoint": "Kai suporta orquestração de ciclo de vida completo desde onboarding, originação até gestão de empréstimos e liquidação.",
+      "benefit0Sub0": "Conjunto de módulos totalmente integrados para implantação rápida.",
+      "benefit0Sub1": "Acessibilidade 24/7/365 e alcance global",
+      "benefit1MainPoint": "Automatize fluxos com supervisão aprimorada, liberando tempo e despesas operacionais.",
+      "benefit1Sub0": "Redução significativa de tarefas manuais e entrada de dados",
+      "benefit1Sub1": "Processos otimizados desde onboarding até cobrança",
+      "benefit2MainPoint": "O poder da análise de nível empresarial ao alcance, analisando tendências e condições de mercado continuamente.",
+      "benefit2Sub0": "Insights com IA para decisões mais rápidas e precisas",
+      "benefit2Sub1": "Monitoramento proativo de risco e sistemas de alerta antecipado",
+      "benefit3MainPoint": "Maximize o valor da sua infraestrutura existente adicionando capacidades poderosas.",
+      "benefit3Sub0": "Mais automação de back-office com sua infraestrutura atual",
+      "benefit3Sub1": "Módulos personalizáveis que se integram com sistemas existentes",
+      "benefit4MainPoint": "Preparado para o futuro com tecnologia blockchain oferecendo proteção avançada e conformidade.",
+      "benefit4Sub0": "Camadas de permissão que oferecem flexibilidade e conformidade regulatória",
+      "benefit4Sub1": "Registro imutável para rastros de auditoria completos e integridade de dados",
+      "modulesHeader": "Visão de arquitetura: Escalável. Seguro. Modular",
+      "module0Title": "Camada de experiência",
+      "module0Description": "Interfaces Kai Web/Mobile e K-Talks (texto/voz) para insights instantâneos e interação fluida.",
+      "module1Title": "Módulos centrais",
+      "module1Description": "K-BPM, K-Rails, K-Axis, K-Risk, K-Leads e a próxima plataforma de cartões corporativos.",
+      "module2Title": "Dados e IA",
+      "module2Description": "Armazém de dados central com modelos explicáveis; monitoramento contínuo e controles de deriva/viés para análise confiável.",
+      "module3Title": "Emissão de cartões corporativos",
+      "module3Description": "Automação de processos manuais para gestão de despesas e relatórios mais eficientes.",
+      "module4Title": "Pagamentos e infraestrutura",
+      "module4Description": "Sistema K-Rails com NFTs de faturas, fundos de crédito, contratos inteligentes e reserva de stablecoins, integrado à banca tradicional.",
+      "module5Title": "Camada de integração",
+      "module5Description": "APIs seguras conectando a ERP/CRM, parceiros bancários, autoridades fiscais, bureaus de crédito e plataformas contábeis.",
+      "module6Title": "Segurança e conformidade",
+      "module6Description": "Controle de acesso por função, criptografia de ponta a ponta, rastros de auditoria completos, permissões que preservam privacidade e salvaguardas KYB/KYC/AML.",
+      "module7Title": "Gestão de crédito e plataforma de processamento de despesas",
+      "module7Description": "Reconhecimento de despesas com IA, cumprimento de políticas e prevenção de fraude.",
+      "blocksFeatureTitle": "Ampliando o alcance do mercado",
+      "blocksFeatureSubline": "Desbloqueia potencial de mercado inexplorado e alcança novos segmentos através da parceria K.",
+      "block0Heading": "Startups, PMEs e empresa",
+      "block0Subheading": "A visão geral para seu negócio",
+      "block0Bullet0": "Kai vai além de pagamentos para oferecer um ecossistema de negócios que suporta escala e complexidade organizacional.",
+      "block0Bullet1": "IA embutida sugere automação no ponto de repetição, liberando tempo para você voltar a fazer crescer seu negócio.",
+      "block0Bullet2": "Escale com confiança usando módulos projetados para seu estágio de crescimento.",
+      "block1Heading": "Soluções financeiras",
+      "block1Subheading": "Interoperabilidade com velocidade e conformidade",
+      "block1Bullet0": "Aprimore sistemas legados por meio de integração com APIs de banco central e capacidades de próxima geração.",
+      "block1Bullet1": "Flexibilidade e interoperabilidade permitem que instituições integrem hoje planejando o crescimento e a velocidade do mercado de amanhã.",
+      "block1Bullet2": "Impulsione financiamento de cadeia de suprimentos, trade finance, gestão de caixa, contas a pagar e controle de despesas com conformidade integrada.",
+      "block2Heading": "Parceiros",
+      "block2Subheading": "Aprimore suas ferramentas atuais",
+      "block2Bullet0": "Potencialize sistemas e processos existentes com capacidades modulares e inteligentes que impulsionam desempenho.",
+      "block2Bullet1": "Kai atua como extensão da equipe, permitindo decisões em tempo real baseadas em dados e liberando tempo para iniciativas estratégicas.",
+      "block2Bullet2": "Diferencie sua oferta com inteligência embutida e capacidades financeiras que complementam seu negócio central."
+    }
   }
 }

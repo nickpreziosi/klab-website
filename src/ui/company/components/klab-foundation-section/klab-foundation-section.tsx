@@ -2,36 +2,40 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Button from "@/ui/shared/components/button/button";
 import CompanySectionTitle from "@/ui/company/components/company-section-title/company-section-title";
 import styles from "./klab-foundation-section.module.css";
 
-const QUOTE_LINES = ["THE MORE", "WE CREATE", "THE MORE", "WE GIVE."];
+const QUOTE_KEYS = ["quote1", "quote2", "quote3", "quote4"] as const;
 
-export default function KlabFoundationSection() {
+export default function KlabFoundationSection({ skipAnimation = false }: { skipAnimation?: boolean }) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
+  const effectiveInView = skipAnimation || inView;
+  const t = useTranslations("klabFoundation");
 
   return (
     <section ref={ref} className={styles.section}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <CompanySectionTitle title="KLab Foundation" inView={inView} />
+          <CompanySectionTitle title={t("title")} inView={effectiveInView} skipAnimation={skipAnimation} />
         </div>
 
         <motion.div
           className={styles.content}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+          whileInView={skipAnimation ? undefined : { opacity: 1, y: 0 }}
+          animate={skipAnimation ? { opacity: 1, y: 0 } : undefined}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <h3 className={styles.quote}>
-            {QUOTE_LINES.map((line, i) => (
-              <span key={i} className={styles.quoteLine}>
+            {QUOTE_KEYS.map((key, i) => (
+              <span key={key} className={styles.quoteLine}>
                 <span className={styles.quoteLineBar} aria-hidden />
-                <span className={styles.quoteLineText}>{line}</span>
+                <span className={styles.quoteLineText}>{t(key)}</span>
               </span>
             ))}
           </h3>
@@ -52,7 +56,7 @@ export default function KlabFoundationSection() {
               </svg>
             }
           >
-            <Link href="/foundation">Learn More</Link>
+            <Link href="/foundation">{t("learnMore")}</Link>
           </Button>
         </motion.div>
       </div>

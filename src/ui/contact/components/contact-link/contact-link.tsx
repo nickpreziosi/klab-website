@@ -18,13 +18,16 @@ interface ContactLinkProps {
   description?: string;
   href: string;
   buttonText: string;
+  /** When true, skip entrance animation (e.g. locale switch). */
+  skipAnimation?: boolean;
 }
 
-export function ContactLink({ icon, title, description, href, buttonText }: ContactLinkProps) {
+export function ContactLink({ icon, title, description, href, buttonText, skipAnimation = false }: ContactLinkProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      whileInView={skipAnimation ? undefined : { opacity: 1, y: 0 }}
+      animate={skipAnimation ? { opacity: 1, y: 0 } : undefined}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.2 }}
     >

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import styles from "./footer.module.css";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -80,11 +81,12 @@ export const Footer = () => {
     }
   };
 
+  const t = useTranslations("footer");
   const navLinks = [
-    { href: "/", label: "About" },
-    { href: "/company", label: "Company" },
-    { href: "/news", label: "News" },
-    { href: "/contact", label: "Contact" },
+    { href: "/", label: t("about") },
+    { href: "/company", label: t("company") },
+    { href: "/news", label: t("news") },
+    { href: "/contact", label: t("contact") },
   ];
 
   const privacyLinks = [
@@ -203,7 +205,7 @@ export const Footer = () => {
         <div className={styles.container}>
           <div className={styles.nav}>
             <div className={styles.navContainer}>
-              <h3 className={styles.navTitle}>Quick Links</h3>
+              <h3 className={styles.navTitle}>{t("quickLinks")}</h3>
               <nav className={styles.navLinks}>
                 {navLinks.map((link) => (
                   <Link key={link.href} href={link.href} className={styles.navLink}>
@@ -214,7 +216,7 @@ export const Footer = () => {
             </div>
 
             <div className={styles.socialContainer}>
-              <h3 className={styles.navTitle}>Follow Us On Social</h3>
+              <h3 className={styles.navTitle}>{t("followUs")}</h3>
               <div className={styles.socialLinks}>
                 {socialLinks.map((link) => (
                   <a
@@ -234,17 +236,9 @@ export const Footer = () => {
 
           {/* Legal Section */}
           <div className={styles.legal}>
-            <p className={styles.copyright}>
-              © 2026 KLab. All rights reserved. • 328 NW 29th St. Miami, Florida 33127
-            </p>
-            <p className={styles.legalText}>
-              Use of this site constitutes acceptance of KLab&apos;s Privacy and Data Protection
-              Policy.
-            </p>
-            <p className={styles.legalText}>
-              KLab and its affiliates collect and process personal data in accordance with
-              applicable privacy laws.
-            </p>
+            <p className={styles.copyright}>{t("copyright")}</p>
+            <p className={styles.legalText}>{t("legal1")}</p>
+            <p className={styles.legalText}>{t("legal2")}</p>
           </div>
         </div>
       </footer>

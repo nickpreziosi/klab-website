@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 import styles from "./dropdown-menu.module.css";
 import { useEffect, useRef } from "react";
 import { TechnologiesShowcase } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
@@ -17,6 +18,7 @@ interface DesktopDropdownProps {
 }
 
 export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
+  const t = useTranslations("technologiesDropdown");
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   // Close dropdown when viewport shrinks from desktop to mobile while open
@@ -67,7 +69,7 @@ export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
                 onLinkClick={onClose}
                 expandOnFirstTap={false}
                 className={styles.technologiesShowcase}
-                headerTitle="Our Technologies"
+                headerTitle={t("heading")}
               />
             </motion.div>
           </div>

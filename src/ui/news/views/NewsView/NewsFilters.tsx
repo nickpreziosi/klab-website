@@ -2,6 +2,7 @@
 
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { MultipleSelector } from "@/ui/shared/components/multiple-selector/multiple-selector";
 import styles from "./NewsView.module.css";
 
@@ -11,6 +12,7 @@ interface NewsFiltersProps {
 }
 
 export default function NewsFilters({ categories, selectedCategories }: NewsFiltersProps) {
+  const t = useTranslations("newsPage");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -33,8 +35,8 @@ export default function NewsFilters({ categories, selectedCategories }: NewsFilt
     <div className={styles.newsFilters}>
       <div className={styles.filtersRow}>
         <MultipleSelector
-          label="Category"
-          placeholder="All Categories"
+          label={t("filterCategoryLabel")}
+          placeholder={t("filterAllCategories")}
           options={categoryItems}
           selectedKeys={new Set(selectedCategories)}
           onSelectionChange={handleCategoryChange}

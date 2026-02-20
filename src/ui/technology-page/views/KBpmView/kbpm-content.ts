@@ -3,12 +3,7 @@ import type {
   TechnologyMockup,
   TechnologyInfoSection,
 } from "@/ui/technology-page/types";
-
-export const kbpmHero: TechnologyHero = {
-  title: "Compliance & Process Automation",
-  tagline:
-    "Regulatory compliance and business process automation for onboarding, routing, card issuance, and unified workflows.",
-};
+import type { TechPageTranslator } from "@/ui/technology-page/types";
 
 export const kbpmMockups: TechnologyMockup[] = [
   {
@@ -18,53 +13,28 @@ export const kbpmMockups: TechnologyMockup[] = [
   },
 ];
 
-export const kbpmModulesSection: Extract<
-  TechnologyInfoSection,
-  { type: "modules" }
-> = {
-  type: "modules",
-  modules: [
-    {
-      title: "Customer onboarding",
-      description:
-        "Automates customer onboarding, so new SMEs and corporates enter the system faster and with fewer manual steps.",
+export function buildKbpmContent(t: TechPageTranslator): {
+  hero: TechnologyHero;
+  sections: TechnologyInfoSection[];
+} {
+  const modulesSection: Extract<TechnologyInfoSection, { type: "modules" }> = {
+    type: "modules",
+    modules: [
+      { title: t("kbpm.module0Title"), description: t("kbpm.module0Description") },
+      { title: t("kbpm.module1Title"), description: t("kbpm.module1Description") },
+      { title: t("kbpm.module2Title"), description: t("kbpm.module2Description") },
+      { title: t("kbpm.module3Title"), description: t("kbpm.module3Description") },
+      { title: t("kbpm.module4Title"), description: t("kbpm.module4Description") },
+      { title: t("kbpm.module5Title"), description: t("kbpm.module5Description") },
+      { title: t("kbpm.module6Title"), description: t("kbpm.module6Description") },
+      { title: t("kbpm.module7Title"), description: t("kbpm.module7Description") },
+    ],
+  };
+  return {
+    hero: {
+      title: t("kbpm.heroTitle"),
+      tagline: t("kbpm.heroTagline"),
     },
-    {
-      title: "Task routing",
-      description:
-        "Routes every task to the right team (Risk, Legal, Ops, Collections, Sales) based on workload and permissions.",
-    },
-    {
-      title: "Card issuance & activation",
-      description:
-        "Manages card issuance and account activation end-to-end, reducing manual errors.",
-    },
-    {
-      title: "Unified workflow",
-      description:
-        "Orchestrates disbursements, payments, reminders, and collections in a unified workflow.",
-    },
-    {
-      title: "Real-time visibility",
-      description:
-        "Gives real-time visibility into bottlenecks, delays, SLAs, and operational load across teams.",
-    },
-    {
-      title: "Building blocks",
-      description:
-        "Reuses building blocks to launch new financial products or regional variations quickly.",
-    },
-    {
-      title: "Audit trails",
-      description:
-        "Provides complete audit trails of every step, decision, document, and user action.",
-    },
-    {
-      title: "Standardized operations",
-      description:
-        "Standardizes operations across all countries and product lines with controlled local adaptations.",
-    },
-  ],
-};
-
-export const kbpmSections: TechnologyInfoSection[] = [kbpmModulesSection];
+    sections: [modulesSection],
+  };
+}

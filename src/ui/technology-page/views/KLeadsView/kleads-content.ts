@@ -3,17 +3,7 @@ import type {
   TechnologyMockup,
   TechnologyInfoSection,
 } from "@/ui/technology-page/types";
-
-export const kleadsHero: TechnologyHero = {
-  title: "Lead Generation",
-  tagline:
-    "Lead generation that drives 3x higher prospect conversion, maximizes commercial efficiency, and accelerates growth.",
-  highlights: [
-    "3x higher prospect conversion",
-    "Maximize commercial efficiency",
-    "Accelerate growth",
-  ],
-};
+import type { TechPageTranslator } from "@/ui/technology-page/types";
 
 export const kleadsMockups: TechnologyMockup[] = [
   {
@@ -23,4 +13,20 @@ export const kleadsMockups: TechnologyMockup[] = [
   },
 ];
 
-export const kleadsSections: TechnologyInfoSection[] = [];
+export function buildKleadsContent(t: TechPageTranslator): {
+  hero: TechnologyHero;
+  sections: TechnologyInfoSection[];
+} {
+  return {
+    hero: {
+      title: t("kleads.heroTitle"),
+      tagline: t("kleads.heroTagline"),
+      highlights: [
+        t("kleads.heroHighlight0"),
+        t("kleads.heroHighlight1"),
+        t("kleads.heroHighlight2"),
+      ],
+    },
+    sections: [],
+  };
+}

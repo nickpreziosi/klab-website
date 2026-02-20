@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import * as Accordion from "@radix-ui/react-accordion";
 import { motion } from "framer-motion";
-import { useTheme, type Theme } from "@/ui/shared/providers/theme-provider";
+import { useTheme } from "@/ui/shared/providers/theme-provider";
 import styles from "./mobile-theme-toggle.module.css";
 
 function getThemeIcon(themeName: string) {
@@ -64,22 +65,24 @@ function getThemeIcon(themeName: string) {
   }
 }
 
-function getThemeLabel(themeName: string) {
-  switch (themeName) {
-    case "light":
-      return "Light";
-    case "dark":
-      return "Dark";
-    case "system":
-      return "System";
-    default:
-      return themeName;
-  }
-}
-
 export function MobileThemeToggle() {
+  const tTheme = useTranslations("theme");
+  const tCommon = useTranslations("common");
   const { theme, setTheme } = useTheme();
   const [open, setOpen] = useState<string | undefined>(undefined);
+
+  const getThemeLabel = (themeName: string) => {
+    switch (themeName) {
+      case "light":
+        return tTheme("light");
+      case "dark":
+        return tTheme("dark");
+      case "system":
+        return tTheme("system");
+      default:
+        return themeName;
+    }
+  };
 
   return (
     <Accordion.Root
@@ -91,16 +94,16 @@ export function MobileThemeToggle() {
     >
       <Accordion.Item value="theme" className={styles.accordionItem}>
         <Accordion.Header className={styles.accordionHeader}>
-          <Accordion.Trigger aria-label="Change Website Theme" className={styles.accordionTrigger}>
+          <Accordion.Trigger aria-label={tCommon("changeTheme")} className={styles.accordionTrigger}>
             <div className={styles.accordionTriggerContainer}>
               <div className={styles.triggerContent}>
-                <span className={styles.triggerLabel}>Theme</span>
+                <span className={styles.triggerLabel}>{tTheme("themeLabel")}</span>
                 <span className={styles.currentTheme}>
                   <span className={styles.currentThemeIcon}>{getThemeIcon(theme)}</span>
                   <span className={styles.currentThemeLabel}>{getThemeLabel(theme)}</span>
                 </span>
               </div>
-              <span className={styles.edit}>EDIT</span>
+              <span className={styles.edit}>{tCommon("edit")}</span>
               <svg
                 className={styles.caretIcon}
                 width="30"

@@ -3,12 +3,7 @@ import type {
   TechnologyMockup,
   TechnologyInfoSection,
 } from "@/ui/technology-page/types";
-
-export const kaxisHero: TechnologyHero = {
-  title: "Customer Financial CRM",
-  tagline:
-    "A powerful CRM built for real-time visibility into every aspect of your customer's financial journey—credit lines, loans, payments, and balances in a single, easy-to-use platform.",
-};
+import type { TechPageTranslator } from "@/ui/technology-page/types";
 
 export const kaxisMockups: TechnologyMockup[] = [
   {
@@ -18,4 +13,15 @@ export const kaxisMockups: TechnologyMockup[] = [
   },
 ];
 
-export const kaxisSections: TechnologyInfoSection[] = [];
+export function buildKaxisContent(t: TechPageTranslator): {
+  hero: TechnologyHero;
+  sections: TechnologyInfoSection[];
+} {
+  return {
+    hero: {
+      title: t("kaxis.heroTitle"),
+      tagline: t("kaxis.heroTagline"),
+    },
+    sections: [],
+  };
+}

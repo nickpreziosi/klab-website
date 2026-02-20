@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { LandingTechnologiesShowcase } from "@/ui/landing-page/components/landing-technologies-showcase/landing-technologies-showcase";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
 import { TechnologiesShowcase } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
@@ -27,12 +28,13 @@ export function HomeTechnologiesShowcase({
 }: {
   className?: string;
 } = {}) {
+  const t = useTranslations("common");
   const isDesktop = useIsDesktop();
 
   return (
     <div className={className}>
       <div className={styles.sectionHeaderWrap}>
-        <SectionHeader heading="Our Ecosystem" align="left" skipAnimation />
+        <SectionHeader heading={t("ourEcosystem")} align="left" skipAnimation />
       </div>
       {isDesktop ? (
         <TechnologiesShowcase className={styles.desktopShowcase} />

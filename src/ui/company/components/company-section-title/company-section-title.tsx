@@ -8,18 +8,22 @@ interface CompanySectionTitleProps {
   title: string;
   inView: boolean;
   className?: string;
+  /** When true, skip entrance animation (e.g. locale switch). */
+  skipAnimation?: boolean;
 }
 
 export default function CompanySectionTitle({
   title,
   inView,
   className,
+  skipAnimation = false,
 }: CompanySectionTitleProps) {
+  const effectiveInView = skipAnimation || inView;
   return (
     <motion.header
       className={`${styles.titleSection} ${className ?? ""}`.trim()}
-      initial={{ opacity: 0, y: -16 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
+      initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: -16 }}
+      animate={effectiveInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
     >
       <KlabLogo color="orange" format="default" height={48} />

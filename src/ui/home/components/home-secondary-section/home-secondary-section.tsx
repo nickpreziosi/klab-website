@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
 import { Card, CardContent } from "@/ui/shared/components/card/card";
 import { ClientOnly } from "@/ui/shared/components/client-only/client-only";
@@ -448,20 +449,25 @@ const DialogDemo = ({ onPlay, video }: { onPlay?: () => void; video: string }) =
   );
 };
 
+const HOME_SECONDARY_STEP_KEYS = [
+  "stepScoping", "stepOnboarding", "stepIntegrate", "stepDeploy", "stepTest", "stepGoLive",
+] as const;
+
 export default function HomeSecondarySection({
-  cards = [
+  cards,
+  animateOnce = true,
+  skipAnimation = false,
+}: HomeSecondarySection) {
+  const t = useTranslations("homeSecondary");
+  const resolvedCards = cards ?? [
     {
-      title: "Kena",
-      description:
-        "Kena, our proprietary risk AI, replicates the reasoning of financial underwriters and continuously self-trains with global data.",
+      title: t("kenaTitle"),
+      description: t("kenaDescription"),
       link: "/technologies/kena-ai",
       image: "/images/kena.webp",
       video: "/videos/kena.mp4",
     },
-  ],
-  animateOnce = true,
-  skipAnimation = false,
-}: HomeSecondarySection) {
+  ];
   const cardsRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardsRef, { once: animateOnce, amount: 0.2 });
   const effectiveIsInView = skipAnimation || isInView;
@@ -497,19 +503,12 @@ export default function HomeSecondarySection({
           >
             <div className={styles.deploymentTimeline}>
               <h3 className={styles.timelineTitle}>
-                <span className={styles.timelineTitlePrimary}>WEEKLY SPRINTS.</span>{" "}
-                <span className={styles.timelineTitleAccent}>DEPLOYMENT IN 90 DAYS</span>
+                <span className={styles.timelineTitlePrimary}>{t("timelineTitlePrimary")}</span>{" "}
+                <span className={styles.timelineTitleAccent}>{t("timelineTitleAccent")}</span>
               </h3>
               <div className={styles.timelineLayout}>
                 {(() => {
-                  const steps = [
-                    { label: "SCOPING" },
-                    { label: "ONBOARDING" },
-                    { label: "INTEGRATE / QA" },
-                    { label: "DEPLOY" },
-                    { label: "TEST / OPTIMIZE" },
-                    { label: "GO-LIVE" },
-                  ];
+                  const steps = HOME_SECONDARY_STEP_KEYS.map((key) => ({ label: t(key) }));
                   return (
                     <>
                       {/* Row 1: label on top for step 1 (index 0), then alternating: even = label+arrow, odd = icon */}
@@ -554,7 +553,7 @@ export default function HomeSecondarySection({
                         <div className={styles.timelineStepLabels}>
                           {[1, 2, 3, 4, 5, 6].map((n) => (
                             <span key={n} className={styles.timelineStepLabel} data-step={n}>
-                              Step {n}
+                              {t("stepN", { n })}
                             </span>
                           ))}
                         </div>

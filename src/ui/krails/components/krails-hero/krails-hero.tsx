@@ -14,6 +14,7 @@ interface KRailsHeroProps {
   buttonTwoText?: string;
   buttonTwoHref?: string;
   children?: ReactNode; // For the transformed content (HTML, iframe, etc.)
+  skipAnimation?: boolean;
 }
 
 export default function KRailsHero({
@@ -25,6 +26,7 @@ export default function KRailsHero({
   children,
   buttonTwoText,
   buttonTwoHref,
+  skipAnimation = false,
 }: KRailsHeroProps) {
   return (
     <section className={styles.heroSection}>
@@ -40,6 +42,7 @@ export default function KRailsHero({
             buttonHref={buttonHref}
             buttonTwoText={buttonTwoText}
             buttonTwoHref={buttonTwoHref}
+            skipAnimation={skipAnimation}
           ></HeroText>
         </div>
 

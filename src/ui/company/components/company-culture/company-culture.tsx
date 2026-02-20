@@ -2,35 +2,12 @@
 
 import { motion, useMotionValue, useSpring, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
-import Image from "next/image";
+import { useTranslations } from "next-intl";
 import styles from "./company-culture.module.css";
 import CompanySectionTitle from "@/ui/company/components/company-section-title/company-section-title";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
 import Button from "@/ui/shared/components/button/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/shared/components/card/card";
-
-const stats = [
-  {
-    label: "People in six countries",
-    value: 40,
-    suffix: "+",
-  },
-  {
-    label: "Are women",
-    value: 25,
-    suffix: "%",
-  },
-  {
-    label: "Different nationalities",
-    value: 10,
-    suffix: "+",
-  },
-  {
-    label: "Languages spoken",
-    value: 7,
-    suffix: "+",
-  },
-];
 
 function AnimatedCounter({ value, delay = 0 }: { value: number; delay?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -63,40 +40,45 @@ function AnimatedCounter({ value, delay = 0 }: { value: number; delay?: number }
   return <span ref={ref}>0</span>;
 }
 
-export default function CompanyCulture() {
+export default function CompanyCulture({ skipAnimation = false }: { skipAnimation?: boolean }) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
+  const effectiveInView = skipAnimation || inView;
+  const t = useTranslations("companyCulture");
+  const stats = [
+    { labelKey: "statPeople" as const, value: 40, suffix: "+" },
+    { labelKey: "statWomen" as const, value: 25, suffix: "%" },
+    { labelKey: "statNationalities" as const, value: 10, suffix: "+" },
+    { labelKey: "statLanguages" as const, value: 7, suffix: "+" },
+  ];
 
   return (
     <section ref={ref} className={styles.section}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <CompanySectionTitle title="Company Culture" inView={inView} />
+          <CompanySectionTitle title={t("title")} inView={effectiveInView} skipAnimation={skipAnimation} />
         </div>
 
         {/* Text Content */}
         <motion.div
           className={styles.content}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          whileInView={skipAnimation ? undefined : { opacity: 1, y: 0 }}
+          animate={skipAnimation ? { opacity: 1, y: 0 } : undefined}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <SectionHeader
             maxWidth={700}
-            highlight={["Teamwork", "Inclusion"]}
-            heading="Innovation Through Teamwork & Inclusion."
+            highlight={[t("highlight1"), t("highlight2")]}
+            heading={t("heading")}
             align="center"
             animateOnce={true}
+            skipAnimation={skipAnimation}
           />
-          <p className={styles.description}>
-            KLab combines start-up energy with extensive industry experience to develop innovative
-            technologies. We have a deep commitment to advancing diversity, equality, and inclusion,
-            essential to our mission of helping businesses and attracting exceptional people who
-            think outside the box.
-          </p>
+          <p className={styles.description}>{t("description")}</p>
           <Button size="lg" href="/contact/careers" variant="accent-brand">
-            KLab Careers
+            {t("button")}
             <svg
               width="20"
               height="20"
@@ -117,13 +99,14 @@ export default function CompanyCulture() {
         {/* Stats Grid */}
         <div className={styles.statsGrid}>
           {stats.map((stat, index) => (
-            <Card key={stat.label} className={styles.statCard}>
+            <Card key={stat.labelKey} className={styles.statCard}>
               <CardHeader>
                 <CardTitle>
                   <motion.span
                     className={styles.statValue}
-                    initial={{ scale: 0.5, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
+                    initial={skipAnimation ? { scale: 1, opacity: 1 } : { scale: 0.5, opacity: 0 }}
+                    whileInView={skipAnimation ? undefined : { scale: 1, opacity: 1 }}
+                    animate={skipAnimation ? { scale: 1, opacity: 1 } : undefined}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{
                       duration: 0.8,
@@ -138,7 +121,7 @@ export default function CompanyCulture() {
                 </CardTitle>
               </CardHeader>
               <CardContent className={styles.statCardContent}>
-                <p className={styles.statLabel}>{stat.label}</p>
+                <p className={styles.statLabel}>{t(stat.labelKey)}</p>
               </CardContent>
               <div className={styles.statGlow} />
             </Card>

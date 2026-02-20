@@ -13,28 +13,25 @@ import {
   CardDescription,
 } from "@/ui/shared/components/card/card";
 
-const features = [
-  {
-    title: "Human-level reasoning",
-    description: "Understands financial logic and qualitative signals like a real risk officer.",
-  },
-  {
-    title: "Continuous self-learning",
-    description: "Improves accuracy and context awareness with every new dataset.",
-  },
-  {
-    title: "Seamless integration",
-    description: "Connects with existing workflows through chat, APIs, and core systems.",
-  },
-  {
-    title: "Scalable risk automation",
-    description: "From a single SME to global portfolios — Kena evolves with your business.",
-  },
-];
+import type { KenaTranslations } from "@/ui/kena/views/KenaView/KenaView";
 
-export default function KeoCardsSection() {
+export default function KeoCardsSection({
+  translations,
+  skipAnimation = false,
+}: {
+  translations: KenaTranslations;
+  skipAnimation?: boolean;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const effectiveInView = skipAnimation || isInView;
+
+  const features = [
+    { title: translations.feature0Title, description: translations.feature0Description },
+    { title: translations.feature1Title, description: translations.feature1Description },
+    { title: translations.feature2Title, description: translations.feature2Description },
+    { title: translations.feature3Title, description: translations.feature3Description },
+  ];
 
   return (
     <section className={styles.section} ref={ref}>
@@ -43,7 +40,7 @@ export default function KeoCardsSection() {
           <div className={styles.imageWrapper}>
             <Image
               src="/images/mockups/kena.png"
-              alt="Kena — AI-powered risk intelligence"
+              alt={translations.cardsImageAlt}
               fill
               className={styles.image}
               priority
@@ -51,15 +48,24 @@ export default function KeoCardsSection() {
             />
           </div>
           <div className={styles.content}>
-            <SectionHeader heading="Why Kena changes everything" align="left" animateOnce={true} />
+            <SectionHeader
+              heading={translations.cardsHeading}
+              align="left"
+              animateOnce={true}
+              skipAnimation={skipAnimation}
+            />
             <div className={styles.cardsContainer}>
               <div className={styles.featuresGrid}>
                 {features.map((feature, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+                    initial={
+                      skipAnimation
+                        ? { opacity: 1, filter: "blur(0px)", y: 0 }
+                        : { opacity: 0, filter: "blur(10px)", y: 20 }
+                    }
                     animate={
-                      isInView
+                      effectiveInView
                         ? { opacity: 1, filter: "blur(0px)", y: 0 }
                         : { opacity: 0, filter: "blur(10px)", y: 20 }
                     }

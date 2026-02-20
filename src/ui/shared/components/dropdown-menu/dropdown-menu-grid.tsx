@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import styles from "./dropdown-menu.module.css";
 import { useEffect, useState } from "react";
 
@@ -59,73 +60,18 @@ function SVGLogo({ src }: SVGLogoProps) {
   return <div dangerouslySetInnerHTML={{ __html: svgContent }} />;
 }
 
-const solutions = [
-  {
-    title: "K-Rails",
-    logo: "/logos/01-KRails.svg",
-    description: "B2B blockchain payments and lending with instant settlements",
-    href: "/technologies/krails",
-  },
-  {
-    title: "Kena",
-    logo: "/logos/03-Kena_2.svg",
-    description: "World's first AI underwriter for intelligent credit decisions",
-    href: "/technologies/kena",
-  },
-  {
-    title: "K-Talk",
-    logo: "/logos/05-KTalk.svg",
-    description: "AI-powered chatbot for internal and external support",
-    href: "/technologies/ktalk",
-  },
-  {
-    title: "K-Risk",
-    logo: "/logos/k-risk-logo.svg",
-    description: "AI-powered risk assessment and decision making",
-    href: "/technologies/krisk",
-  },
-  {
-    title: "KABL",
-    logo: "/logos/KAbl.svg",
-    description: "Integrated automation eliminating silos with AI and blockchain",
-    href: "/technologies/kabl",
-  },
-  {
-    title: "K-Pay",
-    logo: "/logos/KCard.svg",
-    description: "Multi-currency payment gateway with real-time FX",
-    href: "/technologies/kcard",
-  },
-  {
-    title: "K-Comply",
-    logo: "/logos/KBPM.svg",
-    description: "Regulatory compliance automation with blockchain",
-    href: "/technologies/kbpm",
-  },
-  {
-    title: "K-Ledger",
-    logo: "/logos/01-K-Lab.svg",
-    description: "Immutable transaction ledger with enterprise security",
-    href: "/technologies/kim",
-  },
-  {
-    title: "K-Connect",
-    logo: "/logos/02-KAxis.svg",
-    description: "API-first platform connecting financial institutions",
-    href: "/technologies/kaxis",
-  },
-  {
-    title: "K-Insights",
-    logo: "/logos/KLeads.svg",
-    description: "Real-time analytics and predictive insights",
-    href: "/technologies/kleads",
-  },
-  {
-    title: "K-Wallet",
-    logo: "/logos/06-Kai_2.svg",
-    description: "Enterprise digital wallet with multi-signature support",
-    href: "/technologies/kai",
-  },
+const solutionsConfig = [
+  { title: "K-Rails", logo: "/logos/01-KRails.svg", descKey: "krailsDesc" as const, href: "/technologies/krails" },
+  { title: "Kena", logo: "/logos/03-Kena_2.svg", descKey: "kenaDesc" as const, href: "/technologies/kena" },
+  { title: "K-Talk", logo: "/logos/05-KTalk.svg", descKey: "ktalkDesc" as const, href: "/technologies/ktalk" },
+  { title: "K-Risk", logo: "/logos/k-risk-logo.svg", descKey: "kriskDesc" as const, href: "/technologies/krisk" },
+  { title: "KABL", logo: "/logos/KAbl.svg", descKey: "kablDesc" as const, href: "/technologies/kabl" },
+  { title: "K-Pay", logo: "/logos/KCard.svg", descKey: "kcardDesc" as const, href: "/technologies/kcard" },
+  { title: "K-Comply", logo: "/logos/KBPM.svg", descKey: "kbpmDesc" as const, href: "/technologies/kbpm" },
+  { title: "K-Ledger", logo: "/logos/01-K-Lab.svg", descKey: "kimDesc" as const, href: "/technologies/kim" },
+  { title: "K-Connect", logo: "/logos/02-KAxis.svg", descKey: "kaxisDesc" as const, href: "/technologies/kaxis" },
+  { title: "K-Insights", logo: "/logos/KLeads.svg", descKey: "kleadsDesc" as const, href: "/technologies/kleads" },
+  { title: "K-Wallet", logo: "/logos/06-Kai_2.svg", descKey: "kaiDesc" as const, href: "/technologies/kai" },
 ];
 
 export interface TechnologiesDropdownGridProps {
@@ -134,9 +80,11 @@ export interface TechnologiesDropdownGridProps {
 }
 
 export function TechnologiesDropdownGrid({ isOpen, onClose }: TechnologiesDropdownGridProps) {
+  const t = useTranslations("technologiesDropdown");
+  const solutions = solutionsConfig.map((s) => ({ ...s, description: t(s.descKey) }));
   return (
     <>
-      <h3 className={styles.heading}>Our Technologies</h3>
+      <h3 className={styles.heading}>{t("heading")}</h3>
       <ul tabIndex={0} id="nav-dropdown-menu" role="menu" className={styles.list}>
         {solutions.map((solution, index) => (
           <motion.li

@@ -3,6 +3,7 @@
 import type React from "react";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import {
   Tooltip,
@@ -12,18 +13,26 @@ import {
 } from "@/ui/shared/components/tooltip/tooltip";
 import styles from "./social-sidebar.module.css";
 
+const SOCIAL_LABEL_KEYS = [
+  "connectLinkedIn",
+  "followX",
+  "followInstagram",
+  "followYouTube",
+  "sendEmail",
+] as const;
+
 interface SocialLink {
   name: string;
   icon: React.ReactNode;
   href: string;
-  label: string;
+  labelKey: (typeof SOCIAL_LABEL_KEYS)[number];
 }
 
 const socialLinks: SocialLink[] = [
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/company/keoworld",
-    label: "Connect on LinkedIn",
+    labelKey: "connectLinkedIn",
     icon: (
       <svg
         width="18"
@@ -42,7 +51,7 @@ const socialLinks: SocialLink[] = [
   {
     name: "X",
     href: "https://x.com/KeoWorld",
-    label: "Follow on X",
+    labelKey: "followX",
     icon: (
       <svg
         width="18"
@@ -61,7 +70,7 @@ const socialLinks: SocialLink[] = [
   {
     name: "Instagram",
     href: "https://www.instagram.com/keo.world/?hl=en",
-    label: "Follow on Instagram",
+    labelKey: "followInstagram",
     icon: (
       <svg
         width="18"
@@ -80,7 +89,7 @@ const socialLinks: SocialLink[] = [
   {
     name: "YouTube",
     href: "https://www.youtube.com/@keoworldB2B",
-    label: "Follow on YouTube",
+    labelKey: "followYouTube",
     icon: (
       <svg
         width="18"
@@ -99,7 +108,7 @@ const socialLinks: SocialLink[] = [
   {
     name: "Email",
     href: "mailto:hello@keo.com",
-    label: "Send us an email",
+    labelKey: "sendEmail",
     icon: (
       <svg
         width="18"
@@ -118,6 +127,7 @@ const socialLinks: SocialLink[] = [
 ];
 
 export default function SocialSidebar() {
+  const t = useTranslations("socialSidebar");
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const getScale = (index: number) => {
@@ -150,13 +160,13 @@ export default function SocialSidebar() {
                     stiffness: 100,
                     delay: getScale(index) === 1.15 ? 0.1 : 0,
                   }}
-                  aria-label={link.label}
+                  aria-label={t(link.labelKey)}
                 >
                   {link.icon}
                 </motion.a>
               </TooltipTrigger>
               <TooltipContent side="right" sideOffset={12}>
-                {link.label}
+                {t(link.labelKey)}
               </TooltipContent>
             </Tooltip>
           ))}

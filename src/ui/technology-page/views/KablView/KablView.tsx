@@ -1,18 +1,22 @@
 "use client";
 
 import { TechnologyPageLayout } from "@/ui/technology-page/components/technology-page-layout/technology-page-layout";
-import { kablHero, kablMockups, kablSections } from "./kabl-content";
+import type { TechnologyPageContentProps } from "@/ui/technology-page/types";
+import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 
-export function KablView() {
+export function KablView({ translations, hero, mockups, sections }: TechnologyPageContentProps) {
+  const skipAnimation = useSkipAnimationOnLocaleSwitch();
   return (
     <TechnologyPageLayout
       technologyName="KABL"
       logoLight="/logos/kabl-logo-light.svg"
       logoDark="/logos/kabl-logo-dark.svg"
-      hero={kablHero}
-      mockups={kablMockups}
-      sections={kablSections}
-      cta={{ label: "Contact sales", href: "/contact/sales" }}
+      hero={hero}
+      mockups={mockups}
+      sections={sections}
+      cta={{ label: translations.contactSales, href: "/contact/sales" }}
+      defaultAlt={translations.technologyScreenshot}
+      skipAnimation={skipAnimation}
     />
   );
 }

@@ -1,13 +1,20 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import styles from "./krails-why.module.css";
 import Button from "@/ui/shared/components/button/button";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import animationData from "../../../../../public/animations/krails.json";
+import type { KRailsTranslations } from "@/ui/krails/views/KRailsView/KRailsView";
 
-export default function KRailsWhy() {
+export default function KRailsWhy({
+  translations,
+  skipAnimation = false,
+}: {
+  translations: KRailsTranslations;
+  skipAnimation?: boolean;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
@@ -74,21 +81,23 @@ export default function KRailsWhy() {
         <div style={{ display: "none" }} className={styles.topHeading}>
           <motion.h2
             className={styles.mainHeading}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            whileInView={skipAnimation ? undefined : { opacity: 1, y: 0 }}
+            animate={skipAnimation ? { opacity: 1, y: 0 } : undefined}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            WHY KRAILS?
+            {translations.whyHeading}
           </motion.h2>
           <motion.p
             className={styles.subheading}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            whileInView={skipAnimation ? undefined : { opacity: 1, y: 0 }}
+            animate={skipAnimation ? { opacity: 1, y: 0 } : undefined}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           >
-            The old system makes you wait. KRails makes you move.
+            {translations.whySubheading}
           </motion.p>
         </div>
 
@@ -97,66 +106,52 @@ export default function KRailsWhy() {
           <div className={styles.scrollContent} ref={leftRef}>
             <motion.div
               className={styles.leftColumn}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              whileInView={skipAnimation ? undefined : { opacity: 1, y: 0 }}
+              animate={skipAnimation ? { opacity: 1, y: 0 } : undefined}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
               <div className={styles.textBlock}>
                 <motion.h2
                   className={styles.mainHeading}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  whileInView={skipAnimation ? undefined : { opacity: 1, y: 0 }}
+                  animate={skipAnimation ? { opacity: 1, y: 0 } : undefined}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
                 >
-                  WHY KRAILS?
+                  {translations.whyHeading}
                 </motion.h2>
                 <motion.p
                   className={styles.subheading}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  whileInView={skipAnimation ? undefined : { opacity: 1, y: 0 }}
+                  animate={skipAnimation ? { opacity: 1, y: 0 } : undefined}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
                 >
-                  The old system makes you wait. KRails makes you move.
+                  {translations.whySubheading}
                 </motion.p>
               </div>
               <div className={styles.textBlock}>
-                <h3 className={styles.heading}>CAPITAL UNLOCKED. REVENUE ACCELERATED.</h3>
-                <p className={styles.description}>
-                  We eliminate holding periods, lost transfers, and unnecessary processing costs, so
-                  your business captures more revenue, faster.
-                </p>
+                <h3 className={styles.heading}>{translations.whyBlock0Heading}</h3>
+                <p className={styles.description}>{translations.whyBlock0Description}</p>
               </div>
 
               <div className={styles.textBlock}>
-                <h3 className={styles.heading}>SOVEREIGNTY IN EVERY TRANSACTION.</h3>
-                <p className={styles.description}>
-                  With fully customizable, self-custody digital wallets, you reclaim control.
-                  Execute domestic and cross-border payments with zero friction, and seamlessly make
-                  domestic and cross-border payments via stablecoins and move funds between
-                  traditional bank accounts and stablecoins.
-                </p>
+                <h3 className={styles.heading}>{translations.whyBlock1Heading}</h3>
+                <p className={styles.description}>{translations.whyBlock1Description}</p>
               </div>
 
               <div className={styles.textBlock}>
-                <h3 className={styles.heading}>THE FOUNDATION OF IMMUTABLE TRUST</h3>
-                <p className={styles.description}>
-                  KRails ensures enterprise-grade payment security through cutting edge
-                  blockchain-powered data tokenization, smart contracts, self-custody wallets and
-                  stablecoins.
-                </p>
+                <h3 className={styles.heading}>{translations.whyBlock2Heading}</h3>
+                <p className={styles.description}>{translations.whyBlock2Description}</p>
               </div>
 
               <div className={styles.textBlock}>
-                <h3 className={styles.heading}>LENDING IN ONE SIMPLE CLICK.</h3>
-                <p className={styles.description}>
-                  Rails provides an integrated financing solution for lenders wishing to finance B2B
-                  payments. We integrated the ability to finance B2B payments directly into the
-                  rail. It&apos;s instant leverage for the lenders who have the vision to move at
-                  our speed.
-                </p>
+                <h3 className={styles.heading}>{translations.whyBlock3Heading}</h3>
+                <p className={styles.description}>{translations.whyBlock3Description}</p>
                 <div className={styles.ctaContainer}>
                   <Button
                     variant="accent-brand"
@@ -180,7 +175,7 @@ export default function KRailsWhy() {
                       </svg>
                     }
                   >
-                    Activate my profile
+                    {translations.whyCtaButton}
                   </Button>
                 </div>
               </div>

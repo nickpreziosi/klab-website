@@ -18,9 +18,12 @@ import {
   TooltipProvider,
 } from "@/ui/shared/components/tooltip/tooltip";
 import { ClientOnly } from "@/ui/shared/components/client-only/client-only";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
-import { saveScrollBeforeLocaleSwitch } from "@/ui/shared/utils/scroll-preservation";
+import {
+  saveScrollBeforeLocaleSwitch,
+  setSkipAnimationsOnNextPageLoad,
+} from "@/ui/shared/utils/scroll-preservation";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/i18n/routing";
 import themeToggleStyles from "../theme-toggle/theme-toggle.module.css";
@@ -32,19 +35,16 @@ const LOCALE_CODE: Record<Locale, string> = {
   pt: "PT",
 };
 
-const LOCALE_FULL_NAME: Record<Locale, string> = {
-  en: "English",
-  es: "Español",
-  pt: "Português",
+const LOCALE_NAME_KEYS: Record<Locale, "localeEn" | "localeEs" | "localePt"> = {
+  en: "localeEn",
+  es: "localeEs",
+  pt: "localePt",
 };
-
-function getLocaleTooltipLabel(locale: Locale): string {
-  return `${LOCALE_CODE[locale]} – ${LOCALE_FULL_NAME[locale]}`;
-}
 
 const LOCALES = routing.locales;
 
 export function LocaleSwitcher() {
+  const t = useTranslations("localeSwitcher");
   const currentLocale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -53,6 +53,7 @@ export function LocaleSwitcher() {
     const newLocale = value as Locale;
     if (newLocale === currentLocale) return;
     saveScrollBeforeLocaleSwitch();
+    setSkipAnimationsOnNextPageLoad();
     router.push(pathname, { locale: newLocale, scroll: false });
   };
 
@@ -60,7 +61,7 @@ export function LocaleSwitcher() {
     <button
       type="button"
       className={`${themeToggleStyles.selectTrigger} ${styles.selectTriggerLocale}`}
-      aria-label="Change language"
+      aria-label={t("changeLanguage")}
     >
       {LOCALE_CODE[currentLocale as Locale]}
     </button>
@@ -76,7 +77,7 @@ export function LocaleSwitcher() {
             <Select value={currentLocale} onValueChange={handleValueChange}>
               <TooltipTrigger asChild>
                 <SelectTrigger
-                  aria-label="Change language"
+                  aria-label={t("changeLanguage")}
                   className={`${themeToggleStyles.selectTrigger} ${styles.selectTriggerLocale}`}
                 >
                   <SelectValue>{LOCALE_CODE[currentLocale as Locale]}</SelectValue>
@@ -92,7 +93,7 @@ export function LocaleSwitcher() {
                   {LOCALES.map((locale) => (
                     <SelectItem key={locale} value={locale} className={themeToggleStyles.selectItem}>
                       <span className={styles.selectItemText}>
-                        {LOCALE_CODE[locale]} {LOCALE_FULL_NAME[locale]}
+                        {LOCALE_CODE[locale]} {t(LOCALE_NAME_KEYS[locale])}
                       </span>
                       <SelectItemIndicator className={themeToggleStyles.selectItemIndicator}>
                         <Check size={14} />
@@ -104,7 +105,7 @@ export function LocaleSwitcher() {
             </Select>
 
             <TooltipContent sideOffset={12} side="bottom">
-              Language: {LOCALE_FULL_NAME[currentLocale as Locale]}
+              {t("tooltipPrefix")} {t(LOCALE_NAME_KEYS[currentLocale as Locale])}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

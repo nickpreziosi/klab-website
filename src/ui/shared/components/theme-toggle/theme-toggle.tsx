@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useTranslations } from "next-intl";
 import { Moon, Sun, Monitor } from "lucide-react";
 import {
   Tooltip,
@@ -23,19 +24,24 @@ export interface ThemeToggleProps {
   className?: string;
 }
 
-const THEME_OPTIONS: CycleToggleOption<Theme>[] = [
-  { value: "light", icon: Sun, label: "Light" },
-  { value: "dark", icon: Moon, label: "Dark" },
-  { value: "system", icon: Monitor, label: "System" },
-];
+function useThemeOptions(): CycleToggleOption<Theme>[] {
+  const t = useTranslations("theme");
+  return [
+    { value: "light", icon: Sun, label: t("light") },
+    { value: "dark", icon: Moon, label: t("dark") },
+    { value: "system", icon: Monitor, label: t("system") },
+  ];
+}
 
 export function ThemeToggle({
   mode = "cycle",
   layout = "default",
   className,
 }: ThemeToggleProps) {
+  const t = useTranslations("theme");
   const { theme, setTheme, mounted } = useTheme();
   const [mountedState, setMountedState] = React.useState(false);
+  const THEME_OPTIONS = useThemeOptions();
 
   React.useEffect(() => {
     setMountedState(true);
@@ -63,7 +69,7 @@ export function ThemeToggle({
           onValueChange={handleThemeChange}
           layout={layout}
           onClick={handleItemClick}
-          getTooltipContent={(opt) => `Theme: ${opt.label}`}
+          getTooltipContent={(opt) => `${t("themeLabel")}: ${opt.label}`}
         />
       </div>
     );
@@ -98,7 +104,7 @@ export function ThemeToggle({
                   </button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom" sideOffset={12}>
-                  Theme: {option.label}
+                  {t("themeLabel")}: {option.label}
                 </TooltipContent>
               </Tooltip>
             );

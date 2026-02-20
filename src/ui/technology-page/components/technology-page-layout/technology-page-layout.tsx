@@ -25,7 +25,13 @@ const fadeIn = {
   transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
 };
 
-function MockupCard({ mockup }: { mockup: TechnologyMockup }) {
+function MockupCard({
+  mockup,
+  defaultAlt,
+}: {
+  mockup: TechnologyMockup;
+  defaultAlt: string;
+}) {
   const wrapperClass =
     mockup.variant === "phone"
       ? styles.mockupWrapperPhone
@@ -37,7 +43,7 @@ function MockupCard({ mockup }: { mockup: TechnologyMockup }) {
     <div className={`${styles.mockupWrapper} ${wrapperClass}`}>
       <Image
         src={mockup.src}
-        alt={mockup.alt ?? "Technology screenshot"}
+        alt={mockup.alt ?? defaultAlt}
         width={mockup.variant === "phone" ? 380 : mockup.variant === "laptop" ? 560 : 720}
         height={mockup.variant === "phone" ? 760 : 360}
         className={styles.mockupImage}
@@ -189,12 +195,17 @@ export function TechnologyPageLayout({
   mockups,
   sections,
   cta,
+  defaultAlt: defaultAltProp,
+  skipAnimation = false,
 }: TechnologyPageLayoutProps) {
+  const defaultAlt = defaultAltProp ?? "Technology screenshot";
   const { effectiveTheme } = useTheme();
   const heroRef = useRef<HTMLElement>(null);
   const sectionsRef = useRef<HTMLElement>(null);
   const heroInView = useInView(heroRef, { once: true, amount: 0.2 });
   const sectionsInView = useInView(sectionsRef, { once: true, amount: 0.1 });
+  const effectiveHeroInView = skipAnimation || heroInView;
+  const effectiveSectionsInView = skipAnimation || sectionsInView;
 
   const firstMockupInHero = hero && mockups && mockups.length > 0;
   const mockupsBelow = firstMockupInHero ? mockups!.slice(1) : mockups ?? [];
@@ -212,8 +223,8 @@ export function TechnologyPageLayout({
         <motion.section
           ref={heroRef}
           className={styles.heroSection}
-          initial={fadeIn.initial}
-          animate={heroInView ? fadeIn.animate : {}}
+          initial={skipAnimation ? fadeIn.animate : fadeIn.initial}
+          animate={effectiveHeroInView ? fadeIn.animate : {}}
           transition={fadeIn.transition}
         >
           <div className={styles.heroInner}>
@@ -267,7 +278,7 @@ export function TechnologyPageLayout({
               </div>
               {firstMockupInHero && mockups![0] && (
                 <div className={styles.heroImageCol}>
-                  <MockupCard mockup={mockups![0]} />
+                  <MockupCard mockup={mockups![0]} defaultAlt={defaultAlt} />
                 </div>
               )}
             </div>
@@ -305,15 +316,15 @@ export function TechnologyPageLayout({
         <motion.section
           ref={sectionsRef}
           className={styles.contentSection}
-          initial={fadeIn.initial}
-          animate={sectionsInView ? fadeIn.animate : {}}
+          initial={skipAnimation ? fadeIn.animate : fadeIn.initial}
+          animate={effectiveSectionsInView ? fadeIn.animate : {}}
           transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] as const }}
         >
           <div className={styles.contentInner}>
             {mockupsBelow.length > 0 && (
               <div className={styles.mockupGrid}>
                 {mockupsBelow.map((m, i) => (
-                  <MockupCard key={i} mockup={m} />
+                  <MockupCard key={i} mockup={m} defaultAlt={defaultAlt} />
                 ))}
               </div>
             )}

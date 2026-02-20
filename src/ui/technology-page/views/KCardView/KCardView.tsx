@@ -1,18 +1,22 @@
 "use client";
 
 import { TechnologyPageLayout } from "@/ui/technology-page/components/technology-page-layout/technology-page-layout";
-import { kcardHero, kcardMockups, kcardSections } from "./kcard-content";
+import type { TechnologyPageContentProps } from "@/ui/technology-page/types";
+import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 
-export function KCardView() {
+export function KCardView({ translations, hero, mockups, sections }: TechnologyPageContentProps) {
+  const skipAnimation = useSkipAnimationOnLocaleSwitch();
   return (
     <TechnologyPageLayout
       technologyName="KCard"
       logoLight="/logos/kcard-logo-light.svg"
       logoDark="/logos/kcard-logo-dark.svg"
-      hero={kcardHero}
-      mockups={kcardMockups}
-      sections={kcardSections}
-      cta={{ label: "Contact sales", href: "/contact/sales" }}
+      hero={hero}
+      mockups={mockups}
+      sections={sections}
+      cta={{ label: translations.contactSales, href: "/contact/sales" }}
+      defaultAlt={translations.technologyScreenshot}
+      skipAnimation={skipAnimation}
     />
   );
 }

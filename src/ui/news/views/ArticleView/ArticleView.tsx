@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -55,6 +56,7 @@ export function ArticleView({
   galleryImageUrls,
   bodyHTML,
 }: ArticleViewProps) {
+  const t = useTranslations("newsPage");
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -427,7 +429,7 @@ export function ArticleView({
           variant="outline"
           iconPosition="start"
         >
-          Back to News
+          {t("backToNews")}
         </Button>
       </motion.div>
     </main>

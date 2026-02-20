@@ -79,4 +79,25 @@ export interface TechnologyPageLayoutProps {
   sections?: TechnologyInfoSection[];
   /** Optional CTA (e.g. contact/sales link) */
   cta?: { label: string; href: string };
+  /** Default alt text for mockup images when mockup.alt is not set (e.g. translated "Technology screenshot") */
+  defaultAlt?: string;
+  /** When true, skip entrance animations (e.g. locale switch). */
+  skipAnimation?: boolean;
 }
+
+/** Server-resolved strings for technology page UI (CTA, image alt). Pass from page to view. */
+export interface TechnologyPageTranslations {
+  contactSales: string;
+  technologyScreenshot: string;
+}
+
+/** Translated hero + sections from buildXContent(t). Pass from page to view with mockups. */
+export interface TechnologyPageContentProps {
+  translations: TechnologyPageTranslations;
+  hero: TechnologyHero;
+  mockups: TechnologyMockup[];
+  sections: TechnologyInfoSection[];
+}
+
+/** Translator passed into buildXContent() from getTranslations("techPages"). */
+export type TechPageTranslator = (key: string) => string;

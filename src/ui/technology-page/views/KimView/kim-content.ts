@@ -3,12 +3,7 @@ import type {
   TechnologyMockup,
   TechnologyInfoSection,
 } from "@/ui/technology-page/types";
-
-export const kimHero: TechnologyHero = {
-  title: "AI-Powered Invoice Management",
-  tagline:
-    "Our AI-powered invoice management solution turns a traditionally manual, error-prone process into a fully automated, intelligent, and trusted digital workflow—unlocking speed, liquidity, and confidence across the supply chain.",
-};
+import type { TechPageTranslator } from "@/ui/technology-page/types";
 
 export const kimMockups: TechnologyMockup[] = [
   {
@@ -18,46 +13,56 @@ export const kimMockups: TechnologyMockup[] = [
   },
 ];
 
-export const kimBlocksSection: Extract<TechnologyInfoSection, { type: "blocks" }> = {
-  type: "blocks",
-  blocks: [
-    {
-      heading: "Faster Processing & Financing",
-      subheading: "",
-      bullets: [
-        "Reduces processing from days to minutes",
-        "Accelerates approvals and access financing",
-        "Enables dynamic discounting and early payment programs",
-      ],
+export function buildKimContent(t: TechPageTranslator): {
+  hero: TechnologyHero;
+  sections: TechnologyInfoSection[];
+} {
+  const blocksSection: Extract<TechnologyInfoSection, { type: "blocks" }> = {
+    type: "blocks",
+    blocks: [
+      {
+        heading: t("kim.block0Heading"),
+        subheading: "",
+        bullets: [
+          t("kim.block0Bullet0"),
+          t("kim.block0Bullet1"),
+          t("kim.block0Bullet2"),
+        ],
+      },
+      {
+        heading: t("kim.block1Heading"),
+        subheading: "",
+        bullets: [
+          t("kim.block1Bullet0"),
+          t("kim.block1Bullet1"),
+          t("kim.block1Bullet2"),
+        ],
+      },
+      {
+        heading: t("kim.block2Heading"),
+        subheading: "",
+        bullets: [
+          t("kim.block2Bullet0"),
+          t("kim.block2Bullet1"),
+          t("kim.block2Bullet2"),
+        ],
+      },
+      {
+        heading: t("kim.block3Heading"),
+        subheading: "",
+        bullets: [
+          t("kim.block3Bullet0"),
+          t("kim.block3Bullet1"),
+          t("kim.block3Bullet2"),
+        ],
+      },
+    ],
+  };
+  return {
+    hero: {
+      title: t("kim.heroTitle"),
+      tagline: t("kim.heroTagline"),
     },
-    {
-      heading: "Reduce Risk & Errors",
-      subheading: "",
-      bullets: [
-        "Eliminates manual data entry and reconciliation",
-        "Smart contracts enforce agreed terms automatically",
-        "Immutable blockchain records prevent disputes and fraud",
-      ],
-    },
-    {
-      heading: "Improved Cash Flow Visibility",
-      subheading: "",
-      bullets: [
-        "Real-time insight into invoice status and payment timelines",
-        "Predictive alerts based on historical payment behavior",
-        "Clear view of liabilities and receivables across suppliers",
-      ],
-    },
-    {
-      heading: "Built for Trust & Compliance",
-      subheading: "",
-      bullets: [
-        "Single source of truth shared across all parties",
-        "Tamper-proof audit trail for regulators and auditors",
-        "Enhanced transparency strengthens buyer-supplier relationships",
-      ],
-    },
-  ],
-};
-
-export const kimSections: TechnologyInfoSection[] = [kimBlocksSection];
+    sections: [blocksSection],
+  };
+}

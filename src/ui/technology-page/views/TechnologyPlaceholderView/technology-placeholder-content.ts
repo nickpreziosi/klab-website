@@ -33,21 +33,23 @@ export function getPlaceholderMockup(slug: string): TechnologyMockup[] {
   return [{ src, variant: "desktop", alt: `${TECHNOLOGY_NAMES[slug] ?? slug} overview` }];
 }
 
-export function getPlaceholderSection(slug: string): TechnologyInfoSection[] {
+export type TechPlaceholderTranslations = (key: string) => string;
+
+export function getPlaceholderSection(
+  slug: string,
+  t: TechPlaceholderTranslations
+): TechnologyInfoSection[] {
   const name = TECHNOLOGY_NAMES[slug] ?? slug;
   return [
     {
       type: "blocks",
       featureTitle: `${name}`,
-      featureSubline: "Detailed use cases and benefits for this technology are coming soon.",
+      featureSubline: t("comingSoonSubline"),
       blocks: [
         {
-          heading: "Overview",
-          subheading: "Learn more soon",
-          bullets: [
-            "This page will include mockups, use cases, and detailed information.",
-            "Contact us for early access or demos.",
-          ],
+          heading: t("overview"),
+          subheading: t("learnMoreSoon"),
+          bullets: [t("bullet1"), t("bullet2")],
         },
       ],
     },

@@ -3,18 +3,7 @@ import type {
   TechnologyMockup,
   TechnologyInfoSection,
 } from "@/ui/technology-page/types";
-
-export const kcardHero: TechnologyHero = {
-  title: "Expense Management",
-  tagline:
-    "Global enforcement for corporate card issuance, credit management, expense processing, and policy oversight.",
-  highlights: [
-    "Corporate card issuance",
-    "Credit management",
-    "Expense processing platform",
-    "Policy enforcement and reporting oversight",
-  ],
-};
+import type { TechPageTranslator } from "@/ui/technology-page/types";
 
 export const kcardMockups: TechnologyMockup[] = [
   {
@@ -24,4 +13,21 @@ export const kcardMockups: TechnologyMockup[] = [
   },
 ];
 
-export const kcardSections: TechnologyInfoSection[] = [];
+export function buildKcardContent(t: TechPageTranslator): {
+  hero: TechnologyHero;
+  sections: TechnologyInfoSection[];
+} {
+  return {
+    hero: {
+      title: t("kcard.heroTitle"),
+      tagline: t("kcard.heroTagline"),
+      highlights: [
+        t("kcard.heroHighlight0"),
+        t("kcard.heroHighlight1"),
+        t("kcard.heroHighlight2"),
+        t("kcard.heroHighlight3"),
+      ],
+    },
+    sections: [],
+  };
+}

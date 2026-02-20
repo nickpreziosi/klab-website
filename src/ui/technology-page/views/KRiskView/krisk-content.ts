@@ -3,17 +3,7 @@ import type {
   TechnologyMockup,
   TechnologyInfoSection,
 } from "@/ui/technology-page/types";
-
-export const kriskHero: TechnologyHero = {
-  title: "Know Your Customer To Serve Them Better",
-  tagline:
-    "Comprehensive intelligence engine that integrates internal history and external data sources to fortify underwriting, proactively protect the portfolio, and drive data-based strategic decisions.",
-  highlights: [
-    "Risk Assessment with more insights enhanced by AI",
-    "Better accuracy unlocking more relationships",
-    "Faster and more consistent approvals",
-  ],
-};
+import type { TechPageTranslator } from "@/ui/technology-page/types";
 
 export const kriskMockups: TechnologyMockup[] = [
   {
@@ -23,35 +13,30 @@ export const kriskMockups: TechnologyMockup[] = [
   },
 ];
 
-export const kriskBlocksSection: Extract<TechnologyInfoSection, { type: "blocks" }> = {
-  type: "blocks",
-  featureTitle: "Key capabilities",
-  blocks: [
-    {
-      heading: "AI Predictive Scoring",
-      subheading:
-        "Generates fully explainable eligibility scores and risk using advanced AI models.",
-      bullets: [],
+export function buildKriskContent(t: TechPageTranslator): {
+  hero: TechnologyHero;
+  sections: TechnologyInfoSection[];
+} {
+  const blocksSection: Extract<TechnologyInfoSection, { type: "blocks" }> = {
+    type: "blocks",
+    featureTitle: t("krisk.blocksFeatureTitle"),
+    blocks: [
+      { heading: t("krisk.block0Heading"), subheading: t("krisk.block0Subheading"), bullets: [] },
+      { heading: t("krisk.block1Heading"), subheading: t("krisk.block1Subheading"), bullets: [] },
+      { heading: t("krisk.block2Heading"), subheading: t("krisk.block2Subheading"), bullets: [] },
+      { heading: t("krisk.block3Heading"), subheading: t("krisk.block3Subheading"), bullets: [] },
+    ],
+  };
+  return {
+    hero: {
+      title: t("krisk.heroTitle"),
+      tagline: t("krisk.heroTagline"),
+      highlights: [
+        t("krisk.heroHighlight0"),
+        t("krisk.heroHighlight1"),
+        t("krisk.heroHighlight2"),
+      ],
     },
-    {
-      heading: "Market Intelligence & Targeting",
-      subheading:
-        "Uses an advanced algorithm to analyze the buyer-supplier network and identify the highest-potential leads.",
-      bullets: [],
-    },
-    {
-      heading: "Proactive Monitoring",
-      subheading:
-        "Advanced anomaly detection system alerts teams to unusual sales or delinquency changes.",
-      bullets: [],
-    },
-    {
-      heading: "Strategic Insight",
-      subheading:
-        "Provides forecasts and portfolio segmentation against benchmarks to guide commercial strategy.",
-      bullets: [],
-    },
-  ],
-};
-
-export const kriskSections: TechnologyInfoSection[] = [kriskBlocksSection];
+    sections: [blocksSection],
+  };
+}

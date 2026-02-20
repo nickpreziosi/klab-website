@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { useInView } from "framer-motion";
+import { useTranslations } from "next-intl";
 import CompanySectionTitle from "@/ui/company/components/company-section-title/company-section-title";
 import { StaffCard } from "@/ui/company/components/staff-card/staff-card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/ui/shared/components/tabs/tabs";
@@ -22,21 +23,25 @@ export interface StaffMember {
 interface CompanyStaffSectionProps {
   employees: StaffMember[];
   board: StaffMember[];
+  /** When true, skip entrance animation (e.g. locale switch). */
+  skipAnimation?: boolean;
 }
 
-export default function CompanyStaffSection({ employees, board }: CompanyStaffSectionProps) {
+export default function CompanyStaffSection({ employees, board, skipAnimation = false }: CompanyStaffSectionProps) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
+  const effectiveInView = skipAnimation || inView;
+  const t = useTranslations("companyStaff");
 
   return (
     <section ref={ref}>
       <div className={styles.header}>
-        <CompanySectionTitle title="Our Team" inView={inView} />
+        <CompanySectionTitle title={t("title")} inView={effectiveInView} skipAnimation={skipAnimation} />
         <div className={styles.tabWrap}>
           <Tabs defaultValue="leadership">
             <TabsList>
-              <TabsTrigger value="leadership">Leadership</TabsTrigger>
-              <TabsTrigger value="board">Board</TabsTrigger>
+              <TabsTrigger value="leadership">{t("tabLeadership")}</TabsTrigger>
+              <TabsTrigger value="board">{t("tabBoard")}</TabsTrigger>
             </TabsList>
             <TabsContent value="leadership">
               <div className={styles.cardGrid}>

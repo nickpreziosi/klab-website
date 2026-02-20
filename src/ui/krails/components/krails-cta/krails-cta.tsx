@@ -5,35 +5,46 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import styles from "./krails-cta.module.css";
 import Button from "@/ui/shared/components/button/button";
+import type { KRailsTranslations } from "@/ui/krails/views/KRailsView/KRailsView";
 
-export default function KRailsCta() {
+export default function KRailsCta({
+  translations,
+  skipAnimation = false,
+}: {
+  translations: KRailsTranslations;
+  skipAnimation?: boolean;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const highlightText = "TRANSFORM YOUR EFFICIENCY...";
+  const effectiveInView = skipAnimation || isInView;
+  const highlightText = translations.ctaHighlight;
 
   return (
     <section className={styles.section} ref={ref}>
       <div className={styles.container}>
         <motion.div
-          initial={{ opacity: 0, filter: "blur(10px)" }}
-          animate={isInView ? { opacity: 1, filter: "blur(0px)" } : {}}
+          initial={
+            skipAnimation ? { opacity: 1, filter: "blur(0px)" } : { opacity: 0, filter: "blur(10px)" }
+          }
+          animate={effectiveInView ? { opacity: 1, filter: "blur(0px)" } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
           className={styles.content}
         >
           <h2 className={styles.heading}>
-            YOUR NEXT MOVE. RIGHT NOW.<br></br>DOMINATE THE API ECONOMY.
+            {translations.ctaHeading.split("\n").map((line, i) => (
+              <span key={i}>
+                {line}
+                {i === 0 && <br />}
+              </span>
+            ))}
           </h2>
 
-          <p className={styles.subheading}>
-            Ready for the true competitive edge? Embed and customize the most advanced payment
-            infrastructure on the market directly into your product or service via our API developer
-            suite.
-          </p>
+          <p className={styles.subheading}>{translations.ctaSubheading}</p>
 
           <p
             className={`${styles.subheading} ${styles.highlight} ${
               styles.highlightSweep
-            } ${isInView ? styles.inView : ""}`}
+            } ${effectiveInView ? styles.inView : ""}`}
           >
             <span
               className={styles.typing}
@@ -49,8 +60,10 @@ export default function KRailsCta() {
 
           <motion.div
             className={styles.ctaButton}
-            initial={{ opacity: 0, filter: "blur(10px)" }}
-            animate={isInView ? { opacity: 1, filter: "blur(0px)" } : {}}
+            initial={
+              skipAnimation ? { opacity: 1, filter: "blur(0px)" } : { opacity: 0, filter: "blur(10px)" }
+            }
+            animate={effectiveInView ? { opacity: 1, filter: "blur(0px)" } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <Button
@@ -74,7 +87,7 @@ export default function KRailsCta() {
                 </svg>
               }
             >
-              Embed KRails
+              {translations.ctaButton}
             </Button>
           </motion.div>
         </motion.div>
