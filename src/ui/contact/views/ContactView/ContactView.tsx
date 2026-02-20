@@ -34,7 +34,7 @@ export function ContactView() {
               }
               title="Sales"
               description="Interested in learning more about KLab's products and services? Our sales team is here to answer your questions, provide personalized demos, and help you find the perfect solution for your business needs."
-              href="/contact/sales"
+              href="mailto:sales@k-lab.ai"
               buttonText="Talk to sales"
             />
             <ContactLink
@@ -56,7 +56,7 @@ export function ContactView() {
               }
               title="Help & Support"
               description="Need assistance with onboarding, technical issues, or product questions? Our support team is ready to help you resolve any technical issues."
-              href="/contact/support"
+              href="mailto:support@k-lab.ai"
               buttonText="Contact support"
             />
             <ContactLink
@@ -78,7 +78,7 @@ export function ContactView() {
               }
               title="Careers"
               description="Excited about shaping the future of financial technology? Reach out to our careers team to explore opportunities to join KLab and contribute to our mission."
-              href="/contact/careers"
+              href="mailto:careers@k-lab.ai"
               buttonText="Contact careers"
             />
           </div>

@@ -1,5 +1,11 @@
-import { ContactCareersView } from "@/ui/contact/views/ContactCareersView/ContactCareersView";
+import { redirect } from "next/navigation";
 
-export default function CareersContactPage() {
-  return <ContactCareersView />;
+/** Form page hidden for now; contact cards on /contact use mailto links. Re-enable when email delivery is configured. */
+export default async function CareersContactPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  redirect(`/${locale}/contact`);
 }

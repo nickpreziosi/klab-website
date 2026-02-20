@@ -1,5 +1,11 @@
-import { ContactSalesView } from "@/ui/contact/views/ContactSalesView/ContactSalesView";
+import { redirect } from "next/navigation";
 
-export default function SalesContactPage() {
-  return <ContactSalesView />;
+/** Form page hidden for now; contact cards on /contact use mailto links. Re-enable when email delivery is configured. */
+export default async function SalesContactPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  redirect(`/${locale}/contact`);
 }
