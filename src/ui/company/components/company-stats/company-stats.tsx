@@ -70,7 +70,7 @@ export default function CompanyStats() {
           {stats.map((stat, index) => (
             <Card key={stat.label} className={styles.statCard}>
               <CardHeader>
-                CardTitle
+                <CardTitle>
                   <motion.span
                     className={styles.statValue}
                     initial={{ scale: 0.5, opacity: 0 }}
