@@ -7,7 +7,7 @@ import styles from "./company-culture.module.css";
 import CompanySectionTitle from "@/ui/company/components/company-section-title/company-section-title";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
 import Button from "@/ui/shared/components/button/button";
-import { Card, CardContent } from "@/ui/shared/components/card/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/ui/shared/components/card/card";
 
 const stats = [
   {
@@ -118,8 +118,8 @@ export default function CompanyCulture() {
         <div className={styles.statsGrid}>
           {stats.map((stat, index) => (
             <Card key={stat.label} className={styles.statCard}>
-              <CardContent className={styles.statCardContent}>
-                <div className={styles.statValueContainer}>
+              <CardHeader>
+                <CardTitle>
                   <motion.span
                     className={styles.statValue}
                     initial={{ scale: 0.5, opacity: 0 }}
@@ -133,9 +133,11 @@ export default function CompanyCulture() {
                     }}
                   >
                     <AnimatedCounter value={stat.value} delay={index * 100 + 200} />
+                    {stat.suffix && <span className={styles.statSuffix}>{stat.suffix}</span>}
                   </motion.span>
-                  {stat.suffix && <span className={styles.statSuffix}>{stat.suffix}</span>}
-                </div>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className={styles.statCardContent}>
                 <p className={styles.statLabel}>{stat.label}</p>
               </CardContent>
               <div className={styles.statGlow} />

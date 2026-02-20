@@ -1,11 +1,25 @@
 /* ========== Shared (both variants) ========== */
 .wrapperDesktop,
 .wrapperMobile {
-  --icon-height: 40px;
   --landing-semi-bg: rgb(250, 250, 250);
   --landing-fg: #1a1a1a;
   --landing-border: rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
+}
+
+.wrapperDesktop {
+  --icon-height: 40px;
+}
+
+.wrapperMobile {
+  --icon-height: 26px;
+}
+
+/* Theme-aware mobile (matches desktop): circles use --foreground/--background, follows light/dark mode */
+.wrapperMobile.wrapperMobileThemeAware {
+  --landing-semi-bg: hsl(var(--foreground));
+  --landing-fg: hsl(var(--background));
+  --landing-border: hsl(var(--foreground) / 0.15);
 }
 
 .techItem {
@@ -37,6 +51,10 @@
   box-sizing: border-box;
 }
 
+.wrapperMobile .techContent {
+  padding: 4px;
+}
+
 .techLogo {
   display: flex;
   align-items: center;
@@ -66,6 +84,41 @@
 }
 
 .techLogo > div svg {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Mobile only: KLeads (widest) full width; others match its height via --tech-logo-height */
+.wrapperMobile .techLogo.techLogoWidest {
+  width: 100%;
+}
+
+.wrapperMobile .techLogo.techLogoWidest > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  max-height: 26px;
+}
+
+.wrapperMobile .techLogo.techLogoWidest > div svg {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 26px;
+  object-fit: contain;
+}
+
+.wrapperMobile .techLogo:not(.techLogoWidest) > div {
+  height: var(--tech-logo-height, 26px);
+  width: auto;
+  max-width: 100%;
+}
+
+.wrapperMobile .techLogo:not(.techLogoWidest) > div svg {
   height: 100%;
   width: auto;
   max-width: 100%;
@@ -320,4 +373,53 @@
   margin-left: 8px !important;
   margin-right: 8px !important;
   box-sizing: border-box;
+}
+
+.popoverMobileContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.popoverMobileTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--landing-fg);
+}
+
+.popoverMobileDescription {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--landing-fg);
+}
+
+.popoverMobileLink {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.popoverMobileLink:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Theme-aware popover (matches desktop tooltip: foreground bg, background text) */
+.popoverMobileThemeAware {
+  background: hsl(var(--foreground)) !important;
+  color: hsl(var(--background)) !important;
+  border-color: hsl(var(--foreground) / 0.2) !important;
+}
+
+.popoverMobileThemeAware .popoverMobileTitle,
+.popoverMobileThemeAware .popoverMobileDescription {
+  color: hsl(var(--background));
+}
+
+.popoverMobileThemeAware .popoverMobileLink {
+  color: white;
+}
+
+.popoverMobileThemeAware .popoverMobileLink:hover {
+  color: white;
 }

@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ClientOnly } from "@/ui/shared/components/client-only/client-only";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
+import Button from "@/ui/shared/components/button/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/shared/components/popover/popover";
 import {
   Tooltip,
@@ -12,6 +13,7 @@ import {
   TooltipTrigger,
 } from "@/ui/shared/components/tooltip/tooltip";
 import { useTranslations } from "next-intl";
+import { useTheme } from "@/ui/shared/hooks/use-theme";
 import styles from "./landing-technologies-showcase.module.css";
 
 const BREAKPOINT_DESKTOP = 1024;
@@ -112,6 +114,8 @@ const RIGHT_ORDER_FIXED = [0, 1, 10, 4, 6, 7];
 const leftTechs = LEFT_ORDER.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 const rightTechs = RIGHT_ORDER_FIXED.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 
+const WIDEST_LOGO_KEY: TechKey = "kleads";
+
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -190,6 +194,9 @@ function TechSlot({
   onToggle,
   SVGLogo: LogoComponent,
   variant,
+  isWidestLogo,
+  logoRef,
+  popoverContentClassName,
 }: {
   tech: (typeof TECHNOLOGIES)[0];
   logoSrc: string;
@@ -199,9 +206,16 @@ function TechSlot({
   onToggle: () => void;
   SVGLogo: typeof SVGLogo;
   variant: "desktop" | "mobile";
+  isWidestLogo?: boolean;
+  logoRef?: React.RefObject<HTMLDivElement | null>;
+  popoverContentClassName?: string;
 }) {
   const tooltipClass = styles.techTooltip;
   const tooltipSide = "bottom";
+  const logoClassName =
+    variant === "mobile" && isWidestLogo
+      ? `${styles.techLogo} ${styles.techLogoWidest}`
+      : styles.techLogo;
 
   if (variant === "mobile") {
     return (
@@ -221,7 +235,7 @@ function TechSlot({
               aria-label={tech.title}
             >
               <div className={styles.techContent}>
-                <div className={styles.techLogo}>
+                <div ref={logoRef} className={logoClassName}>
                   <LogoComponent src={logoSrc} />
                 </div>
               </div>
@@ -231,9 +245,19 @@ function TechSlot({
             side={side === "left" ? "bottom" : "top"}
             sideOffset={12}
             align="center"
-            className={styles.popoverMobile}
+            className={[styles.popoverMobile, popoverContentClassName].filter(Boolean).join(" ")}
           >
-            {description}
+            <div className={styles.popoverMobileContent}>
+              <h4 className={styles.popoverMobileTitle}>{tech.title}</h4>
+              <p className={styles.popoverMobileDescription}>{description}</p>
+              <Button
+                href={`/technologies/${tech.descriptionKey}`}
+                variant="accent-brand"
+                className={styles.popoverMobileLink}
+              >
+                Learn more
+              </Button>
+            </div>
           </PopoverContent>
         </Popover>
       </div>
@@ -286,13 +310,19 @@ export function LandingTechnologiesShowcase({
   className,
   /** When provided (from server), descriptions are SSR'd; otherwise use client useTranslations */
   technologiesDescriptions,
+  /** When true, mobile uses site theme (same as desktop TechnologiesShowcase); use on home page */
+  useThemeForMobile = false,
 }: {
   variant?: LandingVariant;
   className?: string;
   technologiesDescriptions?: Record<string, string>;
+  useThemeForMobile?: boolean;
 } = {}) {
   const isDesktop = useIsDesktop();
   const t = useTranslations("landing");
+  const { effectiveTheme } = useTheme();
+  const kleadsLogoRef = useRef<HTMLDivElement>(null);
+  const [logoHeight, setLogoHeight] = useState(26);
   const [expandedIndex, setExpandedIndex] = useState<{
     side: "left" | "right";
     index: number;
@@ -310,8 +340,38 @@ export function LandingTechnologiesShowcase({
   const getDescription = (tech: (typeof TECHNOLOGIES)[0]) =>
     technologiesDescriptions?.[tech.descriptionKey] ?? t(`technologies.${tech.descriptionKey}`);
 
-  // Landing tech circles always use light background (--landing-semi-bg), so always use dark logos
+  // Desktop: always light circles (landing) → dark logos. Mobile: if useThemeForMobile, match desktop (theme circles + logo by effectiveTheme)
   const logoSrc = (tech: (typeof TECHNOLOGIES)[0]) => tech.logoDark;
+  const mobileLogoSrc = (tech: (typeof TECHNOLOGIES)[0]) =>
+    useThemeForMobile
+      ? effectiveTheme === "dark"
+        ? tech.logoDark
+        : tech.logoLight
+      : tech.logoDark;
+
+  // Mobile: measure KLeads (widest) logo height so other logos can match
+  useEffect(() => {
+    const el = kleadsLogoRef.current;
+    if (!el) return;
+    const MAX_MOBILE_LOGO_HEIGHT = 26;
+    const measure = () => {
+      const svg = el.querySelector("svg");
+      if (svg) {
+        const h = Math.min(svg.getBoundingClientRect().height, MAX_MOBILE_LOGO_HEIGHT);
+        if (h > 0) setLogoHeight(h);
+      }
+    };
+    const ro = new ResizeObserver(() => requestAnimationFrame(measure));
+    ro.observe(el);
+    measure();
+    const t1 = setTimeout(measure, 100);
+    const t2 = setTimeout(measure, 400);
+    return () => {
+      ro.disconnect();
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, []);
 
   const placeholder = (
     <div
@@ -358,20 +418,34 @@ export function LandingTechnologiesShowcase({
           </div>
         </TooltipProvider>
       ) : (
-        <div className={`${styles.wrapperMobile} ${className ?? ""}`.trim()}>
+        <div
+          className={[
+            styles.wrapperMobile,
+            useThemeForMobile ? styles.wrapperMobileThemeAware : "",
+            className ?? "",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+          style={{ "--tech-logo-height": `${logoHeight}px` } as React.CSSProperties}
+        >
           <div className={styles.columnMobile}>
             <div className={styles.rowMobileTop}>
               {leftTechs.map((tech, index) => (
                 <TechSlot
                   key={`left-${tech.title}-${index}`}
                   tech={tech}
-                  logoSrc={logoSrc(tech)}
+                  logoSrc={mobileLogoSrc(tech)}
                   description={getDescription(tech)}
                   side="left"
                   isExpanded={expandedIndex?.side === "left" && expandedIndex?.index === index}
                   onToggle={() => setLeft(index)}
                   SVGLogo={SVGLogo}
                   variant="mobile"
+                  isWidestLogo={tech.descriptionKey === WIDEST_LOGO_KEY}
+                  logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? kleadsLogoRef : undefined}
+                  popoverContentClassName={
+                    useThemeForMobile ? styles.popoverMobileThemeAware : undefined
+                  }
                 />
               ))}
             </div>
@@ -381,13 +455,18 @@ export function LandingTechnologiesShowcase({
                 <TechSlot
                   key={`right-${tech.title}-${index}`}
                   tech={tech}
-                  logoSrc={logoSrc(tech)}
+                  logoSrc={mobileLogoSrc(tech)}
                   description={getDescription(tech)}
                   side="right"
                   isExpanded={expandedIndex?.side === "right" && expandedIndex?.index === index}
                   onToggle={() => setRight(index)}
                   SVGLogo={SVGLogo}
                   variant="mobile"
+                  isWidestLogo={tech.descriptionKey === WIDEST_LOGO_KEY}
+                  logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? kleadsLogoRef : undefined}
+                  popoverContentClassName={
+                    useThemeForMobile ? styles.popoverMobileThemeAware : undefined
+                  }
                 />
               ))}
             </div>

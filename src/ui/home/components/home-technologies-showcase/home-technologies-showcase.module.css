@@ -1,0 +1,52 @@
+.sectionHeaderWrap {
+  padding-bottom: var(--padding-xl, 2.5rem);
+  padding-left: var(--padding-desktop);
+  width: 100%;
+  text-align: left;
+}
+
+@media (max-width: 1024px) {
+  .sectionHeaderWrap {
+    padding-left: var(--padding-tablet);
+  }
+}
+
+@media (max-width: 768px) {
+  .sectionHeaderWrap {
+    padding-left: var(--padding-mobile);
+    text-align: center;
+  }
+  .sectionHeaderWrap [data-align] {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    align-items: center;
+  }
+  .sectionHeaderWrap [data-align] h2 {
+    justify-content: center;
+  }
+}
+
+.sectionHeaderWrap [data-align] {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Desktop: shared TechnologiesShowcase – constrain to container width */
+.desktopShowcase {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Tablet/mobile: constrain vertical arrangement like landing-page-content products section */
+.mobileShowcaseWrap {
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mobileShowcase {
+  width: 100%;
+  max-width: 100%;
+}

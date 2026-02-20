@@ -163,7 +163,7 @@
   border-radius: var(--rounded-app) var(--rounded-app) 0 0;
   color: var(--secondary-color);
   text-decoration: none;
-  transition: all 150ms ease-in-out;
+  transition: all 300ms ease-in-out;
   cursor: pointer;
   z-index: 10;
   background-color: transparent;
@@ -183,7 +183,7 @@
   font-size: var(--text-lg);
   white-space: nowrap;
   flex-wrap: nowrap;
-  transition: all 300ms;
+  transition: all 300ms ease-in-out;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -197,7 +197,7 @@
 .accordionTriggerBio,
 .cardTitle,
 .cardPosition {
-  transition: all 300ms;
+  transition: all 300ms ease-in-out;
 }
 
 .accordionItem[data-state="open"] {
@@ -206,7 +206,7 @@
 }
 
 .caretIcon {
-  transition: all 300ms ease-in-out;
+  transition: transform 300ms ease-in-out;
 }
 
 .accordionItem[data-state="open"] .caretIcon {

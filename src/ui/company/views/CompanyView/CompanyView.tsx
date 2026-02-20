@@ -56,7 +56,7 @@ const employees = [
   {
     name: "Juan Silva",
     position: "Legal",
-    bio: "Juan Gabriel Silva is Chief Legal Officer at KLab, where he leads the company's legal and compliance strategy across multiple jurisdictions. With experience building regulatory frameworks for fintech operations throughout the Americas, he specializes in cross-border regulation, corporate governance, and risk management in technology-driven financial services.",
+    bio: "Juan Gabriel combines over 15 years of experience in international law firms and technology companies, advising on corporate, financial, and regulatory matters that support growth in complex, cross-border markets.",
     image: "/images/people/juan-silva.webp",
     imageLight: "/images/people/juan-silva.webp",
     imageDark: "/images/people/juan-silva-black.webp",
@@ -108,7 +108,7 @@ const board = [
   },
   {
     name: "Chris Preziosi",
-    bio: "Chris is an entrepreneur, investor, and owner of World Auto Group, a multi-brand automotive retail group based in NJ. He specializes in optimization, acquisitions, and scaling operations, building high-performing teams and award-winning businesses while creating long-term enterprise value across his portfolio.",
+    bio: "Chris is an entrepreneur, investor, and owner of World Auto Group, a multi-brand automotive retail group based in NJ. He specializes in business development, acquisitions, and scaling operations, building high-performing teams and award-winning businesses while creating long-term value across his portfolio.",
     image: "/images/people/chris-preziosi-black.webp",
     imageLight: "/images/people/chris-preziosi.webp",
     imageDark: "/images/people/chris-preziosi-black.webp",
