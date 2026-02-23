@@ -54,7 +54,9 @@ export function KRailsView({ translations }: { translations: KRailsTranslations 
           buttonTwoHref="#code"
           skipAnimation={skipAnimation}
         />
-        <KRailsDashboard />
+        <div className={styles.dashboardWrapper}>
+          <KRailsDashboard skipAnimation={skipAnimation} />
+        </div>
         <KRailsCodeSection translations={translations} skipAnimation={skipAnimation} />
       </div>
 

@@ -15,7 +15,32 @@
 
 .background {
   width: 100%;
+  /* Vertical offset for dashboard: non-mobile only (matches dashboard breakpoint 500px) */
+  .dashboardWrapper {
+    transform: translateY(0);
+  }
+
+  @media (min-width: 501px) {
+    .dashboardWrapper {
+      transform: translateY(-80px);
+    }
+  }
+
   height: fit-content;
+}
+
+/* Vertical offset for dashboard: non-mobile only (matches dashboard breakpoint 500px) */
+.dashboardWrapper {
+  transform: translateY(0);
+  overflow: hidden;
+  /* Chrome dark mode: hide subpixel line at bottom of transformed element on big screens */
+  margin-bottom: -1px;
+}
+
+@media (min-width: 501px) {
+  .dashboardWrapper {
+    transform: translateY(-80px);
+  }
 }
 
 .videoSection {

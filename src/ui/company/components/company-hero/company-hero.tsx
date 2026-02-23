@@ -59,13 +59,18 @@ type CompanyHeroProps = {
   skipAnimation?: boolean;
 };
 
-export const CompanyHero = ({ translations: serverTranslations, skipAnimation = false }: CompanyHeroProps = {}) => {
+export const CompanyHero = ({
+  translations: serverTranslations,
+  skipAnimation = false,
+}: CompanyHeroProps = {}) => {
   const logoHeight = useHeroLogoHeight();
   const t = useTranslations("companyHero");
   const translations = serverTranslations ?? buildCompanyHeroTranslations(t);
   const initial = skipAnimation ? visible : fadeUp.initial;
   const animate = skipAnimation ? visible : fadeUp.animate;
-  const logoInitial = skipAnimation ? visibleScale : { opacity: 0, scale: 0.92, filter: "blur(10px)" };
+  const logoInitial = skipAnimation
+    ? visibleScale
+    : { opacity: 0, scale: 0.92, filter: "blur(10px)" };
   const logoAnimate = skipAnimation ? visibleScale : { opacity: 1, scale: 1, filter: "blur(0px)" };
 
   return (
@@ -77,7 +82,7 @@ export const CompanyHero = ({ translations: serverTranslations, skipAnimation = 
           width={1200}
           height={1405}
           alt="KEO Employee Image"
-          src="/images/landing-bg-orange-2.webp"
+          src="/images/landing-bg-orange.webp"
           placeholder="blur"
           blurDataURL={BLUR_PLACEHOLDER}
         />

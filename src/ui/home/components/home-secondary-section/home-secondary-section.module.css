@@ -132,6 +132,10 @@
   color: transparent;
 }
 
+.timelineTitleBreak {
+  display: none;
+}
+
 /* 3-row grid: row 1 = icon or label, row 2 = track (accent + Step # + circle arrows), row 3 = the other */
 .timelineLayout {
   display: grid;
@@ -1210,6 +1214,14 @@
   .heading {
     font-size: 52px;
     line-height: 58px;
+  }
+
+  .timelineTitleBreak {
+    display: block;
+  }
+
+  .timelineTitle {
+    line-height: 1.5;
   }
 
   .label {

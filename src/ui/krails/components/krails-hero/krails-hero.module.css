@@ -8,6 +8,7 @@
   justify-content: center;
   background-color: transparent !important;
   z-index: 4;
+  margin: 0 auto;
 }
 
 .contentWrapper {

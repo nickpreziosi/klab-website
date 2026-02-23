@@ -450,7 +450,12 @@ const DialogDemo = ({ onPlay, video }: { onPlay?: () => void; video: string }) =
 };
 
 const HOME_SECONDARY_STEP_KEYS = [
-  "stepScoping", "stepOnboarding", "stepIntegrate", "stepDeploy", "stepTest", "stepGoLive",
+  "stepScoping",
+  "stepOnboarding",
+  "stepIntegrate",
+  "stepDeploy",
+  "stepTest",
+  "stepGoLive",
 ] as const;
 
 export default function HomeSecondarySection({
@@ -504,7 +509,8 @@ export default function HomeSecondarySection({
             <div className={styles.deploymentTimeline}>
               <h3 className={styles.timelineTitle}>
                 <span className={styles.timelineTitlePrimary}>{t("timelineTitlePrimary")}</span>{" "}
-                <span className={styles.timelineTitleAccent}>{t("timelineTitleAccent")}</span>
+                <br className={styles.timelineTitleBreak}></br>
+                <span className={styles.timelineTitleAccent}>{t("timelineTitleAccent")}.</span>
               </h3>
               <div className={styles.timelineLayout}>
                 {(() => {
@@ -538,7 +544,11 @@ export default function HomeSecondarySection({
                                 </div>
                               ) : (
                                 <div className={styles.timelineStepIcon}>
-                                  <svg className={styles.timelineStepIconSvg} viewBox={iconDef.viewBox} aria-hidden>
+                                  <svg
+                                    className={styles.timelineStepIconSvg}
+                                    viewBox={iconDef.viewBox}
+                                    aria-hidden
+                                  >
                                     <path d={iconDef.path} fill="#fff" />
                                   </svg>
                                 </div>
@@ -618,7 +628,11 @@ export default function HomeSecondarySection({
                                 </div>
                               ) : (
                                 <div className={styles.timelineStepIcon}>
-                                  <svg className={styles.timelineStepIconSvg} viewBox={iconDef.viewBox} aria-hidden>
+                                  <svg
+                                    className={styles.timelineStepIconSvg}
+                                    viewBox={iconDef.viewBox}
+                                    aria-hidden
+                                  >
                                     <path d={iconDef.path} fill="#fff" />
                                   </svg>
                                 </div>
