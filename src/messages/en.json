@@ -111,7 +111,7 @@
   "journeyTimeline": {
     "title": "Our Journey",
     "subtitle": "BUILDING THE FUTURE OF AI ON FIVE YEARS OF PROVEN FINANCIAL INTELLIGENCE.",
-    "paragraph1": "WE'VE INHERITED 5 YEARS OF R&D AND PROPRIETARY DATA FROM KEO WORLD—FOLLOWING ITS STRATEGIC ACQUISITION BY MAMA CAPITAL.",
+    "paragraph1": "WE'VE INHERITED 5 YEARS OF R&D AND PROPRIETARY DATA FROM KEO WORLD—FOLLOWING ITS STRATEGIC ACQUISITION BY MAHA CAPITAL.",
     "paragraph2": "THROUGH A DEFINITIVE AGREEMENT WITH MAHA CAPITAL, K LAB NOW LEVERAGES THIS MASSIVE DATA ECOSYSTEM TO TRAIN SPECIALIZED AI MODELS. WE ARE TURNING YEARS OF TRANSACTIONS INTO THE INTELLIGENCE OF TOMORROW.",
     "year2020": "2020",
     "year2025": "2025",
@@ -134,21 +134,54 @@
     "tabLeadership": "Leadership",
     "tabBoard": "Board",
     "employees": {
-      "paoloFidanza": { "position": "CEO & Founder", "bio": "A serial entrepreneur and aerospace engineer, with a passion for making the world a better place. Paolo has been leading and developing revolutionary technology companies for the past two decades." },
-      "faridShidfar": { "position": "Innovation", "bio": "As a serial entrepreneur and a visionary leader, Farid has 30 years of experience launching innovative technologies. He spent over 15 years at Accenture helping companies achieve higher value." },
-      "hernanMagarinos": { "position": "Corporate Development", "bio": "Hernan brings more than 20 years of financial advisory and transactional experience to KEO. Hernan has led the acquisition and disposition of dozens of companies and assets with an aggregate value of over $20 billion." },
-      "andresRosso": { "position": "Technology", "bio": "AI-based models expert with a PhD in Computer Science and deep learning methods for NLP. Andres has led data science, development and technology teams for more than 10 years." },
-      "gabrielSinopoli": { "position": "Financial & HR", "bio": "Gabriel spent 17 years at American Express acting as the CFO for Spain. He successfully directed responsible and sustainable growth at SafetyPay and 4Finance, delivering more than 11MM loans valued at 5B Euros." },
-      "juanSilva": { "position": "Legal", "bio": "Juan Gabriel combines over 15 years of experience in international law firms and technology companies, advising on corporate, financial, and regulatory matters that support growth in complex, cross-border markets." },
-      "tomasGuzman": { "position": "Government & Institutional Relations", "bio": "Tomás is Director of Institutional & Government Relations at KLab, leading stakeholder engagement and strategic partnerships. A trained lawyer and former Minister Counsellor at Venezuela's Embassy in Brazil, he brings diplomacy and public-private sector expertise and excels in negotiation, institutional positioning, and long-term growth." }
+      "paoloFidanza": {
+        "position": "CEO & Founder",
+        "bio": "A serial entrepreneur and aerospace engineer, with a passion for making the world a better place. Paolo has been leading and developing revolutionary technology companies for the past two decades."
+      },
+      "faridShidfar": {
+        "position": "Innovation",
+        "bio": "As a serial entrepreneur and a visionary leader, Farid has 30 years of experience launching innovative technologies. He spent over 15 years at Accenture helping companies achieve higher value."
+      },
+      "hernanMagarinos": {
+        "position": "Corporate Development",
+        "bio": "Hernan brings more than 20 years of financial advisory and transactional experience to KEO. Hernan has led the acquisition and disposition of dozens of companies and assets with an aggregate value of over $20 billion."
+      },
+      "andresRosso": {
+        "position": "Technology",
+        "bio": "AI-based models expert with a PhD in Computer Science and deep learning methods for NLP. Andres has led data science, development and technology teams for more than 10 years."
+      },
+      "gabrielSinopoli": {
+        "position": "Financial & HR",
+        "bio": "Gabriel spent 17 years at American Express acting as the CFO for Spain. He successfully directed responsible and sustainable growth at SafetyPay and 4Finance, delivering more than 11MM loans valued at 5B Euros."
+      },
+      "juanSilva": {
+        "position": "Legal",
+        "bio": "Juan Gabriel combines over 15 years of experience in international law firms and technology companies, advising on corporate, financial, and regulatory matters that support growth in complex, cross-border markets."
+      },
+      "tomasGuzman": {
+        "position": "Government & Institutional Relations",
+        "bio": "Tomás is Director of Institutional & Government Relations at KLab, leading stakeholder engagement and strategic partnerships. A trained lawyer and former Minister Counsellor at Venezuela's Embassy in Brazil, he brings diplomacy and public-private sector expertise and excels in negotiation, institutional positioning, and long-term growth."
+      }
     },
     "board": {
-      "paoloFidanza": { "bio": "A serial entrepreneur and aerospace engineer, with a passion for making the world a better place. Paolo has been leading and developing revolutionary technology companies for the past two decades." },
-      "faridShidfar": { "bio": "As a serial entrepreneur and a visionary leader, Farid has 30 years of experience launching innovative technologies. He spent over 15 years at Accenture helping companies achieve higher value." },
-      "alessandroCiacchini": { "bio": "Alessandro is a senior financial executive based in Switzerland, advisor to many Financial bodies and Government institutions, and expert on international banking and Government relations. Alessandro is a founding member and sits on KEO's board." },
-      "danTurner": { "bio": "Dan is an entrepreneur and venture capitalist / private equity investor for over 30 years, building leading companies across multiple industries, including fintech and AI." },
-      "chrisPreziosi": { "bio": "Chris is an entrepreneur, investor, and owner of World Auto Group, a multi-brand automotive retail group based in NJ. He specializes in business development, acquisitions, and scaling operations, building high-performing teams and award-winning businesses while creating long-term value across his portfolio." },
-      "davideTomassoni": { "bio": "Board Member and Lead Director of Global Affairs at KLabs Inc., Davide brings his deep entrepreneurial experience in international relations, strategic partnerships, and cross-border initiatives. He advises on geopolitical strategy, stakeholder engagement, and global market expansion, aligning policy insight with commercial execution across technology, finance, and innovation-driven enterprises." }
+      "paoloFidanza": {
+        "bio": "A serial entrepreneur and aerospace engineer, with a passion for making the world a better place. Paolo has been leading and developing revolutionary technology companies for the past two decades."
+      },
+      "faridShidfar": {
+        "bio": "As a serial entrepreneur and a visionary leader, Farid has 30 years of experience launching innovative technologies. He spent over 15 years at Accenture helping companies achieve higher value."
+      },
+      "alessandroCiacchini": {
+        "bio": "Alessandro is a senior financial executive based in Switzerland, advisor to many Financial bodies and Government institutions, and expert on international banking and Government relations. Alessandro is a founding member and sits on KEO's board."
+      },
+      "danTurner": {
+        "bio": "Dan is an entrepreneur and venture capitalist / private equity investor for over 30 years, building leading companies across multiple industries, including fintech and AI."
+      },
+      "chrisPreziosi": {
+        "bio": "Chris is an entrepreneur, investor, and owner of World Auto Group, a multi-brand automotive retail group based in NJ. He specializes in business development, acquisitions, and scaling operations, building high-performing teams and award-winning businesses while creating long-term value across his portfolio."
+      },
+      "davideTomassoni": {
+        "bio": "Board Member and Lead Director of Global Affairs at KLabs Inc., Davide brings his deep entrepreneurial experience in international relations, strategic partnerships, and cross-border initiatives. He advises on geopolitical strategy, stakeholder engagement, and global market expansion, aligning policy insight with commercial execution across technology, finance, and innovation-driven enterprises."
+      }
     }
   },
   "foundation": {

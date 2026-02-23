@@ -503,10 +503,10 @@ export default function HomeSecondarySection({
         <div className={styles.container}>
           <motion.div
             className={styles.sectionHeaderAndTimeline}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+            whileInView={skipAnimation ? undefined : { opacity: 1, y: 0 }}
+            viewport={skipAnimation ? undefined : { once: true, amount: 0.2 }}
+            transition={skipAnimation ? { duration: 0 } : { duration: 0.6, ease: "easeOut" }}
           >
             <div className={styles.deploymentTimeline}>
               <h3 className={styles.timelineTitle}>
@@ -651,10 +651,10 @@ export default function HomeSecondarySection({
           </motion.div>
           <motion.div
             className={styles.technologiesShowcaseSection}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+            whileInView={skipAnimation ? undefined : { opacity: 1, y: 0 }}
+            viewport={skipAnimation ? undefined : { once: true, amount: 0.2 }}
+            transition={skipAnimation ? { duration: 0 } : { duration: 0.6, ease: "easeOut" }}
           >
             <HomeTechnologiesShowcase />
           </motion.div>
