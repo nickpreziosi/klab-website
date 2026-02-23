@@ -261,6 +261,7 @@ const Globe = () => {
 };
 
 const DialogDemo = ({ onPlay, video }: { onPlay?: () => void; video: string }) => {
+  const tCommon = useTranslations("common");
   const [open, setOpen] = useState(false);
   const [contentReady, setContentReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
