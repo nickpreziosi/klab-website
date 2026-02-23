@@ -56,7 +56,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
       transform: "translate(10%, 10%) scale(1.2) rotateX(25deg) rotateY(30deg) rotate(334deg)",
     },
     desktop: {
-      transform: "translate(10%, 10%) scale(1.2) rotateX(25deg) rotateY(30deg) rotate(334deg)",
+      transform: "translate(10%, 25%) scale(1.2) rotateX(25deg) rotateY(30deg) rotate(334deg)",
     },
     tablet: {
       transform: "translate(10%, 12%) scale(1.2) rotateX(25deg) rotateY(30deg) rotate(334deg)",
@@ -66,9 +66,15 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
     },
   };
 
-  // When skipAnimation, use a fixed transform so screenSize update doesn't cause vertical jump
-  const skipStackTransform =
-    "translate(10%, 10%) scale(1.2) rotateX(25deg) rotateY(30deg) rotate(334deg)";
+  // When skipAnimation, derive transform from window.innerWidth so we get desktop (25%) etc. on first render and no jump
+  const getResolvedStackTransform = (): string => {
+    if (typeof window === "undefined") return stackVariants.large.transform;
+    const w = window.innerWidth;
+    const size =
+      w <= 500 ? "mobile" : w <= 1024 ? "tablet" : w <= 1600 ? "desktop" : "large";
+    return stackVariants[size].transform;
+  };
+  const skipStackTransform = skipAnimation ? getResolvedStackTransform() : "";
 
   // Panel variants based on screen size
   const panelOneVariants = {
@@ -437,7 +443,8 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                 </div>
                 <nav tabIndex={-1} className={styles.navList}>
                   <div className={styles.navGroupTitle}>
-                    <img className={styles.navGroupTitleIcon} src={logoSrc} alt={t("logoAlt")} /> API
+                    <img className={styles.navGroupTitleIcon} src={logoSrc} alt={t("logoAlt")} />{" "}
+                    API
                   </div>
 
                   <div className={styles.navGroup}>
