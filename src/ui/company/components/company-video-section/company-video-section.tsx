@@ -5,6 +5,7 @@ import styles from "./company-video-section.module.css";
 import Image from "next/image";
 import { Dialog } from "radix-ui";
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface CompanyVideoSectionProps {
   label?: string;
@@ -17,6 +18,7 @@ interface CompanyVideoSectionProps {
 }
 
 const DialogDemo = ({ onPlay }: { onPlay?: () => void }) => {
+  const t = useTranslations("common");
   const [open, setOpen] = useState(false);
   const [contentReady, setContentReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -121,7 +123,7 @@ const DialogDemo = ({ onPlay }: { onPlay?: () => void }) => {
   return (
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger asChild>
-        <button className={styles.playButton} aria-label="Play video">
+        <button className={styles.playButton} aria-label={t("playVideo")}>
           <svg
             className={styles.playIcon}
             width="101"
@@ -162,7 +164,7 @@ const DialogDemo = ({ onPlay }: { onPlay?: () => void }) => {
           />
 
           <Dialog.Close asChild>
-            <button aria-label="Close Video Modal" className={styles.dialogCloseButton}>
+            <button aria-label={t("closeVideo")} className={styles.dialogCloseButton}>
               <svg
                 width="24"
                 height="24"
@@ -194,6 +196,7 @@ export default function CompanyVideoSection({
   bottomDescription = "A concise overview of the product vision and core design principles. Hear why these choices matter, what problems the platform addresses, and how teams can integrate and move forward.",
   onPlayClick,
 }: CompanyVideoSectionProps) {
+  const t = useTranslations("common");
   // onPlayClick will be passed through to DialogDemo which calls it when dialog opens
 
   return (
@@ -236,7 +239,7 @@ export default function CompanyVideoSection({
                 <Image
                   className={styles.thumbnailImage}
                   src={videoThumbnail || "/images/keo-video.webp"}
-                  alt={videoTitle || "Video thumbnail"}
+                  alt={videoTitle || t("videoThumbnailAlt")}
                   fill
                   style={{ objectFit: "contain" }}
                 />

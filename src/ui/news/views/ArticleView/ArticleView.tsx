@@ -57,6 +57,7 @@ export function ArticleView({
   bodyHTML,
 }: ArticleViewProps) {
   const t = useTranslations("newsPage");
+  const tCommon = useTranslations("common");
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -272,7 +273,7 @@ export function ArticleView({
                     >
                       <Image
                         src={galleryImage.url}
-                        alt={galleryImage.alt || `Gallery image ${index + 1}`}
+                        alt={galleryImage.alt || t("galleryImageAlt", { number: index + 1 })}
                         width={400}
                         height={300}
                         className={styles.galleryImage}
@@ -310,7 +311,7 @@ export function ArticleView({
                   className={`${styles.carouselNavButton} ${styles.carouselNavButtonPrev}`}
                   onClick={scrollPrev}
                   disabled={!canScrollPrev}
-                  aria-label="Previous image"
+                  aria-label={t("previousImage")}
                 >
                   <svg
                     width="24"
@@ -338,7 +339,7 @@ export function ArticleView({
                           <div className={styles.dialogImageWrapper}>
                             <Image
                               src={galleryImage.url}
-                              alt={galleryImage.alt || `Gallery image ${index + 1}`}
+                              alt={galleryImage.alt || t("galleryImageAlt", { number: index + 1 })}
                               fill
                               sizes="(max-width: 768px) 100vw, 1200px"
                               className={styles.dialogImage}
@@ -359,7 +360,7 @@ export function ArticleView({
                   className={`${styles.carouselNavButton} ${styles.carouselNavButtonNext}`}
                   onClick={scrollNext}
                   disabled={!canScrollNext}
-                  aria-label="Next image"
+                  aria-label={t("nextImage")}
                 >
                   <svg
                     width="24"
@@ -378,7 +379,7 @@ export function ArticleView({
                 </button>
               )}
               <Dialog.Close asChild>
-                <button className={styles.dialogClose} aria-label="Close">
+                <button className={styles.dialogClose} aria-label={tCommon("close")}>
                   <svg
                     width="24"
                     height="24"

@@ -19,6 +19,7 @@
 
 import type React from "react";
 import { useState, useRef, type DragEvent, type KeyboardEvent } from "react";
+import { useTranslations } from "next-intl";
 import { FieldError } from "react-aria-components";
 import * as ToastPrimitive from "@radix-ui/react-toast";
 import styles from "./file-upload.module.css";
@@ -44,6 +45,8 @@ interface FileUploadProps {
  * @param maxFiles - Maximum number of files allowed (default: 3)
  */
 export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: FileUploadProps) {
+  const t = useTranslations("common");
+  const tFile = useTranslations("fileUpload");
   const [isDragging, setIsDragging] = useState(false); // Drag state for visual feedback
   const fileInputRef = useRef<HTMLInputElement>(null); // Reference to hidden file input
 
@@ -229,10 +232,8 @@ export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: 
         role="button"
         aria-label={
           files.length > 0
-            ? `Upload area with ${files.length} file${
-                files.length > 1 ? "s" : ""
-              } selected. Press Enter or Space to add more files.`
-            : "Upload area. Press Enter or Space to select files."
+            ? tFile("uploadAreaWithFiles", { count: files.length })
+            : tFile("uploadAreaEmpty")
         }
       >
         <input
@@ -263,7 +264,7 @@ export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: 
               ></path>
             </svg>
             <p className={styles.dropzoneText}>
-              {isDragging ? "Drop files here" : "Drag and drop files here, or click to select"}
+              {isDragging ? tFile("dropFilesHere") : tFile("dragDrop")}
             </p>
             <p className={styles.dropzoneSubtext}>
               <span>{fileTypes ? fileTypes.join(", ").toUpperCase() : ""} </span>
@@ -336,7 +337,7 @@ export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: 
                     clipRule="evenodd"
                   ></path>
                 </svg>{" "}
-                Click or drag to add more files ({maxFiles - files.length} remaining)
+                {tFile("addMoreFiles", { remaining: maxFiles - files.length })}
               </p>
             )}
           </div>
@@ -387,7 +388,7 @@ export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: 
                   )}
                 </div>
 
-                <ToastPrimitive.Close className={styles.toastClose} aria-label="Dismiss">
+                <ToastPrimitive.Close className={styles.toastClose} aria-label={t("dismiss")}>
                   <svg
                     width="15"
                     height="15"

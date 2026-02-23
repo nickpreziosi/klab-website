@@ -2,6 +2,7 @@
 
 import { useEffectiveThemeSync } from "@/ui/shared/hooks/use-theme";
 import { easeInOut, motion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import styles from "./krails-dashboard.module.css";
 
@@ -14,6 +15,7 @@ interface KRailsDashboardProps {
 }
 
 export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboardProps) {
+  const t = useTranslations("krails");
   const effectiveTheme = useEffectiveThemeSync();
   const logoSrc = effectiveTheme === "dark" ? LOGO_LIGHT : LOGO_DARK;
 
@@ -435,7 +437,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                 </div>
                 <nav tabIndex={-1} className={styles.navList}>
                   <div className={styles.navGroupTitle}>
-                    <img className={styles.navGroupTitleIcon} src={logoSrc} alt="KRails Logo" /> API
+                    <img className={styles.navGroupTitleIcon} src={logoSrc} alt={t("logoAlt")} /> API
                   </div>
 
                   <div className={styles.navGroup}>
@@ -571,7 +573,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
               </div>
               <div className={styles.panelContent}>
                 <div className={styles.endpointHeader}>
-                  <img className={styles.endpointIcon} src={logoSrc} alt="KRails Logo" />
+                  <img className={styles.endpointIcon} src={logoSrc} alt={t("logoAlt")} />
                   <h1 className={styles.endpointPath}>/api/health</h1>
                 </div>
                 <div className={styles.urlDisplay}>
@@ -695,11 +697,11 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
               <div tabIndex={-1} className={styles.panelContent}>
                 <div className={styles.languageSection}>
                   <div className={styles.languageLabel}>
-                    <img className={styles.languageIcon} src={logoSrc} alt="KRails Logo" />{" "}
+                    <img className={styles.languageIcon} src={logoSrc} alt={t("logoAlt")} />{" "}
                     <span>LANGUAGE</span>
                   </div>
                   <div className={styles.langTabs}>
-                    <button tabIndex={-1} className={styles.langTab} aria-label="Shell">
+                    <button tabIndex={-1} className={styles.langTab} aria-label={t("tabShell")}>
                       <div className={styles.langTabContent}>
                         <svg
                           height="20"
@@ -730,7 +732,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                       </div>
                     </button>
 
-                    <button tabIndex={-1} className={styles.langTab} aria-label="Node.js">
+                    <button tabIndex={-1} className={styles.langTab} aria-label={t("tabNode")}>
                       <div className={styles.langTabContent}>
                         <svg
                           width="20"
@@ -748,7 +750,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                       </div>
                     </button>
 
-                    <button tabIndex={-1} className={styles.langTab} aria-label="Ruby">
+                    <button tabIndex={-1} className={styles.langTab} aria-label={t("tabRuby")}>
                       <div className={styles.langTabContent}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -1048,7 +1050,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                       </div>
                     </button>
 
-                    <button tabIndex={-1} className={styles.langTab} aria-label="PHP">
+                    <button tabIndex={-1} className={styles.langTab} aria-label={t("tabPhp")}>
                       <div className={styles.langTabContent}>
                         <svg
                           viewBox="0 0 96.17000000000002 48.124"
@@ -1063,7 +1065,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                       </div>
                     </button>
 
-                    <button tabIndex={-1} className={styles.langTab} aria-label="Python">
+                    <button tabIndex={-1} className={styles.langTab} aria-label={t("tabPython")}>
                       <div className={styles.langTabContent}>
                         <svg
                           width="20"
@@ -1106,7 +1108,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                         <span className={styles.langLabelText}>Python</span>
                       </div>
                     </button>
-                    <button tabIndex={-1} className={styles.langTabDots} aria-label="More">
+                    <button tabIndex={-1} className={styles.langTabDots} aria-label={t("tabMore")}>
                       <svg
                         width="50"
                         height="50"

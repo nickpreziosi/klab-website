@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import styles from "./pagination.module.css";
@@ -60,6 +61,7 @@ function mobilePagesWithGaps(
 }
 
 export function Pagination({ totalPages }: PaginationProps) {
+  const t = useTranslations("pagination");
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
@@ -111,7 +113,7 @@ export function Pagination({ totalPages }: PaginationProps) {
   return (
     <motion.nav
       role="navigation"
-      aria-label="pagination"
+      aria-label={t("ariaLabel")}
       className={styles.pagination}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -124,7 +126,7 @@ export function Pagination({ totalPages }: PaginationProps) {
             href={
               isPreviousDisabled ? pathname : buildPageUrl(pathname, searchParams, currentPage - 1)
             }
-            aria-label="Go to previous page"
+            aria-label={t("previousPage")}
             className={styles.linkPrevNext}
             aria-disabled={isPreviousDisabled ? "true" : undefined}
             tabIndex={isPreviousDisabled ? -1 : undefined}
@@ -153,7 +155,7 @@ export function Pagination({ totalPages }: PaginationProps) {
             <li key={page}>
               <Link
                 href={buildPageUrl(pathname, searchParams, page)}
-                aria-label={`Page ${page}`}
+                aria-label={t("page", { number: page })}
                 aria-current={isActive ? "page" : undefined}
                 aria-disabled={isActive ? "true" : undefined}
                 tabIndex={isActive ? -1 : undefined}
@@ -171,7 +173,7 @@ export function Pagination({ totalPages }: PaginationProps) {
         <li>
           <Link
             href={isNextDisabled ? pathname : buildPageUrl(pathname, searchParams, currentPage + 1)}
-            aria-label="Go to next page"
+            aria-label={t("nextPage")}
             className={styles.linkPrevNext}
             aria-disabled={isNextDisabled ? "true" : undefined}
             tabIndex={isNextDisabled ? -1 : undefined}

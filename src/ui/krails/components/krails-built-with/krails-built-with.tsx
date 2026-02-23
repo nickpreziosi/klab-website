@@ -118,6 +118,7 @@ const StablecorpLogo = (props: LogoProps) => (
 );
 
 import type { KRailsTranslations } from "@/ui/krails/views/KRailsView/KRailsView";
+import { useTranslations } from "next-intl";
 
 export default function KRailsBuiltWith({
   translations,
@@ -126,6 +127,7 @@ export default function KRailsBuiltWith({
   translations: KRailsTranslations;
   skipAnimation?: boolean;
 }) {
+  const t = useTranslations("krails");
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const effectiveInView = skipAnimation || isInView;
@@ -210,7 +212,7 @@ export default function KRailsBuiltWith({
           >
             <div className={styles.logoWrapper}>
               <Link
-                aria-label="Go to Circle's website"
+                aria-label={t("goToWebsite", { name: "Circle" })}
                 href="https://www.circle.com/"
                 className={styles.logo}
               >
@@ -220,7 +222,7 @@ export default function KRailsBuiltWith({
 
             <div className={styles.logoWrapper}>
               <Link
-                aria-label="Go to Algorand's website"
+                aria-label={t("goToWebsite", { name: "Algorand" })}
                 href="https://algorand.co/"
                 className={styles.logo}
               >
@@ -230,7 +232,7 @@ export default function KRailsBuiltWith({
 
             <div className={styles.logoWrapper}>
               <Link
-                aria-label="Go to Stablecorp's website"
+                aria-label={t("goToWebsite", { name: "Stablecorp" })}
                 href="https://www.stablecorp.com/"
                 className={styles.logo}
               >

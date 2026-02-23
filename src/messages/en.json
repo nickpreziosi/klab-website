@@ -26,7 +26,8 @@
     "headlineLine2": "Meets Code.",
     "tagline1": "Programmable Trust for Global Trade.",
     "tagline2": "Finance, Rewritten.",
-    "tagline3": "Smart Contracts. Real Impact."
+    "tagline3": "Smart Contracts. Real Impact.",
+    "employeeImageAlt": "KEO Employee Image"
   },
   "NotFoundPage": {
     "title": "Page Not Found",
@@ -126,7 +127,7 @@
     "quote2": "WE CREATE",
     "quote3": "THE MORE",
     "quote4": "WE GIVE.",
-    "learnMore": "Learn More"
+    "learnMore": "KLab Foundation"
   },
   "companyStaff": {
     "title": "Our Team",
@@ -307,7 +308,14 @@
     "changeTheme": "Change Website Theme",
     "technologyScreenshot": "Technology screenshot",
     "ourEcosystem": "Our Ecosystem",
-    "edit": "EDIT"
+    "edit": "EDIT",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "videoPlayerTitle": "Video player",
+    "youtubeVideoPlayerTitle": "YouTube video player",
+    "kenaVisualizationAlt": "KENA AI Visualization",
+    "videoThumbnailAlt": "Video thumbnail",
+    "keoAlt": "KEO"
   },
   "multipleSelector": {
     "noResultsFound": "No results found.",
@@ -320,7 +328,11 @@
     "uploadError": "Upload error",
     "incorrectFileType": "Incorrect file type",
     "maximumFiles": "Maximum of {count} files",
-    "dragDrop": "Drag and drop files here, or click to browse"
+    "dragDrop": "Drag and drop files here, or click to browse",
+    "uploadAreaEmpty": "Upload area. Press Enter or Space to select files.",
+    "uploadAreaWithFiles": "Upload area with {count} file(s) selected. Press Enter or Space to add more files.",
+    "dropFilesHere": "Drop files here",
+    "addMoreFiles": "Click or drag to add more files ({remaining} remaining)"
   },
   "pagination": {
     "ariaLabel": "pagination",
@@ -369,7 +381,10 @@
     "filterCategoryLabel": "Category",
     "filterAllCategories": "All Categories",
     "articleNotFoundTitle": "Article Not Found",
-    "backToNews": "← Back to News"
+    "backToNews": "← Back to News",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "galleryImageAlt": "Gallery image {number}"
   },
   "kena": {
     "heroHeading": "AI that Understands Risk the Way",
@@ -399,7 +414,13 @@
     "step4Heading": "Scale & Deploy",
     "step4Text": "Organizations can train Kena models for new markets, products, or regulations.",
     "ctaHeading": "Transform your risk strategy with intelligent automation.",
-    "ctaButton": "Request a Demo"
+    "ctaButton": "Request a Demo",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "previousCaseStudy": "Previous case study",
+    "nextCaseStudy": "Next case study",
+    "showCaseStudy": "Show {name}",
+    "showSlide": "Show slide {number}"
   },
   "krails": {
     "heroHeading": "THE AGE OF \"WAIT\" IS OVER.",
@@ -428,7 +449,19 @@
     "codeSectionCardTrustTitle": "TRUST",
     "codeSectionCardTrustDescription": "KRails payment infrastructure keeps a trusted record for all real-time transactions in a secure, authenticated, and verifiable manner, preventing any party from altering executed transactions.",
     "codeSectionCardCertaintyTitle": "CERTAINTY",
-    "codeSectionCardCertaintyDescription": "It's not just security — it's immutable and absolute certainty in execution for B2B trade. This is a payment record that is unbreakable and unchangeable, directly powering your growth."
+    "codeSectionCardCertaintyDescription": "It's not just security — it's immutable and absolute certainty in execution for B2B trade. This is a payment record that is unbreakable and unchangeable, directly powering your growth.",
+    "previousCaseStudy": "Previous case study",
+    "nextCaseStudy": "Next case study",
+    "showCaseStudy": "Show {name}",
+    "showSlide": "Show slide {number}",
+    "goToWebsite": "Go to {name}'s website",
+    "tabShell": "Shell",
+    "tabNode": "Node.js",
+    "tabRuby": "Ruby",
+    "tabPhp": "PHP",
+    "tabPython": "Python",
+    "tabMore": "More",
+    "logoAlt": "KRails Logo"
   },
   "techPages": {
     "kabl": {

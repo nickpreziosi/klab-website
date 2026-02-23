@@ -26,7 +26,8 @@
     "headlineLine2": "encuentra con el código.",
     "tagline1": "Confianza programable para el comercio global.",
     "tagline2": "Las finanzas, reescritas.",
-    "tagline3": "Contratos inteligentes. Impacto real."
+    "tagline3": "Contratos inteligentes. Impacto real.",
+    "employeeImageAlt": "Imagen de empleado KEO"
   },
   "NotFoundPage": {
     "title": "Página no encontrada",
@@ -126,7 +127,7 @@
     "quote2": "CREAMOS",
     "quote3": "MÁS",
     "quote4": "DAMOS.",
-    "learnMore": "Saber más"
+    "learnMore": "Fundación KLab"
   },
   "companyStaff": {
     "title": "Nuestro equipo",
@@ -340,7 +341,14 @@
     "changeTheme": "Cambiar tema del sitio",
     "technologyScreenshot": "Captura de tecnología",
     "ourEcosystem": "Nuestro ecosistema",
-    "edit": "EDITAR"
+    "edit": "EDITAR",
+    "previousSlide": "Anterior",
+    "nextSlide": "Siguiente",
+    "videoPlayerTitle": "Reproductor de vídeo",
+    "youtubeVideoPlayerTitle": "Reproductor de vídeo de YouTube",
+    "kenaVisualizationAlt": "Visualización KENA AI",
+    "videoThumbnailAlt": "Miniatura del vídeo",
+    "keoAlt": "KEO"
   },
   "multipleSelector": {
     "noResultsFound": "No se encontraron resultados.",
@@ -353,7 +361,11 @@
     "uploadError": "Error de subida",
     "incorrectFileType": "Tipo de archivo incorrecto",
     "maximumFiles": "Máximo de {count} archivos",
-    "dragDrop": "Arrastra y suelta archivos aquí o haz clic para buscar"
+    "dragDrop": "Arrastra y suelta archivos aquí o haz clic para buscar",
+    "uploadAreaEmpty": "Área de carga. Pulsa Enter o Espacio para seleccionar archivos.",
+    "uploadAreaWithFiles": "Área de carga con {count} archivo(s) seleccionado(s). Pulsa Enter o Espacio para añadir más.",
+    "dropFilesHere": "Suelta los archivos aquí",
+    "addMoreFiles": "Haz clic o arrastra para añadir más archivos ({remaining} restantes)"
   },
   "pagination": {
     "ariaLabel": "paginación",
@@ -402,7 +414,10 @@
     "filterCategoryLabel": "Categoría",
     "filterAllCategories": "Todas las categorías",
     "articleNotFoundTitle": "Artículo no encontrado",
-    "backToNews": "← Volver a Noticias"
+    "backToNews": "← Volver a Noticias",
+    "previousImage": "Imagen anterior",
+    "nextImage": "Siguiente imagen",
+    "galleryImageAlt": "Imagen de galería {number}"
   },
   "kena": {
     "heroHeading": "IA que entiende el riesgo como",
@@ -432,7 +447,13 @@
     "step4Heading": "Escala y despliegue",
     "step4Text": "Las organizaciones pueden entrenar modelos Kena para nuevos mercados, productos o normativas.",
     "ctaHeading": "Transforma tu estrategia de riesgo con automatización inteligente.",
-    "ctaButton": "Solicitar una demo"
+    "ctaButton": "Solicitar una demo",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "previousCaseStudy": "Caso de estudio anterior",
+    "nextCaseStudy": "Siguiente caso de estudio",
+    "showCaseStudy": "Ver {name}",
+    "showSlide": "Ver diapositiva {number}"
   },
   "krails": {
     "heroHeading": "LA ERA DE \"ESPERAR\" SE ACABÓ.",
@@ -461,7 +482,19 @@
     "codeSectionCardTrustTitle": "CONFIANZA",
     "codeSectionCardTrustDescription": "La infraestructura de pagos KRails mantiene un registro fiable de todas las transacciones en tiempo real de forma segura, autenticada y verificable, impidiendo que cualquier parte altere las transacciones ejecutadas.",
     "codeSectionCardCertaintyTitle": "CERTEZA",
-    "codeSectionCardCertaintyDescription": "No es solo seguridad: es certeza inmutable y absoluta en la ejecución del comercio B2B. Un registro de pago inquebrantable e inalterable que impulsa directamente tu crecimiento."
+    "codeSectionCardCertaintyDescription": "No es solo seguridad: es certeza inmutable y absoluta en la ejecución del comercio B2B. Un registro de pago inquebrantable e inalterable que impulsa directamente tu crecimiento.",
+    "previousCaseStudy": "Caso de estudio anterior",
+    "nextCaseStudy": "Siguiente caso de estudio",
+    "showCaseStudy": "Ver {name}",
+    "showSlide": "Ver diapositiva {number}",
+    "goToWebsite": "Ir al sitio web de {name}",
+    "tabShell": "Shell",
+    "tabNode": "Node.js",
+    "tabRuby": "Ruby",
+    "tabPhp": "PHP",
+    "tabPython": "Python",
+    "tabMore": "Más",
+    "logoAlt": "Logo KRails"
   },
   "techPages": {
     "kabl": {

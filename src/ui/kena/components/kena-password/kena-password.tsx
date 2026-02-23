@@ -1,6 +1,7 @@
 "use client";
 
 import React, { PropsWithChildren, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import styles from "./kena-password.module.css";
 import Button from "@/ui/shared/components/button/button";
 
@@ -12,6 +13,7 @@ type Props = PropsWithChildren<{
 const DEFAULT_KEY = "kena:unlocked";
 
 export default function KenaPassword({ children, storageKey = DEFAULT_KEY }: Props) {
+  const t = useTranslations("kena");
   const [unlocked, setUnlocked] = useState<boolean>(false);
   const [input, setInput] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -104,7 +106,7 @@ export default function KenaPassword({ children, storageKey = DEFAULT_KEY }: Pro
                 className={styles.toggle}
                 onClick={() => setShow((s) => !s)}
                 aria-pressed={show}
-                aria-label={show ? "Hide password" : "Show password"}
+                aria-label={show ? t("hidePassword") : t("showPassword")}
               >
                 {!show ? (
                   <svg

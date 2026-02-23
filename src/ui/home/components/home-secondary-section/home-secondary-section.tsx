@@ -363,7 +363,7 @@ const DialogDemo = ({ onPlay, video }: { onPlay?: () => void; video: string }) =
   }, [open]);
 
   const playButtonPlaceholder = (
-    <button type="button" className={styles.playButton} aria-label="Play video">
+    <button type="button" className={styles.playButton} aria-label={tCommon("playVideo")}>
       <svg
         className={styles.playIcon}
         width="101"
@@ -384,7 +384,7 @@ const DialogDemo = ({ onPlay, video }: { onPlay?: () => void; video: string }) =
     <ClientOnly placeholder={playButtonPlaceholder}>
       <Dialog.Root open={open} onOpenChange={handleOpenChange}>
         <Dialog.Trigger asChild>
-          <button className={styles.playButton} aria-label="Play video">
+          <button className={styles.playButton} aria-label={tCommon("playVideo")}>
             <svg
               className={styles.playIcon}
               width="101"
@@ -425,7 +425,7 @@ const DialogDemo = ({ onPlay, video }: { onPlay?: () => void; video: string }) =
             />
 
             <Dialog.Close asChild>
-              <button aria-label="Close Video Modal" className={styles.dialogCloseButton}>
+              <button aria-label={tCommon("closeVideo")} className={styles.dialogCloseButton}>
                 <svg
                   width="24"
                   height="24"
@@ -464,6 +464,7 @@ export default function HomeSecondarySection({
   skipAnimation = false,
 }: HomeSecondarySection) {
   const t = useTranslations("homeSecondary");
+  const tCommon = useTranslations("common");
   const resolvedCards = cards ?? [
     {
       title: t("kenaTitle"),

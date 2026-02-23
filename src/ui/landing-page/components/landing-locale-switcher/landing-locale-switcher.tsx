@@ -40,6 +40,7 @@ export function LandingLocaleSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("landing");
+  const tCommon = useTranslations("common");
 
   const handleValueChange = (value: string) => {
     const newLocale = value as Locale;
@@ -65,7 +66,7 @@ export function LandingLocaleSwitcher() {
     <ClientOnly placeholder={triggerPlaceholder}>
       <div className={styles.wrapper}>
         <Select value={currentLocale} onValueChange={handleValueChange}>
-          <SelectTrigger aria-label="Change language" className={styles.trigger}>
+          <SelectTrigger aria-label={tCommon("changeLanguage")} className={styles.trigger}>
             <span className={styles.labelGroup}>
               <span className={styles.label}>{t("languageLabel")}</span>
               <span className={styles.value}>{LOCALE_CODE[currentLocale as Locale]}</span>

@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import styles from "./company-video.module.css";
 
 export const CompanyVideo = () => {
+  const t = useTranslations("common");
   return (
     <div className={styles.content}>
       <section className={styles.section}>
@@ -17,7 +21,7 @@ export const CompanyVideo = () => {
             width="560"
             height="315"
             src="https://www.youtube.com/embed/Ivd6J240bNs?si=dPVvc7HT30XoZQq1"
-            title="YouTube video player"
+            title={t("youtubeVideoPlayerTitle")}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"

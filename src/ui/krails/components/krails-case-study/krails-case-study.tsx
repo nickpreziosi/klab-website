@@ -1,11 +1,13 @@
 "use client";
 import styles from "./krails-case-study.module.css";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import { motion } from "framer-motion";
 
 export default function KRailsCaseStudy() {
+  const t = useTranslations("krails");
   const CircleLogo = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -422,7 +424,7 @@ export default function KRailsCaseStudy() {
                 if (rightApi) rightApi.scrollTo(idx);
               }}
               className={`${styles.logoButton} ${selectedIndex === idx ? styles.active : ""}`}
-              aria-label={`Show ${caseStudy.name}`}
+              aria-label={t("showCaseStudy", { name: caseStudy.name })}
             >
               {caseStudy.logo}
             </button>
@@ -432,7 +434,7 @@ export default function KRailsCaseStudy() {
         <div className={styles.mobileControls}>
           <button
             className={`${styles.arrowButton} ${styles.arrowLeft}`}
-            aria-label="Previous case study"
+            aria-label={t("previousCaseStudy")}
             onClick={() => {
               if (!leftApi || !rightApi || !introApi) return;
               const current = leftApi.selectedScrollSnap();
@@ -472,14 +474,14 @@ export default function KRailsCaseStudy() {
                   if (introApi) introApi.scrollTo(idx);
                   setSelectedIndex(idx);
                 }}
-                aria-label={`Show slide ${idx + 1}`}
+                aria-label={t("showSlide", { number: idx + 1 })}
               />
             ))}
           </div>
 
           <button
             className={`${styles.arrowButton} ${styles.arrowRight}`}
-            aria-label="Next case study"
+            aria-label={t("nextCaseStudy")}
             onClick={() => {
               if (!leftApi || !rightApi || !introApi) return;
               const current = leftApi.selectedScrollSnap();

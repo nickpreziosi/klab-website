@@ -12,6 +12,7 @@ export default function JourneyTimeline({ skipAnimation = false }: { skipAnimati
   const inView = useInView(sectionRef, { once: true, amount: 0.1 });
   const effectiveInView = skipAnimation || inView;
   const t = useTranslations("journeyTimeline");
+  const tCommon = useTranslations("common");
 
   return (
     <div className={styles.outerContainer}>
@@ -44,7 +45,7 @@ export default function JourneyTimeline({ skipAnimation = false }: { skipAnimati
                   <div className={styles.circularBadge}>
                     <Image
                       src="/logos/keo-logo.png"
-                      alt="KEO"
+                      alt={tCommon("keoAlt")}
                       width={64}
                       height={64}
                       className={styles.keoLogo}

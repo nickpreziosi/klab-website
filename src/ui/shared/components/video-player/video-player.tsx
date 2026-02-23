@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import styles from "./video-player.module.css";
 import Image from "next/image";
@@ -14,6 +15,7 @@ interface VideoPlayerProps {
 }
 
 export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false }: VideoPlayerProps) {
+  const t = useTranslations("common");
   const [shouldAnimate, setShouldAnimate] = useState(skipAnimation);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -81,7 +83,7 @@ export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false
                 fetchPriority="high"
                 priority
                 src={posterUrl}
-                alt="KENA AI Visualization"
+                alt={t("kenaVisualizationAlt")}
                 className={styles.poster}
                 fill
                 placeholder="blur"
@@ -90,7 +92,7 @@ export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false
               <button
                 onClick={handlePlayButtonClick}
                 className={styles.playButton}
-                aria-label="Play video"
+                aria-label={t("playVideo")}
               >
                 <svg
                   className={styles.playIcon}
@@ -121,7 +123,7 @@ export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false
               transition={{ duration: skipAnimation ? 0 : 0.5 }}
               className={styles.videoEmbed}
               src={videoUrl}
-              title="Video player"
+              title={t("videoPlayerTitle")}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"

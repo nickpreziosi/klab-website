@@ -82,6 +82,7 @@ export const Footer = () => {
   };
 
   const t = useTranslations("footer");
+  const tSocial = useTranslations("socialSidebar");
   const navLinks = [
     { href: "/", label: t("about") },
     { href: "/company", label: t("company") },
@@ -104,6 +105,7 @@ export const Footer = () => {
   const socialLinks = [
     {
       name: "LinkedIn",
+      labelKey: "connectLinkedIn" as const,
       href: "https://www.linkedin.com/company/keoworld",
       label: "Connect on LinkedIn",
       icon: (
@@ -123,6 +125,7 @@ export const Footer = () => {
     },
     {
       name: "X",
+      labelKey: "followX" as const,
       href: "https://x.com/KeoWorld",
       label: "Follow on X",
       icon: (
@@ -142,6 +145,7 @@ export const Footer = () => {
     },
     {
       name: "Instagram",
+      labelKey: "followInstagram" as const,
       href: "https://www.instagram.com/keo.world/?hl=en",
       label: "Follow on Instagram",
       icon: (
@@ -161,6 +165,7 @@ export const Footer = () => {
     },
     {
       name: "YouTube",
+      labelKey: "followYouTube" as const,
       href: "https://www.youtube.com/@keoworldB2B",
       label: "Follow on YouTube",
       icon: (
@@ -180,6 +185,7 @@ export const Footer = () => {
     },
     {
       name: "Email",
+      labelKey: "sendEmail" as const,
       href: "mailto:info@k-lab.ai",
       label: "Send us an email",
       icon: (
@@ -203,6 +209,7 @@ export const Footer = () => {
     <>
       <footer className={styles.footer}>
         <div className={styles.container}>
+          
           <div className={styles.nav}>
             <div className={styles.navContainer}>
               <h3 className={styles.navTitle}>{t("quickLinks")}</h3>
@@ -225,7 +232,7 @@ export const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.socialLink}
-                    aria-label={link.name}
+                    aria-label={tSocial(link.labelKey)}
                   >
                     {link.icon}
                   </a>

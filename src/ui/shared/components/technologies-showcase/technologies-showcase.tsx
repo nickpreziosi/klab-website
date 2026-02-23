@@ -178,6 +178,7 @@ export function TechnologiesShowcase({
   headerTitle?: string;
 } = {}) {
   const t = useTranslations("landing");
+  const tShowcase = useTranslations("technologiesShowcase");
   const { effectiveTheme } = useTheme();
   const scrollRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -268,7 +269,7 @@ export function TechnologiesShowcase({
           className={styles.carouselBtn}
           onClick={() => scroll("left")}
           disabled={!canScrollLeft}
-          aria-label="Scroll left"
+          aria-label={tShowcase("scrollLeft")}
         >
           Previous
         </button>
@@ -277,7 +278,7 @@ export function TechnologiesShowcase({
           className={styles.carouselBtn}
           onClick={() => scroll("right")}
           disabled={!canScrollRight}
-          aria-label="Scroll right"
+          aria-label={tShowcase("scrollRight")}
         >
           Next
         </button>

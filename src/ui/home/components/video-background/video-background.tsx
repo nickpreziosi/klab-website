@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useInView, motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import styles from "./video-background.module.css";
 import Image from "next/image";
 import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
@@ -20,6 +21,7 @@ export default function VideoPlayer({
   fadeDurationMs = 300,
   skipAnimation = false,
 }: VideoPlayerProps) {
+  const t = useTranslations("common");
   const [isLoaded, setIsLoaded] = useState(false);
   const [visible, setVisible] = useState(skipAnimation);
   const [mediaVisible, setMediaVisible] = useState(false);
@@ -118,7 +120,7 @@ export default function VideoPlayer({
           fetchPriority="high"
           priority
           src={posterUrl ?? "/images/kena-video.webp"}
-          alt="KENA AI Visualization"
+          alt={t("kenaVisualizationAlt")}
           fill
           placeholder="blur"
           blurDataURL={BLUR_PLACEHOLDER}
