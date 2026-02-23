@@ -46,7 +46,7 @@ export default function Kena3dSection({
           <div className={styles.rightColumn}>
             <Image
               className={styles.kenaImage}
-              src="/images/kena.webp"
+              src="/images/kena-3d.webp"
               alt="Kena 3D Section"
               width={500}
               height={500}
