@@ -4,10 +4,8 @@ import { KenaAvatar } from "@/ui/kena/components/kena-avatar/kena-avatar";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
 import styles from "./kena-3d-section.module.css";
 import type { KenaTranslations } from "@/ui/kena/views/KenaView/KenaView";
-
-const steps = (
-  t: KenaTranslations
-): { heading: string; text: string }[] => [
+import Image from "next/image";
+const steps = (t: KenaTranslations): { heading: string; text: string }[] => [
   { heading: t.step0Heading, text: t.step0Text },
   { heading: t.step1Heading, text: t.step1Text },
   { heading: t.step2Heading, text: t.step2Text },
@@ -46,7 +44,13 @@ export default function Kena3dSection({
             ))}
           </div>
           <div className={styles.rightColumn}>
-            <KenaAvatar />
+            <Image
+              className={styles.kenaImage}
+              src="/images/kena.webp"
+              alt="Kena 3D Section"
+              width={500}
+              height={500}
+            />
           </div>
         </div>
       </section>
