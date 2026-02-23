@@ -348,14 +348,14 @@ export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: 
       {/* Radix Toasts (per-component) */}
       <div className={styles.toastContainer}>
         <ToastPrimitive.Provider>
-          {toasts.map((t) => (
+          {toasts.map((toast) => (
             <ToastPrimitive.Root
-              key={t.id}
+              key={toast.id}
               className={styles.toast}
-              open={t.open}
+              open={toast.open}
               onOpenChange={(open) => {
                 // when Radix requests close (swipe/timeout), remove the toast from state
-                if (!open) setToasts((p) => p.filter((x) => x.id !== t.id));
+                if (!open) setToasts((p) => p.filter((x) => x.id !== toast.id));
               }}
             >
               <div className={styles.toastContent}>
@@ -375,11 +375,11 @@ export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: 
                 </svg>
                 <div className={styles.toastMessage}>
                   <ToastPrimitive.Title className={styles.toastTitle}>
-                    {t.message}
+                    {toast.message}
                   </ToastPrimitive.Title>
-                  {t.items && t.items.length > 0 && (
+                  {toast.items && toast.items.length > 0 && (
                     <div className={styles.toastList}>
-                      {t.items.map((it, i) => (
+                      {toast.items.map((it, i) => (
                         <div key={i} className={styles.toastItem}>
                           {it}
                         </div>
