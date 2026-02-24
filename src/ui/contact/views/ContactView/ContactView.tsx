@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "next-intl";
 import { ContactLink } from "@/ui/contact/components/contact-link/contact-link";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import styles from "./ContactView.module.css";
@@ -24,6 +25,7 @@ type ContactViewProps = {
 };
 
 export function ContactView({ contactTranslations }: ContactViewProps = {}) {
+  const locale = useLocale();
   const skipAnimation = useSkipAnimationOnLocaleSwitch();
   if (!contactTranslations) {
     return null;
@@ -62,7 +64,7 @@ export function ContactView({ contactTranslations }: ContactViewProps = {}) {
                   />
                 </svg>
               }
-              href="mailto:sales@k-lab.ai"
+              href={`/${locale}/contact/sales`}
             />
             <ContactLink
               skipAnimation={skipAnimation}
@@ -85,7 +87,7 @@ export function ContactView({ contactTranslations }: ContactViewProps = {}) {
               title={t.supportTitle}
               description={t.supportDescription}
               buttonText={t.supportButton}
-              href="mailto:support@k-lab.ai"
+              href={`/${locale}/contact/support`}
             />
             <ContactLink
               skipAnimation={skipAnimation}
@@ -108,7 +110,7 @@ export function ContactView({ contactTranslations }: ContactViewProps = {}) {
               title={t.careersTitle}
               description={t.careersDescription}
               buttonText={t.careersButton}
-              href="mailto:careers@k-lab.ai"
+              href={`/${locale}/contact/careers`}
             />
           </div>
         </div>

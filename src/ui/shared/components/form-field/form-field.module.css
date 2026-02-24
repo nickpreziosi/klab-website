@@ -1,0 +1,88 @@
+/**
+ * Form field layout – label, description, error.
+ * Uses klab-website CSS vars.
+ */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  line-height: 1.25;
+  color: hsl(var(--foreground));
+}
+
+.label.error {
+  color: var(--primary-pink);
+}
+
+.required {
+  color: var(--primary-pink);
+  margin-left: 0.25rem;
+}
+
+.description {
+  font-size: var(--text-sm);
+  color: hsl(var(--muted-foreground));
+}
+
+.errorMessage {
+  font-size: var(--text-sm);
+  color: var(--primary-pink);
+  font-weight: var(--font-medium);
+}
+
+.errorMessage[role="alert"] {
+  /* ensure announced by screen readers */
+}
+
+/* Standalone input/textarea when not using floating label */
+.inputStandalone,
+.textareaStandalone {
+  display: flex;
+  width: 100%;
+  height: 2.75rem;
+  padding: 0.25rem var(--padding-sm);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  color: hsl(var(--foreground));
+  background: transparent;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--rounded-app);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: background-color 150ms, border-color 150ms;
+  font-family: inherit;
+}
+
+.inputStandalone:focus,
+.textareaStandalone:focus {
+  outline: none;
+  border-color: hsl(var(--foreground));
+}
+
+.inputStandalone:disabled,
+.textareaStandalone:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.inputStandalone:focus-visible,
+.textareaStandalone:focus-visible {
+  outline: 2px solid hsl(var(--foreground));
+  outline-offset: 2px;
+}
+
+.inputStandalone.error,
+.textareaStandalone.error {
+  border-color: var(--primary-pink);
+}
+
+.textareaStandalone {
+  min-height: 7.5rem;
+  padding: 0.5rem var(--padding-sm);
+  resize: none;
+}

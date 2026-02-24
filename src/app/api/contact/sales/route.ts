@@ -11,25 +11,32 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
-import { EMAIL_LOGO_URL } from "../email-config";
+import { EMAIL_HEADER_BANNER_URL } from "../email-config";
+import {
+  firstNameSchema,
+  lastNameSchema,
+  emailSchema,
+  phoneSchema,
+  messageSchema,
+  recaptchaSchema,
+} from "@/ui/shared/validation/contact";
 
 /**
  * Server-side validation schema for sales form submission.
- * Validates all required fields including custom domain/URL validation for companyWebsite.
  */
 const salesFormSchema = z.object({
-  firstName: z.string().min(2, "First name must be at least 2 characters"),
-  lastName: z.string().min(2, "Last name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().min(2, "Phone number is required"),
-  company: z.string().min(1, "Company name is required"),
-  position: z.string().min(1, "Position is required"),
+  firstName: firstNameSchema,
+  lastName: lastNameSchema,
+  email: emailSchema,
+  phone: phoneSchema,
+  company: z.string().optional(),
+  position: z.string().optional(),
   companyWebsite: z
     .string()
-    .min(1, "Company website is required")
+    .optional()
     .refine(
       (val) => {
-        // Accept domains (example.com, www.example.com) or full URLs (https://example.com)
+        if (!val || val.trim() === "") return true;
         const domainOrUrlPattern =
           /^((https?:\/\/)?(www\.)?)?[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+([\/?#].*)?$/;
         return domainOrUrlPattern.test(val);
@@ -38,11 +45,11 @@ const salesFormSchema = z.object({
         message: "Please enter a valid domain (example.com) or URL (https://example.com)",
       }
     ),
-  companyType: z.string().min(1, "Company type is required"),
-  product: z.string().min(1, "Product selection is required"),
+  companyType: z.string().optional(),
+  product: z.string().optional(),
   country: z.string().min(1, "Country is required"),
-  message: z.string().min(2, "Message is required"),
-  recaptcha: z.string().min(1, "Please complete the reCAPTCHA verification"),
+  message: messageSchema,
+  recaptcha: recaptchaSchema,
 });
 
 /**
@@ -132,18 +139,18 @@ export async function POST(request: Request) {
     let data;
     try {
       data = {
-        firstName: formData.get("firstName") as string,
-        lastName: formData.get("lastName") as string,
-        email: formData.get("email") as string,
-        phone: formData.get("phone") as string,
-        company: formData.get("company") as string,
-        position: formData.get("position") as string,
-        companyWebsite: formData.get("companyWebsite") as string,
-        companyType: formData.get("companyType") as string,
-        product: formData.get("product") as string,
-        country: formData.get("country") as string,
-        message: formData.get("message") as string,
-        recaptcha: formData.get("recaptcha") as string,
+        firstName: (formData.get("firstName") as string) ?? "",
+        lastName: (formData.get("lastName") as string) ?? "",
+        email: (formData.get("email") as string) ?? "",
+        phone: (formData.get("phone") as string) ?? "",
+        company: (formData.get("company") as string) ?? "",
+        position: (formData.get("position") as string) ?? "",
+        companyWebsite: (formData.get("companyWebsite") as string) ?? "",
+        companyType: (formData.get("companyType") as string) ?? "",
+        product: (formData.get("product") as string) ?? "",
+        country: (formData.get("country") as string) ?? "",
+        message: (formData.get("message") as string) ?? "",
+        recaptcha: (formData.get("recaptcha") as string) ?? "",
       };
     } catch (err) {
       console.error("Error extracting form fields:", err);
@@ -241,10 +248,10 @@ export async function POST(request: Request) {
     <tr>
       <td align="center" style="padding: 20px 0;">
         <table role="presentation" style="max-width: 600px; width: 100%; background-color: #ffffff; border-collapse: collapse; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-          <!-- Header with Logo -->
+          <!-- Header banner (URL from SITE_URL via email-config) -->
           <tr>
-            <td style="background: linear-gradient(135deg, #00172d 0%, #0a0a0a 100%); padding: 40px 30px; text-align: center;">
-              <img src="${EMAIL_LOGO_URL}" alt="KEO Logo" style="max-width: 180px; height: auto; display: block; margin: 0 auto;">
+            <td style="width: 100%; height: auto; aspect-ratio: 16/9;">
+              <img src="${EMAIL_HEADER_BANNER_URL}" alt="K-Lab" style="width: 100%; height: auto; margin: 0 auto; border: 0; aspect-ratio: 16/9;" />
             </td>
           </tr>
 
@@ -259,26 +266,41 @@ export async function POST(request: Request) {
           <!-- Content Section -->
           <tr>
             <td style="padding: 30px;">
-              <!-- Contact Information -->
+              <!-- Contact Information (each row only if value present) -->
               <table role="presentation" style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+                ${
+                  data.firstName?.trim() || data.lastName?.trim()
+                    ? `
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Full Name</strong>
                     <span style="color: #333333; font-size: 16px;">${escapeHtml(
-                      data.firstName
-                    )} ${escapeHtml(data.lastName)}</span>
+                      data.firstName ?? ""
+                    )} ${escapeHtml(data.lastName ?? "")}</span>
                   </td>
                 </tr>
+                `
+                    : ""
+                }
+                ${
+                  data.email?.trim()
+                    ? `
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Email</strong>
                     <a href="mailto:${escapeHtml(
                       data.email
-                    )}" style="color: #ff004c; font-size: 16px; text-decoration: none;">${escapeHtml(
+                    )}" style="color: #f37120; font-size: 16px; text-decoration: none;">${escapeHtml(
                       data.email
                     )}</a>
                   </td>
                 </tr>
+                `
+                    : ""
+                }
+                ${
+                  data.phone?.trim()
+                    ? `
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Phone</strong>
@@ -289,6 +311,12 @@ export async function POST(request: Request) {
                     )}</a>
                   </td>
                 </tr>
+                `
+                    : ""
+                }
+                ${
+                  data.position?.trim()
+                    ? `
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Position</strong>
@@ -297,6 +325,12 @@ export async function POST(request: Request) {
                     )}</span>
                   </td>
                 </tr>
+                `
+                    : ""
+                }
+                ${
+                  data.company?.trim()
+                    ? `
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Company</strong>
@@ -305,16 +339,28 @@ export async function POST(request: Request) {
                     )}</span>
                   </td>
                 </tr>
+                `
+                    : ""
+                }
+                ${
+                  data.companyWebsite?.trim()
+                    ? `
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Company Website</strong>
                     <a href="${escapeHtml(
                       ensureUrlProtocol(data.companyWebsite)
-                    )}" target="_blank" rel="noopener noreferrer" style="color: #ff004c; font-size: 16px; text-decoration: none;">${escapeHtml(
+                    )}" target="_blank" rel="noopener noreferrer" style="color: #f37120; font-size: 16px; text-decoration: none;">${escapeHtml(
                       data.companyWebsite
                     )}</a>
                   </td>
                 </tr>
+                `
+                    : ""
+                }
+                ${
+                  data.companyType?.trim()
+                    ? `
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Company Type</strong>
@@ -323,18 +369,30 @@ export async function POST(request: Request) {
                     )}</span>
                   </td>
                 </tr>
+                `
+                    : ""
+                }
+                ${
+                  data.product?.trim()
+                    ? `
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Product of Interest</strong>
                     <span style="color: #333333; font-size: 16px;">${escapeHtml(
                       data.product === "krails"
-                        ? "KEO Rails"
+                        ? "K Rails"
                         : data.product === "kena"
                           ? "Kena"
                           : data.product
                     )}</span>
                   </td>
                 </tr>
+                `
+                    : ""
+                }
+                ${
+                  data.country?.trim()
+                    ? `
                 <tr>
                   <td style="padding: 12px 0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Country</strong>
@@ -343,15 +401,24 @@ export async function POST(request: Request) {
                     )}</span>
                   </td>
                 </tr>
+                `
+                    : ""
+                }
               </table>
 
-              <!-- Message Section -->
-              <div style="background-color: #fafafa; border-left: 4px solid #ff004c; padding: 20px; margin: 25px 0; border-radius: 4px;">
+              <!-- Message (only if present) -->
+              ${
+                data.message?.trim()
+                  ? `
+              <div style="background-color: #fafafa; border-left: 4px solid #f37120; padding: 20px; margin: 25px 0; border-radius: 4px;">
                 <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 12px;">Message</strong>
                 <p style="margin: 0; color: #333333; font-size: 16px; line-height: 1.6; white-space: pre-wrap;">${formatMessage(
                   data.message
                 )}</p>
               </div>
+              `
+                  : ""
+              }
             </td>
           </tr>
 
@@ -359,7 +426,7 @@ export async function POST(request: Request) {
           <tr>
             <td style="background-color: #fafafa; padding: 20px 30px; text-align: center; border-top: 1px solid #f0f0f0;">
               <p style="margin: 0; font-size: 12px; color: #999999; line-height: 1.5;">
-                This email was automatically generated from the KEO Sales contact form.<br>
+                This email was automatically generated from the KLab Sales contact form.<br>
                 Please reply directly to this email to follow up with the customer.
               </p>
             </td>
@@ -378,12 +445,16 @@ export async function POST(request: Request) {
 
     // Send email to sales team
     // Uses SALES_RECIPIENT_EMAIL environment variable or falls back to email user
-    const recipientEmail = process.env.SALES_RECIPIENT_EMAIL;
+    const recipientEmail = process.env.SALES_RECIPIENT_EMAIL || process.env.SALES_EMAIL_USER;
+    if (!recipientEmail) {
+      console.error("No sales recipient: SALES_RECIPIENT_EMAIL and SALES_EMAIL_USER are unset");
+      return NextResponse.json({ error: "Email delivery not configured" }, { status: 503 });
+    }
     try {
       await transporter.sendMail({
         from: process.env.SALES_EMAIL_USER,
         to: recipientEmail,
-        subject: `New Sales Inquiry - ${data.company}`,
+        subject: `New Sales Inquiry - ${data.company?.trim() || data.email || "Inquiry"}`,
         html: emailHtml,
         replyTo: data.email,
       });
@@ -397,11 +468,12 @@ export async function POST(request: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Sales form submission error:", error);
+    const message = error instanceof Error ? error.message : "Unknown error";
+    console.error("Sales form submission error:", message, error);
     return NextResponse.json(
       {
         error: "Failed to submit inquiry",
-        details: error instanceof Error ? error.message : "Unknown error",
+        details: process.env.NODE_ENV === "development" ? message : undefined,
       },
       { status: 500 }
     );

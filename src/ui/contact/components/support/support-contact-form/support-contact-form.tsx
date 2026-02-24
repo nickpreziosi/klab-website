@@ -2,7 +2,7 @@
  * Support Contact Form Component
  *
  * A comprehensive support request form with:
- * - Multi-field form with validation (personal info, issue type, product)
+ * - Multi-field form with validation (personal info, message, file uploads)
  * - File upload support for screenshots/videos/examples (max 5 files, 10MB each)
  * - Client and server-side validation using Zod
  * - reCAPTCHA spam protection
@@ -18,124 +18,111 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import {
-  TextField,
-  Label,
-  Input,
-  TextArea,
-  ComboBox,
-  ListBox,
-  Button as ComboboxButton,
-  ListBoxItem,
-  Popover,
-  FieldError,
-  Checkbox as AriaCheckbox,
-} from "react-aria-components";
+import { useTranslations } from "next-intl";
+import { cn } from "@/ui/shared/utils/utils";
 import styles from "./support-contact-form.module.css";
 import Button from "@/ui/shared/components/button/button";
 import { FileUpload } from "@/ui/shared/components/file-upload/file-upload";
 import HeroText from "@/ui/shared/components/hero-text/hero-text";
+import { FormField, FormFieldInput } from "@/ui/shared/components/form-field/form-field";
+import { Checkbox } from "@/ui/shared/components/checkbox/checkbox";
+import { toast } from "sonner";
 
-// Available issue type options for support requests
-const issueTypes = [
-  { id: "onboarding", name: "Onboarding" },
-  { id: "account-issue", name: "Account Issue" },
-  { id: "technical-issue", name: "Technical Issue" },
-  { id: "software-bug", name: "Software Bug" },
-];
+const NAME_MIN = 2;
+const NAME_MAX = 100;
+const PHONE_MIN_DIGITS = 10;
+const PHONE_MAX_DIGITS = 15;
+const MESSAGE_MIN = 10;
+const phoneDigitCount = (val: string) => val.replace(/\D/g, "").length;
 
-// Available product options for support requests
-const products = [
-  { id: "krails", name: "KRails" },
-  { id: "kena", name: "Kena" },
-];
-
-// Extract IDs for validation purposes
-const issueTypeIds = issueTypes.map((t) => t.id);
-const productIds = products.map((p) => p.id);
-
-/**
- * Client-side form validation schema using Zod.
- * This schema matches the server-side validation for consistency.
- * Includes file upload validation for screenshots/videos/examples.
- */
-const formSchema = z.object({
-  firstName: z.string().min(2, "First name must be at least 2 characters"),
-  lastName: z.string().min(2, "Last name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().min(2, "Phone number is required"),
-  issueType: z
-    .string()
-    .min(1, "Please select an issue type")
-    .refine((val) => issueTypeIds.includes(val), "Please select a valid issue type"),
-  product: z
-    .string()
-    .min(1, "Please select a product")
-    .refine((val) => productIds.includes(val), "Please select a valid product"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-  // File upload validation: max 5 files (screenshots, videos, examples)
-  // Accepted types: JPG, PNG, MP4, MOV, PDF
-  files: z.array(z.instanceof(File)).max(5, "Maximum 5 files allowed").optional(),
-  emailUpdates: z.boolean().default(false),
-  recaptcha: z.string().min(1, "Please complete the reCAPTCHA verification"),
-});
-
-type FormData = z.infer<typeof formSchema>;
+type SupportFormValues = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  message: string;
+  files?: File[];
+  emailUpdates?: boolean;
+  recaptcha: string;
+};
 
 /**
  * Main Support Contact Form Component
  */
 export function SupportContactForm() {
-  // Refs and state management
-  const recaptchaRef = useRef<ReCAPTCHA>(null); // Reference to reCAPTCHA component
-  const [isSubmitting, setIsSubmitting] = useState(false); // Submission loading state
-  const [isSuccess, setIsSuccess] = useState(false); // Success state for showing success view
+  const t = useTranslations("supportForm");
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
     type: "success" | "error" | null;
     message: string;
-  }>({ type: null, message: "" }); // Status message for errors/success
+  }>({ type: null, message: "" });
 
-  // Scroll to top of page when submission is successful
+  const formSchema = useMemo(
+    () =>
+      z.object({
+        firstName: z
+          .string()
+          .min(NAME_MIN, t("validation.firstNameMin"))
+          .max(NAME_MAX, t("validation.firstNameMax")),
+        lastName: z
+          .string()
+          .min(NAME_MIN, t("validation.lastNameMin"))
+          .max(NAME_MAX, t("validation.lastNameMax")),
+        email: z.string().email(t("validation.emailInvalid")),
+        phone: z
+          .string()
+          .min(1, t("validation.phoneRequired"))
+          .refine(
+            (val) => {
+              const digits = phoneDigitCount(val);
+              return digits >= PHONE_MIN_DIGITS && digits <= PHONE_MAX_DIGITS;
+            },
+            { message: t("validation.phoneInvalid") }
+          ),
+        message: z.string().min(MESSAGE_MIN, t("validation.messageMin")),
+        files: z.array(z.instanceof(File)).max(5, t("validation.maxFiles")).optional(),
+        emailUpdates: z.boolean().default(false),
+        recaptcha: z.string().min(1, t("validation.recaptchaRequired")),
+      }),
+    [t]
+  );
+
   useEffect(() => {
     if (isSuccess) {
-      // Small delay to ensure the view is rendered
       setTimeout(() => {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }, 100);
     }
   }, [isSuccess]);
 
   const {
     control,
-    register,
     handleSubmit,
-    formState: { errors },
+    getValues,
+    formState: { errors, touchedFields },
     setValue,
     reset,
     trigger,
   } = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema) as never,
     defaultValues: {
       firstName: "",
       lastName: "",
       email: "",
       phone: "",
-      issueType: "",
-      product: "",
       message: "",
       files: [],
       emailUpdates: false,
       recaptcha: "",
     },
+    mode: "onTouched",
   });
 
-  const onSubmit = async (data: FormData) => {
-    setIsSubmitting(true);
+  const onSubmit = async (data: SupportFormValues) => {
     setSubmitStatus({ type: null, message: "" });
 
     try {
@@ -147,14 +134,12 @@ export function SupportContactForm() {
       formData.append("lastName", data.lastName);
       formData.append("email", data.email);
       formData.append("phone", data.phone);
-      formData.append("issueType", data.issueType);
-      formData.append("product", data.product);
       formData.append("message", data.message);
       formData.append("recaptcha", data.recaptcha);
 
       // Append file uploads (screenshots, videos, examples) to FormData
       if (data.files && data.files.length > 0) {
-        data.files.forEach((file) => {
+        data.files.forEach((file: File) => {
           formData.append("files", file);
         });
       }
@@ -190,15 +175,13 @@ export function SupportContactForm() {
         message: result.message || "Support request submitted successfully!",
       });
     } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Failed to submit support request. Please try again.";
       console.error("Form submission error:", error);
-      setSubmitStatus({
-        type: "error",
-        message:
-          error instanceof Error
-            ? error.message
-            : "Failed to submit support request. Please try again.",
-      });
-      // Reset reCAPTCHA on error so user can try again
+      setSubmitStatus({ type: "error", message: errorMessage });
+      toast.error(errorMessage);
       recaptchaRef.current?.reset();
       setValue("recaptcha", "");
     } finally {
@@ -206,20 +189,46 @@ export function SupportContactForm() {
     }
   };
 
-  // Custom handler for submit button
   const handleRecaptchaAndSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("[Support] Submit clicked – form values before reCAPTCHA:", getValues());
     setIsSubmitting(true);
     try {
-      const token = await recaptchaRef.current?.executeAsync();
-      setValue("recaptcha", token || "");
-      handleSubmit(onSubmit, () => {
-        // Error callback - validation failed
+      const RECAPTCHA_TIMEOUT_MS = 15_000;
+      const tokenPromise = recaptchaRef.current?.executeAsync() ?? Promise.resolve(null);
+      const timeoutPromise = new Promise<null>((_, reject) =>
+        setTimeout(() => reject(new Error("reCAPTCHA timed out")), RECAPTCHA_TIMEOUT_MS)
+      );
+      const token = await Promise.race([tokenPromise, timeoutPromise]);
+      console.log("[Support] reCAPTCHA token received:", token ? `${token.slice(0, 20)}...` : "(empty)");
+      setValue("recaptcha", token || "", { shouldValidate: true });
+      const wrappedHandler = async (data: SupportFormValues) => {
+        console.log("[Support] Validation passed – calling onSubmit with:", { ...data, recaptcha: data.recaptcha ? "[set]" : "(empty)", files: data.files?.length ?? 0 });
+        try {
+          await onSubmit(data);
+        } finally {
+          setIsSubmitting(false);
+        }
+      };
+      const onInvalid = (validationErrors: unknown) => {
+        console.log("[Support] Validation failed – validationErrors:", validationErrors, "form values:", getValues());
         setIsSubmitting(false);
-      })();
+        recaptchaRef.current?.reset();
+        setValue("recaptcha", "");
+      };
+      const runSubmit = handleSubmit(wrappedHandler, onInvalid);
+      await new Promise<void>((resolve) => setTimeout(resolve, 0));
+      console.log("[Support] Form values after defer (before runSubmit):", getValues());
+      await runSubmit(e);
+      setIsSubmitting(false);
     } catch (error) {
       console.error("reCAPTCHA execution error:", error);
       setIsSubmitting(false);
+      recaptchaRef.current?.reset();
+      setValue("recaptcha", "");
+      if (error instanceof Error && error.message === "reCAPTCHA timed out") {
+        toast.error(t("recaptchaTimeout"));
+      }
     }
   };
 
@@ -265,41 +274,8 @@ export function SupportContactForm() {
             transition={{ delay: 0.4, duration: 0.5 }}
             className={styles.successContent}
           >
-            <HeroText maxWidth="800px" text="Support Request Submitted!" center={true} />
-            <p className={styles.successMessage}>
-              Thank you for reaching out. We&apos;ve received your support request and our team will
-              review it promptly. We&apos;ll get back to you as soon as possible to help resolve
-              your issue.
-            </p>
-            <div className={styles.successActions}>
-              <Button
-                variant="accent-brand-outline"
-                onClick={() => {
-                  setIsSuccess(false);
-                  setSubmitStatus({ type: null, message: "" });
-                  reset();
-                }}
-                icon={
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                }
-                iconPosition="right"
-              >
-                Submit Another Request
-              </Button>
-            </div>
+            <HeroText maxWidth="800px" text={t("successHeadline")} center={true} />
+            <p className={styles.successMessage}>{t("successBody")}</p>
           </motion.div>
         </div>
       </motion.div>
@@ -315,11 +291,7 @@ export function SupportContactForm() {
       className={styles.formContainer}
     >
       <div className={styles.headingContainer}>
-        <HeroText
-          maxWidth="720px"
-          text="Get the help you need from our support team"
-          center={true}
-        ></HeroText>
+        <HeroText maxWidth="720px" text={t("formHeadline")} center={true}></HeroText>
       </div>
 
       {submitStatus.type === "error" && (
@@ -330,190 +302,96 @@ export function SupportContactForm() {
 
       <form onSubmit={handleRecaptchaAndSubmit} className={styles.form}>
         <div className={styles.grid}>
-          {/* First Row: First Name, Last Name */}
           <div className={styles.row}>
-            <TextField className={styles.fieldGroup} isInvalid={!!errors.firstName}>
-              <Label className={styles.label}>
-                First Name<span className={styles.required}>*</span>
-              </Label>
-              <Input
-                autoComplete="off"
-                {...register("firstName")}
-                placeholder="John"
-                className={`${styles.input} ${errors.firstName && styles.inputError}`}
+            <FormField error={errors.firstName?.message} required className={styles.fieldGroup}>
+              <Controller
+                name="firstName"
+                control={control}
+                render={({ field }) => (
+                  <FormFieldInput
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      if (touchedFields.firstName) setTimeout(() => trigger("firstName"), 0);
+                    }}
+                    label={`${t("firstName")}*`}
+                    type="text"
+                    useFloatingLabel
+                    autoComplete="off"
+                  />
+                )}
               />
-              {errors.firstName && (
-                <FieldError className={styles.error}>{errors.firstName.message}</FieldError>
-              )}
-            </TextField>
-            <TextField className={styles.fieldGroup} isInvalid={!!errors.lastName}>
-              <Label className={styles.label}>
-                Last Name<span className={styles.required}>*</span>
-              </Label>
-              <Input
-                autoComplete="off"
-                {...register("lastName")}
-                placeholder="Doe"
-                className={`${styles.input} ${errors.lastName && styles.inputError}`}
+            </FormField>
+            <FormField error={errors.lastName?.message} required className={styles.fieldGroup}>
+              <Controller
+                name="lastName"
+                control={control}
+                render={({ field }) => (
+                  <FormFieldInput
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      if (touchedFields.lastName) setTimeout(() => trigger("lastName"), 0);
+                    }}
+                    label={`${t("lastName")}*`}
+                    type="text"
+                    useFloatingLabel
+                    autoComplete="off"
+                  />
+                )}
               />
-              {errors.lastName && (
-                <FieldError className={styles.error}>{errors.lastName.message}</FieldError>
-              )}
-            </TextField>
+            </FormField>
           </div>
 
-          {/* Second Row: Email, Phone */}
           <div className={styles.row}>
-            <TextField className={styles.fieldGroup} isInvalid={!!errors.email}>
-              <Label className={styles.label}>
-                Email<span className={styles.required}>*</span>
-              </Label>
-              <Input
-                autoComplete="off"
-                {...register("email")}
-                type="email"
-                placeholder="john@example.com"
-                className={`${styles.input} ${errors.email && styles.inputError}`}
+            <FormField error={errors.email?.message} required className={styles.fieldGroup}>
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <FormFieldInput
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      if (touchedFields.email) setTimeout(() => trigger("email"), 0);
+                    }}
+                    label={`${t("email")}*`}
+                    type="email"
+                    useFloatingLabel
+                    autoComplete="off"
+                  />
+                )}
               />
-              {errors.email && (
-                <FieldError className={styles.error}>{errors.email.message}</FieldError>
-              )}
-            </TextField>
-            <TextField className={styles.fieldGroup} isInvalid={!!errors.phone}>
-              <Label className={styles.label}>
-                Phone<span className={styles.required}>*</span>
-              </Label>
-              <Input
-                autoComplete="off"
-                {...register("phone")}
-                type="tel"
-                placeholder="+1 (555) 000-0000"
-                className={`${styles.input} ${errors.phone && styles.inputError}`}
+            </FormField>
+            <FormField error={errors.phone?.message} required className={styles.fieldGroup}>
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field }) => (
+                  <FormFieldInput
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      if (touchedFields.phone) setTimeout(() => trigger("phone"), 0);
+                    }}
+                    label={`${t("phone")}*`}
+                    type="tel"
+                    useFloatingLabel
+                    autoComplete="off"
+                  />
+                )}
               />
-              {errors.phone && (
-                <FieldError className={styles.error}>{errors.phone.message}</FieldError>
-              )}
-            </TextField>
+            </FormField>
           </div>
 
-          {/* Third Row: Issue Type, Product */}
-          <div className={styles.row}>
-            <Controller
-              name="issueType"
-              control={control}
-              render={({ field }) => (
-                <ComboBox
-                  className={styles.fieldGroup}
-                  selectedKey={field.value}
-                  onSelectionChange={async (key) => {
-                    const value = key as string;
-                    setValue("issueType", value, { shouldValidate: true });
-                    await trigger("issueType");
-                  }}
-                  isInvalid={!!errors.issueType}
-                >
-                  <Label className={styles.label}>
-                    Issue Type<span className={styles.required}>*</span>
-                  </Label>
-                  <div className={styles.comboboxWrapper}>
-                    <Input
-                      autoComplete="off"
-                      placeholder="Choose or type an option"
-                      className={`${styles.input} ${errors.issueType && styles.inputError}`}
-                    />
-                    <ComboboxButton className={styles.comboboxButton}>
-                      <svg
-                        width="40"
-                        height="40"
-                        viewBox="0 0 15 15"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M4 6H11L7.5 10.5L4 6Z" fill="currentColor"></path>
-                      </svg>
-                    </ComboboxButton>
-                  </div>
-                  <Popover className={styles.popover}>
-                    <ListBox className={styles.listbox}>
-                      {issueTypes.map((issue) => (
-                        <ListBoxItem key={issue.id} id={issue.id} className={styles.listboxItem}>
-                          {issue.name}
-                        </ListBoxItem>
-                      ))}
-                    </ListBox>
-                  </Popover>
-                  {errors.issueType && (
-                    <FieldError className={styles.error}>{errors.issueType.message}</FieldError>
-                  )}
-                </ComboBox>
-              )}
-            />
-            <Controller
-              name="product"
-              control={control}
-              render={({ field }) => (
-                <ComboBox
-                  className={styles.fieldGroup}
-                  selectedKey={field.value}
-                  onSelectionChange={async (key) => {
-                    const value = key as string;
-                    setValue("product", value, { shouldValidate: true });
-                    await trigger("product");
-                  }}
-                  isInvalid={!!errors.product}
-                >
-                  <Label className={styles.label}>
-                    Product<span className={styles.required}>*</span>
-                  </Label>
-                  <div className={styles.comboboxWrapper}>
-                    <Input
-                      autoComplete="off"
-                      placeholder="Choose or type an option"
-                      className={`${styles.input} ${errors.product && styles.inputError}`}
-                    />
-                    <ComboboxButton className={styles.comboboxButton}>
-                      <svg
-                        width="40"
-                        height="40"
-                        viewBox="0 0 15 15"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M4 6H11L7.5 10.5L4 6Z" fill="currentColor"></path>
-                      </svg>
-                    </ComboboxButton>
-                  </div>
-                  <Popover className={styles.popover}>
-                    <ListBox className={styles.listbox}>
-                      {products.map((product) => (
-                        <ListBoxItem
-                          key={product.id}
-                          id={product.id}
-                          className={styles.listboxItem}
-                        >
-                          {product.name}
-                        </ListBoxItem>
-                      ))}
-                    </ListBox>
-                  </Popover>
-                  {errors.product && (
-                    <FieldError className={styles.error}>{errors.product.message}</FieldError>
-                  )}
-                </ComboBox>
-              )}
-            />
-          </div>
-
-          {/* Fourth Row: Message, File Upload */}
           <div className={styles.rowEqualHeight}>
             <Controller
               name="files"
               control={control}
               render={({ field }) => (
                 <div className={styles.fieldGroup}>
-                  <Label className={styles.label}>Screenshots, Videos, or Examples</Label>
-
                   <FileUpload
+                    label={t("screenshotsLabel")}
                     files={field.value || []}
                     onChange={field.onChange}
                     error={errors.files?.message}
@@ -523,19 +401,24 @@ export function SupportContactForm() {
                 </div>
               )}
             />
-            <TextField className={styles.fieldGroup} isInvalid={!!errors.message}>
-              <Label className={styles.label}>
-                Message<span className={styles.required}>*</span>
-              </Label>
-              <TextArea
-                {...register("message")}
-                placeholder="Please describe your issue in detail..."
-                className={`${styles.textarea} ${errors.message && styles.inputError}`}
+            <FormField error={errors.message?.message} required className={styles.fieldGroup}>
+              <Controller
+                name="message"
+                control={control}
+                render={({ field }) => (
+                  <FormFieldInput
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      if (touchedFields.message) setTimeout(() => trigger("message"), 0);
+                    }}
+                    label={`${t("message")}*`}
+                    type="textarea"
+                    useFloatingLabel
+                  />
+                )}
               />
-              {errors.message && (
-                <FieldError className={styles.error}>{errors.message.message}</FieldError>
-              )}
-            </TextField>
+            </FormField>
           </div>
         </div>
         <div className={styles.lastRow}>
@@ -544,31 +427,18 @@ export function SupportContactForm() {
               name="emailUpdates"
               control={control}
               render={({ field }) => (
-                <AriaCheckbox
-                  isSelected={field.value}
-                  onChange={field.onChange}
-                  className={styles.checkboxContainer}
-                >
-                  <div className={styles.checkboxBox}>
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 15 15"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
-                        fill="currentColor"
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                  </div>
-                  <span className={styles.checkboxLabel}>
-                    I would like to receive updates via email.
-                  </span>
-                </AriaCheckbox>
+                <div className={styles.checkboxContainerNew}>
+                  <Checkbox
+                    id="support-email-updates"
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    brand
+                    aria-label={t("emailUpdatesAria")}
+                  />
+                  <label htmlFor="support-email-updates" className={styles.checkboxLabel}>
+                    {t("emailUpdatesLabel")}
+                  </label>
+                </div>
               )}
             />
           </div>
@@ -585,9 +455,10 @@ export function SupportContactForm() {
                     onChange={(value) => setValue("recaptcha", value || "")}
                     theme="dark"
                     size="invisible"
+                    tabIndex={-1}
                   />
                   {errors.recaptcha && (
-                    <FieldError className={styles.error}>{errors.recaptcha.message}</FieldError>
+                    <span className={styles.error}>{errors.recaptcha.message}</span>
                   )}
                 </>
               )}
@@ -596,6 +467,7 @@ export function SupportContactForm() {
 
           <div className={styles.submitWrapperDesktop}>
             <Button
+              type="submit"
               variant="accent-brand"
               iconPosition="right"
               disabled={isSubmitting}
@@ -617,11 +489,12 @@ export function SupportContactForm() {
                 </svg>
               }
             >
-              {isSubmitting ? "Submitting..." : "Submit Form"}
+              {isSubmitting ? t("submitting") : t("submitButton")}
             </Button>
           </div>
           <div className={styles.submitWrapperMobile}>
             <Button
+              type="submit"
               variant="accent-brand"
               iconPosition="right"
               disabled={isSubmitting}
@@ -644,7 +517,7 @@ export function SupportContactForm() {
                 </svg>
               }
             >
-              {isSubmitting ? "Submitting..." : "Submit Form"}
+              {isSubmitting ? t("submitting") : t("submitButton")}
             </Button>
           </div>
         </div>

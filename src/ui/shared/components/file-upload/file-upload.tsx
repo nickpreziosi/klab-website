@@ -33,6 +33,8 @@ interface FileUploadProps {
   error?: string;
   fileTypes?: string[];
   maxFiles?: number;
+  /** Optional label rendered floating above the dotted border */
+  label?: string;
 }
 
 /**
@@ -44,7 +46,14 @@ interface FileUploadProps {
  * @param fileTypes - Array of accepted file types (e.g., [".pdf", "image/*"])
  * @param maxFiles - Maximum number of files allowed (default: 3)
  */
-export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: FileUploadProps) {
+export function FileUpload({
+  files,
+  onChange,
+  error,
+  fileTypes,
+  maxFiles = 3,
+  label: labelProp,
+}: FileUploadProps) {
   const t = useTranslations("common");
   const tFile = useTranslations("fileUpload");
   const [isDragging, setIsDragging] = useState(false); // Drag state for visual feedback
@@ -101,7 +110,7 @@ export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: 
    */
   const showErrorToast = (items: string[], ttl = 4000) => {
     const id = nextToastId.current++;
-    setToasts([{ id, message: "Upload error", items, open: true }]);
+    setToasts([{ id, message: tFile("uploadError"), items, open: true }]);
     window.setTimeout(() => {
       setToasts((prev) => prev.map((x) => (x.id === id ? { ...x, open: false } : x)));
     }, ttl);
@@ -131,25 +140,23 @@ export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: 
     const accepted = droppedFiles.filter((f) => isFileAccepted(f));
     const rejected = droppedFiles.filter((f) => !isFileAccepted(f));
 
-    // Build error messages array for validation issues
+    // Build error messages array for validation issues (translated)
     const errors: string[] = [];
     if (rejected.length > 0) {
-      errors.push(`Incorrect file type`);
+      errors.push(tFile("incorrectFileType"));
     }
 
     const remaining = Math.max(0, maxFiles - files.length);
     if (remaining === 0) {
-      // no capacity
-      errors.push(`Maximum of ${maxFiles} files`);
+      errors.push(tFile("maximumFiles", { count: maxFiles }));
       showErrorToast(errors);
       return;
     }
 
-    // If accepted items exceed remaining, we'll add only the allowed number and report the max error
     let toAdd = accepted;
     if (accepted.length > remaining) {
       toAdd = accepted.slice(0, remaining);
-      errors.push(`Maximum of ${maxFiles} files`);
+      errors.push(tFile("maximumFiles", { count: maxFiles }));
     }
 
     // If there are any errors, show a single toast summarizing them
@@ -162,28 +169,30 @@ export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: 
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const selectedFiles = Array.from(e.target.files);
+    const input = e.target;
+    if (input.files) {
+      const selectedFiles = Array.from(input.files);
       // file input already respects `accept`, but be defensive and filter anyway
       const accepted = selectedFiles.filter((f) => isFileAccepted(f));
       const rejected = selectedFiles.filter((f) => !isFileAccepted(f));
 
       const errors: string[] = [];
       if (rejected.length > 0) {
-        errors.push(`Incorrect file type`);
+        errors.push(tFile("incorrectFileType"));
       }
 
       const remaining = Math.max(0, maxFiles - files.length);
       if (remaining === 0) {
-        errors.push(`Maximum of ${maxFiles} files`);
+        errors.push(tFile("maximumFiles", { count: maxFiles }));
         showErrorToast(errors);
+        input.value = "";
         return;
       }
 
       let toAdd = accepted;
       if (accepted.length > remaining) {
         toAdd = accepted.slice(0, remaining);
-        errors.push(`Maximum of ${maxFiles} files`);
+        errors.push(tFile("maximumFiles", { count: maxFiles }));
       }
 
       if (errors.length > 0) showErrorToast(errors);
@@ -191,11 +200,15 @@ export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: 
       const newFiles = [...files, ...toAdd];
       onChange(newFiles);
     }
+    input.value = "";
   };
 
   const handleRemoveFile = (index: number) => {
     const newFiles = files.filter((_, i) => i !== index);
     onChange(newFiles);
+    if (newFiles.length === 0 && fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const handleClick = () => {
@@ -219,6 +232,11 @@ export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: 
 
   return (
     <div className={styles.container}>
+      {labelProp ? (
+        <span className={styles.floatingLabel} aria-hidden>
+          {labelProp}
+        </span>
+      ) : null}
       <div
         className={`${styles.dropzone} ${isDragging ? styles.dragging : ""} ${
           error ? styles.error : ""
@@ -267,8 +285,8 @@ export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: 
               {isDragging ? tFile("dropFilesHere") : tFile("dragDrop")}
             </p>
             <p className={styles.dropzoneSubtext}>
-              <span>{fileTypes ? fileTypes.join(", ").toUpperCase() : ""} </span>
-              (max {maxFiles} files)
+              <span>{fileTypes ? fileTypes.join(", ").toUpperCase() : ""} </span> •{" "}
+              {tFile("maxFilesHint", { count: maxFiles })}
             </p>
           </div>
         ) : (
@@ -359,20 +377,22 @@ export function FileUpload({ files, onChange, error, fileTypes, maxFiles = 3 }: 
               }}
             >
               <div className={styles.toastContent}>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 15 15"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M0.877075 7.49988C0.877075 3.84219 3.84222 0.877045 7.49991 0.877045C11.1576 0.877045 14.1227 3.84219 14.1227 7.49988C14.1227 11.1575 11.1576 14.1227 7.49991 14.1227C3.84222 14.1227 0.877075 11.1575 0.877075 7.49988ZM7.49991 1.82704C4.36689 1.82704 1.82708 4.36686 1.82708 7.49988C1.82708 10.6329 4.36689 13.1727 7.49991 13.1727C10.6329 13.1727 13.1727 10.6329 13.1727 7.49988C13.1727 4.36686 10.6329 1.82704 7.49991 1.82704ZM9.85358 5.14644C10.0488 5.3417 10.0488 5.65829 9.85358 5.85355L8.20713 7.49999L9.85358 9.14644C10.0488 9.3417 10.0488 9.65829 9.85358 9.85355C9.65832 10.0488 9.34173 10.0488 9.14647 9.85355L7.50002 8.2071L5.85358 9.85355C5.65832 10.0488 5.34173 10.0488 5.14647 9.85355C4.95121 9.65829 4.95121 9.3417 5.14647 9.14644L6.79292 7.49999L5.14647 5.85355C4.95121 5.65829 4.95121 5.3417 5.14647 5.14644C5.34173 4.95118 5.65832 4.95118 5.85358 5.14644L7.50002 6.79289L9.14647 5.14644C9.34173 4.95118 9.65832 4.95118 9.85358 5.14644Z"
-                    fill="hsl(var(--accent))"
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
+                <span className={styles.toastIcon} aria-hidden>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0.877075 7.49988C0.877075 3.84219 3.84222 0.877045 7.49991 0.877045C11.1576 0.877045 14.1227 3.84219 14.1227 7.49988C14.1227 11.1575 11.1576 14.1227 7.49991 14.1227C3.84222 14.1227 0.877075 11.1575 0.877075 7.49988ZM7.49991 1.82704C4.36689 1.82704 1.82708 4.36686 1.82708 7.49988C1.82708 10.6329 4.36689 13.1727 7.49991 13.1727C10.6329 13.1727 13.1727 10.6329 13.1727 7.49988C13.1727 4.36686 10.6329 1.82704 7.49991 1.82704ZM9.85358 5.14644C10.0488 5.3417 10.0488 5.65829 9.85358 5.85355L8.20713 7.49999L9.85358 9.14644C10.0488 9.3417 10.0488 9.65829 9.85358 9.85355C9.65832 10.0488 9.34173 10.0488 9.14647 9.85355L7.50002 8.2071L5.85358 9.85355C5.65832 10.0488 5.34173 10.0488 5.14647 9.85355C4.95121 9.65829 4.95121 9.3417 5.14647 9.14644L6.79292 7.49999L5.14647 5.85355C4.95121 5.65829 4.95121 5.3417 5.14647 5.14644C5.34173 4.95118 5.65832 4.95118 5.85358 5.14644L7.50002 6.79289L9.14647 5.14644C9.34173 4.95118 9.65832 4.95118 9.85358 5.14644Z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
                 <div className={styles.toastMessage}>
                   <ToastPrimitive.Title className={styles.toastTitle}>
                     {toast.message}

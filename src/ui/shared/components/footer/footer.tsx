@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import styles from "./footer.module.css";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,6 +25,7 @@ const subscribeSchema = z.object({
 type SubscribeFormData = z.infer<typeof subscribeSchema>;
 
 export const Footer = () => {
+  const locale = useLocale();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
     type: "success" | "error" | null;
@@ -186,7 +187,7 @@ export const Footer = () => {
     {
       name: "Email",
       labelKey: "sendEmail" as const,
-      href: "mailto:info@k-lab.ai",
+      href: "mailto:sales@k-lab.ai",
       label: "Send us an email",
       icon: (
         <svg
@@ -209,7 +210,6 @@ export const Footer = () => {
     <>
       <footer className={styles.footer}>
         <div className={styles.container}>
-          
           <div className={styles.nav}>
             <div className={styles.navContainer}>
               <h3 className={styles.navTitle}>{t("quickLinks")}</h3>

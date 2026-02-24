@@ -6,6 +6,7 @@ import { useRef } from "react";
 import styles from "./krails-cta.module.css";
 import Button from "@/ui/shared/components/button/button";
 import type { KRailsTranslations } from "@/ui/krails/views/KRailsView/KRailsView";
+import { useLocale } from "next-intl";
 
 export default function KRailsCta({
   translations,
@@ -18,13 +19,15 @@ export default function KRailsCta({
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const effectiveInView = skipAnimation || isInView;
   const highlightText = translations.ctaHighlight;
-
+  const locale = useLocale();
   return (
     <section className={styles.section} ref={ref}>
       <div className={styles.container}>
         <motion.div
           initial={
-            skipAnimation ? { opacity: 1, filter: "blur(0px)" } : { opacity: 0, filter: "blur(10px)" }
+            skipAnimation
+              ? { opacity: 1, filter: "blur(0px)" }
+              : { opacity: 0, filter: "blur(10px)" }
           }
           animate={effectiveInView ? { opacity: 1, filter: "blur(0px)" } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -61,13 +64,15 @@ export default function KRailsCta({
           <motion.div
             className={styles.ctaButton}
             initial={
-              skipAnimation ? { opacity: 1, filter: "blur(0px)" } : { opacity: 0, filter: "blur(10px)" }
+              skipAnimation
+                ? { opacity: 1, filter: "blur(0px)" }
+                : { opacity: 0, filter: "blur(10px)" }
             }
             animate={effectiveInView ? { opacity: 1, filter: "blur(0px)" } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <Button
-              href="https://docs.keorails.com/"
+              href={`/${locale}/contact/sales`}
               iconPosition="end"
               variant="secondary"
               icon={

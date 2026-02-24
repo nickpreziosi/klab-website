@@ -107,7 +107,7 @@ const socialLinks: SocialLink[] = [
   },
   {
     name: "Email",
-    href: "mailto:hello@keo.com",
+    href: "mailto:sales@k-lab.ai",
     labelKey: "sendEmail",
     icon: (
       <svg

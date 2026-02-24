@@ -229,6 +229,56 @@ html.no-transitions *:not([data-allow-transition]):not([data-allow-transition] *
 }
 
 /* --------------------------------------------------------------------------
+   TOASTER (Sonner – viewport-relative)
+   -------------------------------------------------------------------------- */
+.klab-toaster {
+  --toast-success: 142 71% 45%;
+  --toast-error: 0 84% 60%;
+  --toast-warning: 38 92% 50%;
+}
+
+.klab-toast {
+  background: hsl(var(--surface));
+  color: hsl(var(--foreground));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--rounded-app);
+  box-shadow: var(--shadow-black);
+  font-family: "Sora", sans-serif;
+  font-size: var(--text-sm);
+}
+
+.klab-toast-description {
+  color: hsl(var(--muted-foreground));
+}
+
+.klab-toast-success [data-icon],
+.klab-toast-success [data-icon] svg {
+  color: hsl(var(--toast-success));
+}
+
+.klab-toast-error [data-icon],
+.klab-toast-error [data-icon] svg {
+  color: hsl(var(--toast-error));
+}
+
+.klab-toast-warning [data-icon],
+.klab-toast-warning [data-icon] svg {
+  color: hsl(var(--toast-warning));
+}
+
+.klab-toast-action {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  border-radius: var(--rounded-app);
+}
+
+.klab-toast-cancel {
+  background: hsl(var(--surface));
+  color: hsl(var(--muted-foreground));
+  border-radius: var(--rounded-app);
+}
+
+/* --------------------------------------------------------------------------
    UTILITIES
    -------------------------------------------------------------------------- */
 div[data-ui="Layer"] {

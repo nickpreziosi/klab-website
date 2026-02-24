@@ -1,11 +1,6 @@
-import { redirect } from "next/navigation";
+import { ContactSupportView } from "@/ui/contact/views/ContactSupportView/ContactSupportView";
 
-/** Form page hidden for now; contact cards on /contact use mailto links. Re-enable when email delivery is configured. */
-export default async function SupportContactPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  redirect(`/${locale}/contact`);
+/** Form page temporarily enabled for editing. Re-disable by redirecting to /contact when done. */
+export default function SupportContactPage() {
+  return <ContactSupportView />;
 }

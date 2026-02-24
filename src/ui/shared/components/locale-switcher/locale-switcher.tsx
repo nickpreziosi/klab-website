@@ -33,12 +33,14 @@ const LOCALE_CODE: Record<Locale, string> = {
   en: "EN",
   es: "ES",
   pt: "PT",
+  ar: "AR",
 };
 
-const LOCALE_NAME_KEYS: Record<Locale, "localeEn" | "localeEs" | "localePt"> = {
+const LOCALE_NAME_KEYS: Record<Locale, "localeEn" | "localeEs" | "localePt" | "localeAr"> = {
   en: "localeEn",
   es: "localeEs",
   pt: "localePt",
+  ar: "localeAr",
 };
 
 const LOCALES = routing.locales;

@@ -50,7 +50,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 60vh;
   padding: var(--padding-desktop) 0;
   text-align: center;
 }
@@ -201,7 +200,8 @@
   min-height: 100%;
 }
 
-.rowEqualHeight .textarea {
+/* Match textarea height to dropzone (250px) */
+.rowEqualHeight .fieldGroup textarea {
   min-height: 250px;
   height: 250px;
 }
@@ -373,6 +373,14 @@
   gap: 24px;
   justify-content: flex-end;
   align-items: flex-start;
+}
+
+/* Checkbox wrapper for shared Checkbox component (flex + label) */
+.checkboxContainerNew {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
 }
 
 /* Added React Aria Checkbox styles */

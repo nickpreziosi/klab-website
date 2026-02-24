@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { MailIcon, ArrowDown } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Button from "@/ui/shared/components/button/button";
 import { LandingTechnologiesShowcase } from "@/ui/landing-page/components/landing-technologies-showcase/landing-technologies-showcase";
 import { LandingLocaleSwitcher } from "@/ui/landing-page/components/landing-locale-switcher/landing-locale-switcher";
@@ -39,6 +39,7 @@ export default function LandingPageContent({
   variant,
   translations: serverTranslations,
 }: LandingPageContentProps) {
+  const locale = useLocale();
   const t = useTranslations("landing");
   const translations = serverTranslations ?? buildLandingTranslations(t);
   const landingAnimation = useLandingAnimation();
@@ -170,7 +171,7 @@ export default function LandingPageContent({
             </Link>
           </Button>
           <Button asChild variant="accent-brand" size="lg">
-            <Link href="mailto:carolina@k-lab.ai">
+            <Link href={`/${locale}/contact/sales`}>
               <MailIcon className={styles.mailIcon} />
               {translations.contactSales}
             </Link>

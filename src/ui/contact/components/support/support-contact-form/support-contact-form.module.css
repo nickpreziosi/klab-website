@@ -198,8 +198,8 @@
   flex-direction: column;
 }
 
-.rowEqualHeight .textarea {
-  flex: 1;
+/* Match textarea height to dropzone (250px) */
+.rowEqualHeight .fieldGroup textarea {
   min-height: 250px;
   height: 250px;
 }
@@ -376,6 +376,13 @@
   justify-content: flex-start;
   margin-bottom: 2px;
   margin-top: 16px;
+}
+
+.checkboxContainerNew {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
 }
 
 .checkboxContainer {

@@ -135,7 +135,7 @@ export function Pagination({ totalPages }: PaginationProps) {
             }}
           >
             <ChevronLeft className={styles.icon} aria-hidden />
-            <span>Prev</span>
+            <span>{t("prev")}</span>
           </Link>
         </li>
 
@@ -181,7 +181,7 @@ export function Pagination({ totalPages }: PaginationProps) {
               if (isNextDisabled) e.preventDefault();
             }}
           >
-            <span>Next</span>
+            <span>{t("next")}</span>
             <ChevronRight className={styles.icon} aria-hidden />
           </Link>
         </li>

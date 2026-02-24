@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import styles from "./staff-card.module.css";
 import Image from "next/image";
 import { Accordion } from "radix-ui";
@@ -30,6 +31,7 @@ export const StaffCard = ({
   x,
   email,
 }: StaffCardProps) => {
+  const t = useTranslations("companyStaff");
   const accordionContentRef = useRef<HTMLDivElement | null>(null);
   const [accordionIsOpen, setAccordionIsOpen] = useState(false);
   const hasThemeVariants = imageLight != null && imageDark != null;
@@ -83,7 +85,7 @@ export const StaffCard = ({
                 <p className={styles.cardPosition}>{position}</p>
               </div>
               <div className={styles.accordionTriggerBio}>
-                {!accordionIsOpen ? "Read Bio" : "Close Bio"}
+                {!accordionIsOpen ? t("readBio") : t("closeBio")}
                 <svg
                   className={styles.caretIcon}
                   width="30"

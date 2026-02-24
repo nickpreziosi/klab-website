@@ -6,6 +6,7 @@ import { SmoothAnchorScroll } from "@/ui/shared/components/smooth-anchor-scroll/
 import { LandingAnimationProvider } from "@/ui/landing-page/providers/landing-animation-provider";
 import { HomeAnimationProvider } from "@/ui/home/providers/home-animation-provider";
 import { ThemeProvider } from "@/ui/shared/providers/theme-provider";
+import { Toaster } from "@/ui/shared/components/toaster/toaster";
 import Head from "./head";
 
 const sora = Sora({
@@ -44,6 +45,7 @@ export default async function RootLayout({
           <LandingAnimationProvider>
             <HomeAnimationProvider>{children}</HomeAnimationProvider>
           </LandingAnimationProvider>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
