@@ -25,12 +25,14 @@ const LOCALE_CODE: Record<Locale, string> = {
   en: "EN",
   es: "ES",
   pt: "PT",
+  ar: "AR",
 };
 
 const LOCALE_FULL_NAME: Record<Locale, string> = {
   en: "English",
   es: "Español",
   pt: "Português",
+  ar: "العربية",
 };
 
 const LOCALES = routing.locales;
