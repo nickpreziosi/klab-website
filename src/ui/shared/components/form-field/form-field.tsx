@@ -107,7 +107,6 @@ export interface FormFieldInputProps
   useFloatingLabel?: boolean;
   label?: string;
   name?: string;
-  type?: string;
 }
 
 const FormFieldInput = React.forwardRef<
@@ -140,10 +139,13 @@ const FormFieldInput = React.forwardRef<
         <FloatingLabelInput
           ref={ref}
           label={label}
-          type={type as FloatingLabelInputProps["type"]}
+          type={type}
           error={!!error}
           className={className}
-          {...(props as FloatingLabelInputProps)}
+          {...(props as Omit<
+            FloatingLabelInputProps,
+            "label" | "error" | "type" | "className"
+          >)}
         />
       );
     }

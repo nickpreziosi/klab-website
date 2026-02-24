@@ -7,11 +7,13 @@ import { isSupportedLocale, DEFAULT_LOCALE, type Locale } from "@/ui/shared/util
 import en from "@/messages/en.json";
 import es from "@/messages/es.json";
 import pt from "@/messages/pt.json";
+import ar from "@/messages/ar.json";
 
 const messagesMap: Record<Locale, typeof en> = {
   en,
   es,
   pt,
+  ar,
 };
 
 function getLocaleFromPathname(pathname: string): Locale {

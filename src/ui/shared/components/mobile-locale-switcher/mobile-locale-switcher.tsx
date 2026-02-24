@@ -19,6 +19,7 @@ const LOCALE_CODE: Record<Locale, string> = {
   en: "EN",
   es: "ES",
   pt: "PT",
+  ar: "AR",
 };
 
 export function MobileLocaleSwitcher() {
@@ -33,6 +34,7 @@ export function MobileLocaleSwitcher() {
     en: t("localeEn"),
     es: t("localeEs"),
     pt: t("localePt"),
+    ar: t("localeAr"),
   };
 
   const getLocaleLabel = (locale: Locale): string => {
