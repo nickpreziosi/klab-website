@@ -12,6 +12,11 @@ export function saveScrollBeforeLocaleSwitch(): void {
   savedScrollY = window.scrollY;
 }
 
+/** Read saved scroll without clearing (e.g. for navbar to avoid style flash on locale switch). */
+export function getSavedScrollY(): number | null {
+  return savedScrollY;
+}
+
 export function getAndClearSavedScroll(): number | null {
   const y = savedScrollY;
   savedScrollY = null;

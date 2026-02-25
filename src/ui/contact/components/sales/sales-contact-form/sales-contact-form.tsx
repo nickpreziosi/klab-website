@@ -82,10 +82,15 @@ type FormData = {
   recaptcha: string;
 };
 
+type SalesContactFormProps = {
+  /** When true, skip entrance animations (e.g. locale switch). */
+  skipAnimation?: boolean;
+};
+
 /**
  * Main Sales Contact Form Component
  */
-export function SalesContactForm() {
+export function SalesContactForm({ skipAnimation = false }: SalesContactFormProps = {}) {
   const t = useTranslations("salesForm");
   const recaptchaRefNew = useRef<ReCAPTCHA>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -321,21 +326,20 @@ export function SalesContactForm() {
   if (isSuccess) {
     return (
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: skipAnimation ? 0 : 0.5 }}
         className={styles.formContainer}
       >
         <div className={styles.successContainer}>
           <motion.div
-            initial={{ scale: 0 }}
+            initial={skipAnimation ? { scale: 1 } : { scale: 0 }}
             animate={{ scale: 1 }}
-            transition={{
-              type: "spring",
-              stiffness: 200,
-              damping: 15,
-              delay: 0.2,
-            }}
+            transition={
+              skipAnimation
+                ? { duration: 0 }
+                : { type: "spring", stiffness: 200, damping: 15, delay: 0.2 }
+            }
             className={styles.successIcon}
           >
             <svg
@@ -354,12 +358,12 @@ export function SalesContactForm() {
             </svg>
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
+            transition={{ delay: skipAnimation ? 0 : 0.4, duration: skipAnimation ? 0 : 0.5 }}
             className={styles.successContent}
           >
-            <HeroText maxWidth="800px" text={t("successHeadline")} center={true} />
+            <HeroText maxWidth="800px" text={t("successHeadline")} center={true} skipAnimation={skipAnimation} />
             <p className={styles.successMessage}>{t("successBody")}</p>
           </motion.div>
         </div>
@@ -370,13 +374,13 @@ export function SalesContactForm() {
   // Form view
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: skipAnimation ? 0 : 0.5 }}
       className={styles.formContainer}
     >
       <div className={styles.headingContainer}>
-        <HeroText maxWidth="720px" text={t("formHeadline")} center={true}></HeroText>
+        <HeroText maxWidth="720px" text={t("formHeadline")} center={true} skipAnimation={skipAnimation}></HeroText>
       </div>
 
       {/* Sales form */}

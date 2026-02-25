@@ -5,6 +5,7 @@ import {
   Select,
   SelectContent,
   SelectItem,
+  SelectPortal,
   SelectTrigger,
   SelectValue,
   SelectViewport,
@@ -85,25 +86,44 @@ export function LocaleSwitcher() {
                   <SelectValue>{LOCALE_CODE[currentLocale as Locale]}</SelectValue>
                 </SelectTrigger>
               </TooltipTrigger>
-              <SelectContent
-                className={`${themeToggleStyles.selectContent} ${styles.selectContentLocale}`}
-                position="popper"
-                sideOffset={-20}
-                align="center"
-              >
-                <SelectViewport className={themeToggleStyles.selectViewport}>
-                  {LOCALES.map((locale) => (
-                    <SelectItem key={locale} value={locale} className={themeToggleStyles.selectItem}>
-                      <span className={styles.selectItemText}>
-                        {LOCALE_CODE[locale]} {t(LOCALE_NAME_KEYS[locale])}
-                      </span>
-                      <SelectItemIndicator className={themeToggleStyles.selectItemIndicator}>
-                        <Check size={14} />
-                      </SelectItemIndicator>
-                    </SelectItem>
-                  ))}
-                </SelectViewport>
-              </SelectContent>
+              <SelectPortal>
+                <SelectContent
+                  className={`${themeToggleStyles.selectContent} ${styles.selectContentLocale}`}
+                  position="popper"
+                  sideOffset={-20}
+                  align="center"
+                >
+                  <div
+                    className={styles.glassLayer}
+                    aria-hidden
+                    style={{
+                      backdropFilter: "blur(12px)",
+                      WebkitBackdropFilter: "blur(12px)",
+                      transform: "translateZ(0)",
+                    }}
+                  />
+                  <SelectViewport
+                    className={`${themeToggleStyles.selectViewport} ${styles.selectViewportLocale}`}
+                  >
+                    {LOCALES.map((locale) => (
+                      <SelectItem
+                        key={locale}
+                        value={locale}
+                        className={`${themeToggleStyles.selectItem} ${styles.selectItemLocale}`}
+                      >
+                        <span className={styles.selectItemText}>
+                          {LOCALE_CODE[locale]} {t(LOCALE_NAME_KEYS[locale])}
+                        </span>
+                        <SelectItemIndicator
+                          className={`${themeToggleStyles.selectItemIndicator} ${styles.selectItemIndicatorLocale}`}
+                        >
+                          <Check size={14} />
+                        </SelectItemIndicator>
+                      </SelectItem>
+                    ))}
+                  </SelectViewport>
+                </SelectContent>
+              </SelectPortal>
             </Select>
 
             <TooltipContent sideOffset={12} side="bottom">

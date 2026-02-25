@@ -39,7 +39,7 @@ export function HomeView({ heroTranslations }: HomeViewProps = {}) {
       <div className={styles.page}>
         <main className={styles.main}>
           <Hero translations={heroTranslations} skipAnimation={skipAnimation} />
-          <HomeSecondarySection skipAnimation={skipAnimation} />
+          <HomeSecondarySection skipAnimation={skipFromLocaleSwitch} />
         </main>
       </div>
     </>

@@ -12,6 +12,7 @@ import { DesktopDropdown } from "@/ui/shared/components/dropdown-menu/dropdownMe
 import { ThemeToggle } from "@/ui/shared/components/theme-toggle/theme-toggle";
 import { LocaleSwitcher } from "@/ui/shared/components/locale-switcher/locale-switcher";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
+import { getSavedScrollY } from "@/ui/shared/utils/scroll-preservation";
 import styles from "./navbar.module.css";
 
 type NavigationMenuDemoProps = {
@@ -31,7 +32,12 @@ export const NavigationMenuDemo = ({
   const path = usePathname();
   const t = useTranslations("nav");
   const nav = serverNavTranslations ?? buildNavTranslations(t);
-  const [isAtTop, setIsAtTop] = useState(true);
+  const [isAtTop, setIsAtTop] = useState(() => {
+    if (typeof window === "undefined") return true;
+    const saved = getSavedScrollY();
+    if (saved !== null && saved > 0) return false;
+    return window.scrollY <= 0;
+  });
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const spacerRef = useRef<HTMLDivElement>(null);
   const dropdownTriggerRef = useRef<HTMLButtonElement | null>(null);
@@ -42,18 +48,26 @@ export const NavigationMenuDemo = ({
   };
 
   useEffect(() => {
+    let cancelled = false;
     const handleScroll = () => {
+      if (cancelled) return;
       if (spacerRef.current) {
         const elementTop = spacerRef.current.getBoundingClientRect().top;
         setIsAtTop(elementTop >= 0);
       }
     };
-    // Re-check after route/locale change (after layout and any scroll restoration)
-    const raf = requestAnimationFrame(() => handleScroll());
+    // Re-check after route/locale change (after layout and any scroll restoration).
+    // Double rAF so we run after ScrollToTopOnRouteChange restores scroll on locale switch.
+    const raf = requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        if (!cancelled) handleScroll();
+      })
+    );
     window.addEventListener("load", handleScroll);
     window.addEventListener("scroll", handleScroll);
 
     return () => {
+      cancelled = true;
       cancelAnimationFrame(raf);
       window.removeEventListener("load", handleScroll);
       window.removeEventListener("scroll", handleScroll);

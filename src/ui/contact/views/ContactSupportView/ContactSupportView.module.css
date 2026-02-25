@@ -1,5 +1,5 @@
 .main {
-  min-height: calc(100vh - var(--navbar-height));
+  /* No min-height so footer sits under content; avoids empty space at bottom */
 }
 
 @media (max-width: 1024px) {

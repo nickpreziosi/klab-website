@@ -7,6 +7,7 @@ import { LandingAnimationProvider } from "@/ui/landing-page/providers/landing-an
 import { HomeAnimationProvider } from "@/ui/home/providers/home-animation-provider";
 import { ThemeProvider } from "@/ui/shared/providers/theme-provider";
 import { Toaster } from "@/ui/shared/components/toaster/toaster";
+import { GoogleAnalytics } from "@/ui/shared/components/google-analytics/google-analytics";
 import Head from "./head";
 
 const sora = Sora({
@@ -41,6 +42,7 @@ export default async function RootLayout({
 
       <body>
         <ThemeProvider initialTheme={initialTheme}>
+          <GoogleAnalytics />
           <SmoothAnchorScroll />
           <LandingAnimationProvider>
             <HomeAnimationProvider>{children}</HomeAnimationProvider>
