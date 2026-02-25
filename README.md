@@ -1,54 +1,55 @@
 # KLab Website
 
-A modern, full-featured website for KLab - a blockchain payment infrastructure company. Built with Next.js 15, React 19, and TypeScript, featuring dynamic animations, 3D graphics, contact forms with email integration, and a responsive design.
+A modern, full-featured website for [K-Lab](https://k-lab.ai) — a financial technology infrastructure company. Built with Next.js 16, React 19, and TypeScript, featuring dynamic animations, contact forms with email integration, internationalization (en, es, pt, ar), and a responsive design.
 
 ## 🚀 Features
 
 ### Core Pages
 
 - **Homepage** - Video background hero section with animated content
-- **Company Page** - Team showcase, company culture, timeline, and statistics
-- **Technology Pages**:
-  - **K Rails** - B2B blockchain payment infrastructure product showcase with interactive dashboard demo
-  - **Kena AI** - AI-powered platform with 3D avatar visualization and password-protected sections
-- **News/Blog** - Dynamic news articles with pagination and SEO-friendly URLs
+- **Company** - Team showcase, company culture, timeline, and statistics
+- **Contact** - Hub plus three specialized forms: Sales, Support, Careers
+- **Foundation** - KLab Foundation information
+- **News** - Dynamic news articles with pagination and SEO-friendly URLs
 - **Litepapers** - Multi-language documentation downloads
-- **Contact Pages** - Three specialized contact forms (Sales, Support, Careers)
+- **Technology Pages**:
+  - **K Rails** - B2B blockchain payment infrastructure product showcase with dashboard demo
+  - **Kena** - AI-powered platform with 3D avatar visualization and password-protected sections
+  - **KABL**, **KAI**, **KAxis**, **KCard**, **KIM**, **KLeads**, **KBPM**, **KRisk**, **KTalk** - Additional product and solution pages
 
 ### Interactive Features
 
-- 🎨 **3D Graphics** - React Three Fiber for 3D model rendering (Kena avatar)
-- 🎬 **Animations** - Framer Motion for smooth page transitions and component animations
-- 📱 **Responsive Design** - Mobile-first approach with optimized layouts
-- 🌙 **Dark/Light Theme** - Theme toggle functionality
-- 📝 **Form Validation** - Client and server-side validation with Zod
+- 🌐 **Internationalization** - next-intl with locales: English, Spanish, Portuguese, Arabic
+- 🎬 **Animations** - motion.dev (Framer Motion) for smooth page transitions and component animations
+- 📱 **Responsive Design** - Responsive design with optimized layouts
+- 🌙 **Dark/Light/System Theme** - Theme toggle functionality
+- 📝 **Form Validation** - Client and server-side validation with Zod & React Hook Form
 - 📧 **Email Integration** - Nodemailer for automated email sending
 - 🔒 **reCAPTCHA** - Google reCAPTCHA v2 for form spam protection
 - 📄 **File Uploads** - Support for resume/cover letter and support request attachments
 - 🎭 **Lottie Animations** - JSON-based animations for interactive elements
+- 🔔 **Toasts** - Sonner for notifications
 
 ## 🛠️ Technology Stack
 
 ### Core Framework
 
-- **[Next.js 15.5.6](https://nextjs.org/)** - React framework with App Router
-- **[React 19.1.0](https://react.dev/)** - UI library
+- **[Next.js 16](https://nextjs.org/)** - React framework with App Router
+- **[React 19](https://react.dev/)** - UI library
 - **[TypeScript 5](https://www.typescriptlang.org/)** - Type safety
+- **[next-intl](https://next-intl-docs.vercel.app/)** - Internationalization (i18n) and routing
 
 ### UI & Styling
 
 - **CSS Modules** - Scoped styling for components
 - **[Radix UI](https://www.radix-ui.com/)** - Accessible component primitives
-  - Accordion, Dialog, Navigation Menu, Scroll Area, Separator
+  - Accordion, Dialog, Navigation Menu, Scroll Area, Separator, Tabs, Popover, etc.
 - **[React Aria Components](https://react-spectrum.adobe.com/react-aria/)** - Accessible form components
   - TextField, ComboBox, ListBox, Checkbox, etc.
-- **[Framer Motion](https://www.framer.com/motion/)** - Animation library
+- **[Motion](https://motion.dev/)** (formerly Framer Motion) - Animation library
 
-### 3D & Media
+### Media
 
-- **[React Three Fiber](https://docs.pmnd.rs/react-three-fiber/getting-started/introduction)** - React renderer for Three.js
-- **[@react-three/drei](https://github.com/pmndrs/drei)** - Useful helpers for React Three Fiber
-- **[Three.js](https://threejs.org/)** - 3D graphics library
 - **[Lottie React](https://lottiereact.com/)** - Lottie animation player
 - **[@lottiefiles/lottie-player](https://www.lottiefiles.com/)** - Web component for Lottie animations
 - **[Vimeo Player](https://github.com/vimeo/player.js)** - Video player integration
@@ -56,57 +57,53 @@ A modern, full-featured website for KLab - a blockchain payment infrastructure c
 ### Forms & Validation
 
 - **[React Hook Form](https://react-hook-form.com/)** - Performant form library
-- **[Zod](https://zod.dev/)** - Schema validation
+- **[Zod](https://zod.dev/)** - Schema validation (v4)
 - **[@hookform/resolvers](https://github.com/react-hook-form/resolvers)** - Zod resolver for React Hook Form
 - **[react-google-recaptcha](https://github.com/dozoisch/react-google-recaptcha)** - Google reCAPTCHA integration
 
-### Backend & Email
+### Backend & Content
 
-- **[Nodemailer](https://nodemailer.com/)** - Email sending functionality
-- **Next.js API Routes** - Serverless API endpoints
+- **[Sanity](https://www.sanity.io/)** - Headless CMS for news/blog content; Sanity Studio at `/studio`
+- **[Nodemailer](https://nodemailer.com/)** - Email sending for contact forms
+- **Next.js API Routes** - Serverless API endpoints (contact, newsletter, kena-unlock)
 
 ### Utilities
 
-- **[Recharts](https://recharts.org/)** - Chart library for data visualization
 - **[Embla Carousel](https://www.embla-carousel.com/)** - Carousel component
 - **[SVGO](https://github.com/svg/svgo)** - SVG optimization
 - **[@svgr/webpack](https://react-svgr.com/)** - SVG to React component loader
 
 ### Development Tools
 
-- **[ESLint](https://eslint.org/)** - Code linting
-- **[check-unused-css](https://github.com/purgecss/purgecss)** - CSS optimization tool
-- **[Turbopack](https://turbo.build/pack)** - Next-generation bundler (used with `--turbopack` flag)
+- **[ESLint](https://eslint.org/)** - Code linting (ESLint 9 + eslint-config-next)
+- **[Prettier](https://prettier.io/)** - Code formatting
+- **[Turbopack](https://turbo.build/pack)** - Next-generation bundler (used with `--turbopack` flag for `dev` and `build`)
 
 ## 📁 Project Structure
 
 ```
 klab-website/
-├── public/                   # Static assets (images, videos, PDFs, Lottie, locales)
+├── public/                   # Static assets (images, videos, PDFs, Lottie, logos, locales)
+├── scripts/                  # Build/utility scripts
 ├── src/
 │   ├── app/                  # Next.js App Router
-│   │   ├── [locale]/         # Locale-prefixed routes (en, es)
+│   │   ├── [locale]/         # Locale-prefixed routes (en, es, pt, ar)
 │   │   │   ├── company/      # Company page
-│   │   │   ├── contact/      # Contact (sales, support, careers)
-│   │   │   ├── landing-page/ # Landing variants
-│   │   │   ├── litepapers/   # Litepapers page
-│   │   │   ├── news/         # News/blog and article pages
-│   │   │   └── technologies/ # Kena, K Rails pages
+│   │   │   ├── contact/      # Contact hub + sales, support, careers
+│   │   │   ├── foundation/   # Foundation page
+│   │   │   ├── litepapers/  # Litepapers page
+│   │   │   ├── news/         # News feed, keo/klab sections, [slug] articles
+│   │   │   └── technologies/ # krails, kena, kabl, kai, kaxis, kcard, kim, kleads, kbpm, krisk, ktalk
 │   │   ├── api/              # API routes (contact, newsletter, kena-unlock)
 │   │   ├── studio/           # Sanity Studio
 │   │   ├── globals.css
 │   │   ├── layout.tsx
-│   │   └── page.tsx          # Root redirect
+│   │   ├── page.tsx          # Root redirect
+│   │   └── sitemap.ts        # Dynamic sitemap (k-lab.ai)
+│   ├── i18n/                 # next-intl routing and config
 │   ├── ui/                   # Presentation layer (views, components)
 │   │   ├── shared/           # Shared components, hooks, utils, providers
-│   │   │   ├── components/
-│   │   │   ├── containers/
-│   │   │   ├── hooks/
-│   │   │   ├── providers/
-│   │   │   └── utils/
-│   │   └── {context}/        # Feature contexts (home, company, contact, news, etc.)
-│   │       ├── views/        # Page-level views
-│   │       └── components/
+│   │   └── {context}/        # Feature contexts (home, company, contact, news, kena, etc.)
 │   ├── sanity/               # Sanity schema and queries
 │   └── middleware.ts         # Locale redirect
 ├── next.config.ts
@@ -129,7 +126,7 @@ klab-website/
 
    ```bash
    git clone <repository-url>
-   cd keo-website
+   cd klab-website
    ```
 
 2. **Install dependencies**
@@ -144,24 +141,16 @@ klab-website/
 
 3. **Create environment file**
 
-   Copy the example file and fill in your values:
+   Create a `.env.local` in the project root (or copy from `.env.local.example` if present) and add the variables listed in [Environment Variables](#-environment-variables).
 
-   ```bash
-   cp .env.local.example .env.local
-   ```
-
-   See [Environment Variables](#-environment-variables) for required variables.
-
-4. **Configure environment variables** (see [Environment Variables](#environment-variables) section)
-
-5. **Start development server**
+4. **Start development server**
 
    ```bash
    npm run dev
    ```
 
-6. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+5. **Open your browser**  
+   Navigate to [http://localhost:3000](http://localhost:3000). The app will use the default locale (e.g. `/en`).
 
 ## 🔐 Environment Variables
 
@@ -196,6 +185,13 @@ CAREERS_RECIPIENT_EMAIL=careers@yourdomain.com
 
 # Kena Password (optional, for password-protected sections)
 KENA_PASSWORD=your_secret_password
+
+SITE_URL=your_url_here
+
+# HubSpot Newsletter
+HUBSPOT_API_KEY=your_key_here
+
+NEXT_PUBLIC_GA_MEASUREMENT_ID=your_id_here
 ```
 
 ### Getting reCAPTCHA Keys
@@ -204,15 +200,6 @@ KENA_PASSWORD=your_secret_password
 2. Register your site (use reCAPTCHA v2 "I'm not a robot" checkbox)
 3. Add your domain and `localhost` for testing
 4. Copy the Site Key (public) and Secret Key (private)
-
-### Gmail App Password Setup
-
-If using Gmail for email sending:
-
-1. Enable 2-Factor Authentication on your Google account
-2. Go to [App Passwords](https://myaccount.google.com/apppasswords)
-3. Generate a new app password for "Mail"
-4. Use this password in `*_EMAIL_PASSWORD` variables (not your regular password)
 
 ### Alternative Email Providers
 
@@ -237,7 +224,13 @@ npm start                # Start production server
 
 # Code Quality
 npm run lint             # Run ESLint
+npm run lint:fix         # Run ESLint with auto-fix
+npm run format           # Format code with Prettier
+npm run format:check     # Check formatting with Prettier
 npm run check-unused-css # Check for unused CSS
+
+# Utilities
+npm run generate-email-logo  # Generate PNG logo for emails from SVG (public/logos)
 ```
 
 ## 📝 Contact Forms
@@ -246,13 +239,12 @@ The website includes three specialized contact forms, each with distinct validat
 
 ### Sales Form (`/contact/sales`)
 
-- **Fields**: First Name, Last Name, Email, Phone, Position, Company, Company Website, Company Type, Product Interest, Country, Message
-- **Validation**: Domain/URL validation for company website (accepts `example.com` or `https://example.com`)
+- **Fields**: First Name, Last Name, Email, Phone, Company, Company Website, Country, Message
 - **Email**: Sent to `SALES_RECIPIENT_EMAIL`
 
 ### Support Form (`/contact/support`)
 
-- **Fields**: First Name, Last Name, Email, Phone, Issue Type, Product, Message, File Attachments
+- **Fields**: First Name, Last Name, Email, Phone, Message, File Attachments
 - **File Uploads**: Up to 5 files (images, videos, PDFs) - 10MB max per file
 - **Email**: Sent to `SUPPORT_RECIPIENT_EMAIL`
 
@@ -270,7 +262,7 @@ The website includes three specialized contact forms, each with distinct validat
 - ✅ File upload validation (type, size, count)
 - ✅ HTML email templates with attachments
 - ✅ Error handling and user feedback
-- ✅ Success animations and form reset
+- ✅ Success page
 
 ### Testing Forms
 
@@ -279,11 +271,32 @@ Test the contact forms manually in the browser at `/contact/sales`, `/contact/su
 ## 🎨 Styling
 
 - **CSS Modules** - All component styles are scoped using CSS Modules
-- **Global Styles** - Base styles in `src/app/globals.css`
+- **Global Styles** - Base styles and design tokens in `src/app/globals.css`
 - **Responsive Design** - Mobile-first approach with breakpoints
-- **Dark/Light Theme** - Theme toggle functionality
+- **Dark/Light Theme** - Theme toggle (class `dark` on `<html>`)
+
+### CSS variables (`src/app/globals.css`)
+
+Theme tokens, typography, layout, and component tokens are defined in `:root` and overridden in `html.dark` for dark mode. Use these in CSS Modules or inline styles so the app stays consistent and theme-aware.
+
+| Category             | Variables                                                                                                                                                              | Usage                                                                                                     |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| **HSL theme tokens** | `--background`, `--foreground`, `--surface`, `--surface-hover`, `--surface-foreground`, `--accent`, `--accent-foreground`, `--muted`, `--muted-foreground`, `--border` | Use as `hsl(var(--background))` or `hsl(var(--foreground) / 0.5)` for opacity. Prefer these for new code. |
+| **Legacy RGB**       | `--main-color-rgb`, `--main-color`, `--secondary-color-rgb`, `--secondary-color`, `--accent-color-rgb`, `--accent-color`                                               | Backward compatibility; prefer HSL tokens for new styles.                                                 |
+| **Brand**            | `--primary-pink`                                                                                                                                                       | Fixed brand color (not theme-aware).                                                                      |
+| **Typography**       | `--text-xs` … `--text-9xl` (font size), `--font-thin` … `--font-black` (weight)                                                                                        | Type scale and weights.                                                                                   |
+| **Layout**           | `--navbar-height`, `--margin-*`, `--padding-*`, `--gap-*` (xs/sm/md/lg/xl/2xl, plus `--padding-mobile`/`tablet`/`desktop`)                                             | Spacing and navbar height.                                                                                |
+| **Effects**          | `--shadow-black`, `--rounded-full`, `--rounded-app`                                                                                                                    | Shadows and border radius (use `--rounded-app` for cards/buttons/inputs).                                 |
+| **Card**             | `--card-bg`, `--card-foreground`, `--card-border`, `--card-border-radius`, `--card-shadow`, `--card-muted-foreground`, `--card-padding`                                | Card component tokens.                                                                                    |
+| **Gradients**        | `--theme-gradient`                                                                                                                                                     | Page background gradient (overridden in dark mode).                                                       |
+| **Toaster (Sonner)** | `.klab-toaster`: `--toast-success`, `--toast-error`, `--toast-warning`                                                                                                 | Toast colors; `.klab-toast*` classes use theme tokens.                                                    |
+
+- **Dark theme**: `html.dark` overrides HSL tokens, legacy RGB, `--theme-gradient`, and card tokens so backgrounds and text follow the dark palette.
+- **Transitions**: Theme switches use `html.no-transitions` to avoid flashing; elements with `data-allow-transition` keep transitions (e.g. cycle-toggle icons).
 
 ## 🚀 Deployment
+
+Production site: **[k-lab.ai](https://k-lab.ai)**
 
 ### Vercel (Recommended)
 
@@ -316,54 +329,35 @@ Make sure to add all environment variables in your hosting provider:
 
 ## 🧪 Testing
 
-### Form API Testing
-
-The `test-forms.js` script tests all contact form API endpoints:
-
-```bash
-# Start dev server
-npm run dev
-
-# Run tests
-node test-forms.js
-```
-
-### Manual Testing Checklist
-
-See `FORM_VALIDATION_TEST.md` for comprehensive testing procedures covering:
-
-- Client-side validation
-- Server-side validation
-- Email delivery
-- File uploads
-- Error handling
+- **Linting** – Run `npm run lint` (and `npm run lint:fix` if needed) before committing.
+- **Formatting** – Run `npm run format:check` or `npm run format` to keep style consistent.
 
 ## 📚 Key Features Documentation
 
-### 3D Graphics (Kena Avatar)
+### Internationalization (i18n)
 
-- Uses React Three Fiber and Three.js
-- GLB model rendering
-- Interactive 3D controls
+- **next-intl** with locales: `en`, `es`, `pt`, `ar` (see `src/i18n/routing.ts`)
+- Locale-prefixed routes and cookie-based locale preference
+- Content and UI strings localized via message files
 
 ### Animations
 
-- Framer Motion for page transitions
+- **Motion** (motion package) for page and component animations
 - Lottie JSON animations
 - CSS-based animations
 
 ### Form Validation
 
-- Zod schemas for type-safe validation
+- Zod v4 schemas for type-safe validation
 - Real-time validation feedback
-- Server-side validation for security
+- Server-side validation on API routes for security
 
 ## 🤝 Contributing
 
 1. Create a feature branch
 2. Make your changes
-3. Run linting: `npm run lint`
-4. Test your changes
+3. Run `npm run lint` and `npm run format:check` (or `npm run format`)
+4. Test your changes (including contact forms if relevant)
 5. Submit a pull request
 
 ## 📄 License
@@ -372,12 +366,14 @@ See `FORM_VALIDATION_TEST.md` for comprehensive testing procedures covering:
 
 ## 🔗 Links
 
+- [K-Lab](https://k-lab.ai)
 - [Next.js Documentation](https://nextjs.org/docs)
 - [React Documentation](https://react.dev/)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
-- [Framer Motion Documentation](https://www.framer.com/motion/)
-- [React Three Fiber Documentation](https://docs.pmnd.rs/react-three-fiber)
+- [next-intl Documentation](https://next-intl-docs.vercel.app/)
+- [Motion Documentation](https://motion.dev/)
 - [Zod Documentation](https://zod.dev/)
+- [Sanity Documentation](https://www.sanity.io/docs)
 
 ## 📞 Support
 
@@ -389,4 +385,4 @@ For issues or questions:
 
 ---
 
-Built with ❤️ using Next.js, React, and TypeScript
+Built using Next.js, React, and TypeScript
