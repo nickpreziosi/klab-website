@@ -12,7 +12,7 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
-import { EMAIL_HEADER_BANNER_URL } from "../email-config";
+import { EMAIL_HEADER_BANNER_URL, SUPPORT_FROM } from "../email-config";
 import {
   firstNameSchema,
   lastNameSchema,
@@ -374,7 +374,7 @@ export async function POST(request: Request) {
     const recipientEmail = process.env.SUPPORT_RECIPIENT_EMAIL;
     try {
       await transporter.sendMail({
-        from: process.env.SUPPORT_EMAIL_USER,
+        from: SUPPORT_FROM,
         to: recipientEmail,
         subject: "New Support Request",
         html: emailHtml,

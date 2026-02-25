@@ -12,7 +12,7 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
-import { EMAIL_HEADER_BANNER_URL } from "../email-config";
+import { CAREERS_FROM, EMAIL_HEADER_BANNER_URL } from "../email-config";
 import {
   firstNameSchema,
   lastNameSchema,
@@ -436,7 +436,7 @@ export async function POST(request: Request) {
     const recipientEmail = process.env.CAREERS_RECIPIENT_EMAIL;
     try {
       await transporter.sendMail({
-        from: process.env.CAREERS_EMAIL_USER,
+        from: CAREERS_FROM,
         to: recipientEmail,
         subject: `New Career Application - ${data.firstName} ${data.lastName}`,
         html: emailHtml,

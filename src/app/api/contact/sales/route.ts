@@ -11,7 +11,7 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
-import { EMAIL_HEADER_BANNER_URL } from "../email-config";
+import { EMAIL_HEADER_BANNER_URL, SALES_FROM } from "../email-config";
 import {
   firstNameSchema,
   lastNameSchema,
@@ -452,7 +452,7 @@ export async function POST(request: Request) {
     }
     try {
       await transporter.sendMail({
-        from: process.env.SALES_EMAIL_USER,
+        from: SALES_FROM,
         to: recipientEmail,
         subject: `New Sales Inquiry - ${data.company?.trim() || data.email || "Inquiry"}`,
         html: emailHtml,

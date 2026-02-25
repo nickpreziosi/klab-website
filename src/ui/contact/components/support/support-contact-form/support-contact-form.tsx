@@ -205,10 +205,17 @@ export function SupportContactForm({ skipAnimation = false }: SupportContactForm
         setTimeout(() => reject(new Error("reCAPTCHA timed out")), RECAPTCHA_TIMEOUT_MS)
       );
       const token = await Promise.race([tokenPromise, timeoutPromise]);
-      console.log("[Support] reCAPTCHA token received:", token ? `${token.slice(0, 20)}...` : "(empty)");
+      console.log(
+        "[Support] reCAPTCHA token received:",
+        token ? `${token.slice(0, 20)}...` : "(empty)"
+      );
       setValue("recaptcha", token || "", { shouldValidate: true });
       const wrappedHandler = async (data: SupportFormValues) => {
-        console.log("[Support] Validation passed – calling onSubmit with:", { ...data, recaptcha: data.recaptcha ? "[set]" : "(empty)", files: data.files?.length ?? 0 });
+        console.log("[Support] Validation passed – calling onSubmit with:", {
+          ...data,
+          recaptcha: data.recaptcha ? "[set]" : "(empty)",
+          files: data.files?.length ?? 0,
+        });
         try {
           await onSubmit(data);
         } finally {
@@ -216,7 +223,12 @@ export function SupportContactForm({ skipAnimation = false }: SupportContactForm
         }
       };
       const onInvalid = (validationErrors: unknown) => {
-        console.log("[Support] Validation failed – validationErrors:", validationErrors, "form values:", getValues());
+        console.log(
+          "[Support] Validation failed – validationErrors:",
+          validationErrors,
+          "form values:",
+          getValues()
+        );
         setIsSubmitting(false);
         recaptchaRef.current?.reset();
         setValue("recaptcha", "");
@@ -278,7 +290,12 @@ export function SupportContactForm({ skipAnimation = false }: SupportContactForm
             transition={{ delay: skipAnimation ? 0 : 0.4, duration: skipAnimation ? 0 : 0.5 }}
             className={styles.successContent}
           >
-            <HeroText maxWidth="800px" text={t("successHeadline")} center={true} skipAnimation={skipAnimation} />
+            <HeroText
+              maxWidth="800px"
+              text={t("successHeadline")}
+              center={true}
+              skipAnimation={skipAnimation}
+            />
             <p className={styles.successMessage}>{t("successBody")}</p>
           </motion.div>
         </div>
@@ -295,7 +312,12 @@ export function SupportContactForm({ skipAnimation = false }: SupportContactForm
       className={styles.formContainer}
     >
       <div className={styles.headingContainer}>
-        <HeroText maxWidth="720px" text={t("formHeadline")} center={true} skipAnimation={skipAnimation}></HeroText>
+        <HeroText
+          maxWidth="720px"
+          text={t("formHeadline")}
+          center={true}
+          skipAnimation={skipAnimation}
+        ></HeroText>
       </div>
 
       {submitStatus.type === "error" && (
