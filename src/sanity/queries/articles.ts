@@ -93,3 +93,13 @@ export async function getAllArticles(): Promise<SanityArticle[]> {
 export async function getArticleBySlug(slug: string): Promise<SanityArticle | null> {
   return await client.fetch<SanityArticle | null>(articleBySlugQuery, { slug });
 }
+
+const articleSlugsQuery = groq`
+  *[_type == "article"] { "slug": slug.current }
+`;
+
+// Fetch only article slugs (e.g. for sitemap)
+export async function getArticleSlugs(): Promise<string[]> {
+  const result = await client.fetch<{ slug: string }[]>(articleSlugsQuery);
+  return result?.map((r) => r.slug).filter(Boolean) ?? [];
+}
