@@ -66,6 +66,7 @@
 .statCard {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -90,6 +91,9 @@
 }
 
 .statValue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 4rem;
   font-weight: 700;
   color: hsl(var(--accent));

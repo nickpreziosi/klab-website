@@ -5,6 +5,7 @@ import {
   Select,
   SelectContent,
   SelectItem,
+  SelectPortal,
   SelectTrigger,
   SelectValue,
   SelectViewport,
@@ -17,9 +18,13 @@ import {
   TooltipTrigger,
   TooltipProvider,
 } from "@/ui/shared/components/tooltip/tooltip";
-import { useLocale } from "next-intl";
+import { ClientOnly } from "@/ui/shared/components/client-only/client-only";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
-import { saveScrollBeforeLocaleSwitch } from "@/ui/shared/utils/scroll-preservation";
+import {
+  saveScrollBeforeLocaleSwitch,
+  setSkipAnimationsOnNextPageLoad,
+} from "@/ui/shared/utils/scroll-preservation";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/i18n/routing";
 import themeToggleStyles from "../theme-toggle/theme-toggle.module.css";
@@ -29,21 +34,20 @@ const LOCALE_CODE: Record<Locale, string> = {
   en: "EN",
   es: "ES",
   pt: "PT",
+  ar: "AR",
 };
 
-const LOCALE_FULL_NAME: Record<Locale, string> = {
-  en: "English",
-  es: "Español",
-  pt: "Português",
+const LOCALE_NAME_KEYS: Record<Locale, "localeEn" | "localeEs" | "localePt" | "localeAr"> = {
+  en: "localeEn",
+  es: "localeEs",
+  pt: "localePt",
+  ar: "localeAr",
 };
-
-function getLocaleTooltipLabel(locale: Locale): string {
-  return `${LOCALE_CODE[locale]} – ${LOCALE_FULL_NAME[locale]}`;
-}
 
 const LOCALES = routing.locales;
 
 export function LocaleSwitcher() {
+  const t = useTranslations("localeSwitcher");
   const currentLocale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -52,48 +56,82 @@ export function LocaleSwitcher() {
     const newLocale = value as Locale;
     if (newLocale === currentLocale) return;
     saveScrollBeforeLocaleSwitch();
+    setSkipAnimationsOnNextPageLoad();
     router.push(pathname, { locale: newLocale, scroll: false });
   };
 
+  const localePlaceholder = (
+    <button
+      type="button"
+      className={`${themeToggleStyles.selectTrigger} ${styles.selectTriggerLocale}`}
+      aria-label={t("changeLanguage")}
+    >
+      {LOCALE_CODE[currentLocale as Locale]}
+    </button>
+  );
+
   return (
     <div className={themeToggleStyles.toggleContainer}>
-      <TooltipProvider delayDuration={0}>
-        <Tooltip>
-          <Select value={currentLocale} onValueChange={handleValueChange}>
-            <TooltipTrigger asChild>
-              <SelectTrigger
-                aria-label="Change language"
-                className={`${themeToggleStyles.selectTrigger} ${styles.selectTriggerLocale}`}
-              >
-                <SelectValue>{LOCALE_CODE[currentLocale as Locale]}</SelectValue>
-              </SelectTrigger>
-            </TooltipTrigger>
-            <SelectContent
-              className={`${themeToggleStyles.selectContent} ${styles.selectContentLocale}`}
-              position="popper"
-              sideOffset={-20}
-              align="center"
-            >
-              <SelectViewport className={themeToggleStyles.selectViewport}>
-                {LOCALES.map((locale) => (
-                  <SelectItem key={locale} value={locale} className={themeToggleStyles.selectItem}>
-                    <span className={styles.selectItemText}>
-                      {LOCALE_CODE[locale]} {LOCALE_FULL_NAME[locale]}
-                    </span>
-                    <SelectItemIndicator className={themeToggleStyles.selectItemIndicator}>
-                      <Check size={14} />
-                    </SelectItemIndicator>
-                  </SelectItem>
-                ))}
-              </SelectViewport>
-            </SelectContent>
-          </Select>
+      <ClientOnly
+        placeholder={localePlaceholder}
+      >
+        <TooltipProvider delayDuration={0}>
+          <Tooltip>
+            <Select value={currentLocale} onValueChange={handleValueChange}>
+              <TooltipTrigger asChild>
+                <SelectTrigger
+                  aria-label={t("changeLanguage")}
+                  className={`${themeToggleStyles.selectTrigger} ${styles.selectTriggerLocale}`}
+                >
+                  <SelectValue>{LOCALE_CODE[currentLocale as Locale]}</SelectValue>
+                </SelectTrigger>
+              </TooltipTrigger>
+              <SelectPortal>
+                <SelectContent
+                  className={`${themeToggleStyles.selectContent} ${styles.selectContentLocale}`}
+                  position="popper"
+                  sideOffset={-20}
+                  align="center"
+                >
+                  <div
+                    className={styles.glassLayer}
+                    aria-hidden
+                    style={{
+                      backdropFilter: "blur(12px)",
+                      WebkitBackdropFilter: "blur(12px)",
+                      transform: "translateZ(0)",
+                    }}
+                  />
+                  <SelectViewport
+                    className={`${themeToggleStyles.selectViewport} ${styles.selectViewportLocale}`}
+                  >
+                    {LOCALES.map((locale) => (
+                      <SelectItem
+                        key={locale}
+                        value={locale}
+                        className={`${themeToggleStyles.selectItem} ${styles.selectItemLocale}`}
+                      >
+                        <span className={styles.selectItemText}>
+                          {LOCALE_CODE[locale]} {t(LOCALE_NAME_KEYS[locale])}
+                        </span>
+                        <SelectItemIndicator
+                          className={`${themeToggleStyles.selectItemIndicator} ${styles.selectItemIndicatorLocale}`}
+                        >
+                          <Check size={14} />
+                        </SelectItemIndicator>
+                      </SelectItem>
+                    ))}
+                  </SelectViewport>
+                </SelectContent>
+              </SelectPortal>
+            </Select>
 
-          <TooltipContent sideOffset={12} side="bottom">
-            Language: {LOCALE_FULL_NAME[currentLocale as Locale]}
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+            <TooltipContent sideOffset={12} side="bottom">
+              {t("tooltipPrefix")} {t(LOCALE_NAME_KEYS[currentLocale as Locale])}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </ClientOnly>
     </div>
   );
 }

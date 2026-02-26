@@ -8,11 +8,31 @@ import type { NavTranslations, DrawerTranslations } from "@/ui/shared/types/tran
 import { buildDrawerTranslations, buildNavTranslations } from "@/ui/shared/types/translations";
 import { Link } from "@/i18n/navigation";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { ClientOnly } from "@/ui/shared/components/client-only/client-only";
 import { MobileThemeToggle } from "@/ui/shared/components/mobile-theme-toggle/mobile-theme-toggle";
 import { MobileLocaleSwitcher } from "@/ui/shared/components/mobile-locale-switcher/mobile-locale-switcher";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
-import { TECHNOLOGIES } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
+import {
+  TECHNOLOGIES,
+  SVGLogo,
+} from "@/ui/shared/components/technologies-showcase/technologies-showcase";
+import { useTheme } from "@/ui/shared/hooks/use-theme";
 import styles from "./drawer.module.css";
+
+function TechLogo({
+  src,
+  className,
+}: {
+  src: string;
+  title: string;
+  className?: string;
+}) {
+  return (
+    <div className={className} aria-hidden>
+      <SVGLogo src={src} className={styles.dropdownItemLogoSvg} />
+    </div>
+  );
+}
 
 export type DrawerProps = {
   /** When provided (from layout via Navbar), drawer copy is SSR'd */
@@ -28,36 +48,46 @@ export const Drawer = (props: DrawerProps) => {
   } = props ?? {};
   const [isOpen, setIsOpen] = useState(false);
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+  const { effectiveTheme } = useTheme();
   const t = useTranslations("drawer");
   const tNav = useTranslations("nav");
   const drawer = serverDrawerTranslations ?? buildDrawerTranslations(t);
   const nav = serverNavTranslations ?? buildNavTranslations(tNav);
 
+  const hamburgerPlaceholder = (
+    <button type="button" className={styles.hamburger} aria-label={drawer.openMenu}>
+      <span className={styles.hamburgerLine} />
+      <span className={styles.hamburgerLine} />
+      <span className={styles.hamburgerLine} />
+    </button>
+  );
+
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-      <VisuallyHidden>
-        <Dialog.Title>{drawer.dialogTitle}</Dialog.Title>
-        <Dialog.Description>{drawer.dialogDescription}</Dialog.Description>
-      </VisuallyHidden>
-      <Dialog.Trigger asChild>
-        <button className={styles.hamburger} aria-label={drawer.openMenu}>
-          <motion.div
-            className={styles.hamburgerLine}
-            animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-          <motion.div
-            className={styles.hamburgerLine}
-            animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-          <motion.div
-            className={styles.hamburgerLine}
-            animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-        </button>
-      </Dialog.Trigger>
+    <ClientOnly placeholder={hamburgerPlaceholder}>
+      <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+        <VisuallyHidden>
+          <Dialog.Title>{drawer.dialogTitle}</Dialog.Title>
+          <Dialog.Description>{drawer.dialogDescription}</Dialog.Description>
+        </VisuallyHidden>
+        <Dialog.Trigger asChild>
+          <button className={styles.hamburger} aria-label={drawer.openMenu}>
+            <motion.div
+              className={styles.hamburgerLine}
+              animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div
+              className={styles.hamburgerLine}
+              animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div
+              className={styles.hamburgerLine}
+              animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+          </button>
+        </Dialog.Trigger>
 
       <AnimatePresence>
         {isOpen && (
@@ -197,16 +227,25 @@ export const Drawer = (props: DrawerProps) => {
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          {TECHNOLOGIES.map((tech) => (
-                            <Link
-                              key={tech.href}
-                              href={tech.href}
-                              className={styles.dropdownItem}
-                              onClick={() => setIsOpen(false)}
-                            >
-                              {tech.title}
-                            </Link>
-                          ))}
+                          {TECHNOLOGIES.map((tech) => {
+                            const logoSrc =
+                              effectiveTheme === "dark" ? tech.logoLight : tech.logoDark;
+                            return (
+                              <Link
+                                key={tech.href}
+                                href={tech.href}
+                                className={styles.dropdownItem}
+                                onClick={() => setIsOpen(false)}
+                              >
+                                <TechLogo
+                                  src={logoSrc}
+                                  title={tech.title}
+                                  className={`${styles.dropdownItemLogo} ${tech.descriptionKey === "kbpm" ? styles.dropdownItemLogoKbpm : ""}`}
+                                />
+                                <VisuallyHidden>{tech.title}</VisuallyHidden>
+                              </Link>
+                            );
+                          })}
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -330,6 +369,7 @@ export const Drawer = (props: DrawerProps) => {
           </Dialog.Portal>
         )}
       </AnimatePresence>
-    </Dialog.Root>
+      </Dialog.Root>
+    </ClientOnly>
   );
 };

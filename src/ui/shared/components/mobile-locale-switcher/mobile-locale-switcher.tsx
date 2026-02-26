@@ -1,11 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import * as Accordion from "@radix-ui/react-accordion";
 import { motion } from "framer-motion";
-import { useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
-import { saveScrollBeforeLocaleSwitch } from "@/ui/shared/utils/scroll-preservation";
+import {
+  saveScrollBeforeLocaleSwitch,
+  setSkipAnimationsOnNextPageLoad,
+} from "@/ui/shared/utils/scroll-preservation";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/i18n/routing";
 import styles from "./mobile-locale-switcher.module.css";
@@ -16,27 +19,32 @@ const LOCALE_CODE: Record<Locale, string> = {
   en: "EN",
   es: "ES",
   pt: "PT",
+  ar: "AR",
 };
-
-const LOCALE_FULL_NAME: Record<Locale, string> = {
-  en: "English",
-  es: "Español",
-  pt: "Português",
-};
-
-function getLocaleLabel(locale: Locale): string {
-  return `${LOCALE_CODE[locale]} – ${LOCALE_FULL_NAME[locale]}`;
-}
 
 export function MobileLocaleSwitcher() {
+  const t = useTranslations("localeSwitcher");
+  const tCommon = useTranslations("common");
   const currentLocale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState<string | undefined>(undefined);
 
+  const localeFullName: Record<Locale, string> = {
+    en: t("localeEn"),
+    es: t("localeEs"),
+    pt: t("localePt"),
+    ar: t("localeAr"),
+  };
+
+  const getLocaleLabel = (locale: Locale): string => {
+    return `${LOCALE_CODE[locale]} – ${localeFullName[locale]}`;
+  };
+
   const switchLocale = (locale: Locale) => {
     if (locale === currentLocale) return;
     saveScrollBeforeLocaleSwitch();
+    setSkipAnimationsOnNextPageLoad();
     router.push(pathname, { locale, scroll: false });
   };
 
@@ -50,18 +58,18 @@ export function MobileLocaleSwitcher() {
     >
       <Accordion.Item value="language" className={styles.accordionItem}>
         <Accordion.Header className={styles.accordionHeader}>
-          <Accordion.Trigger aria-label="Change language" className={styles.accordionTrigger}>
+          <Accordion.Trigger aria-label={t("changeLanguage")} className={styles.accordionTrigger}>
             <div className={styles.accordionTriggerContainer}>
               <div className={styles.triggerContent}>
-                <span className={styles.triggerLabel}>Language</span>
+                <span className={styles.triggerLabel}>{t("label")}</span>
                 <span className={styles.currentLocale}>
-<span className={styles.currentLocaleCode}>{LOCALE_CODE[currentLocale as Locale]}</span>
-                <span className={styles.currentLocaleLabel}>
-                  {LOCALE_FULL_NAME[currentLocale as Locale]}
+                  <span className={styles.currentLocaleCode}>{LOCALE_CODE[currentLocale as Locale]}</span>
+                  <span className={styles.currentLocaleLabel}>
+                    {localeFullName[currentLocale as Locale]}
                   </span>
                 </span>
               </div>
-              <span className={styles.edit}>EDIT</span>
+              <span className={styles.edit}>{tCommon("edit")}</span>
               <svg
                 className={styles.caretIcon}
                 width="30"
@@ -95,7 +103,7 @@ export function MobileLocaleSwitcher() {
                   aria-label={getLocaleLabel(locale)}
                 >
                   <span className={styles.optionCode}>{LOCALE_CODE[locale]}</span>
-                  <span className={styles.optionLabel}>{LOCALE_FULL_NAME[locale]}</span>
+                  <span className={styles.optionLabel}>{localeFullName[locale]}</span>
                 </button>
               ))}
             </div>

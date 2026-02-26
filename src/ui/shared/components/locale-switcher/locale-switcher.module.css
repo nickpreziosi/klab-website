@@ -135,9 +135,43 @@
   font-weight: 600;
 }
 
-/* Dropdown wide enough for "PT Português" etc. on one line */
+/* Dropdown wide enough for "PT Português" etc. on one line.
+   Transparent background and no backdrop-filter on this element (it has Radix’s transform);
+   blur is applied only on .glassLayer so it can correctly blur the page. */
 .selectContentLocale {
   min-width: max-content;
+  background: transparent !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Backdrop blur on a child so it isn’t affected by Radix’s transform on the content. */
+.glassLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: hsl(var(--background) / 0.85);
+}
+
+.selectViewportLocale {
+  position: relative;
+  z-index: 1;
+}
+
+/* Match combobox: no orange; hover and selected use foreground only; checkmark for selected */
+.selectItemLocale:focus,
+.selectItemLocale[data-highlighted] {
+  background: hsl(var(--foreground) / 0.08) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.selectItemLocale[data-state="checked"] {
+  color: hsl(var(--foreground)) !important;
+}
+
+.selectItemIndicatorLocale svg {
+  color: hsl(var(--foreground)) !important;
 }
 
 .selectItemText {

@@ -1,0 +1,77 @@
+# Firebase App Hosting configuration for KLab Website
+# See: https://firebase.google.com/docs/app-hosting/configure
+#
+# For variables using "secret:", create the secret in Google Cloud Secret Manager
+# and grant access: firebase apphosting:secrets:grantaccess BACKEND_ID SECRET_NAME
+# Or create via: firebase apphosting:secrets:set SECRET_NAME
+
+env:
+  # Sanity CMS (News/Blog)
+  - variable: NEXT_PUBLIC_SANITY_PROJECT_ID
+    value: "mp87vpva"
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: NEXT_PUBLIC_SANITY_DATASET
+    value: production
+    availability:
+      - BUILD
+      - RUNTIME
+  # Google reCAPTCHA v2
+  - variable: NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+    value: "6LdLzXcsAAAAAB_OSyKHh1KTTWFnhQhYFOfkba3s"
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: RECAPTCHA_SECRET_KEY
+    secret: RECAPTCHA_SECRET_KEY
+    availability:
+      - RUNTIME
+
+  # Email - shared account (user is public; only password is secret)
+  - variable: NEXT_PUBLIC_EMAIL_USER
+    value: "klab.services@k-lab.ai"
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: EMAIL_PASSWORD
+    secret: EMAIL_PASSWORD
+    availability:
+      - RUNTIME
+
+  # Email - per-form recipients only
+  - variable: NEXT_PUBLIC_SALES_RECIPIENT_EMAIL
+    value: "nickprez@gmail.com"
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: NEXT_PUBLIC_SUPPORT_RECIPIENT_EMAIL
+    value: "nickprez@gmail.com"
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: NEXT_PUBLIC_CAREERS_RECIPIENT_EMAIL
+    value: "nickprez@gmail.com"
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # Site and integrations
+  - variable: NEXT_PUBLIC_SITE_URL
+    value: "https://klab-website.vercel.app"
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # Google Analytics
+  - variable: NEXT_PUBLIC_GA_MEASUREMENT_ID
+    value: "G-J6PXJ44M82"
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # Kena page unlock (password-protected section)
+  - variable: KENA_PASSWORD
+    secret: KENA_PASSWORD
+    availability:
+      - RUNTIME

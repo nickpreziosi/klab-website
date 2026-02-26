@@ -31,7 +31,7 @@ export async function POST(request: Request) {
 
     // Get secret password from environment variable
     // Must be set in .env.local for local dev or environment variables for production
-    const secret = process.env.KENA_PASSWORD || "";
+    const secret = process.env.KENA_PASSWORD || "password";
 
     // Return error if password is not configured
     if (!secret) {

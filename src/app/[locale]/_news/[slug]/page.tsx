@@ -26,22 +26,45 @@ export default async function ArticlePage({
   }
 
   const imageUrl = article.image
-    ? urlForSized(article.image, { width: 1200, height: 600 })
+    ? urlForSized(article.image, { width: 1200, height: 600, quality: 80 })
     : undefined;
   const formattedDate = formatDate(article.publishedAt);
 
-  const galleryImageUrls: Array<{ url: string; caption?: string; alt?: string }> =
+  const galleryImageUrls: Array<{
+    url: string;
+    thumbnailUrl: string;
+    caption?: string;
+    alt?: string;
+  }> =
     article.gallery
-      ?.map((galleryImage): { url: string; caption?: string; alt?: string } | null => {
-        if (!galleryImage?.asset) return null;
-        return {
-          url: urlForSized(galleryImage, { width: 1200 }),
-          caption: galleryImage.caption,
-          alt: galleryImage.alt,
-        };
-      })
-      .filter((item): item is { url: string; caption?: string; alt?: string } => item !== null) ||
-    [];
+      ?.map(
+        (
+          galleryImage
+        ): {
+          url: string;
+          thumbnailUrl: string;
+          caption?: string;
+          alt?: string;
+        } | null => {
+          if (!galleryImage?.asset) return null;
+          return {
+            url: urlForSized(galleryImage, { width: 1200, quality: 80 }),
+            thumbnailUrl: urlForSized(galleryImage, { width: 400, quality: 75 }),
+            caption: galleryImage.caption,
+            alt: galleryImage.alt,
+          };
+        }
+      )
+      .filter(
+        (
+          item
+        ): item is {
+          url: string;
+          thumbnailUrl: string;
+          caption?: string;
+          alt?: string;
+        } => item !== null
+      ) || [];
 
   const bodyHTML = article.body
     ? toHTML(article.body, {
@@ -53,13 +76,28 @@ export default async function ArticlePage({
               value: { asset?: { _ref: string }; alt?: string; caption?: string };
             }) => {
               if (!value?.asset) return "";
-              const imgUrl = urlForSized(value as { asset: { _ref: string } }, {
+              const source = value as { asset: { _ref: string } };
+              const widths = [400, 800, 1200];
+              const srcSet = widths
+                .map(
+                  (w) =>
+                    `${urlForSized(source, {
+                      width: w,
+                      height: Math.round((600 / 800) * w),
+                      quality: w <= 400 ? 75 : 80,
+                      format: "webp",
+                    })} ${w}w`
+                )
+                .join(", ");
+              const defaultSrc = urlForSized(source, {
                 width: 800,
                 height: 600,
+                quality: 80,
+                format: "webp",
               });
               const alt = value.alt || "Article image";
               const caption = value.caption ? `<figcaption>${value.caption}</figcaption>` : "";
-              return `<figure style="margin: 24px 0;"><img src="${imgUrl}" alt="${alt}" style="width: 100%; height: auto; border-radius: var(--rounded-app);" />${caption}</figure>`;
+              return `<figure style="margin: 24px 0;"><img src="${defaultSrc}" srcset="${srcSet}" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 800px" alt="${alt}" style="width: 100%; height: auto; border-radius: var(--rounded-app);" loading="lazy" decoding="async" />${caption}</figure>`;
             },
           },
           marks: {

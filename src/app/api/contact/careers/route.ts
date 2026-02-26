@@ -12,23 +12,30 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
-import { EMAIL_LOGO_URL } from "../email-config";
+import { CAREERS_FROM, EMAIL_HEADER_BANNER_URL } from "../email-config";
+import {
+  firstNameSchema,
+  lastNameSchema,
+  emailSchema,
+  phoneSchema,
+  messageSchema,
+  recaptchaSchema,
+} from "@/ui/shared/validation/contact";
 
 /**
  * Server-side validation schema for careers form submission.
- * Includes optional fields (company, title, position) for current employment info.
  */
 const careersFormSchema = z.object({
-  firstName: z.string().min(2, "First name must be at least 2 characters"),
-  lastName: z.string().min(2, "Last name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().min(2, "Phone number is required"),
+  firstName: firstNameSchema,
+  lastName: lastNameSchema,
+  email: emailSchema,
+  phone: phoneSchema,
   company: z.string().optional(),
   title: z.string().optional(),
   position: z.string().optional(),
   department: z.string().min(1, "Please select a department"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-  recaptcha: z.string().min(1, "Please complete the reCAPTCHA verification"),
+  message: messageSchema,
+  recaptcha: recaptchaSchema,
 });
 
 /**
@@ -65,22 +72,23 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
 
 /**
  * Creates and configures Nodemailer transporter for sending emails.
- * Uses Gmail service with credentials from environment variables.
- * Can be configured for other email providers (SendGrid, AWS SES, etc.).
+ * Uses Microsoft 365 (Outlook) SMTP with credentials from environment variables.
  *
  * @returns Configured Nodemailer transporter
  * @throws Error if email credentials are not configured
  */
 function createTransporter() {
-  const emailUser = process.env.CAREERS_EMAIL_USER;
-  const emailPassword = process.env.CAREERS_EMAIL_PASSWORD;
+  const emailUser = process.env.NEXT_PUBLIC_EMAIL_USER;
+  const emailPassword = process.env.EMAIL_PASSWORD;
 
   if (!emailUser || !emailPassword) {
     throw new Error("Email credentials not configured");
   }
 
   return nodemailer.createTransport({
-    service: "gmail", // Can be changed to other providers (SendGrid, AWS SES, etc.)
+    host: "smtp.office365.com",
+    port: 587,
+    secure: false,
     auth: {
       user: emailUser,
       pass: emailPassword,
@@ -256,10 +264,10 @@ export async function POST(request: Request) {
     <tr>
       <td align="center" style="padding: 20px 0;">
         <table role="presentation" style="max-width: 600px; width: 100%; background-color: #ffffff; border-collapse: collapse; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-          <!-- Header with Logo -->
+          <!-- Header banner -->
           <tr>
-            <td style="background: linear-gradient(135deg, #00172d 0%, #0a0a0a 100%); padding: 40px 30px; text-align: center;">
-              <img src="${EMAIL_LOGO_URL}" alt="KEO Logo" style="max-width: 180px; height: auto; display: block; margin: 0 auto;">
+            <td style="width: 100%; height: auto; aspect-ratio: 16/9;">
+              <img src="${EMAIL_HEADER_BANNER_URL}" alt="K-Lab" style="width: 100%; height: auto; margin: 0 auto; border: 0; aspect-ratio: 16/9;" />
             </td>
           </tr>
 
@@ -274,26 +282,40 @@ export async function POST(request: Request) {
           <!-- Content Section -->
           <tr>
             <td style="padding: 30px;">
-              <!-- Personal Information -->
               <table role="presentation" style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+                ${
+                  (data.firstName?.trim() || data.lastName?.trim())
+                    ? `
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Full Name</strong>
                     <span style="color: #333333; font-size: 16px;">${escapeHtml(
-                      data.firstName
-                    )} ${escapeHtml(data.lastName)}</span>
+                      data.firstName ?? ""
+                    )} ${escapeHtml(data.lastName ?? "")}</span>
                   </td>
                 </tr>
+                `
+                    : ""
+                }
+                ${
+                  data.email?.trim()
+                    ? `
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Email</strong>
                     <a href="mailto:${escapeHtml(
                       data.email
-                    )}" style="color: #ff004c; font-size: 16px; text-decoration: none;">${escapeHtml(
+                    )}" style="color: #f37120; font-size: 16px; text-decoration: none;">${escapeHtml(
                       data.email
                     )}</a>
                   </td>
                 </tr>
+                `
+                    : ""
+                }
+                ${
+                  data.phone?.trim()
+                    ? `
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Phone</strong>
@@ -304,42 +326,54 @@ export async function POST(request: Request) {
                     )}</a>
                   </td>
                 </tr>
-                ${
-                  data.company
-                    ? `<tr>
-                        <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
-                          <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Current Company</strong>
-                          <span style="color: #333333; font-size: 16px;">${escapeHtml(
-                            data.company
-                          )}</span>
-                        </td>
-                      </tr>`
+                `
                     : ""
                 }
                 ${
-                  data.title
-                    ? `<tr>
-                        <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
-                          <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Current Title</strong>
-                          <span style="color: #333333; font-size: 16px;">${escapeHtml(
-                            data.title
-                          )}</span>
-                        </td>
-                      </tr>`
+                  data.company?.trim()
+                    ? `
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                    <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Current Company</strong>
+                    <span style="color: #333333; font-size: 16px;">${escapeHtml(
+                      data.company
+                    )}</span>
+                  </td>
+                </tr>
+                `
                     : ""
                 }
                 ${
-                  data.position
-                    ? `<tr>
-                        <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
-                          <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Position of Interest</strong>
-                          <span style="color: #333333; font-size: 16px;">${escapeHtml(
-                            data.position
-                          )}</span>
-                        </td>
-                      </tr>`
+                  data.title?.trim()
+                    ? `
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                    <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Current Title</strong>
+                    <span style="color: #333333; font-size: 16px;">${escapeHtml(
+                      data.title
+                    )}</span>
+                  </td>
+                </tr>
+                `
                     : ""
                 }
+                ${
+                  data.position?.trim()
+                    ? `
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                    <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Position of Interest</strong>
+                    <span style="color: #333333; font-size: 16px;">${escapeHtml(
+                      data.position
+                    )}</span>
+                  </td>
+                </tr>
+                `
+                    : ""
+                }
+                ${
+                  data.department?.trim()
+                    ? `
                 <tr>
                   <td style="padding: 12px 0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Department</strong>
@@ -348,15 +382,23 @@ export async function POST(request: Request) {
                     )}</span>
                   </td>
                 </tr>
+                `
+                    : ""
+                }
               </table>
 
-              <!-- Message Section -->
-              <div style="background-color: #fafafa; border-left: 4px solid #ff004c; padding: 20px; margin: 25px 0; border-radius: 4px;">
+              ${
+                data.message?.trim()
+                  ? `
+              <div style="background-color: #fafafa; border-left: 4px solid #f37120; padding: 20px; margin: 25px 0; border-radius: 4px;">
                 <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 12px;">Message</strong>
                 <p style="margin: 0; color: #333333; font-size: 16px; line-height: 1.6; white-space: pre-wrap;">${formatMessage(
-                  data.message
-                )}</p>
+                    data.message
+                  )}</p>
               </div>
+              `
+                  : ""
+              }
 
               ${
                 attachments.length > 0
@@ -373,7 +415,7 @@ export async function POST(request: Request) {
           <tr>
             <td style="background-color: #fafafa; padding: 20px 30px; text-align: center; border-top: 1px solid #f0f0f0;">
               <p style="margin: 0; font-size: 12px; color: #999999; line-height: 1.5;">
-                This email was automatically generated from the KEO Careers contact form.<br>
+                This email was automatically generated from the KLab Careers contact form.<br>
                 Please reply directly to this email to contact the candidate.
               </p>
             </td>
@@ -391,10 +433,10 @@ export async function POST(request: Request) {
     }
 
     // Send email
-    const recipientEmail = process.env.CAREERS_RECIPIENT_EMAIL;
+    const recipientEmail = process.env.NEXT_PUBLIC_CAREERS_RECIPIENT_EMAIL;
     try {
       await transporter.sendMail({
-        from: process.env.CAREERS_EMAIL_USER,
+        from: CAREERS_FROM,
         to: recipientEmail,
         subject: `New Career Application - ${data.firstName} ${data.lastName}`,
         html: emailHtml,

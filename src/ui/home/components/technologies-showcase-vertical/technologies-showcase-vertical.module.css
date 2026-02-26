@@ -1,0 +1,433 @@
+/* ========== Shared (both variants) ========== */
+.wrapperDesktop,
+.wrapperMobile {
+  --showcase-semi-bg: rgb(250, 250, 250);
+  --showcase-fg: #1a1a1a;
+  --showcase-border: rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.wrapperDesktop {
+  --icon-height: 40px;
+}
+
+.wrapperMobile {
+  --icon-height: 26px;
+}
+
+/* Theme-aware mobile (matches desktop): circles use --foreground/--background, follows light/dark mode */
+.wrapperMobile.wrapperMobileThemeAware {
+  --showcase-semi-bg: hsl(var(--foreground));
+  --showcase-fg: hsl(var(--background));
+  --showcase-border: hsl(var(--foreground) / 0.15);
+}
+
+.techItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.techCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--showcase-semi-bg);
+  color: var(--showcase-fg);
+  cursor: pointer;
+  border: none;
+  box-sizing: border-box;
+}
+
+.techContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.wrapperMobile .techContent {
+  padding: 4px;
+}
+
+.techLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto !important;
+  width: 100%;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+
+.techLogo svg {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  color: var(--showcase-fg);
+  fill: currentColor;
+}
+
+.techLogo > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--icon-height);
+  width: auto;
+  max-width: 100%;
+}
+
+.techLogo > div svg {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Mobile only: KLeads (widest) full width; others match its height via --tech-logo-height */
+.wrapperMobile .techLogo.techLogoWidest {
+  width: 100%;
+}
+
+.wrapperMobile .techLogo.techLogoWidest > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  max-height: 26px;
+}
+
+.wrapperMobile .techLogo.techLogoWidest > div svg {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 26px;
+  object-fit: contain;
+}
+
+.wrapperMobile .techLogo:not(.techLogoWidest) > div {
+  height: var(--tech-logo-height, 26px);
+  width: auto;
+  max-width: 100%;
+}
+
+.wrapperMobile .techLogo:not(.techLogoWidest) > div svg {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.techLogo :global(.kabl-blue),
+.techLogo :global(.kabl-blue-stroke) {
+  fill: #306fc6 !important;
+  stroke: #306fc6 !important;
+}
+
+.description {
+  position: absolute;
+  padding: 12px 14px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  border-radius: var(--rounded-app);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.techItem.expanded .description {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (pointer: fine) and (hover: hover) {
+  .description {
+    display: none;
+  }
+}
+
+.centerCircle {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  aspect-ratio: 1;
+  max-height: 100%;
+  border-radius: var(--rounded-full);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+.centerBackground {
+  position: absolute;
+  inset: 0;
+}
+
+.centerBackground img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.3);
+  object-position: 50% 75%;
+}
+
+.centerContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: rgb(250, 250, 250);
+  padding: 12px;
+}
+
+/* Center K-Lab logo (inline SVG from KlabLogo) */
+.centerContent svg,
+.centerContent span[role="img"] {
+  width: 100% !important;
+  height: auto !important;
+  flex-shrink: 0;
+  display: block;
+}
+.centerContent span[role="img"] svg {
+  width: 100%;
+  height: auto;
+}
+
+/* ========== Desktop only (horizontal, adjusts to width) ========== */
+.wrapperDesktop {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1680px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: var(--padding-md);
+  overflow: visible;
+}
+
+.gridDesktop {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  grid-auto-rows: auto;
+  align-items: start;
+  width: 100%;
+  min-width: 0;
+  min-height: 100px;
+  overflow: visible;
+  padding: var(--padding-sm) 0;
+}
+
+.wrapperDesktop .centerItem {
+  grid-column: span 2;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.wrapperDesktop .techItem {
+  min-width: 0;
+  aspect-ratio: 1 / 2;
+}
+
+/* Desktop: true semicircles via border-radius (left/right halves) */
+.wrapperDesktop .techCircle {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Left semicircle: curved arc on left, flat vertical edge on right. 
+   Element is tall (aspect 1/2): radius = width, arc spans full height. */
+.wrapperDesktop .techCircle.leftHalf {
+  border-radius: 100% 0 0 100% / 50% 0 0 50%;
+}
+
+/* Right semicircle: curved arc on right, flat vertical edge on left */
+.wrapperDesktop .techCircle.rightHalf {
+  border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+}
+
+.wrapperDesktop .description {
+  bottom: calc(-1 * 40%);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max(200px, min(260px, 90vw));
+  background: var(--showcase-semi-bg);
+  color: var(--showcase-fg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--showcase-border);
+}
+
+.techTooltip {
+  max-width: min(280px, 90vw);
+  white-space: normal;
+  line-height: 1.5;
+  background: rgb(250, 250, 250) !important;
+  color: var(--showcase-fg) !important;
+  border: 1px solid var(--showcase-border);
+}
+
+/* ========== Mobile/tablet only (vertical, no gaps) ========== */
+.wrapperMobile {
+  --icon-height: 28px; /* Constrain so widest logo (KLeads) fits in semicircles; all logos match this height */
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 400px);
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--padding-md) var(--padding-desktop);
+  padding-bottom: var(--padding-md);
+  overflow: visible;
+}
+
+.columnMobile {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.rowMobileTop,
+.rowMobileBottom {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.rowMobileTop {
+  order: 1;
+}
+
+/* Center: same width as semicircles (full column width), circle via aspect-ratio 1:1 */
+.wrapperMobile .centerItem {
+  position: relative;
+  flex-shrink: 0;
+  order: 2;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.wrapperMobile .centerItem .centerCircle {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+}
+
+.rowMobileBottom {
+  order: 3;
+}
+
+/* Mobile: true semicircles via border-radius (top/bottom halves) */
+.wrapperMobile .rowMobileTop .techItem,
+.wrapperMobile .rowMobileBottom .techItem {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  flex-shrink: 0;
+}
+
+.wrapperMobile .techCircle {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Top semicircles: curved on top, flat on bottom */
+.wrapperMobile .rowMobileTop .techCircle.leftHalf {
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+/* Bottom semicircles: curved on bottom, flat on top */
+.wrapperMobile .rowMobileBottom .techCircle.rightHalf {
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+}
+
+/* Popover styling for mobile - matches k-lab-components popover UI */
+.popoverMobile {
+  width: min(400px, calc(100vw - 2rem)) !important;
+  max-width: min(400px, calc(100vw - 2rem)) !important;
+  margin-left: 8px !important;
+  margin-right: 8px !important;
+  box-sizing: border-box;
+}
+
+.popoverMobileContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.popoverMobileTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--showcase-fg);
+}
+
+.popoverMobileDescription {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--showcase-fg);
+}
+
+.popoverMobileLink {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.popoverMobileLink:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Theme-aware popover (matches desktop tooltip: foreground bg, background text) */
+.popoverMobileThemeAware {
+  background: hsl(var(--foreground)) !important;
+  color: hsl(var(--background)) !important;
+  border-color: hsl(var(--foreground) / 0.2) !important;
+}
+
+.popoverMobileThemeAware .popoverMobileTitle,
+.popoverMobileThemeAware .popoverMobileDescription {
+  color: hsl(var(--background));
+}
+
+.popoverMobileThemeAware .popoverMobileLink {
+  color: white;
+}
+
+.popoverMobileThemeAware .popoverMobileLink:hover {
+  color: white;
+}

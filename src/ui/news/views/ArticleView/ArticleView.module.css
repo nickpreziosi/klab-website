@@ -363,7 +363,6 @@
 
 .galleryItem {
   position: relative;
-  background: hsl(var(--surface));
   border-radius: var(--rounded-app);
   overflow: hidden;
   border: 1px solid hsl(var(--border));
@@ -503,9 +502,8 @@
 .dialogImageWrapper {
   position: relative;
   width: 100%;
-  min-height: 400px;
-  max-height: calc(100vh - 150px);
-  flex: 1;
+  height: calc(100vh - 150px);
+  min-height: 300px;
 }
 
 .dialogContent[data-state="open"] .dialogImageContainer {
@@ -513,13 +511,9 @@
 }
 
 .dialogImage {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: calc(100vh - 150px);
-  object-fit: contain;
   border-radius: var(--rounded-app);
-  background: hsl(var(--surface));
+  /* Contain so full image is visible: full width for landscape, full height for portrait */
+  object-fit: contain;
   /* Prevent layout shifts in Chrome */
   display: block;
 }

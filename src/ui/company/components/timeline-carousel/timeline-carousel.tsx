@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import useEmblaCarousel from "embla-carousel-react";
 import { motion, useInView } from "framer-motion";
 import styles from "./timeline-carousel.module.css";
@@ -85,6 +86,7 @@ const timelineData: TimelineEvent[] = [
 ];
 
 export default function TimelineCarousel() {
+  const t = useTranslations("common");
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, amount: 0.1 });
 
@@ -138,7 +140,7 @@ export default function TimelineCarousel() {
                 className={styles.navButton}
                 onClick={scrollPrev}
                 disabled={!canScrollPrev}
-                aria-label="Previous slide"
+                aria-label={t("previousSlide")}
               >
                 <svg
                   width="30"
@@ -159,7 +161,7 @@ export default function TimelineCarousel() {
                 className={styles.navButton}
                 onClick={scrollNext}
                 disabled={!canScrollNext}
-                aria-label="Next slide"
+                aria-label={t("nextSlide")}
               >
                 <svg
                   width="30"

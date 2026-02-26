@@ -1,0 +1,499 @@
+/* Technology page layout – matches existing UI (dark theme, orange accents, Sora). */
+
+.container {
+  width: 100%;
+  min-height: calc(100vh - var(--navbar-height));
+  height: 100%;
+  font-family: "Sora", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Shared inner: max-width + padding for all sections */
+.inner {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--padding-desktop);
+}
+
+/* ----- Hero ----- */
+.heroSection {
+  width: 100%;
+  background: var(--theme-gradient);
+  padding-top: var(--padding-desktop);
+  padding-bottom: var(--padding-desktop);
+  height: 100%;
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+.heroInner {
+  composes: inner;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+.heroRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: var(--gap-xl);
+  align-items: center;
+}
+
+/* Mobile first: image on top (order 0), text below (order 1) */
+.heroTextCol {
+  flex: 1 1 min(100%, 520px);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+  order: 1;
+}
+
+.heroImageCol {
+  flex: 0 1 560px;
+  width: 560px;
+  max-width: min(560px, 100%);
+  min-width: 0;
+  order: 0;
+}
+
+.heroPillsRow {
+  width: 100%;
+}
+
+.heroTitleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  flex-wrap: wrap;
+}
+
+.heroLogo {
+  display: block;
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-base);
+  color: hsl(var(--foreground) / 0.82);
+  letter-spacing: 0.02em;
+}
+
+.heroTagline {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: hsl(var(--foreground));
+  max-width: 700px;
+}
+
+.heroSubtitle {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  color: hsl(var(--foreground) / 0.88);
+  line-height: 1.4;
+}
+
+.heroIntro {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 300;
+  line-height: 1.6;
+  color: hsl(var(--foreground) / 0.9);
+  max-width: 520px;
+}
+
+.heroHighlights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.heroHighlightItem {
+  font-size: var(--text-base);
+  line-height: 1.5;
+  color: hsl(var(--foreground) / 0.9);
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.heroHighlightItem::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: hsl(var(--accent));
+  font-weight: var(--font-semibold);
+}
+
+.heroCtaWrap {
+  width: fit-content;
+}
+
+.heroCtaIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.heroBenefitColumns {
+  width: 100%;
+}
+
+/* Category pills / badges (benefit-columns) */
+.categoryPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-sm);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-xs);
+  padding: var(--padding-sm) var(--padding-md);
+  border-radius: var(--rounded-app);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: hsl(var(--accent));
+  background: hsl(var(--accent) / 0.05);
+  border: 1px solid hsl(var(--accent) / 0.5);
+}
+
+.pillCheck {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  color: hsl(var(--accent));
+}
+
+/* ----- Second gradient section (mockups + modules + blocks) ----- */
+.contentSection {
+  width: 100%;
+  background: var(--theme-gradient);
+  padding-top: var(--padding-desktop);
+  padding-bottom: var(--padding-desktop);
+}
+
+.contentInner {
+  composes: inner;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+.mockupGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--gap-xl);
+  justify-items: center;
+  align-items: start;
+}
+
+.mockupWrapper {
+  position: relative;
+  border-radius: var(--rounded-app);
+  overflow: hidden;
+}
+
+.mockupWrapperPhone {
+  width: 100%;
+  height: auto;
+  border-radius: 28px;
+  padding: 12px;
+}
+
+.mockupWrapperLaptop {
+  max-width: 560px;
+  border-radius: 12px 12px 0 0;
+  padding: 12px 12px 8px;
+}
+
+.mockupWrapperDesktop {
+  max-width: 720px;
+  border-radius: var(--rounded-app);
+  padding: 10px;
+}
+
+.mockupImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+.mockupWrapperPhone .mockupImage {
+  border-radius: 18px;
+}
+
+/* Benefit columns */
+.benefitColumns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--gap-lg);
+  margin-top: var(--gap-md);
+}
+
+.benefitColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+.benefitMainPoint {
+  font-size: var(--text-base);
+  line-height: 1.5;
+  color: hsl(var(--foreground));
+  font-weight: var(--font-semibold);
+}
+
+.benefitSubPoints {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.benefitSubPoints li {
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: hsl(var(--foreground) / 0.88);
+}
+
+/* Modules grid (2 columns on large) */
+.modulesHeader {
+  margin: 0 0 var(--gap-md);
+  font-size: var(--text-xl);
+  font-weight: var(--font-base);
+  color: hsl(var(--foreground));
+}
+
+.modulesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--gap-md);
+}
+
+.moduleCardTitle {
+  font-size: var(--text-base);
+  color: hsl(var(--foreground));
+}
+
+.moduleCardDescription {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: hsl(var(--foreground) / 0.88);
+}
+
+/* Blocks section (section 4) */
+.blocksSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.sectionBlock {
+  margin-bottom: 0;
+}
+
+.featureTitleBlock {
+  margin-bottom: var(--gap-sm);
+}
+
+.featureTitle {
+  margin: 0 0 var(--gap-xs);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-semibold);
+  color: hsl(var(--foreground));
+}
+
+.featureSubline {
+  margin: 0;
+  font-size: var(--text-base);
+  color: hsl(var(--foreground) / 0.88);
+}
+
+.blocksGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-lg);
+}
+
+/* Wide screens: columns match number of cards (e.g. Kim 4, Kai 3) */
+@media (min-width: 1025px) {
+  .blocksGrid[data-count="2"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .blocksGrid[data-count="3"] {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .blocksGrid[data-count="4"] {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .blocksGrid[data-count="5"] {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .blocksGrid[data-count="6"] {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.blockCard {
+  border-left: 4px solid hsl(var(--accent));
+}
+
+.blockCardTitle {
+  font-size: var(--text-lg);
+  color: hsl(var(--foreground));
+}
+
+.blockCardSubheading {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: hsl(var(--foreground) / 0.88);
+  line-height: 1.4;
+}
+
+.blockCardBullets {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.blockCardBullets li {
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: hsl(var(--foreground) / 0.88);
+}
+
+/* Section title (above each info section) */
+.sectionTitle {
+  margin: 0 0 var(--gap-lg);
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: hsl(var(--foreground));
+  letter-spacing: 0.02em;
+}
+
+/* CTA (used when no hero) */
+.ctaSection {
+  width: 100%;
+  background: var(--theme-gradient);
+  padding-top: var(--padding-desktop);
+  padding-bottom: var(--padding-desktop);
+}
+
+.ctaInner {
+  composes: inner;
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .inner {
+    padding-left: var(--padding-tablet);
+    padding-right: var(--padding-tablet);
+  }
+  .heroSection,
+  .contentSection {
+    padding-top: var(--padding-tablet);
+    padding-bottom: var(--padding-tablet);
+  }
+  .ctaSection {
+    padding-top: var(--padding-tablet);
+    padding-bottom: var(--padding-tablet);
+  }
+  .benefitColumns {
+    grid-template-columns: 1fr;
+  }
+  .modulesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Below 1024px: stacked, image on top, text below; image column stretches full width */
+@media (max-width: 1023px) {
+  .heroRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .heroImageCol {
+    display: flex;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: min(920px, 96vw);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* 1024px and up: row, text left (order 0), image right (order 1) */
+@media (min-width: 1024px) {
+  .heroRow {
+    flex-direction: row;
+  }
+  .heroTextCol {
+    order: 0;
+  }
+  .heroImageCol {
+    order: 1;
+    max-width: min(560px, 100%);
+  }
+}
+
+/* Below 769px: image full width, mockup wrappers full width */
+@media (max-width: 768px) {
+  .inner {
+    padding-left: var(--padding-mobile);
+    padding-right: var(--padding-mobile);
+  }
+  .heroSection,
+  .contentSection,
+  .ctaSection {
+    padding-top: var(--padding-tablet);
+    padding-bottom: var(--padding-tablet);
+  }
+  .heroImageCol {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .heroImageCol .mockupWrapper,
+  .heroImageCol .mockupWrapperDesktop {
+    width: 100%;
+    max-width: 100%;
+  }
+  .mockupGrid {
+    grid-template-columns: 1fr;
+  }
+  .mockupWrapperLaptop {
+    max-width: 100%;
+  }
+  .mockupWrapperDesktop {
+    max-width: 100%;
+  }
+}

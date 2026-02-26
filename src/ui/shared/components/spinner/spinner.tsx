@@ -1,4 +1,7 @@
+"use client";
+
 import * as React from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/ui/shared/utils/utils";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import styles from "./spinner.module.css";
@@ -17,15 +20,16 @@ const sizeMap = {
 
 const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(
   ({ className, size = "md", brand = false, ...props }, ref) => {
+    const t = useTranslations("common");
     return (
       <div
         ref={ref}
         className={cn(styles.spinner, sizeMap[size], brand && styles.brand, className)}
         role="status"
-        aria-label="Loading"
+        aria-label={t("loading")}
         {...props}
       >
-        <VisuallyHidden>Loading...</VisuallyHidden>
+        <VisuallyHidden>{t("loading")}</VisuallyHidden>
       </div>
     );
   }

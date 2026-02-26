@@ -1,0 +1,180 @@
+.section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-desktop);
+}
+
+.content {
+  max-width: 800px;
+  margin: 0;
+  width: 100%;
+}
+
+.heading {
+  color: hsl(var(--foreground));
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -1.5%;
+}
+
+.subheading {
+  color: hsl(var(--foreground));
+  margin-bottom: 40px;
+  font-weight: 300;
+  font-style: Light;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.5%;
+}
+
+.highlight {
+  width: fit-content;
+  padding: 8px;
+  padding-bottom: 0px;
+  background-color: hsl(var(--accent));
+  color: white;
+}
+
+/* Typing / highlight effects */
+.typing {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  /* limit the reveal width using ch units via a CSS variable set from React */
+  max-width: 0ch;
+  border-right: 2px solid hsl(var(--foreground) / 0.9);
+  /* default: paused until the element is in view; full cycle: type -> hold 2.5s -> reset -> repeat */
+  animation:
+    typing 5s steps(30, end) infinite,
+    blink 800ms step-end infinite;
+  animation-play-state: paused;
+}
+
+.highlightSweep {
+  position: relative;
+  overflow: hidden;
+}
+.highlightSweep::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  transform: translateX(-100%);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  /* default paused; will run when in-view */
+  animation: sweep 2.4s ease-in-out 0.5s 1;
+  animation-play-state: paused;
+}
+
+/* helper class applied from React when element is in view */
+.inView {
+  /* marker class applied from React when element enters viewport */
+}
+
+/* when parent has .inView, run the typing and sweep animations */
+.inView .typing {
+  animation-play-state: running;
+}
+.highlightSweep.inView::before {
+  animation-play-state: running;
+}
+
+@keyframes typing {
+  0% {
+    max-width: 0ch;
+  }
+  36% {
+    max-width: var(--typing-ch, 20ch);
+  }
+  86% {
+    max-width: var(--typing-ch, 20ch);
+  }
+  100% {
+    max-width: 0ch;
+  }
+}
+
+@keyframes blink {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: hsl(var(--foreground) / 0.9);
+  }
+}
+
+@keyframes sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.ctaButton:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .container {
+    padding: var(--padding-tablet);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+
+  .heading {
+    font-size: 2.5rem;
+  }
+
+  .subheading {
+    font-size: 1.25rem;
+    margin-bottom: 32px;
+  }
+
+  .ctaButton {
+    padding: 0;
+    font-size: 1rem;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 2rem;
+  }
+
+  .subheading {
+    font-size: 1.125rem;
+  }
+}

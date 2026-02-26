@@ -1,0 +1,141 @@
+.section {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  padding: var(--padding-desktop);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 2.2fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.headingContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 76px;
+  letter-spacing: -1.5%;
+  color: hsl(var(--foreground));
+  margin: 0;
+}
+
+.logosContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--padding-tablet);
+}
+
+.logoWrapper {
+  width: 100%;
+  height: 160px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: hsl(var(--surface));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--rounded-app);
+  padding: var(--padding-mobile);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.logoImage {
+  fill: hsl(var(--foreground));
+  color: hsl(var(--foreground));
+  width: 100%;
+  height: auto;
+}
+
+.logoImage path {
+  fill: hsl(var(--foreground));
+  color: hsl(var(--foreground));
+  width: 100%;
+  height: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 1280px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: var(--padding-tablet);
+  }
+  .heading {
+    font-size: 56px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: var(--padding-tablet);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+  .heading {
+    font-size: 48px;
+  }
+
+  .logosContainer {
+    flex-direction: column;
+    gap: var(--padding-mobile);
+  }
+
+  .logoWrapper {
+    width: 100%;
+    height: 240px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 0;
+  }
+
+  .heading {
+    font-size: 36px;
+  }
+  .logoWrapper {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+/* Limit Hover Effects to Non Touch Devices */
+@media (pointer: fine) and (hover: hover) {
+  .logo:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}

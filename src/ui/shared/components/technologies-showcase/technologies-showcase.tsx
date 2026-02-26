@@ -30,7 +30,7 @@ const TECH_DESCRIPTION_KEYS = [
 
 export type TechDescriptionKey = (typeof TECH_DESCRIPTION_KEYS)[number];
 
-/* Technology data - same copy as navbar dropdown; exported for drawer/nav. Descriptions come from landing.technologies. */
+/* Technology data - same copy as navbar dropdown; exported for drawer/nav. Descriptions come from technologiesShowcase.technologies. */
 export const TECHNOLOGIES: {
   title: string;
   logoLight: string;
@@ -43,7 +43,7 @@ export const TECHNOLOGIES: {
     logoLight: "/logos/krails-logo-light.svg",
     logoDark: "/logos/krails-logo-dark.svg",
     descriptionKey: "krails",
-    href: "/technologies/k-rails",
+    href: "/technologies/krails",
   },
   {
     title: "Kena",
@@ -57,14 +57,14 @@ export const TECHNOLOGIES: {
     logoLight: "/logos/ktalk-logo-light.svg",
     logoDark: "/logos/ktalk-logo-dark.svg",
     descriptionKey: "ktalk",
-    href: "/technologies/k-talk",
+    href: "/technologies/ktalk",
   },
   {
     title: "K-Risk",
     logoLight: "/logos/krisk-logo-light.svg",
     logoDark: "/logos/krisk-logo-dark.svg",
     descriptionKey: "krisk",
-    href: "/technologies/kena",
+    href: "/technologies/krisk",
   },
   {
     title: "KABL",
@@ -78,42 +78,42 @@ export const TECHNOLOGIES: {
     logoLight: "/logos/kcard-logo-light.svg",
     logoDark: "/logos/kcard-logo-dark.svg",
     descriptionKey: "kcard",
-    href: "/technologies/k-pay",
+    href: "/technologies/kcard",
   },
   {
     title: "K-Comply",
     logoLight: "/logos/kbpm-logo-light.svg",
     logoDark: "/logos/kbpm-logo-dark.svg",
     descriptionKey: "kbpm",
-    href: "/technologies/k-comply",
+    href: "/technologies/kbpm",
   },
   {
     title: "K-Ledger",
     logoLight: "/logos/kim-logo-light.svg",
     logoDark: "/logos/kim-logo-dark.svg",
     descriptionKey: "kim",
-    href: "/technologies/k-ledger",
+    href: "/technologies/kim",
   },
   {
     title: "K-Connect",
     logoLight: "/logos/kaxis-logo-light.svg",
     logoDark: "/logos/kaxis-logo-dark.svg",
     descriptionKey: "kaxis",
-    href: "/technologies/k-connect",
+    href: "/technologies/kaxis",
   },
   {
     title: "K-Insights",
     logoLight: "/logos/kleads-logo-light.svg",
     logoDark: "/logos/kleads-logo-dark.svg",
     descriptionKey: "kleads",
-    href: "/technologies/k-insights",
+    href: "/technologies/kleads",
   },
   {
     title: "K-Wallet",
     logoLight: "/logos/kai-logo-light.svg",
     logoDark: "/logos/kai-logo-dark.svg",
     descriptionKey: "kai",
-    href: "/technologies/k-wallet",
+    href: "/technologies/kai",
   },
 ];
 
@@ -123,7 +123,7 @@ const LEFT_ORDER = [5, 9, 2, 8, 3];
 /* Right row (6): K-Rails, Kena, K-Wallet, KABL, K-Comply, K-Ledger */
 const RIGHT_ORDER_FIXED = [0, 1, 10, 4, 6, 7];
 
-function SVGLogo({ src, className }: { src: string; className?: string }) {
+export function SVGLogo({ src, className }: { src: string; className?: string }) {
   const [svgContent, setSvgContent] = useState<string>("");
 
   useEffect(() => {
@@ -161,6 +161,9 @@ const ArrowIcon = (props: React.SVGProps<SVGSVGElement>) => (
 const leftTechs = LEFT_ORDER.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 const rightTechs = RIGHT_ORDER_FIXED.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 
+/** KLeads is the widest logo - used as the full-width reference; others match its height. */
+const WIDEST_LOGO_KEY: TechDescriptionKey = "kleads";
+
 export function TechnologiesShowcase({
   onLinkClick,
   className,
@@ -174,12 +177,15 @@ export function TechnologiesShowcase({
   /** When set, renders a top row with this title on the left and carousel buttons on the right (e.g. "Our Technologies"). */
   headerTitle?: string;
 } = {}) {
-  const t = useTranslations("landing");
+  const t = useTranslations("technologiesShowcase");
+  const tCommon = useTranslations("common");
   const { effectiveTheme } = useTheme();
   const scrollRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const kleadsLogoRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const [logoHeight, setLogoHeight] = useState<number>(40);
   const [expandedIndex, setExpandedIndex] = useState<{
     side: "left" | "right";
     index: number;
@@ -219,6 +225,32 @@ export function TechnologiesShowcase({
     };
   }, [updateScrollState]);
 
+  // Measure KLeads logo height when full-width; other logos match this height
+  useEffect(() => {
+    const el = kleadsLogoRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => {
+      const svg = el.querySelector("svg");
+      if (svg) {
+        const h = svg.getBoundingClientRect().height;
+        if (h > 0) setLogoHeight(h);
+      }
+    });
+    ro.observe(el);
+    // Initial measure after a tick (SVG may not be loaded yet)
+    const t = setTimeout(() => {
+      const svg = el.querySelector("svg");
+      if (svg) {
+        const h = svg.getBoundingClientRect().height;
+        if (h > 0) setLogoHeight(h);
+      }
+    }, 100);
+    return () => {
+      ro.disconnect();
+      clearTimeout(t);
+    };
+  }, [effectiveTheme]);
+
   const scroll = (direction: "left" | "right") => {
     const el = scrollRef.current;
     if (!el) return;
@@ -237,7 +269,7 @@ export function TechnologiesShowcase({
           className={styles.carouselBtn}
           onClick={() => scroll("left")}
           disabled={!canScrollLeft}
-          aria-label="Scroll left"
+          aria-label={tCommon("scrollLeft")}
         >
           Previous
         </button>
@@ -246,7 +278,7 @@ export function TechnologiesShowcase({
           className={styles.carouselBtn}
           onClick={() => scroll("right")}
           disabled={!canScrollRight}
-          aria-label="Scroll right"
+          aria-label={tCommon("scrollRight")}
         >
           Next
         </button>
@@ -255,7 +287,11 @@ export function TechnologiesShowcase({
 
   return (
     <TooltipProvider delayDuration={200}>
-      <div ref={wrapperRef} className={`${styles.wrapper} ${className ?? ""}`.trim()}>
+      <div
+        ref={wrapperRef}
+        className={`${styles.wrapper} ${className ?? ""}`.trim()}
+        style={{ "--tech-logo-height": `${logoHeight}px` } as React.CSSProperties}
+      >
         {headerTitle ? (
           <div className={styles.headerRow}>
             <h3 className={styles.headerTitle}>{headerTitle}</h3>
@@ -279,6 +315,8 @@ export function TechnologiesShowcase({
               onLinkClick={onLinkClick}
               expandOnFirstTap={expandOnFirstTap}
               SVGLogo={SVGLogo}
+              isWidestLogo={tech.descriptionKey === WIDEST_LOGO_KEY}
+              logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? kleadsLogoRef : undefined}
             />
           ))}
 
@@ -321,6 +359,8 @@ export function TechnologiesShowcase({
               onLinkClick={onLinkClick}
               expandOnFirstTap={expandOnFirstTap}
               SVGLogo={SVGLogo}
+              isWidestLogo={tech.descriptionKey === WIDEST_LOGO_KEY}
+              logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? kleadsLogoRef : undefined}
             />
           ))}
         </div>
@@ -341,6 +381,8 @@ function TechSemiCircle({
   onLinkClick,
   expandOnFirstTap,
   SVGLogo: LogoComponent,
+  isWidestLogo,
+  logoRef,
 }: {
   tech: (typeof TECHNOLOGIES)[0];
   description: string;
@@ -351,6 +393,8 @@ function TechSemiCircle({
   onLinkClick?: () => void;
   expandOnFirstTap?: boolean;
   SVGLogo: typeof SVGLogo;
+  isWidestLogo: boolean;
+  logoRef?: React.RefObject<HTMLDivElement | null>;
 }) {
   return (
     <div
@@ -376,7 +420,10 @@ function TechSemiCircle({
             aria-label={tech.title}
           >
             <div className={styles.techContent}>
-              <div className={styles.techLogo}>
+              <div
+                ref={logoRef}
+                className={`${styles.techLogo} ${isWidestLogo ? styles.techLogoWidest : ""} ${tech.descriptionKey === "kbpm" ? styles.techLogoKbpm : ""}`}
+              >
                 <LogoComponent src={logoSrc} />
               </div>
             </div>

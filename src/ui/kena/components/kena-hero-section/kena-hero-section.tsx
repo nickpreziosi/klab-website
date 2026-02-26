@@ -2,34 +2,63 @@
 
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
 import KenaTwoColumnContent from "../kena-two-column-content/kena-two-column-content";
+import { KenaGateSection } from "../kena-gate-section/kena-gate-section";
 import styles from "./kena-hero-section.module.css";
 import VideoPlayer from "@/ui/shared/components/video-player/video-player";
+import type { KenaTranslations } from "@/ui/kena/views/KenaView/KenaView";
 
-export default function KenaHeroSection() {
+export default function KenaHeroSection({
+  translations,
+  skipAnimation = false,
+  unlocked = true,
+  passwordGateMessage,
+  passwordGateButton,
+  onEnterPassword,
+}: {
+  translations: KenaTranslations;
+  skipAnimation?: boolean;
+  unlocked?: boolean;
+  passwordGateMessage?: string;
+  passwordGateButton?: string;
+  onEnterPassword?: () => void;
+}) {
+  const showGate = !unlocked && passwordGateMessage && passwordGateButton && onEnterPassword;
+
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        {/* Top section with centered header */}
         <div className={styles.headerWrapper}>
           <SectionHeader
             maxWidth={900}
-            heading="AI that Understands Risk the Way"
-            secondHeading="Humans Do — Only Smarter."
-            subtitle="Kena is the world's first risk AI that replicates the decision-making of financial underwriters — analyzing, conversing, and improving in real time."
+            heading={translations.heroHeading}
+            secondHeading={translations.heroSecondHeading}
+            subtitle={translations.heroSubtitle}
             align="center"
             animateOnce={true}
+            skipAnimation={skipAnimation}
           />
         </div>
 
-        {/* Video section */}
-        <VideoPlayer posterUrl="/images/kena.webp" videoUrl="/videos/kena.mp4"></VideoPlayer>
+        <VideoPlayer
+          posterUrl="/images/kena.webp"
+          videoUrl="/videos/kena.mp4"
+          skipAnimation={skipAnimation}
+        />
 
-        {/* Two-column content section */}
         <div className={styles.contentWrapper}>
-          <KenaTwoColumnContent
-            leftContent="Kena is the world's first financial intelligence AI agent."
-            rightContent="A finance expert that understands, analyzes, and predicts financial risk in real time with human-level reasoning and machine precision. From credit assessment and financial modeling to predictive analytics and pattern detection, Kena continuously evolves through millions of SME data points — driving intelligent and fast, data-driven decision-making."
-          />
+          {showGate ? (
+            <KenaGateSection
+              message={passwordGateMessage}
+              buttonLabel={passwordGateButton}
+              onEnterPassword={onEnterPassword}
+            />
+          ) : (
+            <KenaTwoColumnContent
+              leftContent={translations.twoColLeft}
+              rightContent={translations.twoColRight}
+              skipAnimation={skipAnimation}
+            />
+          )}
         </div>
       </div>
     </section>

@@ -49,15 +49,29 @@ function useHeroLogoHeight(): number {
   return height;
 }
 
+const visible = { opacity: 1, y: 0, filter: "blur(0px)" };
+const visibleScale = { opacity: 1, scale: 1, filter: "blur(0px)" };
+
 type CompanyHeroProps = {
   /** When provided (from server), copy is SSR'd; otherwise use client useTranslations */
   translations?: CompanyHeroTranslations;
+  /** When true, skip entrance animations (e.g. locale switch). */
+  skipAnimation?: boolean;
 };
 
-export const CompanyHero = ({ translations: serverTranslations }: CompanyHeroProps = {}) => {
+export const CompanyHero = ({
+  translations: serverTranslations,
+  skipAnimation = false,
+}: CompanyHeroProps = {}) => {
   const logoHeight = useHeroLogoHeight();
   const t = useTranslations("companyHero");
   const translations = serverTranslations ?? buildCompanyHeroTranslations(t);
+  const initial = skipAnimation ? visible : fadeUp.initial;
+  const animate = skipAnimation ? visible : fadeUp.animate;
+  const logoInitial = skipAnimation
+    ? visibleScale
+    : { opacity: 0, scale: 0.92, filter: "blur(10px)" };
+  const logoAnimate = skipAnimation ? visibleScale : { opacity: 1, scale: 1, filter: "blur(0px)" };
 
   return (
     <section className={styles.content}>
@@ -67,8 +81,8 @@ export const CompanyHero = ({ translations: serverTranslations }: CompanyHeroPro
           className={styles.heroImage}
           width={1200}
           height={1405}
-          alt="KEO Employee Image"
-          src="/images/landing-bg-orange-2.webp"
+          alt={t("employeeImageAlt")}
+          src="/images/bg-orange.webp"
           placeholder="blur"
           blurDataURL={BLUR_PLACEHOLDER}
         />
@@ -76,8 +90,8 @@ export const CompanyHero = ({ translations: serverTranslations }: CompanyHeroPro
           <div className={styles.heroHeaderContainer}>
             <motion.h1
               className={styles.heroHeader}
-              initial={fadeUp.initial}
-              animate={fadeUp.animate}
+              initial={initial}
+              animate={animate}
               transition={{ duration, ease }}
             >
               {translations.headlineLine1}
@@ -87,8 +101,8 @@ export const CompanyHero = ({ translations: serverTranslations }: CompanyHeroPro
             <div className={styles.heroLogo}>
               <motion.div
                 className={styles.heroLogoInner}
-                initial={{ opacity: 0, scale: 0.92, filter: "blur(10px)" }}
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                initial={logoInitial}
+                animate={logoAnimate}
                 transition={{ duration, delay: stagger, ease }}
               >
                 <KlabLogo color="light" format="default" height={logoHeight} />
@@ -98,22 +112,22 @@ export const CompanyHero = ({ translations: serverTranslations }: CompanyHeroPro
 
           <div className={styles.heroTaglinesContainer}>
             <motion.p
-              initial={fadeUp.initial}
-              animate={fadeUp.animate}
+              initial={initial}
+              animate={animate}
               transition={{ duration, delay: stagger * 2, ease }}
             >
               {translations.tagline1}
             </motion.p>
             <motion.p
-              initial={fadeUp.initial}
-              animate={fadeUp.animate}
+              initial={initial}
+              animate={animate}
               transition={{ duration, delay: stagger * 3, ease }}
             >
               {translations.tagline2}
             </motion.p>
             <motion.p
-              initial={fadeUp.initial}
-              animate={fadeUp.animate}
+              initial={initial}
+              animate={animate}
               transition={{ duration, delay: stagger * 4, ease }}
             >
               {translations.tagline3}

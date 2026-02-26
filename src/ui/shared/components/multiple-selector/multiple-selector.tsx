@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useRef, useEffect, useState, useMemo, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { X, ChevronsUpDown, Check } from "lucide-react";
 import { Popover } from "react-aria-components";
 import { cn } from "@/ui/shared/utils/utils";
@@ -37,7 +38,7 @@ export function MultipleSelector({
   options,
   selectedKeys,
   onSelectionChange,
-  placeholder = "Select items...",
+  placeholder,
   label,
   disabled = false,
   emptyIndicator,
@@ -48,6 +49,8 @@ export function MultipleSelector({
   maxWidth,
   maxHeight,
 }: MultipleSelectorProps) {
+  const t = useTranslations("multipleSelector");
+  const resolvedPlaceholder = placeholder ?? t("selectItems");
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -241,7 +244,7 @@ export function MultipleSelector({
                 <button
                   type="button"
                   className={styles.badgeRemove}
-                  aria-label={`Remove ${opt.label}`}
+                  aria-label={t("removeItem", { label: opt.label })}
                   onMouseDown={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -260,7 +263,7 @@ export function MultipleSelector({
               ref={inputRef}
               type="text"
               className={styles.input}
-              placeholder={selectedOptions.length === 0 ? placeholder : ""}
+              placeholder={selectedOptions.length === 0 ? resolvedPlaceholder : ""}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -278,7 +281,7 @@ export function MultipleSelector({
           <button
             type="button"
             className={cn(styles.chevronButton, open && styles.chevronOpen)}
-            aria-label={open ? "Close" : "Open"}
+            aria-label={open ? t("close") : t("open")}
             disabled={disabled}
             onMouseDown={(e) => {
               e.preventDefault();
@@ -323,7 +326,7 @@ export function MultipleSelector({
             >
             {filteredOptions.length === 0 && (
               <div className={styles.empty}>
-                {emptyIndicator ?? "No results found."}
+                {emptyIndicator ?? t("noResultsFound")}
               </div>
             )}
             {filteredOptions.map((opt, index) => {

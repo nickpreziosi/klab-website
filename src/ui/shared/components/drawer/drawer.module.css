@@ -90,10 +90,6 @@
   transition: all 300ms ease-in-out;
 }
 
-.closeButton:active {
-  transform: rotate(90deg) scale(0.95);
-}
-
 /* Navigation */
 .nav {
   display: flex;
@@ -145,11 +141,7 @@
   left: 16px;
   right: 16px;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    hsl(var(--accent) / 0),
-    hsl(var(--accent))
-  );
+  background: linear-gradient(90deg, hsl(var(--accent) / 0), hsl(var(--accent)));
   transform-origin: left;
   box-shadow: 0px 0px 8px hsl(var(--accent) / 0.6);
 }
@@ -164,6 +156,9 @@
 }
 
 .dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   padding: 16px 20px;
   color: hsl(var(--foreground));
   text-decoration: none;
@@ -173,6 +168,42 @@
   border-radius: 0 var(--rounded-app) var(--rounded-app) 0;
   margin: var(--gap-xs) 0;
   border-left: 2px solid hsl(var(--accent) / 0.5);
+}
+
+.dropdownItemLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 24px;
+}
+
+.dropdownItemLogoSvg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+}
+
+.dropdownItemLogoSvg svg {
+  height: 24px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  color: hsl(var(--foreground));
+  fill: currentColor;
+}
+
+.dropdownItemLogo :global(.kabl-blue),
+.dropdownItemLogo :global(.kabl-blue-stroke) {
+  fill: #306fc6 !important;
+  stroke: #306fc6 !important;
+}
+
+/* KBpm has a P descender – scale up so the K cap height matches; align from left edge */
+.dropdownItemLogoKbpm .dropdownItemLogoSvg svg {
+  transform: scale(1.3);
+  transform-origin: left center;
 }
 
 /* Limit Hover Effects to Non Touch Devices */
@@ -190,6 +221,9 @@
   .navLink:hover {
     background-color: hsl(var(--surface-hover));
     padding-left: 24px;
+  }
+  .closeButton:active {
+    transform: rotate(90deg) scale(0.95);
   }
 }
 

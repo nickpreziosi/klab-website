@@ -1,32 +1,45 @@
 import Button from "@/ui/shared/components/button/button";
 import styles from "./LitepapersView.module.css";
 
-const languages = [
-  { name: "English", href: "/litepapers/keo-litepaper-en.pdf" },
-  { name: "Spanish", href: "/litepapers/keo-litepaper-es.pdf" },
-  { name: "Portuguese", href: "/litepapers/keo-litepaper-pt.pdf" },
+export type LitepapersTranslations = {
+  label: string;
+  heading: string;
+  description: string;
+  readFullLitepaper: string;
+  english: string;
+  spanish: string;
+  portuguese: string;
+};
+
+type LitepapersViewProps = {
+  litepapersTranslations?: LitepapersTranslations;
+};
+
+const LANGUAGE_KEYS = ["english", "spanish", "portuguese"] as const;
+const LANGUAGE_HREFS = [
+  "/litepapers/keo-litepaper-en.pdf",
+  "/litepapers/keo-litepaper-es.pdf",
+  "/litepapers/keo-litepaper-pt.pdf",
 ];
 
-export function LitepapersView() {
+export function LitepapersView({ litepapersTranslations }: LitepapersViewProps = {}) {
+  if (!litepapersTranslations) {
+    return null;
+  }
+  const t = litepapersTranslations;
+  const languages = LANGUAGE_KEYS.map((key, i) => ({
+    name: t[key],
+    href: LANGUAGE_HREFS[i],
+  }));
   return (
     <main className={styles.main}>
       <div className={styles.container}>
         <div className={styles.content}>
-          <p className={styles.label}>KLab LITEPAPER</p>
-          <h1 className={styles.heading}>
-            Explore how KLab reimagines blockchain payments with stability and predictability at its
-            core
-          </h1>
-          <p className={styles.description}>
-            KLab is a purpose-built, EVM-compatible Layer-1 blockchain advancing the frontier of
-            stablecoin finance and tokenization. It features USDC as native gas, deterministic
-            settlement finality, opt-in privacy, and a stable transaction fee architecture.
-            Optimized for stablecoin-native use cases, such as global payments, FX, and capital
-            markets, KLab serves as a foundational settlement layer for programmable money on the
-            internet.
-          </p>
+          <p className={styles.label}>{t.label}</p>
+          <h1 className={styles.heading}>{t.heading}</h1>
+          <p className={styles.description}>{t.description}</p>
           <div className={styles.linksSection}>
-            <p className={styles.linksHeading}>READ THE FULL LITEPAPER</p>
+            <p className={styles.linksHeading}>{t.readFullLitepaper}</p>
             <div className={styles.languageLinks}>
               {languages.map((language) => (
                 <Button

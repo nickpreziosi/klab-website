@@ -1,0 +1,276 @@
+/* Grid lets overlay + container occupy same cell → overlay doesn't add flow space */
+.section {
+  width: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-areas: "main";
+  align-items: start;
+  justify-items: center;
+  position: relative;
+}
+.section > * {
+  grid-area: main;
+  width: 100%;
+  max-width: 100%;
+}
+.gradientOverlay {
+  background: var(--theme-gradient);
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-xl);
+}
+
+.topHeading {
+  text-align: center;
+  max-width: 1440px;
+}
+
+.mainHeading {
+  color: hsl(var(--foreground));
+  margin: 0;
+  font-weight: 600;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.subheading {
+  color: hsl(var(--foreground));
+  margin: 1.5rem 0 0 0;
+  font-weight: 400;
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+/* Grid now defines the sticky container boundaries for just the 4 features */
+/* Removed min-height so grid naturally sizes to content height */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  position: relative;
+  height: fit-content !important;
+}
+
+.stickyContainer {
+  height: 100%;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: space-evenly;
+  padding-bottom: 0;
+  height: 100%;
+  margin: var(--padding-desktop);
+}
+
+.textBlock {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.heading {
+  color: hsl(var(--foreground));
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  color: hsl(var(--foreground));
+  margin: 0;
+  font-weight: 400;
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+}
+
+.scrollContent {
+  display: flex;
+  flex-direction: column;
+  height: 250vh;
+  position: relative;
+}
+
+/* Improved sticky positioning - starts at top, centers in viewport, ends at bottom of grid */
+.rightColumn {
+  position: relative;
+  height: calc(100vh - var(--navbar-height));
+  min-height: 0; /* Allow shrink so overflow:hidden clips correctly */
+}
+
+.progressContainer {
+  position: sticky;
+  bottom: 0;
+  top: 0;
+  width: 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  pointer-events: none;
+  height: 100vh;
+  display: none;
+}
+
+.progressTrack {
+  width: 4px;
+  height: 100vh;
+  border-radius: var(--rounded-app);
+  position: relative;
+  overflow: visible;
+}
+
+.progressFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: hsl(var(--foreground));
+  border-radius: var(--rounded-app);
+  transform-origin: top;
+}
+
+.progressMarker {
+  position: absolute;
+  left: 50%;
+  /* start as a square centered on the track */
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--rounded-app);
+  background: hsl(var(--foreground));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+  pointer-events: none;
+  top: 50%;
+}
+
+.ctaContainer {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: var(--padding-mobile);
+}
+
+.animationContainer {
+  transition: all 0.5 ease-in-out;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.animationContainer > div {
+  width: 120% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  transform: translateX(-5.5%);
+}
+
+.animationContainer svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: calc(-1 * 3rem) center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media (min-width: 1024px) {
+  .rightColumn {
+    position: sticky;
+    /* Position at bottom instead of top */
+    bottom: 0;
+    align-self: end;
+  }
+}
+
+@media (max-width: 1024px) {
+  .leftColumn {
+    margin: 0;
+    gap: var(--gap-xl);
+  }
+
+  .rightColumn {
+    margin: 0;
+    max-height: 800px;
+  }
+
+  .scrollContent {
+    height: fit-content;
+  }
+  .progressContainer {
+    display: none;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--gap-lg);
+    min-height: auto;
+  }
+
+  .container {
+    padding: var(--padding-tablet);
+    gap: var(--gap-lg);
+  }
+
+  .rightColumn {
+    order: -1;
+    margin-bottom: 2rem;
+  }
+  .ctaContainer {
+    margin-top: var(--padding-tablet);
+    justify-content: center;
+  }
+  .video {
+    object-fit: contain;
+    object-position: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .leftColumn {
+    gap: var(--gap-lg);
+  }
+  .container {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+}

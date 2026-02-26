@@ -7,21 +7,24 @@ import styles from "./kena-two-column-content.module.css";
 interface KenaTwoColumnContentProps {
   leftContent: string;
   rightContent: string;
+  skipAnimation?: boolean;
 }
 
 export default function KenaTwoColumnContent({
   leftContent,
   rightContent,
+  skipAnimation = false,
 }: KenaTwoColumnContentProps) {
-  const [shouldAnimate, setShouldAnimate] = useState(false);
+  const [shouldAnimate, setShouldAnimate] = useState(skipAnimation);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   useEffect(() => {
+    if (skipAnimation) return;
     if (isInView) {
       setShouldAnimate(true);
     }
-  }, [isInView]);
+  }, [isInView, skipAnimation]);
 
   const leftVariants = {
     hidden: {
@@ -80,7 +83,7 @@ export default function KenaTwoColumnContent({
             },
           },
         }}
-        initial="hidden"
+        initial={skipAnimation ? "visible" : "hidden"}
         animate={shouldAnimate ? "visible" : "hidden"}
       >
         <h3 className={styles.leftHeading}>{leftContent}</h3>
@@ -104,7 +107,7 @@ export default function KenaTwoColumnContent({
             },
           },
         }}
-        initial="hidden"
+        initial={skipAnimation ? "visible" : "hidden"}
         animate={shouldAnimate ? "visible" : "hidden"}
       >
         <p className={styles.rightText}>{rightContent}</p>

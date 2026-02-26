@@ -36,10 +36,10 @@
 .description {
   font-size: var(--text-sm);
   line-height: 22px;
-  color: hsl(var(--foreground));
+  color: hsl(var(--foreground) / 0.9);
   margin: 0;
   flex-grow: 1;
-  font-weight: var(--font-thin);
+  font-weight: 400;
   letter-spacing: 0%;
 }
 

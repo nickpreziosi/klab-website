@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useInView, motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import styles from "./video-background.module.css";
 import Image from "next/image";
 import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
@@ -20,6 +21,7 @@ export default function VideoPlayer({
   fadeDurationMs = 300,
   skipAnimation = false,
 }: VideoPlayerProps) {
+  const t = useTranslations("common");
   const [isLoaded, setIsLoaded] = useState(false);
   const [visible, setVisible] = useState(skipAnimation);
   const [mediaVisible, setMediaVisible] = useState(false);
@@ -40,8 +42,12 @@ export default function VideoPlayer({
     const vid = videoRef.current;
     if (!vid) return;
 
-    // If the source is already set, avoid re-initializing
-    if (vid.dataset?.initialized) return;
+    // Re-initialize when videoUrl changes (e.g. theme switch)
+    const previousUrl = vid.dataset?.initializedUrl;
+    if (previousUrl === videoUrl) return;
+
+    setIsLoaded(false);
+    setMediaVisible(false);
 
     // set attributes and prepare for fade
     vid.muted = true;
@@ -56,8 +62,7 @@ export default function VideoPlayer({
 
     // attach source and load
     vid.src = videoUrl as string;
-    // mark initialized to avoid duplicate work
-    vid.dataset.initialized = "1";
+    vid.dataset.initializedUrl = videoUrl;
 
     const onCanPlay = () => {
       requestAnimationFrame(() => {
@@ -81,9 +86,9 @@ export default function VideoPlayer({
     return () => {
       vid.pause();
       vid.removeEventListener("canplay", onCanPlay);
-      try {
-        delete vid.dataset.initialized;
-      } catch {}
+      vid.removeAttribute("data-initialized-url");
+      vid.removeAttribute("src");
+      vid.load();
     };
   }, [isInView, videoUrl, fadeDurationMs, skipAnimation]);
 
@@ -102,7 +107,9 @@ export default function VideoPlayer({
         playsInline
         muted
         loop
-      />
+      >
+        <track kind="captions" srcLang="en" label="English" />
+      </motion.video>
 
       {/* Poster shown until player reports loaded. We keep it mounted and fade it out */}
       <motion.div
@@ -115,7 +122,7 @@ export default function VideoPlayer({
           fetchPriority="high"
           priority
           src={posterUrl ?? "/images/kena-video.webp"}
-          alt="KENA AI Visualization"
+          alt={t("kenaVisualizationAlt")}
           fill
           placeholder="blur"
           blurDataURL={BLUR_PLACEHOLDER}
