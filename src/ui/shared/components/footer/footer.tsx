@@ -223,7 +223,7 @@ export const Footer = () => {
         <div className={styles.container}>
           <div className={styles.nav}>
             <div className={styles.navContainer}>
-              <h3 className={styles.navTitle}>{t("quickLinks")}</h3>
+              <h2 className={styles.navTitle}>{t("quickLinks")}</h2>
               <nav className={styles.navLinks}>
                 {navLinks.map((link) => (
                   <Link key={link.href} href={link.href} className={styles.navLink}>
@@ -234,7 +234,7 @@ export const Footer = () => {
             </div>
 
             <div className={styles.socialContainer}>
-              <h3 className={styles.navTitle}>{t("followUs")}</h3>
+              <h2 className={styles.navTitle}>{t("followUs")}</h2>
               <div className={styles.socialLinks}>
                 {socialLinks.map((link) => (
                   <a

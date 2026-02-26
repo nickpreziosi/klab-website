@@ -210,7 +210,7 @@ export function NewsView({
                   />
                 </svg>
               </div>
-              <h3 className={styles.noResultsTitle}>{t("noArticlesFound")}</h3>
+              <h2 className={styles.noResultsTitle}>{t("noArticlesFound")}</h2>
               <p className={styles.noResultsText}>
                 {emptyStateMessage ??
                   (selectedCategories.length > 0

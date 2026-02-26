@@ -154,7 +154,9 @@ export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false
                   /* ignore */
                 }
               }}
-            />
+            >
+              <track kind="captions" srcLang="en" label="English" />
+            </motion.video>
           )}
         </AnimatePresence>
       </div>

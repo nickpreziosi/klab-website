@@ -10,7 +10,7 @@
   color: hsl(var(--foreground));
 }
 
-/* Trigger: larger font, more padding; inactive = muted text; active = background + shadow */
+/* Trigger: larger font, more padding; inactive = secondary text (sufficient contrast); active = background + shadow */
 .trigger {
   display: inline-flex;
   align-items: center;
@@ -20,7 +20,7 @@
   font-size: var(--text-lg);
   font-weight: 500;
   border-radius: var(--rounded-app);
-  color: hsl(var(--muted-foreground));
+  color: hsl(var(--foreground) / 0.78);
   background: transparent;
   border: none;
   cursor: pointer;

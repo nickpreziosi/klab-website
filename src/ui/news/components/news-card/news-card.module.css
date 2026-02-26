@@ -124,9 +124,9 @@
 
 .excerpt {
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.6;
-  color: hsl(var(--muted));
+  color: hsl(var(--foreground) / 0.82);
   margin: 0 0 20px 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;

@@ -109,7 +109,6 @@ const FloatingLabelInput = React.forwardRef<
           <label
             htmlFor={finalId}
             className={cn(styles.label, labelClassName)}
-            aria-hidden
           >
             {label}
           </label>

@@ -212,6 +212,7 @@ export function ArticleView({
                 <source src={article.embedLink} type="video/mp4" />
                 <source src={article.embedLink} type="video/webm" />
                 <source src={article.embedLink} type="video/ogg" />
+                <track kind="captions" srcLang="en" label="English" />
                 Your browser does not support the video tag.
               </video>
             </div>

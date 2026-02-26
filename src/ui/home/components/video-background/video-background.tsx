@@ -107,7 +107,9 @@ export default function VideoPlayer({
         playsInline
         muted
         loop
-      />
+      >
+        <track kind="captions" srcLang="en" label="English" />
+      </motion.video>
 
       {/* Poster shown until player reports loaded. We keep it mounted and fade it out */}
       <motion.div

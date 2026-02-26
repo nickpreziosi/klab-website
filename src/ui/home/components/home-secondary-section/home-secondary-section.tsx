@@ -423,7 +423,9 @@ const DialogDemo = ({ onPlay, video }: { onPlay?: () => void; video: string }) =
               onLoadedData={() => {
                 if (open) setContentReady(true);
               }}
-            />
+            >
+              <track kind="captions" srcLang="en" label="English" />
+            </video>
 
             <Dialog.Close asChild>
               <button aria-label={tCommon("closeVideo")} className={styles.dialogCloseButton}>
@@ -509,11 +511,11 @@ export default function HomeSecondarySection({
             transition={skipAnimation ? { duration: 0 } : { duration: 0.6, ease: "easeOut" }}
           >
             <div className={styles.deploymentTimeline}>
-              <h3 className={styles.timelineTitle}>
+              <h2 className={styles.timelineTitle}>
                 <span className={styles.timelineTitlePrimary}>{t("timelineTitlePrimary")}</span>{" "}
                 <br className={styles.timelineTitleBreak}></br>
                 <span className={styles.timelineTitleAccent}>{t("timelineTitleAccent")}.</span>
-              </h3>
+              </h2>
               <div className={styles.timelineLayout}>
                 {(() => {
                   const steps = HOME_SECONDARY_STEP_KEYS.map((key) => ({ label: t(key) }));

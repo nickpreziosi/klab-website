@@ -160,6 +160,7 @@ export function Combobox({
                   ref={inputRef}
                   id={comboboxId}
                   type="text"
+                  role="combobox"
                   autoComplete={autoComplete}
                   placeholder=" "
                   value={inputValue}
@@ -182,8 +183,10 @@ export function Combobox({
                   if (e.key === "Escape") setOpen(false);
                 }}
                 disabled={disabled}
+                aria-label={label}
                 aria-describedby={ariaDescribedBy}
                 aria-expanded={open}
+                aria-haspopup="listbox"
                 aria-autocomplete="list"
                 aria-controls={open ? `${comboboxId}-list` : undefined}
                   className={cn(styles.input, error && styles.error)}

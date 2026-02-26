@@ -133,7 +133,9 @@ export default function NewsCard({ article, index }: NewsCardProps) {
                 playsInline
                 autoPlay
                 preload="metadata"
-              />
+              >
+                <track kind="captions" srcLang="en" label="English" />
+              </video>
             </>
           ) : (
             <>

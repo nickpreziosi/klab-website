@@ -46,6 +46,12 @@
     "legal1": "Use of this site constitutes acceptance of KLab's Privacy and Data Protection Policy.",
     "legal2": "KLab and its affiliates collect and process personal data in accordance with applicable privacy laws."
   },
+  "cookieBanner": {
+    "message": "We use cookies to improve your experience and analyze site traffic. You can accept all cookies or only those essential for the site to function.",
+    "acceptAll": "Accept all",
+    "essentialOnly": "Essential only",
+    "privacyLink": "Privacy policy"
+  },
   "contact": {
     "heading": "How can we help?",
     "subtitle": "Get in touch with our sales, support, and careers teams for demos, product questions, or career opportunities.",

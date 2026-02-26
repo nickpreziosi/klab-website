@@ -46,8 +46,10 @@ export function KenaView({ translations }: { translations: KenaTranslations }) {
         <KenaHeroSection translations={translations} skipAnimation={skipAnimation} />
       </div>
       <KenaCardsSection translations={translations} skipAnimation={skipAnimation} />
-      <Kena3dSection translations={translations} skipAnimation={skipAnimation} />
-      <KenaCtaSection translations={translations} skipAnimation={skipAnimation} />
+      <div className={styles.lastSection}>
+        <Kena3dSection translations={translations} skipAnimation={skipAnimation} />
+        <KenaCtaSection translations={translations} skipAnimation={skipAnimation} />
+      </div>
     </main>
   );
 }

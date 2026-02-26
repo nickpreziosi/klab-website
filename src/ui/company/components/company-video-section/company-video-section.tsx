@@ -161,7 +161,9 @@ const DialogDemo = ({ onPlay }: { onPlay?: () => void }) => {
             onLoadedData={() => {
               if (open) setContentReady(true);
             }}
-          />
+          >
+            <track kind="captions" srcLang="en" label="English" />
+          </video>
 
           <Dialog.Close asChild>
             <button aria-label={t("closeVideo")} className={styles.dialogCloseButton}>

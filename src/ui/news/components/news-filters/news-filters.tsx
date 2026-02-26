@@ -35,6 +35,7 @@ export default function NewsFilters({ categories, selectedCategories }: NewsFilt
     <div className={styles.newsFilters}>
       <div className={styles.filtersRow}>
         <MultipleSelector
+          id="news-category-filter"
           label={t("filterCategoryLabel")}
           placeholder={t("filterAllCategories")}
           options={categoryItems}

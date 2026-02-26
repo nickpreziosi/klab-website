@@ -23,10 +23,10 @@
   margin: 0;
 }
 
-/* CardDescription - text-sm text-muted-foreground */
+/* CardDescription - text-sm, sufficient contrast for visibility */
 .description {
   font-size: var(--text-sm);
-  color: var(--card-muted-foreground);
+  color: hsl(var(--foreground) / 0.82);
   line-height: 1.5;
   margin: 0;
 }

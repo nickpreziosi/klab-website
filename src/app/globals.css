@@ -12,7 +12,7 @@
   --surface: 0 0% 96%;
   --surface-hover: 0 0% 96%;
   --surface-foreground: 0 0% 8%;
-  --accent: 23 90% 54%;
+  --accent: 26 100% 50%;
   --accent-foreground: 0 0% 100%;
   --muted: 0 0% 45%;
   --muted-foreground: 0 0% 45%;
@@ -25,6 +25,7 @@
   --main-color: rgb(var(--main-color-rgb));
   --secondary-color-rgb: 20, 20, 20;
   --secondary-color: rgb(var(--secondary-color-rgb));
+
   --accent-color-rgb: 243, 113, 32;
   --accent-color: rgba(var(--accent-color-rgb), 1);
 
@@ -75,7 +76,7 @@
   --padding-xs: 0.325rem;
   --padding-sm: 0.75rem;
   --padding-md: 1rem;
-  --padding-mobile: 1.5rem;
+  --padding-mobile: 1rem;
   --padding-tablet: 3rem;
   --padding-desktop: 6rem;
   --padding-4xl: 12rem;
