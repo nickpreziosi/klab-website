@@ -57,7 +57,7 @@
 .statsGrid {
   margin-top: var(--padding-tablet);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--gap-lg);
   width: 100%;
 }
@@ -127,7 +127,6 @@
 
 .imagesGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: 32px;
   width: 100%;
 }
@@ -166,9 +165,6 @@
 }
 
 @media (max-width: 1024px) {
-  .statsGrid {
-    grid-template-columns: 1fr 1fr;
-  }
   .container {
     gap: 32px;
     padding: var(--padding-tablet);
