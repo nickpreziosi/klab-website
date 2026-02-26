@@ -533,10 +533,11 @@
     "filterCategoryLabel": "Category",
     "filterAllCategories": "All Categories",
     "articleNotFoundTitle": "Article Not Found",
-    "backToNews": "← Back to News",
+    "backToNews": "Back to News",
     "previousImage": "Previous image",
     "nextImage": "Next image",
-    "galleryImageAlt": "Gallery image {number}"
+    "galleryImageAlt": "Gallery image {number}",
+    "close": "Close"
   },
   "kena": {
     "heroHeading": "AI that Understands Risk the Way",

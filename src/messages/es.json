@@ -533,10 +533,11 @@
     "filterCategoryLabel": "Categoría",
     "filterAllCategories": "Todas las categorías",
     "articleNotFoundTitle": "Artículo no encontrado",
-    "backToNews": "← Volver a Noticias",
+    "backToNews": "Volver a Noticias",
     "previousImage": "Imagen anterior",
     "nextImage": "Siguiente imagen",
-    "galleryImageAlt": "Imagen de galería {number}"
+    "galleryImageAlt": "Imagen de galería {number}",
+    "close": "Cerrar"
   },
   "kena": {
     "heroHeading": "IA que entiende el riesgo como",

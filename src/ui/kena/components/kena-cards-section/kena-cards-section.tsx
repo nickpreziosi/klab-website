@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
+import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
 import styles from "./kena-cards-section.module.css";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
 import {
@@ -45,6 +46,8 @@ export default function KeoCardsSection({
               className={styles.image}
               priority
               sizes="(max-width: 1024px) 400px, 50vw"
+              placeholder="blur"
+              blurDataURL={BLUR_PLACEHOLDER}
             />
           </div>
           <div className={styles.content}>

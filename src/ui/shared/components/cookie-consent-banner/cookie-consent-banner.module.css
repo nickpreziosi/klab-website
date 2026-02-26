@@ -4,7 +4,6 @@
   left: 0;
   right: 0;
   z-index: 9999;
-  padding: var(--padding-md) var(--padding-tablet);
   background: hsl(var(--background));
   border-top: 1px solid hsl(var(--border));
   box-shadow: 0 -4px 24px hsl(var(--foreground) / 0.08);
@@ -14,7 +13,9 @@
 }
 
 .bannerInner {
-  max-width: 1200px;
+  max-width: 1440px;
+  padding: var(--padding-md) var(--padding-desktop);
+
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -47,14 +48,17 @@
   gap: var(--gap-sm);
 }
 
-@media (max-width: 640px) {
-  .banner {
-    padding: var(--padding-md);
+@media (max-width: 1024px) {
+  .bannerInner {
+    padding: var(--padding-md) var(--padding-tablet);
   }
+}
 
+@media (max-width: 640px) {
   .bannerInner {
     flex-direction: column;
     align-items: stretch;
+    padding: var(--padding-mobile);
   }
 
   .actions {

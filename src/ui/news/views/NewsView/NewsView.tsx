@@ -22,6 +22,8 @@ export interface NewsViewArticle {
   readTime: string;
   image?: string;
   youtubeId?: string;
+  /** Video embed URL (YouTube, Vimeo, or direct MP4/etc.) so cards can show thumbnails or inline video */
+  embedLink?: string;
   author?: string;
   authorRole?: string;
 }

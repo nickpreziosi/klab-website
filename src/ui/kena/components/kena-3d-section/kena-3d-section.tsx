@@ -5,6 +5,7 @@ import SectionHeader from "@/ui/shared/components/section-header/section-header"
 import styles from "./kena-3d-section.module.css";
 import type { KenaTranslations } from "@/ui/kena/views/KenaView/KenaView";
 import Image from "next/image";
+import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
 const steps = (t: KenaTranslations): { heading: string; text: string }[] => [
   { heading: t.step0Heading, text: t.step0Text },
   { heading: t.step1Heading, text: t.step1Text },
@@ -50,6 +51,8 @@ export default function Kena3dSection({
               alt="Kena 3D Section"
               width={500}
               height={500}
+              placeholder="blur"
+              blurDataURL={BLUR_PLACEHOLDER}
             />
           </div>
         </div>

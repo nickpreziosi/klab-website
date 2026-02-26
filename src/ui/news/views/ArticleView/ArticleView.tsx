@@ -6,9 +6,11 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
 import * as Dialog from "@radix-ui/react-dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import useEmblaCarousel from "embla-carousel-react";
 import styles from "./ArticleView.module.css";
 import Button from "@/ui/shared/components/button/button";
+import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
 
 export interface ClientArticle {
   _id: string;
@@ -28,6 +30,7 @@ export interface ClientArticle {
 
 export interface GalleryImageUrl {
   url: string;
+  thumbnailUrl: string;
   caption?: string;
   alt?: string;
 }
@@ -57,7 +60,6 @@ export function ArticleView({
   bodyHTML,
 }: ArticleViewProps) {
   const t = useTranslations("newsPage");
-  const tCommon = useTranslations("common");
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -115,6 +117,18 @@ export function ArticleView({
   const handleOpenChange = (isOpen: boolean) => {
     if (!isOpen) setSelectedImageIndex(null);
   };
+
+  // Preload first gallery image for lightbox so it's ready when user opens dialog
+  const firstGalleryImageUrl = galleryImageUrls[0]?.url;
+  useEffect(() => {
+    if (!firstGalleryImageUrl) return;
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+    link.href = firstGalleryImageUrl;
+    document.head.appendChild(link);
+    return () => link.remove();
+  }, [firstGalleryImageUrl]);
 
   return (
     <main className={styles.main}>
@@ -228,6 +242,8 @@ export function ArticleView({
                 className={styles.image}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                 priority
+                placeholder="blur"
+                blurDataURL={BLUR_PLACEHOLDER}
               />
             </div>
             {article.image?.caption && (
@@ -273,7 +289,7 @@ export function ArticleView({
                       type="button"
                     >
                       <Image
-                        src={galleryImage.url}
+                        src={galleryImage.thumbnailUrl}
                         alt={galleryImage.alt || t("galleryImageAlt", { number: index + 1 })}
                         width={400}
                         height={300}
@@ -307,6 +323,9 @@ export function ArticleView({
               onPointerDownOutside={() => handleOpenChange(false)}
               onEscapeKeyDown={() => handleOpenChange(false)}
             >
+              <VisuallyHidden>
+                <Dialog.Title>{t("galleryImageAlt", { number: (selectedImageIndex ?? 0) + 1 })}</Dialog.Title>
+              </VisuallyHidden>
               {galleryImageUrls.length > 1 && (
                 <button
                   className={`${styles.carouselNavButton} ${styles.carouselNavButtonPrev}`}
@@ -344,7 +363,6 @@ export function ArticleView({
                               fill
                               sizes="(max-width: 768px) 100vw, 1200px"
                               className={styles.dialogImage}
-                              style={{ objectFit: "contain" }}
                             />
                           </div>
                           {galleryImage.caption && (
@@ -380,7 +398,7 @@ export function ArticleView({
                 </button>
               )}
               <Dialog.Close asChild>
-                <button className={styles.dialogClose} aria-label={tCommon("close")}>
+                <button className={styles.dialogClose} aria-label={t("close")}>
                   <svg
                     width="24"
                     height="24"

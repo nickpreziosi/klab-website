@@ -34,6 +34,7 @@ export default async function Head() {
 
   return (
     <>
+      <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="" />
       <script
         id="klab-theme-init"
         dangerouslySetInnerHTML={{ __html: script }}

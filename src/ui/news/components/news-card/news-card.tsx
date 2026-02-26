@@ -74,7 +74,7 @@ export default function NewsCard({ article, index }: NewsCardProps) {
                 src={`https://img.youtube.com/vi/${article.youtubeId}/hqdefault.jpg`}
                 alt={article.title}
                 className={styles.image}
-                unoptimized
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 500px"
               />
               <div className={styles.playBadge} aria-hidden>
                 <svg
@@ -100,7 +100,7 @@ export default function NewsCard({ article, index }: NewsCardProps) {
                     src={getVimeoThumbnail(article.embedLink)!}
                     alt={article.title}
                     className={styles.image}
-                    unoptimized
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 500px"
                   />
                   <div className={styles.playBadge} aria-hidden>
                     <svg
@@ -145,6 +145,7 @@ export default function NewsCard({ article, index }: NewsCardProps) {
                 src={article.image || "/images/placeholder.svg"}
                 alt={article.title}
                 className={styles.image}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 500px"
               />
             </>
           )}

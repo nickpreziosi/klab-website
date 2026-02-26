@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { getAllArticles } from "@/sanity/queries/articles";
-import { urlFor } from "@/sanity/lib/image";
+import { urlForSized } from "@/sanity/lib/image";
 import { NewsView } from "@/ui/news/views/NewsView/NewsView";
 
 const ARTICLES_PER_PAGE = 6;
@@ -48,8 +48,9 @@ export default async function NewsKeoPage({ searchParams }: NewsKeoPageProps) {
     category: article.category || "Uncategorized",
     date: formatDate(article.publishedAt),
     readTime: article.readTime || "5 min read",
-    image: article.image ? urlFor(article.image).url() : undefined,
+    image: article.image ? urlForSized(article.image, { width: 500, quality: 75 }) : undefined,
     youtubeId: extractYouTubeId(article.embedLink),
+    embedLink: article.embedLink || undefined,
     author: article.author || undefined,
     authorRole: article.authorRole || undefined,
   }));

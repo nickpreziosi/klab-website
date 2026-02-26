@@ -533,10 +533,11 @@
     "filterCategoryLabel": "الفئة",
     "filterAllCategories": "جميع الفئات",
     "articleNotFoundTitle": "المقال غير موجود",
-    "backToNews": "← العودة إلى الأخبار",
+    "backToNews": "العودة إلى الأخبار",
     "previousImage": "الصورة السابقة",
     "nextImage": "الصورة التالية",
-    "galleryImageAlt": "صورة المعرض {number}"
+    "galleryImageAlt": "صورة المعرض {number}",
+    "close": "إغلاق"
   },
   "kena": {
     "heroHeading": "ذكاء اصطناعي يفهم المخاطر بالطريقة",

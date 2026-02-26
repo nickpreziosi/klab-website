@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
@@ -48,6 +49,8 @@ function MockupCard({
         height={mockup.variant === "phone" ? 760 : 360}
         className={styles.mockupImage}
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        placeholder="blur"
+        blurDataURL={BLUR_PLACEHOLDER}
       />
     </div>
   );
