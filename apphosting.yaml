@@ -41,17 +41,17 @@ env:
 
   # Email - per-form recipients only
   - variable: NEXT_PUBLIC_SALES_RECIPIENT_EMAIL
-    value: "nickprez@gmail.com"
+    value: "sales@k-lab.ai"
     availability:
       - BUILD
       - RUNTIME
   - variable: NEXT_PUBLIC_SUPPORT_RECIPIENT_EMAIL
-    value: "nickprez@gmail.com"
+    value: "support@k-lab.ai"
     availability:
       - BUILD
       - RUNTIME
   - variable: NEXT_PUBLIC_CAREERS_RECIPIENT_EMAIL
-    value: "nickprez@gmail.com"
+    value: "careers@k-lab.ai"
     availability:
       - BUILD
       - RUNTIME

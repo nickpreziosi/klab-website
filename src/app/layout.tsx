@@ -7,7 +7,6 @@ import { SmoothAnchorScroll } from "@/ui/shared/components/smooth-anchor-scroll/
 import { HomeAnimationProvider } from "@/ui/home/providers/home-animation-provider";
 import { ThemeProvider } from "@/ui/shared/providers/theme-provider";
 import { Toaster } from "@/ui/shared/components/toaster/toaster";
-import { CookieConsentProvider } from "@/ui/shared/components/cookie-consent-provider/cookie-consent-provider";
 import { routing } from "@/i18n/routing";
 import Head from "./head";
 
@@ -53,7 +52,6 @@ export default async function RootLayout({
       <body>
         <ThemeProvider initialTheme={initialTheme}>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <CookieConsentProvider />
             <SmoothAnchorScroll />
             <HomeAnimationProvider>{children}</HomeAnimationProvider>
             <Toaster />
