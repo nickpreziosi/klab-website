@@ -90,10 +90,6 @@
   transition: all 300ms ease-in-out;
 }
 
-.closeButton:active {
-  transform: rotate(90deg) scale(0.95);
-}
-
 /* Navigation */
 .nav {
   display: flex;
@@ -225,6 +221,9 @@
   .navLink:hover {
     background-color: hsl(var(--surface-hover));
     padding-left: 24px;
+  }
+  .closeButton:active {
+    transform: rotate(90deg) scale(0.95);
   }
 }
 

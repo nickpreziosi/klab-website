@@ -27,6 +27,7 @@
  */
 
 import { createContext, useContext, useLayoutEffect, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import {
   getSkipAnimationsOnNextPageLoad,
   clearSkipAnimationsOnNextPageLoad,
@@ -46,6 +47,8 @@ export function useSkipAnimationOnLocaleSwitch(): boolean {
 }
 
 export function SkipAnimationOnLocaleSwitchProvider({ children }: { children: ReactNode }) {
+  // Subscribe to pathname so we re-render on route change and pass skipAnimation: false to new pages.
+  const pathname = usePathname();
   const skipAnimation = getSkipAnimationsOnNextPageLoad();
 
   useLayoutEffect(() => {
