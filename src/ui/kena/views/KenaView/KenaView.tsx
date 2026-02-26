@@ -60,31 +60,36 @@ export function KenaView({ translations }: { translations: KenaTranslations }) {
     }
   }, []);
 
-  const handleUnlock = useCallback(async (password: string): Promise<KenaUnlockResult> => {
-    try {
-      const res = await fetch("/api/kena-unlock", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
-      });
+  const handleUnlock = useCallback(
+    async (password: string): Promise<KenaUnlockResult> => {
+      try {
+        const res = await fetch("/api/kena-unlock", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password }),
+        });
 
-      if (res.ok) {
-        try {
-          localStorage.setItem(STORAGE_KEY, "true");
-        } catch {
-          // ignore
+        if (res.ok) {
+          try {
+            localStorage.setItem(STORAGE_KEY, "true");
+          } catch {
+            // ignore
+          }
+          setUnlocked(true);
+          setDialogOpen(false);
+          return { ok: true };
         }
-        setUnlocked(true);
-        setDialogOpen(false);
-        return { ok: true };
-      }
 
-      const body = await res.json().catch(() => null);
-      return { ok: false, message: (body && body.message) || undefined };
-    } catch {
-      return { ok: false, message: "Network error" };
-    }
-  }, []);
+        if (res.status === 401) {
+          return { ok: false, message: t("passwordErrorInvalid") };
+        }
+        return { ok: false, message: t("passwordErrorGeneric") };
+      } catch {
+        return { ok: false, message: t("passwordErrorNetwork") };
+      }
+    },
+    [t]
+  );
 
   const closeDialog = useCallback(() => {
     setDialogOpen(false);
