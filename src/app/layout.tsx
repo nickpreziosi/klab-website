@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 import "./globals.css";
 import { Sora } from "next/font/google";
 import { SmoothAnchorScroll } from "@/ui/shared/components/smooth-anchor-scroll/smooth-anchor-scroll";
-import { LandingAnimationProvider } from "@/ui/landing-page/providers/landing-animation-provider";
 import { HomeAnimationProvider } from "@/ui/home/providers/home-animation-provider";
 import { ThemeProvider } from "@/ui/shared/providers/theme-provider";
 import { Toaster } from "@/ui/shared/components/toaster/toaster";
@@ -44,9 +43,7 @@ export default async function RootLayout({
         <ThemeProvider initialTheme={initialTheme}>
           <GoogleAnalytics />
           <SmoothAnchorScroll />
-          <LandingAnimationProvider>
-            <HomeAnimationProvider>{children}</HomeAnimationProvider>
-          </LandingAnimationProvider>
+          <HomeAnimationProvider>{children}</HomeAnimationProvider>
           <Toaster />
         </ThemeProvider>
       </body>

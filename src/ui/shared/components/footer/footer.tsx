@@ -180,7 +180,7 @@ export const Footer = () => {
     {
       name: "YouTube",
       labelKey: "followYouTube" as const,
-      href: "https://www.youtube.com/@keoworldB2B",
+      href: "https://www.youtube.com/channel/UCo5trHzk7sOyUjPft7u62Og",
       icon: (
         <svg
           width="18"

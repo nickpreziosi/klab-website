@@ -5,12 +5,12 @@ import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import NewsCard from "@/ui/news/components/newsCard/news-card";
+import NewsCard from "@/ui/news/components/news-card/news-card";
 import { Pagination } from "@/ui/shared/components/pagination/pagination";
-import NewsCardSkeleton from "@/ui/news/components/newsCardSkeleton/news-card-skeleton";
+import NewsCardSkeleton from "@/ui/news/components/news-card-skeleton/news-card-skeleton";
 import { ContactLink } from "@/ui/contact/components/contact-link/contact-link";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
-import NewsFilters from "./NewsFilters";
+import NewsFilters from "@/ui/news/components/news-filters/news-filters";
 import styles from "./NewsView.module.css";
 
 export interface NewsViewArticle {

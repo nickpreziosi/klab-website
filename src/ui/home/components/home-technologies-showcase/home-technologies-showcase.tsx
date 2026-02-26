@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { LandingTechnologiesShowcase } from "@/ui/landing-page/components/landing-technologies-showcase/landing-technologies-showcase";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
 import { TechnologiesShowcase } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
+import { TechnologiesShowcaseVertical } from "@/ui/home/components/technologies-showcase-vertical/technologies-showcase-vertical";
 import styles from "./home-technologies-showcase.module.css";
 
 const BREAKPOINT_DESKTOP = 1024;
@@ -40,7 +40,7 @@ export function HomeTechnologiesShowcase({
         <TechnologiesShowcase className={styles.desktopShowcase} />
       ) : (
         <div className={styles.mobileShowcaseWrap}>
-          <LandingTechnologiesShowcase variant="orange" useThemeForMobile className={styles.mobileShowcase} />
+          <TechnologiesShowcaseVertical variant="orange" useThemeForMobile className={styles.mobileShowcase} />
         </div>
       )}
     </div>

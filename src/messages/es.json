@@ -35,29 +35,6 @@
     "goBack": "Volver",
     "goHome": "Ir al inicio"
   },
-  "landing": {
-    "statusBar": "ESTADO_DEL_SISTEMA: PRÓXIMAMENTE",
-    "headline": "Decisión de crédito con IA instantánea y pagos digitales",
-    "subline": "K-Lab es una empresa fintech dedicada a transformar la infraestructura de pagos, crédito y finanzas B2B mediante tecnología propia de IA y blockchain.",
-    "learnMore": "Saber más",
-    "ourTechnologies": "Un ecosistema para el negocio del mañana",
-    "technologiesSubline": "Fundada en 2026 como la siguiente evolución de un legado iniciado en 2020, aportamos 6 años de experiencia capitalizada, producción de alto nivel y acceso estratégico al ecosistema tecnológico.",
-    "contactSales": "Contactar ventas",
-    "languageLabel": "Idioma:",
-    "technologies": {
-      "krails": "Infraestructura blockchain para pagos y liquidación B2B automatizados en tiempo real.",
-      "kena": "Kena es un sistema propietario de Infraestructura Financiera Inteligente (IFI).",
-      "ktalk": "Una interfaz de IA conversacional que ofrece acceso instantáneo en lenguaje natural a datos operativos, financieros y transaccionales en todos los sistemas K-Lab.",
-      "krisk": "Motor automatizado de decisiones de riesgo que utiliza IA, modelos de datos y reglas dinámicas para evaluar crédito, detectar fraude y monitorear exposiciones en tiempo real.",
-      "kabl": "K-Abl es un ecosistema financiero impulsado por IA y blockchain, anclado por K-Rails que unifica todos los módulos K en una sola plataforma inteligente.",
-      "kcard": "Emisión de tarjetas corporativas, gestión de gastos y control global. Automatización de procesos manuales para una gestión de gastos y supervisión de informes más eficiente.",
-      "kbpm": "El motor de orquestación que impulsa cada proceso operativo del ecosistema de préstamos K-Lab.",
-      "kim": "Convierte un proceso tradicionalmente manual y propenso a errores en un flujo de trabajo digital totalmente automatizado, inteligente y confiable, desbloqueando velocidad, liquidez y confianza en la cadena de suministro.",
-      "kaxis": "Sistema CRM potente diseñado para ofrecer visibilidad en tiempo real de cada aspecto del recorrido financiero del cliente. Desde líneas de crédito y préstamos hasta pagos y saldos, centraliza los datos clave del cliente en una sola plataforma fácil de usar.",
-      "kleads": "Surge más leads cualificados para maximizar la eficiencia comercial y acelerar el crecimiento y el flujo de acuerdos.",
-      "kai": "En el núcleo de nuestra suite de módulos. Kai soporta la orquestación del ciclo de vida completo desde la incorporación y originación hasta la gestión de préstamos y la liquidación."
-    }
-  },
   "footer": {
     "quickLinks": "Enlaces rápidos",
     "followUs": "Síguenos en redes",
@@ -466,7 +443,9 @@
     "youtubeVideoPlayerTitle": "Reproductor de vídeo de YouTube",
     "kenaVisualizationAlt": "Visualización KENA AI",
     "videoThumbnailAlt": "Miniatura del vídeo",
-    "keoAlt": "KEO"
+    "keoAlt": "KEO",
+    "scrollLeft": "Desplazar a la izquierda",
+    "scrollRight": "Desplazar a la derecha"
   },
   "multipleSelector": {
     "noResultsFound": "No se encontraron resultados.",
@@ -495,8 +474,19 @@
     "page": "Página {number}"
   },
   "technologiesShowcase": {
-    "scrollLeft": "Desplazar a la izquierda",
-    "scrollRight": "Desplazar a la derecha"
+    "technologies": {
+      "krails": "Infraestructura blockchain para pagos y liquidación B2B automatizados en tiempo real.",
+      "kena": "Kena es un sistema propietario de Infraestructura Financiera Inteligente (IFI).",
+      "ktalk": "Una interfaz de IA conversacional que ofrece acceso instantáneo en lenguaje natural a datos operativos, financieros y transaccionales en todos los sistemas K-Lab.",
+      "krisk": "Motor automatizado de decisiones de riesgo que utiliza IA, modelos de datos y reglas dinámicas para evaluar crédito, detectar fraude y monitorear exposiciones en tiempo real.",
+      "kabl": "K-Abl es un ecosistema financiero impulsado por IA y blockchain, anclado por K-Rails que unifica todos los módulos K en una sola plataforma inteligente.",
+      "kcard": "Emisión de tarjetas corporativas, gestión de gastos y control global. Automatización de procesos manuales para una gestión de gastos y supervisión de informes más eficiente.",
+      "kbpm": "El motor de orquestación que impulsa cada proceso operativo del ecosistema de préstamos K-Lab.",
+      "kim": "Convierte un proceso tradicionalmente manual y propenso a errores en un flujo de trabajo digital totalmente automatizado, inteligente y confiable, desbloqueando velocidad, liquidez y confianza en la cadena de suministro.",
+      "kaxis": "Sistema CRM potente diseñado para ofrecer visibilidad en tiempo real de cada aspecto del recorrido financiero del cliente. Desde líneas de crédito y préstamos hasta pagos y saldos, centraliza los datos clave del cliente en una sola plataforma fácil de usar.",
+      "kleads": "Surge más leads cualificados para maximizar la eficiencia comercial y acelerar el crecimiento y el flujo de acuerdos.",
+      "kai": "En el núcleo de nuestra suite de módulos. Kai soporta la orquestación del ciclo de vida completo desde la incorporación y originación hasta la gestión de préstamos y la liquidación."
+    }
   },
   "localeSwitcher": {
     "changeLanguage": "Cambiar idioma",

@@ -30,7 +30,7 @@ const TECH_DESCRIPTION_KEYS = [
 
 export type TechDescriptionKey = (typeof TECH_DESCRIPTION_KEYS)[number];
 
-/* Technology data - same copy as navbar dropdown; exported for drawer/nav. Descriptions come from landing.technologies. */
+/* Technology data - same copy as navbar dropdown; exported for drawer/nav. Descriptions come from technologiesShowcase.technologies. */
 export const TECHNOLOGIES: {
   title: string;
   logoLight: string;
@@ -177,8 +177,8 @@ export function TechnologiesShowcase({
   /** When set, renders a top row with this title on the left and carousel buttons on the right (e.g. "Our Technologies"). */
   headerTitle?: string;
 } = {}) {
-  const t = useTranslations("landing");
-  const tShowcase = useTranslations("technologiesShowcase");
+  const t = useTranslations("technologiesShowcase");
+  const tCommon = useTranslations("common");
   const { effectiveTheme } = useTheme();
   const scrollRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -269,7 +269,7 @@ export function TechnologiesShowcase({
           className={styles.carouselBtn}
           onClick={() => scroll("left")}
           disabled={!canScrollLeft}
-          aria-label={tShowcase("scrollLeft")}
+          aria-label={tCommon("scrollLeft")}
         >
           Previous
         </button>
@@ -278,7 +278,7 @@ export function TechnologiesShowcase({
           className={styles.carouselBtn}
           onClick={() => scroll("right")}
           disabled={!canScrollRight}
-          aria-label={tShowcase("scrollRight")}
+          aria-label={tCommon("scrollRight")}
         >
           Next
         </button>

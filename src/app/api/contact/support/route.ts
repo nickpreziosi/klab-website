@@ -74,8 +74,8 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
  * @throws Error if email credentials are not configured
  */
 function createTransporter() {
-  const emailUser = process.env.SUPPORT_EMAIL_USER;
-  const emailPassword = process.env.SUPPORT_EMAIL_PASSWORD;
+  const emailUser = process.env.NEXT_PUBLIC_EMAIL_USER;
+  const emailPassword = process.env.EMAIL_PASSWORD;
 
   if (!emailUser || !emailPassword) {
     throw new Error("Email credentials not configured");
@@ -371,7 +371,7 @@ export async function POST(request: Request) {
     }
 
     // Send email
-    const recipientEmail = process.env.SUPPORT_RECIPIENT_EMAIL;
+    const recipientEmail = process.env.NEXT_PUBLIC_SUPPORT_RECIPIENT_EMAIL;
     try {
       await transporter.sendMail({
         from: SUPPORT_FROM,

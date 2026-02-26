@@ -84,7 +84,6 @@ A modern, full-featured website for [K-Lab](https://k-lab.ai) — a financial te
 ```
 klab-website/
 ├── public/                   # Static assets (images, videos, PDFs, Lottie, logos, locales)
-├── scripts/                  # Build/utility scripts
 ├── src/
 │   ├── app/                  # Next.js App Router
 │   │   ├── [locale]/         # Locale-prefixed routes (en, es, pt, ar)
@@ -162,31 +161,24 @@ Create a `.env.local` file in the root directory with the following variables:
 # Sanity CMS (News/Blog content)
 NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
 NEXT_PUBLIC_SANITY_DATASET=production
-SANITY_API_TOKEN=your_sanity_api_token
 
 # Google reCAPTCHA v2
 NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your_site_key_here
 RECAPTCHA_SECRET_KEY=your_secret_key_here
 
-# Email Configuration - Sales
-SALES_EMAIL_USER=your_sales_email@gmail.com
-SALES_EMAIL_PASSWORD=your_app_password_here
-SALES_RECIPIENT_EMAIL=sales@yourdomain.com
+# Email (shared account for all contact forms)
+NEXT_PUBLIC_EMAIL_USER=your_email@gmail.com
+EMAIL_PASSWORD=your_app_password_here
 
-# Email Configuration - Support
-SUPPORT_EMAIL_USER=your_support_email@gmail.com
-SUPPORT_EMAIL_PASSWORD=your_app_password_here
-SUPPORT_RECIPIENT_EMAIL=support@yourdomain.com
-
-# Email Configuration - Careers
-CAREERS_EMAIL_USER=your_careers_email@gmail.com
-CAREERS_EMAIL_PASSWORD=your_app_password_here
-CAREERS_RECIPIENT_EMAIL=careers@yourdomain.com
+# Email - per-form recipients
+NEXT_PUBLIC_SALES_RECIPIENT_EMAIL=sales@yourdomain.com
+NEXT_PUBLIC_SUPPORT_RECIPIENT_EMAIL=support@yourdomain.com
+NEXT_PUBLIC_CAREERS_RECIPIENT_EMAIL=careers@yourdomain.com
 
 # Kena Password (optional, for password-protected sections)
 KENA_PASSWORD=your_secret_password
 
-SITE_URL=your_url_here
+NEXT_PUBLIC_SITE_URL=your_url_here
 
 # HubSpot Newsletter
 HUBSPOT_API_KEY=your_key_here
@@ -228,9 +220,6 @@ npm run lint:fix         # Run ESLint with auto-fix
 npm run format           # Format code with Prettier
 npm run format:check     # Check formatting with Prettier
 npm run check-unused-css # Check for unused CSS
-
-# Utilities
-npm run generate-email-logo  # Generate PNG logo for emails from SVG (public/logos)
 ```
 
 ## 📝 Contact Forms
@@ -240,19 +229,19 @@ The website includes three specialized contact forms, each with distinct validat
 ### Sales Form (`/contact/sales`)
 
 - **Fields**: First Name, Last Name, Email, Phone, Company, Company Website, Country, Message
-- **Email**: Sent to `SALES_RECIPIENT_EMAIL`
+- **Email**: Sent to `NEXT_PUBLIC_SALES_RECIPIENT_EMAIL`
 
 ### Support Form (`/contact/support`)
 
 - **Fields**: First Name, Last Name, Email, Phone, Message, File Attachments
 - **File Uploads**: Up to 5 files (images, videos, PDFs) - 10MB max per file
-- **Email**: Sent to `SUPPORT_RECIPIENT_EMAIL`
+- **Email**: Sent to `NEXT_PUBLIC_SUPPORT_RECIPIENT_EMAIL`
 
 ### Careers Form (`/contact/careers`)
 
 - **Fields**: First Name, Last Name, Email, Phone, Position of Interest, Department, Message, Resume/Cover Letter
 - **File Uploads**: Up to 3 files (PDF, DOC, DOCX, TXT) - 10MB max per file
-- **Email**: Sent to `CAREERS_RECIPIENT_EMAIL`
+- **Email**: Sent to `NEXT_PUBLIC_CAREERS_RECIPIENT_EMAIL`
 
 ### Form Features
 
@@ -283,7 +272,6 @@ Theme tokens, typography, layout, and component tokens are defined in `:root` an
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | **HSL theme tokens** | `--background`, `--foreground`, `--surface`, `--surface-hover`, `--surface-foreground`, `--accent`, `--accent-foreground`, `--muted`, `--muted-foreground`, `--border` | Use as `hsl(var(--background))` or `hsl(var(--foreground) / 0.5)` for opacity. Prefer these for new code. |
 | **Legacy RGB**       | `--main-color-rgb`, `--main-color`, `--secondary-color-rgb`, `--secondary-color`, `--accent-color-rgb`, `--accent-color`                                               | Backward compatibility; prefer HSL tokens for new styles.                                                 |
-| **Brand**            | `--primary-pink`                                                                                                                                                       | Fixed brand color (not theme-aware).                                                                      |
 | **Typography**       | `--text-xs` … `--text-9xl` (font size), `--font-thin` … `--font-black` (weight)                                                                                        | Type scale and weights.                                                                                   |
 | **Layout**           | `--navbar-height`, `--margin-*`, `--padding-*`, `--gap-*` (xs/sm/md/lg/xl/2xl, plus `--padding-mobile`/`tablet`/`desktop`)                                             | Spacing and navbar height.                                                                                |
 | **Effects**          | `--shadow-black`, `--rounded-full`, `--rounded-app`                                                                                                                    | Shadows and border radius (use `--rounded-app` for cards/buttons/inputs).                                 |

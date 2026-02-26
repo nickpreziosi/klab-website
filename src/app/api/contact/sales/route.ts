@@ -92,8 +92,8 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
  * @throws Error if email credentials are not configured
  */
 function createTransporter() {
-  const emailUser = process.env.SALES_EMAIL_USER;
-  const emailPassword = process.env.SALES_EMAIL_PASSWORD;
+  const emailUser = process.env.NEXT_PUBLIC_EMAIL_USER;
+  const emailPassword = process.env.EMAIL_PASSWORD;
 
   if (!emailUser || !emailPassword) {
     throw new Error("Email credentials not configured");
@@ -444,10 +444,9 @@ export async function POST(request: Request) {
     }
 
     // Send email to sales team
-    // Uses SALES_RECIPIENT_EMAIL environment variable or falls back to email user
-    const recipientEmail = process.env.SALES_RECIPIENT_EMAIL || process.env.SALES_EMAIL_USER;
+    const recipientEmail = process.env.NEXT_PUBLIC_SALES_RECIPIENT_EMAIL;
     if (!recipientEmail) {
-      console.error("No sales recipient: SALES_RECIPIENT_EMAIL and SALES_EMAIL_USER are unset");
+      console.error("No sales recipient: NEXT_PUBLIC_SALES_RECIPIENT_EMAIL is unset");
       return NextResponse.json({ error: "Email delivery not configured" }, { status: 503 });
     }
     try {

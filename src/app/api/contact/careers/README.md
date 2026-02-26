@@ -21,12 +21,12 @@ Add the following to your `.env` file:
 NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your_site_key_here
 RECAPTCHA_SECRET_KEY=your_secret_key_here
 
-# Email Configuration
-EMAIL_USER=your_email@gmail.com
+# Email (shared account used by all contact forms)
+NEXT_PUBLIC_EMAIL_USER=your_email@gmail.com
 EMAIL_PASSWORD=your_app_password_here
 
-# Optional: Override recipient email
-CAREERS_RECIPIENT_EMAIL=careers@yourdomain.com
+# Optional: Override recipient for careers
+NEXT_PUBLIC_CAREERS_RECIPIENT_EMAIL=careers@yourdomain.com
 ```
 
 ### 2. Get reCAPTCHA Keys

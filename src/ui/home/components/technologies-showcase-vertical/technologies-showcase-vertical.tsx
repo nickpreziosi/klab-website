@@ -14,7 +14,7 @@ import {
 } from "@/ui/shared/components/tooltip/tooltip";
 import { useTranslations } from "next-intl";
 import { useTheme } from "@/ui/shared/hooks/use-theme";
-import styles from "./landing-technologies-showcase.module.css";
+import styles from "./technologies-showcase-vertical.module.css";
 
 const BREAKPOINT_DESKTOP = 1024;
 
@@ -156,11 +156,11 @@ function SVGLogo({ src, className }: { src: string; className?: string }) {
   return <div className={className} dangerouslySetInnerHTML={{ __html: svgContent }} />;
 }
 
-type LandingVariant = "orange" | "wave";
+type ShowcaseVariant = "orange" | "wave";
 
-function CenterCircle({ variant }: { variant: LandingVariant }) {
+function CenterCircle({ variant }: { variant: ShowcaseVariant }) {
   const centerBgSrc =
-    variant === "wave" ? "/images/landing-bg-orange.webp" : "/images/bg-wave.webp";
+    variant === "wave" ? "/images/bg-orange.webp" : "/images/bg-wave.webp";
   return (
     <div className={styles.centerItem}>
       <div className={styles.centerCircle}>
@@ -305,7 +305,7 @@ function TechSlot({
   );
 }
 
-export function LandingTechnologiesShowcase({
+export function TechnologiesShowcaseVertical({
   variant = "orange",
   className,
   /** When provided (from server), descriptions are SSR'd; otherwise use client useTranslations */
@@ -313,13 +313,13 @@ export function LandingTechnologiesShowcase({
   /** When true, mobile uses site theme (same as desktop TechnologiesShowcase); use on home page */
   useThemeForMobile = false,
 }: {
-  variant?: LandingVariant;
+  variant?: ShowcaseVariant;
   className?: string;
   technologiesDescriptions?: Record<string, string>;
   useThemeForMobile?: boolean;
 } = {}) {
   const isDesktop = useIsDesktop();
-  const t = useTranslations("landing");
+  const t = useTranslations("technologiesShowcase");
   const { effectiveTheme } = useTheme();
   const kleadsLogoRef = useRef<HTMLDivElement>(null);
   const [logoHeight, setLogoHeight] = useState(26);
@@ -340,7 +340,7 @@ export function LandingTechnologiesShowcase({
   const getDescription = (tech: (typeof TECHNOLOGIES)[0]) =>
     technologiesDescriptions?.[tech.descriptionKey] ?? t(`technologies.${tech.descriptionKey}`);
 
-  // Desktop: always light circles (landing) → dark logos. Mobile: if useThemeForMobile, match desktop (theme circles + logo by effectiveTheme)
+  // Desktop: always light circles → dark logos. Mobile: if useThemeForMobile, match desktop (theme circles + logo by effectiveTheme)
   const logoSrc = (tech: (typeof TECHNOLOGIES)[0]) => tech.logoDark;
   const mobileLogoSrc = (tech: (typeof TECHNOLOGIES)[0]) =>
     useThemeForMobile

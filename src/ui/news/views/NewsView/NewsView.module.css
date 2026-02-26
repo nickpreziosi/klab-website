@@ -122,17 +122,6 @@
   padding: 0 var(--padding-desktop) var(--padding-desktop);
 }
 
-.newsFilters {
-  margin-bottom: 40px;
-}
-
-.filtersRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: flex-end;
-}
-
 .clearFiltersButton {
   padding: 10px 20px;
   height: 42px;
@@ -231,13 +220,6 @@
   }
   .cardsSection {
     padding: 0 var(--padding-mobile) var(--padding-tablet);
-  }
-  .newsFilters {
-    margin-bottom: 32px;
-  }
-  .filtersRow {
-    flex-direction: column;
-    align-items: stretch;
   }
   .clearFiltersButton {
     width: 100%;

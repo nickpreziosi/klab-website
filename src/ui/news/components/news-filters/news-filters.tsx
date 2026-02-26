@@ -1,9 +1,10 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
+import { useRouter, usePathname } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { MultipleSelector } from "@/ui/shared/components/multiple-selector/multiple-selector";
-import styles from "@/ui/news/views/NewsView/NewsView.module.css";
+import styles from "./news-filters.module.css";
 
 interface NewsFiltersProps {
   categories: string[];
@@ -11,7 +12,9 @@ interface NewsFiltersProps {
 }
 
 export default function NewsFilters({ categories, selectedCategories }: NewsFiltersProps) {
+  const t = useTranslations("newsPage");
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const categoryItems = categories.map((cat) => ({
@@ -23,32 +26,25 @@ export default function NewsFilters({ categories, selectedCategories }: NewsFilt
     const params = new URLSearchParams(searchParams.toString());
     params.delete("page");
     params.delete("category");
-
     keys.forEach((cat) => params.append("category", cat));
-
-    const newUrl = params.toString() ? `/news?${params.toString()}` : "/news";
-    router.push(newUrl);
+    const newUrl = params.toString() ? `?${params.toString()}` : "";
+    router.push(newUrl ? `${pathname}${newUrl}` : pathname);
   };
 
   return (
-    <motion.div
-      className={styles.newsFilters}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.2 }}
-    >
+    <div className={styles.newsFilters}>
       <div className={styles.filtersRow}>
         <MultipleSelector
-          label="Category"
-          placeholder="All Categories"
+          label={t("filterCategoryLabel")}
+          placeholder={t("filterAllCategories")}
           options={categoryItems}
           selectedKeys={new Set(selectedCategories)}
           onSelectionChange={handleCategoryChange}
           minWidth={240}
-          maxWidth={400}
-          maxHeight={140}
+          maxWidth={480}
+          maxHeight={120}
         />
       </div>
-    </motion.div>
+    </div>
   );
 }

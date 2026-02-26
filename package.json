@@ -10,8 +10,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check-unused-css": "check-unused-css",
-    "generate-email-logo": "node scripts/generate-email-logo.mjs"
+    "check-unused-css": "check-unused-css"
   },
   "dependencies": {
     "@lottiefiles/lottie-player": "^2.0.12",

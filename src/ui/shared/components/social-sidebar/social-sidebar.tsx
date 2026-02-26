@@ -105,7 +105,7 @@ const socialLinks: SocialLink[] = [
   },
   {
     name: "YouTube",
-    href: "https://www.youtube.com/@keoworldB2B",
+    href: "https://www.youtube.com/channel/UCo5trHzk7sOyUjPft7u62Og",
     labelKey: "followYouTube",
     icon: (
       <svg
