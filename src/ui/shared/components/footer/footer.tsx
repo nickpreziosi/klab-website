@@ -236,18 +236,20 @@ export const Footer = () => {
             <div className={styles.socialContainer}>
               <h2 className={styles.navTitle}>{t("followUs")}</h2>
               <div className={styles.socialLinks}>
-                {socialLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.socialLink}
-                    aria-label={tSocial(link.labelKey)}
-                  >
-                    {link.icon}
-                  </a>
-                ))}
+                {socialLinks
+                  .filter((link) => link.name !== "LinkedIn")
+                  .map((link) => (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.socialLink}
+                      aria-label={tSocial(link.labelKey)}
+                    >
+                      {link.icon}
+                    </a>
+                  ))}
               </div>
             </div>
           </div>

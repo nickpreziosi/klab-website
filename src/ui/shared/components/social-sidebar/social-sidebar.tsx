@@ -159,34 +159,36 @@ export default function SocialSidebar() {
     <TooltipProvider delayDuration={0}>
       <div className={styles.sidebar}>
         <div className={styles.linksContainer}>
-          {socialLinks.map((link, index) => (
-            <Tooltip key={link.name}>
-              <TooltipTrigger asChild>
-                <motion.a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.socialLink}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  animate={{
-                    scale: getScale(index),
-                  }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 100,
-                    delay: getScale(index) === 1.15 ? 0.1 : 0,
-                  }}
-                  aria-label={t(link.labelKey)}
-                >
-                  {link.icon}
-                </motion.a>
-              </TooltipTrigger>
-              <TooltipContent side="right" sideOffset={12}>
-                {t(link.labelKey)}
-              </TooltipContent>
-            </Tooltip>
-          ))}
+          {socialLinks
+            .filter((link) => link.name !== "LinkedIn")
+            .map((link, index) => (
+              <Tooltip key={link.name}>
+                <TooltipTrigger asChild>
+                  <motion.a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.socialLink}
+                    onMouseEnter={() => setHoveredIndex(index)}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                    animate={{
+                      scale: getScale(index),
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 100,
+                      delay: getScale(index) === 1.15 ? 0.1 : 0,
+                    }}
+                    aria-label={t(link.labelKey)}
+                  >
+                    {link.icon}
+                  </motion.a>
+                </TooltipTrigger>
+                <TooltipContent side="right" sideOffset={12}>
+                  {t(link.labelKey)}
+                </TooltipContent>
+              </Tooltip>
+            ))}
         </div>
       </div>
     </TooltipProvider>
