@@ -17,11 +17,11 @@
 }
 
 .label.error {
-  color: var(--primary-pink);
+  color: var(--error);
 }
 
 .required {
-  color: var(--primary-pink);
+  color: var(--error);
   margin-left: 0.25rem;
 }
 
@@ -32,7 +32,7 @@
 
 .errorMessage {
   font-size: var(--text-sm);
-  color: var(--primary-pink);
+  color: var(--error);
   font-weight: var(--font-medium);
 }
 
@@ -78,7 +78,7 @@
 
 .inputStandalone.error,
 .textareaStandalone.error {
-  border-color: var(--primary-pink);
+  border-color: var(--error);
 }
 
 .textareaStandalone {

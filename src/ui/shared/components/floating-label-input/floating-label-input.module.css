@@ -153,19 +153,19 @@
 .input.error,
 .textarea.error,
 .select.error {
-  border-color: var(--primary-pink);
+  border-color: var(--error);
 }
 
 .input.error:focus,
 .textarea.error:focus,
 .select.error:focus {
-  border-color: var(--primary-pink);
+  border-color: var(--error);
 }
 
 .inner .input.error ~ .label,
 .inner .textarea.error ~ .label,
 .inner .select.error ~ .label {
-  color: var(--primary-pink);
+  color: var(--error);
 }
 
 .inner .input.error:focus ~ .label,
@@ -175,5 +175,5 @@
 .inner .select.error:focus ~ .label,
 .inner .select.error:valid ~ .label {
   color: hsl(var(--accent-foreground));
-  background-color: var(--primary-pink);
+  background-color: var(--error);
 }

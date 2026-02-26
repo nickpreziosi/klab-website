@@ -145,7 +145,7 @@
 }
 
 .newFormComboboxError {
-  border-color: var(--primary-pink);
+  border-color: var(--error);
 }
 
 @media (max-width: 768px) {

@@ -1,0 +1,67 @@
+.gate {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-md);
+  text-align: center;
+  padding: var(--gap-lg) 0;
+  min-height: 200px;
+}
+
+.gateLockBack {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gateLockWrap {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  transform: rotate(-8deg);
+  flex-shrink: 0;
+}
+
+.gateLockGlow {
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.gateLockSvg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  color: hsl(var(--foreground));
+  opacity: 0.15;
+  filter: drop-shadow(0 5px 12px hsl(var(--accent) / 0.5))
+    drop-shadow(0 10px 28px hsl(var(--accent) / 0.5));
+}
+
+.gateContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-md);
+}
+
+.gateMessage {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.6;
+  color: hsl(var(--foreground));
+  opacity: 0.9;
+  max-width: 560px;
+}

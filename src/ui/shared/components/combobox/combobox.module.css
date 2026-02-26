@@ -103,13 +103,13 @@
 
 /* Error state for floating label */
 .inner .input.error ~ .floatingLabel {
-  color: var(--primary-pink);
+  color: var(--error);
 }
 
 .inner .input.error:focus ~ .floatingLabel,
 .inner .input.error:not(:placeholder-shown) ~ .floatingLabel {
   color: hsl(var(--accent-foreground));
-  background-color: var(--primary-pink);
+  background-color: var(--error);
 }
 
 .input:focus {
@@ -224,9 +224,9 @@
 }
 
 .error {
-  border-color: var(--primary-pink);
+  border-color: var(--error);
 }
 
 .triggerWrap:has(.error) .input {
-  border-color: var(--primary-pink);
+  border-color: var(--error);
 }

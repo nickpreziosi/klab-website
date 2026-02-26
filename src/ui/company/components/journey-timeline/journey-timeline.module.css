@@ -162,7 +162,7 @@
 }
 
 .soldBadge {
-  background: #ff0044;
+  background: var(--keo-pink);
   color: white;
   font-size: 1rem;
   font-weight: var(--font-bold);

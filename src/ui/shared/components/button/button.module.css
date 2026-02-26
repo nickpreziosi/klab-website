@@ -81,7 +81,7 @@
 }
 
 .variantDestructive {
-  background-color: var(--primary-pink);
+  background-color: var(--error);
   color: white;
 }
 
