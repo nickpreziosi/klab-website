@@ -91,18 +91,6 @@ export const Footer = () => {
     { href: "/contact", label: t("contact") },
   ];
 
-  const privacyLinks = [
-    { href: "/assets/keo-privacy-policy-usa.pdf", label: "USA" },
-    { href: "/assets/keo-privacy-policy-canada.pdf", label: "Canada" },
-    { href: "/assets/keo-aviso-de-privacidad-colombia.pdf", label: "Colombia" },
-    { href: "/assets/keo-aviso-de-privacidad-méxico.pdf", label: "Mexico" },
-    { href: "/assets/keo-privacy-policy-brazil.pdf", label: "Brazil" },
-  ];
-
-  // Subset used in the footer privacy policies section
-  const _policyCountries = ["USA", "Canada", "Colombia", "Mexico", "Brazil"];
-  const privacyPolicyLinks = privacyLinks.filter((p) => _policyCountries.includes(p.label));
-
   const socialLinks = [
     {
       name: "LinkedIn",

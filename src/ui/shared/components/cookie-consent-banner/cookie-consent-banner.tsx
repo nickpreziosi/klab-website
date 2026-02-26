@@ -6,7 +6,6 @@ import Button from "@/ui/shared/components/button/button";
 import styles from "./cookie-consent-banner.module.css";
 
 const CONSENT_STORAGE_KEY = "cookie-consent";
-const PRIVACY_POLICY_HREF = "/assets/keo-privacy-policy-usa.pdf";
 
 export type ConsentStatus = "accepted" | "essential" | null;
 
