@@ -274,6 +274,8 @@
   position: relative;
   border-radius: var(--rounded-app);
   overflow: hidden;
+  /* Neutral loading background so no icon or shape flashes before image paints */
+  background: hsl(var(--muted) / 0.4);
 }
 
 .mockupWrapperPhone {

@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
@@ -29,9 +28,12 @@ const fadeIn = {
 function MockupCard({
   mockup,
   defaultAlt,
+  priority = false,
 }: {
   mockup: TechnologyMockup;
   defaultAlt: string;
+  /** When true, preload image (e.g. hero mockup) so it loads like company hero and avoids placeholder flash. */
+  priority?: boolean;
 }) {
   const wrapperClass =
     mockup.variant === "phone"
@@ -49,8 +51,8 @@ function MockupCard({
         height={mockup.variant === "phone" ? 760 : 360}
         className={styles.mockupImage}
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        placeholder="blur"
-        blurDataURL={BLUR_PLACEHOLDER}
+        placeholder="empty"
+        priority={priority}
       />
     </div>
   );
@@ -312,7 +314,7 @@ export function TechnologyPageLayout({
               </div>
               {firstMockupInHero && mockups![0] && (
                 <div className={styles.heroImageCol}>
-                  <MockupCard mockup={mockups![0]} defaultAlt={defaultAlt} />
+                  <MockupCard mockup={mockups![0]} defaultAlt={defaultAlt} priority />
                 </div>
               )}
             </div>

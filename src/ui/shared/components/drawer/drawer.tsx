@@ -15,17 +15,26 @@ import { MobileLocaleSwitcher } from "@/ui/shared/components/mobile-locale-switc
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 import {
   TECHNOLOGIES,
-  SVGLogo,
   preloadTechnologyLogos,
 } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
 import { useTheme } from "@/ui/shared/hooks/use-theme";
 import { consumeShouldReopenDrawerAfterLocale } from "@/ui/shared/utils/drawer-reopen-after-locale";
 import styles from "./drawer.module.css";
 
-function TechLogo({ src, className }: { src: string; title: string; className?: string }) {
+/** Native img so logos show as soon as cached (no async fetch+setState delay). Drawer preloads when open. */
+function DrawerTechLogo({ src, className }: { src: string; title: string; className?: string }) {
   return (
     <div className={className} aria-hidden>
-      <SVGLogo src={src} className={styles.dropdownItemLogoSvg} />
+      <img
+        src={src}
+        alt=""
+        className={styles.dropdownItemLogoImg}
+        width={24}
+        height={24}
+        loading="eager"
+        decoding="async"
+        fetchPriority="high"
+      />
     </div>
   );
 }
@@ -73,6 +82,11 @@ export const Drawer = (props: DrawerProps) => {
     const id = requestIdleCallback(() => preloadTechnologyLogos(), { timeout: 2000 });
     return () => cancelIdleCallback(id);
   }, []);
+
+  // Preload current theme's logos as soon as drawer opens so the technologies dropdown has them ready.
+  useEffect(() => {
+    if (isOpen) preloadTechnologyLogos(effectiveTheme);
+  }, [isOpen, effectiveTheme]);
 
   const [prepareClose, setPrepareClose] = useState(false);
   useEffect(() => {
@@ -194,6 +208,27 @@ export const Drawer = (props: DrawerProps) => {
                     </Dialog.Close>
                   </div>
 
+                  {/* Preload tech logos as soon as drawer opens so dropdown shows them without delay */}
+                  {isOpen && (
+                    <div className={styles.logoPreload} aria-hidden>
+                      {TECHNOLOGIES.map((tech) => {
+                        const logoSrc =
+                          effectiveTheme === "dark" ? tech.logoLight : tech.logoDark;
+                        return (
+                          <img
+                            key={tech.href}
+                            src={logoSrc}
+                            alt=""
+                            width={24}
+                            height={24}
+                            loading="eager"
+                            fetchPriority="high"
+                          />
+                        );
+                      })}
+                    </div>
+                  )}
+
                   <nav className={styles.nav}>
                     <motion.div
                       initial={skipDrawerAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -299,7 +334,7 @@ export const Drawer = (props: DrawerProps) => {
                                   className={styles.dropdownItem}
                                   onClick={() => handleOpenChange(false)}
                                 >
-                                  <TechLogo
+                                  <DrawerTechLogo
                                     src={logoSrc}
                                     title={tech.title}
                                     className={`${styles.dropdownItemLogo} ${tech.descriptionKey === "kbpm" ? styles.dropdownItemLogoKbpm : ""}`}
