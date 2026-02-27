@@ -19,7 +19,18 @@ import {
 } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
 import { useTheme } from "@/ui/shared/hooks/use-theme";
 import { consumeShouldReopenDrawerAfterLocale } from "@/ui/shared/utils/drawer-reopen-after-locale";
+import { routing } from "@/i18n/routing";
 import styles from "./drawer.module.css";
+
+/** Path without the locale segment (e.g. /en/about → /about) so we can tell locale switch from route change. */
+function pathWithoutLocale(pathname: string): string {
+  const segments = pathname.split("/").filter(Boolean);
+  const first = segments[0];
+  if (first && routing.locales.includes(first as (typeof routing.locales)[number])) {
+    return "/" + segments.slice(1).join("/");
+  }
+  return pathname;
+}
 
 /** Native img so logos show as soon as cached (no async fetch+setState delay). Drawer preloads when open. */
 function DrawerTechLogo({ src, className }: { src: string; title: string; className?: string }) {
@@ -50,6 +61,7 @@ export const Drawer = (props: DrawerProps) => {
   const { drawerTranslations: serverDrawerTranslations, navTranslations: serverNavTranslations } =
     props ?? {};
   const reopenedRef = useRef(false);
+  const prevPathnameRef = useRef<string | null>(null);
   const [isOpen, setIsOpen] = useState(() => {
     if (typeof window === "undefined") return false;
     const shouldOpen = consumeShouldReopenDrawerAfterLocale();
@@ -61,11 +73,35 @@ export const Drawer = (props: DrawerProps) => {
   const { effectiveTheme } = useTheme();
   const pathname = usePathname();
 
-  // Reopen drawer after locale switch when pathname changes (e.g. client nav without remount).
+  // Close only when the route (path) changes, not on locale-only change. Reopen after locale switch when requested.
   useEffect(() => {
-    if (!consumeShouldReopenDrawerAfterLocale()) return;
-    setSkipDrawerAnimation(true);
-    setIsOpen(true);
+    const pathOnly = pathWithoutLocale(pathname);
+    const prevPathname = prevPathnameRef.current;
+    prevPathnameRef.current = pathname;
+
+    if (prevPathname === null) {
+      // First run: don't close; reopen if we mounted after locale switch.
+      if (consumeShouldReopenDrawerAfterLocale()) {
+        setSkipDrawerAnimation(true);
+        setIsOpen(true);
+      }
+      return;
+    }
+
+    const prevPathOnly = pathWithoutLocale(prevPathname);
+    if (pathOnly === prevPathOnly) {
+      // Locale-only change (same path, different locale): don't close; reopen if switcher requested it.
+      if (consumeShouldReopenDrawerAfterLocale()) {
+        setSkipDrawerAnimation(true);
+        setIsOpen(true);
+      }
+      return;
+    }
+
+    // Route changed (different path): close drawer with exit animation.
+    if (reopenedRef.current) reopenedRef.current = false;
+    setSkipDrawerAnimation(false);
+    setPrepareClose(true);
   }, [pathname]);
 
   // Preload technology logos when drawer mounts so opening the technologies list is instant (Safari/mobile).
