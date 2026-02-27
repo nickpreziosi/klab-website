@@ -143,6 +143,10 @@
         "position": "Legal",
         "bio": "Juan Gabriel combines over 15 years of experience in international law firms and technology companies, advising on corporate, financial, and regulatory matters that support growth in complex, cross-border markets."
       },
+      "nickSchwartz": {
+        "position": "Commercial",
+        "bio": "Nick is a SaaS and Web3 executive with over 17 years of experience scaling high-growth companies from early stage to market leaders. He was employee #10 at Sprinklr (NYSE:CXM), helping scale it into a $5B public company, and most recently led Customer Success and Partnerships at Digital Asset, supporting the largest blockchain ecosystem across TradFi and DeFi."
+      },
       "tomasGuzman": {
         "position": "Government & Institutional Relations",
         "bio": "Tomás is Director of Institutional & Government Relations at KLab, leading stakeholder engagement and strategic partnerships. A trained lawyer and former Minister Counsellor at Venezuela's Embassy in Brazil, he brings diplomacy and public-private sector expertise and excels in negotiation, institutional positioning, and long-term growth."
@@ -748,7 +752,7 @@
       "module3Title": "Corporate Card Issuance",
       "module3Description": "Automating manual processes for more efficient spend management and reporting oversight.",
       "module4Title": "Payments & Rails",
-      "module4Description": "K-Rails system with invoice NFTs, credit pools, Smart contracts, and stablecoin reserve, integrated with traditional banking infrastructure.",
+      "module4Description": "K-Rails system uses invoice NFTs, credit pools, smart contracts, and stablecoin reserve, integrated with traditional banking infrastructure.",
       "module5Title": "Integration Layer",
       "module5Description": "Secure APIs connecting to ERP/CRM systems, banking partners, tax authorities, credit bureaus, and accounting platforms.",
       "module6Title": "Security & Compliance",

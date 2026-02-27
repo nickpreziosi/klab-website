@@ -17,6 +17,7 @@ export function KaiView({ translations, hero, mockups, sections }: TechnologyPag
       cta={{ label: translations.contactSales, href: "/contact/sales" }}
       defaultAlt={translations.technologyScreenshot}
       skipAnimation={skipAnimation}
+      benefitColumnsVariant="pill-per-column"
     />
   );
 }

@@ -60,13 +60,42 @@ function BenefitColumnsSection({
   section,
   pillsOnly,
   hidePills,
+  pillPerColumn,
 }: {
   section: Extract<TechnologyInfoSection, { type: "benefit-columns" }>;
   pillsOnly?: boolean;
   hidePills?: boolean;
+  pillPerColumn?: boolean;
 }) {
   const showPills = !hidePills && section.categoryLabels.length > 0;
   const showColumns = !pillsOnly;
+
+  if (pillPerColumn && showColumns) {
+    return (
+      <div className={styles.benefitColumnsWithPills}>
+        {section.columns.map((col, i) => (
+          <div key={i} className={styles.benefitColumnWithPill}>
+            {showPills && section.categoryLabels[i] != null && (
+              <div className={styles.categoryPills}>
+                <span className={styles.pill}>
+                  <Check className={styles.pillCheck} aria-hidden />
+                  {section.categoryLabels[i]}
+                </span>
+              </div>
+            )}
+            <div className={styles.benefitColumn}>
+              <p className={styles.benefitMainPoint}>{col.mainPoint}</p>
+              <ul className={styles.benefitSubPoints}>
+                {col.subPoints.map((point, j) => (
+                  <li key={j}>{point}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <>
@@ -200,6 +229,8 @@ export function TechnologyPageLayout({
   cta,
   defaultAlt: defaultAltProp,
   skipAnimation = false,
+  benefitColumnsVariant = "default",
+  heroMockupExtendToBottom = false,
 }: TechnologyPageLayoutProps) {
   const defaultAlt = defaultAltProp ?? "Technology screenshot";
   const { effectiveTheme } = useTheme();
@@ -225,7 +256,7 @@ export function TechnologyPageLayout({
       {hero && (
         <motion.section
           ref={heroRef}
-          className={styles.heroSection}
+          className={`${styles.heroSection} ${heroMockupExtendToBottom ? styles.heroSectionMockupExtend : ""}`}
           initial={skipAnimation ? fadeIn.animate : fadeIn.initial}
           animate={effectiveHeroInView ? fadeIn.animate : {}}
           transition={fadeIn.transition}
@@ -286,30 +317,17 @@ export function TechnologyPageLayout({
               )}
             </div>
             {sections?.some((s) => s.type === "benefit-columns") && (
-              <>
-                <div className={styles.heroPillsRow}>
-                  <BenefitColumnsSection
-                    section={
-                      sections.find((s) => s.type === "benefit-columns") as Extract<
-                        TechnologyInfoSection,
-                        { type: "benefit-columns" }
-                      >
-                    }
-                    pillsOnly
-                  />
-                </div>
-                <div className={styles.heroBenefitColumns}>
-                  <BenefitColumnsSection
-                    section={
-                      sections.find((s) => s.type === "benefit-columns") as Extract<
-                        TechnologyInfoSection,
-                        { type: "benefit-columns" }
-                      >
-                    }
-                    hidePills
-                  />
-                </div>
-              </>
+              <div className={styles.heroBenefitColumns}>
+                <BenefitColumnsSection
+                  section={
+                    sections.find((s) => s.type === "benefit-columns") as Extract<
+                      TechnologyInfoSection,
+                      { type: "benefit-columns" }
+                    >
+                  }
+                  pillPerColumn={benefitColumnsVariant === "pill-per-column"}
+                />
+              </div>
             )}
           </div>
         </motion.section>
