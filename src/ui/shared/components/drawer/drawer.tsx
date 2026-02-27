@@ -18,7 +18,11 @@ import {
   preloadTechnologyLogos,
 } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
 import { useTheme } from "@/ui/shared/hooks/use-theme";
-import { consumeShouldReopenDrawerAfterLocale } from "@/ui/shared/utils/drawer-reopen-after-locale";
+import {
+  consumeShouldReopenDrawerAfterLocale,
+  setDrawerTechnologiesOpen,
+  consumeKeepTechnologiesOpen,
+} from "@/ui/shared/utils/drawer-reopen-after-locale";
 import { routing } from "@/i18n/routing";
 import styles from "./drawer.module.css";
 
@@ -73,6 +77,10 @@ export const Drawer = (props: DrawerProps) => {
   const { effectiveTheme } = useTheme();
   const pathname = usePathname();
 
+  useEffect(() => {
+    setDrawerTechnologiesOpen(isSolutionsOpen);
+  }, [isSolutionsOpen]);
+
   // Close only when the route (path) changes, not on locale-only change. Reopen after locale switch when requested.
   useEffect(() => {
     const pathOnly = pathWithoutLocale(pathname);
@@ -84,6 +92,7 @@ export const Drawer = (props: DrawerProps) => {
       if (consumeShouldReopenDrawerAfterLocale()) {
         setSkipDrawerAnimation(true);
         setIsOpen(true);
+        if (consumeKeepTechnologiesOpen()) setIsSolutionsOpen(true);
       }
       return;
     }
@@ -94,6 +103,7 @@ export const Drawer = (props: DrawerProps) => {
       if (consumeShouldReopenDrawerAfterLocale()) {
         setSkipDrawerAnimation(true);
         setIsOpen(true);
+        if (consumeKeepTechnologiesOpen()) setIsSolutionsOpen(true);
       }
       return;
     }
@@ -338,10 +348,14 @@ export const Drawer = (props: DrawerProps) => {
                         {isSolutionsOpen && (
                           <motion.div
                             className={styles.dropdown}
-                            initial={{ height: 0, opacity: 0 }}
+                            initial={
+                              skipDrawerAnimation
+                                ? { height: "auto", opacity: 1 }
+                                : { height: 0, opacity: 0 }
+                            }
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.3 }}
+                            transition={{ duration: skipDrawerAnimation ? 0 : 0.3 }}
                           >
                             {TECHNOLOGIES.map((tech) => {
                               const logoSrc =
