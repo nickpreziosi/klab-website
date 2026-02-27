@@ -182,7 +182,6 @@ export const Drawer = (props: DrawerProps) => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: skipDrawerAnimation ? 1 : 0 }}
                   transition={{ duration: skipDrawerAnimation ? 0 : 0.3 }}
-                  onClick={() => handleOpenChange(false)}
                 />
               </Dialog.Overlay>
 
