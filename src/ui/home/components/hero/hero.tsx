@@ -52,12 +52,6 @@ export const Hero = ({
             skipAnimation={skipAnimation}
           />
         </div>
-
-        <VideoPlayer
-          posterUrl="/images/klab-home-main-poster.webp"
-          videoUrl="/videos/klab-home-main.mp4"
-          skipAnimation={skipAnimation}
-        />
       </div>
     </section>
   );

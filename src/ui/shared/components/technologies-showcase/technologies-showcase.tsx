@@ -123,17 +123,45 @@ const LEFT_ORDER = [5, 9, 2, 8, 3];
 /* Right row (6): K-Rails, Kena, K-Wallet, KABL, K-Comply, K-Ledger */
 const RIGHT_ORDER_FIXED = [0, 1, 10, 4, 6, 7];
 
+/** Cache SVG content by URL so dropdown/drawer and theme switches reuse the same fetch. */
+const svgContentCache = new Map<string, Promise<string>>();
+
+function getCachedSvgContent(src: string): Promise<string> {
+  let p = svgContentCache.get(src);
+  if (!p) {
+    p = fetch(src)
+      .then((res) => res.text())
+      .then((text) => text.replace(/<\?xml[^>]*\?>/i, ""))
+      .catch((err) => {
+        console.error("Failed to load SVG:", err);
+        return "";
+      });
+    svgContentCache.set(src, p);
+  }
+  return p;
+}
+
+/** Preload technology logo SVGs for one or both themes so dropdown/drawer render without delay. */
+export function preloadTechnologyLogos(theme?: "light" | "dark") {
+  const urls = new Set<string>();
+  for (const tech of TECHNOLOGIES) {
+    if (theme === "dark" || theme === undefined) urls.add(tech.logoDark);
+    if (theme === "light" || theme === undefined) urls.add(tech.logoLight);
+  }
+  urls.forEach((src) => getCachedSvgContent(src));
+}
+
 export function SVGLogo({ src, className }: { src: string; className?: string }) {
   const [svgContent, setSvgContent] = useState<string>("");
 
   useEffect(() => {
-    fetch(src)
-      .then((res) => res.text())
-      .then((text) => {
-        const processed = text.replace(/<\?xml[^>]*\?>/i, "");
-        setSvgContent(processed);
-      })
-      .catch((err) => console.error("Failed to load SVG:", err));
+    let cancelled = false;
+    getCachedSvgContent(src).then((content) => {
+      if (!cancelled) setSvgContent(content);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [src]);
 
   if (!svgContent) return null;
@@ -174,17 +202,14 @@ export function TechnologiesShowcase({
   className?: string;
   /** When false (e.g. in dropdown), every click navigates. When true (standalone page), first tap on touch expands, second navigates. */
   expandOnFirstTap?: boolean;
-  /** When set, renders a top row with this title on the left and carousel buttons on the right (e.g. "Our Technologies"). */
+  /** When set, renders a top row with this title (e.g. "Our Technologies"). */
   headerTitle?: string;
 } = {}) {
   const t = useTranslations("technologiesShowcase");
-  const tCommon = useTranslations("common");
   const { effectiveTheme } = useTheme();
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const kleadsLogoRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
   const [logoHeight, setLogoHeight] = useState<number>(40);
   const [expandedIndex, setExpandedIndex] = useState<{
     side: "left" | "right";
@@ -200,31 +225,6 @@ export function TechnologiesShowcase({
     [effectiveTheme]
   );
 
-  const updateScrollState = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const { scrollLeft, scrollWidth, clientWidth } = el;
-    setCanScrollLeft(scrollLeft > 2);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 2);
-  }, []);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    updateScrollState();
-    el.addEventListener("scroll", updateScrollState);
-    const ro = new ResizeObserver(() => {
-      requestAnimationFrame(updateScrollState);
-    });
-    ro.observe(el);
-    window.addEventListener("resize", updateScrollState);
-    return () => {
-      el.removeEventListener("scroll", updateScrollState);
-      window.removeEventListener("resize", updateScrollState);
-      ro.disconnect();
-    };
-  }, [updateScrollState]);
-
   // Measure KLeads logo height when full-width; other logos match this height
   useEffect(() => {
     const el = kleadsLogoRef.current;
@@ -237,8 +237,7 @@ export function TechnologiesShowcase({
       }
     });
     ro.observe(el);
-    // Initial measure after a tick (SVG may not be loaded yet)
-    const t = setTimeout(() => {
+    const tId = setTimeout(() => {
       const svg = el.querySelector("svg");
       if (svg) {
         const h = svg.getBoundingClientRect().height;
@@ -247,43 +246,9 @@ export function TechnologiesShowcase({
     }, 100);
     return () => {
       ro.disconnect();
-      clearTimeout(t);
+      clearTimeout(tId);
     };
   }, [effectiveTheme]);
-
-  const scroll = (direction: "left" | "right") => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const step = el.clientWidth;
-    el.scrollBy({
-      left: direction === "left" ? -step : step,
-      behavior: "smooth",
-    });
-  };
-
-  const carouselNavEl =
-    canScrollLeft || canScrollRight ? (
-      <div className={styles.carouselNav}>
-        <button
-          type="button"
-          className={styles.carouselBtn}
-          onClick={() => scroll("left")}
-          disabled={!canScrollLeft}
-          aria-label={tCommon("scrollLeft")}
-        >
-          Previous
-        </button>
-        <button
-          type="button"
-          className={styles.carouselBtn}
-          onClick={() => scroll("right")}
-          disabled={!canScrollRight}
-          aria-label={tCommon("scrollRight")}
-        >
-          Next
-        </button>
-      </div>
-    ) : null;
 
   return (
     <TooltipProvider delayDuration={200}>
@@ -295,10 +260,9 @@ export function TechnologiesShowcase({
         {headerTitle ? (
           <div className={styles.headerRow}>
             <h3 className={styles.headerTitle}>{headerTitle}</h3>
-            {carouselNavEl}
           </div>
         ) : null}
-        <div ref={scrollRef} className={styles.scrollContainer}>
+        <div ref={gridRef} className={styles.scrollContainer}>
           {leftTechs.map((tech, index) => (
             <TechSemiCircle
               key={`left-${tech.href}-${index}`}
@@ -364,8 +328,6 @@ export function TechnologiesShowcase({
             />
           ))}
         </div>
-
-        {!headerTitle && carouselNavEl}
       </div>
     </TooltipProvider>
   );

@@ -8,7 +8,7 @@
   min-width: 0;
   padding: var(--padding-md) var(--padding-desktop);
   padding-bottom: var(--padding-md);
-  overflow: visible;
+  overflow: hidden;
   box-sizing: border-box;
 }
 
@@ -33,48 +33,40 @@
   margin: 0;
 }
 
-/* 13 columns: 5×1 + center(2) + 6×1; row height from content (slot aspect) */
+/* 13 columns: 5 + center(2) + 6. Center = 2× semicircle width, same height as semicircle; circle 1:1. No scroll. */
 .scrollContainer {
   display: grid;
-  grid-template-columns: repeat(13, 1fr);
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr))
+    minmax(60px, 1fr)
+    minmax(60px, 1fr)
+    repeat(6, minmax(0, 1fr));
   grid-auto-rows: auto;
   align-items: start;
   width: 100%;
   max-width: 100%;
   min-width: 0;
   min-height: 100px;
-  overflow-x: auto;
-  overflow-y: visible;
+  overflow: hidden;
   padding: var(--padding-sm) 0;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .scrollContainer::-webkit-scrollbar {
-  height: 8px;
+  display: none;
 }
 
-.scrollContainer::-webkit-scrollbar-track {
-  background: hsl(var(--foreground) / 0.05);
-  border-radius: var(--rounded-app);
-}
-
-.scrollContainer::-webkit-scrollbar-thumb {
-  background: hsl(var(--foreground) / 0.2);
-  border-radius: var(--rounded-app);
-}
-
+/* Width = 2 columns, height = 100% of row (stretch to semicircle row height); circle inside 1:1 */
 .centerItem {
   grid-column: span 2;
   min-width: 0;
-  aspect-ratio: 1 / 1;
+  align-self: stretch;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  scroll-snap-align: center;
 }
 
 .centerCircle {
@@ -113,6 +105,8 @@
   gap: 4px;
   color: hsl(var(--foreground));
   padding: 12px;
+  min-width: 60px;
+  min-height: 60px;
 }
 
 .centerContent svg {
@@ -134,7 +128,6 @@
   min-width: 0;
   aspect-ratio: 1 / 2;
   position: relative;
-  scroll-snap-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -347,33 +340,3 @@
   }
 }
 
-.carouselNav {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--padding-sm);
-  flex-shrink: 0;
-  flex-wrap: wrap;
-}
-
-.carouselBtn {
-  padding: 8px 16px;
-  border-radius: var(--rounded-app);
-  border: 1px solid hsl(var(--border));
-  background: hsl(var(--surface));
-  color: hsl(var(--foreground));
-  font-size: var(--text-sm);
-  cursor: pointer;
-  transition:
-    background 0.2s,
-    border-color 0.2s;
-}
-
-.carouselBtn:hover {
-  background: hsl(var(--surface-hover));
-  border-color: hsl(var(--border));
-}
-
-.carouselBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}

@@ -75,7 +75,6 @@ export const StaffCard = ({
 
         <Accordion.Root className={styles.accordionRoot} type="single" collapsible>
           <Accordion.Item className={styles.accordionItem} value="item-1">
-            <div className={styles.overlay}></div>
             <Accordion.Trigger
               onClick={handleAccordionTriggerClick}
               className={styles.accordionTrigger}

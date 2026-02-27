@@ -8,7 +8,10 @@ import { useRouter, usePathname } from "@/i18n/navigation";
 import {
   saveScrollBeforeLocaleSwitch,
   setSkipAnimationsOnNextPageLoad,
+  setSkipAnimationForPath,
 } from "@/ui/shared/utils/scroll-preservation";
+import { setShouldReopenDrawerAfterLocale } from "@/ui/shared/utils/drawer-reopen-after-locale";
+import { useSetSkipAnimationForPath } from "@/ui/shared/providers/skip-animation-for-path-provider/skip-animation-for-path-provider";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/i18n/routing";
 import styles from "./mobile-locale-switcher.module.css";
@@ -28,6 +31,7 @@ export function MobileLocaleSwitcher() {
   const currentLocale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const setPathToSkip = useSetSkipAnimationForPath();
   const [open, setOpen] = useState<string | undefined>(undefined);
 
   const localeFullName: Record<Locale, string> = {
@@ -45,6 +49,10 @@ export function MobileLocaleSwitcher() {
     if (locale === currentLocale) return;
     saveScrollBeforeLocaleSwitch();
     setSkipAnimationsOnNextPageLoad();
+    const targetFullPath = pathname === "/" ? `/${locale}` : `/${locale}${pathname}`;
+    setPathToSkip(targetFullPath);
+    setSkipAnimationForPath(targetFullPath);
+    setShouldReopenDrawerAfterLocale();
     router.push(pathname, { locale, scroll: false });
   };
 

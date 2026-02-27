@@ -37,12 +37,14 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  align-items: start;
 }
 
 .item {
   position: relative;
   padding-left: var(--padding-md);
   border-left: 3px solid var(--accent-color);
+  height: fit-content;
 }
 
 .itemText {

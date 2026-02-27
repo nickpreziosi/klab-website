@@ -103,7 +103,7 @@ export default function CompanyCulture({ skipAnimation = false }: { skipAnimatio
         <div className={styles.statsGrid}>
           {stats.map((stat, index) => (
             <Card key={stat.labelKey} className={styles.statCard}>
-              <CardHeader>
+              <CardHeader className={styles.statCardHeader}>
                 <CardTitle>
                   <motion.span
                     className={styles.statValue}

@@ -178,16 +178,12 @@
   }
 
   .edit {
-    font-size: var(--text-md);
+    display: none;
   }
 }
 
 @media only screen and (max-width: 350px) {
   .triggerLabel {
-    font-size: var(--text-sm);
-  }
-
-  .edit {
     font-size: var(--text-sm);
   }
 }

@@ -12,6 +12,8 @@ import { DesktopDropdown } from "@/ui/shared/components/dropdown-menu/dropdown-m
 import { ThemeToggle } from "@/ui/shared/components/theme-toggle/theme-toggle";
 import { LocaleSwitcher } from "@/ui/shared/components/locale-switcher/locale-switcher";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
+import { preloadTechnologyLogos } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
+import { useTheme } from "@/ui/shared/hooks/use-theme";
 import { getSavedScrollY } from "@/ui/shared/utils/scroll-preservation";
 import styles from "./navbar.module.css";
 
@@ -32,6 +34,7 @@ export const NavigationMenuDemo = ({
   const path = usePathname();
   const t = useTranslations("nav");
   const nav = serverNavTranslations ?? buildNavTranslations(t);
+  const { effectiveTheme } = useTheme();
   const [isAtTop, setIsAtTop] = useState(() => {
     if (typeof window === "undefined") return true;
     const saved = getSavedScrollY();
@@ -39,9 +42,23 @@ export const NavigationMenuDemo = ({
     return window.scrollY <= 0;
   });
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [useCompactLogo, setUseCompactLogo] = useState(false);
   const spacerRef = useRef<HTMLDivElement>(null);
   const dropdownTriggerRef = useRef<HTMLButtonElement | null>(null);
   const dropdownContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const mq1240 = window.matchMedia("(max-width: 1240px)");
+    const mq1024 = window.matchMedia("(max-width: 1024px)");
+    const update = () => setUseCompactLogo(mq1240.matches && !mq1024.matches);
+    update();
+    mq1240.addEventListener("change", update);
+    mq1024.addEventListener("change", update);
+    return () => {
+      mq1240.removeEventListener("change", update);
+      mq1024.removeEventListener("change", update);
+    };
+  }, []);
 
   const handleDropdownClick = () => {
     setDropdownOpen(!dropdownOpen);
@@ -156,16 +173,13 @@ export const NavigationMenuDemo = ({
               <Link
                 aria-label={nav.goToHomepage}
                 href="/"
-                className={styles.logoLinkFull}
+                className={styles.logoLink}
               >
-                <KlabLogo color="orange" format="full" height={48} initialTheme={initialTheme} />
-              </Link>
-              <Link
-                aria-label={nav.goToHomepage}
-                href="/"
-                className={styles.logoLinkCompact}
-              >
-                <KlabLogo color="orange" format="default" height={48} />
+                {useCompactLogo ? (
+                  <KlabLogo color="orange" format="default" height={48} />
+                ) : (
+                  <KlabLogo color="orange" format="full" height={48} initialTheme={initialTheme} />
+                )}
               </Link>
             </div>
 
@@ -203,6 +217,8 @@ export const NavigationMenuDemo = ({
                   ref={dropdownTriggerRef}
                   onClick={handleDropdownClick}
                   onKeyDown={handleTriggerKeyDown}
+                  onMouseEnter={() => preloadTechnologyLogos(effectiveTheme)}
+                  onFocus={() => preloadTechnologyLogos(effectiveTheme)}
                   className={styles.navLink}
                   aria-expanded={dropdownOpen}
                   aria-haspopup="true"

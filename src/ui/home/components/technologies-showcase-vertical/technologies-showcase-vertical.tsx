@@ -189,6 +189,7 @@ function TechSlot({
   tech,
   logoSrc,
   description,
+  learnMoreLabel,
   side,
   isExpanded,
   onToggle,
@@ -201,6 +202,7 @@ function TechSlot({
   tech: (typeof TECHNOLOGIES)[0];
   logoSrc: string;
   description: string;
+  learnMoreLabel: string;
   side: "left" | "right";
   isExpanded: boolean;
   onToggle: () => void;
@@ -255,7 +257,7 @@ function TechSlot({
                 variant="accent-brand"
                 className={styles.popoverMobileLink}
               >
-                Learn more
+                {learnMoreLabel}
               </Button>
             </div>
           </PopoverContent>
@@ -320,6 +322,7 @@ export function TechnologiesShowcaseVertical({
 } = {}) {
   const isDesktop = useIsDesktop();
   const t = useTranslations("technologiesShowcase");
+  const tCommon = useTranslations("common");
   const { effectiveTheme } = useTheme();
   const kleadsLogoRef = useRef<HTMLDivElement>(null);
   const [logoHeight, setLogoHeight] = useState(26);
@@ -393,6 +396,7 @@ export function TechnologiesShowcaseVertical({
                   tech={tech}
                   logoSrc={logoSrc(tech)}
                   description={getDescription(tech)}
+                  learnMoreLabel={tCommon("learnMore")}
                   side="left"
                   isExpanded={expandedIndex?.side === "left" && expandedIndex?.index === index}
                   onToggle={() => setLeft(index)}
@@ -407,6 +411,7 @@ export function TechnologiesShowcaseVertical({
                   tech={tech}
                   logoSrc={logoSrc(tech)}
                   description={getDescription(tech)}
+                  learnMoreLabel={tCommon("learnMore")}
                   side="right"
                   isExpanded={expandedIndex?.side === "right" && expandedIndex?.index === index}
                   onToggle={() => setRight(index)}
@@ -436,6 +441,7 @@ export function TechnologiesShowcaseVertical({
                   tech={tech}
                   logoSrc={mobileLogoSrc(tech)}
                   description={getDescription(tech)}
+                  learnMoreLabel={tCommon("learnMore")}
                   side="left"
                   isExpanded={expandedIndex?.side === "left" && expandedIndex?.index === index}
                   onToggle={() => setLeft(index)}
@@ -457,6 +463,7 @@ export function TechnologiesShowcaseVertical({
                   tech={tech}
                   logoSrc={mobileLogoSrc(tech)}
                   description={getDescription(tech)}
+                  learnMoreLabel={tCommon("learnMore")}
                   side="right"
                   isExpanded={expandedIndex?.side === "right" && expandedIndex?.index === index}
                   onToggle={() => setRight(index)}

@@ -2,7 +2,7 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-md);
+  justify-content: space-between;
   height: 100%;
 }
 
@@ -26,6 +26,7 @@
 .title {
   color: hsl(var(--foreground));
   margin: 0;
+  margin-bottom: var(--gap-sm) !important;
   font-weight: 500;
   font-style: Bold;
   font-size: 20px;
@@ -54,7 +55,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-
   .iconWrapper {
     width: 48px;
     height: 48px;

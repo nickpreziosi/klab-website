@@ -29,7 +29,6 @@
 }
 
 .content {
-  margin: 0 auto;
   text-align: center !important;
   display: flex;
   flex-direction: column;
@@ -48,7 +47,7 @@
   color: hsl(var(--foreground));
   margin-bottom: 48px;
   margin-top: var(--padding-tablet);
-  max-width: 840px;
+  max-width: 100%;
   font-weight: 300;
   margin-left: auto;
   margin-right: auto;
@@ -73,21 +72,17 @@
   overflow: hidden;
 }
 
+.statCardHeader {
+  padding: var(--card-padding) var(--card-padding) 0.5rem !important;
+}
+
 .statCardContent {
-  padding: var(--card-padding);
+  padding: 0.5rem var(--card-padding) var(--card-padding);
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.statValueContainer {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  margin-bottom: 1rem;
 }
 
 .statValue {
@@ -111,7 +106,8 @@
   font-size: 1rem;
   color: hsl(var(--foreground));
   line-height: 1.5;
-  font-weight: 500;
+  font-weight: 600;
+  margin: 0;
 }
 
 .statGlow {
