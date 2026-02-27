@@ -49,17 +49,11 @@ export type DrawerProps = {
 export const Drawer = (props: DrawerProps) => {
   const { drawerTranslations: serverDrawerTranslations, navTranslations: serverNavTranslations } =
     props ?? {};
-  const skipNextCloseRef = useRef(false);
-  const reopenedAtRef = useRef<number>(0);
   const reopenedRef = useRef(false);
   const [isOpen, setIsOpen] = useState(() => {
     if (typeof window === "undefined") return false;
     const shouldOpen = consumeShouldReopenDrawerAfterLocale();
-    if (shouldOpen) {
-      skipNextCloseRef.current = true;
-      reopenedRef.current = true;
-      reopenedAtRef.current = Date.now();
-    }
+    if (shouldOpen) reopenedRef.current = true;
     return shouldOpen;
   });
   const [skipDrawerAnimation, setSkipDrawerAnimation] = useState(() => reopenedRef.current);
@@ -70,8 +64,6 @@ export const Drawer = (props: DrawerProps) => {
   // Reopen drawer after locale switch when pathname changes (e.g. client nav without remount).
   useEffect(() => {
     if (!consumeShouldReopenDrawerAfterLocale()) return;
-    skipNextCloseRef.current = true;
-    reopenedAtRef.current = Date.now();
     setSkipDrawerAnimation(true);
     setIsOpen(true);
   }, [pathname]);
@@ -96,14 +88,6 @@ export const Drawer = (props: DrawerProps) => {
   }, [prepareClose]);
 
   const handleOpenChange = (open: boolean) => {
-    if (!open && skipNextCloseRef.current) {
-      const recentlyOpened = Date.now() - reopenedAtRef.current < 200;
-      if (recentlyOpened) {
-        skipNextCloseRef.current = false;
-        return;
-      }
-      skipNextCloseRef.current = false;
-    }
     if (!open) {
       setSkipDrawerAnimation(false);
       setPrepareClose(true);
@@ -459,11 +443,7 @@ export const Drawer = (props: DrawerProps) => {
                     style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}
                   >
                     <MobileLocaleSwitcher />
-                    <MobileThemeToggle
-                      onBeforeThemeChange={() => {
-                        skipNextCloseRef.current = true;
-                      }}
-                    />
+                    <MobileThemeToggle />
                   </motion.div>
                 </motion.div>
               </Dialog.Content>

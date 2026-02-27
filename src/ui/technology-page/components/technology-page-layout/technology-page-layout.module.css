@@ -274,8 +274,6 @@
   position: relative;
   border-radius: var(--rounded-app);
   overflow: hidden;
-  /* Neutral loading background so no icon or shape flashes before image paints */
-  background: hsl(var(--muted) / 0.4);
 }
 
 .mockupWrapperPhone {
@@ -303,6 +301,12 @@
   display: block;
   border-radius: 6px;
   object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.mockupWrapper[data-loaded] .mockupImage {
+  opacity: 1;
 }
 
 .mockupWrapperPhone .mockupImage {

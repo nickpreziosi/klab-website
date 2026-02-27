@@ -12,7 +12,10 @@ import { DesktopDropdown } from "@/ui/shared/components/dropdown-menu/dropdown-m
 import { ThemeToggle } from "@/ui/shared/components/theme-toggle/theme-toggle";
 import { LocaleSwitcher } from "@/ui/shared/components/locale-switcher/locale-switcher";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
-import { preloadTechnologyLogos } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
+import {
+  TECHNOLOGIES,
+  preloadTechnologyLogos,
+} from "@/ui/shared/components/technologies-showcase/technologies-showcase";
 import { useTheme } from "@/ui/shared/hooks/use-theme";
 import { getSavedScrollY } from "@/ui/shared/utils/scroll-preservation";
 import styles from "./navbar.module.css";
@@ -58,6 +61,26 @@ export const NavigationMenuDemo = ({
       mq1240.removeEventListener("change", update);
       mq1024.removeEventListener("change", update);
     };
+  }, []);
+
+  // Preload all tech logos on page load so drawer/dropdown show them instantly (Safari/mobile).
+  // Must run in main document before drawer opens; link preload gives highest priority.
+  useEffect(() => {
+    const urls = new Set<string>();
+    for (const tech of TECHNOLOGIES) {
+      urls.add(tech.logoLight);
+      urls.add(tech.logoDark);
+    }
+    const links: HTMLLinkElement[] = [];
+    urls.forEach((href) => {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = href;
+      document.head.appendChild(link);
+      links.push(link);
+    });
+    return () => links.forEach((link) => link.remove());
   }, []);
 
   const handleDropdownClick = () => {
@@ -168,6 +191,13 @@ export const NavigationMenuDemo = ({
             !useTransparentNav && styles.containerScrolled
           } ${dropdownOpen && styles.containerDropdownOpen}`}
         >
+          {/* Preload tech logos on page load so drawer technologies dropdown shows them instantly */}
+          <div className={styles.techLogoPreload} aria-hidden>
+            {TECHNOLOGIES.flatMap((tech) => [
+              <img key={`${tech.href}-light`} src={tech.logoLight} alt="" width={24} height={24} loading="eager" fetchPriority="high" />,
+              <img key={`${tech.href}-dark`} src={tech.logoDark} alt="" width={24} height={24} loading="eager" fetchPriority="high" />,
+            ])}
+          </div>
           <div className={styles.navbar}>
             <div className={styles.logoContainer}>
               <Link

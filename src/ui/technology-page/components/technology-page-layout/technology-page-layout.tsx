@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import Button from "@/ui/shared/components/button/button";
@@ -35,6 +35,7 @@ function MockupCard({
   /** When true, preload image (e.g. hero mockup) so it loads like company hero and avoids placeholder flash. */
   priority?: boolean;
 }) {
+  const [loaded, setLoaded] = useState(false);
   const wrapperClass =
     mockup.variant === "phone"
       ? styles.mockupWrapperPhone
@@ -43,7 +44,10 @@ function MockupCard({
         : styles.mockupWrapperDesktop;
 
   return (
-    <div className={`${styles.mockupWrapper} ${wrapperClass}`}>
+    <div
+      className={`${styles.mockupWrapper} ${wrapperClass}`}
+      data-loaded={loaded || undefined}
+    >
       <Image
         src={mockup.src}
         alt={mockup.alt ?? defaultAlt}
@@ -53,6 +57,7 @@ function MockupCard({
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         placeholder="empty"
         priority={priority}
+        onLoad={() => setLoaded(true)}
       />
     </div>
   );
