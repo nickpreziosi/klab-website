@@ -21,13 +21,6 @@
   margin-bottom: var(--padding-desktop);
 }
 
-/* New form (FloatingLabelInput / FormField) section – consistent grid layout */
-.newFormSection {
-  margin-bottom: var(--margin-xl);
-  padding-bottom: var(--margin-xl);
-  border-bottom: 1px solid hsl(var(--border));
-}
-
 .newFormHeading {
   font-size: var(--text-xl);
   font-weight: var(--font-semibold);
