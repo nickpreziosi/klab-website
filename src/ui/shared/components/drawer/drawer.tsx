@@ -59,11 +59,16 @@ export type DrawerProps = {
   drawerTranslations?: DrawerTranslations;
   /** When provided (from layout via Navbar), nav copy in drawer is SSR'd */
   navTranslations?: NavTranslations;
+  /** Called when drawer open state changes (e.g. for navbar scroll-to-hide) */
+  onOpenChange?: (open: boolean) => void;
 };
 
 export const Drawer = (props: DrawerProps) => {
-  const { drawerTranslations: serverDrawerTranslations, navTranslations: serverNavTranslations } =
-    props ?? {};
+  const {
+    drawerTranslations: serverDrawerTranslations,
+    navTranslations: serverNavTranslations,
+    onOpenChange: onOpenChangeProp,
+  } = props ?? {};
   const reopenedRef = useRef(false);
   const prevPathnameRef = useRef<string | null>(null);
   const [isOpen, setIsOpen] = useState(() => {
@@ -92,6 +97,7 @@ export const Drawer = (props: DrawerProps) => {
       if (consumeShouldReopenDrawerAfterLocale()) {
         setSkipDrawerAnimation(true);
         setIsOpen(true);
+        onOpenChangeProp?.(true);
         if (consumeKeepTechnologiesOpen()) setIsSolutionsOpen(true);
       }
       return;
@@ -103,6 +109,7 @@ export const Drawer = (props: DrawerProps) => {
       if (consumeShouldReopenDrawerAfterLocale()) {
         setSkipDrawerAnimation(true);
         setIsOpen(true);
+        onOpenChangeProp?.(true);
         if (consumeKeepTechnologiesOpen()) setIsSolutionsOpen(true);
       }
       return;
@@ -131,15 +138,18 @@ export const Drawer = (props: DrawerProps) => {
     if (!prepareClose) return;
     setPrepareClose(false);
     setIsOpen(false);
-  }, [prepareClose]);
+    onOpenChangeProp?.(false);
+  }, [prepareClose, onOpenChangeProp]);
 
   const handleOpenChange = (open: boolean) => {
     if (!open) {
       setSkipDrawerAnimation(false);
       setPrepareClose(true);
+      onOpenChangeProp?.(false);
       return;
     }
     setIsOpen(open);
+    onOpenChangeProp?.(true);
   };
 
   const t = useTranslations("drawer");
