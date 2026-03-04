@@ -87,6 +87,14 @@
   border-radius: var(--rounded-full);
 }
 
+/* Override KlabLogo's inline display so only one logo shows at each breakpoint */
+.logoFull {
+  display: block !important;
+}
+.logoCompact {
+  display: none !important;
+}
+
 .logoLink:focus-visible {
   border-radius: var(--rounded-app);
 }
@@ -188,7 +196,22 @@
   }
 }
 
+@media only screen and (max-width: 1200px) {
+  .logoFull {
+    display: none !important;
+  }
+  .logoCompact {
+    display: block !important;
+  }
+}
+
 @media only screen and (max-width: 1024px) {
+  .logoFull {
+    display: block !important;
+  }
+  .logoCompact {
+    display: none !important;
+  }
   .navList {
     display: none;
   }

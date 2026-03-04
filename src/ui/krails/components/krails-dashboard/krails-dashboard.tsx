@@ -3,8 +3,12 @@
 import { useEffectiveThemeSync } from "@/ui/shared/hooks/use-theme";
 import { easeInOut, motion } from "motion/react";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import styles from "./krails-dashboard.module.css";
+
+function useSvgIdPrefix(): string {
+  return "dash-" + useId().replace(/:/g, "-");
+}
 
 const LOGO_LIGHT = "/logos/krails-logo-light.svg";
 const LOGO_DARK = "/logos/krails-logo-dark.svg";
@@ -18,6 +22,8 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
   const t = useTranslations("krails");
   const effectiveTheme = useEffectiveThemeSync();
   const logoSrc = effectiveTheme === "dark" ? LOGO_LIGHT : LOGO_DARK;
+  const rubySvgId = useSvgIdPrefix();
+  const pythonSvgId = useSvgIdPrefix();
 
   const [screenSize, setScreenSize] = useState<"large" | "desktop" | "tablet" | "mobile">("large");
   const [hasAnimated, setHasAnimated] = useState(skipAnimation);
@@ -768,7 +774,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                         >
                           <defs>
                             <linearGradient
-                              id="a"
+                              id={`${rubySvgId}-a`}
                               x1="84.75%"
                               x2="58.254%"
                               y1="111.399%"
@@ -781,7 +787,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#900" />
                             </linearGradient>
                             <linearGradient
-                              id="b"
+                              id={`${rubySvgId}-b`}
                               x1="116.651%"
                               x2="1.746%"
                               y1="60.89%"
@@ -793,7 +799,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#911209" />
                             </linearGradient>
                             <linearGradient
-                              id="c"
+                              id={`${rubySvgId}-c`}
                               x1="75.774%"
                               x2="38.978%"
                               y1="219.327%"
@@ -805,7 +811,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#911209" />
                             </linearGradient>
                             <linearGradient
-                              id="d"
+                              id={`${rubySvgId}-d`}
                               x1="50.012%"
                               x2="66.483%"
                               y1="7.234%"
@@ -819,7 +825,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#A60003" />
                             </linearGradient>
                             <linearGradient
-                              id="e"
+                              id={`${rubySvgId}-e`}
                               x1="46.174%"
                               x2="49.932%"
                               y1="16.348%"
@@ -833,7 +839,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#A80D00" />
                             </linearGradient>
                             <linearGradient
-                              id="f"
+                              id={`${rubySvgId}-f`}
                               x1="36.965%"
                               x2="49.528%"
                               y1="15.594%"
@@ -847,7 +853,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#A80D00" />
                             </linearGradient>
                             <linearGradient
-                              id="g"
+                              id={`${rubySvgId}-g`}
                               x1="13.609%"
                               x2="85.764%"
                               y1="58.346%"
@@ -860,7 +866,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#BF0905" />
                             </linearGradient>
                             <linearGradient
-                              id="h"
+                              id={`${rubySvgId}-h`}
                               x1="27.624%"
                               x2="50.745%"
                               y1="21.135%"
@@ -873,7 +879,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#BF190B" />
                             </linearGradient>
                             <linearGradient
-                              id="i"
+                              id={`${rubySvgId}-i`}
                               x1="-20.667%"
                               x2="104.242%"
                               y1="122.282%"
@@ -891,7 +897,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#E82609" />
                             </linearGradient>
                             <linearGradient
-                              id="j"
+                              id={`${rubySvgId}-j`}
                               x1="58.792%"
                               x2="11.964%"
                               y1="65.205%"
@@ -904,7 +910,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#A80D0E" />
                             </linearGradient>
                             <linearGradient
-                              id="k"
+                              id={`${rubySvgId}-k`}
                               x1="79.319%"
                               x2="23.088%"
                               y1="62.754%"
@@ -916,7 +922,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#9E0C00" />
                             </linearGradient>
                             <linearGradient
-                              id="l"
+                              id={`${rubySvgId}-l`}
                               x1="92.88%"
                               x2="59.841%"
                               y1="74.122%"
@@ -928,7 +934,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#9E120B" />
                             </linearGradient>
                             <linearGradient
-                              id="o"
+                              id={`${rubySvgId}-o`}
                               x1="56.57%"
                               x2="3.105%"
                               y1="101.717%"
@@ -941,7 +947,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#B3100C" />
                             </linearGradient>
                             <linearGradient
-                              id="p"
+                              id={`${rubySvgId}-p`}
                               x1="30.87%"
                               x2="92.471%"
                               y1="35.599%"
@@ -954,7 +960,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#791C12" />
                             </linearGradient>
                             <radialGradient
-                              id="m"
+                              id={`${rubySvgId}-m`}
                               cx="32.001%"
                               cy="40.21%"
                               r="69.573%"
@@ -967,7 +973,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               <stop offset="100%" stopColor="#7E0E08" />
                             </radialGradient>
                             <radialGradient
-                              id="n"
+                              id={`${rubySvgId}-n`}
                               cx="13.549%"
                               cy="40.86%"
                               r="88.386%"
@@ -981,35 +987,35 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                             </radialGradient>
                           </defs>
                           <path
-                            fill="url(#a)"
+                            fill={`url(#${rubySvgId}-a)`}
                             d="m197.467 167.764-145.52 86.41 188.422-12.787L254.88 51.393l-57.414 116.37z"
                           />
                           <path
-                            fill="url(#b)"
+                            fill={`url(#${rubySvgId}-b)`}
                             d="M240.677 241.257 224.482 129.48l-44.113 58.25 60.308 53.528z"
                           />
                           <path
-                            fill="url(#c)"
+                            fill={`url(#${rubySvgId}-c)`}
                             d="m240.896 241.257-118.646-9.313-69.674 21.986 188.32-12.673z"
                           />
                           <path
-                            fill="url(#d)"
+                            fill={`url(#${rubySvgId}-d)`}
                             d="m52.744 253.955 29.64-97.1L17.16 170.8l35.583 83.154z"
                           />
                           <path
-                            fill="url(#e)"
+                            fill={`url(#${rubySvgId}-e)`}
                             d="M180.358 188.05 153.085 81.226l-78.047 73.16 105.32 33.666z"
                           />
                           <path
-                            fill="url(#f)"
+                            fill={`url(#${rubySvgId}-f)`}
                             d="m248.693 82.73-73.777-60.256-20.544 66.418 94.321-6.162z"
                           />
                           <path
-                            fill="url(#g)"
+                            fill={`url(#${rubySvgId}-g)`}
                             d="M214.191.99 170.8 24.97 143.424.669l70.767.322z"
                           />
                           <path
-                            fill="url(#h)"
+                            fill={`url(#${rubySvgId}-h)`}
                             d="m0 203.372 18.177-33.151-14.704-39.494L0 203.372z"
                           />
                           <path
@@ -1017,19 +1023,19 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                             d="m2.496 129.48 14.794 41.963 64.283-14.422 73.39-68.207 20.712-65.787L143.063 0 87.618 20.75c-17.469 16.248-51.366 48.396-52.588 49-1.21.618-22.384 40.639-32.534 59.73z"
                           />
                           <path
-                            fill="url(#i)"
+                            fill={`url(#${rubySvgId}-i)`}
                             d="M54.442 54.094c37.86-37.538 86.667-59.716 105.397-40.818 18.72 18.898-1.132 64.823-38.992 102.349-37.86 37.525-86.062 60.925-104.78 42.027-18.73-18.885.515-66.032 38.375-103.558z"
                           />
                           <path
-                            fill="url(#j)"
+                            fill={`url(#${rubySvgId}-j)`}
                             d="m52.744 253.916 29.408-97.409 97.665 31.376c-35.312 33.113-74.587 61.106-127.073 66.033z"
                           />
                           <path
-                            fill="url(#k)"
+                            fill={`url(#${rubySvgId}-k)`}
                             d="m155.092 88.622 25.073 99.313c29.498-31.016 55.972-64.36 68.938-105.603l-94.01 6.29z"
                           />
                           <path
-                            fill="url(#l)"
+                            fill={`url(#${rubySvgId}-l)`}
                             d="M248.847 82.833c10.035-30.282 12.35-73.725-34.966-81.791l-38.825 21.445 73.791 60.346z"
                           />
                           <path
@@ -1037,19 +1043,19 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                             d="M0 202.935c1.39 49.979 37.448 50.724 52.808 51.162l-35.48-82.86L0 202.935z"
                           />
                           <path
-                            fill="url(#m)"
+                            fill={`url(#${rubySvgId}-m)`}
                             d="M155.232 88.777c22.667 13.932 68.35 41.912 69.276 42.426 1.44.81 19.695-30.784 23.838-48.64l-93.114 6.214z"
                           />
                           <path
-                            fill="url(#n)"
+                            fill={`url(#${rubySvgId}-n)`}
                             d="m82.113 156.507 39.313 75.848c23.246-12.607 41.45-27.967 58.121-44.42l-97.434-31.428z"
                           />
                           <path
-                            fill="url(#o)"
+                            fill={`url(#${rubySvgId}-o)`}
                             d="m17.174 171.34-5.57 66.328c10.51 14.357 24.97 15.605 40.136 14.486-10.973-27.311-32.894-81.92-34.566-80.814z"
                           />
                           <path
-                            fill="url(#p)"
+                            fill={`url(#${rubySvgId}-p)`}
                             d="m174.826 22.654 78.1 10.96c-4.169-17.662-16.969-29.06-38.787-32.623l-39.313 21.663z"
                           />
                         </svg>
@@ -1087,7 +1093,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               y1="12.039%"
                               x2="79.639%"
                               y2="78.201%"
-                              id="a"
+                              id={`${pythonSvgId}-a`}
                             >
                               <stop stopColor="#387EB8" offset="0%" />
                               <stop stopColor="#366994" offset="100%" />
@@ -1097,7 +1103,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                               y1="20.579%"
                               x2="90.742%"
                               y2="88.429%"
-                              id="b"
+                              id={`${pythonSvgId}-b`}
                             >
                               <stop stopColor="#FFE052" offset="0%" />
                               <stop stopColor="#FFC331" offset="100%" />
@@ -1105,11 +1111,11 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                           </defs>
                           <path
                             d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zM92.802 19.66a11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13 11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.13z"
-                            fill="url(#a)"
+                            fill={`url(#${pythonSvgId}-a)`}
                           />
                           <path
                             d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.518 33.897zm34.114-19.586a11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.131 11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13z"
-                            fill="url(#b)"
+                            fill={`url(#${pythonSvgId}-b)`}
                           />
                         </svg>
                         <span className={styles.langLabelText}>Python</span>

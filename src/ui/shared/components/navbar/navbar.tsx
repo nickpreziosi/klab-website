@@ -177,9 +177,7 @@ export const NavigationMenuDemo = ({
           style={{
             height: "auto",
             backdropFilter: useTransparentNav ? "none" : "blur(8px)",
-            background: useTransparentNav
-              ? "transparent"
-              : "hsl(var(--background) / 0.7)",
+            background: useTransparentNav ? "transparent" : "hsl(var(--background) / 0.7)",
             borderBottom: useTransparentNav
               ? "solid 1px transparent"
               : "solid 1px hsl(var(--foreground) / 0.2)",
@@ -194,22 +192,36 @@ export const NavigationMenuDemo = ({
           {/* Preload tech logos on page load so drawer technologies dropdown shows them instantly */}
           <div className={styles.techLogoPreload} aria-hidden>
             {TECHNOLOGIES.flatMap((tech) => [
-              <img key={`${tech.href}-light`} src={tech.logoLight} alt="" width={24} height={24} loading="eager" fetchPriority="high" />,
-              <img key={`${tech.href}-dark`} src={tech.logoDark} alt="" width={24} height={24} loading="eager" fetchPriority="high" />,
+              <img
+                key={`${tech.href}-light`}
+                src={tech.logoLight}
+                alt=""
+                width={24}
+                height={24}
+                loading="eager"
+                fetchPriority="high"
+              />,
+              <img
+                key={`${tech.href}-dark`}
+                src={tech.logoDark}
+                alt=""
+                width={24}
+                height={24}
+                loading="eager"
+                fetchPriority="high"
+              />,
             ])}
           </div>
           <div className={styles.navbar}>
             <div className={styles.logoContainer}>
-              <Link
-                aria-label={nav.goToHomepage}
-                href="/"
-                className={styles.logoLink}
-              >
-                {useCompactLogo ? (
-                  <KlabLogo color="orange" format="default" height={48} />
-                ) : (
-                  <KlabLogo color="orange" format="full" height={48} initialTheme={initialTheme} />
-                )}
+              <Link aria-label={nav.goToHomepage} href="/" className={styles.logoLink}>
+                <KlabLogo
+                  color="orange"
+                  format="default"
+                  className={styles.logoCompact}
+                  height={48}
+                />
+                <KlabLogo color="orange" format="full" className={styles.logoFull} height={48} initialTheme={initialTheme} />
               </Link>
             </div>
 
@@ -391,7 +403,10 @@ export const NavigationMenuDemo = ({
             </ul>
 
             <div className={styles.drawerContainer}>
-              <Drawer drawerTranslations={drawerTranslations} navTranslations={serverNavTranslations} />
+              <Drawer
+                drawerTranslations={drawerTranslations}
+                navTranslations={serverNavTranslations}
+              />
             </div>
           </div>
 

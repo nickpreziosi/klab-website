@@ -1,18 +1,18 @@
 "use client";
 import styles from "./kena-case-study.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import { motion } from "framer-motion";
 
-export default function KenaCaseStudy() {
-  const t = useTranslations("kena");
-  const CircleLogo = () => (
+function CircleLogo() {
+  const uid = "kena-" + useId().replace(/:/g, "-");
+  return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlSpace="preserve"
-      id="Layer_1"
+      id={`${uid}-Layer_1`}
       x={0}
       y={0}
       fill="currentColor"
@@ -20,7 +20,7 @@ export default function KenaCaseStudy() {
     >
       <style>{`.st2{fill:currentColor}`}</style>
       <linearGradient
-        id="SVGID_1_"
+        id={`${uid}-SVGID_1_`}
         x1={232.827}
         x2={291.249}
         y1={646.994}
@@ -44,11 +44,11 @@ export default function KenaCaseStudy() {
       <path
         d="m77.5 20.9-1.8-3.1c-.5-.9-1.6-1.2-2.5-.7-.1.1-.3.2-.4.3l-4.1 4.1c-.6.6-.7 1.6-.2 2.3 1.5 2.3 2.7 4.8 3.6 7.4 5.7 16.9-3.4 35.2-20.3 40.9-3.3 1.1-6.8 1.7-10.3 1.7-5.3 0-10.5-1.3-15.1-3.8l7-7c11.9 4.5 25.2-1.5 29.7-13.4 2.2-5.9 1.9-12.5-.8-18.2-.4-.9-1.5-1.3-2.5-.9-.2.1-.4.2-.5.4L55.1 35c-.5.5-.6 1.1-.5 1.7l.4 1.5c1.7 7.4-2.9 14.9-10.3 16.6-3.4.8-7 .3-10-1.5l-1.8-1.1c-.7-.4-1.6-.3-2.2.3l-17 17c-.7.7-.7 1.9 0 2.6l.2.2 2.5 1.9c7.1 5.8 16 8.8 25.1 8.8C64.4 83 83 64.4 83 41.4c0-7.2-1.9-14.2-5.5-20.5z"
         style={{
-          fill: "url(#SVGID_1_)",
+          fill: `url(#${uid}-SVGID_1_)`,
         }}
       />
       <linearGradient
-        id="SVGID_2_"
+        id={`${uid}-SVGID_2_`}
         x1={203.707}
         x2={262.137}
         y1={617.199}
@@ -72,7 +72,7 @@ export default function KenaCaseStudy() {
       <path
         d="M66.7 8.6C59.5 3 50.6 0 41.5 0 18.6 0 0 18.6 0 41.6c0 7.2 1.9 14.3 5.4 20.5l1.8 3.1c.5.9 1.6 1.2 2.5.7.1-.1.3-.2.4-.3l4.1-4.1c.6-.6.7-1.6.2-2.3-1.5-2.3-2.7-4.8-3.6-7.4-5.7-16.9 3.4-35.2 20.3-40.9 3.3-1.1 6.8-1.7 10.3-1.7 5.3 0 10.5 1.3 15.1 3.8l-7 7c-11.9-4.5-25.2 1.5-29.7 13.4-1 2.6-1.5 5.4-1.5 8.2 0 .4.1 2.1.1 2.4.3 2.6 1 5.2 2.2 7.6.4.9 1.5 1.3 2.5.9.2-.1.4-.2.5-.4l4.2-4.2c.5-.5.6-1.1.5-1.7l-.3-1.5c-1.7-7.4 2.9-14.9 10.3-16.6 3.4-.8 7-.3 10 1.5l1.8 1.1c.7.4 1.6.3 2.2-.3l17-17c.7-.7.7-1.9 0-2.6l-.2-.2-2.4-2z"
         style={{
-          fill: "url(#SVGID_2_)",
+          fill: `url(#${uid}-SVGID_2_)`,
         }}
       />
       <path
@@ -81,6 +81,10 @@ export default function KenaCaseStudy() {
       />
     </svg>
   );
+}
+
+export default function KenaCaseStudy() {
+  const t = useTranslations("kena");
 
   const AlgorandLogo = () => (
     <svg
