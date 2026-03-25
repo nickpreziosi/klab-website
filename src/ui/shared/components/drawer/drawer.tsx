@@ -26,6 +26,8 @@ import {
 import { routing } from "@/i18n/routing";
 import styles from "./drawer.module.css";
 
+const VISIBLE_TECH_DESCRIPTION_KEYS: Set<string> = new Set(["kleads", "krisk", "krails", "kena"]);
+
 /** Path without the locale segment (e.g. /en/about → /about) so we can tell locale switch from route change. */
 function pathWithoutLocale(pathname: string): string {
   const segments = pathname.split("/").filter(Boolean);
@@ -59,11 +61,16 @@ export type DrawerProps = {
   drawerTranslations?: DrawerTranslations;
   /** When provided (from layout via Navbar), nav copy in drawer is SSR'd */
   navTranslations?: NavTranslations;
+  /** Called when drawer open state changes (e.g. for navbar scroll-to-hide) */
+  onOpenChange?: (open: boolean) => void;
 };
 
 export const Drawer = (props: DrawerProps) => {
-  const { drawerTranslations: serverDrawerTranslations, navTranslations: serverNavTranslations } =
-    props ?? {};
+  const {
+    drawerTranslations: serverDrawerTranslations,
+    navTranslations: serverNavTranslations,
+    onOpenChange: onOpenChangeProp,
+  } = props ?? {};
   const reopenedRef = useRef(false);
   const prevPathnameRef = useRef<string | null>(null);
   const [isOpen, setIsOpen] = useState(() => {
@@ -92,6 +99,7 @@ export const Drawer = (props: DrawerProps) => {
       if (consumeShouldReopenDrawerAfterLocale()) {
         setSkipDrawerAnimation(true);
         setIsOpen(true);
+        onOpenChangeProp?.(true);
         if (consumeKeepTechnologiesOpen()) setIsSolutionsOpen(true);
       }
       return;
@@ -103,6 +111,7 @@ export const Drawer = (props: DrawerProps) => {
       if (consumeShouldReopenDrawerAfterLocale()) {
         setSkipDrawerAnimation(true);
         setIsOpen(true);
+        onOpenChangeProp?.(true);
         if (consumeKeepTechnologiesOpen()) setIsSolutionsOpen(true);
       }
       return;
@@ -131,21 +140,28 @@ export const Drawer = (props: DrawerProps) => {
     if (!prepareClose) return;
     setPrepareClose(false);
     setIsOpen(false);
-  }, [prepareClose]);
+    onOpenChangeProp?.(false);
+  }, [prepareClose, onOpenChangeProp]);
 
   const handleOpenChange = (open: boolean) => {
     if (!open) {
       setSkipDrawerAnimation(false);
       setPrepareClose(true);
+      onOpenChangeProp?.(false);
       return;
     }
     setIsOpen(open);
+    onOpenChangeProp?.(true);
   };
 
   const t = useTranslations("drawer");
   const tNav = useTranslations("nav");
   const drawer = serverDrawerTranslations ?? buildDrawerTranslations(t);
   const nav = serverNavTranslations ?? buildNavTranslations(tNav);
+
+  const visibleTechnologies = TECHNOLOGIES.filter((tech) =>
+    VISIBLE_TECH_DESCRIPTION_KEYS.has(tech.descriptionKey)
+  );
 
   const hamburgerPlaceholder = (
     <button type="button" className={styles.hamburger} aria-label={drawer.openMenu}>
@@ -240,7 +256,7 @@ export const Drawer = (props: DrawerProps) => {
                   {/* Preload tech logos as soon as drawer opens so dropdown shows them without delay */}
                   {isOpen && (
                     <div className={styles.logoPreload} aria-hidden>
-                      {TECHNOLOGIES.map((tech) => {
+                      {visibleTechnologies.map((tech) => {
                         const logoSrc =
                           effectiveTheme === "dark" ? tech.logoLight : tech.logoDark;
                         return (
@@ -357,7 +373,7 @@ export const Drawer = (props: DrawerProps) => {
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: skipDrawerAnimation ? 0 : 0.3 }}
                           >
-                            {TECHNOLOGIES.map((tech) => {
+                            {visibleTechnologies.map((tech) => {
                               const logoSrc =
                                 effectiveTheme === "dark" ? tech.logoLight : tech.logoDark;
                               return (

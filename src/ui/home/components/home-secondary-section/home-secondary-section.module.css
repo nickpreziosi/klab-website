@@ -415,6 +415,7 @@
     width: calc(100% + 2 * var(--padding-tablet));
     margin-left: calc(-1 * var(--padding-tablet));
     margin-right: calc(-1 * var(--padding-tablet));
+    margin-top: 8rem;
   }
 
   .timelineStepText {
@@ -482,7 +483,7 @@
     margin-bottom: var(--margin-md);
   }
   .timelineTitle {
-    font-size: var(--text-base);
+    font-size: var(--text-xl);
     margin-bottom: var(--margin-md);
     text-align: center;
   }

@@ -5,6 +5,7 @@ import type { HeroTranslations } from "@/ui/home/types";
 import { Hero } from "@/ui/home/components/hero/hero";
 import VideoBackground from "@/ui/home/components/video-background/video-background";
 import HomeSecondarySection from "@/ui/home/components/home-secondary-section/home-secondary-section";
+import FaqSection from "@/ui/home/components/faq-section/faq-section";
 import { LoadingProgressBar } from "@/ui/shared/components/loading-progress-bar/loading-progress-bar";
 import { useHomeAnimation } from "@/ui/home/providers/home-animation-provider";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";

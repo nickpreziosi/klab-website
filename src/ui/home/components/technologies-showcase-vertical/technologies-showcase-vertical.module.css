@@ -101,14 +101,14 @@
   justify-content: center;
   width: 100%;
   max-width: 100%;
-  max-height: 26px;
+  max-height: var(--tech-logo-height, 26px);
 }
 
 .wrapperMobile .techLogo.techLogoWidest > div svg {
   width: 100% !important;
   height: auto !important;
   max-width: 100%;
-  max-height: 26px;
+  max-height: var(--tech-logo-height, 26px);
   object-fit: contain;
 }
 
@@ -165,7 +165,7 @@
   width: 100%;
   aspect-ratio: 1;
   max-height: 100%;
-  border-radius: var(--rounded-full);
+  border-radius: 9999px; /* ensure a true circle regardless of parent sizing */
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -294,11 +294,12 @@
   --icon-height: 28px; /* Constrain so widest logo (KLeads) fits in semicircles; all logos match this height */
   display: flex;
   flex-direction: column;
-  width: min(100%, 400px);
+  width: 100%;
+  max-width: 320px !important;
   margin-left: auto;
   margin-right: auto;
-  padding: var(--padding-md) var(--padding-desktop);
-  padding-bottom: var(--padding-md);
+  padding: var(--padding-mobile) var(--padding-mobile);
+  padding-bottom: var(--padding-tablet);
   overflow: visible;
 }
 
@@ -376,8 +377,8 @@
 
 /* Popover styling for mobile - matches k-lab-components popover UI */
 .popoverMobile {
-  width: min(400px, calc(100vw - 2rem)) !important;
-  max-width: min(400px, calc(100vw - 2rem)) !important;
+  width: min(520px, calc(100vw - 2rem)) !important;
+  max-width: min(520px, calc(100vw - 2rem)) !important;
   margin-left: 8px !important;
   margin-right: 8px !important;
   box-sizing: border-box;

@@ -46,6 +46,9 @@ export const NavigationMenuDemo = ({
   });
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [useCompactLogo, setUseCompactLogo] = useState(false);
+  const [isNavbarHidden, setIsNavbarHidden] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const lastScrollY = useRef(0);
   const spacerRef = useRef<HTMLDivElement>(null);
   const dropdownTriggerRef = useRef<HTMLButtonElement | null>(null);
   const dropdownContainerRef = useRef<HTMLDivElement | null>(null);
@@ -91,16 +94,35 @@ export const NavigationMenuDemo = ({
     let cancelled = false;
     const handleScroll = () => {
       if (cancelled) return;
+      const scrollY = window.scrollY;
+
       if (spacerRef.current) {
         const elementTop = spacerRef.current.getBoundingClientRect().top;
         setIsAtTop(elementTop >= 0);
       }
+
+      // Scroll-to-hide: hide on scroll down, show on scroll up or at top (desktop + mobile)
+      const threshold = 80;
+      const scrollDelta = scrollY - lastScrollY.current;
+
+      if (scrollY <= threshold) {
+        setIsNavbarHidden(false);
+      } else if (scrollDelta > 5) {
+        setIsNavbarHidden(true);
+      } else if (scrollDelta < -5) {
+        setIsNavbarHidden(false);
+      }
+
+      lastScrollY.current = scrollY;
     };
     // Re-check after route/locale change (after layout and any scroll restoration).
     // Double rAF so we run after ScrollToTopOnRouteChange restores scroll on locale switch.
     const raf = requestAnimationFrame(() =>
       requestAnimationFrame(() => {
-        if (!cancelled) handleScroll();
+        if (!cancelled) {
+          lastScrollY.current = window.scrollY;
+          handleScroll();
+        }
       })
     );
     window.addEventListener("load", handleScroll);
@@ -169,6 +191,7 @@ export const NavigationMenuDemo = ({
   // usePathname() returns path without locale (e.g. "/" for homepage in any locale)
   const isHomepage = path === "/";
   const useTransparentNav = isHomepage && isAtTop && !dropdownOpen;
+  const shouldHideNavbar = isNavbarHidden && !dropdownOpen && !drawerOpen;
 
   return (
     <>
@@ -187,7 +210,7 @@ export const NavigationMenuDemo = ({
           aria-label={nav.mainNav}
           className={`${styles.container} ${!isHomepage && styles.forceNavStyles} ${
             !useTransparentNav && styles.containerScrolled
-          } ${dropdownOpen && styles.containerDropdownOpen}`}
+          } ${dropdownOpen && styles.containerDropdownOpen} ${shouldHideNavbar && styles.containerHidden}`}
         >
           {/* Preload tech logos on page load so drawer technologies dropdown shows them instantly */}
           <div className={styles.techLogoPreload} aria-hidden>
@@ -406,6 +429,7 @@ export const NavigationMenuDemo = ({
               <Drawer
                 drawerTranslations={drawerTranslations}
                 navTranslations={serverNavTranslations}
+                onOpenChange={setDrawerOpen}
               />
             </div>
           </div>
