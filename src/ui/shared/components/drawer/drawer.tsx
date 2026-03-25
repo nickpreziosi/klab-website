@@ -26,6 +26,8 @@ import {
 import { routing } from "@/i18n/routing";
 import styles from "./drawer.module.css";
 
+const VISIBLE_TECH_DESCRIPTION_KEYS: Set<string> = new Set(["kleads", "krisk", "krails", "kena"]);
+
 /** Path without the locale segment (e.g. /en/about → /about) so we can tell locale switch from route change. */
 function pathWithoutLocale(pathname: string): string {
   const segments = pathname.split("/").filter(Boolean);
@@ -157,6 +159,10 @@ export const Drawer = (props: DrawerProps) => {
   const drawer = serverDrawerTranslations ?? buildDrawerTranslations(t);
   const nav = serverNavTranslations ?? buildNavTranslations(tNav);
 
+  const visibleTechnologies = TECHNOLOGIES.filter((tech) =>
+    VISIBLE_TECH_DESCRIPTION_KEYS.has(tech.descriptionKey)
+  );
+
   const hamburgerPlaceholder = (
     <button type="button" className={styles.hamburger} aria-label={drawer.openMenu}>
       <span className={styles.hamburgerLine} />
@@ -250,7 +256,7 @@ export const Drawer = (props: DrawerProps) => {
                   {/* Preload tech logos as soon as drawer opens so dropdown shows them without delay */}
                   {isOpen && (
                     <div className={styles.logoPreload} aria-hidden>
-                      {TECHNOLOGIES.map((tech) => {
+                      {visibleTechnologies.map((tech) => {
                         const logoSrc =
                           effectiveTheme === "dark" ? tech.logoLight : tech.logoDark;
                         return (
@@ -367,7 +373,7 @@ export const Drawer = (props: DrawerProps) => {
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: skipDrawerAnimation ? 0 : 0.3 }}
                           >
-                            {TECHNOLOGIES.map((tech) => {
+                            {visibleTechnologies.map((tech) => {
                               const logoSrc =
                                 effectiveTheme === "dark" ? tech.logoLight : tech.logoDark;
                               return (

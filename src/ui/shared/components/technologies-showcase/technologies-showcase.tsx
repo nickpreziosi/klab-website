@@ -192,6 +192,13 @@ const rightTechs = RIGHT_ORDER_FIXED.map((i) => TECHNOLOGIES[i]).filter(Boolean)
 /** KLeads is the widest logo - used as the full-width reference; others match its height. */
 const WIDEST_LOGO_KEY: TechDescriptionKey = "kleads";
 
+/**
+ * Allowlist for which technology semicircles should be visible.
+ * Keep the rest of the data intact so we can re-enable later.
+ */
+const NAVIGABLE_TECH_KEYS: readonly TechDescriptionKey[] = ["kleads", "krisk", "krails", "kena"];
+const NAVIGABLE_TECH_KEY_SET = new Set<TechDescriptionKey>(NAVIGABLE_TECH_KEYS);
+
 export function TechnologiesShowcase({
   onLinkClick,
   className,
@@ -215,6 +222,19 @@ export function TechnologiesShowcase({
     side: "left" | "right";
     index: number;
   } | null>(null);
+
+  const visibleLeftTechs = leftTechs.filter((tech) => NAVIGABLE_TECH_KEY_SET.has(tech.descriptionKey));
+  const visibleRightTechs = rightTechs.filter((tech) => NAVIGABLE_TECH_KEY_SET.has(tech.descriptionKey));
+  // Keep the center K-Lab circle occupying 2 columns, and distribute the remaining
+  // columns evenly based on how many visible tech semicircles are on each side.
+  // This avoids "placeholder" DOM and keeps the remaining items centered.
+  const gridTemplateColumns = [
+    `repeat(${visibleLeftTechs.length}, minmax(0, 1fr))`,
+    "minmax(60px, 1fr)",
+    "minmax(60px, 1fr)",
+    `repeat(${visibleRightTechs.length}, minmax(0, 1fr))`,
+  ].join(" ");
+
   const getDescription = useCallback(
     (tech: (typeof TECHNOLOGIES)[0]) => t(`technologies.${tech.descriptionKey}`),
     [t]
@@ -255,15 +275,19 @@ export function TechnologiesShowcase({
       <div
         ref={wrapperRef}
         className={`${styles.wrapper} ${className ?? ""}`.trim()}
-        style={{ "--tech-logo-height": `${logoHeight}px` } as React.CSSProperties}
+        style={
+          {
+            "--tech-logo-height": `${logoHeight}px`,
+          } as React.CSSProperties
+        }
       >
         {headerTitle ? (
           <div className={styles.headerRow}>
             <h3 className={styles.headerTitle}>{headerTitle}</h3>
           </div>
         ) : null}
-        <div ref={gridRef} className={styles.scrollContainer}>
-          {leftTechs.map((tech, index) => (
+        <div ref={gridRef} className={styles.scrollContainer} style={{ gridTemplateColumns }}>
+          {visibleLeftTechs.map((tech, index) => (
             <TechSemiCircle
               key={`left-${tech.href}-${index}`}
               tech={tech}
@@ -307,7 +331,7 @@ export function TechnologiesShowcase({
             </div>
           </div>
 
-          {rightTechs.map((tech, index) => (
+          {visibleRightTechs.map((tech, index) => (
             <TechSemiCircle
               key={`right-${tech.href}-${index}`}
               tech={tech}
@@ -358,6 +382,8 @@ function TechSemiCircle({
   isWidestLogo: boolean;
   logoRef?: React.RefObject<HTMLDivElement | null>;
 }) {
+  if (!NAVIGABLE_TECH_KEY_SET.has(tech.descriptionKey)) return null;
+
   return (
     <div
       className={`${styles.techItem} ${isExpanded ? styles.expanded : ""}`}

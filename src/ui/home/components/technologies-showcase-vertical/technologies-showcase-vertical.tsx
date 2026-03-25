@@ -116,6 +116,16 @@ const rightTechs = RIGHT_ORDER_FIXED.map((i) => TECHNOLOGIES[i]).filter(Boolean)
 
 const WIDEST_LOGO_KEY: TechKey = "kleads";
 
+/**
+ * Allowlist for which technology semicircles should be visible.
+ * Keep the rest of the data intact so we can re-enable later.
+ */
+const VISIBLE_TECH_KEYS: readonly TechKey[] = ["kleads", "krisk", "krails", "kena"];
+const VISIBLE_TECH_KEY_SET = new Set<TechKey>(VISIBLE_TECH_KEYS);
+
+const visibleLeftTechs = leftTechs.filter((tech) => VISIBLE_TECH_KEY_SET.has(tech.descriptionKey));
+const visibleRightTechs = rightTechs.filter((tech) => VISIBLE_TECH_KEY_SET.has(tech.descriptionKey));
+
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -325,7 +335,10 @@ export function TechnologiesShowcaseVertical({
   const tCommon = useTranslations("common");
   const { effectiveTheme } = useTheme();
   const kleadsLogoRef = useRef<HTMLDivElement>(null);
-  const [logoHeight, setLogoHeight] = useState(26);
+  // Controls how tall the technology logos are within each semicircle.
+  // We clamp measurement to this value so the SVGs don't overflow vertically.
+  const MOBILE_ICON_HEIGHT = 34;
+  const [logoHeight, setLogoHeight] = useState(MOBILE_ICON_HEIGHT);
   const [expandedIndex, setExpandedIndex] = useState<{
     side: "left" | "right";
     index: number;
@@ -356,7 +369,7 @@ export function TechnologiesShowcaseVertical({
   useEffect(() => {
     const el = kleadsLogoRef.current;
     if (!el) return;
-    const MAX_MOBILE_LOGO_HEIGHT = 26;
+    const MAX_MOBILE_LOGO_HEIGHT = MOBILE_ICON_HEIGHT;
     const measure = () => {
       const svg = el.querySelector("svg");
       if (svg) {
@@ -390,7 +403,7 @@ export function TechnologiesShowcaseVertical({
         <TooltipProvider delayDuration={200}>
           <div className={`${styles.wrapperDesktop} ${className ?? ""}`.trim()}>
             <div className={styles.gridDesktop}>
-              {leftTechs.map((tech, index) => (
+              {visibleLeftTechs.map((tech, index) => (
                 <TechSlot
                   key={`left-${tech.title}-${index}`}
                   tech={tech}
@@ -405,7 +418,7 @@ export function TechnologiesShowcaseVertical({
                 />
               ))}
               <CenterCircle variant={variant} />
-              {rightTechs.map((tech, index) => (
+              {visibleRightTechs.map((tech, index) => (
                 <TechSlot
                   key={`right-${tech.title}-${index}`}
                   tech={tech}
@@ -431,11 +444,16 @@ export function TechnologiesShowcaseVertical({
           ]
             .filter(Boolean)
             .join(" ")}
-          style={{ "--tech-logo-height": `${logoHeight}px` } as React.CSSProperties}
+          style={
+            {
+              "--tech-logo-height": `${logoHeight}px`,
+              "--icon-height": `${MOBILE_ICON_HEIGHT}px`,
+            } as React.CSSProperties
+          }
         >
           <div className={styles.columnMobile}>
             <div className={styles.rowMobileTop}>
-              {leftTechs.map((tech, index) => (
+              {visibleLeftTechs.map((tech, index) => (
                 <TechSlot
                   key={`left-${tech.title}-${index}`}
                   tech={tech}
@@ -457,7 +475,7 @@ export function TechnologiesShowcaseVertical({
             </div>
             <CenterCircle variant={variant} />
             <div className={styles.rowMobileBottom}>
-              {rightTechs.map((tech, index) => (
+              {visibleRightTechs.map((tech, index) => (
                 <TechSlot
                   key={`right-${tech.title}-${index}`}
                   tech={tech}
