@@ -9,7 +9,40 @@
   display: flex;
   width: 100%;
   justify-content: center;
-  margin-bottom: var(--padding-desktop);
+  margin-bottom: calc(var(--padding-desktop) * 0.5);
+}
+
+.headerEmailRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 0;
+  margin-bottom: calc(var(--padding-desktop) * 0.5);
+}
+
+.headerEmailLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: hsl(var(--foreground));
+  text-decoration: none;
+  text-underline-offset: 2px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  transition: color 150ms ease-in-out;
+}
+
+.headerEmailIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.headerEmailIcon svg {
+  width: 24px;
+  height: 24px;
 }
 
 .statusMessage {
@@ -219,7 +252,11 @@
     padding: var(--padding-tablet);
   }
   .headingContainer {
-    margin-bottom: var(--padding-tablet);
+    margin-bottom: calc(var(--padding-tablet) * 0.5);
+  }
+  .headerEmailRow {
+    margin-top: 0;
+    margin-bottom: calc(var(--padding-tablet) * 0.5);
   }
 }
 
@@ -229,6 +266,18 @@
   }
   .formContainer {
     padding: var(--padding-tablet) var(--padding-mobile);
+  }
+  .headerEmailRow {
+    margin-top: 6px;
+    margin-bottom: calc(var(--padding-tablet) * 0.65);
+  }
+  .headerEmailLink {
+    font-size: 16px;
+    gap: 6px;
+  }
+  .headerEmailIcon svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -505,6 +554,10 @@
 }
 
 @media (pointer: fine) and (hover: hover) {
+  .headerEmailLink:hover {
+    color: hsl(var(--accent));
+    text-decoration: underline;
+  }
   .listboxItem[data-hovered] {
     background-color: rgba(250, 250, 250, 1);
     color: var(--accent-color) !important;
