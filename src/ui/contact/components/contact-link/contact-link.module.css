@@ -44,6 +44,39 @@
   letter-spacing: 0%;
 }
 
+.emailRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 var(--gap-sm) 0;
+  color: hsl(var(--foreground));
+  font-size: var(--text-sm);
+  line-height: 1.4;
+}
+
+.emailIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.emailIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.emailLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: hsl(var(--foreground));
+  text-underline-offset: 2px;
+  transition: color 150ms ease-in-out;
+  border-radius: var(--rounded-app);
+}
+
 .iconWrapper > svg > path,
 .button > svg > path {
   fill: hsl(var(--foreground));
@@ -72,10 +105,23 @@
   .description {
     font-size: 1rem;
   }
+
+  .emailRow {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
   .title {
     font-size: 1.375rem;
+  }
+}
+
+/* Limit hover color effects to non-touch devices */
+@media (pointer: fine) and (hover: hover) {
+  .emailLink:hover {
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    color: hsl(var(--accent));
   }
 }

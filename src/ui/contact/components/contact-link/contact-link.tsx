@@ -15,6 +15,7 @@ import {
 interface ContactLinkProps {
   icon: ReactNode;
   title: string;
+  email?: string;
   description?: string;
   href: string;
   buttonText: string;
@@ -22,7 +23,15 @@ interface ContactLinkProps {
   skipAnimation?: boolean;
 }
 
-export function ContactLink({ icon, title, description, href, buttonText, skipAnimation = false }: ContactLinkProps) {
+export function ContactLink({
+  icon,
+  title,
+  email,
+  description,
+  href,
+  buttonText,
+  skipAnimation = false,
+}: ContactLinkProps) {
   return (
     <motion.div
       initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -34,6 +43,16 @@ export function ContactLink({ icon, title, description, href, buttonText, skipAn
       <Card className={styles.card}>
         <CardHeader>
           <CardTitle className={styles.title}>{title}</CardTitle>
+          {email ? (
+            <p className={styles.emailRow}>
+              <a className={styles.emailLink} href={`mailto:${email}`}>
+                <span className={styles.emailIcon} aria-hidden="true">
+                  {icon}
+                </span>
+                <span>{email}</span>
+              </a>
+            </p>
+          ) : null}
           {description ? (
             <CardDescription className={styles.description}>{description}</CardDescription>
           ) : null}

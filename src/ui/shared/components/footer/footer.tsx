@@ -83,6 +83,7 @@ export const Footer = () => {
   };
 
   const t = useTranslations("footer");
+  const tContact = useTranslations("contact");
   const tSocial = useTranslations("socialSidebar");
   const navLinks = [
     { href: "/", label: t("about") },
@@ -184,24 +185,18 @@ export const Footer = () => {
         </svg>
       ),
     },
+  ];
+  const contactLinks = [
+    { label: tContact("salesTitle"), href: "mailto:sales@k-lab.ai", email: "sales@k-lab.ai" },
     {
-      name: "Email",
-      labelKey: "sendEmail" as const,
-      href: "mailto:sales@k-lab.ai",
-      icon: (
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
-            fill="currentColor"
-          />
-        </svg>
-      ),
+      label: tContact("supportTitle"),
+      href: "mailto:support@k-lab.ai",
+      email: "support@k-lab.ai",
+    },
+    {
+      label: tContact("careersTitle"),
+      href: "mailto:careers@k-lab.ai",
+      email: "careers@k-lab.ai",
     },
   ];
 
@@ -219,6 +214,20 @@ export const Footer = () => {
                   </Link>
                 ))}
               </nav>
+            </div>
+
+            <div className={styles.contactContainer}>
+              <h2 className={styles.navTitle}>{t("contact")}</h2>
+              <div className={styles.contactLinks}>
+                {contactLinks.map((link) => (
+                  <p key={link.href}>
+                    <span className={styles.contactLabel}>{link.label}: </span>
+                    <a href={link.href} className={styles.contactLink}>
+                      {link.email}
+                    </a>
+                  </p>
+                ))}
+              </div>
             </div>
 
             <div className={styles.socialContainer}>
