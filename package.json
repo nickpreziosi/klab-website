@@ -66,6 +66,7 @@
     "@types/react": "19.2.6",
     "@types/react-dom": "19.2.3",
     "@types/three": "^0.180.0",
+    "@types/youtube": "^0.1.2",
     "check-unused-css": "^0.2.3",
     "dotenv": "^17.2.3",
     "eslint": "^9",

@@ -6,6 +6,27 @@ import { AnimatePresence, motion, useInView } from "framer-motion";
 import styles from "./video-player.module.css";
 import Image from "next/image";
 import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
+import YouTubeIframeEmbed, { getYouTubeVideoId, isYouTubeEmbedUrl } from "./youtube-iframe-embed";
+
+/**
+ * For YouTube embeds, merge params after the user clicks play (autoplay, playsinline).
+ * Also applies modestbranding / rel / iv_load_policy when not set — YouTube does not
+ * expose finer control over which chrome elements show; `controls=0` removes the bar entirely.
+ */
+function prepareEmbedSrc(url: string): string {
+  if (!isYouTubeEmbedUrl(url)) return url;
+  try {
+    const u = new URL(url);
+    u.searchParams.set("autoplay", "1");
+    u.searchParams.set("playsinline", "1");
+    if (!u.searchParams.has("modestbranding")) u.searchParams.set("modestbranding", "1");
+    if (!u.searchParams.has("rel")) u.searchParams.set("rel", "0");
+    if (!u.searchParams.has("iv_load_policy")) u.searchParams.set("iv_load_policy", "3");
+    return u.toString();
+  } catch {
+    return url;
+  }
+}
 
 interface VideoPlayerProps {
   videoUrl: string;
@@ -113,8 +134,18 @@ export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false
         </AnimatePresence>
 
         <AnimatePresence>
-          {/* External iframe: mount immediately on click */}
-          {!isLocalVideo && isClicked && (
+          {/* YouTube: IFrame API + hover-only chrome (native controls off = no bottom-right logo) */}
+          {!isLocalVideo && isClicked && isYouTubeEmbedUrl(videoUrl) && getYouTubeVideoId(videoUrl) && (
+            <YouTubeIframeEmbed
+              key="youtube-embed"
+              embedUrl={videoUrl}
+              skipAnimation={skipAnimation}
+              title={t("videoPlayerTitle")}
+            />
+          )}
+
+          {/* Other external embeds */}
+          {!isLocalVideo && isClicked && (!isYouTubeEmbedUrl(videoUrl) || !getYouTubeVideoId(videoUrl)) && (
             <motion.iframe
               key="iframe"
               initial={{ opacity: skipAnimation ? 1 : 0 }}
@@ -122,7 +153,7 @@ export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false
               exit={{ opacity: 0 }}
               transition={{ duration: skipAnimation ? 0 : 0.5 }}
               className={styles.videoEmbed}
-              src={videoUrl}
+              src={prepareEmbedSrc(videoUrl)}
               title={t("videoPlayerTitle")}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

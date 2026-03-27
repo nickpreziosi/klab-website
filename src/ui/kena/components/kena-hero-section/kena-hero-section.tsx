@@ -41,7 +41,7 @@ export default function KenaHeroSection({
 
         <VideoPlayer
           posterUrl="/images/kena.webp"
-          videoUrl="/videos/kena.mp4"
+          videoUrl="https://www.youtube-nocookie.com/embed/_9nh42oQJ9U?si=M9vOYBXc6dUnwIW1"
           skipAnimation={skipAnimation}
         />
 
