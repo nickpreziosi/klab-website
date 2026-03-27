@@ -19,7 +19,9 @@
   "hero": {
     "title": "بناء مستقبل البنية التحتية المالية",
     "subtitle": "تطوّر KLab التقنية التي تؤتمت المخاطر والمدفوعات والعمليات المالية — كل ذلك في منصة ذكية واحدة.",
-    "contactSales": "اتصل بالمبيعات"
+    "contactSales": "اتصل بالمبيعات",
+    "promoVideoPosterAlt": "فيديو ترويجي لـ KLab",
+    "promoVideoSectionLabel": "فيديو ترويجي لـ KLab"
   },
   "companyHero": {
     "headlineLine1": "حيث يلتقي رأس المال",

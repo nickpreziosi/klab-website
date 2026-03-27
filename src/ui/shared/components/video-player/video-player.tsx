@@ -6,6 +6,8 @@ import { AnimatePresence, motion, useInView } from "framer-motion";
 import styles from "./video-player.module.css";
 import Image from "next/image";
 import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
+import { cn } from "@/ui/shared/utils/utils";
+import { PhoneFrameSvg } from "./phone-frame-svg";
 
 const YOUTUBE_EMBED_HOST = /youtube\.com|youtube-nocookie\.com/i;
 
@@ -43,9 +45,19 @@ interface VideoPlayerProps {
   posterUrl: string;
   /** When true, skip entrance animations (e.g. locale switch). */
   skipAnimation?: boolean;
+  /** `phone`: 9:16 screen inside a device-style bezel (for portrait promos). */
+  variant?: "default" | "phone";
+  /** Overrides default poster image alt text. */
+  posterAlt?: string;
 }
 
-export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false }: VideoPlayerProps) {
+export default function VideoPlayer({
+  videoUrl,
+  posterUrl,
+  skipAnimation = false,
+  variant = "default",
+  posterAlt,
+}: VideoPlayerProps) {
   const t = useTranslations("common");
   const [shouldAnimate, setShouldAnimate] = useState(skipAnimation);
   const ref = useRef(null);
@@ -59,10 +71,21 @@ export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false
   const isLocalVideo =
     /^(\.\/|\.\.\/|\/)/.test(videoUrl) || /\.(mp4|webm|ogg|mov)(\?|$)/i.test(videoUrl);
 
+  const isPhone = variant === "phone";
+
   const handlePlayButtonClick = () => {
     setIsClicked(true);
     // reset ready when initiating a new play request
     setVideoReady(false);
+  };
+
+  const handleVideoCanPlay = () => {
+    setVideoReady(true);
+    try {
+      videoRef.current?.play();
+    } catch {
+      /* ignore */
+    }
   };
 
   useEffect(() => {
@@ -75,7 +98,7 @@ export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false
   return (
     <motion.div
       ref={ref}
-      className={styles.container}
+      className={cn(styles.container, isPhone && styles.containerPhone)}
       variants={{
         hidden: {
           opacity: 0,
@@ -87,7 +110,7 @@ export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false
           opacity: 1,
           filter: "blur(0px)",
           y: 0,
-          boxShadow: "var(--shadow-black)",
+          boxShadow: isPhone ? "none" : "var(--shadow-black)",
           transition: {
             duration: 0.5,
             ease: [0.25, 0.4, 0.25, 1],
@@ -98,99 +121,161 @@ export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false
       initial={skipAnimation ? "visible" : "hidden"}
       animate={effectiveShouldAnimate ? "visible" : "hidden"}
     >
-      <div className={styles.videoWrapper}>
-        <AnimatePresence>
-          {/* Poster: show until iframe is mounted (external) OR until local video signals ready */}
-          {(!isClicked || (isLocalVideo ? !videoReady : !isClicked)) && (
-            <motion.div
-              initial={{ opacity: skipAnimation ? 1 : 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: skipAnimation ? 0 : 0.5 }}
-              key="poster"
-              className={styles.posterContainer}
-            >
-              <Image
-                fetchPriority="high"
-                priority
-                src={posterUrl}
-                alt={t("kenaVisualizationAlt")}
-                className={styles.poster}
-                fill
-                placeholder="blur"
-                blurDataURL={BLUR_PLACEHOLDER}
-              />
-              <button
-                onClick={handlePlayButtonClick}
-                className={styles.playButton}
-                aria-label={t("playVideo")}
-              >
-                <svg
-                  className={styles.playIcon}
-                  width="101"
-                  height="101"
-                  viewBox="0 0 101 101"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M37.875 73.225L73.225 50.5L37.875 27.775V73.225ZM50.5 101C43.5142 101 36.9492 99.6744 30.805 97.0231C24.6608 94.3719 19.3162 90.7738 14.7712 86.2288C10.2262 81.6837 6.62812 76.3392 3.97688 70.195C1.32562 64.0508 0 57.4858 0 50.5C0 43.5142 1.32562 36.9492 3.97688 30.805C6.62812 24.6608 10.2262 19.3162 14.7712 14.7712C19.3162 10.2262 24.6608 6.62812 30.805 3.97688C36.9492 1.32562 43.5142 0 50.5 0C57.4858 0 64.0508 1.32562 70.195 3.97688C76.3392 6.62812 81.6837 10.2262 86.2288 14.7712C90.7738 19.3162 94.3719 24.6608 97.0231 30.805C99.6744 36.9492 101 43.5142 101 50.5C101 57.4858 99.6744 64.0508 97.0231 70.195C94.3719 76.3392 90.7738 81.6837 86.2288 86.2288C81.6837 90.7738 76.3392 94.3719 70.195 97.0231C64.0508 99.6744 57.4858 101 50.5 101Z"
-                    fill="white"
-                  />
-                </svg>
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {/* External iframe: mount immediately on click */}
-          {!isLocalVideo && isClicked && (
-            <motion.iframe
-              key="iframe"
-              initial={{ opacity: skipAnimation ? 1 : 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: skipAnimation ? 0 : 0.5 }}
-              className={styles.videoEmbed}
-              src={prepareEmbedSrc(videoUrl)}
-              title={t("videoPlayerTitle")}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></motion.iframe>
-          )}
-
-          {/* Local video element: mount on click, reveal when canplay/canplaythrough */}
-          {isLocalVideo && isClicked && (
-            <motion.video
-              key="video"
-              ref={videoRef}
-              className={styles.videoEmbed}
-              initial={{ opacity: skipAnimation ? 1 : 0 }}
-              animate={{ opacity: videoReady ? 1 : 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: skipAnimation ? 0 : 0.5 }}
-              src={videoUrl}
-              playsInline
-              controls
-              autoPlay
-              onCanPlay={() => {
-                setVideoReady(true);
-                // try to play (should be allowed since user initiated)
-                try {
-                  videoRef.current?.play();
-                } catch {
-                  /* ignore */
-                }
-              }}
-            >
-              <track kind="captions" srcLang="en" label="English" />
-            </motion.video>
-          )}
-        </AnimatePresence>
-      </div>
+      {isPhone ? (
+        <div className={styles.phoneFrame}>
+          <div className={styles.phoneScreen}>
+            <div className={cn(styles.videoWrapper, styles.videoWrapperPhone)}>
+              {renderPlayerContent({
+                isLocalVideo,
+                isClicked,
+                videoReady,
+                skipAnimation,
+                posterUrl,
+                videoUrl,
+                videoRef,
+                handlePlayButtonClick,
+                onVideoCanPlay: handleVideoCanPlay,
+                t,
+                posterAlt,
+                isPhone,
+              })}
+            </div>
+          </div>
+          <PhoneFrameSvg className={styles.phoneFrameSvg} />
+        </div>
+      ) : (
+        <div className={styles.videoWrapper}>
+          {renderPlayerContent({
+            isLocalVideo,
+            isClicked,
+            videoReady,
+            skipAnimation,
+            posterUrl,
+            videoUrl,
+            videoRef,
+            handlePlayButtonClick,
+            onVideoCanPlay: handleVideoCanPlay,
+            t,
+            posterAlt,
+            isPhone,
+          })}
+        </div>
+      )}
     </motion.div>
+  );
+}
+
+type PlayerContentProps = {
+  isLocalVideo: boolean;
+  isClicked: boolean;
+  videoReady: boolean;
+  skipAnimation: boolean;
+  posterUrl: string;
+  videoUrl: string;
+  videoRef: React.RefObject<HTMLVideoElement | null>;
+  handlePlayButtonClick: () => void;
+  onVideoCanPlay: () => void;
+  t: (key: string) => string;
+  posterAlt?: string;
+  isPhone: boolean;
+};
+
+function renderPlayerContent({
+  isLocalVideo,
+  isClicked,
+  videoReady,
+  skipAnimation,
+  posterUrl,
+  videoUrl,
+  videoRef,
+  handlePlayButtonClick,
+  onVideoCanPlay,
+  t,
+  posterAlt,
+  isPhone,
+}: PlayerContentProps) {
+  return (
+    <>
+      <AnimatePresence>
+        {(!isClicked || (isLocalVideo ? !videoReady : !isClicked)) && (
+          <motion.div
+            initial={{ opacity: skipAnimation ? 1 : 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: skipAnimation ? 0 : 0.5 }}
+            key="poster"
+            className={styles.posterContainer}
+          >
+            <Image
+              fetchPriority="high"
+              priority
+              src={posterUrl}
+              alt={posterAlt ?? t("kenaVisualizationAlt")}
+              className={cn(styles.poster, isPhone && styles.posterPhone)}
+              fill
+              placeholder="blur"
+              blurDataURL={BLUR_PLACEHOLDER}
+            />
+            <button
+              onClick={handlePlayButtonClick}
+              className={styles.playButton}
+              aria-label={t("playVideo")}
+            >
+              <svg
+                className={styles.playIcon}
+                width="101"
+                height="101"
+                viewBox="0 0 101 101"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M37.875 73.225L73.225 50.5L37.875 27.775V73.225ZM50.5 101C43.5142 101 36.9492 99.6744 30.805 97.0231C24.6608 94.3719 19.3162 90.7738 14.7712 86.2288C10.2262 81.6837 6.62812 76.3392 3.97688 70.195C1.32562 64.0508 0 57.4858 0 50.5C0 43.5142 1.32562 36.9492 3.97688 30.805C6.62812 24.6608 10.2262 19.3162 14.7712 14.7712C19.3162 10.2262 24.6608 6.62812 30.805 3.97688C36.9492 1.32562 43.5142 0 50.5 0C57.4858 0 64.0508 1.32562 70.195 3.97688C76.3392 6.62812 81.6837 10.2262 86.2288 14.7712C90.7738 19.3162 94.3719 24.6608 97.0231 30.805C99.6744 36.9492 101 43.5142 101 50.5C101 57.4858 99.6744 64.0508 97.0231 70.195C94.3719 76.3392 90.7738 81.6837 86.2288 86.2288C81.6837 90.7738 76.3392 94.3719 70.195 97.0231C64.0508 99.6744 57.4858 101 50.5 101Z"
+                  fill="white"
+                />
+              </svg>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {!isLocalVideo && isClicked && (
+          <motion.iframe
+            key="iframe"
+            initial={{ opacity: skipAnimation ? 1 : 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: skipAnimation ? 0 : 0.5 }}
+            className={cn(styles.videoEmbed, isPhone && styles.videoEmbedPhone)}
+            src={prepareEmbedSrc(videoUrl)}
+            title={t("videoPlayerTitle")}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          ></motion.iframe>
+        )}
+
+        {isLocalVideo && isClicked && (
+          <motion.video
+            key="video"
+            ref={videoRef}
+            className={cn(styles.videoEmbed, isPhone && styles.videoEmbedPhone)}
+            initial={{ opacity: skipAnimation ? 1 : 0 }}
+            animate={{ opacity: videoReady ? 1 : 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: skipAnimation ? 0 : 0.5 }}
+            src={videoUrl}
+            playsInline
+            controls
+            autoPlay
+            onCanPlay={onVideoCanPlay}
+          >
+            <track kind="captions" srcLang="en" label="English" />
+          </motion.video>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

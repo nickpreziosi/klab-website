@@ -53,7 +53,6 @@ const productIds = [
   "krails",
   "kena",
   "kcard",
-  "kleads",
   "ktalk",
   "kaxis",
   "krisk",

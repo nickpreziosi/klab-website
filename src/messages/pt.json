@@ -19,7 +19,9 @@
   "hero": {
     "title": "Construindo o Futuro da Infraestrutura Financeira",
     "subtitle": "A KLab desenvolve a tecnologia que automatiza risco, pagamentos e operações financeiras — tudo em uma plataforma inteligente.",
-    "contactSales": "Fale com vendas"
+    "contactSales": "Fale com vendas",
+    "promoVideoPosterAlt": "Vídeo promocional da KLab",
+    "promoVideoSectionLabel": "Vídeo promocional da KLab"
   },
   "companyHero": {
     "headlineLine1": "Onde o capital",

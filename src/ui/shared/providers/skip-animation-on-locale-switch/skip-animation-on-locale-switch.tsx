@@ -14,7 +14,7 @@
  *
  * Pages/views that use useSkipAnimationOnLocaleSwitch() and pass skipAnimation to
  * animated children: HomeView, CompanyView, ContactView, NewsView, all technology
- * views (Kabl, KAxis, KBpm, KCard, KLeads, KRisk, KTalk, Kim, Kai, TechnologyPlaceholderView),
+ * views (Kabl, KAxis, KBpm, KCard, KRisk, KTalk, Kim, Kai, TechnologyPlaceholderView),
  * KenaView, KRailsView.
  *
  * Pages with no entrance animations (no wiring needed): FoundationView, LitepapersView.

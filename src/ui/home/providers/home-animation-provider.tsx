@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useMemo,
   useState,
   type ReactNode,
 } from "react";
@@ -21,8 +22,13 @@ export function HomeAnimationProvider({ children }: { children: ReactNode }) {
   const [hasAnimated, setHasAnimatedState] = useState(false);
   const setHasAnimated = useCallback(() => setHasAnimatedState(true), []);
 
+  const value = useMemo(
+    () => ({ hasAnimated, setHasAnimated }),
+    [hasAnimated, setHasAnimated]
+  );
+
   return (
-    <HomeAnimationContext.Provider value={{ hasAnimated, setHasAnimated }}>
+    <HomeAnimationContext.Provider value={value}>
       {children}
     </HomeAnimationContext.Provider>
   );

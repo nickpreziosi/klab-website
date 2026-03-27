@@ -26,7 +26,7 @@ import {
 import { routing } from "@/i18n/routing";
 import styles from "./drawer.module.css";
 
-const VISIBLE_TECH_DESCRIPTION_KEYS: Set<string> = new Set(["kleads", "krisk", "krails", "kena"]);
+const VISIBLE_TECH_DESCRIPTION_KEYS: Set<string> = new Set(["ktalk", "krisk", "krails", "kena"]);
 
 /** Path without the locale segment (e.g. /en/about → /about) so we can tell locale switch from route change. */
 function pathWithoutLocale(pathname: string): string {

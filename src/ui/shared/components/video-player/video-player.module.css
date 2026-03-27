@@ -6,6 +6,48 @@
   border-radius: var(--rounded-app);
 }
 
+.containerPhone {
+  /* Wider frame so 576×1024 content reads at a comfortable size */
+  max-width: min(100%, 420px) !important;
+}
+
+/* Outer ratio matches phone-frame-svg (400×671); inner screen is 356×633 = 576:1024 */
+.phoneFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 400 / 671;
+  border-radius: 48px;
+  background: linear-gradient(
+    165deg,
+    hsl(var(--foreground) / 0.1) 0%,
+    hsl(var(--foreground) / 0.04) 50%,
+    hsl(var(--foreground) / 0.08) 100%
+  );
+  box-shadow: var(--shadow-black);
+}
+
+.phoneScreen {
+  position: absolute;
+  /* Insets match SVG: 22px sides, 22px top, 16px bottom on 400×671 viewBox */
+  left: 5.5%;
+  right: 5.5%;
+  top: 3.28%;
+  bottom: 2.38%;
+  border-radius: clamp(18px, 7.5vw, 30px);
+  overflow: hidden;
+  background: hsl(var(--background));
+}
+
+.phoneFrameSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  color: hsl(var(--foreground));
+}
+
 .videoWrapper {
   position: relative;
   width: 100%;
@@ -17,6 +59,15 @@
   background-color: transparent;
 }
 
+/* Fills `.phoneScreen`; outer aspect ratio comes from `.phoneFrame` + SVG insets */
+.videoWrapperPhone {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: unset;
+  min-height: 0;
+  border-radius: 0;
+}
+
 .videoEmbed {
   width: 100%;
   height: auto;
@@ -25,7 +76,37 @@
   background-color: hsl(var(--background));
 }
 
+.videoEmbedPhone {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: unset;
+  border-radius: 0;
+  object-fit: cover;
+}
+
+/* Native fullscreen: letterbox / pillarbox so the full video is visible */
+.videoEmbedPhone:fullscreen {
+  object-fit: contain;
+  object-position: center;
+  background-color: #000;
+}
+
+.videoEmbedPhone:-webkit-full-screen {
+  object-fit: contain;
+  object-position: center;
+  background-color: #000;
+}
+
+.videoEmbedPhone:-moz-full-screen {
+  object-fit: contain;
+  object-position: center;
+  background-color: #000;
+}
+
 .posterContainer {
+  background-color: white !important;
   position: absolute;
   top: 0;
   left: 0;
@@ -39,6 +120,14 @@
   object-fit: cover;
   aspect-ratio: 16/9;
   opacity: 1;
+}
+
+.posterPhone {
+  aspect-ratio: unset;
+  height: 100%;
+  min-height: 100%;
+  transform: rotate(-1.5deg);
+  transform-origin: center center;
 }
 
 .playButton {

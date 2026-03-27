@@ -1,155 +1,89 @@
 "use client";
 
-import { motion, AnimatePresence, useSpring, useMotionValue } from "framer-motion";
+import { motion, AnimatePresence, animate, useMotionValue } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import styles from "./loading-progress-bar.module.css";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 import { useHomeAnimation } from "@/ui/home/providers/home-animation-provider";
 
+const DURATION_S = 1;
+
+/** Bar + number: smooth ease-out */
+const BAR_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+/** Logo: slightly overshooty / “springy” feel in 1s (stays aligned with the bar) */
+const ROTATE_EASE: [number, number, number, number] = [0.34, 1.12, 0.32, 1];
+
+/**
+ * Shimmer after the ~1s beat. Easing matched to klab-promo sweep: quick build,
+ * long soft settle (emphasized decelerate — common in the reference clip).
+ */
+const SHIMMER_DELAY_S = 0.7;
+
+const SHIMMER_DURATION_S = 0.74;
+
+const EXIT_MS = 380;
+
+/** Emphasized decelerate — reads closer to the promo glint than symmetric ease-in-out */
+const SHIMMER_EASE: [number, number, number, number] = [0.33, 0, 0.2, 1];
+
+const SHIMMER_LAYER_TRANSITION = {
+  delay: SHIMMER_DELAY_S,
+  duration: SHIMMER_DURATION_S,
+  ease: SHIMMER_EASE,
+} as const;
+
+/** Must match `<KlabLogo … width={LOGO_PX} height={LOGO_PX} />` so the mask clips 1:1 with the logo box */
+const LOGO_PX = 228;
+
 export function LoadingProgressBar() {
   const homeAnimation = useHomeAnimation();
   const skipAnimation = homeAnimation?.hasAnimated ?? false;
+  const setHasAnimated = homeAnimation?.setHasAnimated;
 
-  const [targetProgress, setTargetProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(!skipAnimation);
+
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const isCompleteRef = useRef(false);
+  const cancelledRef = useRef(false);
+  const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const shimmerCompleteOnceRef = useRef(false);
 
-  const progressMotion = useMotionValue(0);
-  const smoothProgress = useSpring(progressMotion, {
-    stiffness: 80,
-    damping: 25,
-    mass: 0.3,
-  });
-
-  const [displayProgress, setDisplayProgress] = useState(0);
+  const pct = useMotionValue(0);
+  const [displayPct, setDisplayPct] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = smoothProgress.on("change", (latest) => {
-      setDisplayProgress(Math.round(latest));
-    });
-    return unsubscribe;
-  }, [smoothProgress]);
-
-  useEffect(() => {
-    progressMotion.set(targetProgress);
-  }, [targetProgress, progressMotion]);
+    return pct.on("change", (v) => setDisplayPct(Math.round(v)));
+  }, [pct]);
 
   useEffect(() => {
     if (skipAnimation) return;
 
+    cancelledRef.current = false;
+    shimmerCompleteOnceRef.current = false;
     setIsLoading(true);
-    setTargetProgress(0);
-    progressMotion.set(0);
-    isCompleteRef.current = false;
+    pct.set(0);
 
-    let animationFrame: number;
-    let lastProgress = 0;
-
-    const updateProgress = () => {
-      if (isCompleteRef.current) return;
-
-      let newProgress = lastProgress;
-
-      // Initial load
-      if (newProgress === 0) {
-        newProgress = 15;
-      }
-
-      // Check document ready state
-      if (document.readyState === "loading") {
-        newProgress = Math.max(newProgress, 25);
-      } else if (document.readyState === "interactive") {
-        newProgress = Math.max(newProgress, 50);
-      } else if (document.readyState === "complete") {
-        newProgress = 100;
-        isCompleteRef.current = true;
-        setTargetProgress(100);
-        setTimeout(() => {
-          setIsLoading(false);
-          homeAnimation?.setHasAnimated();
-        }, 600);
-        return;
-      }
-
-      // Track navigation timing
-      const navigation = performance.getEntriesByType(
-        "navigation"
-      )[0] as PerformanceNavigationTiming;
-
-      if (navigation) {
-        if (navigation.domContentLoadedEventEnd > 0) {
-          newProgress = Math.max(newProgress, 70);
-        }
-
-        if (navigation.domComplete > 0) {
-          newProgress = Math.max(newProgress, 90);
-        }
-
-        if (navigation.loadEventEnd > 0) {
-          newProgress = 100;
-          isCompleteRef.current = true;
-          setTargetProgress(100);
-          setTimeout(() => {
-            setIsLoading(false);
-            homeAnimation?.setHasAnimated();
-          }, 600);
-          return;
-        }
-      }
-
-      if (newProgress < 95 && newProgress === lastProgress) {
-        newProgress = Math.min(95, lastProgress + 2);
-      }
-
-      // Update if progress changed
-      if (newProgress !== lastProgress) {
-        lastProgress = newProgress;
-        setTargetProgress(newProgress);
-      }
-
-      // Continue checking
-      animationFrame = requestAnimationFrame(updateProgress);
-    };
-
-    updateProgress();
-
-    const handleLoad = () => {
-      if (!isCompleteRef.current) {
-        isCompleteRef.current = true;
-        setTargetProgress(100);
-        setTimeout(() => {
-          setIsLoading(false);
-          homeAnimation?.setHasAnimated();
-        }, 600);
-      }
-    };
-
-    window.addEventListener("load", handleLoad);
-
-    if (document.readyState === "complete") {
-      handleLoad();
-    }
-
-    const safetyTimeout = setTimeout(() => {
-      if (!isCompleteRef.current) {
-        isCompleteRef.current = true;
-        setTargetProgress(100);
-        setTimeout(() => {
-          setIsLoading(false);
-          homeAnimation?.setHasAnimated();
-        }, 600);
-      }
-    }, 5000);
+    const controls = animate(pct, 100, {
+      duration: DURATION_S,
+      ease: BAR_EASE,
+    });
 
     return () => {
-      cancelAnimationFrame(animationFrame);
-      window.removeEventListener("load", handleLoad);
-      clearTimeout(safetyTimeout);
+      cancelledRef.current = true;
+      controls.stop();
+      if (exitTimerRef.current) {
+        clearTimeout(exitTimerRef.current);
+        exitTimerRef.current = null;
+      }
     };
-  }, [pathname, searchParams, progressMotion, skipAnimation, homeAnimation]);
+  }, [pathname, skipAnimation]);
+
+  const dismiss = () => {
+    if (cancelledRef.current) return;
+    setIsLoading(false);
+    setHasAnimated?.();
+  };
 
   return (
     <AnimatePresence>
@@ -158,135 +92,92 @@ export function LoadingProgressBar() {
           className={styles.overlay}
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.35 }}
         >
           <div className={styles.container}>
-            <motion.div className={styles.spinnerContainer}>
-              <motion.div
-                className={styles.logoCenter}
-                initial={{ rotate: 0 }}
-                animate={{ rotate: 360 }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "linear",
-                }}
-              >
-                <KlabLogo color="orange" format="default" width={200} height={200} />
-              </motion.div>
-            </motion.div>
+            <div className={styles.spinnerContainer}>
+              <div className={styles.logoWrap} style={{ width: LOGO_PX, height: LOGO_PX }}>
+                <motion.div
+                  key={pathname}
+                  className={styles.logoScale}
+                  initial={{ scale: 1 }}
+                  animate={{ scale: 0.8 }}
+                  transition={{ duration: DURATION_S, ease: ROTATE_EASE }}
+                >
+                  <motion.div
+                    className={styles.logoCenter}
+                    initial={{ rotate: 0 }}
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: DURATION_S, ease: ROTATE_EASE }}
+                  >
+                    <KlabLogo color="orange" format="default" width={LOGO_PX} height={LOGO_PX} />
+                  </motion.div>
 
-            {/* Progress Percentage */}
+                  <motion.div
+                    className={styles.logoShimmerMask}
+                    aria-hidden
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{
+                      delay: SHIMMER_DELAY_S,
+                      duration: 0.06,
+                      ease: "linear",
+                    }}
+                  >
+                    <motion.div
+                      className={styles.logoShimmerSweep}
+                      initial={{ x: -154, y: 154 }}
+                      animate={{ x: 154, y: -154 }}
+                      transition={{
+                        delay: SHIMMER_DELAY_S,
+                        duration: SHIMMER_DURATION_S,
+                        ease: SHIMMER_EASE,
+                      }}
+                      onAnimationComplete={() => {
+                        if (cancelledRef.current || shimmerCompleteOnceRef.current) return;
+                        shimmerCompleteOnceRef.current = true;
+                        exitTimerRef.current = setTimeout(dismiss, EXIT_MS);
+                      }}
+                    >
+                      <motion.div
+                        className={styles.logoShimmerGlow}
+                        initial={{ opacity: 0.52 }}
+                        animate={{ opacity: 0.82 }}
+                        transition={SHIMMER_LAYER_TRANSITION}
+                      />
+                      <motion.div
+                        className={styles.logoShimmerCore}
+                        initial={{ opacity: 0.88 }}
+                        animate={{ opacity: 0.38 }}
+                        transition={SHIMMER_LAYER_TRANSITION}
+                      />
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
+              </div>
+            </div>
+
             <motion.div
               className={styles.percentage}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.3 }}
+              transition={{ delay: 0.1, duration: 0.25 }}
             >
-              <motion.span
-                key={Math.floor(displayProgress / 10)}
-                initial={{ opacity: 1 }}
-                animate={{ opacity: 1 }}
-              >
-                {displayProgress}%
-              </motion.span>
+              {displayPct}%
             </motion.div>
 
-            {/* Progress Bar Container */}
-            <motion.div
-              className={styles.progressBarContainer}
-              initial={{ opacity: 0, scaleX: 0.8 }}
-              animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ delay: 0.15, duration: 0.4 }}
-            >
-              {/* Background track */}
+            <div className={styles.progressBarContainer}>
               <div className={styles.progressTrack} />
 
               <motion.div
                 className={styles.progressFill}
-                style={{ width: `${displayProgress}%` }}
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: DURATION_S, ease: BAR_EASE }}
               />
+            </div>
 
-              {/* Shimmer effect */}
-              <motion.div
-                className={styles.shimmer}
-                animate={{
-                  x: ["-100%", "200%"],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "linear",
-                }}
-                style={{ width: `${displayProgress}%` }}
-              />
-
-              {/* Glow effect */}
-              <motion.div
-                className={styles.progressGlow}
-                style={{ width: `${displayProgress}%` }}
-                animate={{
-                  opacity: [0.5, 1, 0.5],
-                }}
-                transition={{
-                  duration: 1,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-              />
-            </motion.div>
-
-            {/* Loading text */}
-            <motion.div
-              className={styles.loadingText}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0, duration: 0.3 }}
-            >
-              <motion.span
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-              >
-                Loading
-              </motion.span>
-              <motion.span
-                animate={{ opacity: [0, 1, 0] }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                  delay: 0.2,
-                }}
-              >
-                .
-              </motion.span>
-              <motion.span
-                animate={{ opacity: [0, 1, 0] }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                  delay: 0.4,
-                }}
-              >
-                .
-              </motion.span>
-              <motion.span
-                animate={{ opacity: [0, 1, 0] }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                  delay: 0.6,
-                }}
-              >
-                .
-              </motion.span>
-            </motion.div>
+            <p className={styles.loadingText}>Loading</p>
           </div>
         </motion.div>
       )}

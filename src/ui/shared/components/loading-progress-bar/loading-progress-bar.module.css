@@ -18,8 +18,37 @@
   gap: 2rem;
   width: 100%;
   max-width: 500px;
-  padding: 0 2rem;
+  padding: 0 var(--padding-desktop);
   font-family: "Sora", sans-serif;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 var(--padding-tablet);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--padding-mobile);
+    max-width: none;
+    width: 100%;
+  }
+
+  .spinnerContainer,
+  .percentage,
+  .loadingText {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    box-sizing: border-box;
+  }
+
+  .progressBarContainer {
+    align-self: stretch;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+  }
 }
 
 .logoContainer {
@@ -51,7 +80,7 @@
 
 .percentage {
   font-size: 3rem;
-  font-weight: 600;
+  font-weight: 400;
   color: hsl(var(--foreground));
   font-variant-numeric: tabular-nums;
   min-width: 120px;
@@ -95,20 +124,112 @@
   z-index: 2;
 }
 
-.shimmer {
+/* Logo stack: mask matches KlabLogo outer box (size set inline); clips shimmer overflow */
+.spinnerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logoWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logoCenter {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoScale {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+}
+
+/*
+ * Promo ref: shimmer must never bleed past the rounded icon — clip + radius + clip-path
+ * (blur can ignore border-radius alone in some engines).
+ */
+.logoShimmerMask {
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 22%;
+  clip-path: inset(0 round 22%);
+  pointer-events: none;
+  z-index: 20;
+  contain: strict;
+  isolation: isolate;
+}
+
+/* Framer translates this group BL → TR — sized vs LOGO_PX (~1.74×) */
+.logoShimmerSweep {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 398px;
+  height: 398px;
+  margin-left: -199px;
+  margin-top: -199px;
+  will-change: transform;
+}
+
+/*
+ * Hue aligned to public/videos/klab-promo.mp4 specular: clear yellow-gold (~48–56°),
+ * not brown/amber. Glow vs core: animated opacities in TSX.
+ */
+.logoShimmerGlow {
+  position: absolute;
+  inset: 0;
   background: linear-gradient(
-    90deg,
+    217deg,
     transparent 0%,
-    hsl(0 0% 100% / 0.4) 50%,
+    transparent 24%,
+    hsl(46 100% 76% / 0.38) 32%,
+    hsl(50 100% 84% / 0.58) 37%,
+    hsl(52 100% 90% / 0.64) 42%,
+    hsl(54 98% 93% / 0.56) 48%,
+    hsl(50 100% 88% / 0.48) 54%,
+    hsl(48 100% 82% / 0.4) 60%,
+    hsl(46 100% 74% / 0.28) 66%,
+    transparent 74%,
     transparent 100%
   );
-  border-radius: var(--rounded-full);
-  z-index: 3;
-  pointer-events: none;
+  filter: blur(7px);
+  mix-blend-mode: soft-light;
+}
+
+/* Peak white slightly early; falloff into saturated yellow (promo-like) */
+.logoShimmerCore {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    217deg,
+    transparent 0%,
+    transparent 32%,
+    hsl(46 100% 70% / 0.44) 38%,
+    hsl(50 100% 82% / 0.78) 42%,
+    hsl(52 100% 91% / 0.96) 45%,
+    hsl(56 85% 98% / 0.99) 46.5%,
+    hsl(0 0% 100% / 1) 47.5%,
+    hsl(52 100% 94% / 0.92) 49%,
+    hsl(50 100% 86% / 0.74) 52%,
+    hsl(48 100% 78% / 0.58) 56%,
+    hsl(46 100% 72% / 0.42) 62%,
+    hsl(44 100% 64% / 0.28) 68%,
+    transparent 74%,
+    transparent 100%
+  );
+  mix-blend-mode: overlay;
 }
 
 .progressGlow {
@@ -133,25 +254,6 @@
 }
 
 @media (max-width: 640px) {
-  .container {
-    max-width: 90%;
-  }
-
-  .logoContainer {
-    width: 100px;
-    height: 100px;
-  }
-
-  .logo {
-    width: 100px !important;
-    height: 100px !important;
-  }
-
-  .logoGlow {
-    width: 120px;
-    height: 120px;
-  }
-
   .percentage {
     font-size: 2.5rem;
   }
@@ -162,154 +264,5 @@
 
   .loadingText {
     font-size: 0.875rem;
-  }
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: hsl(var(--background));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3rem;
-  width: 100%;
-  max-width: 500px;
-  padding: 0 2rem;
-  font-family: "Geist", sans-serif;
-}
-
-/* Updated spinner container with single spinner */
-/* Fixed spinner positioning to properly surround the logo */
-.spinnerContainer {
-  position: relative;
-  width: 360px;
-  height: 360px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.spinner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.spinnerSvg {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  filter: drop-shadow(0 0 15px rgba(79, 209, 197, 0.4));
-  z-index: -1;
-}
-
-.loaderIcon {
-  color: hsl(var(--foreground));
-  width: 100%;
-  height: 100%;
-}
-
-.logoCenter {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo {
-  position: relative;
-  z-index: 11;
-  object-fit: contain;
-}
-
-.percentage {
-  font-size: 2.5rem;
-  font-weight: 400;
-  color: hsl(var(--foreground));
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums;
-  min-width: 120px;
-  text-align: center;
-}
-
-/* Added progress bar styles */
-.progressBarContainer {
-  width: 100%;
-  max-width: 400px;
-  height: 4px;
-  background: hsl(0 0% 0% / 0.1);
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-}
-
-.progressBarFill {
-  height: 100%;
-  background: hsl(var(--foreground));
-  border-radius: 2px;
-  box-shadow: 0 0 10px hsl(var(--foreground));
-  transition: width 0.3s ease-out;
-}
-
-.loadingText {
-  font-size: 0.875rem;
-  color: hsl(var(--foreground));
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  display: flex;
-  gap: 0.1rem;
-  opacity: 0.7;
-}
-
-@media (max-width: 640px) {
-  .container {
-    max-width: 90%;
-    gap: 2rem;
-  }
-
-  /* Updated responsive spinner sizing to match new structure */
-  .spinnerContainer {
-    width: 240px;
-    height: 240px;
-  }
-
-  .spinner {
-    width: 100%;
-    height: 100%;
-  }
-
-  .logo {
-    width: 60px !important;
-    height: 60px !important;
-  }
-
-  .percentage {
-    font-size: 2rem;
-  }
-
-  /* Responsive progress bar */
-  .progressBarContainer {
-    max-width: 90%;
-  }
-
-  .loadingText {
-    font-size: 0.75rem;
   }
 }
