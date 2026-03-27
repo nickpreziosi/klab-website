@@ -6,7 +6,17 @@ import { AnimatePresence, motion, useInView } from "framer-motion";
 import styles from "./video-player.module.css";
 import Image from "next/image";
 import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
-import YouTubeIframeEmbed, { getYouTubeVideoId, isYouTubeEmbedUrl } from "./youtube-iframe-embed";
+
+const YOUTUBE_EMBED_HOST = /youtube\.com|youtube-nocookie\.com/i;
+
+function isYouTubeEmbedUrl(url: string): boolean {
+  try {
+    const u = new URL(url);
+    return YOUTUBE_EMBED_HOST.test(u.hostname) && u.pathname.includes("/embed/");
+  } catch {
+    return false;
+  }
+}
 
 /**
  * For YouTube embeds, merge params after the user clicks play (autoplay, playsinline).
@@ -134,18 +144,8 @@ export default function VideoPlayer({ videoUrl, posterUrl, skipAnimation = false
         </AnimatePresence>
 
         <AnimatePresence>
-          {/* YouTube: IFrame API + hover-only chrome (native controls off = no bottom-right logo) */}
-          {!isLocalVideo && isClicked && isYouTubeEmbedUrl(videoUrl) && getYouTubeVideoId(videoUrl) && (
-            <YouTubeIframeEmbed
-              key="youtube-embed"
-              embedUrl={videoUrl}
-              skipAnimation={skipAnimation}
-              title={t("videoPlayerTitle")}
-            />
-          )}
-
-          {/* Other external embeds */}
-          {!isLocalVideo && isClicked && (!isYouTubeEmbedUrl(videoUrl) || !getYouTubeVideoId(videoUrl)) && (
+          {/* External iframe: mount immediately on click */}
+          {!isLocalVideo && isClicked && (
             <motion.iframe
               key="iframe"
               initial={{ opacity: skipAnimation ? 1 : 0 }}
