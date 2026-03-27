@@ -170,6 +170,40 @@
   max-width: 500px;
 }
 
+.exploreRootsWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--padding-desktop);
+  padding-top: var(--padding-desktop);
+}
+
+.exploreRootsButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  min-height: 44px;
+  border-radius: var(--rounded-app);
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  text-decoration: none;
+  color: hsl(var(--foreground));
+  background: hsl(var(--surface));
+  border: 1px solid hsl(var(--border));
+  transition:
+    opacity 0.2s,
+    border-color 0.2s,
+    background-color 0.2s;
+}
+
+@media (pointer: fine) and (hover: hover) {
+  .exploreRootsButton:hover {
+    opacity: 0.92;
+    border-color: hsl(var(--foreground) / 0.25);
+  }
+}
+
 .articlesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -205,6 +239,10 @@
   }
   .articlesGrid {
     margin-bottom: var(--padding-tablet);
+  }
+  .exploreRootsWrap {
+    margin-top: var(--padding-desktop);
+    padding-top: var(--padding-desktop);
   }
 }
 

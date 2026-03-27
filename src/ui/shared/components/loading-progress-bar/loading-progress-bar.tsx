@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence, animate, useMotionValue } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useLayoutEffect, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./loading-progress-bar.module.css";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
@@ -55,6 +55,23 @@ export function LoadingProgressBar() {
   useEffect(() => {
     return pct.on("change", (v) => setDisplayPct(Math.round(v)));
   }, [pct]);
+
+  useLayoutEffect(() => {
+    if (!isLoading) return;
+
+    const html = document.documentElement;
+    const body = document.body;
+    const prevHtmlOverflow = html.style.overflow;
+    const prevBodyOverflow = body.style.overflow;
+
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+
+    return () => {
+      html.style.overflow = prevHtmlOverflow;
+      body.style.overflow = prevBodyOverflow;
+    };
+  }, [isLoading]);
 
   useEffect(() => {
     if (skipAnimation) return;

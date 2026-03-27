@@ -1,8 +1,8 @@
+import { notFound } from "next/navigation";
 import { getArticleBySlug } from "@/sanity/queries/articles";
 import { urlFor, urlForSized } from "@/sanity/lib/image";
 import { toHTML } from "@portabletext/to-html";
 import { ArticleView } from "@/ui/news/views/ArticleView/ArticleView";
-import { ArticleNotFoundView } from "@/ui/news/views/ArticleNotFoundView/ArticleNotFoundView";
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -19,10 +19,11 @@ export default async function ArticlePage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { slug } = await params;
+
   const article = await getArticleBySlug(slug);
 
   if (!article) {
-    return <ArticleNotFoundView />;
+    notFound();
   }
 
   const imageUrl = article.image

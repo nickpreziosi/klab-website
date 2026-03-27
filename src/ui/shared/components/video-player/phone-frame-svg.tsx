@@ -51,7 +51,8 @@ export function PhoneFrameSvg({ className }: { className?: string }) {
 
       {/* Dynamic Island — always black (reads like hardware, not theme chrome) */}
       <rect x="128" y="32" width="144" height="36" rx="18" fill="#0a0a0a" />
-      <ellipse cx="200" cy="48" rx="28" ry="5" fill="#ffffff" fillOpacity="0.08" />
+      {/* Lens / reflection highlight: pill (rx = height/2), not a flat ellipse */}
+      <rect x="172" y="46" width="56" height="8" rx="4" fill="#ffffff" fillOpacity="0.08" />
 
       {/* Side controls — positions scaled from prior 820px-tall layout */}
       <rect x="0" y="137" width="5" height="52" rx="2.5" fill="currentColor" fillOpacity="0.32" />

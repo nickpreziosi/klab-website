@@ -5,7 +5,8 @@
   align-items: center;
   justify-content: center;
   padding: 0 var(--padding-desktop);
-  margin-bottom: var(--padding-tablet);
+  /* Extra room below the device before the next section */
+  margin-bottom: calc(var(--padding-tablet) * 2 + var(--padding-md));
   scroll-margin-top: var(--navbar-height);
 }
 

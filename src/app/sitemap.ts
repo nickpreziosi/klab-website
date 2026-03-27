@@ -17,7 +17,6 @@ const STATIC_PATHS = [
   "contact/support",
   "news",
   "news/keo",
-  "news/klab",
   "technologies/kabl",
   "technologies/kena",
   "technologies/kim",

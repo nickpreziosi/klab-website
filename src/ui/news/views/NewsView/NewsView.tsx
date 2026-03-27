@@ -12,6 +12,7 @@ import { ContactLink } from "@/ui/contact/components/contact-link/contact-link";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import NewsFilters from "@/ui/news/components/news-filters/news-filters";
 import styles from "./NewsView.module.css";
+import Button from "@/ui/shared/components/button/button";
 
 export interface NewsViewArticle {
   slug: string;
@@ -45,6 +46,8 @@ export interface NewsViewProps {
   emptyStateMessage?: string;
   /** When false, hide the articles section (main news page: cards only). */
   showArticles?: boolean;
+  /** CTA below the article feed linking to KEO World news. */
+  showExploreRootsCta?: boolean;
 }
 
 export function NewsView({
@@ -58,6 +61,7 @@ export function NewsView({
   heroSubtitle,
   breadcrumbCurrent,
   emptyStateMessage,
+  showExploreRootsCta = false,
 }: NewsViewProps) {
   const t = useTranslations("newsPage");
   const locale = useLocale();
@@ -103,7 +107,11 @@ export function NewsView({
         <div className={styles.heroContent}>
           <motion.h1
             className={styles.heroTitle}
-            initial={skipAnimation ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 30, filter: "blur(10px)" }}
+            initial={
+              skipAnimation
+                ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                : { opacity: 0, y: 30, filter: "blur(10px)" }
+            }
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -127,7 +135,11 @@ export function NewsView({
           {resolvedHeroSubtitle ? (
             <motion.p
               className={styles.heroSubtitle}
-              initial={skipAnimation ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 20, filter: "blur(10px)" }}
+              initial={
+                skipAnimation
+                  ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                  : { opacity: 0, y: 20, filter: "blur(10px)" }
+              }
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
@@ -160,7 +172,7 @@ export function NewsView({
               }
               title={t("cardOurPresentTitle")}
               description={t("cardOurPresentDescription")}
-              href={`/${locale}/news/klab`}
+              href={`/${locale}/news`}
               buttonText={t("cardOurPresentButton")}
             />
             <ContactLink
@@ -234,6 +246,13 @@ export function NewsView({
               {!isLoading && totalPages > 1 && <Pagination totalPages={totalPages} />}
             </>
           )}
+          {showExploreRootsCta ? (
+            <div className={styles.exploreRootsWrap}>
+              <Button href="/news/keo" size="lg" variant="accent-brand">
+                {t("exploreOurRootsButton")}
+              </Button>
+            </div>
+          ) : null}
         </section>
       )}
     </main>
