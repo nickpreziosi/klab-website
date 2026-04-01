@@ -8,6 +8,10 @@ import KRailsCta from "@/ui/krails/components/krails-cta/krails-cta";
 import KRailsCodeSection from "@/ui/krails/components/krails-code-section/krails-code-section";
 import KRailsWhy from "@/ui/krails/components/krails-why/krails-why";
 import KRailsDashboard from "@/ui/krails/components/krails-dashboard/krails-dashboard";
+import VideoPlayer from "@/ui/shared/components/video-player/video-player";
+
+const KRAILS_VIDEO_EMBED = "https://www.youtube.com/embed/JoKxM2r06ns";
+const KRAILS_VIDEO_POSTER = "/images/krails.webp";
 
 export interface KRailsTranslations {
   heroHeading: string;
@@ -37,6 +41,8 @@ export interface KRailsTranslations {
   codeSectionCardTrustDescription: string;
   codeSectionCardCertaintyTitle: string;
   codeSectionCardCertaintyDescription: string;
+  videoSectionTitle: string;
+  videoPosterAlt: string;
 }
 
 export function KRailsView({ translations }: { translations: KRailsTranslations }) {
@@ -51,12 +57,24 @@ export function KRailsView({ translations }: { translations: KRailsTranslations 
           buttonText={translations.heroButtonPrimary}
           buttonHref="/contact/sales"
           buttonTwoText={translations.heroButtonSecondary}
-          buttonTwoHref="#code"
+          buttonTwoHref="#krails-video"
           skipAnimation={skipAnimation}
         />
         <div className={styles.dashboardWrapper}>
           <KRailsDashboard skipAnimation={skipAnimation} />
         </div>
+        <section
+          id="krails-video"
+          className={styles.videoSection}
+          aria-label={translations.videoSectionTitle}
+        >
+          <VideoPlayer
+            videoUrl={KRAILS_VIDEO_EMBED}
+            posterUrl={KRAILS_VIDEO_POSTER}
+            posterAlt={translations.videoPosterAlt}
+            skipAnimation={skipAnimation}
+          />
+        </section>
         <KRailsCodeSection translations={translations} skipAnimation={skipAnimation} />
       </div>
 

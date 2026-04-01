@@ -622,6 +622,8 @@
     "codeSectionCardTrustDescription": "La infraestructura de pagos KRails mantiene un registro fiable de todas las transacciones en tiempo real de forma segura, autenticada y verificable, impidiendo que cualquier parte altere las transacciones ejecutadas.",
     "codeSectionCardCertaintyTitle": "CERTEZA",
     "codeSectionCardCertaintyDescription": "No es solo seguridad: es certeza inmutable y absoluta en la ejecución del comercio B2B. Un registro de pago inquebrantable e inalterable que impulsa directamente tu crecimiento.",
+    "videoSectionTitle": "Vídeo de presentación de KRails",
+    "videoPosterAlt": "Vista previa del vídeo del producto KRails",
     "previousCaseStudy": "Caso de estudio anterior",
     "nextCaseStudy": "Siguiente caso de estudio",
     "showCaseStudy": "Ver {name}",

@@ -4,7 +4,9 @@ import { useTranslations } from "next-intl";
 import VideoPlayer from "@/ui/shared/components/video-player/video-player";
 import styles from "./home-phone-promo-section.module.css";
 
-const VIDEO = "/videos/klab-promo.mp4";
+const VIDEO_ID = "4Ija5IffsgA";
+/** Embed base URL — VideoPlayer adds autoplay / params on play */
+const VIDEO = `https://www.youtube.com/embed/${VIDEO_ID}`;
 const POSTER = "/images/klab-promo.webp";
 
 type HomePhonePromoSectionProps = {

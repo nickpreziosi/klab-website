@@ -622,6 +622,8 @@
     "codeSectionCardTrustDescription": "KRails payment infrastructure keeps a trusted record for all real-time transactions in a secure, authenticated, and verifiable manner, preventing any party from altering executed transactions.",
     "codeSectionCardCertaintyTitle": "CERTAINTY",
     "codeSectionCardCertaintyDescription": "It's not just security — it's immutable and absolute certainty in execution for B2B trade. This is a payment record that is unbreakable and unchangeable, directly powering your growth.",
+    "videoSectionTitle": "KRails overview video",
+    "videoPosterAlt": "KRails product video preview",
     "previousCaseStudy": "Previous case study",
     "nextCaseStudy": "Next case study",
     "showCaseStudy": "Show {name}",
