@@ -27,6 +27,7 @@ export interface SanityArticle {
   readTime?: string;
   excerpt?: string;
   language?: "en" | "es";
+  isKlab?: boolean;
   gallery?: Array<{
     asset: {
       _ref?: string;
@@ -39,7 +40,7 @@ export interface SanityArticle {
 
 // Query to get all articles with pagination
 export const articlesQuery = groq`
-  *[_type == "article"] | order(publishedAt desc) {
+  *[_type == "article" && isKlab != true] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -53,7 +54,29 @@ export const articlesQuery = groq`
     category,
     readTime,
     excerpt,
-    language
+    language,
+    isKlab
+  }
+`;
+
+// Query to get only K-Lab articles
+export const klabArticlesQuery = groq`
+  *[_type == "article" && isKlab == true] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    image {
+      asset
+    },
+    embedLink,
+    author,
+    authorRole,
+    category,
+    readTime,
+    excerpt,
+    language,
+    isKlab
   }
 `;
 
@@ -87,6 +110,11 @@ export const articleBySlugQuery = groq`
 // Fetch all articles
 export async function getAllArticles(): Promise<SanityArticle[]> {
   return await client.fetch<SanityArticle[]>(articlesQuery);
+}
+
+// Fetch only K-Lab articles (isKlab == true)
+export async function getKlabArticles(): Promise<SanityArticle[]> {
+  return await client.fetch<SanityArticle[]>(klabArticlesQuery);
 }
 
 // Fetch article by slug
