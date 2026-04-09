@@ -108,11 +108,5 @@ export const articleType = defineType({
         },
       ],
     }),
-    defineField({
-      name: "isKlab",
-      title: "Is K-Lab?",
-      type: "boolean",
-      initialValue: false,
-    }),
   ],
 });

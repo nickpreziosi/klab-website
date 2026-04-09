@@ -27,7 +27,6 @@ export interface SanityArticle {
   readTime?: string;
   excerpt?: string;
   language?: "en" | "es";
-  isKlab?: boolean;
   gallery?: Array<{
     asset: {
       _ref?: string;
@@ -40,7 +39,7 @@ export interface SanityArticle {
 
 // Query to get all articles with pagination
 export const articlesQuery = groq`
-  *[_type == "article" && isKlab != true] | order(publishedAt desc) {
+  *[_type == "article"] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -55,28 +54,6 @@ export const articlesQuery = groq`
     readTime,
     excerpt,
     language,
-    isKlab
-  }
-`;
-
-// Query to get only K-Lab articles
-export const klabArticlesQuery = groq`
-  *[_type == "article" && isKlab == true] | order(publishedAt desc) {
-    _id,
-    title,
-    slug,
-    publishedAt,
-    image {
-      asset
-    },
-    embedLink,
-    author,
-    authorRole,
-    category,
-    readTime,
-    excerpt,
-    language,
-    isKlab
   }
 `;
 
@@ -112,11 +89,6 @@ export async function getAllArticles(): Promise<SanityArticle[]> {
   return await client.fetch<SanityArticle[]>(articlesQuery);
 }
 
-// Fetch only K-Lab articles (isKlab == true)
-export async function getKlabArticles(): Promise<SanityArticle[]> {
-  return await client.fetch<SanityArticle[]>(klabArticlesQuery);
-}
-
 // Fetch article by slug
 export async function getArticleBySlug(slug: string): Promise<SanityArticle | null> {
   return await client.fetch<SanityArticle | null>(articleBySlugQuery, { slug });
@@ -130,4 +102,100 @@ const articleSlugsQuery = groq`
 export async function getArticleSlugs(): Promise<string[]> {
   const result = await client.fetch<{ slug: string }[]>(articleSlugsQuery);
   return result?.map((r) => r.slug).filter(Boolean) ?? [];
+}
+
+// --- International Articles ---
+
+export interface SanityLocalization {
+  language: string;
+  title: string;
+  image?: {
+    asset: { _ref?: string; _type?: string };
+    caption?: string;
+    alt?: string;
+  };
+  excerpt?: string;
+  body?: Array<{ _type: string; [key: string]: unknown }>;
+}
+
+export interface SanityInternationalArticle {
+  _id: string;
+  slug: { current: string };
+  publishedAt: string;
+  embedLink?: string;
+  author?: string;
+  authorRole?: string;
+  category?: string;
+  readTime?: string;
+  gallery?: Array<{
+    asset: { _ref?: string; _type?: string };
+    caption?: string;
+    alt?: string;
+  }>;
+  localizations: SanityLocalization[];
+}
+
+const internationalArticlesQuery = groq`
+  *[_type == "internationalArticle"] | order(publishedAt desc) {
+    _id,
+    slug,
+    publishedAt,
+    embedLink,
+    author,
+    authorRole,
+    category,
+    readTime,
+    localizations[] {
+      language,
+      title,
+      image {
+        asset,
+        caption,
+        alt
+      },
+      excerpt
+    }
+  }
+`;
+
+const internationalArticleBySlugQuery = groq`
+  *[_type == "internationalArticle" && slug.current == $slug][0] {
+    _id,
+    slug,
+    publishedAt,
+    embedLink,
+    author,
+    authorRole,
+    category,
+    readTime,
+    gallery[] {
+      asset,
+      caption,
+      alt
+    },
+    localizations[] {
+      language,
+      title,
+      image {
+        asset,
+        caption,
+        alt
+      },
+      excerpt,
+      body
+    }
+  }
+`;
+
+export async function getAllInternationalArticles(): Promise<SanityInternationalArticle[]> {
+  return await client.fetch<SanityInternationalArticle[]>(internationalArticlesQuery);
+}
+
+export async function getInternationalArticleBySlug(
+  slug: string
+): Promise<SanityInternationalArticle | null> {
+  return await client.fetch<SanityInternationalArticle | null>(
+    internationalArticleBySlugQuery,
+    { slug }
+  );
 }

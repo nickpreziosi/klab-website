@@ -47,6 +47,7 @@ interface NewsCardProps {
     embedLink?: string;
     author?: string;
     authorRole?: string;
+    lang?: string;
   };
   index: number;
 }
@@ -64,7 +65,10 @@ export default function NewsCard({ article, index }: NewsCardProps) {
         ease: [0.22, 1, 0.36, 1],
       }}
     >
-      <Link href={`/news/${article.slug}`} className={styles.link}>
+      <Link
+        href={article.lang ? `/news/${article.slug}?lang=${article.lang}` : `/news/${article.slug}`}
+        className={styles.link}
+      >
         <div className={styles.imageContainer}>
           {article.youtubeId ? (
             <>

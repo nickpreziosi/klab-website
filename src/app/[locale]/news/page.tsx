@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { getKlabArticles } from "@/sanity/queries/articles";
+import { getAllInternationalArticles } from "@/sanity/queries/articles";
 import { urlForSized } from "@/sanity/lib/image";
 import { NewsView } from "@/ui/news/views/NewsView/NewsView";
 
@@ -23,40 +23,85 @@ function extractYouTubeId(embedLink?: string): string | undefined {
 }
 
 interface NewsPageProps {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{
     category?: string | string[];
     page?: string;
+    lang?: string | string[];
   }>;
 }
 
-export default async function NewsPage({ searchParams }: NewsPageProps) {
-  const params = await searchParams;
+export default async function NewsPage({ params, searchParams }: NewsPageProps) {
+  const { locale } = await params;
+  const resolvedParams = await searchParams;
 
-  const categoryParam = params.category;
+  const categoryParam = resolvedParams.category;
   const selectedCategories = Array.isArray(categoryParam)
     ? categoryParam
     : categoryParam
       ? [categoryParam]
       : [];
 
-  const sanityArticles = await getKlabArticles();
+  const langParam = resolvedParams.lang;
+  const selectedLanguages: string[] = langParam
+    ? Array.isArray(langParam)
+      ? langParam
+      : [langParam]
+    : [];
 
-  const allArticles = sanityArticles.map((article) => ({
-    slug: article.slug.current,
-    title: article.title,
-    excerpt: article.excerpt || "",
-    category: article.category || "Uncategorized",
-    date: formatDate(article.publishedAt),
-    readTime: article.readTime || "5 min read",
-    image: article.image ? urlForSized(article.image, { width: 500, quality: 75 }) : undefined,
-    youtubeId: extractYouTubeId(article.embedLink),
-    embedLink: article.embedLink || undefined,
-    author: article.author || undefined,
-    authorRole: article.authorRole || undefined,
-  }));
+  const  internationalArticles = await
+    getAllInternationalArticles();
+
+  const mappedInternational = internationalArticles.flatMap((article) => {
+    // When languages are selected, skip articles that don't have any of them
+    if (
+      selectedLanguages.length > 0 &&
+      !article.localizations?.some((l) => selectedLanguages.includes(l.language))
+    ) {
+      return [];
+    }
+
+    // Pick display localization:
+    // 1. First matching selected language (if filter active)
+    // 2. Locale language
+    // 3. English
+    // 4. First available
+    const preferredLangs =
+      selectedLanguages.length > 0
+        ? [...selectedLanguages, locale, "en"]
+        : [locale, "en"];
+
+    const localization =
+      preferredLangs.reduce<(typeof article.localizations)[number] | undefined>(
+        (found, lang) => found ?? article.localizations?.find((l) => l.language === lang),
+        undefined
+      ) ?? article.localizations?.[0];
+
+    if (!localization) return [];
+
+    return [
+      {
+        slug: article.slug.current,
+        title: localization.title,
+        excerpt: localization.excerpt || "",
+        category: article.category || "Uncategorized",
+        date: formatDate(article.publishedAt),
+        readTime: article.readTime || "5 min read",
+        image: localization.image
+          ? urlForSized(localization.image, { width: 500, quality: 75 })
+          : undefined,
+        youtubeId: extractYouTubeId(article.embedLink),
+        embedLink: article.embedLink || undefined,
+        author: article.author || undefined,
+        authorRole: article.authorRole || undefined,
+        lang: localization.language,
+      },
+    ];
+  });
+
+  const allArticles = [...mappedInternational];
 
   let filteredArticles = allArticles;
-
   if (selectedCategories.length > 0) {
     filteredArticles = filteredArticles.filter((article) =>
       selectedCategories.includes(article.category)
@@ -78,6 +123,8 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
       breadcrumbCurrent={t("breadcrumbKlab")}
       emptyStateMessage={t("emptyStateKlab")}
       showExploreRootsCta={true}
+      showLanguageFilter={true}
+      selectedLanguages={selectedLanguages}
     />
   );
 }

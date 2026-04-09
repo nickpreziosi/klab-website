@@ -27,6 +27,8 @@ export interface NewsViewArticle {
   embedLink?: string;
   author?: string;
   authorRole?: string;
+  /** Language code to append as ?lang= on the article link (international articles only). */
+  lang?: string;
 }
 
 export interface NewsViewProps {
@@ -48,6 +50,10 @@ export interface NewsViewProps {
   showArticles?: boolean;
   /** CTA below the article feed linking to KEO World news. */
   showExploreRootsCta?: boolean;
+  /** When true, shows the Language filter dropdown alongside the category filter. */
+  showLanguageFilter?: boolean;
+  /** Currently selected language codes (e.g. ["en", "es"]). */
+  selectedLanguages?: string[];
 }
 
 export function NewsView({
@@ -62,6 +68,8 @@ export function NewsView({
   breadcrumbCurrent,
   emptyStateMessage,
   showExploreRootsCta = false,
+  showLanguageFilter = false,
+  selectedLanguages,
 }: NewsViewProps) {
   const t = useTranslations("newsPage");
   const locale = useLocale();
@@ -204,7 +212,12 @@ export function NewsView({
 
       {showArticles && (
         <section className={styles.articlesSection}>
-          <NewsFilters categories={allCategories} selectedCategories={selectedCategories} />
+          <NewsFilters
+            categories={allCategories}
+            selectedCategories={selectedCategories}
+            showLanguageFilter={showLanguageFilter}
+            selectedLanguages={selectedLanguages}
+          />
 
           {hasNoResults ? (
             <motion.div
