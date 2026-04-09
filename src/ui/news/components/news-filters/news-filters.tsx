@@ -71,8 +71,8 @@ export default function NewsFilters({
         {showLanguageFilter && (
           <MultipleSelector
             id="news-language-filter"
-            label="Language"
-            placeholder="All Languages"
+            label={t("filterLanguageLabel")}
+            placeholder={t("filterAllLanguages")}
             options={LANGUAGE_OPTIONS}
             selectedKeys={new Set(selectedLanguages)}
             onSelectionChange={handleLanguageChange}
