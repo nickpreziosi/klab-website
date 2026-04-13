@@ -11,6 +11,8 @@ import useEmblaCarousel from "embla-carousel-react";
 import styles from "./ArticleView.module.css";
 import Button from "@/ui/shared/components/button/button";
 import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
+import { formatReadTimeWithUnit } from "@/ui/news/utils/read-time";
+import { translateNewsCategory } from "@/ui/news/utils/news-category";
 
 export interface ClientArticle {
   _id: string;
@@ -41,6 +43,8 @@ export interface ArticleViewProps {
   formattedDate: string;
   galleryImageUrls: GalleryImageUrl[];
   bodyHTML?: string;
+  /** `rtl` for Arabic on international articles; KEO articles should use `ltr`. */
+  contentDirection?: "ltr" | "rtl";
 }
 
 function isYouTubeOrVimeo(embedLink?: string): boolean {
@@ -58,8 +62,12 @@ export function ArticleView({
   formattedDate,
   galleryImageUrls,
   bodyHTML,
+  contentDirection = "ltr",
 }: ArticleViewProps) {
   const t = useTranslations("newsPage");
+  const tCategory = useTranslations("newsCategories");
+  const categoryLabel = translateNewsCategory(tCategory, article.category);
+  const readTimeDisplay = formatReadTimeWithUnit(article.readTime, t("readTimeMinutes"));
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -131,7 +139,7 @@ export function ArticleView({
   }, [firstGalleryImageUrl]);
 
   return (
-    <main className={styles.main}>
+    <main className={styles.main} dir={contentDirection}>
       <section className={styles.hero}>
         <div className={styles.heroBackground}>
           <motion.div
@@ -152,7 +160,7 @@ export function ArticleView({
               News
             </Link>
             <span className={styles.breadcrumbSeparator}>/</span>
-            <span className={styles.breadcrumbCurrent}>{article.category || "Uncategorized"}</span>
+            <span className={styles.breadcrumbCurrent}>{categoryLabel}</span>
           </motion.div>
           <motion.div
             className={styles.category}
@@ -160,7 +168,7 @@ export function ArticleView({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            {article.category || "Uncategorized"}
+            {categoryLabel}
           </motion.div>
           <motion.h1
             className={styles.title}
@@ -191,12 +199,12 @@ export function ArticleView({
               </>
             )}
             <time className={styles.date}>{formattedDate}</time>
-            {article.readTime && (
+            {readTimeDisplay ? (
               <>
                 <div className={styles.metaDivider}>•</div>
-                <span className={styles.readTime}>{article.readTime}</span>
+                <span className={styles.readTime}>{readTimeDisplay}</span>
               </>
-            )}
+            ) : null}
           </motion.div>
         </div>
       </section>

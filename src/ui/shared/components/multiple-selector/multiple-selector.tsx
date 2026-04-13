@@ -32,6 +32,8 @@ export interface MultipleSelectorProps {
   maxWidth?: number | string;
   /** Max height for the trigger when content wraps; enables scroll. Default unset. */
   maxHeight?: number | string;
+  /** Sets `dir` on the dropdown list (e.g. `rtl` so option labels align to the right in Arabic). */
+  popoverDir?: "ltr" | "rtl";
 }
 
 export function MultipleSelector({
@@ -48,6 +50,7 @@ export function MultipleSelector({
   minWidth,
   maxWidth,
   maxHeight,
+  popoverDir,
 }: MultipleSelectorProps) {
   const t = useTranslations("multipleSelector");
   const resolvedPlaceholder = placeholder ?? t("selectItems");
@@ -316,7 +319,7 @@ export function MultipleSelector({
             transform: "translateZ(0)",
           }}
         >
-          <div className={styles.popoverListScroll}>
+          <div className={styles.popoverListScroll} dir={popoverDir}>
             <div
               id={`${selectorId}-list`}
               role="listbox"

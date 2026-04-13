@@ -23,16 +23,64 @@
   width: 100%;
   background: var(--theme-gradient);
   padding-top: var(--padding-desktop);
-  padding-bottom: var(--padding-desktop);
   height: 100%;
   min-height: calc(100vh - var(--navbar-height));
+}
+
+/* Hero variant: mockup extends to bottom of container (e.g. K-Talk, like Kena) */
+.heroSectionMockupExtend.heroSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.heroSectionMockupExtend .heroInner {
+  flex: 1;
+  min-height: 0;
+}
+
+.heroSectionMockupExtend .heroRow {
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+
+/* Two equal-width columns when mockup extends to bottom */
+.heroSectionMockupExtend .heroTextCol {
+  flex: 1 1 0;
+}
+
+.heroSectionMockupExtend .heroImageCol {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Mockup wrapper fills column height; image fills height, not full width */
+.heroSectionMockupExtend .heroImageCol .mockupWrapper {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.heroSectionMockupExtend .heroImageCol .mockupWrapper .mockupImage {
+  width: auto;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: bottom center;
 }
 
 .heroInner {
   composes: inner;
   display: flex;
   flex-direction: column;
-  gap: var(--gap-lg);
+  gap: var(--gap-xl);
 }
 
 .heroRow {
@@ -51,6 +99,7 @@
   flex-direction: column;
   gap: var(--gap-lg);
   order: 1;
+  padding-bottom: var(--padding-desktop);
 }
 
 .heroImageCol {
@@ -153,6 +202,24 @@
   width: 100%;
 }
 
+/* 3-column layout with pill above each column (Kai variant) */
+.benefitColumnsWithPills {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-xl);
+}
+
+.benefitColumnWithPill {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.benefitColumnWithPill .categoryPills {
+  margin-top: 0;
+}
+
 /* Category pills / badges (benefit-columns) */
 .categoryPills {
   display: flex;
@@ -213,7 +280,6 @@
   width: 100%;
   height: auto;
   border-radius: 28px;
-  padding: 12px;
 }
 
 .mockupWrapperLaptop {
@@ -223,7 +289,8 @@
 }
 
 .mockupWrapperDesktop {
-  max-width: 720px;
+  max-width: 500px;
+  width: 100%;
   border-radius: var(--rounded-app);
   padding: 10px;
 }
@@ -234,6 +301,12 @@
   display: block;
   border-radius: 6px;
   object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.mockupWrapper[data-loaded] .mockupImage {
+  opacity: 1;
 }
 
 .mockupWrapperPhone .mockupImage {
@@ -415,7 +488,12 @@
     padding-left: var(--padding-tablet);
     padding-right: var(--padding-tablet);
   }
-  .heroSection,
+  .heroSection {
+    padding-top: var(--padding-tablet);
+  }
+  .heroTextCol {
+    padding-bottom: var(--padding-tablet);
+  }
   .contentSection {
     padding-top: var(--padding-tablet);
     padding-bottom: var(--padding-tablet);
@@ -428,6 +506,19 @@
     grid-template-columns: 1fr;
   }
   .modulesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Benefit columns with pills: 3 cols → 2 → 1 on smaller screens */
+@media (max-width: 1024px) {
+  .benefitColumnsWithPills {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .benefitColumnsWithPills {
     grid-template-columns: 1fr;
   }
 }
@@ -446,6 +537,28 @@
     max-width: min(920px, 96vw);
     margin-left: auto;
     margin-right: auto;
+  }
+  /* Single column: simple stacked layout – no height-splitting, image fills width */
+  .heroSectionMockupExtend .heroRow {
+    flex: none;
+    min-height: 0;
+  }
+  .heroSectionMockupExtend .heroTextCol {
+    flex: none;
+  }
+  .heroSectionMockupExtend .heroImageCol {
+    flex: none;
+  }
+  .heroSectionMockupExtend .heroImageCol .mockupWrapper {
+    flex: none;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .heroSectionMockupExtend .heroImageCol .mockupWrapper .mockupImage {
+    width: 100%;
+    height: auto;
+    max-height: none;
   }
 }
 
@@ -469,7 +582,12 @@
     padding-left: var(--padding-mobile);
     padding-right: var(--padding-mobile);
   }
-  .heroSection,
+  .heroSection {
+    padding-top: var(--padding-tablet);
+  }
+  .heroTextCol {
+    padding-bottom: var(--padding-tablet);
+  }
   .contentSection,
   .ctaSection {
     padding-top: var(--padding-tablet);

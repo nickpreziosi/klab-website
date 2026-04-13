@@ -1,10 +1,11 @@
 "use client";
 
-import { Suspense } from "react";
 import type { HeroTranslations } from "@/ui/home/types";
 import { Hero } from "@/ui/home/components/hero/hero";
+import { HomePhonePromoSection } from "@/ui/home/components/home-phone-promo-section/home-phone-promo-section";
 import VideoBackground from "@/ui/home/components/video-background/video-background";
 import HomeSecondarySection from "@/ui/home/components/home-secondary-section/home-secondary-section";
+import FaqSection from "@/ui/home/components/faq-section/faq-section";
 import { LoadingProgressBar } from "@/ui/shared/components/loading-progress-bar/loading-progress-bar";
 import { useHomeAnimation } from "@/ui/home/providers/home-animation-provider";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
@@ -28,9 +29,8 @@ export function HomeView({ heroTranslations }: HomeViewProps = {}) {
 
   return (
     <>
-      <Suspense fallback={null}>
-        <LoadingProgressBar />
-      </Suspense>
+      {/* Outside Suspense so the boundary resolving does not remount the loader and replay the 1s animation */}
+      <LoadingProgressBar />
       <VideoBackground
         videoUrl={videoUrl}
         posterUrl="/images/klab-home-loop-poster.webp"
@@ -39,6 +39,7 @@ export function HomeView({ heroTranslations }: HomeViewProps = {}) {
       <div className={styles.page}>
         <main className={styles.main}>
           <Hero translations={heroTranslations} skipAnimation={skipAnimation} />
+          <HomePhonePromoSection skipAnimation={skipFromLocaleSwitch} />
           <HomeSecondarySection skipAnimation={skipFromLocaleSwitch} />
         </main>
       </div>

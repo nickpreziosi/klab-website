@@ -1,5 +1,6 @@
 import React from "react";
 import { cookies } from "next/headers";
+import { TECH_LOGO_PRELOAD_URLS } from "@/ui/shared/constants/tech-logo-urls";
 
 /**
  * Inline theme script - runs before React hydrates to prevent theme flash.
@@ -35,6 +36,9 @@ export default async function Head() {
   return (
     <>
       <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="" />
+      {TECH_LOGO_PRELOAD_URLS.map((href) => (
+        <link key={href} rel="preload" as="image" href={href} />
+      ))}
       <script
         id="klab-theme-init"
         dangerouslySetInnerHTML={{ __html: script }}

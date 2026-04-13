@@ -28,7 +28,6 @@ const TECH_KEYS = [
   "kbpm",
   "kim",
   "kaxis",
-  "kleads",
   "kai",
 ] as const;
 
@@ -39,82 +38,97 @@ const TECHNOLOGIES: {
   logoLight: string;
   logoDark: string;
   descriptionKey: TechKey;
+  href: string;
 }[] = [
   {
     title: "KRails",
     logoLight: "/logos/krails-logo-light.svg",
     logoDark: "/logos/krails-logo-dark.svg",
     descriptionKey: "krails",
+    href: "/technologies/krails",
   },
   {
     title: "Kena",
     logoLight: "/logos/kena-logo-light.svg",
     logoDark: "/logos/kena-logo-dark.svg",
     descriptionKey: "kena",
+    href: "/technologies/kena",
   },
   {
     title: "KTalk",
     logoLight: "/logos/ktalk-logo-light.svg",
     logoDark: "/logos/ktalk-logo-dark.svg",
     descriptionKey: "ktalk",
+    href: "/technologies/ktalk",
   },
   {
     title: "KRisk",
     logoLight: "/logos/krisk-logo-light.svg",
     logoDark: "/logos/krisk-logo-dark.svg",
     descriptionKey: "krisk",
+    href: "/technologies/krisk",
   },
   {
     title: "KAbl",
     logoLight: "/logos/kabl-logo-light.svg",
     logoDark: "/logos/kabl-logo-dark.svg",
     descriptionKey: "kabl",
+    href: "/technologies/kabl",
   },
   {
     title: "KCard",
     logoLight: "/logos/kcard-logo-light.svg",
     logoDark: "/logos/kcard-logo-dark.svg",
     descriptionKey: "kcard",
+    href: "/technologies/kcard",
   },
   {
     title: "KBpm",
     logoLight: "/logos/kbpm-logo-light.svg",
     logoDark: "/logos/kbpm-logo-dark.svg",
     descriptionKey: "kbpm",
+    href: "/technologies/kbpm",
   },
   {
     title: "Kim",
     logoLight: "/logos/kim-logo-light.svg",
     logoDark: "/logos/kim-logo-dark.svg",
     descriptionKey: "kim",
+    href: "/technologies/kim",
   },
   {
     title: "KAxis",
     logoLight: "/logos/kaxis-logo-light.svg",
     logoDark: "/logos/kaxis-logo-dark.svg",
     descriptionKey: "kaxis",
-  },
-  {
-    title: "KLeads",
-    logoLight: "/logos/kleads-logo-light.svg",
-    logoDark: "/logos/kleads-logo-dark.svg",
-    descriptionKey: "kleads",
+    href: "/technologies/kaxis",
   },
   {
     title: "Kai",
     logoLight: "/logos/kai-logo-light.svg",
     logoDark: "/logos/kai-logo-dark.svg",
     descriptionKey: "kai",
+    href: "/technologies/kai",
   },
 ];
 
-const LEFT_ORDER = [5, 9, 2, 8, 3];
-const RIGHT_ORDER_FIXED = [0, 1, 10, 4, 6, 7];
+const LEFT_ORDER = [5, 2, 8, 3];
+const RIGHT_ORDER_FIXED = [0, 1, 9, 4, 6, 7];
 
 const leftTechs = LEFT_ORDER.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 const rightTechs = RIGHT_ORDER_FIXED.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 
-const WIDEST_LOGO_KEY: TechKey = "kleads";
+const WIDEST_LOGO_KEY: TechKey = "ktalk";
+
+/**
+ * Allowlist for which technology semicircles should be visible.
+ * Keep the rest of the data intact so we can re-enable later.
+ */
+const VISIBLE_TECH_KEYS: readonly TechKey[] = ["ktalk", "krisk", "krails", "kena"];
+const VISIBLE_TECH_KEY_SET = new Set<TechKey>(VISIBLE_TECH_KEYS);
+
+const visibleLeftTechs = leftTechs.filter((tech) => VISIBLE_TECH_KEY_SET.has(tech.descriptionKey));
+const visibleRightTechs = rightTechs.filter((tech) => VISIBLE_TECH_KEY_SET.has(tech.descriptionKey));
 
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -159,8 +173,7 @@ function SVGLogo({ src, className }: { src: string; className?: string }) {
 type ShowcaseVariant = "orange" | "wave";
 
 function CenterCircle({ variant }: { variant: ShowcaseVariant }) {
-  const centerBgSrc =
-    variant === "wave" ? "/images/bg-orange.webp" : "/images/bg-wave.webp";
+  const centerBgSrc = variant === "wave" ? "/images/bg-orange.webp" : "/images/bg-wave.webp";
   return (
     <div className={styles.centerItem}>
       <div className={styles.centerCircle}>
@@ -189,6 +202,7 @@ function TechSlot({
   tech,
   logoSrc,
   description,
+  learnMoreLabel,
   side,
   isExpanded,
   onToggle,
@@ -201,6 +215,7 @@ function TechSlot({
   tech: (typeof TECHNOLOGIES)[0];
   logoSrc: string;
   description: string;
+  learnMoreLabel: string;
   side: "left" | "right";
   isExpanded: boolean;
   onToggle: () => void;
@@ -251,11 +266,11 @@ function TechSlot({
               <h4 className={styles.popoverMobileTitle}>{tech.title}</h4>
               <p className={styles.popoverMobileDescription}>{description}</p>
               <Button
-                href={`/technologies/${tech.descriptionKey}`}
+                href={tech.href}
                 variant="accent-brand"
                 className={styles.popoverMobileLink}
               >
-                Learn more
+                {learnMoreLabel}
               </Button>
             </div>
           </PopoverContent>
@@ -320,9 +335,13 @@ export function TechnologiesShowcaseVertical({
 } = {}) {
   const isDesktop = useIsDesktop();
   const t = useTranslations("technologiesShowcase");
+  const tCommon = useTranslations("common");
   const { effectiveTheme } = useTheme();
-  const kleadsLogoRef = useRef<HTMLDivElement>(null);
-  const [logoHeight, setLogoHeight] = useState(26);
+  const ktalkLogoRef = useRef<HTMLDivElement>(null);
+  // Controls how tall the technology logos are within each semicircle.
+  // We clamp measurement to this value so the SVGs don't overflow vertically.
+  const MOBILE_ICON_HEIGHT = 34;
+  const [logoHeight, setLogoHeight] = useState(MOBILE_ICON_HEIGHT);
   const [expandedIndex, setExpandedIndex] = useState<{
     side: "left" | "right";
     index: number;
@@ -349,11 +368,11 @@ export function TechnologiesShowcaseVertical({
         : tech.logoLight
       : tech.logoDark;
 
-  // Mobile: measure KLeads (widest) logo height so other logos can match
+  // Mobile: measure KTalk (widest) logo height so other logos can match
   useEffect(() => {
-    const el = kleadsLogoRef.current;
+    const el = ktalkLogoRef.current;
     if (!el) return;
-    const MAX_MOBILE_LOGO_HEIGHT = 26;
+    const MAX_MOBILE_LOGO_HEIGHT = MOBILE_ICON_HEIGHT;
     const measure = () => {
       const svg = el.querySelector("svg");
       if (svg) {
@@ -387,12 +406,13 @@ export function TechnologiesShowcaseVertical({
         <TooltipProvider delayDuration={200}>
           <div className={`${styles.wrapperDesktop} ${className ?? ""}`.trim()}>
             <div className={styles.gridDesktop}>
-              {leftTechs.map((tech, index) => (
+              {visibleLeftTechs.map((tech, index) => (
                 <TechSlot
                   key={`left-${tech.title}-${index}`}
                   tech={tech}
                   logoSrc={logoSrc(tech)}
                   description={getDescription(tech)}
+                  learnMoreLabel={tCommon("learnMore")}
                   side="left"
                   isExpanded={expandedIndex?.side === "left" && expandedIndex?.index === index}
                   onToggle={() => setLeft(index)}
@@ -401,12 +421,13 @@ export function TechnologiesShowcaseVertical({
                 />
               ))}
               <CenterCircle variant={variant} />
-              {rightTechs.map((tech, index) => (
+              {visibleRightTechs.map((tech, index) => (
                 <TechSlot
                   key={`right-${tech.title}-${index}`}
                   tech={tech}
                   logoSrc={logoSrc(tech)}
                   description={getDescription(tech)}
+                  learnMoreLabel={tCommon("learnMore")}
                   side="right"
                   isExpanded={expandedIndex?.side === "right" && expandedIndex?.index === index}
                   onToggle={() => setRight(index)}
@@ -426,23 +447,29 @@ export function TechnologiesShowcaseVertical({
           ]
             .filter(Boolean)
             .join(" ")}
-          style={{ "--tech-logo-height": `${logoHeight}px` } as React.CSSProperties}
+          style={
+            {
+              "--tech-logo-height": `${logoHeight}px`,
+              "--icon-height": `${MOBILE_ICON_HEIGHT}px`,
+            } as React.CSSProperties
+          }
         >
           <div className={styles.columnMobile}>
             <div className={styles.rowMobileTop}>
-              {leftTechs.map((tech, index) => (
+              {visibleLeftTechs.map((tech, index) => (
                 <TechSlot
                   key={`left-${tech.title}-${index}`}
                   tech={tech}
                   logoSrc={mobileLogoSrc(tech)}
                   description={getDescription(tech)}
+                  learnMoreLabel={tCommon("learnMore")}
                   side="left"
                   isExpanded={expandedIndex?.side === "left" && expandedIndex?.index === index}
                   onToggle={() => setLeft(index)}
                   SVGLogo={SVGLogo}
                   variant="mobile"
                   isWidestLogo={tech.descriptionKey === WIDEST_LOGO_KEY}
-                  logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? kleadsLogoRef : undefined}
+                  logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? ktalkLogoRef : undefined}
                   popoverContentClassName={
                     useThemeForMobile ? styles.popoverMobileThemeAware : undefined
                   }
@@ -451,19 +478,20 @@ export function TechnologiesShowcaseVertical({
             </div>
             <CenterCircle variant={variant} />
             <div className={styles.rowMobileBottom}>
-              {rightTechs.map((tech, index) => (
+              {visibleRightTechs.map((tech, index) => (
                 <TechSlot
                   key={`right-${tech.title}-${index}`}
                   tech={tech}
                   logoSrc={mobileLogoSrc(tech)}
                   description={getDescription(tech)}
+                  learnMoreLabel={tCommon("learnMore")}
                   side="right"
                   isExpanded={expandedIndex?.side === "right" && expandedIndex?.index === index}
                   onToggle={() => setRight(index)}
                   SVGLogo={SVGLogo}
                   variant="mobile"
                   isWidestLogo={tech.descriptionKey === WIDEST_LOGO_KEY}
-                  logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? kleadsLogoRef : undefined}
+                  logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? ktalkLogoRef : undefined}
                   popoverContentClassName={
                     useThemeForMobile ? styles.popoverMobileThemeAware : undefined
                   }

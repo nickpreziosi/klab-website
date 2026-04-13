@@ -16,11 +16,7 @@ type LitepapersViewProps = {
 };
 
 const LANGUAGE_KEYS = ["english", "spanish", "portuguese"] as const;
-const LANGUAGE_HREFS = [
-  "/litepapers/keo-litepaper-en.pdf",
-  "/litepapers/keo-litepaper-es.pdf",
-  "/litepapers/keo-litepaper-pt.pdf",
-];
+const LANGUAGE_HREFS = ["#", "#", "#"];
 
 export function LitepapersView({ litepapersTranslations }: LitepapersViewProps = {}) {
   if (!litepapersTranslations) {

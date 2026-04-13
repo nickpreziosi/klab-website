@@ -1,8 +1,15 @@
+import { useId } from "react";
 import type { SVGProps } from "react";
 
 const VIEWBOX = "163.66 161 576.81 168";
 
+/** Unique ID prefix for this instance so multiple logos in the DOM don't share gradient IDs. */
+function useLogoId(): string {
+  return "logo-" + useId().replace(/:/g, "-");
+}
+
 export function KlabLogoDarkTextSvg(props: SVGProps<SVGSVGElement>) {
+  const uid = useLogoId();
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -14,18 +21,18 @@ export function KlabLogoDarkTextSvg(props: SVGProps<SVGSVGElement>) {
     >
       <defs>
         <style>
-          {`.klab-dark-text-st0{fill:url(#klab-dark-text-linear-gradient2)}
-.klab-dark-text-st1{fill:url(#klab-dark-text-linear-gradient9)}
-.klab-dark-text-st2{fill:url(#klab-dark-text-linear-gradient3)}
-.klab-dark-text-st3{fill:url(#klab-dark-text-linear-gradient6)}
-.klab-dark-text-st4{fill:url(#klab-dark-text-linear-gradient8)}
-.klab-dark-text-st5{fill:url(#klab-dark-text-linear-gradient7)}
-.klab-dark-text-st6{fill:url(#klab-dark-text-linear-gradient5)}
-.klab-dark-text-st7{fill:url(#klab-dark-text-linear-gradient4)}
-.klab-dark-text-st8{fill:none;stroke:url(#klab-dark-text-linear-gradient1);stroke-miterlimit:10;stroke-width:2px}
-.klab-dark-text-st9{fill:url(#klab-dark-text-linear-gradient)}`}
+          {`.klab-dark-text-st0{fill:url(#${uid}-klab-dark-text-linear-gradient2)}
+.klab-dark-text-st1{fill:url(#${uid}-klab-dark-text-linear-gradient9)}
+.klab-dark-text-st2{fill:url(#${uid}-klab-dark-text-linear-gradient3)}
+.klab-dark-text-st3{fill:url(#${uid}-klab-dark-text-linear-gradient6)}
+.klab-dark-text-st4{fill:url(#${uid}-klab-dark-text-linear-gradient8)}
+.klab-dark-text-st5{fill:url(#${uid}-klab-dark-text-linear-gradient7)}
+.klab-dark-text-st6{fill:url(#${uid}-klab-dark-text-linear-gradient5)}
+.klab-dark-text-st7{fill:url(#${uid}-klab-dark-text-linear-gradient4)}
+.klab-dark-text-st8{fill:none;stroke:url(#${uid}-klab-dark-text-linear-gradient1);stroke-miterlimit:10;stroke-width:2px}
+.klab-dark-text-st9{fill:url(#${uid}-klab-dark-text-linear-gradient)}`}
         </style>
-        <linearGradient id="klab-dark-text-linear-gradient" x1="147.75" y1="309.36" x2="225.96" y2="258.26" gradientUnits="userSpaceOnUse">
+        <linearGradient id={`${uid}-klab-dark-text-linear-gradient`} x1="147.75" y1="309.36" x2="225.96" y2="258.26" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#f2e6db" />
           <stop offset=".17" stopColor="#f2ccb2" />
           <stop offset=".46" stopColor="#f2a574" />
@@ -33,9 +40,9 @@ export function KlabLogoDarkTextSvg(props: SVGProps<SVGSVGElement>) {
           <stop offset=".89" stopColor="#f2762b" />
           <stop offset="1" stopColor="#f37021" />
         </linearGradient>
-        <linearGradient id="klab-dark-text-linear-gradient1" x1="164.47" y1="306.92" x2="326.52" y2="184.06" href="#klab-dark-text-linear-gradient" />
-        <linearGradient id="klab-dark-text-linear-gradient2" x1="233.62" y1="257.92" x2="277.76" y2="370.2" href="#klab-dark-text-linear-gradient" />
-        <linearGradient id="klab-dark-text-linear-gradient3" x1="199.77" y1="259.09" x2="285.22" y2="259.09" gradientUnits="userSpaceOnUse">
+        <linearGradient id={`${uid}-klab-dark-text-linear-gradient1`} x1="164.47" y1="306.92" x2="326.52" y2="184.06" href={`#${uid}-klab-dark-text-linear-gradient`} />
+        <linearGradient id={`${uid}-klab-dark-text-linear-gradient2`} x1="233.62" y1="257.92" x2="277.76" y2="370.2" href={`#${uid}-klab-dark-text-linear-gradient`} />
+        <linearGradient id={`${uid}-klab-dark-text-linear-gradient3`} x1="199.77" y1="259.09" x2="285.22" y2="259.09" gradientUnits="userSpaceOnUse">
           <stop offset=".11" stopColor="#f1f1f1" />
           <stop offset=".18" stopColor="#f1edec" />
           <stop offset=".26" stopColor="#f1e5dd" />
@@ -45,8 +52,8 @@ export function KlabLogoDarkTextSvg(props: SVGProps<SVGSVGElement>) {
           <stop offset=".62" stopColor="#f28848" />
           <stop offset=".68" stopColor="#f37021" />
         </linearGradient>
-        <linearGradient id="klab-dark-text-linear-gradient4" x1="210.34" y1="231.43" x2="383.8" y2="150.9" href="#klab-dark-text-linear-gradient" />
-        <linearGradient id="klab-dark-text-linear-gradient5" x1="228.27" y1="165.27" x2="244.23" y2="240.45" gradientUnits="userSpaceOnUse">
+        <linearGradient id={`${uid}-klab-dark-text-linear-gradient4`} x1="210.34" y1="231.43" x2="383.8" y2="150.9" href={`#${uid}-klab-dark-text-linear-gradient`} />
+        <linearGradient id={`${uid}-klab-dark-text-linear-gradient5`} x1="228.27" y1="165.27" x2="244.23" y2="240.45" gradientUnits="userSpaceOnUse">
           <stop offset=".3" stopColor="#f1f1f1" />
           <stop offset=".37" stopColor="#f1edec" />
           <stop offset=".46" stopColor="#f1e5dd" />
@@ -56,13 +63,13 @@ export function KlabLogoDarkTextSvg(props: SVGProps<SVGSVGElement>) {
           <stop offset=".84" stopColor="#f28848" />
           <stop offset=".91" stopColor="#f37021" />
         </linearGradient>
-        <linearGradient id="klab-dark-text-linear-gradient6" x1="422.76" y1="157.62" x2="423.79" y2="343.47" gradientUnits="userSpaceOnUse">
+        <linearGradient id={`${uid}-klab-dark-text-linear-gradient6`} x1="422.76" y1="157.62" x2="423.79" y2="343.47" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#3f424a" />
           <stop offset="1" stopColor="#010101" />
         </linearGradient>
-        <linearGradient id="klab-dark-text-linear-gradient7" x1="533.04" y1="157.01" x2="534.07" y2="342.85" href="#klab-dark-text-linear-gradient6" />
-        <linearGradient id="klab-dark-text-linear-gradient8" x1="613.37" y1="156.56" x2="614.4" y2="342.41" href="#klab-dark-text-linear-gradient6" />
-        <linearGradient id="klab-dark-text-linear-gradient9" x1="701.74" y1="156.07" x2="702.77" y2="341.92" href="#klab-dark-text-linear-gradient6" />
+        <linearGradient id={`${uid}-klab-dark-text-linear-gradient7`} x1="533.04" y1="157.01" x2="534.07" y2="342.85" href={`#${uid}-klab-dark-text-linear-gradient6`} />
+        <linearGradient id={`${uid}-klab-dark-text-linear-gradient8`} x1="613.37" y1="156.56" x2="614.4" y2="342.41" href={`#${uid}-klab-dark-text-linear-gradient6`} />
+        <linearGradient id={`${uid}-klab-dark-text-linear-gradient9`} x1="701.74" y1="156.07" x2="702.77" y2="341.92" href={`#${uid}-klab-dark-text-linear-gradient6`} />
       </defs>
       <g>
         <rect className="klab-dark-text-st9" x="163.66" y="163.66" width="163.66" height="163.66" rx="34.74" ry="34.74" />

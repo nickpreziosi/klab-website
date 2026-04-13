@@ -222,7 +222,8 @@
   align-items: center;
   gap: 6px;
   width: 100%;
-  padding: 6px 32px 6px 8px;
+  padding-block: 6px;
+  padding-inline: 8px 32px;
   border-radius: var(--rounded-app);
   font-size: var(--text-sm);
   color: hsl(var(--foreground));
@@ -254,13 +255,13 @@
 
 .optionLabel {
   flex: 1;
-  text-align: left;
+  text-align: start;
 }
 
 /* Check indicator on the right – matches theme-toggle/locale-switcher */
 .optionCheck {
   position: absolute;
-  right: 8px;
+  inset-inline-end: 8px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;

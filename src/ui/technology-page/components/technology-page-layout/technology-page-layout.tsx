@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import Button from "@/ui/shared/components/button/button";
@@ -29,10 +28,14 @@ const fadeIn = {
 function MockupCard({
   mockup,
   defaultAlt,
+  priority = false,
 }: {
   mockup: TechnologyMockup;
   defaultAlt: string;
+  /** When true, preload image (e.g. hero mockup) so it loads like company hero and avoids placeholder flash. */
+  priority?: boolean;
 }) {
+  const [loaded, setLoaded] = useState(false);
   const wrapperClass =
     mockup.variant === "phone"
       ? styles.mockupWrapperPhone
@@ -41,7 +44,10 @@ function MockupCard({
         : styles.mockupWrapperDesktop;
 
   return (
-    <div className={`${styles.mockupWrapper} ${wrapperClass}`}>
+    <div
+      className={`${styles.mockupWrapper} ${wrapperClass}`}
+      data-loaded={loaded || undefined}
+    >
       <Image
         src={mockup.src}
         alt={mockup.alt ?? defaultAlt}
@@ -49,8 +55,9 @@ function MockupCard({
         height={mockup.variant === "phone" ? 760 : 360}
         className={styles.mockupImage}
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        placeholder="blur"
-        blurDataURL={BLUR_PLACEHOLDER}
+        placeholder="empty"
+        priority={priority}
+        onLoad={() => setLoaded(true)}
       />
     </div>
   );
@@ -60,13 +67,42 @@ function BenefitColumnsSection({
   section,
   pillsOnly,
   hidePills,
+  pillPerColumn,
 }: {
   section: Extract<TechnologyInfoSection, { type: "benefit-columns" }>;
   pillsOnly?: boolean;
   hidePills?: boolean;
+  pillPerColumn?: boolean;
 }) {
   const showPills = !hidePills && section.categoryLabels.length > 0;
   const showColumns = !pillsOnly;
+
+  if (pillPerColumn && showColumns) {
+    return (
+      <div className={styles.benefitColumnsWithPills}>
+        {section.columns.map((col, i) => (
+          <div key={i} className={styles.benefitColumnWithPill}>
+            {showPills && section.categoryLabels[i] != null && (
+              <div className={styles.categoryPills}>
+                <span className={styles.pill}>
+                  <Check className={styles.pillCheck} aria-hidden />
+                  {section.categoryLabels[i]}
+                </span>
+              </div>
+            )}
+            <div className={styles.benefitColumn}>
+              <p className={styles.benefitMainPoint}>{col.mainPoint}</p>
+              <ul className={styles.benefitSubPoints}>
+                {col.subPoints.map((point, j) => (
+                  <li key={j}>{point}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <>
@@ -200,6 +236,8 @@ export function TechnologyPageLayout({
   cta,
   defaultAlt: defaultAltProp,
   skipAnimation = false,
+  benefitColumnsVariant = "default",
+  heroMockupExtendToBottom = false,
 }: TechnologyPageLayoutProps) {
   const defaultAlt = defaultAltProp ?? "Technology screenshot";
   const { effectiveTheme } = useTheme();
@@ -225,7 +263,7 @@ export function TechnologyPageLayout({
       {hero && (
         <motion.section
           ref={heroRef}
-          className={styles.heroSection}
+          className={`${styles.heroSection} ${heroMockupExtendToBottom ? styles.heroSectionMockupExtend : ""}`}
           initial={skipAnimation ? fadeIn.animate : fadeIn.initial}
           animate={effectiveHeroInView ? fadeIn.animate : {}}
           transition={fadeIn.transition}
@@ -281,35 +319,22 @@ export function TechnologyPageLayout({
               </div>
               {firstMockupInHero && mockups![0] && (
                 <div className={styles.heroImageCol}>
-                  <MockupCard mockup={mockups![0]} defaultAlt={defaultAlt} />
+                  <MockupCard mockup={mockups![0]} defaultAlt={defaultAlt} priority />
                 </div>
               )}
             </div>
             {sections?.some((s) => s.type === "benefit-columns") && (
-              <>
-                <div className={styles.heroPillsRow}>
-                  <BenefitColumnsSection
-                    section={
-                      sections.find((s) => s.type === "benefit-columns") as Extract<
-                        TechnologyInfoSection,
-                        { type: "benefit-columns" }
-                      >
-                    }
-                    pillsOnly
-                  />
-                </div>
-                <div className={styles.heroBenefitColumns}>
-                  <BenefitColumnsSection
-                    section={
-                      sections.find((s) => s.type === "benefit-columns") as Extract<
-                        TechnologyInfoSection,
-                        { type: "benefit-columns" }
-                      >
-                    }
-                    hidePills
-                  />
-                </div>
-              </>
+              <div className={styles.heroBenefitColumns}>
+                <BenefitColumnsSection
+                  section={
+                    sections.find((s) => s.type === "benefit-columns") as Extract<
+                      TechnologyInfoSection,
+                      { type: "benefit-columns" }
+                    >
+                  }
+                  pillPerColumn={benefitColumnsVariant === "pill-per-column"}
+                />
+              </div>
             )}
           </div>
         </motion.section>

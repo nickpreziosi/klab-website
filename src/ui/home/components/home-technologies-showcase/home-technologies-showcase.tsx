@@ -40,7 +40,11 @@ export function HomeTechnologiesShowcase({
         <TechnologiesShowcase className={styles.desktopShowcase} />
       ) : (
         <div className={styles.mobileShowcaseWrap}>
-          <TechnologiesShowcaseVertical variant="orange" useThemeForMobile className={styles.mobileShowcase} />
+          <TechnologiesShowcaseVertical
+            variant="orange"
+            useThemeForMobile
+            className={styles.mobileShowcase}
+          />
         </div>
       )}
     </div>

@@ -118,7 +118,7 @@
 /* Improved sticky positioning - starts at top, centers in viewport, ends at bottom of grid */
 .rightColumn {
   position: relative;
-  height: calc(100vh - var(--navbar-height));
+  height: 100vh;
   min-height: 0; /* Allow shrink so overflow:hidden clips correctly */
 }
 

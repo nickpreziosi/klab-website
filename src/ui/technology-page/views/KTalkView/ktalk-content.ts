@@ -7,7 +7,7 @@ import type { TechPageTranslator } from "@/ui/technology-page/types";
 
 export const ktalkMockups: TechnologyMockup[] = [
   {
-    src: "/images/mockups/ktalk2.png",
+    src: "/images/mockups/ktalk3.png",
     variant: "phone",
     alt: "KTalk app interface",
   },

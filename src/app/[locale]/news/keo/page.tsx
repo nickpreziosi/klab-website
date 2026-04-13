@@ -2,6 +2,8 @@ import { getTranslations } from "next-intl/server";
 import { getAllArticles } from "@/sanity/queries/articles";
 import { urlForSized } from "@/sanity/lib/image";
 import { NewsView } from "@/ui/news/views/NewsView/NewsView";
+import { formatReadTimeWithUnit } from "@/ui/news/utils/read-time";
+import { toCanonicalNewsCategoryKey } from "@/constants/news-categories";
 
 const ARTICLES_PER_PAGE = 6;
 
@@ -40,14 +42,16 @@ export default async function NewsKeoPage({ searchParams }: NewsKeoPageProps) {
       : [];
 
   const sanityArticles = await getAllArticles();
+  const t = await getTranslations("newsPage");
+  const minutesLabel = t("readTimeMinutes");
 
   const allArticles = sanityArticles.map((article) => ({
     slug: article.slug.current,
     title: article.title,
     excerpt: article.excerpt || "",
-    category: article.category || "Uncategorized",
+    category: String(toCanonicalNewsCategoryKey(article.category)),
     date: formatDate(article.publishedAt),
-    readTime: article.readTime || "5 min read",
+    readTime: formatReadTimeWithUnit(article.readTime, minutesLabel) ?? "",
     image: article.image ? urlForSized(article.image, { width: 500, quality: 75 }) : undefined,
     youtubeId: extractYouTubeId(article.embedLink),
     embedLink: article.embedLink || undefined,
@@ -65,7 +69,6 @@ export default async function NewsKeoPage({ searchParams }: NewsKeoPageProps) {
 
   const allCategories = Array.from(new Set(allArticles.map((article) => article.category))).sort();
 
-  const t = await getTranslations("newsPage");
   return (
     <NewsView
       articles={filteredArticles}
@@ -76,6 +79,7 @@ export default async function NewsKeoPage({ searchParams }: NewsKeoPageProps) {
       heroTitle={t("heroTitleKeo")}
       heroSubtitle=""
       breadcrumbCurrent={t("breadcrumbKeo")}
+      contentDirection="ltr"
     />
   );
 }

@@ -13,12 +13,33 @@
   flex-direction: column;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 8px;
+  background: #000;
+  isolation: isolate;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Overlay extends past all edges so card clip is the only edge; avoids subpixel line on mobile */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    0deg,
+    rgb(0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.92) 6%,
+    rgba(0, 0, 0, 0.85) 15%,
+    transparent 50%
+  );
+  border-radius: inherit;
 }
 
 .imageWrapper {
   position: absolute;
-  height: 100%;
-  width: 100%;
+  inset: -2px;
   z-index: 0;
 }
 
@@ -37,26 +58,13 @@
 
 .cardImage {
   position: absolute;
-  inset: 0;
+  inset: -2px;
   filter: grayscale(100%);
-  height: 100%;
   width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: var(--rounded-app);
-  z-index: 0; /* put image at the back */
-}
-
-.overlay {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  z-index: 0; /* overlay above image */
-  background: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0.85) 15%,
-    transparent 50%
-  );
+  z-index: 0;
 }
 
 .cardText {
@@ -78,7 +86,7 @@
 
 .accordionRoot {
   height: 100%;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .accordionItem {
@@ -91,7 +99,7 @@
   position: relative;
   transition: all 300ms ease-in-out;
   z-index: 9; /* ensure it sits above the overlay and image */
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .accordionContent {
@@ -102,7 +110,6 @@
   overflow: hidden;
   border-radius: var(--rounded-app);
   transition: all 300ms ease-in-out;
-  overflow: scroll;
 }
 
 .accordionContentBio {
@@ -118,6 +125,7 @@
 
 .accordionContent[data-state="open"] {
   animation: slideUp 300ms ease-out;
+  overflow-y: auto;
 }
 .accordionContent[data-state="closed"] {
   animation: slideDown 300ms ease-out;
@@ -159,7 +167,7 @@
   align-items: flex-end;
   gap: var(--gap-md);
   padding: var(--padding-mobile);
-  border: transparent 1px var(--main-color);
+  border: none;
   border-radius: var(--rounded-app) var(--rounded-app) 0 0;
   color: var(--secondary-color);
   text-decoration: none;
@@ -171,7 +179,6 @@
 
 .accordionTrigger:focus-visible {
   outline: none;
-  border-color: var(--accent-color, #ff004c);
 }
 
 .accordionTrigger:focus-visible .accordionTriggerBio {

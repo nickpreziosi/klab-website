@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import * as Accordion from "@radix-ui/react-accordion";
 import { motion } from "framer-motion";
@@ -8,7 +8,16 @@ import { useRouter, usePathname } from "@/i18n/navigation";
 import {
   saveScrollBeforeLocaleSwitch,
   setSkipAnimationsOnNextPageLoad,
+  setSkipAnimationForPath,
 } from "@/ui/shared/utils/scroll-preservation";
+import {
+  setShouldReopenDrawerAfterLocale,
+  setKeepLocaleSwitcherOpen,
+  consumeKeepLocaleSwitcherOpen,
+  getDrawerTechnologiesOpen,
+  setKeepTechnologiesOpen,
+} from "@/ui/shared/utils/drawer-reopen-after-locale";
+import { useSetSkipAnimationForPath } from "@/ui/shared/providers/skip-animation-for-path-provider/skip-animation-for-path-provider";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/i18n/routing";
 import styles from "./mobile-locale-switcher.module.css";
@@ -28,7 +37,9 @@ export function MobileLocaleSwitcher() {
   const currentLocale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const setPathToSkip = useSetSkipAnimationForPath();
   const [open, setOpen] = useState<string | undefined>(undefined);
+  const [skipLocaleAnimation, setSkipLocaleAnimation] = useState(false);
 
   const localeFullName: Record<Locale, string> = {
     en: t("localeEn"),
@@ -41,10 +52,29 @@ export function MobileLocaleSwitcher() {
     return `${LOCALE_CODE[locale]} – ${localeFullName[locale]}`;
   };
 
+  useEffect(() => {
+    if (consumeKeepLocaleSwitcherOpen()) {
+      setOpen("language");
+      setSkipLocaleAnimation(true);
+    }
+  }, [currentLocale]);
+
+  useEffect(() => {
+    if (!skipLocaleAnimation) return;
+    const id = requestAnimationFrame(() => setSkipLocaleAnimation(false));
+    return () => cancelAnimationFrame(id);
+  }, [skipLocaleAnimation]);
+
   const switchLocale = (locale: Locale) => {
     if (locale === currentLocale) return;
+    setKeepLocaleSwitcherOpen();
+    setKeepTechnologiesOpen(getDrawerTechnologiesOpen());
     saveScrollBeforeLocaleSwitch();
     setSkipAnimationsOnNextPageLoad();
+    const targetFullPath = pathname === "/" ? `/${locale}` : `/${locale}${pathname}`;
+    setPathToSkip(targetFullPath);
+    setSkipAnimationForPath(targetFullPath);
+    setShouldReopenDrawerAfterLocale();
     router.push(pathname, { locale, scroll: false });
   };
 
@@ -55,6 +85,7 @@ export function MobileLocaleSwitcher() {
       value={open}
       onValueChange={(value) => setOpen(value)}
       className={styles.accordionRoot}
+      data-skip-caret-animation={skipLocaleAnimation || undefined}
     >
       <Accordion.Item value="language" className={styles.accordionItem}>
         <Accordion.Header className={styles.accordionHeader}>
@@ -89,7 +120,11 @@ export function MobileLocaleSwitcher() {
             animate={
               open === "language" ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }
             }
-            transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
+            transition={
+              skipLocaleAnimation
+                ? { duration: 0 }
+                : { duration: 0.28, ease: [0.4, 0, 0.2, 1] }
+            }
             style={{ overflow: "hidden" }}
           >
             <div className={styles.localeOptions}>

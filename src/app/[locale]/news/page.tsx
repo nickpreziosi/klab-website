@@ -1,14 +1,99 @@
+import { getTranslations } from "next-intl/server";
+import { getAllInternationalArticles } from "@/sanity/queries/articles";
+import { urlForSized } from "@/sanity/lib/image";
 import { NewsView } from "@/ui/news/views/NewsView/NewsView";
+import { formatReadTimeWithUnit } from "@/ui/news/utils/read-time";
+import { toCanonicalNewsCategoryKey } from "@/constants/news-categories";
 
-export default function NewsPage() {
+const ARTICLES_PER_PAGE = 6;
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+}
+
+function extractYouTubeId(embedLink?: string): string | undefined {
+  if (!embedLink) return undefined;
+  const match = embedLink.match(
+    /(?:youtube\.com\/embed\/|youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/live\/)([^&\n?#]+)/
+  );
+  return match ? match[1] : undefined;
+}
+
+interface NewsPageProps {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{
+    category?: string | string[];
+    page?: string;
+  }>;
+}
+
+export default async function NewsPage({ params, searchParams }: NewsPageProps) {
+  const { locale } = await params;
+  const resolvedParams = await searchParams;
+
+  const categoryParam = resolvedParams.category;
+  const selectedCategories = Array.isArray(categoryParam)
+    ? categoryParam
+    : categoryParam
+      ? [categoryParam]
+      : [];
+
+  const internationalArticles = await getAllInternationalArticles();
+  const t = await getTranslations("newsPage");
+  const minutesLabel = t("readTimeMinutes");
+
+  const mappedInternational = internationalArticles.flatMap((article) => {
+    const localization = article.localizations?.find((l) => l.language === locale);
+    if (!localization) return [];
+
+    return [
+      {
+        slug: article.slug.current,
+        title: localization.title,
+        excerpt: localization.excerpt || "",
+        category: String(toCanonicalNewsCategoryKey(article.category)),
+        date: formatDate(article.publishedAt),
+        readTime: formatReadTimeWithUnit(article.readTime, minutesLabel) ?? "",
+        image: localization.image
+          ? urlForSized(localization.image, { width: 500, quality: 75 })
+          : undefined,
+        youtubeId: extractYouTubeId(article.embedLink),
+        embedLink: article.embedLink || undefined,
+        author: article.author || undefined,
+        authorRole: article.authorRole || undefined,
+      },
+    ];
+  });
+
+  const allArticles = [...mappedInternational];
+
+  let filteredArticles = allArticles;
+  if (selectedCategories.length > 0) {
+    filteredArticles = filteredArticles.filter((article) =>
+      selectedCategories.includes(article.category)
+    );
+  }
+
+  const allCategories = Array.from(new Set(allArticles.map((article) => article.category))).sort();
+
   return (
     <NewsView
-      articles={[]}
-      allCategories={[]}
-      selectedCategories={[]}
-      articlesPerPage={6}
-      showNewsCards={true}
-      showArticles={false}
+      articles={filteredArticles}
+      allCategories={allCategories}
+      selectedCategories={selectedCategories}
+      articlesPerPage={ARTICLES_PER_PAGE}
+      showNewsCards={false}
+      heroTitle={t("heroTitleKlab")}
+      heroSubtitle=""
+      breadcrumbCurrent={t("breadcrumbKlab")}
+      emptyStateMessage={t("emptyStateKlab")}
+      showExploreRootsCta={true}
+      contentDirection={locale === "ar" ? "rtl" : "ltr"}
     />
   );
 }

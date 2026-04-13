@@ -47,7 +47,6 @@ export default function CompanyCulture({ skipAnimation = false }: { skipAnimatio
   const t = useTranslations("companyCulture");
   const stats = [
     { labelKey: "statPeople" as const, value: 40, suffix: "+" },
-    { labelKey: "statWomen" as const, value: 25, suffix: "%" },
     { labelKey: "statNationalities" as const, value: 10, suffix: "+" },
     { labelKey: "statLanguages" as const, value: 7, suffix: "+" },
   ];
@@ -56,7 +55,11 @@ export default function CompanyCulture({ skipAnimation = false }: { skipAnimatio
     <section ref={ref} className={styles.section}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <CompanySectionTitle title={t("title")} inView={effectiveInView} skipAnimation={skipAnimation} />
+          <CompanySectionTitle
+            title={t("title")}
+            inView={effectiveInView}
+            skipAnimation={skipAnimation}
+          />
         </div>
 
         {/* Text Content */}
@@ -100,7 +103,7 @@ export default function CompanyCulture({ skipAnimation = false }: { skipAnimatio
         <div className={styles.statsGrid}>
           {stats.map((stat, index) => (
             <Card key={stat.labelKey} className={styles.statCard}>
-              <CardHeader>
+              <CardHeader className={styles.statCardHeader}>
                 <CardTitle>
                   <motion.span
                     className={styles.statValue}

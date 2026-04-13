@@ -19,7 +19,9 @@
   "hero": {
     "title": "Construyendo el futuro de la infraestructura financiera",
     "subtitle": "KLab desarrolla la tecnología que automatiza el riesgo, los pagos y las operaciones financieras — todo en una plataforma inteligente.",
-    "contactSales": "Contactar ventas"
+    "contactSales": "Contactar ventas",
+    "promoVideoPosterAlt": "Vídeo promocional de KLab",
+    "promoVideoSectionLabel": "Vídeo promocional de KLab"
   },
   "companyHero": {
     "headlineLine1": "Donde el capital se",
@@ -42,9 +44,9 @@
     "company": "Empresa",
     "news": "Noticias",
     "contact": "Contacto",
-    "copyright": "© 2026 KLab. Todos los derechos reservados. • 328 NW 29th St. Miami, Florida 33127",
-    "legal1": "El uso de este sitio constituye la aceptación de la Política de Privacidad y Protección de Datos de KLab.",
-    "legal2": "KLab y sus afiliados recopilan y procesan datos personales de acuerdo con las leyes de privacidad aplicables."
+    "copyright": "© 2026 K Lab AI Holdings Inc. Todos los derechos reservados. • 328 NW 29th St. Miami, Florida 33127",
+    "legal1": "El uso de este sitio constituye la aceptación de la Política de Privacidad y Protección de Datos de K Lab AI Holdings Inc.",
+    "legal2": "K Lab AI Holdings Inc. y sus afiliados recopilan y procesan datos personales de acuerdo con las leyes de privacidad aplicables."
   },
   "cookieBanner": {
     "message": "Utilizamos cookies para mejorar tu experiencia y analizar el tráfico del sitio. Puedes aceptar todas las cookies o solo las esenciales para el funcionamiento del sitio.",
@@ -143,6 +145,10 @@
         "position": "Legal",
         "bio": "Juan Gabriel combina más de 15 años de experiencia en bufetes de abogados internacionales y empresas tecnológicas, asesorando en materia corporativa, financiera y regulatoria que impulsa el crecimiento en mercados transfronterizos complejos."
       },
+      "nickSchwartz": {
+        "position": "Comercial",
+        "bio": "Nick es un ejecutivo de SaaS y Web3 con más de 17 años de experiencia escalando empresas de alto crecimiento desde etapas iniciales hasta líderes de mercado. Fue el empleado #10 en Sprinklr (NYSE:CXM), contribuyendo a escalarla hasta convertirla en una empresa pública de 5.000 M$, y más recientemente lideró Customer Success y Partnerships en Digital Asset, apoyando el mayor ecosistema blockchain en TradFi y DeFi."
+      },
       "tomasGuzman": {
         "position": "Relaciones gubernamentales e institucionales",
         "bio": "Tomás es Director de Relaciones Institucionales y Gubernamentales en KLab, liderando el compromiso con grupos de interés y alianzas estratégicas. Abogado y ex Consejero Ministerial en la Embajada de Venezuela en Brasil, aporta experiencia en diplomacia y sector público-privado, destacando en negociación, posicionamiento institucional y crecimiento a largo plazo."
@@ -188,7 +194,7 @@
     "portuguese": "Portugués"
   },
   "technologiesDropdown": {
-    "heading": "Nuestras tecnologías",
+    "heading": "Nuestro ecosistema",
     "krailsDesc": "Pagos y préstamos B2B blockchain con liquidaciones instantáneas",
     "kenaDesc": "El primer suscriptor de riesgo con IA del mundo para decisiones de crédito inteligentes",
     "ktalkDesc": "Chatbot con IA para soporte interno y externo",
@@ -435,6 +441,7 @@
     "contactSales": "Contactar ventas",
     "learnMore": "Saber más",
     "loading": "Cargando",
+    "loadingProgress": "Cargando...",
     "dismiss": "Cerrar",
     "playVideo": "Reproducir vídeo",
     "closeVideo": "Cerrar vídeo",
@@ -528,8 +535,10 @@
     "heroTitleKlab": "Noticias KLab",
     "breadcrumbKlab": "Noticias KLab",
     "emptyStateKlab": "No hay noticias disponibles. Vuelve a comprobarlo pronto.",
+    "exploreOurRootsButton": "Explora nuestras raíces",
     "heroTitleKeo": "Noticias KEO World",
     "breadcrumbKeo": "Noticias KEO World",
+    "readTimeMinutes": "Minutos",
     "filterCategoryLabel": "Categoría",
     "filterAllCategories": "Todas las categorías",
     "articleNotFoundTitle": "Artículo no encontrado",
@@ -539,10 +548,18 @@
     "galleryImageAlt": "Imagen de galería {number}",
     "close": "Cerrar"
   },
+  "newsCategories": {
+    "awards-recognition": "Premios y reconocimientos",
+    "company-updates": "Novedades de la empresa",
+    "events-announcements": "Eventos y anuncios",
+    "interviews-insights": "Entrevistas y perspectivas",
+    "technology-innovation": "Tecnología e innovación",
+    "uncategorized": "Sin categoría"
+  },
   "kena": {
     "heroHeading": "IA que entiende el riesgo como",
     "heroSecondHeading": "los humanos — pero más inteligente.",
-    "heroSubtitle": "Kena es la primera IA de riesgo del mundo que replica la toma de decisiones de los suscriptores financieros: analiza, conversa y mejora en tiempo real.",
+    "heroSubtitle": "Kena es la primera IA de riesgo del mundo que replica la toma de decisiones de los suscriptores financieros, analiza, conversa y mejora en tiempo real.",
     "twoColLeft": "Kena es el primer agente de IA de inteligencia financiera del mundo.",
     "twoColRight": "Un experto financiero que entiende, analiza y predice el riesgo financiero en tiempo real con razonamiento a nivel humano y precisión de máquina. Desde la evaluación de crédito y el modelado financiero hasta la analítica predictiva y la detección de patrones, Kena evoluciona continuamente con millones de datos de pymes para una toma de decisiones inteligente y rápida.",
     "cardsHeading": "Por qué Kena lo cambia todo",
@@ -570,12 +587,12 @@
     "ctaButton": "Solicitar una demo",
     "showPassword": "Mostrar contraseña",
     "hidePassword": "Ocultar contraseña",
-    "passwordAccessTitle": "Kena — Acceso",
+    "passwordAccessTitle": "Acceso a Kena",
     "passwordAccessDescription": "Introduce la contraseña de acceso para ver el resto de esta página.",
     "passwordLabel": "Contraseña",
     "unlockButton": "Desbloquear",
     "unlockingButton": "Desbloqueando…",
-    "passwordGateMessage": "Esta sección está protegida. Introduce la contraseña para ver más.",
+    "passwordGateMessage": "Acceso restringido. Introduce la contraseña para acceder a más información sobre Kena.",
     "passwordGateButton": "Introducir contraseña",
     "passwordHint": "Este contenido está restringido.",
     "passwordErrorInvalid": "Contraseña incorrecta. Por favor, inténtalo de nuevo.",
@@ -615,6 +632,8 @@
     "codeSectionCardTrustDescription": "La infraestructura de pagos KRails mantiene un registro fiable de todas las transacciones en tiempo real de forma segura, autenticada y verificable, impidiendo que cualquier parte altere las transacciones ejecutadas.",
     "codeSectionCardCertaintyTitle": "CERTEZA",
     "codeSectionCardCertaintyDescription": "No es solo seguridad: es certeza inmutable y absoluta en la ejecución del comercio B2B. Un registro de pago inquebrantable e inalterable que impulsa directamente tu crecimiento.",
+    "videoSectionTitle": "Vídeo de presentación de KRails",
+    "videoPosterAlt": "Vista previa del vídeo del producto KRails",
     "previousCaseStudy": "Caso de estudio anterior",
     "nextCaseStudy": "Siguiente caso de estudio",
     "showCaseStudy": "Ver {name}",
@@ -738,7 +757,7 @@
       "benefit4MainPoint": "Preparado para el futuro con tecnología blockchain que ofrece protección avanzada y cumplimiento.",
       "benefit4Sub0": "Capas de permisos que aportan flexibilidad y cumplimiento normativo",
       "benefit4Sub1": "Registro inmutable para trazas de auditoría completas e integridad de datos",
-      "modulesHeader": "Visión de arquitectura: Escalable. Seguro. Modular",
+      "modulesHeader": "Visión de arquitectura: Escalable. Seguro. Modular.",
       "module0Title": "Capa de experiencia",
       "module0Description": "Interfaces Kai Web/Móvil y K-Talks (texto/voz) para información instantánea e interacción fluida.",
       "module1Title": "Módulos centrales",
@@ -748,7 +767,7 @@
       "module3Title": "Emisión de tarjetas corporativas",
       "module3Description": "Automatización de procesos manuales para una gestión de gastos e informes más eficiente.",
       "module4Title": "Pagos e infraestructura",
-      "module4Description": "Sistema K-Rails con NFTs de facturas, fondos de crédito, contratos inteligentes y reserva de stablecoins, integrado con banca tradicional.",
+      "module4Description": "El sistema K-Rails utiliza NFTs de facturas, fondos de crédito, contratos inteligentes y reserva de stablecoins, integrado con banca tradicional.",
       "module5Title": "Capa de integración",
       "module5Description": "APIs seguras que conectan con ERP/CRM, entidades bancarias, autoridades fiscales, bureaus de crédito y plataformas contables.",
       "module6Title": "Seguridad y cumplimiento",

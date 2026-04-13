@@ -12,6 +12,11 @@ import { DesktopDropdown } from "@/ui/shared/components/dropdown-menu/dropdown-m
 import { ThemeToggle } from "@/ui/shared/components/theme-toggle/theme-toggle";
 import { LocaleSwitcher } from "@/ui/shared/components/locale-switcher/locale-switcher";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
+import {
+  TECHNOLOGIES,
+  preloadTechnologyLogos,
+} from "@/ui/shared/components/technologies-showcase/technologies-showcase";
+import { useTheme } from "@/ui/shared/hooks/use-theme";
 import { getSavedScrollY } from "@/ui/shared/utils/scroll-preservation";
 import styles from "./navbar.module.css";
 
@@ -32,6 +37,7 @@ export const NavigationMenuDemo = ({
   const path = usePathname();
   const t = useTranslations("nav");
   const nav = serverNavTranslations ?? buildNavTranslations(t);
+  const { effectiveTheme } = useTheme();
   const [isAtTop, setIsAtTop] = useState(() => {
     if (typeof window === "undefined") return true;
     const saved = getSavedScrollY();
@@ -39,9 +45,46 @@ export const NavigationMenuDemo = ({
     return window.scrollY <= 0;
   });
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [useCompactLogo, setUseCompactLogo] = useState(false);
+  const [isNavbarHidden, setIsNavbarHidden] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const lastScrollY = useRef(0);
   const spacerRef = useRef<HTMLDivElement>(null);
   const dropdownTriggerRef = useRef<HTMLButtonElement | null>(null);
   const dropdownContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const mq1240 = window.matchMedia("(max-width: 1240px)");
+    const mq1024 = window.matchMedia("(max-width: 1024px)");
+    const update = () => setUseCompactLogo(mq1240.matches && !mq1024.matches);
+    update();
+    mq1240.addEventListener("change", update);
+    mq1024.addEventListener("change", update);
+    return () => {
+      mq1240.removeEventListener("change", update);
+      mq1024.removeEventListener("change", update);
+    };
+  }, []);
+
+  // Preload all tech logos on page load so drawer/dropdown show them instantly (Safari/mobile).
+  // Must run in main document before drawer opens; link preload gives highest priority.
+  useEffect(() => {
+    const urls = new Set<string>();
+    for (const tech of TECHNOLOGIES) {
+      urls.add(tech.logoLight);
+      urls.add(tech.logoDark);
+    }
+    const links: HTMLLinkElement[] = [];
+    urls.forEach((href) => {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = href;
+      document.head.appendChild(link);
+      links.push(link);
+    });
+    return () => links.forEach((link) => link.remove());
+  }, []);
 
   const handleDropdownClick = () => {
     setDropdownOpen(!dropdownOpen);
@@ -51,16 +94,35 @@ export const NavigationMenuDemo = ({
     let cancelled = false;
     const handleScroll = () => {
       if (cancelled) return;
+      const scrollY = window.scrollY;
+
       if (spacerRef.current) {
         const elementTop = spacerRef.current.getBoundingClientRect().top;
         setIsAtTop(elementTop >= 0);
       }
+
+      // Scroll-to-hide: hide on scroll down, show on scroll up or at top (desktop + mobile)
+      const threshold = 80;
+      const scrollDelta = scrollY - lastScrollY.current;
+
+      if (scrollY <= threshold) {
+        setIsNavbarHidden(false);
+      } else if (scrollDelta > 5) {
+        setIsNavbarHidden(true);
+      } else if (scrollDelta < -5) {
+        setIsNavbarHidden(false);
+      }
+
+      lastScrollY.current = scrollY;
     };
     // Re-check after route/locale change (after layout and any scroll restoration).
     // Double rAF so we run after ScrollToTopOnRouteChange restores scroll on locale switch.
     const raf = requestAnimationFrame(() =>
       requestAnimationFrame(() => {
-        if (!cancelled) handleScroll();
+        if (!cancelled) {
+          lastScrollY.current = window.scrollY;
+          handleScroll();
+        }
       })
     );
     window.addEventListener("load", handleScroll);
@@ -129,6 +191,7 @@ export const NavigationMenuDemo = ({
   // usePathname() returns path without locale (e.g. "/" for homepage in any locale)
   const isHomepage = path === "/";
   const useTransparentNav = isHomepage && isAtTop && !dropdownOpen;
+  const shouldHideNavbar = isNavbarHidden && !dropdownOpen && !drawerOpen;
 
   return (
     <>
@@ -137,9 +200,7 @@ export const NavigationMenuDemo = ({
           style={{
             height: "auto",
             backdropFilter: useTransparentNav ? "none" : "blur(8px)",
-            background: useTransparentNav
-              ? "transparent"
-              : "hsl(var(--background) / 0.7)",
+            background: useTransparentNav ? "transparent" : "hsl(var(--background) / 0.7)",
             borderBottom: useTransparentNav
               ? "solid 1px transparent"
               : "solid 1px hsl(var(--foreground) / 0.2)",
@@ -149,23 +210,41 @@ export const NavigationMenuDemo = ({
           aria-label={nav.mainNav}
           className={`${styles.container} ${!isHomepage && styles.forceNavStyles} ${
             !useTransparentNav && styles.containerScrolled
-          } ${dropdownOpen && styles.containerDropdownOpen}`}
+          } ${dropdownOpen && styles.containerDropdownOpen} ${shouldHideNavbar && styles.containerHidden}`}
         >
+          {/* Preload tech logos on page load so drawer technologies dropdown shows them instantly */}
+          <div className={styles.techLogoPreload} aria-hidden>
+            {TECHNOLOGIES.flatMap((tech) => [
+              <img
+                key={`${tech.href}-light`}
+                src={tech.logoLight}
+                alt=""
+                width={24}
+                height={24}
+                loading="eager"
+                fetchPriority="high"
+              />,
+              <img
+                key={`${tech.href}-dark`}
+                src={tech.logoDark}
+                alt=""
+                width={24}
+                height={24}
+                loading="eager"
+                fetchPriority="high"
+              />,
+            ])}
+          </div>
           <div className={styles.navbar}>
             <div className={styles.logoContainer}>
-              <Link
-                aria-label={nav.goToHomepage}
-                href="/"
-                className={styles.logoLinkFull}
-              >
-                <KlabLogo color="orange" format="full" height={48} initialTheme={initialTheme} />
-              </Link>
-              <Link
-                aria-label={nav.goToHomepage}
-                href="/"
-                className={styles.logoLinkCompact}
-              >
-                <KlabLogo color="orange" format="default" height={48} />
+              <Link aria-label={nav.goToHomepage} href="/" className={styles.logoLink}>
+                <KlabLogo
+                  color="orange"
+                  format="default"
+                  className={styles.logoCompact}
+                  height={48}
+                />
+                <KlabLogo color="orange" format="full" className={styles.logoFull} height={48} initialTheme={initialTheme} />
               </Link>
             </div>
 
@@ -203,6 +282,8 @@ export const NavigationMenuDemo = ({
                   ref={dropdownTriggerRef}
                   onClick={handleDropdownClick}
                   onKeyDown={handleTriggerKeyDown}
+                  onMouseEnter={() => preloadTechnologyLogos(effectiveTheme)}
+                  onFocus={() => preloadTechnologyLogos(effectiveTheme)}
                   className={styles.navLink}
                   aria-expanded={dropdownOpen}
                   aria-haspopup="true"
@@ -345,7 +426,11 @@ export const NavigationMenuDemo = ({
             </ul>
 
             <div className={styles.drawerContainer}>
-              <Drawer drawerTranslations={drawerTranslations} navTranslations={serverNavTranslations} />
+              <Drawer
+                drawerTranslations={drawerTranslations}
+                navTranslations={serverNavTranslations}
+                onOpenChange={setDrawerOpen}
+              />
             </div>
           </div>
 

@@ -65,7 +65,12 @@ function getThemeIcon(themeName: string) {
   }
 }
 
-export function MobileThemeToggle() {
+export type MobileThemeToggleProps = {
+  /** Called before theme change so the drawer can avoid closing (e.g. when used inside a dialog). */
+  onBeforeThemeChange?: () => void;
+};
+
+export function MobileThemeToggle({ onBeforeThemeChange }: MobileThemeToggleProps = {}) {
   const tTheme = useTranslations("theme");
   const tCommon = useTranslations("common");
   const { theme, setTheme } = useTheme();
@@ -128,7 +133,10 @@ export function MobileThemeToggle() {
               {(["light", "dark", "system"] as const).map((themeName) => (
                 <button
                   key={themeName}
-                  onClick={() => setTheme(themeName)}
+                  onClick={() => {
+                    onBeforeThemeChange?.();
+                    setTheme(themeName);
+                  }}
                   className={`${styles.themeOption} ${
                     theme === themeName ? styles.themeOptionActive : ""
                   }`}

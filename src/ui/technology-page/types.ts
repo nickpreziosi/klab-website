@@ -83,6 +83,10 @@ export interface TechnologyPageLayoutProps {
   defaultAlt?: string;
   /** When true, skip entrance animations (e.g. locale switch). */
   skipAnimation?: boolean;
+  /** 'pill-per-column' = orange pill above each benefit column in a 3-column grid; default = all pills in one row, then columns. */
+  benefitColumnsVariant?: "default" | "pill-per-column";
+  /** When true, hero mockup column grows to fill the hero and the mockup aligns to the bottom (e.g. K-Talk). */
+  heroMockupExtendToBottom?: boolean;
 }
 
 /** Server-resolved strings for technology page UI (CTA, image alt). Pass from page to view. */

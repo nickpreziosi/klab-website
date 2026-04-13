@@ -53,7 +53,7 @@ export const articlesQuery = groq`
     category,
     readTime,
     excerpt,
-    language
+    language,
   }
 `;
 
@@ -102,4 +102,100 @@ const articleSlugsQuery = groq`
 export async function getArticleSlugs(): Promise<string[]> {
   const result = await client.fetch<{ slug: string }[]>(articleSlugsQuery);
   return result?.map((r) => r.slug).filter(Boolean) ?? [];
+}
+
+// --- International Articles ---
+
+export interface SanityLocalization {
+  language: string;
+  title: string;
+  image?: {
+    asset: { _ref?: string; _type?: string };
+    caption?: string;
+    alt?: string;
+  };
+  excerpt?: string;
+  body?: Array<{ _type: string; [key: string]: unknown }>;
+}
+
+export interface SanityInternationalArticle {
+  _id: string;
+  slug: { current: string };
+  publishedAt: string;
+  embedLink?: string;
+  author?: string;
+  authorRole?: string;
+  category?: string;
+  readTime?: string;
+  gallery?: Array<{
+    asset: { _ref?: string; _type?: string };
+    caption?: string;
+    alt?: string;
+  }>;
+  localizations: SanityLocalization[];
+}
+
+const internationalArticlesQuery = groq`
+  *[_type == "internationalArticle"] | order(publishedAt desc) {
+    _id,
+    slug,
+    publishedAt,
+    embedLink,
+    author,
+    authorRole,
+    category,
+    readTime,
+    localizations[] {
+      language,
+      title,
+      image {
+        asset,
+        caption,
+        alt
+      },
+      excerpt
+    }
+  }
+`;
+
+const internationalArticleBySlugQuery = groq`
+  *[_type == "internationalArticle" && slug.current == $slug][0] {
+    _id,
+    slug,
+    publishedAt,
+    embedLink,
+    author,
+    authorRole,
+    category,
+    readTime,
+    gallery[] {
+      asset,
+      caption,
+      alt
+    },
+    localizations[] {
+      language,
+      title,
+      image {
+        asset,
+        caption,
+        alt
+      },
+      excerpt,
+      body
+    }
+  }
+`;
+
+export async function getAllInternationalArticles(): Promise<SanityInternationalArticle[]> {
+  return await client.fetch<SanityInternationalArticle[]>(internationalArticlesQuery);
+}
+
+export async function getInternationalArticleBySlug(
+  slug: string
+): Promise<SanityInternationalArticle | null> {
+  return await client.fetch<SanityInternationalArticle | null>(
+    internationalArticleBySlugQuery,
+    { slug }
+  );
 }

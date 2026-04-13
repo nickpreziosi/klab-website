@@ -22,7 +22,13 @@ export const Hero = ({
 }: HeroProps = {}) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const t = useTranslations("hero");
-  const translations = serverTranslations ?? buildHeroTranslations(t);
+  const tCommon = useTranslations("common");
+  const translations: HeroTranslations =
+    serverTranslations ??
+    {
+      ...buildHeroTranslations(t),
+      learnMore: tCommon("learnMore"),
+    };
 
   // Pause video when not visible to save resources
   useEffect(() => {
@@ -49,15 +55,11 @@ export const Hero = ({
             subtitle={translations.subtitle}
             buttonText={translations.contactSales}
             buttonHref="/contact/sales"
+            buttonTwoText={translations.learnMore}
+            buttonTwoHref="#home-promo"
             skipAnimation={skipAnimation}
           />
         </div>
-
-        <VideoPlayer
-          posterUrl="/images/klab-home-main-poster.webp"
-          videoUrl="/videos/klab-home-main.mp4"
-          skipAnimation={skipAnimation}
-        />
       </div>
     </section>
   );

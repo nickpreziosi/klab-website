@@ -91,8 +91,12 @@
   margin-left: 6px;
 }
 
+.accordionRoot[data-skip-caret-animation] .caretIcon {
+  transition: none;
+}
+
 .accordionTrigger[data-state="closed"] .caretIcon {
-  transform: rotate(180deg);
+  transform: rotate(-180deg);
 }
 
 .accordionContent {
@@ -173,16 +177,12 @@
   }
 
   .edit {
-    font-size: var(--text-md);
+    display: none;
   }
 }
 
 @media only screen and (max-width: 350px) {
   .triggerLabel {
-    font-size: var(--text-sm);
-  }
-
-  .edit {
     font-size: var(--text-sm);
   }
 }

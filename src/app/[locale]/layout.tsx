@@ -4,6 +4,7 @@ import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
 import { routing } from "@/i18n/routing";
+import { CookieConsentProvider } from "@/ui/shared/components/cookie-consent-provider/cookie-consent-provider";
 import { ScrollToTopOnRouteChange } from "@/ui/shared/components/scroll-to-top-on-route-change/scroll-to-top-on-route-change";
 import { SkipAnimationOnLocaleSwitchProvider } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import { AppShell } from "@/ui/shared/containers/app-shell/app-shell";
@@ -44,6 +45,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <NextIntlClientProvider locale={currentLocale} messages={messages}>
+      <CookieConsentProvider />
       <SkipAnimationOnLocaleSwitchProvider>
         <ScrollToTopOnRouteChange />
         <AppShell

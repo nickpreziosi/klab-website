@@ -19,7 +19,9 @@
   "hero": {
     "title": "Building the Future of Financial Infrastructure",
     "subtitle": "KLab develops the technology that automates risk, payments, and financial operations — all in one intelligent platform.",
-    "contactSales": "Contact Sales"
+    "contactSales": "Contact Sales",
+    "promoVideoPosterAlt": "KLab promotional video",
+    "promoVideoSectionLabel": "KLab promotional video"
   },
   "companyHero": {
     "headlineLine1": "Where Capital",
@@ -42,9 +44,9 @@
     "company": "Company",
     "news": "News",
     "contact": "Contact",
-    "copyright": "© 2026 KLab. All rights reserved. • 328 NW 29th St. Miami, Florida 33127",
-    "legal1": "Use of this site constitutes acceptance of KLab's Privacy and Data Protection Policy.",
-    "legal2": "KLab and its affiliates collect and process personal data in accordance with applicable privacy laws."
+    "copyright": "© 2026 K Lab AI Holdings Inc. All rights reserved. • 328 NW 29th St. Miami, Florida 33127",
+    "legal1": "Use of this site constitutes acceptance of K Lab AI Holdings Inc.'s Privacy and Data Protection Policy.",
+    "legal2": "K Lab AI Holdings Inc. and its affiliates collect and process personal data in accordance with applicable privacy laws."
   },
   "cookieBanner": {
     "message": "We use cookies to improve your experience and analyze site traffic. You can accept all cookies or only those essential for the site to function.",
@@ -143,6 +145,10 @@
         "position": "Legal",
         "bio": "Juan Gabriel combines over 15 years of experience in international law firms and technology companies, advising on corporate, financial, and regulatory matters that support growth in complex, cross-border markets."
       },
+      "nickSchwartz": {
+        "position": "Commercial",
+        "bio": "Nick is a SaaS and Web3 executive with over 17 years of experience scaling high-growth companies from early stage to market leaders. He was employee #10 at Sprinklr (NYSE:CXM), helping scale it into a $5B public company, and most recently led Customer Success and Partnerships at Digital Asset, supporting the largest blockchain ecosystem across TradFi and DeFi."
+      },
       "tomasGuzman": {
         "position": "Government & Institutional Relations",
         "bio": "Tomás is Director of Institutional & Government Relations at KLab, leading stakeholder engagement and strategic partnerships. A trained lawyer and former Minister Counsellor at Venezuela's Embassy in Brazil, he brings diplomacy and public-private sector expertise and excels in negotiation, institutional positioning, and long-term growth."
@@ -188,7 +194,7 @@
     "portuguese": "Portuguese"
   },
   "technologiesDropdown": {
-    "heading": "Our Technologies",
+    "heading": "Our Ecosystem",
     "krailsDesc": "B2B blockchain payments and lending with instant settlements",
     "kenaDesc": "World's first AI underwriter for intelligent credit decisions",
     "ktalkDesc": "AI-powered chatbot for internal and external support",
@@ -435,6 +441,7 @@
     "contactSales": "Contact Sales",
     "learnMore": "Learn More",
     "loading": "Loading",
+    "loadingProgress": "Loading...",
     "dismiss": "Dismiss",
     "playVideo": "Play video",
     "closeVideo": "Close Video Modal",
@@ -528,8 +535,10 @@
     "heroTitleKlab": "KLab News",
     "breadcrumbKlab": "KLab News",
     "emptyStateKlab": "No news available. Check back again soon.",
+    "exploreOurRootsButton": "Explore Our Roots",
     "heroTitleKeo": "KEO World News",
     "breadcrumbKeo": "KEO World News",
+    "readTimeMinutes": "Minutes",
     "filterCategoryLabel": "Category",
     "filterAllCategories": "All Categories",
     "articleNotFoundTitle": "Article Not Found",
@@ -539,10 +548,18 @@
     "galleryImageAlt": "Gallery image {number}",
     "close": "Close"
   },
+  "newsCategories": {
+    "awards-recognition": "Awards & Recognition",
+    "company-updates": "Company Updates",
+    "events-announcements": "Events & Announcements",
+    "interviews-insights": "Interviews & Insights",
+    "technology-innovation": "Technology & Innovation",
+    "uncategorized": "Uncategorized"
+  },
   "kena": {
     "heroHeading": "AI that Understands Risk the Way",
     "heroSecondHeading": "Humans Do — Only Smarter.",
-    "heroSubtitle": "Kena is the world's first risk AI that replicates the decision-making of financial underwriters — analyzing, conversing, and improving in real time.",
+    "heroSubtitle": "Kena is the world's first risk AI that replicates the decision-making of financial underwriters, analyzing, conversing, and improving in real time.",
     "twoColLeft": "Kena is the world's first financial intelligence AI agent.",
     "twoColRight": "A finance expert that understands, analyzes, and predicts financial risk in real time with human-level reasoning and machine precision. From credit assessment and financial modeling to predictive analytics and pattern detection, Kena continuously evolves through millions of SME data points — driving intelligent and fast, data-driven decision-making.",
     "cardsHeading": "Why Kena changes everything",
@@ -570,12 +587,12 @@
     "ctaButton": "Request a Demo",
     "showPassword": "Show password",
     "hidePassword": "Hide password",
-    "passwordAccessTitle": "Kena — Access",
+    "passwordAccessTitle": "Access Kena",
     "passwordAccessDescription": "Enter the access password to reveal the rest of this page.",
     "passwordLabel": "Password",
     "unlockButton": "Unlock",
     "unlockingButton": "Unlocking…",
-    "passwordGateMessage": "This section is protected. Enter the password to view more.",
+    "passwordGateMessage": "Access restricted. Enter the password to view additional information about Kena.",
     "passwordGateButton": "Enter password",
     "passwordHint": "This content is gated.",
     "passwordErrorInvalid": "Invalid password. Please try again.",
@@ -615,6 +632,8 @@
     "codeSectionCardTrustDescription": "KRails payment infrastructure keeps a trusted record for all real-time transactions in a secure, authenticated, and verifiable manner, preventing any party from altering executed transactions.",
     "codeSectionCardCertaintyTitle": "CERTAINTY",
     "codeSectionCardCertaintyDescription": "It's not just security — it's immutable and absolute certainty in execution for B2B trade. This is a payment record that is unbreakable and unchangeable, directly powering your growth.",
+    "videoSectionTitle": "KRails overview video",
+    "videoPosterAlt": "KRails product video preview",
     "previousCaseStudy": "Previous case study",
     "nextCaseStudy": "Next case study",
     "showCaseStudy": "Show {name}",
@@ -738,7 +757,7 @@
       "benefit4MainPoint": "Futureproofed with blockchain technology offering advanced protection and compliance features.",
       "benefit4Sub0": "Permission layers providing flexibility and regulatory compliance",
       "benefit4Sub1": "Immutable ledgering for complete audit trails and data integrity",
-      "modulesHeader": "Architecture overview: Scalable. Secure. Modular",
+      "modulesHeader": "Architecture overview: Scalable. Secure. Modular.",
       "module0Title": "Experience Layer",
       "module0Description": "Kai Web/Mobile interfaces and K-Talks (text/voice) for instant insights and seamless user interaction.",
       "module1Title": "Core Modules",
@@ -748,7 +767,7 @@
       "module3Title": "Corporate Card Issuance",
       "module3Description": "Automating manual processes for more efficient spend management and reporting oversight.",
       "module4Title": "Payments & Rails",
-      "module4Description": "K-Rails system with invoice NFTs, credit pools, Smart contracts, and stablecoin reserve, integrated with traditional banking infrastructure.",
+      "module4Description": "K-Rails system uses invoice NFTs, credit pools, smart contracts, and stablecoin reserve, integrated with traditional banking infrastructure.",
       "module5Title": "Integration Layer",
       "module5Description": "Secure APIs connecting to ERP/CRM systems, banking partners, tax authorities, credit bureaus, and accounting platforms.",
       "module6Title": "Security & Compliance",

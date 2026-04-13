@@ -24,7 +24,9 @@ import { useRouter, usePathname } from "@/i18n/navigation";
 import {
   saveScrollBeforeLocaleSwitch,
   setSkipAnimationsOnNextPageLoad,
+  setSkipAnimationForPath,
 } from "@/ui/shared/utils/scroll-preservation";
+import { useSetSkipAnimationForPath } from "@/ui/shared/providers/skip-animation-for-path-provider/skip-animation-for-path-provider";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/i18n/routing";
 import themeToggleStyles from "../theme-toggle/theme-toggle.module.css";
@@ -51,12 +53,16 @@ export function LocaleSwitcher() {
   const currentLocale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const setPathToSkip = useSetSkipAnimationForPath();
 
   const handleValueChange = (value: string) => {
     const newLocale = value as Locale;
     if (newLocale === currentLocale) return;
     saveScrollBeforeLocaleSwitch();
     setSkipAnimationsOnNextPageLoad();
+    const targetFullPath = pathname === "/" ? `/${newLocale}` : `/${newLocale}${pathname}`;
+    setPathToSkip(targetFullPath);
+    setSkipAnimationForPath(targetFullPath);
     router.push(pathname, { locale: newLocale, scroll: false });
   };
 

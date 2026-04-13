@@ -12,6 +12,7 @@ import { ContactLink } from "@/ui/contact/components/contact-link/contact-link";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import NewsFilters from "@/ui/news/components/news-filters/news-filters";
 import styles from "./NewsView.module.css";
+import Button from "@/ui/shared/components/button/button";
 
 export interface NewsViewArticle {
   slug: string;
@@ -45,6 +46,10 @@ export interface NewsViewProps {
   emptyStateMessage?: string;
   /** When false, hide the articles section (main news page: cards only). */
   showArticles?: boolean;
+  /** CTA below the article feed linking to KEO World news. */
+  showExploreRootsCta?: boolean;
+  /** Document text direction; use `rtl` for Arabic on the main KLab news routes (not KEO). */
+  contentDirection?: "ltr" | "rtl";
 }
 
 export function NewsView({
@@ -58,6 +63,8 @@ export function NewsView({
   heroSubtitle,
   breadcrumbCurrent,
   emptyStateMessage,
+  showExploreRootsCta = false,
+  contentDirection = "ltr",
 }: NewsViewProps) {
   const t = useTranslations("newsPage");
   const locale = useLocale();
@@ -84,7 +91,7 @@ export function NewsView({
   const hasNoResults = articles.length === 0;
 
   return (
-    <main className={styles.main}>
+    <main className={styles.main} dir={contentDirection}>
       <section className={styles.hero}>
         <div className={styles.heroBackground}>
           <motion.div
@@ -103,7 +110,11 @@ export function NewsView({
         <div className={styles.heroContent}>
           <motion.h1
             className={styles.heroTitle}
-            initial={skipAnimation ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 30, filter: "blur(10px)" }}
+            initial={
+              skipAnimation
+                ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                : { opacity: 0, y: 30, filter: "blur(10px)" }
+            }
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -127,7 +138,11 @@ export function NewsView({
           {resolvedHeroSubtitle ? (
             <motion.p
               className={styles.heroSubtitle}
-              initial={skipAnimation ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 20, filter: "blur(10px)" }}
+              initial={
+                skipAnimation
+                  ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                  : { opacity: 0, y: 20, filter: "blur(10px)" }
+              }
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
@@ -160,7 +175,7 @@ export function NewsView({
               }
               title={t("cardOurPresentTitle")}
               description={t("cardOurPresentDescription")}
-              href={`/${locale}/news/klab`}
+              href={`/${locale}/news`}
               buttonText={t("cardOurPresentButton")}
             />
             <ContactLink
@@ -192,7 +207,11 @@ export function NewsView({
 
       {showArticles && (
         <section className={styles.articlesSection}>
-          <NewsFilters categories={allCategories} selectedCategories={selectedCategories} />
+          <NewsFilters
+            categories={allCategories}
+            selectedCategories={selectedCategories}
+            popoverDir={contentDirection === "rtl" ? "rtl" : "ltr"}
+          />
 
           {hasNoResults ? (
             <motion.div
@@ -231,9 +250,23 @@ export function NewsView({
                       <NewsCard key={article.slug} article={article} index={index} />
                     ))}
               </div>
-              {!isLoading && totalPages > 1 && <Pagination totalPages={totalPages} />}
+              {!isLoading && totalPages > 1 && (
+                <div
+                  className={contentDirection === "rtl" ? styles.paginationLtrShell : undefined}
+                  dir={contentDirection === "rtl" ? "ltr" : undefined}
+                >
+                  <Pagination totalPages={totalPages} />
+                </div>
+              )}
             </>
           )}
+          {showExploreRootsCta ? (
+            <div className={styles.exploreRootsWrap}>
+              <Button href="/news/keo" size="lg" variant="accent-brand">
+                {t("exploreOurRootsButton")}
+              </Button>
+            </div>
+          ) : null}
         </section>
       )}
     </main>

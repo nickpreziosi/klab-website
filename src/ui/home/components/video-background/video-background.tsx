@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useInView, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import styles from "./video-background.module.css";
@@ -25,11 +26,53 @@ export default function VideoPlayer({
   const [isLoaded, setIsLoaded] = useState(false);
   const [visible, setVisible] = useState(skipAnimation);
   const [mediaVisible, setMediaVisible] = useState(false);
+  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
   const containerRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    setPortalTarget(document.body);
+  }, []);
+
+  // Safari can lay out the fixed background wrong on first paint (~200px left). Force correct
+  // position/size from the visual viewport after mount and on resize.
+  useEffect(() => {
+    if (!portalTarget || !wrapperRef.current) return;
+
+    const applyViewportPosition = () => {
+      const wrapper = wrapperRef.current;
+      if (!wrapper) return;
+      const vv = typeof window !== "undefined" && window.visualViewport;
+      const w = vv ? vv.width : window.innerWidth;
+      const left = vv ? vv.offsetLeft : 0;
+      wrapper.style.left = `${left}px`;
+      wrapper.style.width = `${w}px`;
+      wrapper.style.transform = "none";
+    };
+
+    const runAfterLayout = () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(applyViewportPosition);
+      });
+    };
+
+    runAfterLayout();
+    window.visualViewport?.addEventListener("resize", runAfterLayout);
+    window.visualViewport?.addEventListener("scroll", runAfterLayout);
+    window.addEventListener("resize", runAfterLayout);
+
+    return () => {
+      window.visualViewport?.removeEventListener("resize", runAfterLayout);
+      window.visualViewport?.removeEventListener("scroll", runAfterLayout);
+      window.removeEventListener("resize", runAfterLayout);
+    };
+  }, [portalTarget]);
 
   // useInView to defer loading until the component is near/inside viewport
   const isInView = useInView(containerRef, { margin: "200px" });
+  // When portaled to body, the observed node can change and Chrome may not report in-view; treat as in view.
+  const effectiveInView = isInView || !!portalTarget;
 
   useEffect(() => {
     if (skipAnimation) return;
@@ -37,7 +80,7 @@ export default function VideoPlayer({
   }, [skipAnimation]);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!effectiveInView) return;
     if (!videoUrl) return;
     const vid = videoRef.current;
     if (!vid) return;
@@ -90,10 +133,10 @@ export default function VideoPlayer({
       vid.removeAttribute("src");
       vid.load();
     };
-  }, [isInView, videoUrl, fadeDurationMs, skipAnimation]);
+  }, [effectiveInView, videoUrl, fadeDurationMs, skipAnimation]);
 
-  return (
-    <div className={styles.backgroundVideo}>
+  const content = (
+    <div ref={wrapperRef} className={styles.backgroundVideo}>
       <motion.video
         ref={(el) => {
           containerRef.current = el as HTMLElement | null;
@@ -132,4 +175,11 @@ export default function VideoPlayer({
       <div aria-hidden className={styles.overlay}></div>
     </div>
   );
+
+  // Portal into body so position:fixed is always relative to the viewport (avoids Safari
+  // mis-positioning when an ancestor has transform/filter or when the containing block is wrong).
+  if (portalTarget) {
+    return createPortal(content, portalTarget);
+  }
+  return content;
 }
