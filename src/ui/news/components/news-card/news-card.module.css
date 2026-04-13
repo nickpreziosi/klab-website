@@ -91,7 +91,7 @@
 .category {
   position: absolute;
   top: 16px;
-  left: 16px;
+  inset-inline-start: 16px;
   padding: 6px 12px;
   /* Keep transparency for overlay on image */
   background: hsl(var(--foreground) / 0.9);

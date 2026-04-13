@@ -5,6 +5,13 @@
   width: 100%;
 }
 
+/* Keep page numbers & prev/next controls LTR while the rest of the feed is RTL */
+.paginationLtrShell {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .hero {
   position: relative;
   width: 100%;

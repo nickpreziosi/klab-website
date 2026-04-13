@@ -441,6 +441,7 @@
     "contactSales": "Contact Sales",
     "learnMore": "Learn More",
     "loading": "Loading",
+    "loadingProgress": "Loading...",
     "dismiss": "Dismiss",
     "playVideo": "Play video",
     "closeVideo": "Close Video Modal",
@@ -537,16 +538,23 @@
     "exploreOurRootsButton": "Explore Our Roots",
     "heroTitleKeo": "KEO World News",
     "breadcrumbKeo": "KEO World News",
+    "readTimeMinutes": "Minutes",
     "filterCategoryLabel": "Category",
     "filterAllCategories": "All Categories",
-    "filterLanguageLabel": "Language",
-    "filterAllLanguages": "All Languages",
     "articleNotFoundTitle": "Article Not Found",
     "backToNews": "Back to News",
     "previousImage": "Previous image",
     "nextImage": "Next image",
     "galleryImageAlt": "Gallery image {number}",
     "close": "Close"
+  },
+  "newsCategories": {
+    "awards-recognition": "Awards & Recognition",
+    "company-updates": "Company Updates",
+    "events-announcements": "Events & Announcements",
+    "interviews-insights": "Interviews & Insights",
+    "technology-innovation": "Technology & Innovation",
+    "uncategorized": "Uncategorized"
   },
   "kena": {
     "heroHeading": "AI that Understands Risk the Way",

@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import { translateNewsCategory } from "@/ui/news/utils/news-category";
 import styles from "./news-card.module.css";
 import Image from "next/image";
 
@@ -47,12 +49,14 @@ interface NewsCardProps {
     embedLink?: string;
     author?: string;
     authorRole?: string;
-    lang?: string;
   };
   index: number;
 }
 
 export default function NewsCard({ article, index }: NewsCardProps) {
+  const tCategory = useTranslations("newsCategories");
+  const categoryLabel = translateNewsCategory(tCategory, article.category);
+
   return (
     <motion.article
       className={styles.card}
@@ -65,10 +69,7 @@ export default function NewsCard({ article, index }: NewsCardProps) {
         ease: [0.22, 1, 0.36, 1],
       }}
     >
-      <Link
-        href={article.lang ? `/news/${article.slug}?lang=${article.lang}` : `/news/${article.slug}`}
-        className={styles.link}
-      >
+      <Link href={`/news/${article.slug}`} className={styles.link}>
         <div className={styles.imageContainer}>
           {article.youtubeId ? (
             <>
@@ -154,7 +155,7 @@ export default function NewsCard({ article, index }: NewsCardProps) {
             </>
           )}
 
-          <div className={styles.category}>{article.category}</div>
+          <div className={styles.category}>{categoryLabel}</div>
         </div>
 
         <div className={styles.content}>
@@ -178,8 +179,12 @@ export default function NewsCard({ article, index }: NewsCardProps) {
 
             <div className={styles.metaRight}>
               <time className={styles.date}>{article.date}</time>
-              <span className={styles.divider}>•</span>
-              <span className={styles.readTime}>{article.readTime}</span>
+              {article.readTime ? (
+                <>
+                  <span className={styles.divider}>•</span>
+                  <span className={styles.readTime}>{article.readTime}</span>
+                </>
+              ) : null}
             </div>
           </div>
         </div>

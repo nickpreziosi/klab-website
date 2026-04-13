@@ -3,6 +3,7 @@
 import { motion, AnimatePresence, animate, useMotionValue } from "framer-motion";
 import { useEffect, useLayoutEffect, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import styles from "./loading-progress-bar.module.css";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 import { useHomeAnimation } from "@/ui/home/providers/home-animation-provider";
@@ -38,6 +39,7 @@ const SHIMMER_LAYER_TRANSITION = {
 const LOGO_PX = 228;
 
 export function LoadingProgressBar() {
+  const t = useTranslations("common");
   const homeAnimation = useHomeAnimation();
   const skipAnimation = homeAnimation?.hasAnimated ?? false;
   const setHasAnimated = homeAnimation?.setHasAnimated;
@@ -194,7 +196,7 @@ export function LoadingProgressBar() {
               />
             </div>
 
-            <p className={styles.loadingText}>Loading</p>
+            <p className={styles.loadingText}>{t("loadingProgress")}</p>
           </div>
         </motion.div>
       )}

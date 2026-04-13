@@ -441,6 +441,7 @@
     "contactSales": "اتصل بالمبيعات",
     "learnMore": "اعرف المزيد",
     "loading": "جاري التحميل",
+    "loadingProgress": "جاري التحميل...",
     "dismiss": "إغلاق",
     "playVideo": "تشغيل الفيديو",
     "closeVideo": "إغلاق نافذة الفيديو",
@@ -537,16 +538,23 @@
     "exploreOurRootsButton": "استكشف جذورنا",
     "heroTitleKeo": "أخبار KEO World",
     "breadcrumbKeo": "أخبار KEO World",
+    "readTimeMinutes": "دقائق",
     "filterCategoryLabel": "الفئة",
     "filterAllCategories": "جميع الفئات",
-    "filterLanguageLabel": "اللغة",
-    "filterAllLanguages": "جميع اللغات",
     "articleNotFoundTitle": "المقال غير موجود",
     "backToNews": "العودة إلى الأخبار",
     "previousImage": "الصورة السابقة",
     "nextImage": "الصورة التالية",
     "galleryImageAlt": "صورة المعرض {number}",
     "close": "إغلاق"
+  },
+  "newsCategories": {
+    "awards-recognition": "الجوائز والتكريم",
+    "company-updates": "تحديثات الشركة",
+    "events-announcements": "الفعاليات والإعلانات",
+    "interviews-insights": "المقابلات والرؤى",
+    "technology-innovation": "التكنولوجيا والابتكار",
+    "uncategorized": "غير مصنّف"
   },
   "kena": {
     "heroHeading": "ذكاء اصطناعي يفهم المخاطر بالطريقة",

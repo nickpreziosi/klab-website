@@ -441,6 +441,7 @@
     "contactSales": "Fale com vendas",
     "learnMore": "Saiba mais",
     "loading": "Carregando",
+    "loadingProgress": "Carregando...",
     "dismiss": "Fechar",
     "playVideo": "Reproduzir vídeo",
     "closeVideo": "Fechar vídeo",
@@ -537,16 +538,23 @@
     "exploreOurRootsButton": "Explore as nossas raízes",
     "heroTitleKeo": "Notícias KEO World",
     "breadcrumbKeo": "Notícias KEO World",
+    "readTimeMinutes": "Minutos",
     "filterCategoryLabel": "Categoria",
     "filterAllCategories": "Todas as categorias",
-    "filterLanguageLabel": "Idioma",
-    "filterAllLanguages": "Todos os idiomas",
     "articleNotFoundTitle": "Artigo não encontrado",
     "backToNews": "Voltar para Notícias",
     "previousImage": "Imagem anterior",
     "nextImage": "Próxima imagem",
     "galleryImageAlt": "Imagem da galeria {number}",
     "close": "Fechar"
+  },
+  "newsCategories": {
+    "awards-recognition": "Prêmios e reconhecimento",
+    "company-updates": "Atualizações da empresa",
+    "events-announcements": "Eventos e anúncios",
+    "interviews-insights": "Entrevistas e insights",
+    "technology-innovation": "Tecnologia e inovação",
+    "uncategorized": "Sem categoria"
   },
   "kena": {
     "heroHeading": "IA que entende risco do jeito",

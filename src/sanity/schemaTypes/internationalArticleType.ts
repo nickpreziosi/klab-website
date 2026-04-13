@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { SANITY_NEWS_CATEGORY_OPTIONS } from "@/constants/news-categories";
 
 export const SUPPORTED_LANGUAGES = [
   { title: "English", value: "en" },
@@ -47,11 +48,20 @@ export const internationalArticleType = defineType({
     }),
     defineField({
       name: "category",
+      title: "Category",
       type: "string",
+      options: {
+        list: SANITY_NEWS_CATEGORY_OPTIONS.map(({ title, value }) => ({ title, value })),
+        layout: "dropdown",
+      },
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "readTime",
+      title: "Read time (minutes)",
       type: "string",
+      description:
+        "Estimated length in minutes. Enter digits only (e.g. 5). The site appends the word “Minutes” in the visitor’s language.",
     }),
     defineField({
       name: "gallery",

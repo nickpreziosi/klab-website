@@ -27,8 +27,6 @@ export interface NewsViewArticle {
   embedLink?: string;
   author?: string;
   authorRole?: string;
-  /** Language code to append as ?lang= on the article link (international articles only). */
-  lang?: string;
 }
 
 export interface NewsViewProps {
@@ -50,10 +48,8 @@ export interface NewsViewProps {
   showArticles?: boolean;
   /** CTA below the article feed linking to KEO World news. */
   showExploreRootsCta?: boolean;
-  /** When true, shows the Language filter dropdown alongside the category filter. */
-  showLanguageFilter?: boolean;
-  /** Currently selected language codes (e.g. ["en", "es"]). */
-  selectedLanguages?: string[];
+  /** Document text direction; use `rtl` for Arabic on the main KLab news routes (not KEO). */
+  contentDirection?: "ltr" | "rtl";
 }
 
 export function NewsView({
@@ -68,8 +64,7 @@ export function NewsView({
   breadcrumbCurrent,
   emptyStateMessage,
   showExploreRootsCta = false,
-  showLanguageFilter = false,
-  selectedLanguages,
+  contentDirection = "ltr",
 }: NewsViewProps) {
   const t = useTranslations("newsPage");
   const locale = useLocale();
@@ -96,7 +91,7 @@ export function NewsView({
   const hasNoResults = articles.length === 0;
 
   return (
-    <main className={styles.main}>
+    <main className={styles.main} dir={contentDirection}>
       <section className={styles.hero}>
         <div className={styles.heroBackground}>
           <motion.div
@@ -215,8 +210,7 @@ export function NewsView({
           <NewsFilters
             categories={allCategories}
             selectedCategories={selectedCategories}
-            showLanguageFilter={showLanguageFilter}
-            selectedLanguages={selectedLanguages}
+            popoverDir={contentDirection === "rtl" ? "rtl" : "ltr"}
           />
 
           {hasNoResults ? (
@@ -256,7 +250,14 @@ export function NewsView({
                       <NewsCard key={article.slug} article={article} index={index} />
                     ))}
               </div>
-              {!isLoading && totalPages > 1 && <Pagination totalPages={totalPages} />}
+              {!isLoading && totalPages > 1 && (
+                <div
+                  className={contentDirection === "rtl" ? styles.paginationLtrShell : undefined}
+                  dir={contentDirection === "rtl" ? "ltr" : undefined}
+                >
+                  <Pagination totalPages={totalPages} />
+                </div>
+              )}
             </>
           )}
           {showExploreRootsCta ? (

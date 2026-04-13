@@ -186,7 +186,7 @@
   font-weight: 300;
   color: hsl(var(--foreground));
   opacity: 0.8;
-  text-align: center;
+  text-align: start;
   line-height: 1.5;
 }
 
@@ -254,7 +254,8 @@
 .content ul,
 .content ol {
   margin: 24px 0;
-  padding-left: 24px;
+  padding-inline-start: 24px;
+  padding-left: unset;
 }
 
 .content li {
@@ -271,9 +272,13 @@
 .content blockquote {
   margin: 32px 0;
   padding: 24px 32px;
-  border-left: 4px solid hsl(var(--accent) / 0.3);
+  border-inline-start: 4px solid hsl(var(--accent) / 0.3);
+  border-left: unset;
   background: hsl(var(--surface));
-  border-radius: 0 var(--rounded-app) var(--rounded-app) 0;
+  border-start-start-radius: var(--rounded-app);
+  border-end-start-radius: var(--rounded-app);
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
   font-style: italic;
   color: hsl(var(--foreground));
   opacity: 0.9;
@@ -283,6 +288,11 @@
   padding: 0 var(--padding-desktop) 80px;
   max-width: 1440px;
   margin: 0 auto;
+}
+
+/* Point “back” arrow toward inline-start in RTL */
+.main[dir="rtl"] .backSection :global(svg) {
+  transform: scaleX(-1);
 }
 
 .backButton {
@@ -406,6 +416,7 @@
   color: hsl(var(--foreground));
   opacity: 0.8;
   line-height: 1.5;
+  text-align: start;
 }
 
 /* Dialog Styles - Using GPU-accelerated properties for safe transitions */
@@ -524,7 +535,7 @@
   font-size: 16px;
   font-weight: 300;
   color: hsl(var(--foreground));
-  text-align: center;
+  text-align: start;
   opacity: 0.9;
   max-width: 800px;
 }
@@ -532,7 +543,7 @@
 .dialogClose {
   position: absolute;
   top: 20px;
-  right: 20px;
+  inset-inline-end: 20px;
   width: 40px;
   height: 40px;
   border-radius: var(--rounded-app);
@@ -581,11 +592,11 @@
 }
 
 .carouselNavButtonPrev {
-  left: 20px;
+  inset-inline-start: 20px;
 }
 
 .carouselNavButtonNext {
-  right: 20px;
+  inset-inline-end: 20px;
 }
 
 .carouselNavButton:hover:not(:disabled) {
@@ -707,7 +718,7 @@
 
   .dialogClose {
     top: 10px;
-    right: 10px;
+    inset-inline-end: 10px;
     width: 36px;
     height: 36px;
   }
@@ -718,10 +729,10 @@
   }
 
   .carouselNavButtonPrev {
-    left: 10px;
+    inset-inline-start: 10px;
   }
 
   .carouselNavButtonNext {
-    right: 10px;
+    inset-inline-end: 10px;
   }
 }
