@@ -104,7 +104,7 @@
 .timelineDot {
   position: absolute;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   width: 16px;
   height: 16px;
   border-radius: var(--rounded-full);
@@ -125,7 +125,7 @@
 .timelineLine {
   position: absolute;
   top: 8px;
-  left: 16px;
+  inset-inline-start: 16px;
   width: calc(100% + 40px);
   height: 2px;
   background: linear-gradient(
@@ -137,7 +137,7 @@
 }
 
 .timelineContent {
-  padding-left: 0;
+  padding-inline-start: 0;
   margin-top: 20px;
   user-select: none;
   -webkit-user-select: none;
@@ -177,14 +177,14 @@
   font-size: 15px;
   line-height: 1.6;
   color: var(--secondary-color);
-  padding-left: 20px;
+  padding-inline-start: 20px;
   position: relative;
 }
 
 .milestones li::before {
   content: "•";
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   color: var(--secondary-color);
   font-weight: bold;
   font-size: 18px;

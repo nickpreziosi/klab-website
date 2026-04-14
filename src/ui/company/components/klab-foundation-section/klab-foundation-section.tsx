@@ -41,6 +41,7 @@ export default function KlabFoundationSection({ skipAnimation = false }: { skipA
           </h3>
           <Button asChild variant="accent-brand" size="lg" iconPosition="right" icon={
               <svg
+                className="rtlFlipH"
                 width="20"
                 height="20"
                 viewBox="0 0 15 15"

@@ -89,7 +89,7 @@
   color: hsl(var(--foreground));
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
-  margin-left: 6px;
+  margin-inline-start: 6px;
 }
 
 .accordionTrigger[data-state="closed"] .caretIcon {

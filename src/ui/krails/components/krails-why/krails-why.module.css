@@ -61,6 +61,7 @@
 
 /* Grid now defines the sticky container boundaries for just the 4 features */
 /* Removed min-height so grid naturally sizes to content height */
+/* dir="ltr" on the grid in TSX keeps text column left + animation right under page RTL */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -253,7 +254,6 @@
   }
 
   .rightColumn {
-    order: -1;
     margin-bottom: 2rem;
   }
   .ctaContainer {

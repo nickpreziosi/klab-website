@@ -44,7 +44,7 @@
 
 .span {
   color: hsl(var(--foreground));
-  margin-left: var(--margin-xs);
+  margin-inline-start: var(--margin-xs);
   font-size: var(--text-sm);
   transition: all 200ms ease-in-out;
 }
@@ -123,7 +123,7 @@
 
 .selectItemIndicator {
   position: absolute;
-  right: 8px;
+  inset-inline-end: 8px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;

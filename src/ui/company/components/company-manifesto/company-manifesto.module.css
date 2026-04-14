@@ -42,8 +42,8 @@
 
 .item {
   position: relative;
-  padding-left: var(--padding-md);
-  border-left: 3px solid var(--accent-color);
+  padding-inline-start: var(--padding-md);
+  border-inline-start: 3px solid var(--accent-color);
   height: fit-content;
 }
 

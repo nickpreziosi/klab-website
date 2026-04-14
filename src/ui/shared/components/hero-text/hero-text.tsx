@@ -174,6 +174,7 @@ export default function HeroText({
           >
             {buttonText}
             <svg
+              className="rtlFlipH"
               width="20"
               height="20"
               viewBox="0 0 15 15"

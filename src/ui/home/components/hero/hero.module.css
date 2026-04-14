@@ -62,7 +62,7 @@
   align-items: flex-start;
   gap: var(--gap-lg);
   max-width: 504px;
-  text-align: left;
+  text-align: start;
 }
 
 .mainHeading {
@@ -119,7 +119,7 @@
   align-items: flex-start;
   gap: var(--gap-lg);
   max-width: fit-content;
-  text-align: left;
+  text-align: start;
 }
 
 .secondaryHeading {

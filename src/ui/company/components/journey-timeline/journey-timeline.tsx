@@ -52,14 +52,14 @@ export default function JourneyTimeline({ skipAnimation = false }: { skipAnimati
                     />
                   </div>
                 </div>
-                <span className={styles.arrow}>→</span>
+                <span className={`${styles.arrow} rtlFlipH`}>→</span>
                 <div className={styles.badgeWithYear}>
                   <span className={styles.yearLabel}>{t("year2025")}</span>
                   <div className={`${styles.circularBadge} ${styles.soldBadge}`}>
                     {t("sold")}
                   </div>
                 </div>
-                <span className={styles.arrow}>→</span>
+                <span className={`${styles.arrow} rtlFlipH`}>→</span>
               </div>
               <div className={styles.futureZone}>
                 <span className={styles.futureOverlay} aria-hidden>
@@ -69,15 +69,15 @@ export default function JourneyTimeline({ skipAnimation = false }: { skipAnimati
             </div>
             <div className={styles.eventsRow}>
               <div className={styles.event}>
-                <span className={styles.eventArrow}>→</span>
+                <span className={`${styles.eventArrow} rtlFlipH`}>→</span>
                 <span>{t("event1")}</span>
               </div>
               <div className={styles.event}>
-                <span className={styles.eventArrow}>→</span>
+                <span className={`${styles.eventArrow} rtlFlipH`}>→</span>
                 <span>{t("event2")}</span>
               </div>
               <div className={styles.event}>
-                <span className={styles.eventArrow}>→</span>
+                <span className={`${styles.eventArrow} rtlFlipH`}>→</span>
                 <span>{t("event3")}</span>
               </div>
             </div>

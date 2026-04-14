@@ -1,6 +1,6 @@
 .sidebar {
   position: fixed;
-  left: 2rem;
+  inset-inline-start: 2rem;
   top: 50%;
   transform: translateY(-50%);
   z-index: 5; /* Below navbar (10) so dropdown menu appears on top */

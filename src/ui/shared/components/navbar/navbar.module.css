@@ -108,8 +108,10 @@
   height: 100%;
   padding: 12px !important;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  gap: var(--margin-xs);
   background-color: transparent;
   border: none;
   color: hsl(var(--foreground));
@@ -130,10 +132,11 @@
 }
 
 .icon {
-  margin-right: var(--margin-xs);
+  flex-shrink: 0;
 }
 
 .caretIcon {
+  flex-shrink: 0;
   transition: transform 250ms ease;
 }
 
@@ -166,7 +169,7 @@
 
 .drawerContainer {
   display: none;
-  padding-right: 6px;
+  padding-inline-end: 6px;
 }
 
 .themeToggleContainer {

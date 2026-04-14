@@ -77,6 +77,7 @@ export default function KRailsCta({
               variant="secondary"
               icon={
                 <svg
+                  className="rtlFlipH"
                   width="15"
                   height="15"
                   viewBox="0 0 15 15"

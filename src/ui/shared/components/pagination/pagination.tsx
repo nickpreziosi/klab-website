@@ -3,9 +3,11 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { getTextDirection, type Locale } from "@/i18n/routing";
 import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import { cn } from "@/ui/shared/utils/utils";
 import styles from "./pagination.module.css";
 
 const MOBILE_BREAKPOINT = 768;
@@ -62,6 +64,8 @@ function mobilePagesWithGaps(
 
 export function Pagination({ totalPages }: PaginationProps) {
   const t = useTranslations("pagination");
+  const locale = useLocale();
+  const navDir = getTextDirection(locale as Locale) === "rtl" ? "rtl" : "ltr";
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
@@ -115,6 +119,7 @@ export function Pagination({ totalPages }: PaginationProps) {
       role="navigation"
       aria-label={t("ariaLabel")}
       className={styles.pagination}
+      dir={navDir}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -134,7 +139,7 @@ export function Pagination({ totalPages }: PaginationProps) {
               if (isPreviousDisabled) e.preventDefault();
             }}
           >
-            <ChevronLeft className={styles.icon} aria-hidden />
+            <ChevronLeft className={cn(styles.icon, "rtlFlipH")} aria-hidden />
             <span>{t("prev")}</span>
           </Link>
         </li>
@@ -182,7 +187,7 @@ export function Pagination({ totalPages }: PaginationProps) {
             }}
           >
             <span>{t("next")}</span>
-            <ChevronRight className={styles.icon} aria-hidden />
+            <ChevronRight className={cn(styles.icon, "rtlFlipH")} aria-hidden />
           </Link>
         </li>
       </ul>

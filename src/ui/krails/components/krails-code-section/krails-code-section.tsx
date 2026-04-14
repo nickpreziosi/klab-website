@@ -70,7 +70,7 @@ export default function KRailsCodeSection({
           {translations.codeSectionHeadingLine2}
         </h2>
         <div className={styles.grid}>
-          <div className={styles.leftColumn} ref={leftColRef}>
+          <div className={styles.leftColumn} ref={leftColRef} dir="ltr">
             <KRailsCodeAnimation
               sections={exampleApiSections}
               typingSpeed={20}

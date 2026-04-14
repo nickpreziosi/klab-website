@@ -2,7 +2,9 @@
 
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { getTextDirection, type Locale } from "@/i18n/routing";
+import { cn } from "@/ui/shared/utils/utils";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
 import { Card, CardContent } from "@/ui/shared/components/card/card";
 import { ClientOnly } from "@/ui/shared/components/client-only/client-only";
@@ -55,10 +57,13 @@ interface HomeSecondarySection {
 }
 
 const Globe = () => {
+  const locale = useLocale();
+  const mirrorGlobe = getTextDirection(locale as Locale) === "rtl";
+
   return (
     <svg
       viewBox="0 0 838 700"
-      className={styles.globe}
+      className={cn(styles.globe, mirrorGlobe && styles.globeMirror)}
       xmlns="http://www.w3.org/2000/svg"
       width={838}
       height={700}

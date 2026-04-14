@@ -48,8 +48,13 @@ export interface NewsViewProps {
   showArticles?: boolean;
   /** CTA below the article feed linking to KEO World news. */
   showExploreRootsCta?: boolean;
-  /** Document text direction; use `rtl` for Arabic on the main KLab news routes (not KEO). */
+  /** Page chrome (hero, filters, sections): use `rtl` for Arabic on news routes. */
   contentDirection?: "ltr" | "rtl";
+  /**
+   * When set, applied to the article cards grid only (e.g. `ltr` on `/news/keo` so English cards
+   * stay left-to-right while `contentDirection` is `rtl` for Arabic layout).
+   */
+  articlesContentDirection?: "ltr" | "rtl";
 }
 
 export function NewsView({
@@ -65,6 +70,7 @@ export function NewsView({
   emptyStateMessage,
   showExploreRootsCta = false,
   contentDirection = "ltr",
+  articlesContentDirection,
 }: NewsViewProps) {
   const t = useTranslations("newsPage");
   const locale = useLocale();
@@ -241,7 +247,10 @@ export function NewsView({
             </motion.div>
           ) : (
             <>
-              <div className={styles.articlesGrid}>
+              <div
+                className={styles.articlesGrid}
+                dir={articlesContentDirection}
+              >
                 {isLoading
                   ? Array.from({ length: articlesPerPage }).map((_, index) => (
                       <NewsCardSkeleton key={index} />

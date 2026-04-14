@@ -162,6 +162,15 @@
   border-radius: 0 100% 100% 0 / 0 50% 50% 0;
 }
 
+/* RTL: mirror horizontal semicircles so the flat edge still faces the center KLab circle */
+html[dir="rtl"] .techCircle.leftHalf {
+  border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+}
+
+html[dir="rtl"] .techCircle.rightHalf {
+  border-radius: 100% 0 0 100% / 50% 0 0 50%;
+}
+
 .techContent {
   display: flex;
   flex-direction: column;

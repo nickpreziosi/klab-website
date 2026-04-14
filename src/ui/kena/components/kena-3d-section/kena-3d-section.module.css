@@ -51,8 +51,8 @@
   font-size: 28px;
   line-height: 32px;
   letter-spacing: -0.5%;
-  border-left: 2px solid var(--secondary-color);
-  padding-left: 16px;
+  border-inline-start: 2px solid var(--secondary-color);
+  padding-inline-start: 16px;
 }
 
 .leftColumnItemText {

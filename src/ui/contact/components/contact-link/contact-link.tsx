@@ -65,6 +65,7 @@ export function ContactLink({
             size="md"
             icon={
               <svg
+                className="rtlFlipH"
                 width="20"
                 height="20"
                 viewBox="0 0 15 15"

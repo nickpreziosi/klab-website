@@ -390,6 +390,7 @@ export function ArticleView({
                   aria-label={t("nextImage")}
                 >
                   <svg
+                    className="rtlFlipH"
                     width="24"
                     height="24"
                     viewBox="0 0 15 15"

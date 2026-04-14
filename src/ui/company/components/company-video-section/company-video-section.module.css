@@ -32,7 +32,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  text-align: left;
+  text-align: start;
   padding: var(--padding-tablet);
   gap: 24px;
   background: linear-gradient(

@@ -7,6 +7,16 @@
   flex-wrap: wrap;
   gap: 16px;
   align-items: flex-end;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+/* Match /news: control width; inline-start alignment → left (LTR) / right (RTL) */
+.filtersRow > * {
+  flex: 0 1 480px;
+  width: 100%;
+  max-width: 480px;
+  min-width: 0;
 }
 
 @media (max-width: 768px) {
@@ -16,5 +26,9 @@
   .filtersRow {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .filtersRow > * {
+    max-width: none;
   }
 }

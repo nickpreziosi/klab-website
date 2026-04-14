@@ -10,3 +10,8 @@ export const routing = defineRouting({
 });
 
 export type Locale = (typeof routing.locales)[number];
+
+/** Document text direction for the active locale (next-intl is source of truth). */
+export function getTextDirection(locale: Locale): "rtl" | "ltr" {
+  return locale === "ar" ? "rtl" : "ltr";
+}

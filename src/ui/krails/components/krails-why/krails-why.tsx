@@ -2,6 +2,8 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useLocale } from "next-intl";
+import { getTextDirection, type Locale } from "@/i18n/routing";
 import styles from "./krails-why.module.css";
 import Button from "@/ui/shared/components/button/button";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
@@ -31,6 +33,8 @@ export default function KRailsWhy({
   const lottieRef = useRef<LottieRefCurrentProps>(null);
   const [progress, setProgress] = useState(0);
   const [isSafari, setIsSafari] = useState(false);
+  const locale = useLocale();
+  const textDir = getTextDirection(locale as Locale) === "rtl" ? "rtl" : "ltr";
 
   useEffect(() => {
     const ua = navigator.userAgent.toLowerCase();
@@ -98,8 +102,8 @@ export default function KRailsWhy({
           </motion.p>
         </div>
 
-        <div className={styles.grid}>
-          <div className={styles.scrollContent} ref={leftRef}>
+        <div className={styles.grid} dir="ltr">
+          <div className={styles.scrollContent} ref={leftRef} dir={textDir}>
             <div className={styles.leftColumn}>
               <motion.div
                 className={styles.textBlock}
@@ -156,7 +160,14 @@ export default function KRailsWhy({
                     iconPosition="right"
                     href="/contact/sales"
                     icon={
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg
+                        className="rtlFlipH"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
                         <path
                           d="M4 10H16M16 10L10 4M16 10L10 16"
                           stroke="currentColor"
@@ -185,7 +196,7 @@ export default function KRailsWhy({
               }}
             />
           </div>
-          <div className={styles.rightColumn} ref={rightRef}>
+          <div className={styles.rightColumn} ref={rightRef} dir="ltr">
             <div aria-hidden role="presentation" tabIndex={-1} className={styles.animationContainer}>
               <Lottie
                 lottieRef={lottieRef}

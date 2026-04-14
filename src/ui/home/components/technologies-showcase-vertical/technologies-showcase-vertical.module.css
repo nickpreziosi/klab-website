@@ -269,6 +269,15 @@
   border-radius: 0 100% 100% 0 / 0 50% 50% 0;
 }
 
+/* RTL: mirror horizontal semicircles (flat edge toward center circle) */
+html[dir="rtl"] .wrapperDesktop .techCircle.leftHalf {
+  border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+}
+
+html[dir="rtl"] .wrapperDesktop .techCircle.rightHalf {
+  border-radius: 100% 0 0 100% / 50% 0 0 50%;
+}
+
 .wrapperDesktop .description {
   bottom: calc(-1 * 40%);
   left: 50%;

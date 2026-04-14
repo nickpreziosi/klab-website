@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/ui/shared/components/card/card";
 import { useTheme } from "@/ui/shared/hooks/use-theme";
+import { cn } from "@/ui/shared/utils/utils";
 import type {
   TechnologyPageLayoutProps,
   TechnologyInfoSection,
@@ -310,7 +311,7 @@ export function TechnologyPageLayout({
                       href={cta.href}
                       variant="accent-brand"
                       iconPosition="end"
-                      icon={<ArrowRight className={styles.heroCtaIcon} />}
+                      icon={<ArrowRight className={cn(styles.heroCtaIcon, "rtlFlipH")} />}
                     >
                       {cta.label}
                     </Button>

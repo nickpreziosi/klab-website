@@ -27,7 +27,7 @@ import {
   setSkipAnimationForPath,
 } from "@/ui/shared/utils/scroll-preservation";
 import { useSetSkipAnimationForPath } from "@/ui/shared/providers/skip-animation-for-path-provider/skip-animation-for-path-provider";
-import { routing } from "@/i18n/routing";
+import { getTextDirection, routing } from "@/i18n/routing";
 import type { Locale } from "@/i18n/routing";
 import themeToggleStyles from "../theme-toggle/theme-toggle.module.css";
 import styles from "./locale-switcher.module.css";
@@ -54,6 +54,7 @@ export function LocaleSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const setPathToSkip = useSetSkipAnimationForPath();
+  const isRtl = getTextDirection(currentLocale as Locale) === "rtl";
 
   const handleValueChange = (value: string) => {
     const newLocale = value as Locale;
@@ -94,6 +95,7 @@ export function LocaleSwitcher() {
               </TooltipTrigger>
               <SelectPortal>
                 <SelectContent
+                  dir={isRtl ? "rtl" : "ltr"}
                   className={`${themeToggleStyles.selectContent} ${styles.selectContentLocale}`}
                   position="popper"
                   sideOffset={-20}

@@ -7,7 +7,7 @@
 }
 
 .container[data-align="left"] {
-  text-align: left;
+  text-align: start;
   align-items: flex-start;
 }
 
