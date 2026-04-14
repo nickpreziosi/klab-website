@@ -45,6 +45,8 @@ export interface ArticleViewProps {
   bodyHTML?: string;
   /** `rtl` for Arabic on international articles; KEO articles should use `ltr`. */
   contentDirection?: "ltr" | "rtl";
+  /** Listing route for breadcrumb + “back” (KLab: `/news`, KEO: `/news/keo`). */
+  newsListingHref?: string;
 }
 
 function isYouTubeOrVimeo(embedLink?: string): boolean {
@@ -63,6 +65,7 @@ export function ArticleView({
   galleryImageUrls,
   bodyHTML,
   contentDirection = "ltr",
+  newsListingHref = "/news",
 }: ArticleViewProps) {
   const t = useTranslations("newsPage");
   const tCategory = useTranslations("newsCategories");
@@ -156,7 +159,7 @@ export function ArticleView({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Link href="/news" className={styles.breadcrumbLink}>
+            <Link href={newsListingHref} className={styles.breadcrumbLink}>
               News
             </Link>
             <span className={styles.breadcrumbSeparator}>/</span>
@@ -454,7 +457,7 @@ export function ArticleView({
               />
             </svg>
           }
-          href="/news"
+          href={newsListingHref}
           variant="outline"
           iconPosition="start"
         >

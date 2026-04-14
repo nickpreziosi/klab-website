@@ -85,6 +85,7 @@ export default async function NewsKeoPage({ params, searchParams }: NewsKeoPageP
       showExploreRootsCta={false}
       contentDirection={locale === "ar" ? "rtl" : "ltr"}
       articlesContentDirection="ltr"
+      articleHrefBase="/news/keo"
     />
   );
 }

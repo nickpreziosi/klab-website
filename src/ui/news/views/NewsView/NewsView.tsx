@@ -55,6 +55,8 @@ export interface NewsViewProps {
    * stay left-to-right while `contentDirection` is `rtl` for Arabic layout).
    */
   articlesContentDirection?: "ltr" | "rtl";
+  /** Card links: KLab `/news`, KEO `/news/keo`. */
+  articleHrefBase?: string;
 }
 
 export function NewsView({
@@ -71,6 +73,7 @@ export function NewsView({
   showExploreRootsCta = false,
   contentDirection = "ltr",
   articlesContentDirection,
+  articleHrefBase = "/news",
 }: NewsViewProps) {
   const t = useTranslations("newsPage");
   const locale = useLocale();
@@ -256,7 +259,12 @@ export function NewsView({
                       <NewsCardSkeleton key={index} />
                     ))
                   : currentArticles.map((article, index) => (
-                      <NewsCard key={article.slug} article={article} index={index} />
+                      <NewsCard
+                        key={article.slug}
+                        article={article}
+                        index={index}
+                        articleHrefBase={articleHrefBase}
+                      />
                     ))}
               </div>
               {!isLoading && totalPages > 1 && (

@@ -79,9 +79,7 @@ export function LocaleSwitcher() {
 
   return (
     <div className={themeToggleStyles.toggleContainer}>
-      <ClientOnly
-        placeholder={localePlaceholder}
-      >
+      <ClientOnly placeholder={localePlaceholder}>
         <TooltipProvider delayDuration={0}>
           <Tooltip>
             <Select value={currentLocale} onValueChange={handleValueChange}>
@@ -120,7 +118,8 @@ export function LocaleSwitcher() {
                         className={`${themeToggleStyles.selectItem} ${styles.selectItemLocale}`}
                       >
                         <span className={styles.selectItemText}>
-                          {LOCALE_CODE[locale]} {t(LOCALE_NAME_KEYS[locale])}
+                          <span className={styles.selectItemCode}>{LOCALE_CODE[locale]}</span>{" "}
+                          {t(LOCALE_NAME_KEYS[locale])}
                         </span>
                         <SelectItemIndicator
                           className={`${themeToggleStyles.selectItemIndicator} ${styles.selectItemIndicatorLocale}`}

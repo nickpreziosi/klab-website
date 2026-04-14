@@ -199,3 +199,13 @@ export async function getInternationalArticleBySlug(
     { slug }
   );
 }
+
+const internationalArticleSlugsQuery = groq`
+  *[_type == "internationalArticle"] { "slug": slug.current }
+`;
+
+/** Slugs for KLab (`internationalArticle`) detail URLs: `/news/[slug]`. */
+export async function getInternationalArticleSlugs(): Promise<string[]> {
+  const result = await client.fetch<{ slug: string }[]>(internationalArticleSlugsQuery);
+  return result?.map((r) => r.slug).filter(Boolean) ?? [];
+}

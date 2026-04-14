@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
-import { getArticleSlugs } from "@/sanity/queries/articles";
+import { getArticleSlugs, getInternationalArticleSlugs } from "@/sanity/queries/articles";
 
 // Revalidate sitemap periodically so new articles appear
 export const revalidate = 3600; // 1 hour
@@ -30,7 +30,10 @@ const STATIC_PATHS = [
 ] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const articleSlugs = await getArticleSlugs();
+  const [keoArticleSlugs, klabArticleSlugs] = await Promise.all([
+    getArticleSlugs(),
+    getInternationalArticleSlugs(),
+  ]);
 
   const entries: MetadataRoute.Sitemap = [];
 
@@ -45,9 +48,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
 
-    for (const slug of articleSlugs) {
+    for (const slug of klabArticleSlugs) {
       entries.push({
         url: `${BASE_URL}/${locale}/news/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.6,
+      });
+    }
+
+    for (const slug of keoArticleSlugs) {
+      entries.push({
+        url: `${BASE_URL}/${locale}/news/keo/${slug}`,
         lastModified: new Date(),
         changeFrequency: "weekly",
         priority: 0.6,

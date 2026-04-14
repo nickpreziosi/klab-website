@@ -184,6 +184,10 @@
   white-space: nowrap;
 }
 
+.selectItemCode {
+  font-weight: 600 !important;
+}
+
 /* RTL (Arabic): mirror row — logical padding + check on inline-end (Radix portal may not inherit dir). */
 .selectItemLocale {
   padding-block: 6px !important;
