@@ -24,6 +24,10 @@ export function HomeView({ heroTranslations }: HomeViewProps = {}) {
   const homeAnimation = useHomeAnimation();
   const skipFromLocaleSwitch = useSkipAnimationOnLocaleSwitch();
   const skipAnimation = skipFromLocaleSwitch || (homeAnimation?.hasAnimated ?? false);
+  /** Hero must not treat `hasAnimated` as “skip” until the first entrance has run after the loading bar. */
+  const heroSkipAnimation =
+    skipFromLocaleSwitch ||
+    ((homeAnimation?.hasAnimated && homeAnimation?.homeHeroEntranceCompleted) ?? false);
   const effectiveTheme = useEffectiveThemeSync();
   const videoUrl = effectiveTheme === "dark" ? VIDEO_DARK : VIDEO_LIGHT;
 
@@ -38,7 +42,7 @@ export function HomeView({ heroTranslations }: HomeViewProps = {}) {
       />
       <div className={styles.page}>
         <main className={styles.main}>
-          <Hero translations={heroTranslations} skipAnimation={skipAnimation} />
+          <Hero translations={heroTranslations} skipAnimation={heroSkipAnimation} />
           <HomePhonePromoSection skipAnimation={skipFromLocaleSwitch} />
           <HomeSecondarySection skipAnimation={skipFromLocaleSwitch} />
         </main>

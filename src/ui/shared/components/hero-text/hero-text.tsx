@@ -5,6 +5,7 @@ import Link from "next/link";
 import styles from "./hero-text.module.css";
 import Button from "@/ui/shared/components/button/button";
 import { ArrowDownIcon } from "lucide-react";
+import { useHomeAnimation } from "@/ui/home/providers/home-animation-provider";
 
 interface HeroTextProps {
   maxWidth?: string;
@@ -21,6 +22,11 @@ interface HeroTextProps {
   onButtonTwoClick?: () => void;
   /** When true, skip entrance animations (e.g. locale switch). */
   skipAnimation?: boolean;
+  /**
+   * When true (home hero), entrance runs only after the loading progress overlay finishes.
+   * Other pages keep the default delayed entrance.
+   */
+  deferEntranceUntilLoadingProgress?: boolean;
 }
 
 export default function HeroText({
@@ -37,14 +43,32 @@ export default function HeroText({
   onButtonClick,
   onButtonTwoClick,
   skipAnimation = false,
+  deferEntranceUntilLoadingProgress = false,
 }: HeroTextProps) {
+  const homeAnimation = useHomeAnimation();
+  const loadingProgressFinished = homeAnimation?.loadingProgressFinished ?? true;
+  const markHomeHeroEntranceCompleted = homeAnimation?.markHomeHeroEntranceCompleted;
+
   const [isLoaded, setIsLoaded] = useState(skipAnimation);
 
   useEffect(() => {
-    if (skipAnimation) return;
+    if (skipAnimation) {
+      setIsLoaded(true);
+      return;
+    }
+    if (deferEntranceUntilLoadingProgress) {
+      if (loadingProgressFinished) setIsLoaded(true);
+      return;
+    }
     const id = setTimeout(() => setIsLoaded(true), 500);
     return () => clearTimeout(id);
-  }, [skipAnimation]);
+  }, [skipAnimation, deferEntranceUntilLoadingProgress, loadingProgressFinished]);
+
+  useEffect(() => {
+    if (skipAnimation && deferEntranceUntilLoadingProgress) {
+      markHomeHeroEntranceCompleted?.();
+    }
+  }, [skipAnimation, deferEntranceUntilLoadingProgress, markHomeHeroEntranceCompleted]);
 
   // Split text into words for staggered animation
   const words = text.split(" ");
@@ -73,6 +97,11 @@ export default function HeroText({
         }}
         initial={skipAnimation ? "visible" : "hidden"}
         animate={isLoaded ? "visible" : "hidden"}
+        onAnimationComplete={() => {
+          if (deferEntranceUntilLoadingProgress && isLoaded && !skipAnimation) {
+            markHomeHeroEntranceCompleted?.();
+          }
+        }}
       >
         {words.map((word, index) => (
           <motion.span

@@ -58,6 +58,7 @@ export const Hero = ({
             buttonTwoText={translations.learnMore}
             buttonTwoHref="#home-promo"
             skipAnimation={skipAnimation}
+            deferEntranceUntilLoadingProgress
           />
         </div>
       </div>
