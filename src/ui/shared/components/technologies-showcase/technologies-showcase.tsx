@@ -17,8 +17,8 @@ import styles from "./technologies-showcase.module.css";
 const TECH_DESCRIPTION_KEYS = [
   "krails",
   "kena",
-  "ktalk",
   "krisk",
+  "kleads",
   "kabl",
   "kcard",
   "kbpm",
@@ -52,18 +52,18 @@ export const TECHNOLOGIES: {
     href: "/technologies/kena",
   },
   {
-    title: "K-Talk",
-    logoLight: "/logos/ktalk-logo-light.svg",
-    logoDark: "/logos/ktalk-logo-dark.svg",
-    descriptionKey: "ktalk",
-    href: "/technologies/ktalk",
-  },
-  {
     title: "K-Risk",
     logoLight: "/logos/krisk-logo-light.svg",
     logoDark: "/logos/krisk-logo-dark.svg",
     descriptionKey: "krisk",
     href: "/technologies/krisk",
+  },
+  {
+    title: "K-Leads",
+    logoLight: "/logos/kleads-logo-light.svg",
+    logoDark: "/logos/kleads-logo-dark.svg",
+    descriptionKey: "kleads",
+    href: "/technologies/kleads",
   },
   {
     title: "KABL",
@@ -109,11 +109,11 @@ export const TECHNOLOGIES: {
   },
 ];
 
-/* Left row (4): K-Pay, K-Talk, K-Connect, K-Risk */
-const LEFT_ORDER = [5, 2, 8, 3];
+/* Left row (4): K-Rails, Kena, K-Pay, K-Connect */
+const LEFT_ORDER = [0, 1, 5, 8];
 
-/* Right row (6): K-Rails, Kena, K-Wallet, KABL, K-Comply, K-Ledger */
-const RIGHT_ORDER_FIXED = [0, 1, 9, 4, 6, 7];
+/* Right row (6): K-Risk, K-Leads, K-Wallet, KABL, K-Comply, K-Ledger */
+const RIGHT_ORDER_FIXED = [2, 3, 9, 4, 6, 7];
 
 /** Cache SVG content by URL so dropdown/drawer and theme switches reuse the same fetch. */
 const svgContentCache = new Map<string, Promise<string>>();
@@ -181,14 +181,14 @@ const ArrowIcon = (props: React.SVGProps<SVGSVGElement>) => (
 const leftTechs = LEFT_ORDER.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 const rightTechs = RIGHT_ORDER_FIXED.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 
-/** KTalk is the widest logo - used as the full-width reference; others match its height. */
-const WIDEST_LOGO_KEY: TechDescriptionKey = "ktalk";
+/** KLeads is the widest logo - used as the full-width reference; others match its height. */
+const WIDEST_LOGO_KEY: TechDescriptionKey = "kleads";
 
 /**
  * Allowlist for which technology semicircles should be visible.
  * Keep the rest of the data intact so we can re-enable later.
  */
-const NAVIGABLE_TECH_KEYS: readonly TechDescriptionKey[] = ["ktalk", "krisk", "krails", "kena"];
+const NAVIGABLE_TECH_KEYS: readonly TechDescriptionKey[] = ["krails", "kena", "krisk", "kleads"];
 const NAVIGABLE_TECH_KEY_SET = new Set<TechDescriptionKey>(NAVIGABLE_TECH_KEYS);
 
 export function TechnologiesShowcase({
@@ -208,7 +208,7 @@ export function TechnologiesShowcase({
   const { effectiveTheme } = useTheme();
   const gridRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const ktalkLogoRef = useRef<HTMLDivElement>(null);
+  const kleadsLogoRef = useRef<HTMLDivElement>(null);
   const [logoHeight, setLogoHeight] = useState<number>(40);
   const [expandedIndex, setExpandedIndex] = useState<{
     side: "left" | "right";
@@ -237,9 +237,9 @@ export function TechnologiesShowcase({
     [effectiveTheme]
   );
 
-  // Measure KTalk logo height when full-width; other logos match this height
+  // Measure KLeads logo height when full-width; other logos match this height
   useEffect(() => {
-    const el = ktalkLogoRef.current;
+    const el = kleadsLogoRef.current;
     if (!el) return;
     const ro = new ResizeObserver(() => {
       const svg = el.querySelector("svg");
@@ -296,7 +296,7 @@ export function TechnologiesShowcase({
               expandOnFirstTap={expandOnFirstTap}
               SVGLogo={SVGLogo}
               isWidestLogo={tech.descriptionKey === WIDEST_LOGO_KEY}
-              logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? ktalkLogoRef : undefined}
+              logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? kleadsLogoRef : undefined}
             />
           ))}
 
@@ -340,7 +340,7 @@ export function TechnologiesShowcase({
               expandOnFirstTap={expandOnFirstTap}
               SVGLogo={SVGLogo}
               isWidestLogo={tech.descriptionKey === WIDEST_LOGO_KEY}
-              logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? ktalkLogoRef : undefined}
+              logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? kleadsLogoRef : undefined}
             />
           ))}
         </div>

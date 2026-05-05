@@ -21,8 +21,8 @@ const BREAKPOINT_DESKTOP = 1024;
 const TECH_KEYS = [
   "krails",
   "kena",
-  "ktalk",
   "krisk",
+  "kleads",
   "kabl",
   "kcard",
   "kbpm",
@@ -55,18 +55,18 @@ const TECHNOLOGIES: {
     href: "/technologies/kena",
   },
   {
-    title: "KTalk",
-    logoLight: "/logos/ktalk-logo-light.svg",
-    logoDark: "/logos/ktalk-logo-dark.svg",
-    descriptionKey: "ktalk",
-    href: "/technologies/ktalk",
-  },
-  {
     title: "KRisk",
     logoLight: "/logos/krisk-logo-light.svg",
     logoDark: "/logos/krisk-logo-dark.svg",
     descriptionKey: "krisk",
     href: "/technologies/krisk",
+  },
+  {
+    title: "KLeads",
+    logoLight: "/logos/kleads-logo-light.svg",
+    logoDark: "/logos/kleads-logo-dark.svg",
+    descriptionKey: "kleads",
+    href: "/technologies/kleads",
   },
   {
     title: "KAbl",
@@ -112,19 +112,19 @@ const TECHNOLOGIES: {
   },
 ];
 
-const LEFT_ORDER = [5, 2, 8, 3];
-const RIGHT_ORDER_FIXED = [0, 1, 9, 4, 6, 7];
+const LEFT_ORDER = [0, 1, 5, 8];
+const RIGHT_ORDER_FIXED = [2, 3, 9, 4, 6, 7];
 
 const leftTechs = LEFT_ORDER.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 const rightTechs = RIGHT_ORDER_FIXED.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 
-const WIDEST_LOGO_KEY: TechKey = "ktalk";
+const WIDEST_LOGO_KEY: TechKey = "kleads";
 
 /**
  * Allowlist for which technology semicircles should be visible.
  * Keep the rest of the data intact so we can re-enable later.
  */
-const VISIBLE_TECH_KEYS: readonly TechKey[] = ["ktalk", "krisk", "krails", "kena"];
+const VISIBLE_TECH_KEYS: readonly TechKey[] = ["krails", "kena", "krisk", "kleads"];
 const VISIBLE_TECH_KEY_SET = new Set<TechKey>(VISIBLE_TECH_KEYS);
 
 const visibleLeftTechs = leftTechs.filter((tech) => VISIBLE_TECH_KEY_SET.has(tech.descriptionKey));
@@ -337,7 +337,7 @@ export function TechnologiesShowcaseVertical({
   const t = useTranslations("technologiesShowcase");
   const tCommon = useTranslations("common");
   const { effectiveTheme } = useTheme();
-  const ktalkLogoRef = useRef<HTMLDivElement>(null);
+  const kleadsLogoRef = useRef<HTMLDivElement>(null);
   // Controls how tall the technology logos are within each semicircle.
   // We clamp measurement to this value so the SVGs don't overflow vertically.
   const MOBILE_ICON_HEIGHT = 34;
@@ -368,9 +368,9 @@ export function TechnologiesShowcaseVertical({
         : tech.logoLight
       : tech.logoDark;
 
-  // Mobile: measure KTalk (widest) logo height so other logos can match
+  // Mobile: measure KLeads (widest) logo height so other logos can match
   useEffect(() => {
-    const el = ktalkLogoRef.current;
+    const el = kleadsLogoRef.current;
     if (!el) return;
     const MAX_MOBILE_LOGO_HEIGHT = MOBILE_ICON_HEIGHT;
     const measure = () => {
@@ -469,7 +469,7 @@ export function TechnologiesShowcaseVertical({
                   SVGLogo={SVGLogo}
                   variant="mobile"
                   isWidestLogo={tech.descriptionKey === WIDEST_LOGO_KEY}
-                  logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? ktalkLogoRef : undefined}
+                  logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? kleadsLogoRef : undefined}
                   popoverContentClassName={
                     useThemeForMobile ? styles.popoverMobileThemeAware : undefined
                   }
@@ -491,7 +491,7 @@ export function TechnologiesShowcaseVertical({
                   SVGLogo={SVGLogo}
                   variant="mobile"
                   isWidestLogo={tech.descriptionKey === WIDEST_LOGO_KEY}
-                  logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? ktalkLogoRef : undefined}
+                  logoRef={tech.descriptionKey === WIDEST_LOGO_KEY ? kleadsLogoRef : undefined}
                   popoverContentClassName={
                     useThemeForMobile ? styles.popoverMobileThemeAware : undefined
                   }

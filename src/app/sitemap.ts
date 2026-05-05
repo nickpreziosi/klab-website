@@ -24,7 +24,7 @@ const STATIC_PATHS = [
   "technologies/krails",
   "technologies/kaxis",
   "technologies/kcard",
-  "technologies/ktalk",
+  "technologies/kleads",
   "technologies/kbpm",
   "technologies/krisk",
 ] as const;
