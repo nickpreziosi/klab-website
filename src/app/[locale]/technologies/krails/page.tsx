@@ -37,6 +37,11 @@ export default async function KRailsPage({ params }: Props) {
     codeSectionCardCertaintyDescription: t("codeSectionCardCertaintyDescription"),
     videoSectionTitle: t("videoSectionTitle"),
     videoPosterAlt: t("videoPosterAlt"),
+    videoChoicePrompt: t("videoChoicePrompt"),
+    videoFiLabel: t("videoFiLabel"),
+    videoGovLabel: t("videoGovLabel"),
+    videoFiPlayAria: t("videoFiPlayAria"),
+    videoGovPlayAria: t("videoGovPlayAria"),
   };
   return <KRailsView translations={translations} />;
 }

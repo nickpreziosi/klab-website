@@ -8,9 +8,10 @@ import KRailsCta from "@/ui/krails/components/krails-cta/krails-cta";
 import KRailsCodeSection from "@/ui/krails/components/krails-code-section/krails-code-section";
 import KRailsWhy from "@/ui/krails/components/krails-why/krails-why";
 import KRailsDashboard from "@/ui/krails/components/krails-dashboard/krails-dashboard";
-import VideoPlayer from "@/ui/shared/components/video-player/video-player";
+import KRailsVideoPlayer from "@/ui/krails/components/krails-video-player/krails-video-player";
 
-const KRAILS_VIDEO_EMBED = "https://www.youtube.com/embed/JoKxM2r06ns";
+const KRAILS_VIDEO_FI = "https://www.youtube.com/embed/JoKxM2r06ns";
+const KRAILS_VIDEO_GOV = "https://www.youtube.com/watch?v=NpX_F-gE_Zw";
 const KRAILS_VIDEO_POSTER = "/images/krails.webp";
 
 export interface KRailsTranslations {
@@ -43,6 +44,11 @@ export interface KRailsTranslations {
   codeSectionCardCertaintyDescription: string;
   videoSectionTitle: string;
   videoPosterAlt: string;
+  videoChoicePrompt: string;
+  videoFiLabel: string;
+  videoGovLabel: string;
+  videoFiPlayAria: string;
+  videoGovPlayAria: string;
 }
 
 export function KRailsView({ translations }: { translations: KRailsTranslations }) {
@@ -68,10 +74,16 @@ export function KRailsView({ translations }: { translations: KRailsTranslations 
           className={styles.videoSection}
           aria-label={translations.videoSectionTitle}
         >
-          <VideoPlayer
-            videoUrl={KRAILS_VIDEO_EMBED}
+          <KRailsVideoPlayer
+            fiVideoUrl={KRAILS_VIDEO_FI}
+            govVideoUrl={KRAILS_VIDEO_GOV}
             posterUrl={KRAILS_VIDEO_POSTER}
             posterAlt={translations.videoPosterAlt}
+            fiLabel={translations.videoFiLabel}
+            govLabel={translations.videoGovLabel}
+            fiPlayAria={translations.videoFiPlayAria}
+            govPlayAria={translations.videoGovPlayAria}
+            choicePrompt={translations.videoChoicePrompt}
             skipAnimation={skipAnimation}
           />
         </section>
