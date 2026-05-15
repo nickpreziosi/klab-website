@@ -52,7 +52,7 @@ export default function NewsFilters({
           onSelectionChange={handleCategoryChange}
           minWidth={240}
           maxWidth={480}
-          maxHeight={120}
+          maxHeight={selectedCategories.length === 0 ? undefined : 120}
           popoverDir={popoverDir}
         />
       </div>

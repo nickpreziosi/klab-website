@@ -2,20 +2,19 @@
   margin-bottom: 40px;
 }
 
+/*
+ * Grid instead of flex: a flex item + align-items (e.g. stretch / flex-end) was letting the
+ * category combobox expand vertically on small screens. Grid sizes the row to content.
+ */
 .filtersRow {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 480px));
   gap: 16px;
-  align-items: flex-end;
-  justify-content: flex-start;
   width: 100%;
+  justify-content: start;
 }
 
-/* Match /news: control width; inline-start alignment → left (LTR) / right (RTL) */
 .filtersRow > * {
-  flex: 0 1 480px;
-  width: 100%;
-  max-width: 480px;
   min-width: 0;
 }
 
@@ -23,12 +22,8 @@
   .newsFilters {
     margin-bottom: 32px;
   }
-  .filtersRow {
-    flex-direction: column;
-    align-items: stretch;
-  }
 
-  .filtersRow > * {
-    max-width: none;
+  .filtersRow {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

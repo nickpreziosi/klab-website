@@ -10,8 +10,8 @@ import KRailsWhy from "@/ui/krails/components/krails-why/krails-why";
 import KRailsDashboard from "@/ui/krails/components/krails-dashboard/krails-dashboard";
 import KRailsVideoPlayer from "@/ui/krails/components/krails-video-player/krails-video-player";
 
-const KRAILS_VIDEO_FI = "https://www.youtube.com/embed/JoKxM2r06ns";
-const KRAILS_VIDEO_GOV = "https://www.youtube.com/watch?v=NpX_F-gE_Zw";
+const KRAILS_VIDEO_FI = "https://www.youtube.com/embed/v6XF9PLVIAw";
+const KRAILS_VIDEO_GOV = "https://www.youtube.com/embed/WFlJvmHsfPU";
 const KRAILS_VIDEO_POSTER = "/images/krails.webp";
 
 export interface KRailsTranslations {
