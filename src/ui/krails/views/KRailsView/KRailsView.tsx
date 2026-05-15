@@ -102,7 +102,6 @@ export function KRailsView({ translations }: { translations: KRailsTranslations 
       <KRailsWhy translations={translations} skipAnimation={skipAnimation} />
       <div className={styles.lastSection}>
         <KRailsBuiltWith translations={translations} skipAnimation={skipAnimation} />
-        <KRailsCta translations={translations} skipAnimation={skipAnimation} />
       </div>
     </main>
   );
