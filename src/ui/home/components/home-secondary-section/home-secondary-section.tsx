@@ -521,6 +521,7 @@ export default function HomeSecondarySection({
                 <br className={styles.timelineTitleBreak}></br>
                 <span className={styles.timelineTitleAccent}>{t("timelineTitleAccent")}.</span>
               </h2>
+              <p className={styles.timelineMethodology}>{t("timelineMethodology")}</p>
               <div className={styles.timelineLayout}>
                 {(() => {
                   const steps = HOME_SECONDARY_STEP_KEYS.map((key) => ({ label: t(key) }));

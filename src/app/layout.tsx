@@ -21,7 +21,7 @@ const sora = Sora({
 export const metadata: Metadata = {
   title: "K Lab",
   description:
-    "K Lab develops the technology that automates risk, payments, and financial operations — all in one intelligent platform.",
+    "A programmable trust and execution layer for institutional money movement. Built for governments, financial institutions, and private capital. Configurable. Permissioned. Enforceable.",
 };
 
 export default async function RootLayout({

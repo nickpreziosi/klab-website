@@ -6,14 +6,14 @@ export type HeroTranslations = {
   title: string;
   subtitle: string;
   contactSales: string;
-  /** Typically `common.learnMore`; merged in the home page server component. */
-  learnMore: string;
+  seeKRailsInAction: string;
 };
 
-export function buildHeroTranslations(t: (key: string) => string): Omit<HeroTranslations, "learnMore"> {
+export function buildHeroTranslations(t: (key: string) => string): HeroTranslations {
   return {
     title: t("title"),
     subtitle: t("subtitle"),
     contactSales: t("contactSales"),
+    seeKRailsInAction: t("seeKRailsInAction"),
   };
 }

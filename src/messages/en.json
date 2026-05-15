@@ -16,19 +16,24 @@
     "dialogDescription": "Navigation menu",
     "home": "Home"
   },
+  "homeMetadata": {
+    "title": "K Lab",
+    "description": "A programmable trust and execution layer for institutional money movement. Built for governments, financial institutions, and private capital. Configurable. Permissioned. Enforceable."
+  },
   "hero": {
-    "title": "Building the Future of Financial Infrastructure",
-    "subtitle": "K Lab develops the technology that automates risk, payments, and financial operations — all in one intelligent platform.",
+    "title": "Programmable trust for institutional money movement.",
+    "subtitle": "K Lab builds the control layer that decides whether money moves — and proves it did. Configurable. Permissioned. Enforced.",
+    "seeKRailsInAction": "See K Rails in Action",
     "contactSales": "Contact Sales",
     "promoVideoPosterAlt": "K Lab promotional video",
     "promoVideoSectionLabel": "K Lab promotional video"
   },
   "companyHero": {
-    "headlineLine1": "Where Capital",
-    "headlineLine2": "Meets Code.",
-    "tagline1": "Programmable Trust for Global Trade.",
-    "tagline2": "Finance, Rewritten.",
-    "tagline3": "Smart Contracts. Real Impact.",
+    "headlineLine1": "Programmable trust.",
+    "headlineLine2": "Built for institutions that can't afford to be wrong.",
+    "tagline1": "Governed by rules.",
+    "tagline2": "Enforced at every step.",
+    "tagline3": "Auditable by design.",
     "employeeImageAlt": "KEO Employee Image"
   },
   "NotFoundPage": {
@@ -72,7 +77,7 @@
     "heading": "Innovation Through Teamwork & Inclusion.",
     "highlight1": "Teamwork",
     "highlight2": "Inclusion",
-    "description": "K Lab combines start-up energy with extensive industry experience to develop innovative technologies. We have a deep commitment to advancing diversity, equality, and inclusion, essential to our mission of helping businesses and attracting exceptional people who think outside the box.",
+    "description": "K Lab combines start-up energy with extensive industry experience, including leadership shaped by Nasdaq, Santander, Digital Asset, and Palantir pedigrees, to develop innovative technologies. We have a deep commitment to advancing diversity, equality, and inclusion, essential to our mission of helping businesses and attracting exceptional people who think outside the box.",
     "button": "K Lab Careers",
     "statPeople": "People in six countries",
     "statWomen": "Are women",
@@ -82,7 +87,7 @@
   "companyManifesto": {
     "title": "Manifesto",
     "item0": "In code we trust. In people we invest.",
-    "item1": "Zero friction. Zero fraud. Zero excuses.",
+    "item1": "Fraud significantly reduced, not eliminated.",
     "item2": "We don't build tech. We build trust.",
     "item3": "Our architecture doesn't sleep.",
     "item4": "Success is only success if it's shared.",
@@ -90,13 +95,13 @@
     "item6": "Incorruptible by design.",
     "item7": "We fight fraud. We fund dreams.",
     "item8": "Defending the future from the friction of the past.",
-    "item9": "Infrastructure for the unhackable.",
+    "item9": "Defensible by design. Auditable at every step.",
     "item10": "The more we create, the more we give."
   },
   "journeyTimeline": {
     "title": "Our Journey",
     "subtitle": "BUILDING THE FUTURE OF AI ON FIVE YEARS OF PROVEN FINANCIAL INTELLIGENCE.",
-    "paragraph1": "WE'VE INHERITED 5 YEARS OF R&D AND PROPRIETARY DATA FROM KEO WORLD—FOLLOWING ITS STRATEGIC ACQUISITION BY MAHA CAPITAL.",
+    "paragraph1": "Five years of live transaction intelligence from KEO World, now powering the AI models that make K Rails smarter with every payment.",
     "paragraph2": "THROUGH A DEFINITIVE AGREEMENT WITH MAHA CAPITAL, K LAB NOW LEVERAGES THIS MASSIVE DATA ECOSYSTEM TO TRAIN SPECIALIZED AI MODELS. WE ARE TURNING YEARS OF TRANSACTIONS INTO THE INTELLIGENCE OF TOMORROW.",
     "year2020": "2020",
     "year2025": "2025",
@@ -221,8 +226,9 @@
   "homeSecondary": {
     "kenaTitle": "Kena",
     "kenaDescription": "Kena, our proprietary risk AI, replicates the reasoning of financial underwriters and continuously self-trains with global data.",
-    "timelineTitlePrimary": "WEEKLY SPRINTS.",
-    "timelineTitleAccent": "DEPLOYMENT IN 90 DAYS",
+    "timelineTitlePrimary": "Live in 90 days.",
+    "timelineTitleAccent": "No rip-and-replace",
+    "timelineMethodology": "We run weekly sprints from scoping through launch, integrating alongside your current infrastructure, without ripping out core systems.",
     "stepScoping": "SCOPING",
     "stepOnboarding": "ONBOARDING",
     "stepIntegrate": "INTEGRATE / QA",

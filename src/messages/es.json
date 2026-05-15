@@ -16,19 +16,24 @@
     "dialogDescription": "Menú de navegación",
     "home": "Inicio"
   },
+  "homeMetadata": {
+    "title": "K Lab",
+    "description": "Capa programable de confianza y ejecución para el movimiento institucional del dinero. Pensada para gobiernos, instituciones financieras y capital privado. Configurable. Con permisos. Ejecutable."
+  },
   "hero": {
-    "title": "Construyendo el futuro de la infraestructura financiera",
-    "subtitle": "K Lab desarrolla la tecnología que automatiza el riesgo, los pagos y las operaciones financieras — todo en una plataforma inteligente.",
+    "title": "Confianza programable para el movimiento institucional del dinero.",
+    "subtitle": "K Lab construye la capa de control que decide si el dinero se mueve — y demuestra que lo hizo. Configurable. Con permisos. Exigible.",
+    "seeKRailsInAction": "Ver K Rails en acción",
     "contactSales": "Contactar ventas",
     "promoVideoPosterAlt": "Vídeo promocional de K Lab",
     "promoVideoSectionLabel": "Vídeo promocional de K Lab"
   },
   "companyHero": {
-    "headlineLine1": "Donde el capital se",
-    "headlineLine2": "encuentra con el código.",
-    "tagline1": "Confianza programable para el comercio global.",
-    "tagline2": "Las finanzas, reescritas.",
-    "tagline3": "Contratos inteligentes. Impacto real.",
+    "headlineLine1": "Confianza programable.",
+    "headlineLine2": "Construida para instituciones que no pueden permitirse el error.",
+    "tagline1": "Guiada por reglas.",
+    "tagline2": "Haciendo cumplir en cada paso.",
+    "tagline3": "Auditable por diseño.",
     "employeeImageAlt": "Imagen de empleado KEO"
   },
   "NotFoundPage": {
@@ -72,7 +77,7 @@
     "heading": "Innovación mediante trabajo en equipo e inclusión.",
     "highlight1": "Trabajo en equipo",
     "highlight2": "Inclusión",
-    "description": "K Lab combina la energía de una startup con una amplia experiencia sectorial para desarrollar tecnologías innovadoras. Tenemos un firme compromiso con la diversidad, la igualdad y la inclusión, esenciales para nuestra misión de ayudar a las empresas y atraer a personas excepcionales.",
+    "description": "K Lab combina la energía de una startup con una amplia experiencia sectorial, con equipos que aportan trayectorias ligadas a Nasdaq, Santander, Digital Asset y Palantir, para desarrollar tecnologías innovadoras. Tenemos un firme compromiso con la diversidad, la igualdad y la inclusión, esenciales para nuestra misión de ayudar a las empresas y atraer a personas excepcionales.",
     "button": "Carreras K Lab",
     "statPeople": "Personas en seis países",
     "statWomen": "Son mujeres",
@@ -82,7 +87,7 @@
   "companyManifesto": {
     "title": "Manifiesto",
     "item0": "En el código confiamos. En las personas invertimos.",
-    "item1": "Cero fricción. Cero fraude. Cero excusas.",
+    "item1": "El fraude se reduce significativamente, no se elimina.",
     "item2": "No construimos tecnología. Construimos confianza.",
     "item3": "Nuestra arquitectura no duerme.",
     "item4": "El éxito solo es éxito si se comparte.",
@@ -90,13 +95,13 @@
     "item6": "Incorruptible por diseño.",
     "item7": "Combatimos el fraude. Financiamos sueños.",
     "item8": "Defendiendo el futuro de la fricción del pasado.",
-    "item9": "Infraestructura para lo inalterable.",
+    "item9": "Defendible por diseño. Auditable en cada paso.",
     "item10": "Cuanto más creamos, más damos."
   },
   "journeyTimeline": {
     "title": "Nuestro recorrido",
     "subtitle": "CONSTRUYENDO EL FUTURO DE LA IA CON CINCO AÑOS DE INTELIGENCIA FINANCIERA DEMOSTRADA.",
-    "paragraph1": "HEMOS HEREDADO 5 AÑOS DE I+D Y DATOS PROPIETARIOS DE KEO WORLD—TRAS SU ADQUISICIÓN ESTRATÉGICA POR MAHA CAPITAL.",
+    "paragraph1": "Cinco años de inteligencia de transacciones en vivo de KEO World, que ahora impulsa los modelos de IA que hacen que K Rails sea más inteligente con cada pago.",
     "paragraph2": "MEDIANTE UN ACUERDO DEFINITIVO CON MAHA CAPITAL, K LAB APROVECHA ESTE ECOSISTEMA DE DATOS PARA ENTRENAR MODELOS DE IA ESPECIALIZADOS. ESTAMOS TRANSFORMANDO AÑOS DE TRANSACCIONES EN LA INTELIGENCIA DEL MAÑANA.",
     "year2020": "2020",
     "year2025": "2025",
@@ -221,8 +226,9 @@
   "homeSecondary": {
     "kenaTitle": "Kena",
     "kenaDescription": "Kena, nuestra IA de riesgo propietaria, replica el razonamiento de los suscriptores financieros y se entrena continuamente con datos globales.",
-    "timelineTitlePrimary": "SPRINTS SEMANALES.",
-    "timelineTitleAccent": "DESPLIEGUE EN 90 DÍAS",
+    "timelineTitlePrimary": "Activo en 90 días.",
+    "timelineTitleAccent": "Sin rip-and-replace",
+    "timelineMethodology": "Trabajamos en sprints semanales desde el alcance hasta el lanzamiento, integrándonos junto a tu infraestructura actual, sin sustituir los sistemas centrales.",
     "stepScoping": "ALCANCE",
     "stepOnboarding": "INCORPORACIÓN",
     "stepIntegrate": "INTEGRAR / QA",

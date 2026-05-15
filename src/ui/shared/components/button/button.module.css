@@ -1,5 +1,6 @@
 /* Base Button Styles */
 .button {
+  direction: inherit;
   display: inline-flex;
   align-items: center;
   justify-content: center;

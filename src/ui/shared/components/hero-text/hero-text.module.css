@@ -49,8 +49,8 @@
 .mainText {
   font-weight: 300;
   font-style: Light;
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 22px;
+  line-height: 30px;
   letter-spacing: -0.5%;
   color: var(--secondary-color);
   margin: 0;
@@ -83,6 +83,7 @@
   display: flex;
   flex-direction: row;
   gap: 16px;
+  width: 100%;
 }
 
 .arrowIcon {
@@ -90,7 +91,18 @@
   height: 20px;
 }
 
-/* Limit Hover Effects to Non Touch Devices */
+.primaryButtonIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Logical RTL: flip directional Lucide / custom SVGs (see `applyRtlHeroIconMirror`). Scoped under this block’s `dir`. */
+.mainTextContainer[dir="rtl"] .iconRtlMirror {
+  transform: scaleX(-1);
+}
+
+/* Limit Hover Effects on Non Touch Devices */
 @media (pointer: fine) and (hover: hover) {
   .contactButton:hover {
     background: hsl(var(--foreground) / 0.6);
@@ -104,13 +116,18 @@
   }
 
   .mainHeading {
-    font-size: 40px;
-    line-height: 48px;
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .subheader {
+    font-size: 26px;
+    line-height: 34px;
   }
 
   .mainText {
-    font-size: 20px;
-    line-height: 28px;
+    font-size: 19px;
+    line-height: 27px;
   }
 
   .wordsContainer {
@@ -120,18 +137,24 @@
 
 @media (max-width: 480px) {
   .mainHeading {
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 27px;
+    line-height: 34px;
+  }
+
+  .subheader {
+    font-size: 24px;
+    line-height: 31px;
   }
 
   .mainText {
-    font-size: 18px;
-    line-height: 26px;
+    font-size: 17px;
+    line-height: 24px;
   }
 
   .wordsContainer {
     gap: 0.3rem;
   }
+
   .buttonGroup {
     flex-direction: column;
   }

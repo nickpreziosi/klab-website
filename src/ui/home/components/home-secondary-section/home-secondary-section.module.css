@@ -118,13 +118,24 @@
 }
 
 .timelineTitle {
-  margin: 0 0 var(--margin-lg) 0;
+  margin: 0 0 var(--gap-sm) 0;
   font-size: var(--text-xl);
   font-weight: var(--font-bold);
   letter-spacing: 0.02em;
   text-transform: uppercase;
   font-family: inherit;
   line-height: 1.2;
+}
+
+.timelineMethodology {
+  margin: 0 0 var(--padding-tablet) 0;
+  max-width: 52rem;
+  font-size: var(--text-md);
+  font-weight: var(--font-normal);
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: hsl(var(--foreground) / 0.92);
 }
 
 .timelineTitlePrimary {
