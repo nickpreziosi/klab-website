@@ -15,6 +15,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-width: 0;
 }
 
 .content {
@@ -22,11 +23,14 @@
   grid-template-columns: 1fr 2.2fr;
   gap: 80px;
   align-items: center;
+  width: 100%;
+  min-width: 0;
 }
 
 .headingContainer {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .heading {
@@ -36,6 +40,9 @@
   letter-spacing: -1.5%;
   color: hsl(var(--foreground));
   margin: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .logosContainer {
@@ -43,6 +50,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--padding-tablet);
+  min-width: 0;
 }
 
 .logoWrapper {

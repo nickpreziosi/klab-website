@@ -36,9 +36,7 @@ export interface KRailsTranslations {
   whyBlock2Cta: string;
   whyBlock3Cta: string;
   builtWithHeading: string;
-  ctaHeading: string;
   ctaSubheading: string;
-  ctaHighlight: string;
   ctaButton: string;
   codeSectionHeadingLine1: string;
   codeSectionHeadingLine2: string;
@@ -102,6 +100,7 @@ export function KRailsView({ translations }: { translations: KRailsTranslations 
       <KRailsWhy translations={translations} skipAnimation={skipAnimation} />
       <div className={styles.lastSection}>
         <KRailsBuiltWith translations={translations} skipAnimation={skipAnimation} />
+        <KRailsCta translations={translations} skipAnimation={skipAnimation} />
       </div>
     </main>
   );
