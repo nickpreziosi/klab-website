@@ -115,6 +115,8 @@ export type HeroTextButtonOrder = "primary-first" | "secondary-first";
 
 interface HeroTextProps {
   maxWidth?: string;
+  /** When set, overrides default flex `gap` between headline, subcopy, and CTAs (CSS length, e.g. `var(--gap-sm)`). */
+  contentGap?: string;
   text: string;
   subheader?: string;
   subtitle?: string;
@@ -162,6 +164,7 @@ interface HeroTextProps {
 
 export default function HeroText({
   maxWidth,
+  contentGap,
   text,
   subheader,
   subtitle,
@@ -267,7 +270,10 @@ export default function HeroText({
   return (
     <div
       dir={dir}
-      style={{ maxWidth: maxWidth ? maxWidth : "100%" }}
+      style={{
+        maxWidth: maxWidth ? maxWidth : "100%",
+        ...(contentGap ? { gap: contentGap } : {}),
+      }}
       className={`${styles.mainTextContainer} ${className}`}
     >
       <motion.h1

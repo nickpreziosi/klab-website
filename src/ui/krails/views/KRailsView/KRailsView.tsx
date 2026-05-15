@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "next-intl";
 import KRailsHero from "@/ui/krails/components/krails-hero/krails-hero";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import styles from "./KRailsView.module.css";
@@ -16,10 +17,10 @@ const KRAILS_VIDEO_POSTER = "/images/krails.webp";
 
 export interface KRailsTranslations {
   heroHeading: string;
-  heroSubheading: string;
   heroDescription: string;
   heroButtonPrimary: string;
   heroButtonSecondary: string;
+  logoAlt: string;
   whyHeading: string;
   whySubheading: string;
   whyBlock0Heading: string;
@@ -30,7 +31,10 @@ export interface KRailsTranslations {
   whyBlock2Description: string;
   whyBlock3Heading: string;
   whyBlock3Description: string;
-  whyCtaButton: string;
+  whyBlock0Cta: string;
+  whyBlock1Cta: string;
+  whyBlock2Cta: string;
+  whyBlock3Cta: string;
   builtWithHeading: string;
   ctaHeading: string;
   ctaSubheading: string;
@@ -38,10 +42,14 @@ export interface KRailsTranslations {
   ctaButton: string;
   codeSectionHeadingLine1: string;
   codeSectionHeadingLine2: string;
-  codeSectionCardTrustTitle: string;
-  codeSectionCardTrustDescription: string;
-  codeSectionCardCertaintyTitle: string;
-  codeSectionCardCertaintyDescription: string;
+  codeSectionHowCard0Title: string;
+  codeSectionHowCard0Description: string;
+  codeSectionHowCard1Title: string;
+  codeSectionHowCard1Description: string;
+  codeSectionHowCard2Title: string;
+  codeSectionHowCard2Description: string;
+  codeSectionHowCard3Title: string;
+  codeSectionHowCard3Description: string;
   videoSectionTitle: string;
   videoPosterAlt: string;
   videoChoicePrompt: string;
@@ -53,17 +61,18 @@ export interface KRailsTranslations {
 
 export function KRailsView({ translations }: { translations: KRailsTranslations }) {
   const skipAnimation = useSkipAnimationOnLocaleSwitch();
+  const locale = useLocale();
   return (
     <main className={styles.container}>
       <div className={styles.background}>
         <KRailsHero
+          logoAlt={translations.logoAlt}
           heading={translations.heroHeading}
-          subheading={translations.heroSubheading}
           description={translations.heroDescription}
           buttonText={translations.heroButtonPrimary}
-          buttonHref="/contact/sales"
+          buttonHref="#krails-video"
           buttonTwoText={translations.heroButtonSecondary}
-          buttonTwoHref="#krails-video"
+          buttonTwoHref={`/${locale}/contact/sales`}
           skipAnimation={skipAnimation}
         />
         <div className={styles.dashboardWrapper}>

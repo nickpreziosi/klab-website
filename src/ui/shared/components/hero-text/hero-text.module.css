@@ -45,6 +45,17 @@
   color: var(--secondary-color) !important;
 }
 
+/* Technology / product pages (e.g. K Rails) — slightly smaller type scale */
+.krailsHero .mainHeading {
+  font-size: clamp(2.125rem, 4.5vw, 2.875rem);
+  line-height: 1.18;
+}
+
+.krailsHero .mainText {
+  font-size: clamp(1rem, 1.55vw, 1.1875rem);
+  line-height: 1.55;
+}
+
 /* Updated subtitle styles to match provided mainText */
 .mainText {
   font-weight: 300;
@@ -134,6 +145,15 @@
   .wordsContainer {
     gap: 0.4rem;
   }
+  .krailsHero .mainHeading {
+    font-size: clamp(1.75rem, 4.75vw, 2.125rem);
+    line-height: 1.2;
+  }
+
+  .krailsHero .mainText {
+    font-size: clamp(0.9375rem, 3.5vw, 1.0625rem);
+    line-height: 1.5;
+  }
 }
 
 @media (max-width: 480px) {
@@ -158,6 +178,16 @@
 
   .buttonGroup {
     flex-direction: column;
+  }
+
+  .krailsHero .mainHeading {
+    font-size: clamp(1.5rem, 5.5vw, 1.875rem);
+    line-height: 1.22;
+  }
+
+  .krailsHero .mainText {
+    font-size: clamp(0.9375rem, 3.6vw, 1rem);
+    line-height: 1.5;
   }
 }
 
