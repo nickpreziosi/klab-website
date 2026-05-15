@@ -45,7 +45,7 @@ export interface ArticleViewProps {
   bodyHTML?: string;
   /** `rtl` for Arabic on international articles; KEO articles should use `ltr`. */
   contentDirection?: "ltr" | "rtl";
-  /** Listing route for breadcrumb + “back” (KLab: `/news`, KEO: `/news/keo`). */
+  /** Listing route for breadcrumb + “back” (K Lab: `/news`, KEO: `/news/keo`). */
   newsListingHref?: string;
 }
 
@@ -335,7 +335,9 @@ export function ArticleView({
               onEscapeKeyDown={() => handleOpenChange(false)}
             >
               <VisuallyHidden>
-                <Dialog.Title>{t("galleryImageAlt", { number: (selectedImageIndex ?? 0) + 1 })}</Dialog.Title>
+                <Dialog.Title>
+                  {t("galleryImageAlt", { number: (selectedImageIndex ?? 0) + 1 })}
+                </Dialog.Title>
               </VisuallyHidden>
               {galleryImageUrls.length > 1 && (
                 <button

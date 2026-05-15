@@ -18,10 +18,10 @@
   },
   "hero": {
     "title": "Building the Future of Financial Infrastructure",
-    "subtitle": "KLab develops the technology that automates risk, payments, and financial operations — all in one intelligent platform.",
+    "subtitle": "K Lab develops the technology that automates risk, payments, and financial operations — all in one intelligent platform.",
     "contactSales": "Contact Sales",
-    "promoVideoPosterAlt": "KLab promotional video",
-    "promoVideoSectionLabel": "KLab promotional video"
+    "promoVideoPosterAlt": "K Lab promotional video",
+    "promoVideoSectionLabel": "K Lab promotional video"
   },
   "companyHero": {
     "headlineLine1": "Where Capital",
@@ -58,13 +58,13 @@
     "heading": "How can we help?",
     "subtitle": "Get in touch with our sales, support, and careers teams for demos, product questions, or career opportunities.",
     "salesTitle": "Sales",
-    "salesDescription": "Interested in learning more about KLab's products and services? Our sales team is here to answer your questions, provide personalized demos, and help you find the perfect solution for your business needs.",
+    "salesDescription": "Interested in learning more about K Lab's products and services? Our sales team is here to answer your questions, provide personalized demos, and help you find the perfect solution for your business needs.",
     "salesButton": "Talk to sales",
     "supportTitle": "Help & Support",
     "supportDescription": "Need assistance with onboarding, technical issues, or product questions? Our support team is ready to help you resolve any technical issues.",
     "supportButton": "Contact support",
     "careersTitle": "Careers",
-    "careersDescription": "Excited about shaping the future of financial technology? Reach out to our careers team to explore opportunities to join KLab and contribute to our mission.",
+    "careersDescription": "Excited about shaping the future of financial technology? Reach out to our careers team to explore opportunities to join K Lab and contribute to our mission.",
     "careersButton": "Contact careers"
   },
   "companyCulture": {
@@ -72,8 +72,8 @@
     "heading": "Innovation Through Teamwork & Inclusion.",
     "highlight1": "Teamwork",
     "highlight2": "Inclusion",
-    "description": "KLab combines start-up energy with extensive industry experience to develop innovative technologies. We have a deep commitment to advancing diversity, equality, and inclusion, essential to our mission of helping businesses and attracting exceptional people who think outside the box.",
-    "button": "KLab Careers",
+    "description": "K Lab combines start-up energy with extensive industry experience to develop innovative technologies. We have a deep commitment to advancing diversity, equality, and inclusion, essential to our mission of helping businesses and attracting exceptional people who think outside the box.",
+    "button": "K Lab Careers",
     "statPeople": "People in six countries",
     "statWomen": "Are women",
     "statNationalities": "Different nationalities",
@@ -107,12 +107,12 @@
     "event3": "SECURED DATA ACCESS AGREEMENT TO TRAIN PROPRIETARY MODELS"
   },
   "klabFoundation": {
-    "title": "KLab Foundation",
+    "title": "K Lab Foundation",
     "quote1": "THE MORE",
     "quote2": "WE CREATE",
     "quote3": "THE MORE",
     "quote4": "WE GIVE.",
-    "learnMore": "KLab Foundation"
+    "learnMore": "K Lab Foundation"
   },
   "companyStaff": {
     "title": "Our Team",
@@ -151,7 +151,7 @@
       },
       "tomasGuzman": {
         "position": "Government & Institutional Relations",
-        "bio": "Tomás is Director of Institutional & Government Relations at KLab, leading stakeholder engagement and strategic partnerships. A trained lawyer and former Minister Counsellor at Venezuela's Embassy in Brazil, he brings diplomacy and public-private sector expertise and excels in negotiation, institutional positioning, and long-term growth."
+        "bio": "Tomás is Director of Institutional & Government Relations at K Lab, leading stakeholder engagement and strategic partnerships. A trained lawyer and former Minister Counsellor at Venezuela's Embassy in Brazil, he brings diplomacy and public-private sector expertise and excels in negotiation, institutional positioning, and long-term growth."
       }
     },
     "board": {
@@ -171,7 +171,7 @@
         "bio": "Chris is an entrepreneur, investor, and owner of World Auto Group, a multi-brand automotive retail group based in NJ. He specializes in business development, acquisitions, and scaling operations, building high-performing teams and award-winning businesses while creating long-term value across his portfolio."
       },
       "davideTomassoni": {
-        "bio": "Board Member and Lead Director of Global Affairs at KLabs Inc., Davide brings his deep entrepreneurial experience in international relations, strategic partnerships, and cross-border initiatives. He advises on geopolitical strategy, stakeholder engagement, and global market expansion, aligning policy insight with commercial execution across technology, finance, and innovation-driven enterprises."
+        "bio": "Board Member and Lead Director of Global Affairs at K Labs, Davide brings his deep entrepreneurial experience in international relations, strategic partnerships, and cross-border initiatives. He advises on geopolitical strategy, stakeholder engagement, and global market expansion, aligning policy insight with commercial execution across technology, finance, and innovation-driven enterprises."
       },
       "milesMolyneaux": {
         "bio": "Miles has 25 years of experience leading finance teams and as a board member of both early stage and high growth companies, with focuses on M&A transactions, valuation and performance improvement."
@@ -182,15 +182,15 @@
     "titleBrand": "KFoundation",
     "titleMain": "Giving",
     "subheading": "Innovation with Purpose",
-    "paragraph": "At KLab, we believe innovation is transformation, but true transformation extends beyond technology; it must include social impact. Our success is designed to be cyclical, flowing back into communities.",
-    "section1": "Our commitment to KLab is dedicated to continuously deploying its innovative tech ecosystem and crafting advanced AI models. A core part of our mission is to pledge 10% of all profits directly to K Foundation.",
+    "paragraph": "At K Lab, we believe innovation is transformation, but true transformation extends beyond technology; it must include social impact. Our success is designed to be cyclical, flowing back into communities.",
+    "section1": "Our commitment to K Lab is dedicated to continuously deploying its innovative tech ecosystem and crafting advanced AI models. A core part of our mission is to pledge 10% of all profits directly to K Foundation.",
     "section2": "Empowering the next generation through the K Foundation, we strive to create opportunities for children and teenagers worldwide. Our goal is to foster their passions and talents, especially in communities where resources and means are scarce.",
-    "section3": "Driven by creativity & purpose, we are a team of creatives, deeply passionate about innovation and achieving success with a profound purpose. Uniquely, KLab employees contribute their expertise to both KLab's business ventures and the impactful initiatives of K Foundation."
+    "section3": "Driven by creativity & purpose, we are a team of creatives, deeply passionate about innovation and achieving success with a profound purpose. Uniquely, K Lab employees contribute their expertise to both K Lab's business ventures and the impactful initiatives of K Foundation."
   },
   "litepapers": {
-    "label": "KLab LITEPAPER",
-    "heading": "Explore how KLab reimagines blockchain payments with stability and predictability at its core",
-    "description": "KLab is a purpose-built, EVM-compatible Layer-1 blockchain advancing the frontier of stablecoin finance and tokenization. It features USDC as native gas, deterministic settlement finality, opt-in privacy, and a stable transaction fee architecture. Optimized for stablecoin-native use cases, such as global payments, FX, and capital markets, KLab serves as a foundational settlement layer for programmable money on the internet.",
+    "label": "K LAB LITEPAPER",
+    "heading": "Explore how K Lab reimagines blockchain payments with stability and predictability at its core",
+    "description": "K Lab is a purpose-built, EVM-compatible Layer-1 blockchain advancing the frontier of stablecoin finance and tokenization. It features USDC as native gas, deterministic settlement finality, opt-in privacy, and a stable transaction fee architecture. Optimized for stablecoin-native use cases, such as global payments, FX, and capital markets, K Lab serves as a foundational settlement layer for programmable money on the internet.",
     "readFullLitepaper": "READ THE FULL LITEPAPER",
     "english": "English",
     "spanish": "Spanish",
@@ -297,7 +297,7 @@
     "successTitle": "Request Submitted!",
     "successMessage": "Our sales team will be in touch soon.",
     "successHeadline": "Inquiry Submitted Successfully!",
-    "successBody": "Thank you for your interest in KLab. We've received your inquiry and our sales team will be in touch with you shortly to discuss how we can help your business grow.",
+    "successBody": "Thank you for your interest in K Lab. We've received your inquiry and our sales team will be in touch with you shortly to discuss how we can help your business grow.",
     "formHeadline": "Let's discuss how we can help your business grow",
     "submitAnother": "Submit Another Request",
     "firstName": "First Name",
@@ -493,11 +493,11 @@
     "technologies": {
       "krails": "Blockchain infrastructure for automated, real-time B2B payments and settlement.",
       "kena": "Kena is a proprietary system for Intelligent Financial Infrastructure (IFI).",
-      "ktalk": "A conversational AI interface that gives instant, natural-language access to operational, financial, and transactional data across all K-Lab systems.",
+      "ktalk": "A conversational AI interface that gives instant, natural-language access to operational, financial, and transactional data across all K Lab systems.",
       "krisk": "An automated risk-decisioning engine that uses AI, data models, and dynamic rules to evaluate credit, detect fraud, and monitor exposures in real time.",
       "kabl": "K-Abl is an AI and blockchain powered financial ecosystem, anchored by K-Rails unifying all K Modules into a single intelligent platform.",
       "kcard": "Corporate card issuance, expense management, and global enforcement. Automating manual processes for more efficient spend management and reporting oversight.",
-      "kbpm": "The orchestration engine that powers every operational process across the K-Lab lending ecosystem.",
+      "kbpm": "The orchestration engine that powers every operational process across the K Lab lending ecosystem.",
       "kim": "Turns a traditionally manual, error-prone process into a fully automated, intelligent, and trusted digital workflow—unlocking speed, liquidity, and confidence across the supply chain.",
       "kaxis": "Powerful CRM system built to give you real-time visibility into every aspect of your customer's financial journey. From credit lines and loans to payments and balances, centralizes key customer data in a single, easy-to-use platform.",
       "kleads": "Surface more qualified leads to maximize commercial efficiency leading to accelerated growth and deal flow.",
@@ -527,16 +527,16 @@
     "breadcrumbNews": "News",
     "breadcrumbAriaLabel": "Breadcrumb",
     "cardOurPresentTitle": "Our Present",
-    "cardOurPresentDescription": "Stay up to date with the latest from KLab with product updates, company news, and industry insights.",
-    "cardOurPresentButton": "View KLab news",
+    "cardOurPresentDescription": "Stay up to date with the latest from K Lab with product updates, company news, and industry insights.",
+    "cardOurPresentButton": "View K Lab news",
     "cardOurPastTitle": "Our Past",
-    "cardOurPastDescription": "Explore news and insights from KEO World, including our history and the foundation that led to KLab.",
+    "cardOurPastDescription": "Explore news and insights from KEO World, including our history and the foundation that led to K Lab.",
     "cardOurPastButton": "View KEO news",
     "noArticlesFound": "No articles found",
     "emptyStateTryFilters": "Try adjusting your filters to find what you're looking for.",
     "emptyStateCheckBack": "Check back soon for new content.",
-    "heroTitleKlab": "KLab News",
-    "breadcrumbKlab": "KLab News",
+    "heroTitleKlab": "K Lab News",
+    "breadcrumbKlab": "K Lab News",
     "emptyStateKlab": "No news available. Check back again soon.",
     "exploreOurRootsButton": "Explore Our Roots",
     "heroTitleKeo": "KEO World News",

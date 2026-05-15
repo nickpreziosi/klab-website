@@ -51,7 +51,7 @@ interface NewsCardProps {
     authorRole?: string;
   };
   index: number;
-  /** Base path without slug (KLab `/news`, KEO `/news/keo`). */
+  /** Base path without slug (K Lab `/news`, KEO `/news/keo`). */
   articleHrefBase?: string;
 }
 

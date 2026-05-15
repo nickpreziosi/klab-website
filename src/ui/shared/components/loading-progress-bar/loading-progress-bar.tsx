@@ -17,7 +17,7 @@ const BAR_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const ROTATE_EASE: [number, number, number, number] = [0.34, 1.12, 0.32, 1];
 
 /**
- * Shimmer after the ~1s beat. Easing matched to klab-promo sweep: quick build,
+ * Shimmer after the ~1s beat. Easing matched to K Lab promo sweep: quick build,
  * long soft settle (emphasized decelerate — common in the reference clip).
  */
 const SHIMMER_DELAY_S = 0.7;

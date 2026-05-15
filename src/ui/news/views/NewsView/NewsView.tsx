@@ -34,15 +34,15 @@ export interface NewsViewProps {
   allCategories: string[];
   selectedCategories: string[];
   articlesPerPage: number;
-  /** When true, shows KEO / KLab card links (main news page only). */
+  /** When true, shows KEO / K Lab card links (main news page only). */
   showNewsCards?: boolean;
-  /** Hero title (e.g. "News & Insights", "KEO World News", "KLab News"). */
+  /** Hero title (e.g. "News & Insights", "KEO World News", "K Lab News"). */
   heroTitle?: string;
   /** Hero subtitle; omit or pass empty to hide. */
   heroSubtitle?: string;
   /** Breadcrumb current segment; when set, breadcrumb is "News" / this label. */
   breadcrumbCurrent?: string;
-  /** Custom message when there are no articles (e.g. KLab empty state). */
+  /** Custom message when there are no articles (e.g. K Lab empty state). */
   emptyStateMessage?: string;
   /** When false, hide the articles section (main news page: cards only). */
   showArticles?: boolean;
@@ -55,7 +55,7 @@ export interface NewsViewProps {
    * stay left-to-right while `contentDirection` is `rtl` for Arabic layout).
    */
   articlesContentDirection?: "ltr" | "rtl";
-  /** Card links: KLab `/news`, KEO `/news/keo`. */
+  /** Card links: K Lab `/news`, KEO `/news/keo`. */
   articleHrefBase?: string;
 }
 
@@ -250,10 +250,7 @@ export function NewsView({
             </motion.div>
           ) : (
             <>
-              <div
-                className={styles.articlesGrid}
-                dir={articlesContentDirection}
-              >
+              <div className={styles.articlesGrid} dir={articlesContentDirection}>
                 {isLoading
                   ? Array.from({ length: articlesPerPage }).map((_, index) => (
                       <NewsCardSkeleton key={index} />

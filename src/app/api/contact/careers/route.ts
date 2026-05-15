@@ -267,7 +267,7 @@ export async function POST(request: Request) {
           <!-- Header banner -->
           <tr>
             <td style="width: 100%; height: auto; aspect-ratio: 16/9;">
-              <img src="${EMAIL_HEADER_BANNER_URL}" alt="K-Lab" style="width: 100%; height: auto; margin: 0 auto; border: 0; aspect-ratio: 16/9;" />
+              <img src="${EMAIL_HEADER_BANNER_URL}" alt="K Lab" style="width: 100%; height: auto; margin: 0 auto; border: 0; aspect-ratio: 16/9;" />
             </td>
           </tr>
 
@@ -284,7 +284,7 @@ export async function POST(request: Request) {
             <td style="padding: 30px;">
               <table role="presentation" style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
                 ${
-                  (data.firstName?.trim() || data.lastName?.trim())
+                  data.firstName?.trim() || data.lastName?.trim()
                     ? `
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
@@ -349,9 +349,7 @@ export async function POST(request: Request) {
                 <tr>
                   <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Current Title</strong>
-                    <span style="color: #333333; font-size: 16px;">${escapeHtml(
-                      data.title
-                    )}</span>
+                    <span style="color: #333333; font-size: 16px;">${escapeHtml(data.title)}</span>
                   </td>
                 </tr>
                 `
@@ -393,8 +391,8 @@ export async function POST(request: Request) {
               <div style="background-color: #fafafa; border-left: 4px solid #f37120; padding: 20px; margin: 25px 0; border-radius: 4px;">
                 <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 12px;">Message</strong>
                 <p style="margin: 0; color: #333333; font-size: 16px; line-height: 1.6; white-space: pre-wrap;">${formatMessage(
-                    data.message
-                  )}</p>
+                  data.message
+                )}</p>
               </div>
               `
                   : ""
@@ -415,7 +413,7 @@ export async function POST(request: Request) {
           <tr>
             <td style="background-color: #fafafa; padding: 20px 30px; text-align: center; border-top: 1px solid #f0f0f0;">
               <p style="margin: 0; font-size: 12px; color: #999999; line-height: 1.5;">
-                This email was automatically generated from the KLab Careers contact form.<br>
+                This email was automatically generated from the K Lab Careers contact form.<br>
                 Please reply directly to this email to contact the candidate.
               </p>
             </td>
