@@ -61,10 +61,10 @@
   },
   "contact": {
     "heading": "How can we help?",
-    "subtitle": "Get in touch with our sales, support, and careers teams for demos, product questions, or career opportunities.",
+    "subtitle": "See how K Rails can be configured for your institution. Connect with our commercial team for a 30-minute live demo.",
     "salesTitle": "Sales",
-    "salesDescription": "Interested in learning more about K Lab's products and services? Our sales team is here to answer your questions, provide personalized demos, and help you find the perfect solution for your business needs.",
-    "salesButton": "Talk to sales",
+    "salesDescription": "Ready to explore K Rails for your institution? Our commercial team specializes in government, financial institution, and private capital deployments — and can demo a live environment in 30 minutes.",
+    "salesButton": "Contact sales",
     "supportTitle": "Help & Support",
     "supportDescription": "Need assistance with onboarding, technical issues, or product questions? Our support team is ready to help you resolve any technical issues.",
     "supportButton": "Contact support",
@@ -299,7 +299,7 @@
     }
   },
   "salesForm": {
-    "heading": "Talk to Sales",
+    "heading": "Contact Sales",
     "successTitle": "Request Submitted!",
     "successMessage": "Our sales team will be in touch soon.",
     "successHeadline": "Inquiry Submitted Successfully!",

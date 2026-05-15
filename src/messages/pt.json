@@ -24,7 +24,7 @@
     "title": "Confiança programável para movimentação institucional de valores.",
     "subtitle": "A K Lab constrói a camada de controle que decide se o dinheiro se move — e prova que se moveu. Configurável. Com permissões. Exigível.",
     "seeKRailsInAction": "Ver o K Rails em ação",
-    "contactSales": "Fale com vendas",
+    "contactSales": "Contactar vendas",
     "promoVideoPosterAlt": "Vídeo promocional da K Lab",
     "promoVideoSectionLabel": "Vídeo promocional da K Lab"
   },
@@ -61,10 +61,10 @@
   },
   "contact": {
     "heading": "Como podemos ajudar?",
-    "subtitle": "Entre em contato com nossas equipes de vendas, suporte e carreiras para demos, dúvidas sobre produtos ou oportunidades de carreira.",
+    "subtitle": "Veja como o K Rails pode ser configurado para a sua instituição. Entre em contato com nossa equipe comercial para uma demonstração ao vivo de 30 minutos.",
     "salesTitle": "Vendas",
-    "salesDescription": "Interessado em saber mais sobre os produtos e serviços da K Lab? Nossa equipe de vendas está aqui para responder suas perguntas, oferecer demos personalizados e ajudá-lo a encontrar a solução ideal para seu negócio.",
-    "salesButton": "Falar com vendas",
+    "salesDescription": "Pronto para explorar o K Rails na sua instituição? Nossa equipe comercial é especializada em implantações para governo, instituições financeiras e capital privado, e pode demonstrar um ambiente ao vivo em 30 minutos.",
+    "salesButton": "Contactar vendas",
     "supportTitle": "Ajuda e suporte",
     "supportDescription": "Precisa de ajuda com onboarding, problemas técnicos ou dúvidas sobre produtos? Nossa equipe de suporte está pronta para ajudá-lo a resolver qualquer problema técnico.",
     "supportButton": "Contatar suporte",
@@ -216,7 +216,7 @@
     "kaiDesc": "Carteira digital empresarial com suporte multisignatura"
   },
   "techPlaceholder": {
-    "contactSales": "Falar com vendas",
+    "contactSales": "Contactar vendas",
     "comingSoonSubline": "Casos de uso e benefícios detalhados para esta tecnologia em breve.",
     "overview": "Visão geral",
     "learnMoreSoon": "Mais informações em breve",
@@ -299,7 +299,7 @@
     }
   },
   "salesForm": {
-    "heading": "Falar com vendas",
+    "heading": "Contactar vendas",
     "successTitle": "Solicitação enviada!",
     "successMessage": "Nossa equipe de vendas entrará em contato em breve.",
     "successHeadline": "Solicitação enviada com sucesso!",
@@ -447,7 +447,7 @@
     "themeLabel": "Tema"
   },
   "common": {
-    "contactSales": "Fale com vendas",
+    "contactSales": "Contactar vendas",
     "learnMore": "Saiba mais",
     "loading": "Carregando",
     "loadingProgress": "Carregando...",

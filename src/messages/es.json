@@ -61,10 +61,10 @@
   },
   "contact": {
     "heading": "¿Cómo podemos ayudarte?",
-    "subtitle": "Contacta con nuestros equipos de ventas, soporte y carrera para demos, preguntas sobre productos u oportunidades laborales.",
+    "subtitle": "Descubre cómo se puede configurar K Rails para tu institución. Contacta con nuestro equipo comercial para una demo en vivo de 30 minutos.",
     "salesTitle": "Ventas",
-    "salesDescription": "¿Interesado en conocer más sobre los productos y servicios de K Lab? Nuestro equipo de ventas está aquí para responder tus preguntas, ofrecer demos personalizados y ayudarte a encontrar la solución ideal para tu negocio.",
-    "salesButton": "Hablar con ventas",
+    "salesDescription": "¿Listo para explorar K Rails en tu institución? Nuestro equipo comercial está especializado en despliegues para gobiernos, instituciones financieras y capital privado, y puede mostrarte un entorno en vivo en 30 minutos.",
+    "salesButton": "Contactar ventas",
     "supportTitle": "Ayuda y soporte",
     "supportDescription": "¿Necesitas ayuda con incorporación, problemas técnicos o preguntas sobre productos? Nuestro equipo de soporte está listo para ayudarte a resolver cualquier incidencia técnica.",
     "supportButton": "Contactar soporte",
@@ -299,7 +299,7 @@
     }
   },
   "salesForm": {
-    "heading": "Hablar con ventas",
+    "heading": "Contactar ventas",
     "successTitle": "¡Solicitud enviada!",
     "successMessage": "Nuestro equipo de ventas se pondrá en contacto pronto.",
     "successHeadline": "¡Solicitud enviada correctamente!",
