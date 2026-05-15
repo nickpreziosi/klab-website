@@ -498,7 +498,7 @@
   },
   "technologiesShowcase": {
     "technologies": {
-      "krails": "Blockchain infrastructure for automated, real-time B2B payments and settlement.",
+      "krails": "A programmable trust and execution layer for institutional money movement",
       "kena": "Kena is a proprietary system for Intelligent Financial Infrastructure (IFI).",
       "ktalk": "A conversational AI interface that gives instant, natural-language access to operational, financial, and transactional data across all K Lab systems.",
       "krisk": "An automated risk-decisioning engine that uses AI, data models, and dynamic rules to evaluate credit, detect fraud, and monitor exposures in real time.",
