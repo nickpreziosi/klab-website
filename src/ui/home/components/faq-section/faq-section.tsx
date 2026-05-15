@@ -25,7 +25,7 @@ const FAQ_ITEMS = [
     value: "products",
     question: "What products does K Lab offer?",
     answer:
-      "K Lab offers KCard for corporate card issuance and expense management, Kena for AI-powered risk intelligence, and KRails for payment infrastructure and B2B trade execution.",
+      "K Lab offers KCard for corporate card issuance and expense management, Kena for AI-powered risk intelligence, and K Rails for payment infrastructure and B2B trade execution.",
   },
   {
     value: "integration",

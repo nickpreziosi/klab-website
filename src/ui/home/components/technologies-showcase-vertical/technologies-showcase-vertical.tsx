@@ -41,7 +41,7 @@ const TECHNOLOGIES: {
   href: string;
 }[] = [
   {
-    title: "KRails",
+    title: "K Rails",
     logoLight: "/logos/krails-logo-light.svg",
     logoDark: "/logos/krails-logo-dark.svg",
     descriptionKey: "krails",
@@ -128,7 +128,9 @@ const VISIBLE_TECH_KEYS: readonly TechKey[] = ["krails", "kena", "krisk", "klead
 const VISIBLE_TECH_KEY_SET = new Set<TechKey>(VISIBLE_TECH_KEYS);
 
 const visibleLeftTechs = leftTechs.filter((tech) => VISIBLE_TECH_KEY_SET.has(tech.descriptionKey));
-const visibleRightTechs = rightTechs.filter((tech) => VISIBLE_TECH_KEY_SET.has(tech.descriptionKey));
+const visibleRightTechs = rightTechs.filter((tech) =>
+  VISIBLE_TECH_KEY_SET.has(tech.descriptionKey)
+);
 
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -265,11 +267,7 @@ function TechSlot({
             <div className={styles.popoverMobileContent}>
               <h4 className={styles.popoverMobileTitle}>{tech.title}</h4>
               <p className={styles.popoverMobileDescription}>{description}</p>
-              <Button
-                href={tech.href}
-                variant="accent-brand"
-                className={styles.popoverMobileLink}
-              >
+              <Button href={tech.href} variant="accent-brand" className={styles.popoverMobileLink}>
                 {learnMoreLabel}
               </Button>
             </div>
