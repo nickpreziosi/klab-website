@@ -19,9 +19,9 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "K Lab",
+  title: "K Lab — Programmable Trust for Institutional Money Movement",
   description:
-    "A programmable trust and execution layer for institutional money movement. Built for governments, financial institutions, and private capital. Configurable. Permissioned. Enforceable.",
+    "K Lab builds programmable infrastructure that determines whether money should move — and proves it did. Configurable, permissioned, and enforceable for FIs, governments, and private capital.",
 };
 
 export default async function RootLayout({

@@ -54,6 +54,7 @@
   letter-spacing: -0.5%;
   color: var(--secondary-color);
   margin: 0;
+  white-space: pre-line;
 }
 
 /* Added contact button styles from provided CSS */

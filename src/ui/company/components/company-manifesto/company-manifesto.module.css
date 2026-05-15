@@ -30,14 +30,21 @@
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--gap-md) var(--gap-lg);
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: var(--gap-lg);
   width: 100%;
-  list-style: none;
   margin: 0;
   padding: 0;
-  align-items: start;
+}
+
+.column {
+  display: flex;
+  flex: 1 1 50%;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--gap-md);
 }
 
 .item {
@@ -75,8 +82,12 @@
   }
 
   .grid {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: var(--gap-md);
+  }
+
+  .column {
+    display: contents;
   }
 
   .itemText {

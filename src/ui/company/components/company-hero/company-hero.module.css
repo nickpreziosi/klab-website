@@ -22,12 +22,12 @@
 }
 
 .heroHeader {
-  max-width: 520px !important;
-  font-weight: 400;
-  font-size: 36px;
-  line-height: 1.2;
+  max-width: 640px !important;
+  font-weight: 700;
+  font-size: 2.2rem;
+  line-height: 1.18;
   letter-spacing: -0.015em;
-  text-align: right;
+  text-align: start;
 }
 
 .heroHeaderHighlight {
@@ -45,28 +45,33 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: stretch;
   padding: var(--padding-desktop);
-  gap: var(--gap-md);
+  gap: clamp(var(--gap-md), 2.5vw, var(--gap-lg));
 }
 
 .heroText h1 {
-  max-width: 600px;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 640px;
+  margin-block: 0;
 }
 
 .heroHeaderContainer {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-start;
-  gap: var(--gap-lg);
+  justify-content: flex-start;
+  align-items: center;
+  gap: clamp(var(--gap-md), 2.5vw, 2.5rem);
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .heroLogo {
   flex-shrink: 0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .heroLogoInner {
@@ -77,29 +82,27 @@
 .heroTaglinesContainer {
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--gap-lg);
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0;
 }
 
-.heroTaglinesContainer p {
-  font-size: 20px;
+.heroSubhead {
+  margin: 0;
+  margin-inline-end: auto;
+  max-width: min(100%, 50rem);
+  font-size: clamp(1rem, 2vw + 0.85rem, 1.25rem);
   font-weight: 400;
-  line-height: 32px;
+  line-height: 1.45;
   letter-spacing: -0.005em;
   color: white;
+  text-align: start;
 }
 
 @media (max-width: 1440px) {
   .heroText {
     width: 100%;
-  }
-  .heroHeader {
-    font-size: 56px;
-  }
-  .heroTaglinesContainer p {
-    font-size: var(--text-lg);
   }
 }
 
@@ -121,79 +124,80 @@
   }
 
   .heroHeader {
-    font-size: 42px;
-    line-height: 1.1;
-    max-width: 100%;
+    font-size: 2rem;
+    line-height: 1.12;
+    max-width: min(100%, 560px) !important;
   }
 
   .heroHeaderContainer {
     gap: var(--gap-md);
   }
 
-  .heroTaglinesContainer {
-    gap: var(--gap-md);
-  }
-
-  .heroTaglinesContainer p {
-    font-size: var(--text-base);
-    line-height: 1.5;
+  .heroSubhead {
+    font-size: clamp(0.9375rem, 1.2vw + 0.82rem, 1.0625rem);
   }
 }
 
 /* Mobile design */
 @media (max-width: 768px) {
   .hero {
-    min-height: 340px;
     height: auto;
-    aspect-ratio: 4/3;
+    min-height: clamp(260px, 52vw, 340px);
+    aspect-ratio: 4 / 3;
   }
 
   .heroImage {
     min-height: 100%;
-    aspect-ratio: 4/3;
+    aspect-ratio: 4 / 3;
     height: 100%;
   }
 
   .heroText {
     width: 100%;
-    padding: var(--padding-tablet) var(--padding-mobile);
+    padding: 24px var(--padding-mobile);
     gap: var(--gap-sm);
     justify-content: space-between;
   }
 
   .heroHeaderContainer {
     flex-direction: row;
-    align-items: flex-end;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: flex-start;
     gap: var(--gap-sm);
-    flex-wrap: nowrap;
   }
 
   .heroHeader {
-    font-size: 28px;
-    line-height: 1.15;
-    text-align: right;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    max-width: 100% !important;
+    text-align: start;
   }
 
-  .heroTaglinesContainer {
-    flex-direction: column;
-    align-items: flex-end;
-    gap: var(--gap-xs);
-    text-align: right;
+  .heroSubhead {
+    font-size: clamp(0.875rem, 1.2vw + 0.75rem, 1rem);
+    line-height: 1.5;
   }
+}
 
-  .heroTaglinesContainer p {
-    font-size: var(--text-sm);
-    line-height: 1.4;
+@media (max-width: 520px) {
+  .heroHeader {
+    font-size: 1.2rem;
+    max-width: 100% !important;
   }
 }
 
 @media (max-width: 480px) {
   .heroHeader {
-    font-size: 24px;
+    font-size: 1rem;
+    line-height: 1.18;
   }
 
-  .heroTaglinesContainer p {
+  .heroSubhead {
     font-size: var(--text-xs);
+    line-height: 1.45;
+  }
+
+  .heroText {
+    gap: var(--gap-xs);
   }
 }

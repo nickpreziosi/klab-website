@@ -516,12 +516,19 @@ export default function HomeSecondarySection({
             transition={skipAnimation ? { duration: 0 } : { duration: 0.6, ease: "easeOut" }}
           >
             <div className={styles.deploymentTimeline}>
-              <h2 className={styles.timelineTitle}>
-                <span className={styles.timelineTitlePrimary}>{t("timelineTitlePrimary")}</span>{" "}
-                <br className={styles.timelineTitleBreak}></br>
-                <span className={styles.timelineTitleAccent}>{t("timelineTitleAccent")}.</span>
-              </h2>
-              <p className={styles.timelineMethodology}>{t("timelineMethodology")}</p>
+              <div className={styles.deploymentTimelineCopy}>
+                <h2 className={styles.timelineTitle}>
+                  <span className={styles.timelineTitlePrimary}>{t("timelineTitlePrimary")}</span>{" "}
+                  <br className={styles.timelineTitleBreak}></br>
+                  <span className={styles.timelineTitleAccent}>{t("timelineTitleAccent")}.</span>
+                </h2>
+                <p className={styles.timelineMethodology}>{t("timelineMethodology")}</p>
+                <ul className={styles.deploymentStatList}>
+                  <li className={styles.deploymentStatItem}>{t("deploymentStat1")}</li>
+                  <li className={styles.deploymentStatItem}>{t("deploymentStat2")}</li>
+                  <li className={styles.deploymentStatItem}>{t("deploymentStat3")}</li>
+                </ul>
+              </div>
               <div className={styles.timelineLayout}>
                 {(() => {
                   const steps = HOME_SECONDARY_STEP_KEYS.map((key) => ({ label: t(key) }));

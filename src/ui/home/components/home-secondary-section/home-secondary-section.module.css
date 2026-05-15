@@ -117,6 +117,12 @@
   backdrop-filter: blur(8px);
 }
 
+/* Extra inset for headline + methodology + stats only; timeline graphic keeps card padding */
+.deploymentTimelineCopy {
+  padding-inline: var(--padding-tablet);
+  padding-block-start: var(--padding-mobile);
+}
+
 .timelineTitle {
   margin: 0 0 var(--gap-sm) 0;
   font-size: var(--text-xl);
@@ -128,14 +134,78 @@
 }
 
 .timelineMethodology {
-  margin: 0 0 var(--padding-tablet) 0;
-  max-width: 52rem;
+  margin: 0 0 var(--gap-md) 0;
+  max-width: 62rem;
   font-size: var(--text-md);
   font-weight: var(--font-normal);
   line-height: 1.55;
   letter-spacing: 0.01em;
   text-transform: none;
   color: hsl(var(--foreground) / 0.92);
+}
+
+.deploymentStatList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  align-items: stretch;
+  width: 100%;
+  max-width: none;
+  list-style: none;
+  margin: 0 0 var(--gap-md);
+  padding: var(--padding-tablet) 0 0;
+}
+
+.deploymentStatItem {
+  margin: 0;
+  padding-inline: clamp(var(--gap-md), 3vw, var(--gap-xl));
+  font-size: 16px;
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.35;
+  color: hsl(var(--foreground) / 0.95);
+  text-align: center;
+  hyphens: auto;
+}
+
+.deploymentStatItem:first-child {
+  padding-inline-start: 0;
+}
+
+.deploymentStatItem:last-child {
+  padding-inline-end: 0;
+}
+
+.deploymentStatItem:not(:last-child) {
+  border-inline-end: 1px solid hsl(var(--foreground) / 0.22);
+}
+
+@media (max-width: 640px) {
+  .deploymentStatList {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--gap-sm);
+    margin-top: 0;
+    margin-bottom: var(--padding-tablet);
+    padding-top: var(--gap-sm);
+    width: 100%;
+  }
+
+  .deploymentStatItem {
+    padding-inline: 0;
+    font-size: var(--text-xs);
+    text-align: start;
+    border-inline-end: none !important;
+    border-block-end: 1px solid hsl(var(--foreground) / 0.15);
+    padding-block-end: var(--gap-sm);
+  }
+
+  .deploymentStatItem:last-child {
+    border-block-end: none;
+    padding-block-end: 0;
+  }
 }
 
 .timelineTitlePrimary {
@@ -1236,6 +1306,11 @@
     max-width: calc(100vw - 0px);
     max-height: calc(100vh - 0px) !important;
   }
+
+  .deploymentTimelineCopy {
+    padding-inline: var(--padding-mobile);
+    padding-block-start: 0;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1304,6 +1379,10 @@
   .dialogContent {
     max-width: calc(100vw - 0px);
     max-height: calc(100vh - 0px) !important;
+  }
+  .deploymentTimelineCopy {
+    padding-inline: 0;
+    padding-block-start: 0;
   }
 }
 

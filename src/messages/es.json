@@ -22,18 +22,16 @@
   },
   "hero": {
     "title": "Confianza programable para el movimiento institucional del dinero.",
-    "subtitle": "K Lab construye la capa de control que decide si el dinero se mueve — y demuestra que lo hizo. Configurable. Con permisos. Exigible.",
+    "subtitle": "K Rails es la capa de control que decide si el dinero debe moverse — y demuestra que lo hizo. Configurable por la institución. Exigible en cada paso. Auditable por diseño.",
     "seeKRailsInAction": "Ver K Rails en acción",
-    "contactSales": "Contactar ventas",
+    "contactSales": "Hable con nuestro equipo comercial",
     "promoVideoPosterAlt": "Vídeo promocional de K Lab",
     "promoVideoSectionLabel": "Vídeo promocional de K Lab"
   },
   "companyHero": {
-    "headlineLine1": "Confianza programable.",
-    "headlineLine2": "Construida para instituciones que no pueden permitirse el error.",
-    "tagline1": "Guiada por reglas.",
-    "tagline2": "Haciendo cumplir en cada paso.",
-    "tagline3": "Auditable por diseño.",
+    "headlineLine1": "Construido para defender el dinero",
+    "headlineLine2": "que impulsa a las instituciones.",
+    "subhead": "K Lab es una fintech con sede en Miami que ofrece infraestructura financiera programable para gobiernos, instituciones financieras y capital privado, respaldada por cinco años de inteligencia transaccional en vivo.",
     "employeeImageAlt": "Imagen de empleado KEO"
   },
   "NotFoundPage": {
@@ -87,22 +85,22 @@
   "companyManifesto": {
     "title": "Manifiesto",
     "item0": "En el código confiamos. En las personas invertimos.",
-    "item1": "El fraude se reduce significativamente, no se elimina.",
+    "item1": "Fraude reducido de forma significativa. Rendición de cuentas garantizada.",
     "item2": "No construimos tecnología. Construimos confianza.",
     "item3": "Nuestra arquitectura no duerme.",
     "item4": "El éxito solo es éxito si se comparte.",
     "item5": "Progreso, acelerado.",
     "item6": "Incorruptible por diseño.",
-    "item7": "Combatimos el fraude. Financiamos sueños.",
+    "item7": "Las normas se hacen cumplir antes de que el dinero se mueva.",
     "item8": "Defendiendo el futuro de la fricción del pasado.",
     "item9": "Defendible por diseño. Auditable en cada paso.",
     "item10": "Cuanto más creamos, más damos."
   },
   "journeyTimeline": {
     "title": "Nuestro recorrido",
-    "subtitle": "CONSTRUYENDO EL FUTURO DE LA IA CON CINCO AÑOS DE INTELIGENCIA FINANCIERA DEMOSTRADA.",
-    "paragraph1": "Cinco años de inteligencia de transacciones en vivo de KEO World, que ahora impulsa los modelos de IA que hacen que K Rails sea más inteligente con cada pago.",
-    "paragraph2": "MEDIANTE UN ACUERDO DEFINITIVO CON MAHA CAPITAL, K LAB APROVECHA ESTE ECOSISTEMA DE DATOS PARA ENTRENAR MODELOS DE IA ESPECIALIZADOS. ESTAMOS TRANSFORMANDO AÑOS DE TRANSACCIONES EN LA INTELIGENCIA DEL MAÑANA.",
+    "subtitle": "Cinco años de inteligencia.\nUna plataforma programable.",
+    "paragraph1": "K Lab se fundamenta en el historial de transacciones, los modelos propietarios y los datos operativos adquiridos de KEO World, una fintech que procesó pagos B2B reales en América Latina durante cinco años.",
+    "paragraph2": "Esa inteligencia acumulada es hoy la base de K Rails: no es teoría ni infraestructura de demostración, sino un sistema entrenado con cómo se mueve de verdad el dinero institucional, y con dónde falla.",
     "year2020": "2020",
     "year2025": "2025",
     "sold": "¡VENDIDO!",
@@ -184,7 +182,7 @@
     }
   },
   "foundation": {
-    "titleBrand": "KFoundation",
+    "titleBrand": "K Foundation",
     "titleMain": "Dar",
     "subheading": "Innovación con propósito",
     "paragraph": "En K Lab creemos que la innovación es transformación, pero la verdadera transformación va más allá de la tecnología; debe incluir impacto social. Nuestro éxito está diseñado para ser cíclico, volviendo a las comunidades.",
@@ -228,7 +226,10 @@
     "kenaDescription": "Kena, nuestra IA de riesgo propietaria, replica el razonamiento de los suscriptores financieros y se entrena continuamente con datos globales.",
     "timelineTitlePrimary": "Activo en 90 días.",
     "timelineTitleAccent": "Sin rip-and-replace",
-    "timelineMethodology": "Trabajamos en sprints semanales desde el alcance hasta el lanzamiento, integrándonos junto a tu infraestructura actual, sin sustituir los sistemas centrales.",
+    "timelineMethodology": "K Rails se integra en sus raíles de pago, sistemas ERP e infraestructura de liquidación existentes. Nuestra metodología de sprints estructurados le lleva del alcance a la puesta en marcha sin perturbar las operaciones actuales.",
+    "deploymentStat1": "Despliegue en 90 días",
+    "deploymentStat2": "$0 coste de integración",
+    "deploymentStat3": "100 % cobertura de auditoría desde el día 0",
     "stepScoping": "ALCANCE",
     "stepOnboarding": "INCORPORACIÓN",
     "stepIntegrate": "INTEGRAR / QA",
