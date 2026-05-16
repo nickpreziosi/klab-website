@@ -1,12 +1,12 @@
 {
   "nav": {
     "about": "Nosotros",
-    "technologies": "Tecnologías",
+    "technologies": "Soluciones",
     "company": "Empresa",
     "news": "Noticias",
     "contact": "Contacto",
     "goToHomepage": "Ir al inicio",
-    "technologiesMenuLabel": "Menú de tecnologías, pulse enter o espacio para abrir",
+    "technologiesMenuLabel": "Menú de soluciones, pulse enter o espacio para abrir",
     "mainNav": "Navegación principal"
   },
   "drawer": {

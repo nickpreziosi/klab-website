@@ -1,12 +1,12 @@
 {
   "nav": {
     "about": "من نحن",
-    "technologies": "التقنيات",
+    "technologies": "الحلول",
     "company": "الشركة",
     "news": "الأخبار",
     "contact": "اتصل بنا",
     "goToHomepage": "الذهاب للصفحة الرئيسية",
-    "technologiesMenuLabel": "قائمة التقنيات، اضغط Enter أو المسافة للفتح",
+    "technologiesMenuLabel": "قائمة الحلول، اضغط Enter أو المسافة للفتح",
     "mainNav": "القائمة الرئيسية"
   },
   "drawer": {

@@ -1,12 +1,12 @@
 {
   "nav": {
     "about": "About",
-    "technologies": "Technologies",
+    "technologies": "Solutions",
     "company": "Company",
     "news": "News",
     "contact": "Contact",
     "goToHomepage": "Go to Homepage",
-    "technologiesMenuLabel": "Technologies menu, press enter or space to open",
+    "technologiesMenuLabel": "Solutions menu, press enter or space to open",
     "mainNav": "Main navigation"
   },
   "drawer": {
