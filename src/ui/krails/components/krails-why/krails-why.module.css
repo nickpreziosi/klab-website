@@ -84,8 +84,8 @@
 .leftColumn {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: space-evenly;
+  justify-content: flex-start;
+  gap: var(--gap-xl);
   margin: var(--padding-desktop);
   min-width: 0;
 }
@@ -110,7 +110,7 @@
 
 .useCaseBlockLast {
   border-block-end: none;
-  padding-block-end: var(--gap-lg);
+  padding-block-end: 0;
 }
 
 /* Icon + category: stacked on small screens, inline from tablet up */
@@ -207,9 +207,8 @@
 .scrollContent {
   display: flex;
   flex-direction: column;
-  /* Min height preserves scroll + sticky RHS behavior; height grows with content so copy is never clipped */
-  min-height: 250vh;
-  height: auto;
+  min-height: 0;
+  height: fit-content;
   box-sizing: border-box;
   position: relative;
   min-width: 0;
@@ -273,11 +272,7 @@
 }
 
 .ctaContainer {
-  width: 100%;
-  max-width: 1400px;
-  display: flex;
-  justify-content: flex-start;
-  margin-top: var(--gap-md);
+  display: none; /* Use case CTAs hidden for now */
 }
 
 .animationContainer {
