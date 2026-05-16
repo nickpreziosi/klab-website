@@ -61,7 +61,7 @@ export default function KRailsVideoPlayer({
   return (
     <motion.div
       ref={ref}
-      className={videoStyles.container}
+      className={cn(videoStyles.container, styles.playerShell)}
       variants={{
         hidden: {
           opacity: 0,
@@ -84,6 +84,9 @@ export default function KRailsVideoPlayer({
       initial={skipAnimation ? "visible" : "hidden"}
       animate={effectiveShouldAnimate ? "visible" : "hidden"}
     >
+      {showPoster && (
+        <h2 className={styles.choiceTitle}>{choicePrompt}</h2>
+      )}
       <div
         className={cn(
           videoStyles.videoWrapper,
@@ -142,7 +145,6 @@ export default function KRailsVideoPlayer({
             showPoster && styles.dockStack,
           )}
         >
-          {showPoster && <p className={styles.choiceHint}>{choicePrompt}</p>}
           {showPoster ? (
             <div className={styles.initialSplit}>
               <button

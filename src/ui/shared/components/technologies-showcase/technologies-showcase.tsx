@@ -12,6 +12,7 @@ import {
   TooltipTrigger,
 } from "@/ui/shared/components/tooltip/tooltip";
 import { useTheme } from "@/ui/shared/hooks/use-theme";
+import { TechnologiesShowcaseLogoArrow } from "./technologies-showcase-arrow";
 import styles from "./technologies-showcase.module.css";
 
 const TECH_DESCRIPTION_KEYS = [
@@ -159,24 +160,6 @@ export function SVGLogo({ src, className }: { src: string; className?: string })
   if (!svgContent) return null;
   return <div className={className} dangerouslySetInnerHTML={{ __html: svgContent }} />;
 }
-
-const ArrowIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden
-    {...props}
-  >
-    <path d="M5 12h14M12 5l7 7-7 7" />
-  </svg>
-);
 
 const leftTechs = LEFT_ORDER.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 const rightTechs = RIGHT_ORDER_FIXED.map((i) => TECHNOLOGIES[i]).filter(Boolean);
@@ -405,6 +388,7 @@ function TechSemiCircle({
                 className={`${styles.techLogo} ${isWidestLogo ? styles.techLogoWidest : ""} ${tech.descriptionKey === "kbpm" ? styles.techLogoKbpm : ""}`}
               >
                 <LogoComponent src={logoSrc} />
+                <TechnologiesShowcaseLogoArrow />
               </div>
             </div>
           </Link>

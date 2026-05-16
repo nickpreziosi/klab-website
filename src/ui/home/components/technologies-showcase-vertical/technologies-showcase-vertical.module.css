@@ -35,6 +35,7 @@
   justify-content: center;
   background: var(--showcase-semi-bg);
   color: var(--showcase-fg);
+  --tech-showcase-arrow-color: var(--showcase-fg);
   cursor: pointer;
   border: none;
   box-sizing: border-box;
@@ -56,6 +57,7 @@
 }
 
 .techLogo {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,15 +65,11 @@
   width: 100%;
   max-width: 100%;
   flex-shrink: 0;
+  padding-bottom: 24px;
 }
 
-.techLogo svg {
-  height: 100%;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-  color: var(--showcase-fg);
-  fill: currentColor;
+.wrapperMobile .techLogo {
+  padding-bottom: 22px;
 }
 
 .techLogo > div {
@@ -88,6 +86,8 @@
   width: auto;
   max-width: 100%;
   object-fit: contain;
+  color: var(--showcase-fg);
+  fill: currentColor;
 }
 
 /* Mobile only: KLeads (widest) full width; others match its height via --tech-logo-height */
@@ -129,6 +129,34 @@
 .techLogo :global(.kabl-blue-stroke) {
   fill: #306fc6 !important;
   stroke: #306fc6 !important;
+}
+
+.techLogo > div svg path {
+  transition: fill 0.2s ease;
+}
+
+@media (pointer: fine) and (hover: hover) {
+  .techCircle:hover {
+    --tech-showcase-arrow-color: hsl(var(--accent));
+  }
+
+  .techCircle:hover .techLogo > div svg {
+    color: hsl(var(--accent));
+  }
+
+  .techCircle:hover .techLogo > div svg path {
+    fill: hsl(var(--accent)) !important;
+  }
+
+  .techCircle:hover .techLogo > div :global(.kabl-blue),
+  .techCircle:hover .techLogo > div :global(.kabl-blue-stroke) {
+    fill: hsl(var(--accent)) !important;
+    stroke: hsl(var(--accent)) !important;
+  }
+}
+
+.techLogo > div svg {
+  transition: color 0.2s ease;
 }
 
 .description {

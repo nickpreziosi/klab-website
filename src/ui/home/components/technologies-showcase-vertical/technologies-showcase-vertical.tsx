@@ -14,6 +14,7 @@ import {
 } from "@/ui/shared/components/tooltip/tooltip";
 import { useTranslations } from "next-intl";
 import { useTheme } from "@/ui/shared/hooks/use-theme";
+import { TechnologiesShowcaseLogoArrow } from "@/ui/shared/components/technologies-showcase/technologies-showcase-arrow";
 import styles from "./technologies-showcase-vertical.module.css";
 
 const BREAKPOINT_DESKTOP = 1024;
@@ -254,6 +255,7 @@ function TechSlot({
               <div className={styles.techContent}>
                 <div ref={logoRef} className={logoClassName}>
                   <LogoComponent src={logoSrc} />
+                  <TechnologiesShowcaseLogoArrow />
                 </div>
               </div>
             </div>
@@ -303,6 +305,7 @@ function TechSlot({
             <div className={styles.techContent}>
               <div className={styles.techLogo}>
                 <LogoComponent src={logoSrc} />
+                <TechnologiesShowcaseLogoArrow />
               </div>
             </div>
           </div>

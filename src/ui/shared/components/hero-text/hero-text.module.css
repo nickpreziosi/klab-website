@@ -45,6 +45,12 @@
   color: var(--secondary-color) !important;
 }
 
+/* Homepage hero — slightly smaller subcopy */
+.homeHero .mainText {
+  font-size: 20px;
+  line-height: 28px;
+}
+
 /* Technology / product pages (e.g. K Rails) — slightly smaller type scale */
 .krailsHero .mainHeading {
   font-size: clamp(2.125rem, 4.5vw, 2.875rem);
@@ -142,6 +148,11 @@
     line-height: 27px;
   }
 
+  .homeHero .mainText {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
   .wordsContainer {
     gap: 0.4rem;
   }
@@ -170,6 +181,11 @@
   .mainText {
     font-size: 17px;
     line-height: 24px;
+  }
+
+  .homeHero .mainText {
+    font-size: 16px;
+    line-height: 23px;
   }
 
   .wordsContainer {

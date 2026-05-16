@@ -1,6 +1,7 @@
 "use client";
 
 import HeroText from "@/ui/shared/components/hero-text/hero-text";
+import heroTextStyles from "@/ui/shared/components/hero-text/hero-text.module.css";
 import { useTranslations } from "next-intl";
 import type { HeroTranslations } from "@/ui/home/types";
 import { buildHeroTranslations } from "@/ui/home/types";
@@ -27,6 +28,7 @@ export const Hero = ({
       <div className={styles.content}>
         <div className={styles.mainContainer}>
           <HeroText
+            className={heroTextStyles.homeHero}
             maxWidth="820px"
             text={translations.title}
             subtitle={translations.subtitle}

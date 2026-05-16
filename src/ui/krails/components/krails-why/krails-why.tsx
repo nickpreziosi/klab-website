@@ -20,7 +20,7 @@ const staggerDelays = [0.1, 0.2, 0.3, 0.4, 0.5];
 
 const viewportOnce = { once: true, margin: "-50px" as const };
 
-/** Split localized headings on em dash / en dash: "Government — Spend Control" */
+/** Split localized headings on em dash / en dash: "Governments — Spend Control" */
 function splitUseCaseHeading(heading: string): { category: string; title: string } | null {
   const m = heading.match(/^(.+?)\s*[—–]\s*(.+)$/u);
   if (!m) return null;
