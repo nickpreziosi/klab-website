@@ -27,8 +27,11 @@
     "subtitleHighlight0": "قابلة للضبط من قِبل المؤسسة.",
     "subtitleHighlight1": "خاضعة للإنفاذ في كل خطوة.",
     "subtitleHighlight2": "قابلة للتدقيق بالتصميم.",
-    "seeKRailsInAction": "شاهد K Rails في العمل",
-    "contactSales": "تواصل مع فريقنا التجاري",
+    "useCases": "حالات الاستخدام",
+    "contactSales": "تواصل مع فريقنا التجاري"
+  },
+  "companyBrand": {
+    "title": "علامتنا",
     "promoVideoPosterAlt": "فيديو ترويجي لـ K Lab",
     "promoVideoSectionLabel": "فيديو ترويجي لـ K Lab"
   },

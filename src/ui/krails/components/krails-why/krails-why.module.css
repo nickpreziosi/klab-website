@@ -2,6 +2,7 @@
 .section {
   width: 100%;
   margin: 0;
+  scroll-margin-top: var(--navbar-height);
   display: grid;
   grid-template-areas: "main";
   align-items: start;

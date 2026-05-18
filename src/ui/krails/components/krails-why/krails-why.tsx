@@ -8,7 +8,7 @@ import styles from "./krails-why.module.css";
 import Button from "@/ui/shared/components/button/button";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import animationData from "../../../../../public/animations/krails.json";
-import type { KRailsTranslations } from "@/ui/krails/views/KRailsView/KRailsView";
+import type { KRailsWhyTranslations } from "@/ui/krails/types/krails-why-translations";
 import { Briefcase, ClipboardCheck, Landmark, Network, type LucideIcon } from "lucide-react";
 
 const fadeUp = {
@@ -57,9 +57,15 @@ const useCaseCtaArrowIcon = (
 export default function KRailsWhy({
   translations,
   skipAnimation = false,
+  sectionId = "video",
+  useCaseCtaHref,
 }: {
-  translations: KRailsTranslations;
+  translations: KRailsWhyTranslations;
   skipAnimation?: boolean;
+  /** Anchor id for in-page links (e.g. homepage hero CTA). */
+  sectionId?: string;
+  /** Defaults: `#krails-video` for row 0, `/{locale}/contact/sales` for rows 1–3. */
+  useCaseCtaHref?: (index: number, locale: string) => string;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
@@ -68,7 +74,7 @@ export default function KRailsWhy({
   const lottieRef = useRef<LottieRefCurrentProps>(null);
   const [progress, setProgress] = useState(0);
   const [isSafari, setIsSafari] = useState(false);
-  const locale = useLocale();
+  const locale = useLocale() as Locale;
   const textDir = getTextDirection(locale as Locale) === "rtl" ? "rtl" : "ltr";
 
   useEffect(() => {
@@ -113,7 +119,7 @@ export default function KRailsWhy({
   }, []);
 
   return (
-    <section id="video" className={styles.section} ref={sectionRef}>
+    <section id={sectionId} className={styles.section} ref={sectionRef}>
       <div className={styles.gradientOverlay} />
       <div className={styles.container}>
         <div style={{ display: "none" }} className={styles.topHeading}>
@@ -166,7 +172,11 @@ export default function KRailsWhy({
                 const { Icon } = USE_CASE_ROWS[index]!;
                 const delayIndex = index + 1;
                 const isLast = index === 3;
-                const ctaHref = index === 0 ? "#krails-video" : `/${locale}/contact/sales`;
+                const ctaHref = useCaseCtaHref
+                  ? useCaseCtaHref(index, locale)
+                  : index === 0
+                    ? "#krails-video"
+                    : `/${locale}/contact/sales`;
                 return (
                   <motion.div
                     key={`krails-use-case-${index}`}

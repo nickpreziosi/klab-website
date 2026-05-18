@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { HeroTranslations } from "@/ui/home/types";
 import { buildHeroTranslations } from "@/ui/home/types";
+import { buildKRailsWhyTranslations } from "@/ui/krails/types/krails-why-translations";
 import { HomeView } from "@/ui/home/views/HomeView/HomeView";
 
 type Props = {
@@ -21,7 +22,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const tHero = await getTranslations("hero");
+  const [tHero, tKrails] = await Promise.all([
+    getTranslations("hero"),
+    getTranslations("krails"),
+  ]);
   const heroTranslations: HeroTranslations = buildHeroTranslations(tHero);
-  return <HomeView heroTranslations={heroTranslations} />;
+  const krailsWhyTranslations = buildKRailsWhyTranslations(tKrails);
+  return (
+    <HomeView heroTranslations={heroTranslations} krailsWhyTranslations={krailsWhyTranslations} />
+  );
 }

@@ -1,8 +1,9 @@
 "use client";
 
 import type { HeroTranslations } from "@/ui/home/types";
+import type { KRailsWhyTranslations } from "@/ui/krails/types/krails-why-translations";
 import { Hero } from "@/ui/home/components/hero/hero";
-import { HomePhonePromoSection } from "@/ui/home/components/home-phone-promo-section/home-phone-promo-section";
+import KRailsWhy from "@/ui/krails/components/krails-why/krails-why";
 import VideoBackground from "@/ui/home/components/video-background/video-background";
 import HomeSecondarySection from "@/ui/home/components/home-secondary-section/home-secondary-section";
 import FaqSection from "@/ui/home/components/faq-section/faq-section";
@@ -10,6 +11,8 @@ import { LoadingProgressBar } from "@/ui/shared/components/loading-progress-bar/
 import { useHomeAnimation } from "@/ui/home/providers/home-animation-provider";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import { useEffectiveThemeSync } from "@/ui/shared/hooks/use-theme";
+import { useLocale } from "next-intl";
+import type { Locale } from "@/i18n/routing";
 import styles from "./HomeView.module.css";
 
 const VIDEO_DARK = "/videos/klab-home-loop.mp4";
@@ -18,9 +21,12 @@ const VIDEO_LIGHT = "/videos/klab-home-loop-light.mp4";
 type HomeViewProps = {
   /** When provided (from server), hero copy is SSR'd */
   heroTranslations?: HeroTranslations;
+  /** K Rails use-cases section (replaces former phone promo). */
+  krailsWhyTranslations: KRailsWhyTranslations;
 };
 
-export function HomeView({ heroTranslations }: HomeViewProps = {}) {
+export function HomeView({ heroTranslations, krailsWhyTranslations }: HomeViewProps) {
+  const locale = useLocale() as Locale;
   const homeAnimation = useHomeAnimation();
   const skipFromLocaleSwitch = useSkipAnimationOnLocaleSwitch();
   const skipAnimation = skipFromLocaleSwitch || (homeAnimation?.hasAnimated ?? false);
@@ -43,7 +49,16 @@ export function HomeView({ heroTranslations }: HomeViewProps = {}) {
       <div className={styles.page}>
         <main className={styles.main}>
           <Hero translations={heroTranslations} skipAnimation={heroSkipAnimation} />
-          <HomePhonePromoSection skipAnimation={skipFromLocaleSwitch} />
+          <KRailsWhy
+            sectionId="use-cases"
+            translations={krailsWhyTranslations}
+            skipAnimation={skipFromLocaleSwitch}
+            useCaseCtaHref={(index) =>
+              index === 0
+                ? `/${locale}/technologies/krails#krails-video`
+                : `/${locale}/contact/sales`
+            }
+          />
           <HomeSecondarySection skipAnimation={skipFromLocaleSwitch} />
         </main>
       </div>

@@ -8,7 +8,9 @@ import type { HeroTranslations } from "@/ui/home/types";
 import { buildHeroTranslations } from "@/ui/home/types";
 import styles from "./hero.module.css";
 import "./hero.module.css";
-import { Lock, Mail, Search, Wrench } from "lucide-react";
+import { ArrowDownIcon, Lock, Mail, Search, Wrench } from "lucide-react";
+
+const useCasesButtonIcon = <ArrowDownIcon className={heroTextStyles.arrowIcon} aria-hidden />;
 
 const HIGHLIGHT_ICON_SIZE = 32;
 
@@ -54,8 +56,10 @@ export const Hero = ({
               text,
               icon: HIGHLIGHT_ICONS[index],
             }))}
-            buttonText={translations.seeKRailsInAction}
-            buttonHref="/technologies/krails"
+            buttonText={translations.useCases}
+            buttonHref="#use-cases"
+            buttonIcon={useCasesButtonIcon}
+            buttonIconMirrorRtl={false}
             buttonTwoText={translations.contactSales}
             buttonTwoHref="/contact/sales"
             buttonTwoIcon={<Mail style={{ width: "20px", height: "20px" }} aria-hidden />}

@@ -8,6 +8,7 @@ import KRailsBuiltWith from "@/ui/krails/components/krails-built-with/krails-bui
 import KRailsCta from "@/ui/krails/components/krails-cta/krails-cta";
 import KRailsCodeSection from "@/ui/krails/components/krails-code-section/krails-code-section";
 import KRailsWhy from "@/ui/krails/components/krails-why/krails-why";
+import type { KRailsWhyTranslations } from "@/ui/krails/types/krails-why-translations";
 import KRailsDashboard from "@/ui/krails/components/krails-dashboard/krails-dashboard";
 import KRailsVideoPlayer from "@/ui/krails/components/krails-video-player/krails-video-player";
 
@@ -15,27 +16,13 @@ const KRAILS_VIDEO_FI = "https://www.youtube.com/embed/v6XF9PLVIAw";
 const KRAILS_VIDEO_GOV = "https://www.youtube.com/embed/WFlJvmHsfPU";
 const KRAILS_VIDEO_POSTER = "/images/krails.webp";
 
-export interface KRailsTranslations {
+export interface KRailsTranslations extends KRailsWhyTranslations {
   heroHeading: string;
   heroHeadingHighlight: string;
   heroDescription: string;
   heroButtonPrimary: string;
   heroButtonSecondary: string;
   logoAlt: string;
-  whyHeading: string;
-  whySubheading: string;
-  whyBlock0Heading: string;
-  whyBlock0Description: string;
-  whyBlock1Heading: string;
-  whyBlock1Description: string;
-  whyBlock2Heading: string;
-  whyBlock2Description: string;
-  whyBlock3Heading: string;
-  whyBlock3Description: string;
-  whyBlock0Cta: string;
-  whyBlock1Cta: string;
-  whyBlock2Cta: string;
-  whyBlock3Cta: string;
   builtWithHeading: string;
   ctaSubheading: string;
   ctaButton: string;

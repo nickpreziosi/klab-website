@@ -211,20 +211,21 @@
     line-height: 26px;
   }
 
-  /* Home hero highlights — ~90% of desktop (30px / 2rem gap / 1rem pad / 2rem icons) */
+  /* Home hero highlights — smaller than .mainHeading (32px); ~58% of heading like desktop */
   .homeHero .subtitleHighlights {
-    gap: 1.75rem;
-    padding: 0.875rem 0;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
   }
 
   .homeHero .subtitleHighlightIcon,
   .homeHero .subtitleHighlightIcon svg {
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 1.125rem;
+    height: 1.125rem;
   }
 
   .homeHero .subtitleHighlightText {
-    font-size: 27px;
+    font-size: 18px;
+    line-height: 1.35;
   }
 
   .wordsContainer {
@@ -262,20 +263,21 @@
     line-height: 23px;
   }
 
-  /* Home hero highlights — ~80% of desktop */
+  /* Home hero highlights — smaller than .mainHeading (27px) */
   .homeHero .subtitleHighlights {
-    gap: 1.5rem;
-    padding: 0.75rem 0;
+    gap: 0.625rem;
+    padding: 0.375rem 0;
   }
 
   .homeHero .subtitleHighlightIcon,
   .homeHero .subtitleHighlightIcon svg {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1rem;
+    height: 1rem;
   }
 
   .homeHero .subtitleHighlightText {
-    font-size: 24px;
+    font-size: 16px;
+    line-height: 1.35;
   }
 
   .wordsContainer {

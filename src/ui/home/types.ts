@@ -8,7 +8,7 @@ export type HeroTranslations = {
   subtitleIntro: string;
   subtitleHighlights: [string, string, string];
   contactSales: string;
-  seeKRailsInAction: string;
+  useCases: string;
 };
 
 export function buildHeroTranslations(t: (key: string) => string): HeroTranslations {
@@ -18,6 +18,6 @@ export function buildHeroTranslations(t: (key: string) => string): HeroTranslati
     subtitleIntro: t("subtitleIntro"),
     subtitleHighlights: [t("subtitleHighlight0"), t("subtitleHighlight1"), t("subtitleHighlight2")],
     contactSales: t("contactSales"),
-    seeKRailsInAction: t("seeKRailsInAction"),
+    useCases: t("useCases"),
   };
 }

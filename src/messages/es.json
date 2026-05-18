@@ -27,8 +27,11 @@
     "subtitleHighlight0": "Configurable por la institución.",
     "subtitleHighlight1": "Exigible en cada paso.",
     "subtitleHighlight2": "Auditable por diseño.",
-    "seeKRailsInAction": "Ver K Rails en acción",
-    "contactSales": "Hable con nuestro equipo comercial",
+    "useCases": "Casos de uso",
+    "contactSales": "Hable con nuestro equipo comercial"
+  },
+  "companyBrand": {
+    "title": "Nuestra marca",
     "promoVideoPosterAlt": "Vídeo promocional de K Lab",
     "promoVideoSectionLabel": "Vídeo promocional de K Lab"
   },
