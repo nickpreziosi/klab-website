@@ -9,6 +9,7 @@ export default async function KRailsPage({ params }: Props) {
   const t = await getTranslations("krails");
   const translations = {
     heroHeading: t("heroHeading"),
+    heroHeadingHighlight: t("heroHeadingHighlight"),
     heroDescription: t("heroDescription"),
     heroButtonPrimary: t("heroButtonPrimary"),
     heroButtonSecondary: t("heroButtonSecondary"),

@@ -17,6 +17,7 @@ const KRAILS_VIDEO_POSTER = "/images/krails.webp";
 
 export interface KRailsTranslations {
   heroHeading: string;
+  heroHeadingHighlight: string;
   heroDescription: string;
   heroButtonPrimary: string;
   heroButtonSecondary: string;
@@ -66,6 +67,7 @@ export function KRailsView({ translations }: { translations: KRailsTranslations 
         <KRailsHero
           logoAlt={translations.logoAlt}
           heading={translations.heroHeading}
+          headingHighlight={translations.heroHeadingHighlight}
           description={translations.heroDescription}
           buttonText={translations.heroButtonPrimary}
           buttonHref="#krails-video"

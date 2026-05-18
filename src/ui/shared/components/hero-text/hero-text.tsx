@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, type ReactNode } from "react";
+import React, { useMemo, useState, useEffect, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import styles from "./hero-text.module.css";
@@ -97,7 +97,8 @@ function applyRtlHeroIconMirror(
 
   const p = icon.props as { className?: string };
   const mergedExisting = cn(p.className);
-  if (mergedExisting.includes("rtlFlipH") || mergedExisting.includes(styles.iconRtlMirror)) return icon;
+  if (mergedExisting.includes("rtlFlipH") || mergedExisting.includes(styles.iconRtlMirror))
+    return icon;
 
   let apply = false;
   if (mirror === false) apply = false;
@@ -113,13 +114,47 @@ function applyRtlHeroIconMirror(
 
 export type HeroTextButtonOrder = "primary-first" | "secondary-first";
 
+export type HeroSubtitleHighlight = {
+  text: string;
+  icon: ReactNode;
+};
+
+type HeadlineToken = { word: string; highlight: boolean };
+
+function getHeadlineTokens(text: string, highlightPhrase?: string): HeadlineToken[] {
+  const splitWords = (segment: string, highlight: boolean): HeadlineToken[] =>
+    segment
+      .split(/\s+/u)
+      .filter(Boolean)
+      .map((word) => ({ word, highlight }));
+
+  if (!highlightPhrase) {
+    return splitWords(text, false);
+  }
+
+  const index = text.indexOf(highlightPhrase);
+  if (index === -1) {
+    return splitWords(text, false);
+  }
+
+  return [
+    ...splitWords(text.slice(0, index), false),
+    ...splitWords(highlightPhrase, true),
+    ...splitWords(text.slice(index + highlightPhrase.length), false),
+  ];
+}
+
 interface HeroTextProps {
   maxWidth?: string;
   /** When set, overrides default flex `gap` between headline, subcopy, and CTAs (CSS length, e.g. `var(--gap-sm)`). */
   contentGap?: string;
   text: string;
+  /** Substring of `text` to render in accent color (locale-specific). */
+  highlightPhrase?: string;
   subheader?: string;
   subtitle?: string;
+  /** Emphasized lines below the subtitle (e.g. home hero pillars with icons). */
+  subtitleHighlights?: HeroSubtitleHighlight[];
   className?: string;
   buttonText?: string;
   buttonHref?: string;
@@ -166,8 +201,10 @@ export default function HeroText({
   maxWidth,
   contentGap,
   text,
+  highlightPhrase,
   subheader,
   subtitle,
+  subtitleHighlights,
   className = "",
   buttonText,
   buttonHref,
@@ -215,8 +252,10 @@ export default function HeroText({
   const dir = getTextDirection(locale);
   const isRtl = dir === "rtl";
 
-  // Split text into words for staggered animation
-  const words = text.split(" ");
+  const headlineTokens = useMemo(
+    () => getHeadlineTokens(text, highlightPhrase),
+    [text, highlightPhrase]
+  );
 
   const resolvedPrimaryIcon = resolveHeroButtonIcon(buttonIcon, DEFAULT_PRIMARY_BUTTON_ICON);
   const resolvedSecondaryIcon = resolveHeroButtonIcon(
@@ -233,20 +272,19 @@ export default function HeroText({
       ? undefined
       : applyRtlHeroIconMirror(resolvedSecondaryIcon, isRtl, buttonTwoIconMirrorRtl);
 
-  const secondaryBtn =
-    buttonTwoText ? (
-      <Button
-        key="hero-cta-secondary"
-        onClick={onButtonTwoClick}
-        href={buttonTwoHref}
-        variant="secondary"
-        size="lg"
-        iconPosition={buttonTwoIconPosition}
-        icon={secondaryIcon}
-      >
-        {buttonTwoText}
-      </Button>
-    ) : null;
+  const secondaryBtn = buttonTwoText ? (
+    <Button
+      key="hero-cta-secondary"
+      onClick={onButtonTwoClick}
+      href={buttonTwoHref}
+      variant="secondary"
+      size="lg"
+      iconPosition={buttonTwoIconPosition}
+      icon={secondaryIcon}
+    >
+      {buttonTwoText}
+    </Button>
+  ) : null;
 
   const primaryBtn = (
     <Button
@@ -298,9 +336,9 @@ export default function HeroText({
           }
         }}
       >
-        {words.map((word, index) => (
+        {headlineTokens.map((token, index) => (
           <motion.span
-            key={index}
+            key={`${index}-${token.word}`}
             variants={{
               hidden: {
                 opacity: 0,
@@ -317,9 +355,9 @@ export default function HeroText({
                 },
               },
             }}
-            className={styles.word}
+            className={cn(styles.word, token.highlight && styles.headlineHighlight)}
           >
-            {word}{" "}
+            {token.word}{" "}
           </motion.span>
         ))}
       </motion.h1>
@@ -341,9 +379,9 @@ export default function HeroText({
           {subheader}
         </motion.h2>
       )}
-      {subtitle && (
-        <motion.p
-          className={styles.mainText}
+      {(subtitle || (subtitleHighlights && subtitleHighlights.length > 0)) && (
+        <motion.div
+          className={styles.subtitleBlock}
           initial={
             skipAnimation
               ? { opacity: 1, filter: "blur(0px)", y: 0 }
@@ -356,8 +394,20 @@ export default function HeroText({
           }
           transition={{ delay: 0.6, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          {subtitle}
-        </motion.p>
+          {subtitle && <p className={styles.mainText}>{subtitle}</p>}
+          {subtitleHighlights && subtitleHighlights.length > 0 && (
+            <ul className={styles.subtitleHighlights} aria-label={subtitle ? undefined : text}>
+              {subtitleHighlights.map((item, index) => (
+                <li key={index} className={styles.subtitleHighlightItem}>
+                  <span className={styles.subtitleHighlightIcon} aria-hidden>
+                    {item.icon}
+                  </span>
+                  <span className={styles.subtitleHighlightText}>{item.text}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </motion.div>
       )}
       {buttonText && (
         <motion.div

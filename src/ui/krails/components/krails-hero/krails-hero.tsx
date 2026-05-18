@@ -7,14 +7,14 @@ import HeroText, { type HeroTextButtonOrder } from "@/ui/shared/components/hero-
 import heroTextStyles from "@/ui/shared/components/hero-text/hero-text.module.css";
 import { cn } from "@/ui/shared/utils/utils";
 import { useEffectiveThemeSync } from "@/ui/shared/hooks/use-theme";
+import { Locale } from "@/i18n/routing";
+import { useLocale } from "next-intl";
 
 const LOGO_LIGHT = "/logos/krails-logo-light.svg";
 const LOGO_DARK = "/logos/krails-logo-dark.svg";
 
 /** Learn More: downward (scroll to content). Request Access: forward arrow (same as HeroText default primary). */
-const learnMoreButtonIcon = (
-  <ArrowDownIcon className={heroTextStyles.arrowIcon} aria-hidden />
-);
+const learnMoreButtonIcon = <ArrowDownIcon className={heroTextStyles.arrowIcon} aria-hidden />;
 
 const requestAccessButtonIcon = (
   <svg
@@ -37,6 +37,7 @@ const requestAccessButtonIcon = (
 
 interface KRailsHeroProps {
   heading: string;
+  headingHighlight: string;
   description: string;
   logoAlt: string;
   buttonText: string;
@@ -49,6 +50,7 @@ interface KRailsHeroProps {
 
 export default function KRailsHero({
   heading,
+  headingHighlight,
   description,
   logoAlt,
   buttonText,
@@ -59,7 +61,14 @@ export default function KRailsHero({
   skipAnimation = false,
 }: KRailsHeroProps) {
   const effectiveTheme = useEffectiveThemeSync();
+  const locale = useLocale() as Locale;
   const logoSrc = effectiveTheme === "dark" ? LOGO_LIGHT : LOGO_DARK;
+  const HERO_TEXT_MAX_WIDTH: Record<Locale, string> = {
+    en: "920px",
+    ar: "920px",
+    es: "1100px",
+    pt: "1200px",
+  };
 
   return (
     <section className={styles.heroSection}>
@@ -81,8 +90,9 @@ export default function KRailsHero({
           </div>
           <HeroText
             className={heroTextStyles.krailsHero}
-            maxWidth="900px"
+            maxWidth={HERO_TEXT_MAX_WIDTH[locale]}
             text={heading}
+            highlightPhrase={headingHighlight}
             subtitle={description}
             buttonText={buttonText}
             buttonHref={buttonHref}
@@ -98,7 +108,10 @@ export default function KRailsHero({
         <motion.div style={{ display: "none" }} className={styles.transformedContainer}>
           <div className={styles.perspectiveWrapper}>
             <div className={styles.transformedContent}>
-              <motion.div className={styles.imageContainer} style={{ transformStyle: "preserve-3d" }}>
+              <motion.div
+                className={styles.imageContainer}
+                style={{ transformStyle: "preserve-3d" }}
+              >
                 <div className={styles.gradientOverlay} />
                 <div className={styles.blackOverlay} />
               </motion.div>

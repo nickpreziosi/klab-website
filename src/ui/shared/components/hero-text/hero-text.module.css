@@ -23,11 +23,15 @@
   margin-right: 0em;
 }
 
+.headlineHighlight {
+  color: hsl(var(--accent));
+}
+
 /* Updated heading styles to match provided mainHeading */
 .mainHeading {
   width: 600px;
   width: 100%;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 52px;
   line-height: 62px;
   letter-spacing: -1.5%;
@@ -49,6 +53,60 @@
 .homeHero .mainText {
   font-size: 20px;
   line-height: 28px;
+}
+
+.subtitleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  width: 100%;
+}
+
+.homeHero .subtitleBlock {
+  gap: 0.75rem;
+}
+
+.subtitleHighlights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.subtitleHighlightItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.subtitleHighlightIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  color: hsl(var(--accent));
+}
+
+.subtitleHighlightIcon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.subtitleHighlightText {
+  font-weight: var(--font-semibold);
+  line-height: 1.35;
+  letter-spacing: -0.5%;
+  color: hsl(var(--foreground));
+}
+
+.homeHero .subtitleHighlightText {
+  font-size: 30px;
 }
 
 /* Technology / product pages (e.g. K Rails) — slightly smaller type scale */
@@ -153,6 +211,22 @@
     line-height: 26px;
   }
 
+  /* Home hero highlights — ~90% of desktop (30px / 2rem gap / 1rem pad / 2rem icons) */
+  .homeHero .subtitleHighlights {
+    gap: 1.75rem;
+    padding: 0.875rem 0;
+  }
+
+  .homeHero .subtitleHighlightIcon,
+  .homeHero .subtitleHighlightIcon svg {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .homeHero .subtitleHighlightText {
+    font-size: 27px;
+  }
+
   .wordsContainer {
     gap: 0.4rem;
   }
@@ -186,6 +260,22 @@
   .homeHero .mainText {
     font-size: 16px;
     line-height: 23px;
+  }
+
+  /* Home hero highlights — ~80% of desktop */
+  .homeHero .subtitleHighlights {
+    gap: 1.5rem;
+    padding: 0.75rem 0;
+  }
+
+  .homeHero .subtitleHighlightIcon,
+  .homeHero .subtitleHighlightIcon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .homeHero .subtitleHighlightText {
+    font-size: 24px;
   }
 
   .wordsContainer {
