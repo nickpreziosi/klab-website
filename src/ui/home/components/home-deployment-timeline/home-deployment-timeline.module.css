@@ -1,0 +1,751 @@
+.sectionHeaderAndTimeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-tablet);
+}
+
+/* Full-bleed horizontally: cancel container padding so showcase spans edge-to-edge */
+.technologiesShowcaseSection {
+  width: calc(100% + 2 * var(--padding-desktop));
+  min-width: 0;
+  margin-left: calc(-1 * var(--padding-desktop));
+  margin-right: calc(-1 * var(--padding-desktop));
+}
+
+.deploymentTimeline {
+  width: 100%;
+  padding: var(--padding-tablet) var(--padding-mobile);
+  margin-bottom: var(--margin-lg);
+  border-radius: var(--rounded-app);
+  background: var(--theme-gradient);
+  border: 1px solid hsl(var(--border));
+  backdrop-filter: blur(8px);
+}
+
+/* Extra inset for headline + methodology + stats only; timeline graphic keeps card padding */
+.deploymentTimelineCopy {
+  padding-inline: var(--padding-tablet);
+  padding-block-start: var(--padding-mobile);
+}
+
+.timelineTitle {
+  margin: 0 0 var(--gap-sm) 0;
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-family: inherit;
+  line-height: 1.2;
+}
+
+.timelineMethodology {
+  margin: 0 0 var(--gap-md) 0;
+  max-width: 62rem;
+  font-size: var(--text-md);
+  font-weight: var(--font-normal);
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: hsl(var(--foreground) / 0.92);
+}
+
+.deploymentStatList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  align-items: stretch;
+  width: 100%;
+  max-width: none;
+  list-style: none;
+  margin: 0 0 var(--gap-md);
+  padding: var(--padding-tablet) 0 0;
+}
+
+.deploymentStatItem {
+  margin: 0;
+  padding-inline: clamp(var(--gap-md), 3vw, var(--gap-xl));
+  font-size: 16px;
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.35;
+  color: hsl(var(--foreground) / 0.95);
+  text-align: center;
+  hyphens: auto;
+}
+
+.deploymentStatItem:first-child {
+  padding-inline-start: 0;
+}
+
+.deploymentStatItem:last-child {
+  padding-inline-end: 0;
+}
+
+.deploymentStatItem:not(:last-child) {
+  border-inline-end: 1px solid hsl(var(--foreground) / 0.22);
+}
+
+@media (max-width: 640px) {
+  .deploymentStatList {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--gap-sm);
+    margin-top: 0;
+    margin-bottom: var(--padding-tablet);
+    padding-top: var(--gap-sm);
+    width: 100%;
+  }
+
+  .deploymentStatItem {
+    padding-inline: 0;
+    font-size: var(--text-xs);
+    text-align: start;
+    border-inline-end: none !important;
+    border-block-end: 1px solid hsl(var(--foreground) / 0.15);
+    padding-block-end: var(--gap-sm);
+  }
+
+  .deploymentStatItem:last-child {
+    border-block-end: none;
+    padding-block-end: 0;
+  }
+}
+
+.timelineTitlePrimary {
+  color: hsl(var(--foreground));
+}
+
+/* Title: exact gradient from 08-Tittle/SVG/02-Tittle.svg (all stops full opacity) – light to orange in both themes */
+.timelineTitleAccent {
+  background: linear-gradient(90deg, #f6c59d 25%, #fa9649 62%, #fd7914 87%, #ff6e00 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.timelineTitleBreak {
+  display: none;
+}
+
+/* 3-row grid: row 1 = icon or label, row 2 = track (accent + Step # + circle arrows), row 3 = the other */
+.timelineLayout {
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  grid-template-columns: repeat(6, 1fr);
+  width: 100%;
+  align-items: stretch;
+  gap: 0;
+  padding: var(--padding-tablet) 0;
+}
+
+.timelineRow1 {
+  grid-row: 1;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: flex-end;
+  min-height: 64px;
+  padding-bottom: 48px;
+}
+
+.timelineRow2Track {
+  grid-row: 2;
+  grid-column: 1 / -1;
+  position: relative;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Track: gradient from white-ish to orange; layered over white so start reads light in both themes */
+.timelineBar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(252, 190, 140, 0.25) 0%,
+      rgba(252, 190, 140, 0.62) 32%,
+      rgba(253, 170, 100, 0.75) 40%,
+      rgba(253, 150, 65, 0.86) 49%,
+      rgba(254, 125, 25, 0.94) 60%,
+      rgba(254, 111, 1, 0.99) 74%,
+      #ff6e00 100%
+    ),
+    #fefdfb;
+}
+
+.timelineStepLabels {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-items: center;
+  padding: 0 0.25rem;
+  pointer-events: none;
+}
+
+.timelineStepLabel {
+  font-size: var(--text-md);
+  font-weight: var(--font-bold);
+  color: black;
+  text-shadow: 0 1px 2px hsl(var(--foreground) / 0.2);
+}
+
+.timelineRow3 {
+  grid-row: 3;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: flex-start;
+  min-height: 64px;
+  padding-top: 48px;
+}
+
+.timelineCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+/* Icon cells: fit content width, centered horizontally in the column */
+.timelineCell:has(.timelineStepIcon) {
+  width: min-content;
+  justify-self: center;
+}
+
+/* Text cells: take up remaining space in the column */
+.timelineCell:has(.timelineLabelWithArrow) {
+  width: 100%;
+  min-width: 0;
+}
+
+.timelineRow1 .timelineCell {
+  justify-content: flex-end;
+}
+
+.timelineRow3 .timelineCell {
+  justify-content: flex-start;
+}
+
+/* Circle arrow: absolutely positioned relative to track; track edge bisects the circle */
+.timelineCircleArrow {
+  position: absolute;
+  z-index: 2;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--rounded-full);
+  border: 2px solid hsl(var(--foreground));
+  background: hsl(var(--foreground));
+  color: hsl(var(--foreground));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+}
+
+.timelineCircleArrowTop {
+  top: 0;
+  transform: translate(-50%, -50%);
+}
+
+.timelineCircleArrowBottom {
+  bottom: 0;
+  transform: translate(-50%, 50%);
+}
+
+/* Desktop: horizontal position along the track (mobile overrides with data-edge) */
+.timelineRow2Track .timelineCircleArrow[data-step-index="0"] {
+  left: calc((100% / 6) * 0 + 100% / 12);
+}
+.timelineRow2Track .timelineCircleArrow[data-step-index="1"] {
+  left: calc((100% / 6) * 1 + 100% / 12);
+}
+.timelineRow2Track .timelineCircleArrow[data-step-index="2"] {
+  left: calc((100% / 6) * 2 + 100% / 12);
+}
+.timelineRow2Track .timelineCircleArrow[data-step-index="3"] {
+  left: calc((100% / 6) * 3 + 100% / 12);
+}
+.timelineRow2Track .timelineCircleArrow[data-step-index="4"] {
+  left: calc((100% / 6) * 4 + 100% / 12);
+}
+.timelineRow2Track .timelineCircleArrow[data-step-index="5"] {
+  left: calc((100% / 6) * 5 + 100% / 12);
+}
+
+.timelineCircleArrowSvg {
+  width: 12px;
+  height: 12px;
+  color: hsl(var(--background));
+}
+
+.timelineStepText {
+  font-size: var(--text-md);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: hsl(var(--foreground));
+}
+
+.timelineLabelWithArrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: hsl(var(--accent));
+  gap: 12px;
+}
+
+.timelineLabelWithArrow .timelineStepText {
+  text-align: center;
+}
+
+.timelineLabelArrow {
+  width: 14px;
+  height: 10px;
+  flex-shrink: 0;
+  transform-origin: center center;
+}
+
+.timelineLabelArrowRotate180 {
+  transform: rotate(180deg);
+}
+
+/* Circle: gradient from white-ish to orange; layered over white so start reads light in both themes */
+.timelineStepIcon {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--rounded-full);
+  background:
+    linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(254, 250, 246, 0.04) 0%,
+      rgba(252, 240, 228, 0.16) 9%,
+      rgba(250, 220, 200, 0.32) 17%,
+      rgba(251, 200, 160, 0.48) 26%,
+      rgba(252, 180, 120, 0.62) 35%,
+      rgba(253, 160, 80, 0.75) 45%,
+      rgba(253, 140, 50, 0.86) 56%,
+      rgba(254, 120, 20, 0.94) 67%,
+      rgba(254, 111, 2, 0.99) 81%,
+      #ff6e00 100%
+    ),
+    #fefdfb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Row 3 circles: gradient starts at bottom-left (45deg = toward top-right) */
+.timelineRow3 .timelineStepIcon {
+  background:
+    linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(254, 250, 246, 0.04) 0%,
+      rgba(252, 240, 228, 0.16) 9%,
+      rgba(250, 220, 200, 0.32) 17%,
+      rgba(251, 200, 160, 0.48) 26%,
+      rgba(252, 180, 120, 0.62) 35%,
+      rgba(253, 160, 80, 0.75) 45%,
+      rgba(253, 140, 50, 0.86) 56%,
+      rgba(254, 120, 20, 0.94) 67%,
+      rgba(254, 111, 2, 0.99) 81%,
+      #ff6e00 100%
+    ),
+    #fefdfb;
+}
+
+.timelineStepIconSvg {
+  width: 40px;
+  height: 40px;
+  color: white;
+}
+
+@media (max-width: 1024px) {
+  .timelineStepText {
+    font-size: var(--text-sm);
+  }
+
+  .timelineStepLabel {
+    font-size: var(--text-sm);
+  }
+
+  .deploymentTimeline {
+    padding: var(--padding-tablet) var(--padding-mobile);
+    margin-bottom: var(--margin-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .timelineLabelWithArrow {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 24px;
+  }
+
+  .timelineLabelArrow {
+    transform: rotate(90deg);
+  }
+  .timelineLabelArrowRotate180 {
+    transform: rotate(-90deg);
+  }
+  .sectionHeaderAndTimeline {
+    gap: var(--margin-md);
+  }
+
+  .deploymentTimeline {
+    padding: var(--padding-tablet) var(--padding-mobile);
+    margin-bottom: var(--margin-md);
+  }
+  .timelineTitle {
+    font-size: var(--text-xl);
+    margin-bottom: var(--margin-md);
+    text-align: center;
+  }
+
+  /* Vertical timeline: 3 columns × 6 rows, tall with even spacing; steps aligned horizontally */
+  .timelineLayout {
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    position: relative;
+    padding: var(--margin-sm) 0;
+    align-items: center;
+    min-height: 960px;
+  }
+
+  .timelineRow1,
+  .timelineRow3 {
+    display: contents;
+  }
+
+  /* Column 1 = row3 cells (icon for steps 1,3,5; label for 2,4,6) – align toward bar */
+  .timelineRow3 .timelineCell:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .timelineRow3 .timelineCell:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .timelineRow3 .timelineCell:nth-child(3) {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .timelineRow3 .timelineCell:nth-child(4) {
+    grid-column: 1;
+    grid-row: 4;
+  }
+  .timelineRow3 .timelineCell:nth-child(5) {
+    grid-column: 1;
+    grid-row: 5;
+  }
+  .timelineRow3 .timelineCell:nth-child(6) {
+    grid-column: 1;
+    grid-row: 6;
+  }
+
+  /* Column 3 = row1 cells (label for 1,3,5; icon for 2,4,6) – align toward bar */
+  .timelineRow1 .timelineCell:nth-child(1) {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .timelineRow1 .timelineCell:nth-child(2) {
+    grid-column: 3;
+    grid-row: 2;
+  }
+  .timelineRow1 .timelineCell:nth-child(3) {
+    grid-column: 3;
+    grid-row: 3;
+  }
+  .timelineRow1 .timelineCell:nth-child(4) {
+    grid-column: 3;
+    grid-row: 4;
+  }
+  .timelineRow1 .timelineCell:nth-child(5) {
+    grid-column: 3;
+    grid-row: 5;
+  }
+  .timelineRow1 .timelineCell:nth-child(6) {
+    grid-column: 3;
+    grid-row: 6;
+  }
+
+  /* Column 2 = vertical track (bar + step pills), full height of layout */
+  .timelineRow2Track {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 64px;
+    min-width: 64px;
+    align-self: stretch;
+    height: 100%;
+    min-height: 100%;
+    overflow: visible;
+  }
+
+  /* Vertical bar: fills track top to bottom (full height) */
+  .timelineRow2Track .timelineBar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    border-radius: 32px;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(251, 210, 175, 0.48) 24%,
+        rgba(252, 190, 140, 0.62) 32%,
+        rgba(253, 170, 100, 0.75) 40%,
+        rgba(253, 150, 65, 0.86) 49%,
+        rgba(254, 125, 25, 0.94) 60%,
+        rgba(254, 111, 1, 0.99) 74%,
+        #ff6e00 100%
+      ),
+      #fefdfb;
+  }
+
+  /* Step labels: one per row, centered in each sixth; arrow before/after per design */
+  .timelineRow2Track .timelineStepLabels {
+    position: absolute;
+    inset: 0;
+    display: block;
+    grid-template-columns: unset;
+    grid-template-rows: unset;
+  }
+
+  /* Step number within the track; steps 1,3,5 right-aligned, steps 2,4,6 left-aligned */
+  .timelineRow2Track .timelineStepLabel {
+    position: absolute;
+    white-space: nowrap;
+    font-size: var(--text-xs);
+    padding: 4px 8px;
+    color: black;
+    border-radius: var(--rounded-app);
+  }
+  .timelineRow2Track .timelineStepLabel:nth-child(1),
+  .timelineRow2Track .timelineStepLabel:nth-child(3),
+  .timelineRow2Track .timelineStepLabel:nth-child(5) {
+    left: auto;
+    right: 0;
+    transform: translate(0, -50%);
+    text-align: right;
+  }
+  .timelineRow2Track .timelineStepLabel:nth-child(2),
+  .timelineRow2Track .timelineStepLabel:nth-child(4),
+  .timelineRow2Track .timelineStepLabel:nth-child(6) {
+    left: 0;
+    right: auto;
+    transform: translate(0, -50%);
+    text-align: start;
+  }
+
+  .timelineRow2Track .timelineStepLabel:nth-child(1) {
+    top: calc(100% / 12);
+  }
+  .timelineRow2Track .timelineStepLabel:nth-child(2) {
+    top: calc(100% * 3 / 12);
+  }
+  .timelineRow2Track .timelineStepLabel:nth-child(3) {
+    top: calc(100% * 5 / 12);
+  }
+  .timelineRow2Track .timelineStepLabel:nth-child(4) {
+    top: calc(100% * 7 / 12);
+  }
+  .timelineRow2Track .timelineStepLabel:nth-child(5) {
+    top: calc(100% * 9 / 12);
+  }
+  .timelineRow2Track .timelineStepLabel:nth-child(6) {
+    top: calc(100% * 11 / 12);
+  }
+
+  /* Circle arrow: separate from step label, on left or right edge of track, circular; above bar and labels */
+  .timelineRow2Track .timelineCircleArrow {
+    left: auto;
+    right: auto;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid hsl(var(--foreground));
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+  }
+
+  /* Circle bisected by track edge: center on left edge (half circle in, half out) */
+  .timelineRow2Track .timelineCircleArrow[data-edge="left"] {
+    left: 0;
+    transform: translate(-50%, -50%) rotate(-90deg);
+  }
+  /* Step 1, 3, 5: arrow rotated 180deg */
+  .timelineRow2Track .timelineCircleArrow[data-edge="left"][data-step-index="0"],
+  .timelineRow2Track .timelineCircleArrow[data-edge="left"][data-step-index="2"],
+  .timelineRow2Track .timelineCircleArrow[data-edge="left"][data-step-index="4"] {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  /* Circle bisected by track edge: center on right edge (half circle in, half out) */
+  .timelineRow2Track .timelineCircleArrow[data-edge="right"] {
+    right: 0;
+    left: auto;
+    transform: translate(50%, -50%) rotate(90deg);
+  }
+  .timelineRow2Track .timelineCircleArrow[data-step-index="0"] {
+    top: calc(100% / 12);
+  }
+  .timelineRow2Track .timelineCircleArrow[data-step-index="1"] {
+    top: calc(100% * 3 / 12);
+  }
+  .timelineRow2Track .timelineCircleArrow[data-step-index="2"] {
+    top: calc(100% * 5 / 12);
+  }
+  .timelineRow2Track .timelineCircleArrow[data-step-index="3"] {
+    top: calc(100% * 7 / 12);
+  }
+  .timelineRow2Track .timelineCircleArrow[data-step-index="4"] {
+    top: calc(100% * 9 / 12);
+  }
+  .timelineRow2Track .timelineCircleArrow[data-step-index="5"] {
+    top: calc(100% * 11 / 12);
+  }
+
+  .timelineRow2Track .timelineCircleArrowSvg {
+    color: hsl(var(--background));
+    width: 12px;
+    height: 12px;
+  }
+
+  .timelineCell {
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    min-height: 0;
+    padding: var(--margin-sm);
+    justify-content: center;
+  }
+
+  .timelineRow3 .timelineCell {
+    justify-content: flex-end;
+  }
+  .timelineRow1 .timelineCell {
+    justify-content: flex-start;
+  }
+
+  .timelineStepIcon {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: 60px;
+    height: 60px;
+    z-index: 0;
+  }
+
+  .timelineStepIconSvg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .timelineStepText {
+    font-size: var(--text-xs);
+  }
+
+  /* Steps 1, 3, 5: gradient from Vertical-Version/02-Step1/SVG/01-Circle.svg (right to left = 270deg) */
+  .timelineRow3 .timelineCell:nth-child(1) .timelineStepIcon,
+  .timelineRow3 .timelineCell:nth-child(3) .timelineStepIcon,
+  .timelineRow3 .timelineCell:nth-child(5) .timelineStepIcon {
+    background:
+      linear-gradient(
+        270deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(243, 229, 216, 0.01) 0%,
+        rgba(245, 204, 171, 0.22) 9%,
+        rgba(247, 182, 131, 0.4) 17%,
+        rgba(249, 162, 95, 0.56) 26%,
+        rgba(251, 146, 66, 0.7) 35%,
+        rgba(252, 133, 42, 0.81) 45%,
+        rgba(253, 122, 23, 0.89) 56%,
+        rgba(254, 115, 10, 0.95) 67%,
+        rgba(254, 111, 2, 0.99) 81%,
+        #ff6e00 100%
+      ),
+      #fefdfb;
+  }
+  /* Steps 2, 4, 6: gradient from Vertical-Version/03-Step2/SVG/01-Circle_1.svg (left to right = 90deg) */
+  .timelineRow1 .timelineCell:nth-child(2) .timelineStepIcon,
+  .timelineRow1 .timelineCell:nth-child(4) .timelineStepIcon,
+  .timelineRow1 .timelineCell:nth-child(6) .timelineStepIcon {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(243, 229, 216, 0.01) 0%,
+        rgba(245, 204, 171, 0.22) 9%,
+        rgba(247, 182, 131, 0.4) 17%,
+        rgba(249, 162, 95, 0.56) 26%,
+        rgba(251, 146, 66, 0.7) 35%,
+        rgba(252, 133, 42, 0.81) 45%,
+        rgba(253, 122, 23, 0.89) 56%,
+        rgba(254, 115, 10, 0.95) 67%,
+        rgba(254, 111, 2, 0.99) 81%,
+        #ff6e00 100%
+      ),
+      #fefdfb;
+  }
+}
+
+@media (max-width: 480px) {
+  .timelineLabelWithArrow {
+    gap: 12px;
+  }
+  .deploymentTimeline {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+  .timelineLayout {
+    min-height: 860px;
+  }
+  .timelineRow2Track {
+    width: 56px;
+    min-width: 56px;
+  }
+  .timelineRow2Track .timelineBar {
+    border-radius: 28px;
+  }
+  .timelineStepText {
+    font-size: 0.65rem;
+  }
+  .timelineStepIcon {
+    width: 48px;
+    height: 48px;
+  }
+  .timelineStepIconSvg {
+    width: 24px;
+    height: 24px;
+  }
+  .timelineRow2Track .timelineStepLabel {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+}
