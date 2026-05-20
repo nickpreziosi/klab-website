@@ -3,12 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import Image from "next/image";
-import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
 import { cn } from "@/ui/shared/utils/utils";
 import videoStyles from "@/ui/shared/components/video-player/video-player.module.css";
 import { prepareEmbedSrc } from "@/ui/shared/utils/youtube-embed";
 import styles from "./krails-video-player.module.css";
+
+const LOOP_VIDEO_SRC = "/videos/krails-loop.mp4";
 
 const PLAY_TRIANGLE_PATH =
   "M37.875 73.225L73.225 50.5L37.875 27.775V73.225ZM50.5 101C43.5142 101 36.9492 99.6744 30.805 97.0231C24.6608 94.3719 19.3162 90.7738 14.7712 86.2288C10.2262 81.6837 6.62812 76.3392 3.97688 70.195C1.32562 64.0508 0 57.4858 0 50.5C0 43.5142 1.32562 36.9492 3.97688 30.805C6.62812 24.6608 10.2262 19.3162 14.7712 14.7712C19.3162 10.2262 24.6608 6.62812 30.805 3.97688C36.9492 1.32562 43.5142 0 50.5 0C57.4858 0 64.0508 1.32562 70.195 3.97688C76.3392 6.62812 81.6837 10.2262 86.2288 14.7712C90.7738 19.3162 94.3719 24.6608 97.0231 30.805C99.6744 36.9492 101 43.5142 101 50.5C101 57.4858 99.6744 64.0508 97.0231 70.195C94.3719 76.3392 90.7738 81.6837 86.2288 86.2288C81.6837 90.7738 76.3392 94.3719 70.195 97.0231C64.0508 99.6744 57.4858 101 50.5 101Z";
@@ -43,6 +43,7 @@ export default function KRailsVideoPlayer({
   const t = useTranslations("common");
   const [shouldAnimate, setShouldAnimate] = useState(skipAnimation);
   const ref = useRef(null);
+  const loopVideoRef = useRef<HTMLVideoElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const effectiveShouldAnimate = skipAnimation || shouldAnimate;
   const [activeChoice, setActiveChoice] = useState<KRailsVideoChoiceId | null>(null);
@@ -57,6 +58,20 @@ export default function KRailsVideoPlayer({
   }, [isInView, skipAnimation]);
 
   const showPoster = activeChoice === null;
+
+  useEffect(() => {
+    const vid = loopVideoRef.current;
+    if (!vid || !showPoster) return;
+
+    if (skipAnimation || isInView) {
+      const playPromise = vid.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {});
+      }
+    } else {
+      vid.pause();
+    }
+  }, [showPoster, skipAnimation, isInView]);
 
   return (
     <motion.div
@@ -103,16 +118,16 @@ export default function KRailsVideoPlayer({
               transition={{ duration: skipAnimation ? 0 : 0.45 }}
               className={cn(videoStyles.posterContainer, styles.posterRoot)}
             >
-              <Image
-                fetchPriority="high"
-                priority
-                src={posterUrl}
-                alt={posterAlt}
-                className={styles.posterImage}
-                fill
-                sizes="(max-width: 768px) 100vw, min(100vw, 1440px)"
-                placeholder="blur"
-                blurDataURL={BLUR_PLACEHOLDER}
+              <video
+                ref={loopVideoRef}
+                className={styles.posterVideo}
+                src={LOOP_VIDEO_SRC}
+                poster={posterUrl}
+                aria-label={posterAlt}
+                muted
+                loop
+                playsInline
+                preload="auto"
               />
               <div className={styles.posterScrim} aria-hidden />
             </motion.div>
