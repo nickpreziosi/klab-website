@@ -1,5 +1,5 @@
 /** Expects Sanity `readTime` to be a number string (e.g. `"5"`). */
-export function parseReadTimeMinutes(raw: string | undefined): number | undefined {
+export function parseReadTimeMinutes(raw: string | null | undefined): number | undefined {
   if (raw == null || raw === "") return undefined;
   const trimmed = String(raw).trim();
   const n = Number.parseInt(trimmed, 10);
@@ -8,7 +8,7 @@ export function parseReadTimeMinutes(raw: string | undefined): number | undefine
 }
 
 export function formatReadTimeWithUnit(
-  raw: string | undefined,
+  raw: string | null | undefined,
   minutesLabel: string
 ): string | undefined {
   const n = parseReadTimeMinutes(raw);

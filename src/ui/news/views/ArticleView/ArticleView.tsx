@@ -28,7 +28,7 @@ interface ArticleData {
   embedLink?: string | null;
   image?: { alt?: string | null; caption?: string | null } | null;
   category?: string | null;
-  readTime?: number | null;
+  readTime?: string | null;
 }
 
 interface ArticleViewProps {
