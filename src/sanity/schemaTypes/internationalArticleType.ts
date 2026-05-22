@@ -1,5 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { SANITY_NEWS_CATEGORY_OPTIONS } from "@/constants/news-categories";
+import { GalleryInput } from "../components/GalleryInput";
 
 export const SUPPORTED_LANGUAGES = [
   { title: "English", value: "en" },
@@ -67,6 +68,7 @@ export const internationalArticleType = defineType({
       name: "gallery",
       title: "Gallery",
       type: "array",
+      components: { input: GalleryInput },
       of: [
         {
           type: "image",

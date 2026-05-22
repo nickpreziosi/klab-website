@@ -6,6 +6,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
 
 import { defineField, defineType } from "sanity";
 import { SANITY_NEWS_CATEGORY_OPTIONS } from "@/constants/news-categories";
+import { GalleryInput } from "../components/GalleryInput";
 
 export const articleType = defineType({
   name: "article",
@@ -100,6 +101,7 @@ export const articleType = defineType({
       name: "gallery",
       title: "Gallery",
       type: "array",
+      components: { input: GalleryInput },
       of: [
         {
           type: "image",
