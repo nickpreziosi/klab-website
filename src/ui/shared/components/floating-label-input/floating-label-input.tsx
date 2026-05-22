@@ -4,20 +4,14 @@ import * as React from "react";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./floating-label-input.module.css";
 
-export interface FloatingLabelInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+export interface FloatingLabelInputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "type"
+> {
   label: string;
   labelClassName?: string;
   /** "text" | "email" | "number" | "password" | "tel" | "url" | "textarea" | "native-select" */
-  type?:
-    | "text"
-    | "email"
-    | "number"
-    | "password"
-    | "tel"
-    | "url"
-    | "textarea"
-    | "native-select";
+  type?: "text" | "email" | "number" | "password" | "tel" | "url" | "textarea" | "native-select";
   /** Options for native-select */
   selectOptions?: Array<{ value: string; label: string }>;
   /** Error state – applies border and label error styling */
@@ -28,7 +22,7 @@ export interface FloatingLabelInputProps
 
 /**
  * Floating label input – CSS-only float using :placeholder-shown and :focus.
- * Uses klab-website CSS vars. Renders native input, textarea, or select.
+ * Uses K Lab website CSS vars. Renders native input, textarea, or select.
  */
 const FloatingLabelInput = React.forwardRef<
   HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement,
@@ -52,8 +46,7 @@ const FloatingLabelInput = React.forwardRef<
     ref
   ) => {
     const generatedId = React.useId();
-    const finalId =
-      providedId ?? (props.name ? `field-${props.name}` : generatedId);
+    const finalId = providedId ?? (props.name ? `field-${props.name}` : generatedId);
     const isTextarea = type === "textarea";
     const isSelect = type === "native-select";
 
@@ -106,10 +99,7 @@ const FloatingLabelInput = React.forwardRef<
               {...props}
             />
           )}
-          <label
-            htmlFor={finalId}
-            className={cn(styles.label, labelClassName)}
-          >
+          <label htmlFor={finalId} className={cn(styles.label, labelClassName)}>
             {label}
           </label>
         </div>

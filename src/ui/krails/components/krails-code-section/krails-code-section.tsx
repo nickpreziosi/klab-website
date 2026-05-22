@@ -16,6 +16,25 @@ export default function KRailsCodeSection({
   translations: KRailsTranslations;
   skipAnimation?: boolean;
 }) {
+  const howItWorksCards = [
+    {
+      title: translations.codeSectionHowCard0Title,
+      description: translations.codeSectionHowCard0Description,
+    },
+    {
+      title: translations.codeSectionHowCard1Title,
+      description: translations.codeSectionHowCard1Description,
+    },
+    {
+      title: translations.codeSectionHowCard2Title,
+      description: translations.codeSectionHowCard2Description,
+    },
+    {
+      title: translations.codeSectionHowCard3Title,
+      description: translations.codeSectionHowCard3Description,
+    },
+  ];
+
   const leftColRef = useRef<HTMLDivElement | null>(null);
   const cardsContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -66,11 +85,15 @@ export default function KRailsCodeSection({
       >
         <h2 className={styles.heading}>
           {translations.codeSectionHeadingLine1}
-          <br />
-          {translations.codeSectionHeadingLine2}
+          {translations.codeSectionHeadingLine2 ? (
+            <>
+              <br />
+              {translations.codeSectionHeadingLine2}
+            </>
+          ) : null}
         </h2>
         <div className={styles.grid}>
-          <div className={styles.leftColumn} ref={leftColRef}>
+          <div className={styles.leftColumn} ref={leftColRef} dir="ltr">
             <KRailsCodeAnimation
               sections={exampleApiSections}
               typingSpeed={20}
@@ -80,30 +103,16 @@ export default function KRailsCodeSection({
           </div>
           <div className={styles.rightColumn}>
             <div ref={cardsContainerRef} className={styles.cardsContainer}>
-              <Card>
-                <CardHeader>
-                  <CardTitle className={styles.cardHeading}>
-                    {translations.codeSectionCardTrustTitle}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className={styles.cardText}>
-                    {translations.codeSectionCardTrustDescription}
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className={styles.cardHeading}>
-                    {translations.codeSectionCardCertaintyTitle}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className={styles.cardText}>
-                    {translations.codeSectionCardCertaintyDescription}
-                  </p>
-                </CardContent>
-              </Card>
+              {howItWorksCards.map((card, index) => (
+                <Card key={`code-how-${index}`}>
+                  <CardHeader>
+                    <CardTitle className={styles.cardHeading}>{card.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className={styles.cardText}>{card.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </div>

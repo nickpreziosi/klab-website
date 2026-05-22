@@ -2,7 +2,8 @@
 
 import { useRef } from "react";
 import { useInView } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { getTextDirection, type Locale } from "@/i18n/routing";
 import CompanySectionTitle from "@/ui/company/components/company-section-title/company-section-title";
 import { StaffCard } from "@/ui/company/components/staff-card/staff-card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/ui/shared/components/tabs/tabs";
@@ -32,13 +33,15 @@ export default function CompanyStaffSection({ employees, board, skipAnimation = 
   const inView = useInView(ref, { once: true, amount: 0.1 });
   const effectiveInView = skipAnimation || inView;
   const t = useTranslations("companyStaff");
+  const locale = useLocale();
+  const tabsDir = getTextDirection(locale as Locale) === "rtl" ? "rtl" : "ltr";
 
   return (
     <section ref={ref}>
       <div className={styles.header}>
         <CompanySectionTitle title={t("title")} inView={effectiveInView} skipAnimation={skipAnimation} />
         <div className={styles.tabWrap}>
-          <Tabs defaultValue="leadership">
+          <Tabs defaultValue="leadership" dir={tabsDir}>
             <TabsList>
               <TabsTrigger value="leadership">{t("tabLeadership")}</TabsTrigger>
               <TabsTrigger value="board">{t("tabBoard")}</TabsTrigger>

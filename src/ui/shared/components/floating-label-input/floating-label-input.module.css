@@ -80,14 +80,14 @@
 .select {
   appearance: none;
   cursor: pointer;
-  padding-right: 2rem;
+  padding-inline-end: 2rem;
 }
 
 /* Label – resting (inside field); must stay overlaying input (inner is positioning context) */
 .inner .label {
   position: absolute;
-  inset: auto;
-  left: var(--padding-sm);
+  inset-inline-start: var(--padding-sm);
+  inset-inline-end: auto;
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;

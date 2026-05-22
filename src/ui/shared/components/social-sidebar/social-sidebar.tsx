@@ -3,7 +3,8 @@
 import type React from "react";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { getTextDirection, type Locale } from "@/i18n/routing";
 import { motion } from "framer-motion";
 import {
   Tooltip,
@@ -145,6 +146,8 @@ const socialLinks: SocialLink[] = [
 
 export default function SocialSidebar() {
   const t = useTranslations("socialSidebar");
+  const locale = useLocale();
+  const isRtl = getTextDirection(locale as Locale) === "rtl";
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const getScale = (index: number) => {
@@ -182,7 +185,7 @@ export default function SocialSidebar() {
                   {link.icon}
                 </motion.a>
               </TooltipTrigger>
-              <TooltipContent side="right" sideOffset={12}>
+              <TooltipContent side={isRtl ? "left" : "right"} sideOffset={12}>
                 {t(link.labelKey)}
               </TooltipContent>
             </Tooltip>

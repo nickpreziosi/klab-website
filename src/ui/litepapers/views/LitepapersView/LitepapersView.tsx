@@ -43,6 +43,7 @@ export function LitepapersView({ litepapersTranslations }: LitepapersViewProps =
                   variant="outline"
                   icon={
                     <svg
+                      className="rtlFlipH"
                       width="15"
                       height="15"
                       viewBox="0 0 15 15"

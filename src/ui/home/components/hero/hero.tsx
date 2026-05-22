@@ -1,13 +1,31 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import HeroText from "@/ui/shared/components/hero-text/hero-text";
-import VideoPlayer from "@/ui/shared/components/video-player/video-player";
-import { useTranslations } from "next-intl";
+import heroTextStyles from "@/ui/shared/components/hero-text/hero-text.module.css";
+import { useLocale, useTranslations } from "next-intl";
+import type { Locale } from "@/i18n/routing";
 import type { HeroTranslations } from "@/ui/home/types";
 import { buildHeroTranslations } from "@/ui/home/types";
 import styles from "./hero.module.css";
 import "./hero.module.css";
+import { ArrowDownIcon, Lock, Mail, Search, Wrench } from "lucide-react";
+
+const useCasesButtonIcon = <ArrowDownIcon className={heroTextStyles.arrowIcon} aria-hidden />;
+
+const HIGHLIGHT_ICON_SIZE = 32;
+
+const HIGHLIGHT_ICONS = [
+  <Wrench key="wrench" size={HIGHLIGHT_ICON_SIZE} strokeWidth={2.25} aria-hidden />,
+  <Lock key="lock" size={HIGHLIGHT_ICON_SIZE} strokeWidth={2.25} aria-hidden />,
+  <Search key="search" size={HIGHLIGHT_ICON_SIZE} strokeWidth={2.25} aria-hidden />,
+] as const;
+
+const HERO_TEXT_MAX_WIDTH: Record<Locale, string> = {
+  en: "860px",
+  ar: "860px",
+  es: "1040px",
+  pt: "1040px",
+};
 
 type HeroProps = {
   /** When provided (from server), copy is SSR'd; otherwise use client useTranslations */
@@ -20,44 +38,36 @@ export const Hero = ({
   translations: serverTranslations,
   skipAnimation = false,
 }: HeroProps = {}) => {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const locale = useLocale() as Locale;
   const t = useTranslations("hero");
-  const tCommon = useTranslations("common");
-  const translations: HeroTranslations =
-    serverTranslations ??
-    {
-      ...buildHeroTranslations(t),
-      learnMore: tCommon("learnMore"),
-    };
-
-  // Pause video when not visible to save resources
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "hidden") {
-        videoRef.current?.pause();
-      } else {
-        videoRef.current?.play();
-      }
-    };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, []);
+  const translations: HeroTranslations = serverTranslations ?? buildHeroTranslations(t);
 
   return (
     <section className={styles.hero}>
       <div className={styles.content}>
         <div className={styles.mainContainer}>
           <HeroText
-            maxWidth="680px"
+            className={heroTextStyles.homeHero}
+            maxWidth={HERO_TEXT_MAX_WIDTH[locale]}
             text={translations.title}
-            subtitle={translations.subtitle}
-            buttonText={translations.contactSales}
-            buttonHref="/contact/sales"
-            buttonTwoText={translations.learnMore}
-            buttonTwoHref="#home-promo"
+            highlightPhrase={translations.titleHighlight}
+            subtitle={translations.subtitleIntro}
+            subtitleHighlights={translations.subtitleHighlights.map((text, index) => ({
+              text,
+              icon: HIGHLIGHT_ICONS[index],
+            }))}
+            buttonText={translations.useCases}
+            buttonHref="#use-cases"
+            buttonIcon={useCasesButtonIcon}
+            buttonIconMirrorRtl={false}
+            buttonTwoText={translations.contactSales}
+            buttonTwoHref="/contact/sales"
+            buttonTwoIcon={<Mail style={{ width: "20px", height: "20px" }} aria-hidden />}
+            buttonTwoIconPosition="start"
+            buttonOrder="primary-first"
+            buttonIconPosition="end"
             skipAnimation={skipAnimation}
+            deferEntranceUntilLoadingProgress
           />
         </div>
       </div>

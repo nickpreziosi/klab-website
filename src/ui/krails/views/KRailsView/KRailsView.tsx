@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "next-intl";
 import KRailsHero from "@/ui/krails/components/krails-hero/krails-hero";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import styles from "./KRailsView.module.css";
@@ -7,57 +8,58 @@ import KRailsBuiltWith from "@/ui/krails/components/krails-built-with/krails-bui
 import KRailsCta from "@/ui/krails/components/krails-cta/krails-cta";
 import KRailsCodeSection from "@/ui/krails/components/krails-code-section/krails-code-section";
 import KRailsWhy from "@/ui/krails/components/krails-why/krails-why";
+import type { KRailsWhyTranslations } from "@/ui/krails/types/krails-why-translations";
 import KRailsDashboard from "@/ui/krails/components/krails-dashboard/krails-dashboard";
-import VideoPlayer from "@/ui/shared/components/video-player/video-player";
+import KRailsVideoPlayer from "@/ui/krails/components/krails-video-player/krails-video-player";
 
-const KRAILS_VIDEO_EMBED = "https://www.youtube.com/embed/JoKxM2r06ns";
+const KRAILS_VIDEO_FI = "https://www.youtube.com/embed/v6XF9PLVIAw";
+const KRAILS_VIDEO_GOV = "https://www.youtube.com/embed/WFlJvmHsfPU";
 const KRAILS_VIDEO_POSTER = "/images/krails.webp";
 
-export interface KRailsTranslations {
+export interface KRailsTranslations extends KRailsWhyTranslations {
   heroHeading: string;
-  heroSubheading: string;
+  heroHeadingHighlight: string;
   heroDescription: string;
   heroButtonPrimary: string;
   heroButtonSecondary: string;
-  whyHeading: string;
-  whySubheading: string;
-  whyBlock0Heading: string;
-  whyBlock0Description: string;
-  whyBlock1Heading: string;
-  whyBlock1Description: string;
-  whyBlock2Heading: string;
-  whyBlock2Description: string;
-  whyBlock3Heading: string;
-  whyBlock3Description: string;
-  whyCtaButton: string;
+  logoAlt: string;
   builtWithHeading: string;
-  ctaHeading: string;
   ctaSubheading: string;
-  ctaHighlight: string;
   ctaButton: string;
   codeSectionHeadingLine1: string;
   codeSectionHeadingLine2: string;
-  codeSectionCardTrustTitle: string;
-  codeSectionCardTrustDescription: string;
-  codeSectionCardCertaintyTitle: string;
-  codeSectionCardCertaintyDescription: string;
+  codeSectionHowCard0Title: string;
+  codeSectionHowCard0Description: string;
+  codeSectionHowCard1Title: string;
+  codeSectionHowCard1Description: string;
+  codeSectionHowCard2Title: string;
+  codeSectionHowCard2Description: string;
+  codeSectionHowCard3Title: string;
+  codeSectionHowCard3Description: string;
   videoSectionTitle: string;
   videoPosterAlt: string;
+  videoChoicePrompt: string;
+  videoFiLabel: string;
+  videoGovLabel: string;
+  videoFiPlayAria: string;
+  videoGovPlayAria: string;
 }
 
 export function KRailsView({ translations }: { translations: KRailsTranslations }) {
   const skipAnimation = useSkipAnimationOnLocaleSwitch();
+  const locale = useLocale();
   return (
     <main className={styles.container}>
       <div className={styles.background}>
         <KRailsHero
+          logoAlt={translations.logoAlt}
           heading={translations.heroHeading}
-          subheading={translations.heroSubheading}
+          headingHighlight={translations.heroHeadingHighlight}
           description={translations.heroDescription}
           buttonText={translations.heroButtonPrimary}
-          buttonHref="/contact/sales"
+          buttonHref="#krails-video"
           buttonTwoText={translations.heroButtonSecondary}
-          buttonTwoHref="#krails-video"
+          buttonTwoHref={`/${locale}/contact/sales`}
           skipAnimation={skipAnimation}
         />
         <div className={styles.dashboardWrapper}>
@@ -68,10 +70,16 @@ export function KRailsView({ translations }: { translations: KRailsTranslations 
           className={styles.videoSection}
           aria-label={translations.videoSectionTitle}
         >
-          <VideoPlayer
-            videoUrl={KRAILS_VIDEO_EMBED}
+          <KRailsVideoPlayer
+            fiVideoUrl={KRAILS_VIDEO_FI}
+            govVideoUrl={KRAILS_VIDEO_GOV}
             posterUrl={KRAILS_VIDEO_POSTER}
             posterAlt={translations.videoPosterAlt}
+            fiLabel={translations.videoFiLabel}
+            govLabel={translations.videoGovLabel}
+            fiPlayAria={translations.videoFiPlayAria}
+            govPlayAria={translations.videoGovPlayAria}
+            choicePrompt={translations.videoChoicePrompt}
             skipAnimation={skipAnimation}
           />
         </section>

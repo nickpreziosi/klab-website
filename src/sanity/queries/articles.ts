@@ -127,6 +127,7 @@ export interface SanityInternationalArticle {
   authorRole?: string;
   category?: string;
   readTime?: string;
+  galleryPassword?: string;
   gallery?: Array<{
     asset: { _ref?: string; _type?: string };
     caption?: string;
@@ -168,6 +169,7 @@ const internationalArticleBySlugQuery = groq`
     authorRole,
     category,
     readTime,
+    galleryPassword,
     gallery[] {
       asset,
       caption,
@@ -198,4 +200,29 @@ export async function getInternationalArticleBySlug(
     internationalArticleBySlugQuery,
     { slug }
   );
+}
+
+const internationalArticleSlugsQuery = groq`
+  *[_type == "internationalArticle"] { "slug": slug.current }
+`;
+
+const internationalArticleGalleryPasswordQuery = groq`
+  *[_type == "internationalArticle" && slug.current == $slug][0] {
+    galleryPassword
+  }
+`;
+
+export async function getInternationalArticleGalleryPassword(
+  slug: string
+): Promise<{ galleryPassword?: string } | null> {
+  return await client.fetch<{ galleryPassword?: string } | null>(
+    internationalArticleGalleryPasswordQuery,
+    { slug }
+  );
+}
+
+/** Slugs for KLab (`internationalArticle`) detail URLs: `/news/[slug]`. */
+export async function getInternationalArticleSlugs(): Promise<string[]> {
+  const result = await client.fetch<{ slug: string }[]>(internationalArticleSlugsQuery);
+  return result?.map((r) => r.slug).filter(Boolean) ?? [];
 }

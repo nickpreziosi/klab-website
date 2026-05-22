@@ -17,7 +17,7 @@ const BAR_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const ROTATE_EASE: [number, number, number, number] = [0.34, 1.12, 0.32, 1];
 
 /**
- * Shimmer after the ~1s beat. Easing matched to klab-promo sweep: quick build,
+ * Shimmer after the ~1s beat. Easing matched to K Lab promo sweep: quick build,
  * long soft settle (emphasized decelerate — common in the reference clip).
  */
 const SHIMMER_DELAY_S = 0.7;
@@ -43,6 +43,8 @@ export function LoadingProgressBar() {
   const homeAnimation = useHomeAnimation();
   const skipAnimation = homeAnimation?.hasAnimated ?? false;
   const setHasAnimated = homeAnimation?.setHasAnimated;
+  const markLoadingProgressFinished = homeAnimation?.markLoadingProgressFinished;
+  const resetLoadingProgressFinished = homeAnimation?.resetLoadingProgressFinished;
 
   const [isLoading, setIsLoading] = useState(!skipAnimation);
 
@@ -80,6 +82,7 @@ export function LoadingProgressBar() {
 
     cancelledRef.current = false;
     shimmerCompleteOnceRef.current = false;
+    resetLoadingProgressFinished?.();
     setIsLoading(true);
     pct.set(0);
 
@@ -96,11 +99,18 @@ export function LoadingProgressBar() {
         exitTimerRef.current = null;
       }
     };
-  }, [pathname, skipAnimation]);
+  }, [pathname, skipAnimation, resetLoadingProgressFinished]);
+
+  useEffect(() => {
+    if (skipAnimation) {
+      markLoadingProgressFinished?.();
+    }
+  }, [skipAnimation, markLoadingProgressFinished]);
 
   const dismiss = () => {
     if (cancelledRef.current) return;
     setIsLoading(false);
+    markLoadingProgressFinished?.();
     setHasAnimated?.();
   };
 

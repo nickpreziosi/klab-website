@@ -25,16 +25,18 @@ function extractYouTubeId(embedLink?: string): string | undefined {
 }
 
 interface NewsKeoPageProps {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{
     category?: string | string[];
     page?: string;
   }>;
 }
 
-export default async function NewsKeoPage({ searchParams }: NewsKeoPageProps) {
-  const params = await searchParams;
+export default async function NewsKeoPage({ params, searchParams }: NewsKeoPageProps) {
+  const { locale } = await params;
+  const resolvedParams = await searchParams;
 
-  const categoryParam = params.category;
+  const categoryParam = resolvedParams.category;
   const selectedCategories = Array.isArray(categoryParam)
     ? categoryParam
     : categoryParam
@@ -79,7 +81,11 @@ export default async function NewsKeoPage({ searchParams }: NewsKeoPageProps) {
       heroTitle={t("heroTitleKeo")}
       heroSubtitle=""
       breadcrumbCurrent={t("breadcrumbKeo")}
-      contentDirection="ltr"
+      emptyStateMessage={t("emptyStateKeo")}
+      showExploreRootsCta={false}
+      contentDirection={locale === "ar" ? "rtl" : "ltr"}
+      articlesContentDirection="ltr"
+      articleHrefBase="/news/keo"
     />
   );
 }

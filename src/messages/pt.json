@@ -1,12 +1,12 @@
 {
   "nav": {
     "about": "Sobre",
-    "technologies": "Tecnologias",
+    "technologies": "Soluções",
     "company": "Empresa",
     "news": "Notícias",
     "contact": "Contato",
     "goToHomepage": "Ir para início",
-    "technologiesMenuLabel": "Menu de tecnologias, pressione enter ou espaço para abrir",
+    "technologiesMenuLabel": "Menu de soluções, pressione enter ou espaço para abrir",
     "mainNav": "Navegação principal"
   },
   "drawer": {
@@ -16,19 +16,29 @@
     "dialogDescription": "Menu de navegação",
     "home": "Início"
   },
+  "homeMetadata": {
+    "title": "K Lab",
+    "description": "Camada programável de confiança e execução para movimentação institucional de valores. Pensada para governos, instituições financeiras e capital privado. Configurável. Com permissões. Exequível."
+  },
   "hero": {
-    "title": "Construindo o Futuro da Infraestrutura Financeira",
-    "subtitle": "A KLab desenvolve a tecnologia que automatiza risco, pagamentos e operações financeiras — tudo em uma plataforma inteligente.",
-    "contactSales": "Fale com vendas",
-    "promoVideoPosterAlt": "Vídeo promocional da KLab",
-    "promoVideoSectionLabel": "Vídeo promocional da KLab"
+    "title": "Confiança programável para movimentação institucional de valores.",
+    "titleHighlight": "movimentação institucional de valores.",
+    "subtitleIntro": "O K Rails é a camada de controle que decide se o dinheiro deve se mover — com privacidade permissionada, conformidade e comprovação integradas.",
+    "subtitleHighlight0": "Configurável pela instituição.",
+    "subtitleHighlight1": "Exigível em cada etapa.",
+    "subtitleHighlight2": "Auditável por design.",
+    "useCases": "Casos de uso",
+    "contactSales": "Fale com nossa equipe comercial"
+  },
+  "companyBrand": {
+    "title": "Nossa marca",
+    "promoVideoPosterAlt": "Vídeo promocional da K Lab",
+    "promoVideoSectionLabel": "Vídeo promocional da K Lab"
   },
   "companyHero": {
-    "headlineLine1": "Onde o capital",
-    "headlineLine2": "encontra o código.",
-    "tagline1": "Confiança programável para o comércio global.",
-    "tagline2": "Finanças, reescritas.",
-    "tagline3": "Contratos inteligentes. Impacto real.",
+    "headlineLine1": "Feito para defender o dinheiro",
+    "headlineLine2": "que move instituições adiante.",
+    "subhead": "A K Lab é uma fintech sediada em Miami que oferece infraestrutura financeira programável para governos, instituições financeiras e capital privado, com o respaldo de cinco anos de inteligência transacional ao vivo.",
     "employeeImageAlt": "Imagem de funcionário KEO"
   },
   "NotFoundPage": {
@@ -56,15 +66,15 @@
   },
   "contact": {
     "heading": "Como podemos ajudar?",
-    "subtitle": "Entre em contato com nossas equipes de vendas, suporte e carreiras para demos, dúvidas sobre produtos ou oportunidades de carreira.",
+    "subtitle": "Veja o K Rails configurado para a sua instituição. Nossa equipe comercial é especializada em implantações para governo, instituições financeiras e capital privado — e pode demonstrar um ambiente ao vivo em 30 minutos.",
     "salesTitle": "Vendas",
-    "salesDescription": "Interessado em saber mais sobre os produtos e serviços da KLab? Nossa equipe de vendas está aqui para responder suas perguntas, oferecer demos personalizados e ajudá-lo a encontrar a solução ideal para seu negócio.",
-    "salesButton": "Falar com vendas",
+    "salesDescription": "Pronto para explorar o K Rails na sua instituição? Esteja avaliando um programa de compras governamental, o aprimoramento da rede de pagos ou a implantação de capital de portfólio — nossa equipe comercial montará uma demonstração alinhada ao seu ambiente.",
+    "salesButton": "Contactar vendas",
     "supportTitle": "Ajuda e suporte",
     "supportDescription": "Precisa de ajuda com onboarding, problemas técnicos ou dúvidas sobre produtos? Nossa equipe de suporte está pronta para ajudá-lo a resolver qualquer problema técnico.",
     "supportButton": "Contatar suporte",
     "careersTitle": "Carreiras",
-    "careersDescription": "Animado para moldar o futuro da tecnologia financeira? Entre em contato com nossa equipe de carreiras para explorar oportunidades de se juntar à KLab.",
+    "careersDescription": "Animado para moldar o futuro da tecnologia financeira? Entre em contato com nossa equipe de carreiras para explorar oportunidades de se juntar à K Lab.",
     "careersButton": "Contatar carreiras"
   },
   "companyCulture": {
@@ -72,8 +82,8 @@
     "heading": "Inovação através do trabalho em equipe e inclusão.",
     "highlight1": "Trabalho em equipe",
     "highlight2": "Inclusão",
-    "description": "A KLab combina a energia de uma startup com ampla experiência do setor para desenvolver tecnologias inovadoras. Temos um compromisso profundo com diversidade, igualdade e inclusão, essenciais para nossa missão de ajudar empresas e atrair pessoas excepcionais.",
-    "button": "Carreiras KLab",
+    "description": "A K Lab combina a energia de uma startup com ampla experiência do setor, com liderança formada por trajetórias em Nasdaq, Santander, Digital Asset e Palantir, para desenvolver tecnologias inovadoras. Temos um compromisso profundo com diversidade, igualdade e inclusão, essenciais para nossa missão de ajudar empresas e atrair pessoas excepcionais.",
+    "button": "Carreiras K Lab",
     "statPeople": "Pessoas em seis países",
     "statWomen": "São mulheres",
     "statNationalities": "Nacionalidades diferentes",
@@ -82,22 +92,22 @@
   "companyManifesto": {
     "title": "Manifesto",
     "item0": "No código confiamos. Nas pessoas investimos.",
-    "item1": "Zero atrito. Zero fraude. Zero desculpas.",
+    "item1": "Fraude reduzido de forma significativa. Prestação de contas garantida.",
     "item2": "Não construímos tecnologia. Construímos confiança.",
     "item3": "Nossa arquitetura não dorme.",
     "item4": "Sucesso só é sucesso se for compartilhado.",
     "item5": "Progresso, acelerado.",
     "item6": "Incorruptível por design.",
-    "item7": "Combatemos a fraude. Financiamos sonhos.",
+    "item7": "Regras aplicadas antes do dinheiro se mover.",
     "item8": "Defendendo o futuro do atrito do passado.",
-    "item9": "Infraestrutura para o inalterável.",
+    "item9": "Defensível por design. Auditável em cada etapa.",
     "item10": "Quanto mais criamos, mais damos."
   },
   "journeyTimeline": {
     "title": "Nossa jornada",
-    "subtitle": "CONSTRUINDO O FUTURO DA IA COM CINCO ANOS DE INTELIGÊNCIA FINANCEIRA COMPROVADA.",
-    "paragraph1": "HERDAMOS 5 ANOS DE P&D E DADOS PROPRIETÁRIOS DA KEO WORLD—APÓS SUA AQUISIÇÃO ESTRATÉGICA PELA MAHA CAPITAL.",
-    "paragraph2": "POR MEIO DE UM ACORDO DEFINITIVO COM A MAHA CAPITAL, A K LAB AGORA APROVEITA ESTE ECOSSISTEMA MACIÇO DE DADOS PARA TREINAR MODELOS DE IA ESPECIALIZADOS. ESTAMOS TRANSFORMANDO ANOS DE TRANSAÇÕES NA INTELIGÊNCIA DE AMANHÃ.",
+    "subtitle": "Cinco anos de inteligência.\nUma plataforma programável.",
+    "paragraph1": "A K Lab baseia-se no histórico de transações, nos modelos proprietários e nos dados operacionais adquiridos da KEO World, uma fintech que processou pagamentos B2B reais na América Latina durante cinco anos.",
+    "paragraph2": "Essa inteligência conquistada é agora a base do K Rails: não é teoria nem infraestrutura de demonstração, e sim um sistema treinado em como o dinheiro institucional realmente se move — e onde dá errado.",
     "year2020": "2020",
     "year2025": "2025",
     "sold": "VENDIDO!",
@@ -107,12 +117,12 @@
     "event3": "ACORDO DE ACESSO A DADOS PARA TREINAR MODELOS PROPRIETÁRIOS"
   },
   "klabFoundation": {
-    "title": "Fundação KLab",
+    "title": "Fundação K Lab",
     "quote1": "QUANTO MAIS",
     "quote2": "CRIAMOS",
     "quote3": "MAIS",
     "quote4": "DEMOS.",
-    "learnMore": "Fundação KLab"
+    "learnMore": "Fundação K Lab"
   },
   "companyStaff": {
     "title": "Nossa equipe",
@@ -147,7 +157,7 @@
       },
       "tomasGuzman": {
         "position": "Relações governamentais e institucionais",
-        "bio": "Tomás é Diretor de Relações Institucionais e Governamentais na KLab, liderando o engajamento com partes interessadas e parcerias estratégicas. Advogado e ex-Conselheiro Ministerial na Embaixada da Venezuela no Brasil, traz experiência em diplomacia e setor público-privado, destacando-se em negociação, posicionamento institucional e crescimento de longo prazo."
+        "bio": "Tomás é Diretor de Relações Institucionais e Governamentais na K Lab, liderando o engajamento com partes interessadas e parcerias estratégicas. Advogado e ex-Conselheiro Ministerial na Embaixada da Venezuela no Brasil, traz experiência em diplomacia e setor público-privado, destacando-se em negociação, posicionamento institucional e crescimento de longo prazo."
       },
       "nickSchwartz": {
         "position": "Comercial",
@@ -171,23 +181,26 @@
         "bio": "Chris é empresário, investidor e proprietário da World Auto Group, um grupo varejista automotivo multimarca sediado em NJ. Especializa-se em desenvolvimento de negócios, aquisições e escalonamento de operações, construindo equipes de alta performance e negócios premiados, criando valor de longo prazo em seu portfólio."
       },
       "davideTomassoni": {
-        "bio": "Membro do conselho e Diretor Principal de Assuntos Globais na KLabs Inc., Davide traz sua ampla experiência empreendedora em relações internacionais, parcerias estratégicas e iniciativas transfronteiriças. Assessora em estratégia geopolítica, engajamento com partes interessadas e expansão de mercados globais, alinhando visão de política à execução comercial em tecnologia, finanças e empresas impulsionadas pela inovação."
+        "bio": "Membro do conselho e Diretor Principal de Assuntos Globais na K Lab, Davide traz sua ampla experiência empreendedora em relações internacionais, parcerias estratégicas e iniciativas transfronteiriças. Assessora em estratégia geopolítica, engajamento com partes interessadas e expansão de mercados globais, alinhando visão de política à execução comercial em tecnologia, finanças e empresas impulsionadas pela inovação."
+      },
+      "milesMolyneaux": {
+        "bio": "Miles tem 25 anos de experiência liderando equipes financeiras e como membro do conselho de empresas em estágio inicial e de alto crescimento, com foco em transações de M&A, avaliação e melhoria de desempenho."
       }
     }
   },
   "foundation": {
-    "titleBrand": "KFoundation",
+    "titleBrand": "K Foundation",
     "titleMain": "Doar",
     "subheading": "Inovação com propósito",
-    "paragraph": "Na KLab acreditamos que inovação é transformação, mas a verdadeira transformação vai além da tecnologia; deve incluir impacto social. Nosso sucesso é projetado para ser cíclico, fluindo de volta para as comunidades.",
-    "section1": "Nosso compromisso com a KLab é implantar continuamente seu ecossistema de tecnologia inovador e desenvolver modelos de IA avançados. Uma parte fundamental de nossa missão é destinar 10% de todos os lucros diretamente à K Foundation.",
+    "paragraph": "Na K Lab acreditamos que inovação é transformação, mas a verdadeira transformação vai além da tecnologia; deve incluir impacto social. Nosso sucesso é projetado para ser cíclico, fluindo de volta para as comunidades.",
+    "section1": "Nosso compromisso com a K Lab é implantar continuamente seu ecossistema de tecnologia inovador e desenvolver modelos de IA avançados. Uma parte fundamental de nossa missão é destinar 10% de todos os lucros diretamente à K Foundation.",
     "section2": "Capacitando a próxima geração através da K Foundation, nos esforçamos para criar oportunidades para crianças e jovens em todo o mundo. Nosso objetivo é fomentar suas paixões e talentos, especialmente em comunidades com poucos recursos.",
-    "section3": "Impulsionados pela criatividade e pelo propósito, somos uma equipe de criativos profundamente apaixonados por inovação e sucesso com um propósito profundo. Os funcionários da KLab contribuem com sua expertise tanto para os negócios da KLab quanto para as iniciativas da K Foundation."
+    "section3": "Impulsionados pela criatividade e pelo propósito, somos uma equipe de criativos profundamente apaixonados por inovação e sucesso com um propósito profundo. Os funcionários da K Lab contribuem com sua expertise tanto para os negócios da K Lab quanto para as iniciativas da K Foundation."
   },
   "litepapers": {
-    "label": "KLab LITEPAPER",
-    "heading": "Explore como a KLab reimagina os pagamentos blockchain com estabilidade e previsibilidade em seu núcleo",
-    "description": "A KLab é uma blockchain Layer-1 compatível com EVM construída com propósito que avança a fronteira das finanças de stablecoins e tokenização. Possui USDC como gas nativo, finalidade de liquidação determinística, privacidade opcional e arquitetura de taxa de transação estável. Otimizada para casos de uso nativos de stablecoins, como pagamentos globais, FX e mercados de capital, a KLab serve como camada de liquidação fundamental para dinheiro programável na internet.",
+    "label": "K LAB LITEPAPER",
+    "heading": "Explore como a K Lab reimagina os pagamentos blockchain com estabilidade e previsibilidade em seu núcleo",
+    "description": "A K Lab é uma blockchain Layer-1 compatível com EVM construída com propósito que avança a fronteira das finanças de stablecoins e tokenização. Possui USDC como gas nativo, finalidade de liquidação determinística, privacidade opcional e arquitetura de taxa de transação estável. Otimizada para casos de uso nativos de stablecoins, como pagamentos globais, FX e mercados de capital, a K Lab serve como camada de liquidação fundamental para dinheiro programável na internet.",
     "readFullLitepaper": "LEIA O LITEPAPER COMPLETO",
     "english": "Inglês",
     "spanish": "Espanhol",
@@ -208,7 +221,7 @@
     "kaiDesc": "Carteira digital empresarial com suporte multisignatura"
   },
   "techPlaceholder": {
-    "contactSales": "Falar com vendas",
+    "contactSales": "Contactar vendas",
     "comingSoonSubline": "Casos de uso e benefícios detalhados para esta tecnologia em breve.",
     "overview": "Visão geral",
     "learnMoreSoon": "Mais informações em breve",
@@ -218,8 +231,12 @@
   "homeSecondary": {
     "kenaTitle": "Kena",
     "kenaDescription": "A Kena, nossa IA de risco proprietária, replica o raciocínio dos subscritores financeiros e se treina continuamente com dados globais.",
-    "timelineTitlePrimary": "SPRINTS SEMANAIS.",
-    "timelineTitleAccent": "IMPLANTAÇÃO EM 90 DIAS",
+    "timelineTitlePrimary": "Ao ar em 90 dias.",
+    "timelineTitleAccent": "Sem rip-and-replace",
+    "timelineMethodology": "O K Rails integra-se aos seus trilhos de pagamento, sistemas ERP e infraestrutura de liquidação existentes. A nossa metodologia estruturada de sprints leva-o do âmbito ao go-live sem interromper as operações correntes.",
+    "deploymentStat1": "Implantação em 90 dias",
+    "deploymentStat2": "$0 custo de integração",
+    "deploymentStat3": "100 % de cobertura de auditoria desde o dia 0",
     "stepScoping": "ESCOPO",
     "stepOnboarding": "ONBOARDING",
     "stepIntegrate": "INTEGRAR / QA",
@@ -285,17 +302,17 @@
       "softwareBug": "Bug de software"
     },
     "products": {
-      "krails": "KRails",
+      "krails": "K Rails",
       "kena": "Kena"
     }
   },
   "salesForm": {
-    "heading": "Falar com vendas",
+    "heading": "Contactar vendas",
     "successTitle": "Solicitação enviada!",
     "successMessage": "Nossa equipe de vendas entrará em contato em breve.",
     "successHeadline": "Solicitação enviada com sucesso!",
-    "successBody": "Obrigado pelo seu interesse na KLab. Recebemos sua consulta e nossa equipe de vendas entrará em contato em breve para discutir como podemos ajudar seu negócio a crescer.",
-    "formHeadline": "Vamos discutir como podemos ajudar seu negócio a crescer",
+    "successBody": "Obrigado pelo seu interesse na K Lab. Recebemos sua consulta e nossa equipe de vendas entrará em contato em breve para discutir como podemos ajudar seu negócio a crescer.",
+    "formHeadline": "Como podemos ajudar?",
     "submitAnother": "Enviar outra solicitação",
     "firstName": "Nome",
     "lastName": "Sobrenome",
@@ -355,16 +372,16 @@
       "other": "Outro"
     },
     "products": {
-      "krails": "KRails",
+      "krails": "K Rails",
       "kena": "Kena",
-      "kcard": "KCard",
-      "kleads": "KLeads",
-      "ktalk": "KTalk",
-      "kaxis": "KAxis",
-      "krisk": "KRisk",
+      "kcard": "K Card",
+      "kleads": "K Leads",
+      "ktalk": "K Talk",
+      "kaxis": "K Axis",
+      "krisk": "K Risk",
       "kai": "Kai",
-      "kabl": "KAbl",
-      "kbpm": "KBpm",
+      "kabl": "K Abl",
+      "kbpm": "K Bpm",
       "kim": "Kim",
       "other": "Outro"
     }
@@ -438,7 +455,7 @@
     "themeLabel": "Tema"
   },
   "common": {
-    "contactSales": "Fale com vendas",
+    "contactSales": "Contactar vendas",
     "learnMore": "Saiba mais",
     "loading": "Carregando",
     "loadingProgress": "Carregando...",
@@ -488,13 +505,13 @@
   },
   "technologiesShowcase": {
     "technologies": {
-      "krails": "Infraestrutura blockchain para pagamentos e liquidação B2B automatizados em tempo real.",
+      "krails": "Uma camada programável de confiança e execução para movimentação de dinheiro institucional.",
       "kena": "Kena é um sistema proprietário de Infraestrutura Financeira Inteligente (IFI).",
-      "ktalk": "Uma interface de IA conversacional que oferece acesso instantâneo em linguagem natural a dados operacionais, financeiros e transacionais em todos os sistemas K-Lab.",
+      "ktalk": "Uma interface de IA conversacional que oferece acesso instantâneo em linguagem natural a dados operacionais, financeiros e transacionais em todos os sistemas K Lab.",
       "krisk": "Motor automatizado de decisão de risco que usa IA, modelos de dados e regras dinâmicas para avaliar crédito, detectar fraude e monitorar exposições em tempo real.",
-      "kabl": "K-Abl é um ecossistema financeiro alimentado por IA e blockchain, ancorado pelo K-Rails que unifica todos os módulos K em uma única plataforma inteligente.",
+      "kabl": "K Abl é um ecossistema financeiro alimentado por IA e blockchain, ancorado pelo K Rails que unifica todos os módulos K em uma única plataforma inteligente.",
       "kcard": "Emissão de cartões corporativos, gestão de despesas e controle global. Automatização de processos manuais para gestão de gastos e supervisão de relatórios mais eficientes.",
-      "kbpm": "O motor de orquestração que impulsa cada processo operacional do ecossistema de empréstimos K-Lab.",
+      "kbpm": "O motor de orquestração que impulsa cada processo operacional do ecossistema de empréstimos K Lab.",
       "kim": "Transforma um processo tradicionalmente manual e propenso a erros em um fluxo de trabalho digital totalmente automatizado, inteligente e confiável, desbloqueando velocidade, liquidez e confiança na cadeia de suprimentos.",
       "kaxis": "Sistema CRM poderoso criado para dar visibilidade em tempo real a cada aspecto da jornada financeira do cliente. De linhas de crédito e empréstimos a pagamentos e saldos, centraliza dados essenciais do cliente em uma única plataforma fácil de usar.",
       "kleads": "Surjam mais leads qualificados para maximizar a eficiência comercial e acelerar o crescimento e o fluxo de negócios.",
@@ -524,20 +541,21 @@
     "breadcrumbNews": "Notícias",
     "breadcrumbAriaLabel": "Navegação estrutural",
     "cardOurPresentTitle": "Nosso presente",
-    "cardOurPresentDescription": "Fique por dentro das últimas novidades da KLab: atualizações de produtos, notícias da empresa e insights do setor.",
-    "cardOurPresentButton": "Ver notícias da KLab",
+    "cardOurPresentDescription": "Fique por dentro das últimas novidades da K Lab: atualizações de produtos, notícias da empresa e insights do setor.",
+    "cardOurPresentButton": "Ver notícias da K Lab",
     "cardOurPastTitle": "Nosso passado",
-    "cardOurPastDescription": "Explore notícias e insights da KEO World, incluindo nossa história e a base que levou à KLab.",
+    "cardOurPastDescription": "Explore notícias e insights da KEO World, incluindo nossa história e a base que levou à K Lab.",
     "cardOurPastButton": "Ver notícias da KEO",
     "noArticlesFound": "Nenhum artigo encontrado",
     "emptyStateTryFilters": "Tente ajustar os filtros para encontrar o que procura.",
     "emptyStateCheckBack": "Volte em breve para novo conteúdo.",
-    "heroTitleKlab": "Notícias KLab",
-    "breadcrumbKlab": "Notícias KLab",
+    "heroTitleKlab": "Notícias K Lab",
+    "breadcrumbKlab": "Notícias K Lab",
     "emptyStateKlab": "Nenhuma notícia disponível. Volte em breve.",
     "exploreOurRootsButton": "Explore as nossas raízes",
     "heroTitleKeo": "Notícias KEO World",
     "breadcrumbKeo": "Notícias KEO World",
+    "emptyStateKeo": "Ainda não há artigos da KEO World. Volte em breve.",
     "readTimeMinutes": "Minutos",
     "filterCategoryLabel": "Categoria",
     "filterAllCategories": "Todas as categorias",
@@ -546,7 +564,21 @@
     "previousImage": "Imagem anterior",
     "nextImage": "Próxima imagem",
     "galleryImageAlt": "Imagem da galeria {number}",
-    "close": "Fechar"
+    "close": "Fechar",
+    "galleryLocked": "Esta galeria está protegida por senha.",
+    "galleryGateButton": "Inserir senha",
+    "galleryPasswordTitle": "Acessar galeria",
+    "galleryPasswordDescription": "Insira a senha para ver as imagens da galeria.",
+    "galleryPasswordLabel": "Senha",
+    "galleryUnlockButton": "Desbloquear",
+    "galleryUnlockingButton": "Desbloqueando…",
+    "galleryPasswordHint": "Esta galeria está protegida por senha.",
+    "galleryPasswordErrorInvalid": "Senha incorreta. Tente novamente.",
+    "galleryPasswordErrorNetwork": "Erro de rede. Tente novamente.",
+    "galleryPasswordErrorGeneric": "Algo deu errado. Tente novamente.",
+    "galleryShowPassword": "Mostrar senha",
+    "galleryHidePassword": "Ocultar senha",
+    "galleryCloseDialog": "Fechar"
   },
   "newsCategories": {
     "awards-recognition": "Prêmios e reconhecimento",
@@ -605,35 +637,45 @@
     "showSlide": "Ver slide {number}"
   },
   "krails": {
-    "heroHeading": "A ERA DO \"ESPERAR\" ACABOU.",
-    "heroSubheading": "Infraestrutura de pagamentos e empréstimos B2B baseada em blockchain com liquidações quase instantâneas",
-    "heroDescription": "KRails é uma solução de pagamentos e empréstimos embarcada que combina disponibilidade imediata de fundos, finalidade de liquidação e confirmação instantânea em um único pagamento quase instantâneo. Unindo velocidade, dados e comunicação para execução de pagamentos.",
-    "heroButtonPrimary": "Iniciar meu fluxo T+0",
-    "heroButtonSecondary": "Saiba mais",
-    "whyHeading": "POR QUE KRAILS?",
-    "whySubheading": "O sistema antigo te faz esperar. KRails te faz avançar.",
-    "whyBlock0Heading": "CAPITAL LIBERADO. RECEITA ACELERADA.",
-    "whyBlock0Description": "Eliminamos períodos de retenção, transferências perdidas e custos de processamento desnecessários para seu negócio capturar mais receita, mais rápido.",
-    "whyBlock1Heading": "SOBERANIA EM CADA TRANSAÇÃO.",
-    "whyBlock1Description": "Com carteiras digitais de auto-custódia totalmente personalizáveis, você recupera o controle. Execute pagos domésticos e transfronteiriços com zero fricção e mova fundos entre contas bancárias tradicionais e stablecoins.",
-    "whyBlock2Heading": "A BASE DA CONFIANÇA IMUTÁVEL",
-    "whyBlock2Description": "KRails garante segurança de pagamentos de nível empresarial por meio de tokenização de dados com blockchain, contratos inteligentes, carteiras de auto-custódia e stablecoins.",
-    "whyBlock3Heading": "EMPRÉSTIMOS EM UM CLIQUE.",
-    "whyBlock3Description": "Rails oferece uma solução de financiamento integrada para credores que desejam financiar pagamentos B2B. Integramos a capacidade de financiar pagamentos B2B diretamente na infraestrutura. É alavancagem instantânea para credores com visão para se mover à nossa velocidade.",
-    "whyCtaButton": "Ativar meu perfil",
+    "heroHeading": "Uma camada programável de confiança e execução para a movimentação institucional de valores",
+    "heroHeadingHighlight": "movimentação institucional de valores",
+    "heroDescription": "O K Rails é uma camada de infraestrutura programável que torna pagamentos, contratos, aprovações, relacionamentos com fornecedores, financiamento, liquidação e auditabilidade configuráveis, com permissões e aplicáveis. Ele não apenas move valores: determina se o valor deve se mover, sob quais condições, por qual canal de pagamento, com qual estrutura econômica e com qual prova defensível.",
+    "heroButtonPrimary": "Saiba mais",
+    "heroButtonSecondary": "Solicitar acesso",
+    "whyHeading": "Casos de uso",
+    "whySubheading": "",
+    "whyBlock0Heading": "Instituições financeiras — Aprimoramento da rede de pagamentos",
+    "whyBlock0Description": "Para redes, emissores, adquirentes, bancos e processadores: o K Rails insere uma camada inteligente de autorização na infraestrutura de pagamentos existente — permitindo precificação dinâmica, alocação flexível de MDR, liquidação mais rápida, visibilidade de transações em tempo real e lógica de liquidação T+0. Não é necessário substituir os rails existentes.",
+    "whyBlock1Heading": "Governos — Controle do gasto no setor público",
+    "whyBlock1Description": "Contratos, aprovações, fornecedores, faturas e condições de pagamento tornam-se visíveis e exigíveis antes do movimento dos valores. Trata pagamentos duplicados, fraudes de fornecedores, manipulação contratual e uso indevido de recursos públicos. O valor não é apenas eficiência — é confiança, prestação de contas e prova defendível.",
+    "whyBlock2Heading": "Instituições financeiras — Emissão de crédito",
+    "whyBlock2Description": "O K Rails incorpora demonstrações financeiras, dados fiscais, extratos bancários, faturas e dados de bureau de crédito para apoiar scoring, recomendações de linhas de crédito, monitoramento contínuo e sinais de alerta precoce. Não é um evento pontual de underwriting — o sistema monitora o risco de forma contínua e sinaliza mudanças em tempo real.",
+    "whyBlock3Heading": "Capital privado — Alocação de capital em empresas de portfólio",
+    "whyBlock3Description": "Firmas de private equity, gestores de crédito privado e sponsors de fundos alocam capital em empresas de portfólio sem uma camada inteligente entre eles. O K Rails conecta gestores de capital a todas as empresas do portfólio em tempo real: automatizando desembolsos, incorporando supply chain finance, monitorando risco e oferecendo uma visão auditável em tempo real de como cada dólar é alocado.",
+    "whyBlock0Cta": "Ver demo para IF",
+    "whyBlock1Cta": "Solicitar um piloto",
+    "whyBlock2Cta": "Ver demo de risco",
+    "whyBlock3Cta": "Falar com Comercial",
     "builtWithHeading": "Construído com os melhores",
-    "ctaHeading": "SUA PRÓXIMA JOGADA. AGORA.\nDOMINE A ECONOMIA API.",
-    "ctaSubheading": "Pronto para a verdadeira vantagem competitiva? Integre e personalize a infraestrutura de pagamentos mais avançada do mercado no seu produto ou serviço via nossa suíte de desenvolvedores API.",
-    "ctaHighlight": "TRANSFORME SUA EFICIÊNCIA...",
-    "ctaButton": "Integrar KRails",
-    "codeSectionHeadingLine1": "CONFIANÇA EMPRESARIAL.",
-    "codeSectionHeadingLine2": "IMPOSSÍVEL DE ALTERAR. PONTO.",
-    "codeSectionCardTrustTitle": "CONFIANÇA",
-    "codeSectionCardTrustDescription": "A infraestrutura de pagamentos KRails mantém um registro confiável de todas as transações em tempo real de forma segura, autenticada e verificável, impedindo que qualquer parte altere transações executadas.",
-    "codeSectionCardCertaintyTitle": "CERTEZA",
-    "codeSectionCardCertaintyDescription": "Não é só segurança — é certeza imutável e absoluta na execução do comércio B2B. Um registro de pagamento inquebrantável e inalterável que impulsiona diretamente seu crescimento.",
-    "videoSectionTitle": "Vídeo de visão geral do KRails",
-    "videoPosterAlt": "Pré-visualização do vídeo do produto KRails",
+    "ctaSubheading": "O K Rails construiu uma camada de controle programável para a movimentação de dinheiro. O valor estratégico não são pagamentos mais rápidos. É a movimentação controlada de dinheiro com governança incorporada, economia dinâmica, inteligência de risco e prova defendível — configurável pela instituição, aplicável em cada etapa e auditável por design.",
+    "ctaButton": "Agendar uma demonstração",
+    "codeSectionHeadingLine1": "COMO FUNCIONA:",
+    "codeSectionHeadingLine2": "",
+    "codeSectionHowCard0Title": "Probabilístico → Determinístico",
+    "codeSectionHowCard0Description": "A IA interpreta ambiguidade. Após confirmação, o sistema compila em fluxo fixo, conjunto de regras, lógica SQL, sequência de aprovações ou instrução de pagamento — repetível, auditável e defendível.",
+    "codeSectionHowCard1Title": "Visibilidade permissionada, não transparência total",
+    "codeSectionHowCard1Description": "A pessoa certa vê as informações certas no momento certo, com trilha de auditoria defensável — dando às instituições controle sem tornar a adoção politicamente inviável.",
+    "codeSectionHowCard2Title": "Autorização baseada em regras",
+    "codeSectionHowCard2Description": "Todo pagamento, desembolso ou operação de crédito passa por um motor de regras configurável conectando compradores, fornecedores, IFs, redes, ERPs, sistemas governamentais e trilhos de liquidação a fluxos auditáveis.",
+    "codeSectionHowCard3Title": "Trilho de liquidação flexível",
+    "codeSectionHowCard3Description": "A liquidação pode usar qualquer trilho existente — ACH, wire, SEPA, redes de cartão, carteiras digitais ou stablecoin. A plataforma é a camada lógica acima dos trilhos, não um substituto.",
+    "videoSectionTitle": "Vídeo de visão geral do K Rails",
+    "videoPosterAlt": "Pré-visualização do vídeo do produto K Rails",
+    "videoChoicePrompt": "K Rails para instituições financeiras e governos",
+    "videoFiLabel": "Instituições financeiras",
+    "videoGovLabel": "Governos",
+    "videoFiPlayAria": "Reproduzir visão geral do K Rails para instituições financeiras",
+    "videoGovPlayAria": "Reproduzir visão geral do K Rails para governos",
     "previousCaseStudy": "Caso de estudo anterior",
     "nextCaseStudy": "Próximo caso de estudo",
     "showCaseStudy": "Ver {name}",
@@ -645,7 +687,7 @@
     "tabPhp": "PHP",
     "tabPython": "Python",
     "tabMore": "Mais",
-    "logoAlt": "Logo KRails"
+    "logoAlt": "Logo K Rails"
   },
   "techPages": {
     "kabl": {
@@ -759,15 +801,15 @@
       "benefit4Sub1": "Registro imutável para rastros de auditoria completos e integridade de dados",
       "modulesHeader": "Visão de arquitetura: Escalável. Seguro. Modular.",
       "module0Title": "Camada de experiência",
-      "module0Description": "Interfaces Kai Web/Mobile e K-Talks (texto/voz) para insights instantâneos e interação fluida.",
+      "module0Description": "Interfaces Kai Web/Mobile e K Talk (texto/voz) para insights instantâneos e interação fluida.",
       "module1Title": "Módulos centrais",
-      "module1Description": "K-BPM, K-Rails, K-Axis, K-Risk, K-Leads e a próxima plataforma de cartões corporativos.",
+      "module1Description": "K BPM, K Rails, K Axis, K Risk, K Leads e a próxima plataforma de cartões corporativos.",
       "module2Title": "Dados e IA",
       "module2Description": "Armazém de dados central com modelos explicáveis; monitoramento contínuo e controles de deriva/viés para análise confiável.",
       "module3Title": "Emissão de cartões corporativos",
       "module3Description": "Automação de processos manuais para gestão de despesas e relatórios mais eficientes.",
       "module4Title": "Pagamentos e infraestrutura",
-      "module4Description": "O sistema K-Rails utiliza NFTs de faturas, fundos de crédito, contratos inteligentes e reserva de stablecoins, integrado à banca tradicional.",
+      "module4Description": "O sistema K Rails utiliza NFTs de faturas, fundos de crédito, contratos inteligentes e reserva de stablecoins, integrado à banca tradicional.",
       "module5Title": "Camada de integração",
       "module5Description": "APIs seguras conectando a ERP/CRM, parceiros bancários, autoridades fiscais, bureaus de crédito e plataformas contábeis.",
       "module6Title": "Segurança e conformidade",

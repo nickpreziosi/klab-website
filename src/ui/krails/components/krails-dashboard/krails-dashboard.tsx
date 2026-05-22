@@ -370,12 +370,19 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
         aria-hidden="true"
         role="presentation"
         className={styles.dashboardContainer}
+        dir="ltr"
       />
     );
   }
 
   return (
-    <div tabIndex={-1} aria-hidden="true" role="presentation" className={styles.dashboardContainer}>
+    <div
+      tabIndex={-1}
+      aria-hidden="true"
+      role="presentation"
+      className={styles.dashboardContainer}
+      dir="ltr"
+    >
       {(() => {
         const StackWrapper = skipAnimation ? "div" : motion.div;
         const stackProps = skipAnimation
@@ -653,7 +660,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
 
                 <div className={styles.footerNav}>
                   <span>Accounts</span>
-                  <span className={styles.navArrow}>→</span>
+                  <span className={`${styles.navArrow} rtlFlipH`}>→</span>
                 </div>
               </div>
             </motion.div>

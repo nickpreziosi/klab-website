@@ -5,9 +5,7 @@
 export type CompanyHeroTranslations = {
   headlineLine1: string;
   headlineLine2: string;
-  tagline1: string;
-  tagline2: string;
-  tagline3: string;
+  subhead: string;
 };
 
 export function buildCompanyHeroTranslations(
@@ -16,8 +14,6 @@ export function buildCompanyHeroTranslations(
   return {
     headlineLine1: t("headlineLine1"),
     headlineLine2: t("headlineLine2"),
-    tagline1: t("tagline1"),
-    tagline2: t("tagline2"),
-    tagline3: t("tagline3"),
+    subhead: t("subhead"),
   };
 }

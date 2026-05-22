@@ -592,6 +592,7 @@ export function CareersContactForm({ skipAnimation = false }: CareersContactForm
               loading={isSubmitting}
               icon={
                 <svg
+                  className="rtlFlipH"
                   width="20"
                   height="20"
                   viewBox="0 0 15 15"
@@ -620,6 +621,7 @@ export function CareersContactForm({ skipAnimation = false }: CareersContactForm
               className={styles.buttonFullWidth}
               icon={
                 <svg
+                  className="rtlFlipH"
                   width="20"
                   height="20"
                   viewBox="0 0 15 15"

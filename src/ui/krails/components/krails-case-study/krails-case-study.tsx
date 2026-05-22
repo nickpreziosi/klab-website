@@ -119,9 +119,9 @@ export default function KRailsCaseStudy() {
       name: "Circle",
       logo: <CircleLogo />,
       image: "/images/placeholder.svg",
-      title: "See how Circle unlocked instant liquidity across 12 markets with KRails",
+      title: "See how Circle unlocked instant liquidity across 12 markets with K Rails",
       description:
-        "By integrating KRails' blockchain-based settlement engine, Circle reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
+        "By integrating K Rails' blockchain-based settlement engine, Circle reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
       highlights: [
         {
           heading: "12+ markets",
@@ -146,9 +146,9 @@ export default function KRailsCaseStudy() {
       name: "Algorand",
       logo: <AlgorandLogo />,
       image: "/images/placeholder.svg",
-      title: "See how Algorand unlocked instant liquidity across 12 markets with KRails",
+      title: "See how Algorand unlocked instant liquidity across 12 markets with K Rails",
       description:
-        "By integrating KRails' blockchain-based settlement engine, Algorand reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
+        "By integrating K Rails' blockchain-based settlement engine, Algorand reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
       highlights: [
         {
           heading: "9+ markets",
@@ -174,9 +174,9 @@ export default function KRailsCaseStudy() {
       name: "Stablecorp",
       logo: <StablecorpLogo />,
       image: "/images/placeholder.svg",
-      title: "See how Stablecorp unlocked instant liquidity across 12 markets with KRails",
+      title: "See how Stablecorp unlocked instant liquidity across 12 markets with K Rails",
       description:
-        "By integrating KRails' blockchain-based settlement engine, Stablecorp reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
+        "By integrating K Rails' blockchain-based settlement engine, Stablecorp reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
       highlights: [
         {
           heading: "18+ markets",
@@ -201,9 +201,9 @@ export default function KRailsCaseStudy() {
       name: "Google",
       logo: <CircleLogo />,
       image: "/images/placeholder.svg",
-      title: "See how Google unlocked instant liquidity across 12 markets with KRails",
+      title: "See how Google unlocked instant liquidity across 12 markets with K Rails",
       description:
-        "By integrating KRails' blockchain-based settlement engine, Google reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
+        "By integrating K Rails' blockchain-based settlement engine, Google reduced its Days Sales Outstanding (DSO) from 32 to 0 — freeing millions in working capital and accelerating cross-border operations.",
       highlights: [
         {
           heading: "100+ markets",
@@ -395,6 +395,7 @@ export default function KRailsCaseStudy() {
                         >
                           Watch Video
                           <svg
+                            className="rtlFlipH"
                             width="15"
                             height="15"
                             viewBox="0 0 15 15"

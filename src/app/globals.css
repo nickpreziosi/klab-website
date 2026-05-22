@@ -283,6 +283,16 @@ html.no-transitions *:not([data-allow-transition]):not([data-allow-transition] *
 /* --------------------------------------------------------------------------
    UTILITIES
    -------------------------------------------------------------------------- */
+
+/**
+ * Horizontal mirror for forward / right-pointing arrows in RTL (Arabic).
+ * Add `class="rtlFlipH"` to Lucide ArrowRight/ChevronRight, CTA SVGs, or text → spans.
+ */
+/* Any subtree with dir=rtl (not only `<html>`) — keeps flips aligned with HeroText wrappers and client navigations */
+[dir="rtl"] :where(.rtlFlipH) {
+  transform: scaleX(-1);
+}
+
 div[data-ui="Layer"] {
   z-index: 1 !important;
 }

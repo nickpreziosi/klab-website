@@ -8,6 +8,7 @@ import { CookieConsentProvider } from "@/ui/shared/components/cookie-consent-pro
 import { ScrollToTopOnRouteChange } from "@/ui/shared/components/scroll-to-top-on-route-change/scroll-to-top-on-route-change";
 import { SkipAnimationOnLocaleSwitchProvider } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import { AppShell } from "@/ui/shared/containers/app-shell/app-shell";
+import { DocumentHtmlLangDirSync } from "@/ui/shared/components/document-html-lang-dir-sync/document-html-lang-dir-sync";
 import { buildNavTranslations, buildDrawerTranslations } from "@/ui/shared/types/translations";
 
 export function generateStaticParams() {
@@ -45,6 +46,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <NextIntlClientProvider locale={currentLocale} messages={messages}>
+      <DocumentHtmlLangDirSync />
       <CookieConsentProvider />
       <SkipAnimationOnLocaleSwitchProvider>
         <ScrollToTopOnRouteChange />

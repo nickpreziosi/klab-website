@@ -141,7 +141,7 @@ const DialogDemo = ({ onPlay }: { onPlay?: () => void }) => {
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className={styles.dialogOverlay} />
-        <Dialog.Title className={styles.dialogTitle}>Hear From KLab&apos;s Founder</Dialog.Title>
+        <Dialog.Title className={styles.dialogTitle}>Hear From K Lab&apos;s Founder</Dialog.Title>
         <Dialog.Content
           className={styles.dialogContent}
           ref={contentRef}
@@ -191,8 +191,8 @@ const DialogDemo = ({ onPlay }: { onPlay?: () => void }) => {
 
 export default function CompanyVideoSection({
   label = "Discover the vision.",
-  heading = "Hear from KLab's founder",
-  videoTitle = "KLab",
+  heading = "Hear from K Lab's founder",
+  videoTitle = "K Lab",
   videoThumbnail = "",
   bottomHeading = "What we stand for",
   bottomDescription = "A concise overview of the product vision and core design principles. Hear why these choices matter, what problems the platform addresses, and how teams can integrate and move forward.",

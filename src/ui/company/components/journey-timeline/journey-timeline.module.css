@@ -43,12 +43,13 @@
 .subtitle {
   font-size: clamp(1.5rem, 3.5vw, 2.25rem);
   font-weight: var(--font-bold);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  text-transform: none;
   color: var(--secondary-color);
   margin: 0;
   line-height: 1.35;
-  max-width: 650px;
+  max-width: min(100%, 52rem);
+  white-space: pre-line;
 }
 
 .paragraphs {
@@ -60,8 +61,8 @@
 .paragraph {
   font-size: clamp(0.875rem, 1.2vw, 1rem);
   font-weight: var(--font-medium);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--secondary-color);
   margin: 0;
   line-height: 1.6;

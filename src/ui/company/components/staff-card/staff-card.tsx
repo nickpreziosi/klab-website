@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { getTextDirection, type Locale } from "@/i18n/routing";
 import styles from "./staff-card.module.css";
 import Image from "next/image";
 import { Accordion } from "radix-ui";
@@ -32,6 +33,8 @@ export const StaffCard = ({
   email,
 }: StaffCardProps) => {
   const t = useTranslations("companyStaff");
+  const locale = useLocale();
+  const cardDir = getTextDirection(locale as Locale) === "rtl" ? "rtl" : "ltr";
   const accordionContentRef = useRef<HTMLDivElement | null>(null);
   const [accordionIsOpen, setAccordionIsOpen] = useState(false);
   const hasThemeVariants = imageLight != null && imageDark != null;
@@ -42,7 +45,7 @@ export const StaffCard = ({
 
   return (
     <>
-      <div className={styles.card}>
+      <div className={styles.card} dir={cardDir}>
         {hasThemeVariants ? (
           <div className={styles.imageWrapper}>
             <Image

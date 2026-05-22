@@ -96,7 +96,7 @@
 .dropdown {
   position: absolute;
   top: calc(100% + 6px);
-  right: 0;
+  inset-inline-end: 0;
   min-width: 100%;
   margin: 0;
   padding: 6px 0;
@@ -118,7 +118,7 @@
   font-family: "Sora", sans-serif;
   font-size: var(--text-sm);
   font-weight: 500;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
   transition:
     background 0.15s ease,
@@ -177,8 +177,26 @@
 .selectItemText {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 6px;
   width: 100%;
   /* Keep code + full language name (e.g. PT Português) on one line */
   white-space: nowrap;
+}
+
+.selectItemCode {
+  font-weight: 600 !important;
+}
+
+/* RTL (Arabic): mirror row — logical padding + check on inline-end (Radix portal may not inherit dir). */
+.selectItemLocale {
+  padding-block: 6px !important;
+  padding-inline-start: 8px !important;
+  padding-inline-end: 32px !important;
+}
+
+.selectItemIndicatorLocale {
+  right: auto !important;
+  left: auto !important;
+  inset-inline-end: 8px !important;
 }

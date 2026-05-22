@@ -305,7 +305,7 @@ export const NavigationMenuDemo = ({
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  {nav.technologies}{" "}
+                  {nav.technologies}
                   <svg
                     className={`${!dropdownOpen && styles.caretIconOpen} ${styles.caretIcon}`}
                     width="30"

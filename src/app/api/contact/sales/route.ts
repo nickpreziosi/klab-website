@@ -251,7 +251,7 @@ export async function POST(request: Request) {
           <!-- Header banner (URL from SITE_URL via email-config) -->
           <tr>
             <td style="width: 100%; height: auto; aspect-ratio: 16/9;">
-              <img src="${EMAIL_HEADER_BANNER_URL}" alt="K-Lab" style="width: 100%; height: auto; margin: 0 auto; border: 0; aspect-ratio: 16/9;" />
+              <img src="${EMAIL_HEADER_BANNER_URL}" alt="K Lab" style="width: 100%; height: auto; margin: 0 auto; border: 0; aspect-ratio: 16/9;" />
             </td>
           </tr>
 
@@ -426,7 +426,7 @@ export async function POST(request: Request) {
           <tr>
             <td style="background-color: #fafafa; padding: 20px 30px; text-align: center; border-top: 1px solid #f0f0f0;">
               <p style="margin: 0; font-size: 12px; color: #999999; line-height: 1.5;">
-                This email was automatically generated from the KLab Sales contact form.<br>
+                This email was automatically generated from the K Lab Sales contact form.<br>
                 Please reply directly to this email to follow up with the customer.
               </p>
             </td>

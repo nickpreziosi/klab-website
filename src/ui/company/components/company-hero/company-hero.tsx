@@ -88,16 +88,6 @@ export const CompanyHero = ({
         />
         <div className={styles.heroText}>
           <div className={styles.heroHeaderContainer}>
-            <motion.h1
-              className={styles.heroHeader}
-              initial={initial}
-              animate={animate}
-              transition={{ duration, ease }}
-            >
-              {translations.headlineLine1}
-              <br />
-              {translations.headlineLine2}
-            </motion.h1>
             <div className={styles.heroLogo}>
               <motion.div
                 className={styles.heroLogoInner}
@@ -108,29 +98,26 @@ export const CompanyHero = ({
                 <KlabLogo color="light" format="default" height={logoHeight} />
               </motion.div>
             </div>
+            <motion.h1
+              className={styles.heroHeader}
+              initial={initial}
+              animate={animate}
+              transition={{ duration, ease }}
+            >
+              {translations.headlineLine1}
+              <br />
+              {translations.headlineLine2}
+            </motion.h1>
           </div>
 
           <div className={styles.heroTaglinesContainer}>
             <motion.p
+              className={styles.heroSubhead}
               initial={initial}
               animate={animate}
               transition={{ duration, delay: stagger * 2, ease }}
             >
-              {translations.tagline1}
-            </motion.p>
-            <motion.p
-              initial={initial}
-              animate={animate}
-              transition={{ duration, delay: stagger * 3, ease }}
-            >
-              {translations.tagline2}
-            </motion.p>
-            <motion.p
-              initial={initial}
-              animate={animate}
-              transition={{ duration, delay: stagger * 4, ease }}
-            >
-              {translations.tagline3}
+              {translations.subhead}
             </motion.p>
           </div>
         </div>

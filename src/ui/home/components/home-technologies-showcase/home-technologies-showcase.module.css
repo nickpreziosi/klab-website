@@ -2,7 +2,7 @@
   padding: 0 var(--padding-desktop);
   padding-bottom: 2.5rem;
   width: 100%;
-  text-align: left;
+  text-align: start;
 }
 
 @media (max-width: 1024px) {

@@ -80,9 +80,14 @@ export default function CompanyCulture({ skipAnimation = false }: { skipAnimatio
             skipAnimation={skipAnimation}
           />
           <p className={styles.description}>{t("description")}</p>
-          <Button size="lg" href="/contact/careers" variant="accent-brand">
+          <Button
+            size="lg"
+            href="https://www.linkedin.com/company/k-lab-ai/jobs/"
+            variant="accent-brand"
+          >
             {t("button")}
             <svg
+              className="rtlFlipH"
               width="20"
               height="20"
               viewBox="0 0 15 15"

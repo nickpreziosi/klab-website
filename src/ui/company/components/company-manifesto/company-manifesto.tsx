@@ -10,6 +10,13 @@ const MANIFESTO_KEYS = [
   "item0", "item1", "item2", "item3", "item4", "item5", "item6", "item7", "item8", "item9", "item10",
 ] as const;
 
+const MANIFESTO_LEFT_KEYS = MANIFESTO_KEYS.filter((_, i) => i % 2 === 0);
+const MANIFESTO_RIGHT_KEYS = MANIFESTO_KEYS.filter((_, i) => i % 2 === 1);
+
+function manifestoKeyIndex(key: (typeof MANIFESTO_KEYS)[number]) {
+  return MANIFESTO_KEYS.indexOf(key);
+}
+
 export default function CompanyManifesto({ skipAnimation = false }: { skipAnimation?: boolean }) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
@@ -25,21 +32,48 @@ export default function CompanyManifesto({ skipAnimation = false }: { skipAnimat
 
         <div className={styles.content}>
           <div className={styles.grid}>
-            {MANIFESTO_KEYS.map((key, i) => (
-              <motion.div
-                key={i}
-                className={styles.item}
-                initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-                animate={effectiveInView ? { opacity: 1, y: 0 } : {}}
-                transition={{
-                  duration: 0.4,
-                  delay: 0.1 + i * 0.04,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-              >
-                <span className={styles.itemText}>{t(key)}</span>
-              </motion.div>
-            ))}
+            <div className={styles.column}>
+              {MANIFESTO_LEFT_KEYS.map((key) => {
+                const i = manifestoKeyIndex(key);
+                return (
+                  <motion.div
+                    key={key}
+                    className={styles.item}
+                    style={{ order: manifestoKeyIndex(key) }}
+                    initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+                    animate={effectiveInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.1 + i * 0.04,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    <span className={styles.itemText}>{t(key)}</span>
+                  </motion.div>
+                );
+              })}
+            </div>
+            <div className={styles.column}>
+              {MANIFESTO_RIGHT_KEYS.map((key) => {
+                const i = manifestoKeyIndex(key);
+                return (
+                  <motion.div
+                    key={key}
+                    className={styles.item}
+                    style={{ order: manifestoKeyIndex(key) }}
+                    initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+                    animate={effectiveInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.1 + i * 0.04,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    <span className={styles.itemText}>{t(key)}</span>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

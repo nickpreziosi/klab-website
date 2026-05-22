@@ -8,37 +8,7 @@ import Image from "next/image";
 import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
 import { cn } from "@/ui/shared/utils/utils";
 import { PhoneFrameSvg } from "./phone-frame-svg";
-
-const YOUTUBE_EMBED_HOST = /youtube\.com|youtube-nocookie\.com/i;
-
-function isYouTubeEmbedUrl(url: string): boolean {
-  try {
-    const u = new URL(url);
-    return YOUTUBE_EMBED_HOST.test(u.hostname) && u.pathname.includes("/embed/");
-  } catch {
-    return false;
-  }
-}
-
-/**
- * For YouTube embeds, merge params after the user clicks play (autoplay, playsinline).
- * Also applies modestbranding / rel / iv_load_policy when not set — YouTube does not
- * expose finer control over which chrome elements show; `controls=0` removes the bar entirely.
- */
-function prepareEmbedSrc(url: string): string {
-  if (!isYouTubeEmbedUrl(url)) return url;
-  try {
-    const u = new URL(url);
-    u.searchParams.set("autoplay", "1");
-    u.searchParams.set("playsinline", "1");
-    if (!u.searchParams.has("modestbranding")) u.searchParams.set("modestbranding", "1");
-    if (!u.searchParams.has("rel")) u.searchParams.set("rel", "0");
-    if (!u.searchParams.has("iv_load_policy")) u.searchParams.set("iv_load_policy", "3");
-    return u.toString();
-  } catch {
-    return url;
-  }
-}
+import { prepareEmbedSrc } from "@/ui/shared/utils/youtube-embed";
 
 interface VideoPlayerProps {
   videoUrl: string;

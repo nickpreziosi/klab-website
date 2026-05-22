@@ -7,7 +7,7 @@
   gap: var(--gap-md);
   width: 645px;
   width: 100%;
-  text-align: left;
+  text-align: start;
 }
 
 .wordsContainer {
@@ -23,11 +23,15 @@
   margin-right: 0em;
 }
 
+.headlineHighlight {
+  color: hsl(var(--accent));
+}
+
 /* Updated heading styles to match provided mainHeading */
 .mainHeading {
   width: 600px;
   width: 100%;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 52px;
   line-height: 62px;
   letter-spacing: -1.5%;
@@ -45,15 +49,87 @@
   color: var(--secondary-color) !important;
 }
 
+/* Homepage hero — slightly smaller subcopy */
+.homeHero .mainText {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.subtitleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  width: 100%;
+}
+
+.homeHero .subtitleBlock {
+  gap: 0.75rem;
+}
+
+.subtitleHighlights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.subtitleHighlightItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.subtitleHighlightIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  color: hsl(var(--accent));
+}
+
+.subtitleHighlightIcon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.subtitleHighlightText {
+  font-weight: var(--font-semibold);
+  line-height: 1.35;
+  letter-spacing: -0.5%;
+  color: hsl(var(--foreground));
+}
+
+.homeHero .subtitleHighlightText {
+  font-size: 30px;
+}
+
+/* Technology / product pages (e.g. K Rails) — slightly smaller type scale */
+.krailsHero .mainHeading {
+  font-size: clamp(2.125rem, 4.5vw, 2.875rem);
+  line-height: 1.18;
+}
+
+.krailsHero .mainText {
+  font-size: clamp(1rem, 1.55vw, 1.1875rem);
+  line-height: 1.55;
+}
+
 /* Updated subtitle styles to match provided mainText */
 .mainText {
   font-weight: 300;
   font-style: Light;
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 22px;
+  line-height: 30px;
   letter-spacing: -0.5%;
   color: var(--secondary-color);
   margin: 0;
+  white-space: pre-line;
 }
 
 /* Added contact button styles from provided CSS */
@@ -83,6 +159,7 @@
   display: flex;
   flex-direction: row;
   gap: 16px;
+  width: 100%;
 }
 
 .arrowIcon {
@@ -90,7 +167,18 @@
   height: 20px;
 }
 
-/* Limit Hover Effects to Non Touch Devices */
+.primaryButtonIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Logical RTL: flip directional Lucide / custom SVGs (see `applyRtlHeroIconMirror`). Scoped under this block’s `dir`. */
+.mainTextContainer[dir="rtl"] .iconRtlMirror {
+  transform: scaleX(-1);
+}
+
+/* Limit Hover Effects on Non Touch Devices */
 @media (pointer: fine) and (hover: hover) {
   .contactButton:hover {
     background: hsl(var(--foreground) / 0.6);
@@ -104,36 +192,110 @@
   }
 
   .mainHeading {
-    font-size: 40px;
-    line-height: 48px;
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .subheader {
+    font-size: 26px;
+    line-height: 34px;
   }
 
   .mainText {
-    font-size: 20px;
-    line-height: 28px;
+    font-size: 19px;
+    line-height: 27px;
+  }
+
+  .homeHero .mainText {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  /* Home hero highlights — smaller than .mainHeading (32px); ~58% of heading like desktop */
+  .homeHero .subtitleHighlights {
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+  }
+
+  .homeHero .subtitleHighlightIcon,
+  .homeHero .subtitleHighlightIcon svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  .homeHero .subtitleHighlightText {
+    font-size: 18px;
+    line-height: 1.35;
   }
 
   .wordsContainer {
     gap: 0.4rem;
   }
+  .krailsHero .mainHeading {
+    font-size: clamp(1.75rem, 4.75vw, 2.125rem);
+    line-height: 1.2;
+  }
+
+  .krailsHero .mainText {
+    font-size: clamp(0.9375rem, 3.5vw, 1.0625rem);
+    line-height: 1.5;
+  }
 }
 
 @media (max-width: 480px) {
   .mainHeading {
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 27px;
+    line-height: 34px;
+  }
+
+  .subheader {
+    font-size: 24px;
+    line-height: 31px;
   }
 
   .mainText {
-    font-size: 18px;
-    line-height: 26px;
+    font-size: 17px;
+    line-height: 24px;
+  }
+
+  .homeHero .mainText {
+    font-size: 16px;
+    line-height: 23px;
+  }
+
+  /* Home hero highlights — smaller than .mainHeading (27px) */
+  .homeHero .subtitleHighlights {
+    gap: 0.625rem;
+    padding: 0.375rem 0;
+  }
+
+  .homeHero .subtitleHighlightIcon,
+  .homeHero .subtitleHighlightIcon svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .homeHero .subtitleHighlightText {
+    font-size: 16px;
+    line-height: 1.35;
   }
 
   .wordsContainer {
     gap: 0.3rem;
   }
+
   .buttonGroup {
     flex-direction: column;
+  }
+
+  .krailsHero .mainHeading {
+    font-size: clamp(1.5rem, 5.5vw, 1.875rem);
+    line-height: 1.22;
+  }
+
+  .krailsHero .mainText {
+    font-size: clamp(0.9375rem, 3.6vw, 1rem);
+    line-height: 1.5;
   }
 }
 

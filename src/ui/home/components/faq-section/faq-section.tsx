@@ -7,43 +7,41 @@ import styles from "./faq-section.module.css";
 const FAQ_ITEMS = [
   {
     value: "what",
-    question: "What does KLab do?",
+    question: "What does K Lab do?",
     answer:
-      "KLab develops technology that automates risk, payments, and financial operations in one intelligent platform.",
+      "K Lab develops technology that automates risk, payments, and financial operations in one intelligent platform.",
   },
   {
     value: "contact",
     question: "How can I get in touch?",
-    answer:
-      "Visit our Contact page to reach out for sales, support, or career opportunities.",
+    answer: "Visit our Contact page to reach out for sales, support, or career opportunities.",
   },
   {
     value: "updates",
     question: "Where can I find product updates?",
-    answer:
-      "Stay up to date with the latest from KLab through our News section and newsletter.",
+    answer: "Stay up to date with the latest from K Lab through our News section and newsletter.",
   },
   {
     value: "products",
-    question: "What products does KLab offer?",
+    question: "What products does K Lab offer?",
     answer:
-      "KLab offers KCard for corporate card issuance and expense management, Kena for AI-powered risk intelligence, and KRails for payment infrastructure and B2B trade execution.",
+      "K Lab offers KCard for corporate card issuance and expense management, Kena for AI-powered risk intelligence, and K Rails for payment infrastructure and B2B trade execution.",
   },
   {
     value: "integration",
-    question: "How do I integrate KLab products?",
+    question: "How do I integrate K Lab products?",
     answer:
       "Our solutions are designed for seamless integration with existing systems. Contact our sales team to discuss your requirements and deployment timeline.",
   },
   {
     value: "security",
-    question: "How does KLab handle data security?",
+    question: "How does K Lab handle data security?",
     answer:
       "Security is at the core of our platform. We maintain robust infrastructure with authentication, verification, and immutable transaction records to protect your data.",
   },
   {
     value: "careers",
-    question: "Is KLab hiring?",
+    question: "Is K Lab hiring?",
     answer:
       "Yes. Check our Careers page or the Contact section for current openings. We're always looking for talented people to join our team.",
   },
@@ -100,4 +98,3 @@ export default function FaqSection() {
     </section>
   );
 }
-

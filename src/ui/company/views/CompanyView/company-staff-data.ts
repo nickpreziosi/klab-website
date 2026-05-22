@@ -118,4 +118,12 @@ export const BOARD_STATIC = [
     imageDark: "/images/people/davide-tomassoni-black.webp",
     email: "davide@k-lab.ai",
   },
+  {
+    key: "milesMolyneaux" as const,
+    name: "Miles Molyneaux",
+    image: "/images/people/miles-molyneaux.webp",
+    imageLight: "/images/people/miles-molyneaux.webp",
+    imageDark: "/images/people/miles-molyneaux.webp",
+    email: "miles@k-lab.ai",
+  },
 ];

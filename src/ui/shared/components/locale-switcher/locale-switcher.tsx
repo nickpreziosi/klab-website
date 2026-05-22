@@ -27,7 +27,7 @@ import {
   setSkipAnimationForPath,
 } from "@/ui/shared/utils/scroll-preservation";
 import { useSetSkipAnimationForPath } from "@/ui/shared/providers/skip-animation-for-path-provider/skip-animation-for-path-provider";
-import { routing } from "@/i18n/routing";
+import { getTextDirection, routing } from "@/i18n/routing";
 import type { Locale } from "@/i18n/routing";
 import themeToggleStyles from "../theme-toggle/theme-toggle.module.css";
 import styles from "./locale-switcher.module.css";
@@ -54,6 +54,7 @@ export function LocaleSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const setPathToSkip = useSetSkipAnimationForPath();
+  const isRtl = getTextDirection(currentLocale as Locale) === "rtl";
 
   const handleValueChange = (value: string) => {
     const newLocale = value as Locale;
@@ -78,9 +79,7 @@ export function LocaleSwitcher() {
 
   return (
     <div className={themeToggleStyles.toggleContainer}>
-      <ClientOnly
-        placeholder={localePlaceholder}
-      >
+      <ClientOnly placeholder={localePlaceholder}>
         <TooltipProvider delayDuration={0}>
           <Tooltip>
             <Select value={currentLocale} onValueChange={handleValueChange}>
@@ -94,6 +93,7 @@ export function LocaleSwitcher() {
               </TooltipTrigger>
               <SelectPortal>
                 <SelectContent
+                  dir={isRtl ? "rtl" : "ltr"}
                   className={`${themeToggleStyles.selectContent} ${styles.selectContentLocale}`}
                   position="popper"
                   sideOffset={-20}
@@ -118,7 +118,8 @@ export function LocaleSwitcher() {
                         className={`${themeToggleStyles.selectItem} ${styles.selectItemLocale}`}
                       >
                         <span className={styles.selectItemText}>
-                          {LOCALE_CODE[locale]} {t(LOCALE_NAME_KEYS[locale])}
+                          <span className={styles.selectItemCode}>{LOCALE_CODE[locale]}</span>{" "}
+                          {t(LOCALE_NAME_KEYS[locale])}
                         </span>
                         <SelectItemIndicator
                           className={`${themeToggleStyles.selectItemIndicator} ${styles.selectItemIndicatorLocale}`}

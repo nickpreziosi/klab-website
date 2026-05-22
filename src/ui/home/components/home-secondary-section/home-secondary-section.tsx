@@ -2,7 +2,9 @@
 
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { getTextDirection, type Locale } from "@/i18n/routing";
+import { cn } from "@/ui/shared/utils/utils";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
 import { Card, CardContent } from "@/ui/shared/components/card/card";
 import { ClientOnly } from "@/ui/shared/components/client-only/client-only";
@@ -11,33 +13,7 @@ import Button from "@/ui/shared/components/button/button";
 import Image from "next/image";
 import { Dialog } from "radix-ui";
 import { HomeTechnologiesShowcase } from "@/ui/home/components/home-technologies-showcase/home-technologies-showcase";
-/* Timeline step icons from Horizontal-version SVGs (icon-1 through icon-6) */
-const TIMELINE_ICONS: { viewBox: string; path: string }[] = [
-  {
-    viewBox: "0 0 57.77 57.77",
-    path: "M17.62,55.49c-3.51-1.52-6.57-3.57-9.17-6.17s-4.66-5.66-6.17-9.17-2.27-7.27-2.27-11.26.76-7.75,2.27-11.26,3.57-6.57,6.17-9.17,5.66-4.66,9.17-6.17S24.89,0,28.88,0s7.75.76,11.26,2.27,6.57,3.57,9.17,6.17,4.66,5.66,6.17,9.17,2.27,7.27,2.27,11.26-.76,7.75-2.27,11.26-3.57,6.57-6.17,9.17-5.66,4.66-9.17,6.17-7.27,2.27-11.26,2.27-7.75-.76-11.26-2.27ZM28.88,51.99c2.7,0,5.24-.42,7.62-1.26s4.56-2.03,6.53-3.57l-4.12-4.12c-1.4,1.01-2.95,1.79-4.66,2.35-1.71.55-3.5.83-5.38.83-4.81,0-8.91-1.68-12.28-5.05s-5.05-7.46-5.05-12.28,1.68-8.91,5.05-12.28,7.46-5.05,12.28-5.05,8.91,1.68,12.28,5.05,5.05,7.46,5.05,12.28c0,1.88-.29,3.68-.87,5.42s-1.37,3.3-2.38,4.69l4.12,4.12c1.54-1.97,2.74-4.16,3.61-6.57s1.3-4.96,1.3-7.65c0-6.45-2.24-11.91-6.72-16.39s-9.94-6.72-16.39-6.72-11.91,2.24-16.39,6.72-6.72,9.94-6.72,16.39,2.24,11.91,6.72,16.39c4.48,4.48,9.94,6.72,16.39,6.72ZM28.88,40.44c1.06,0,2.08-.13,3.07-.4.99-.26,1.91-.66,2.78-1.19l-4.4-4.4c-.24.1-.48.16-.72.18s-.48.04-.72.04c-1.59,0-2.95-.57-4.08-1.7s-1.7-2.49-1.7-4.08.57-2.95,1.7-4.08,2.49-1.7,4.08-1.7,2.95.57,4.08,1.7,1.7,2.49,1.7,4.08c0,.29-.01.57-.04.83s-.08.52-.18.76l4.33,4.33c.53-.87.94-1.79,1.23-2.78s.43-2.03.43-3.14c0-3.18-1.13-5.9-3.39-8.16s-4.98-3.39-8.16-3.39-5.9,1.13-8.16,3.39-3.39,4.98-3.39,8.16,1.13,5.9,3.39,8.16,4.98,3.39,8.16,3.39Z",
-  },
-  {
-    viewBox: "0 0 68.59 34.3",
-    path: "M11.43,21.51l7.22-7.22-7.22-7.22-7.22,7.22,7.22,7.22ZM50.02,20.01l7.15-11.43,7.15,11.43h-14.29ZM34.3,17.15c-2.38,0-4.41-.83-6.07-2.5-1.67-1.67-2.5-3.69-2.5-6.07s.83-4.47,2.5-6.11,3.69-2.47,6.07-2.47,4.47.82,6.11,2.47,2.47,3.68,2.47,6.11-.82,4.41-2.47,6.07c-1.64,1.67-3.68,2.5-6.11,2.5ZM0,34.3v-4.5c0-2.1,1.06-3.78,3.18-5.04,2.12-1.26,4.87-1.89,8.25-1.89.62,0,1.21.01,1.79.04s1.12.08,1.64.18c-.67.95-1.17,1.98-1.5,3.07s-.5,2.26-.5,3.5v4.64H0ZM17.15,34.3v-4.64c0-3.1,1.58-5.6,4.75-7.5s7.3-2.86,12.4-2.86,9.29.95,12.43,2.86,4.72,4.41,4.72,7.5v4.64H17.15ZM57.16,22.86c3.43,0,6.19.63,8.29,1.89s3.14,2.94,3.14,5.04v4.5h-12.86v-4.64c0-1.24-.15-2.41-.46-3.5s-.77-2.12-1.39-3.07c.52-.1,1.06-.15,1.61-.18s1.11-.04,1.68-.04Z",
-  },
-  {
-    viewBox: "0 0 75.7 48.17",
-    path: "M24.09,48.17c-6.71,0-12.4-2.34-17.08-7.01C2.34,36.49,0,30.8,0,24.09S2.34,11.68,7.01,7.01C11.68,2.34,17.38,0,24.09,0c1.55,0,3.05.14,4.52.43s2.88.69,4.26,1.2c-.97.8-1.89,1.68-2.75,2.62s-1.66,1.94-2.41,2.97c-.57-.11-1.16-.2-1.76-.26s-1.22-.09-1.85-.09c-4.76,0-8.82,1.68-12.17,5.03s-5.03,7.41-5.03,12.17,1.68,8.82,5.03,12.17,7.41,5.03,12.17,5.03c.63,0,1.25-.03,1.85-.09s1.19-.14,1.76-.26c.75,1.03,1.55,2.02,2.41,2.97s1.78,1.82,2.75,2.62c-1.38.52-2.8.92-4.26,1.2s-2.97.43-4.52.43ZM51.61,48.17c-1.55,0-3.05-.14-4.52-.43s-2.88-.69-4.26-1.2c.97-.8,1.89-1.68,2.75-2.62s1.66-1.94,2.41-2.97c.63.11,1.23.2,1.81.26s1.18.09,1.81.09c4.76,0,8.82-1.68,12.17-5.03s5.03-7.41,5.03-12.17-1.68-8.82-5.03-12.17-7.41-5.03-12.17-5.03c-.63,0-1.23.03-1.81.09s-1.18.14-1.81.26c-.75-1.03-1.55-2.02-2.41-2.97s-1.78-1.82-2.75-2.62c1.38-.52,2.8-.92,4.26-1.2s2.97-.43,4.52-.43c6.71,0,12.4,2.34,17.08,7.01s7.01,10.37,7.01,17.08-2.34,12.4-7.01,17.08c-4.67,4.67-10.37,7.01-17.08,7.01ZM37.85,43.87c-3.27-2.24-5.81-5.1-7.61-8.6s-2.71-7.23-2.71-11.18.9-7.68,2.71-11.18,4.34-6.37,7.61-8.6c3.27,2.24,5.81,5.1,7.61,8.6s2.71,7.23,2.71,11.18-.9,7.68-2.71,11.18-4.34,6.37-7.61,8.6Z",
-  },
-  {
-    viewBox: "0 0 47.25 47.25",
-    path: "M10.5,36.75h5.25v-13.12h-5.25v13.12ZM31.5,36.75h5.25V10.5h-5.25v26.25ZM21,36.75h5.25v-7.87h-5.25v7.87ZM21,23.62h5.25v-5.25h-5.25v5.25ZM5.25,47.25c-1.44,0-2.68-.51-3.71-1.54-1.03-1.03-1.54-2.26-1.54-3.71V5.25c0-1.44.51-2.68,1.54-3.71C2.57.51,3.81,0,5.25,0h36.75c1.44,0,2.68.51,3.71,1.54s1.54,2.26,1.54,3.71v36.75c0,1.44-.51,2.68-1.54,3.71-1.03,1.03-2.26,1.54-3.71,1.54H5.25Z",
-  },
-  {
-    viewBox: "0 0 49.44 49.44",
-    path: "M30.9,32.13c1.36,0,2.52-.48,3.49-1.45s1.45-2.13,1.45-3.49-.48-2.52-1.45-3.49c-.97-.97-2.13-1.45-3.49-1.45-.62,0-1.21.11-1.76.34-.56.23-1.06.53-1.51.9l-6.61-3.34v-.74l6.61-3.34c.45.37.96.67,1.51.9s1.14.34,1.76.34c1.36,0,2.52-.48,3.49-1.45s1.45-2.13,1.45-3.49-.48-2.52-1.45-3.49c-.97-.97-2.13-1.45-3.49-1.45s-2.52.48-3.49,1.45c-.97.97-1.45,2.13-1.45,3.49v.37l-6.61,3.34c-.45-.37-.96-.67-1.51-.9s-1.14-.34-1.76-.34c-1.36,0-2.52.48-3.49,1.45s-1.45,2.13-1.45,3.49.48,2.52,1.45,3.49c.97.97,2.13,1.45,3.49,1.45.62,0,1.21-.11,1.76-.34s1.06-.53,1.51-.9l6.61,3.34v.37c0,1.36.48,2.52,1.45,3.49.97.97,2.13,1.45,3.49,1.45ZM0,49.44V4.94c0-1.36.48-2.52,1.45-3.49S3.58,0,4.94,0h39.55c1.36,0,2.52.48,3.49,1.45s1.45,2.13,1.45,3.49v29.66c0,1.36-.48,2.52-1.45,3.49-.97.97-2.13,1.45-3.49,1.45H9.89L0,49.44Z",
-  },
-  {
-    viewBox: "0 0 57.6 57.6",
-    path: "M.8,23.88l12.24-12.24c.68-.68,1.48-1.17,2.4-1.46s1.87-.34,2.84-.15l3.79.8c-2.62,3.11-4.69,5.92-6.19,8.45s-2.96,5.58-4.37,9.18L.8,23.88ZM15.73,30.5c1.12-3.5,2.63-6.8,4.55-9.91s4.24-6.02,6.96-8.74c4.27-4.27,9.15-7.47,14.64-9.58C47.37.17,52.49-.48,57.25.35c.83,4.76.19,9.88-1.89,15.37-2.09,5.49-5.27,10.37-9.54,14.64-2.67,2.67-5.58,4.99-8.74,6.96-3.16,1.97-6.48,3.51-9.98,4.63l-11.36-11.44ZM39.95,23.44c1.63,0,3-.56,4.12-1.68,1.12-1.12,1.68-2.49,1.68-4.12s-.56-3-1.68-4.12c-1.12-1.12-2.49-1.68-4.12-1.68s-3,.56-4.12,1.68-1.68,2.49-1.68,4.12.56,3,1.68,4.12,2.49,1.68,4.12,1.68ZM33.8,56.8l-4.66-10.71c3.59-1.41,6.66-2.87,9.21-4.37,2.55-1.51,5.38-3.57,8.49-6.19l.73,3.79c.19.97.15,1.93-.15,2.88s-.78,1.76-1.46,2.44l-12.16,12.16ZM5.46,39.83c1.7-1.7,3.76-2.56,6.19-2.59,2.43-.02,4.49.81,6.19,2.51,1.7,1.7,2.55,3.76,2.55,6.19s-.85,4.49-2.55,6.19c-1.21,1.21-3.24,2.26-6.08,3.13s-6.76,1.65-11.76,2.33c.68-5,1.46-8.91,2.33-11.73.87-2.82,1.92-4.83,3.13-6.05Z",
-  },
-];
+import { HomeDeploymentTimeline } from "@/ui/home/components/home-deployment-timeline/home-deployment-timeline";
 
 interface FeatureCard {
   title: string;
@@ -55,10 +31,13 @@ interface HomeSecondarySection {
 }
 
 const Globe = () => {
+  const locale = useLocale();
+  const mirrorGlobe = getTextDirection(locale as Locale) === "rtl";
+
   return (
     <svg
       viewBox="0 0 838 700"
-      className={styles.globe}
+      className={cn(styles.globe, mirrorGlobe && styles.globeMirror)}
       xmlns="http://www.w3.org/2000/svg"
       width={838}
       height={700}
@@ -452,15 +431,6 @@ const DialogDemo = ({ onPlay, video }: { onPlay?: () => void; video: string }) =
   );
 };
 
-const HOME_SECONDARY_STEP_KEYS = [
-  "stepScoping",
-  "stepOnboarding",
-  "stepIntegrate",
-  "stepDeploy",
-  "stepTest",
-  "stepGoLive",
-] as const;
-
 export default function HomeSecondarySection({
   cards,
   animateOnce = true,
@@ -503,154 +473,6 @@ export default function HomeSecondarySection({
       <Globe></Globe>
       <section className={styles.section}>
         <div className={styles.container}>
-          <motion.div
-            className={styles.sectionHeaderAndTimeline}
-            initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-            whileInView={skipAnimation ? undefined : { opacity: 1, y: 0 }}
-            viewport={skipAnimation ? undefined : { once: true, amount: 0.2 }}
-            transition={skipAnimation ? { duration: 0 } : { duration: 0.6, ease: "easeOut" }}
-          >
-            <div className={styles.deploymentTimeline}>
-              <h2 className={styles.timelineTitle}>
-                <span className={styles.timelineTitlePrimary}>{t("timelineTitlePrimary")}</span>{" "}
-                <br className={styles.timelineTitleBreak}></br>
-                <span className={styles.timelineTitleAccent}>{t("timelineTitleAccent")}.</span>
-              </h2>
-              <div className={styles.timelineLayout}>
-                {(() => {
-                  const steps = HOME_SECONDARY_STEP_KEYS.map((key) => ({ label: t(key) }));
-                  return (
-                    <>
-                      {/* Row 1: label on top for step 1 (index 0), then alternating: even = label+arrow, odd = icon */}
-                      <div className={styles.timelineRow1}>
-                        {steps.map((step, index) => {
-                          const iconDef = TIMELINE_ICONS[index];
-                          const showLabel = index % 2 === 0;
-                          return (
-                            <div key={index} className={styles.timelineCell}>
-                              {showLabel ? (
-                                <div className={styles.timelineLabelWithArrow}>
-                                  <span className={styles.timelineStepText}>{step.label}</span>
-                                  <svg
-                                    className={`${styles.timelineLabelArrow} ${index % 2 === 0 ? styles.timelineLabelArrowRotate180 : ""}`}
-                                    viewBox="0 0 23.1 16.27"
-                                    aria-hidden
-                                  >
-                                    <path
-                                      d="M2.06.63l12.84,14.49c.41.44.09,1.16-.52,1.14l-7.19-.17c-.74-.02-1.44-.35-1.92-.91L.64,9.3C.21,8.8-.01,8.17,0,7.52L.14,1.36C.17.37,1.39-.09,2.06.63Z"
-                                      fill="currentColor"
-                                    />
-                                    <path
-                                      d="M21.83.21l-10.17,9.74,4.52,5.1c.26.28.22.68,0,.92.16-.02.31-.08.42-.19l5.64-5.06c.52-.46.82-1.13.82-1.82l.04-8.16c0-.67-.8-1.01-1.28-.55Z"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
-                                </div>
-                              ) : (
-                                <div className={styles.timelineStepIcon}>
-                                  <svg
-                                    className={styles.timelineStepIconSvg}
-                                    viewBox={iconDef.viewBox}
-                                    aria-hidden
-                                  >
-                                    <path d={iconDef.path} fill="#fff" />
-                                  </svg>
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                      {/* Row 2: track (accent bg), "Step #", circle arrows positioned absolutely */}
-                      <div className={styles.timelineRow2Track}>
-                        <div className={styles.timelineBar} aria-hidden />
-                        <div className={styles.timelineStepLabels}>
-                          {[1, 2, 3, 4, 5, 6].map((n) => (
-                            <span key={n} className={styles.timelineStepLabel} data-step={n}>
-                              {t("stepN", { n })}
-                            </span>
-                          ))}
-                        </div>
-                        {[0, 1, 2, 3, 4, 5].map((index) => {
-                          const isEven = index % 2 === 0;
-                          const edge = index % 2 === 0 ? "left" : "right";
-                          return (
-                            <span
-                              key={index}
-                              className={
-                                isEven
-                                  ? `${styles.timelineCircleArrow} ${styles.timelineCircleArrowBottom}`
-                                  : `${styles.timelineCircleArrow} ${styles.timelineCircleArrowTop}`
-                              }
-                              data-step-index={index}
-                              data-edge={edge}
-                              aria-hidden
-                            >
-                              <svg
-                                className={styles.timelineCircleArrowSvg}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                {isEven ? (
-                                  <path d="M12 5v14M5 12l7 7 7-7" />
-                                ) : (
-                                  <path d="M12 19V5M5 12l7-7 7 7" />
-                                )}
-                              </svg>
-                            </span>
-                          );
-                        })}
-                      </div>
-                      {/* Row 3: icon for step 1 (index 0), then alternating: even = icon, odd = label+arrow */}
-                      <div className={styles.timelineRow3}>
-                        {steps.map((step, index) => {
-                          const iconDef = TIMELINE_ICONS[index];
-                          const showLabel = index % 2 === 1;
-                          return (
-                            <div key={index} className={styles.timelineCell}>
-                              {showLabel ? (
-                                <div className={styles.timelineLabelWithArrow}>
-                                  <svg
-                                    className={styles.timelineLabelArrow}
-                                    viewBox="0 0 23.1 16.27"
-                                    aria-hidden
-                                  >
-                                    <path
-                                      d="M2.06.63l12.84,14.49c.41.44.09,1.16-.52,1.14l-7.19-.17c-.74-.02-1.44-.35-1.92-.91L.64,9.3C.21,8.8-.01,8.17,0,7.52L.14,1.36C.17.37,1.39-.09,2.06.63Z"
-                                      fill="currentColor"
-                                    />
-                                    <path
-                                      d="M21.83.21l-10.17,9.74,4.52,5.1c.26.28.22.68,0,.92.16-.02.31-.08.42-.19l5.64-5.06c.52-.46.82-1.13.82-1.82l.04-8.16c0-.67-.8-1.01-1.28-.55Z"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
-                                  <span className={styles.timelineStepText}>{step.label}</span>
-                                </div>
-                              ) : (
-                                <div className={styles.timelineStepIcon}>
-                                  <svg
-                                    className={styles.timelineStepIconSvg}
-                                    viewBox={iconDef.viewBox}
-                                    aria-hidden
-                                  >
-                                    <path d={iconDef.path} fill="#fff" />
-                                  </svg>
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </>
-                  );
-                })()}
-              </div>
-            </div>
-          </motion.div>
           <motion.div
             className={styles.technologiesShowcaseSection}
             initial={skipAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}

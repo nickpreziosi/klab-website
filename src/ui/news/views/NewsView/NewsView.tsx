@@ -34,22 +34,29 @@ export interface NewsViewProps {
   allCategories: string[];
   selectedCategories: string[];
   articlesPerPage: number;
-  /** When true, shows KEO / KLab card links (main news page only). */
+  /** When true, shows KEO / K Lab card links (main news page only). */
   showNewsCards?: boolean;
-  /** Hero title (e.g. "News & Insights", "KEO World News", "KLab News"). */
+  /** Hero title (e.g. "News & Insights", "KEO World News", "K Lab News"). */
   heroTitle?: string;
   /** Hero subtitle; omit or pass empty to hide. */
   heroSubtitle?: string;
   /** Breadcrumb current segment; when set, breadcrumb is "News" / this label. */
   breadcrumbCurrent?: string;
-  /** Custom message when there are no articles (e.g. KLab empty state). */
+  /** Custom message when there are no articles (e.g. K Lab empty state). */
   emptyStateMessage?: string;
   /** When false, hide the articles section (main news page: cards only). */
   showArticles?: boolean;
   /** CTA below the article feed linking to KEO World news. */
   showExploreRootsCta?: boolean;
-  /** Document text direction; use `rtl` for Arabic on the main KLab news routes (not KEO). */
+  /** Page chrome (hero, filters, sections): use `rtl` for Arabic on news routes. */
   contentDirection?: "ltr" | "rtl";
+  /**
+   * When set, applied to the article cards grid only (e.g. `ltr` on `/news/keo` so English cards
+   * stay left-to-right while `contentDirection` is `rtl` for Arabic layout).
+   */
+  articlesContentDirection?: "ltr" | "rtl";
+  /** Card links: K Lab `/news`, KEO `/news/keo`. */
+  articleHrefBase?: string;
 }
 
 export function NewsView({
@@ -65,6 +72,8 @@ export function NewsView({
   emptyStateMessage,
   showExploreRootsCta = false,
   contentDirection = "ltr",
+  articlesContentDirection,
+  articleHrefBase = "/news",
 }: NewsViewProps) {
   const t = useTranslations("newsPage");
   const locale = useLocale();
@@ -241,13 +250,18 @@ export function NewsView({
             </motion.div>
           ) : (
             <>
-              <div className={styles.articlesGrid}>
+              <div className={styles.articlesGrid} dir={articlesContentDirection}>
                 {isLoading
                   ? Array.from({ length: articlesPerPage }).map((_, index) => (
                       <NewsCardSkeleton key={index} />
                     ))
                   : currentArticles.map((article, index) => (
-                      <NewsCard key={article.slug} article={article} index={index} />
+                      <NewsCard
+                        key={article.slug}
+                        article={article}
+                        index={index}
+                        articleHrefBase={articleHrefBase}
+                      />
                     ))}
               </div>
               {!isLoading && totalPages > 1 && (

@@ -520,6 +520,7 @@ export function SupportContactForm({ skipAnimation = false }: SupportContactForm
               loading={isSubmitting}
               icon={
                 <svg
+                  className="rtlFlipH"
                   width="20"
                   height="20"
                   viewBox="0 0 15 15"
@@ -548,6 +549,7 @@ export function SupportContactForm({ skipAnimation = false }: SupportContactForm
               className={styles.buttonFullWidth}
               icon={
                 <svg
+                  className="rtlFlipH"
                   width="20"
                   height="20"
                   viewBox="0 0 15 15"

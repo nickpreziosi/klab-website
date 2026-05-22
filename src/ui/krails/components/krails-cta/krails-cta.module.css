@@ -12,169 +12,146 @@
   display: flex;
   flex-direction: column;
   padding: var(--padding-desktop);
+  padding-block-start: var(--gap-lg);
+}
+
+/* Frosted panel: reads on the KRails gradient without a flat grey slab */
+.card {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  border-radius: var(--rounded-app);
+  overflow: hidden;
+  /* `border` shorthand resets *_any_* border-* set before it — accent must come after */
+  border: 1px solid hsl(var(--foreground) / 0.09);
+  border-inline-start-width: 4px;
+  border-inline-start-style: solid;
+  border-inline-start-color: hsl(var(--accent));
+  background: linear-gradient(
+    148deg,
+    hsl(var(--background) / 0.82) 0%,
+    hsl(var(--surface) / 0.42) 45%,
+    hsl(var(--background) / 0.62) 100%
+  );
+  backdrop-filter: blur(22px) saturate(1.12);
+  -webkit-backdrop-filter: blur(22px) saturate(1.12);
+  box-shadow:
+    0 0 0 1px hsl(var(--foreground) / 0.04) inset,
+    0 32px 64px -32px hsl(var(--foreground) / 0.16),
+    0 14px 28px -18px hsl(var(--foreground) / 0.08);
+}
+
+/* Thin top ribbon — accent without a side border */
+.card::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  height: 2px;
+
+  pointer-events: none;
+}
+
+:global(html[dir="rtl"]) .card::after {
+  transform: scaleX(-1);
+}
+
+/* Soft brand wash in the corner */
+.cardGlow {
+  position: absolute;
+  inset-block-start: -35%;
+  inset-inline-end: -12%;
+  width: min(480px, 72vw);
+  height: min(480px, 72vw);
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.cardInner {
+  position: relative;
+  z-index: 1;
 }
 
 .content {
-  max-width: 800px;
-  margin: 0;
   width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(1.35rem, 4vw, 3rem);
+  align-items: center;
+  padding-inline: clamp(1.25rem, 4vw, 2.75rem);
+  padding-block: clamp(1.25rem, 3.75vw, 2.65rem);
 }
 
-.heading {
-  color: hsl(var(--foreground));
-  margin-bottom: 24px;
-  letter-spacing: -0.02em;
+.body {
+  margin: 0;
   font-weight: 400;
-  font-size: 48px;
-  line-height: 56px;
-  letter-spacing: -1.5%;
-}
-
-.subheading {
+  font-size: clamp(1.0625rem, 2vw, 1.4rem);
+  line-height: 1.52;
+  letter-spacing: -0.022em;
   color: hsl(var(--foreground));
-  margin-bottom: 40px;
-  font-weight: 300;
-  font-style: Light;
-  font-size: 24px;
-  line-height: 32px;
-  letter-spacing: -0.5%;
+  text-wrap: balance;
 }
 
-.highlight {
-  width: fit-content;
-  padding: 8px;
-  padding-bottom: 0px;
-  background-color: hsl(var(--accent));
-  color: white;
+.ctaWrap {
+  flex-shrink: 0;
 }
 
-/* Typing / highlight effects */
-.typing {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  /* limit the reveal width using ch units via a CSS variable set from React */
-  max-width: 0ch;
-  border-right: 2px solid hsl(var(--foreground) / 0.9);
-  /* default: paused until the element is in view; full cycle: type -> hold 2.5s -> reset -> repeat */
-  animation:
-    typing 5s steps(30, end) infinite,
-    blink 800ms step-end infinite;
-  animation-play-state: paused;
-}
-
-.highlightSweep {
-  position: relative;
-  overflow: hidden;
-}
-.highlightSweep::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(255, 255, 255, 0.18) 50%,
-    rgba(255, 255, 255, 0.06) 100%
-  );
-  transform: translateX(-100%);
-  pointer-events: none;
-  mix-blend-mode: overlay;
-  /* default paused; will run when in-view */
-  animation: sweep 2.4s ease-in-out 0.5s 1;
-  animation-play-state: paused;
-}
-
-/* helper class applied from React when element is in view */
-.inView {
-  /* marker class applied from React when element enters viewport */
-}
-
-/* when parent has .inView, run the typing and sweep animations */
-.inView .typing {
-  animation-play-state: running;
-}
-.highlightSweep.inView::before {
-  animation-play-state: running;
-}
-
-@keyframes typing {
-  0% {
-    max-width: 0ch;
-  }
-  36% {
-    max-width: var(--typing-ch, 20ch);
-  }
-  86% {
-    max-width: var(--typing-ch, 20ch);
-  }
-  100% {
-    max-width: 0ch;
-  }
-}
-
-@keyframes blink {
-  from,
-  to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: hsl(var(--foreground) / 0.9);
-  }
-}
-
-@keyframes sweep {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(100%);
-  }
-}
-
-.arrow {
-  transition: transform 0.3s ease;
-}
-
-.ctaButton:hover .arrow {
-  transform: translateX(4px);
-}
-
-/* Responsive Design */
 @media (max-width: 1024px) {
   .container {
     padding: var(--padding-tablet);
+    padding-block-start: var(--gap-lg);
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+    gap: var(--gap-md);
+    justify-items: center;
+    text-align: center;
+    padding-inline: clamp(1.125rem, 4vw, 1.75rem);
+    padding-block: clamp(0.875rem, 2.75vw, 1.35rem);
+  }
+
+  .body {
+    max-width: 38rem;
+  }
+
+  .ctaWrap {
+    justify-self: stretch;
+    display: flex;
+    justify-content: center;
   }
 }
 
 @media (max-width: 768px) {
   .container {
     padding: var(--padding-tablet) var(--padding-mobile);
+    padding-block-start: var(--gap-lg);
   }
 
-  .heading {
-    font-size: 2.5rem;
+  .content {
+    padding-inline: var(--padding-mobile);
+    padding-block: var(--gap-md);
   }
 
-  .subheading {
-    font-size: 1.25rem;
-    margin-bottom: 32px;
+  .body {
+    font-size: 1.0625rem;
+    line-height: 1.55;
   }
 
-  .ctaButton {
-    padding: 0;
-    font-size: 1rem;
+  .ctaWrap {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .demoButton {
     width: 100%;
     justify-content: center;
   }
 }
 
-@media (max-width: 480px) {
-  .heading {
-    font-size: 2rem;
-  }
-
-  .subheading {
-    font-size: 1.125rem;
+@supports not (backdrop-filter: blur(1px)) {
+  .card {
+    background: hsl(var(--background) / 0.96);
   }
 }

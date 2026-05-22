@@ -85,6 +85,13 @@ export const internationalArticleType = defineType({
         },
       ],
     }),
+    defineField({
+      name: "galleryPassword",
+      title: "Gallery Password",
+      type: "string",
+      description:
+        "Optional. If set, the gallery will be hidden behind a password prompt on the article page.",
+    }),
     // --- Language-specific content ---
     defineField({
       name: "localizations",

@@ -31,6 +31,19 @@
   background-color: transparent !important;
 }
 
+.logoRow {
+  width: 100%;
+  margin-block-end: var(--gap-md);
+}
+
+.heroLogo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: clamp(48px, 10vw, 72px);
+  object-fit: contain;
+}
+
 /* Text Content */
 .textContent {
   max-width: 600px;

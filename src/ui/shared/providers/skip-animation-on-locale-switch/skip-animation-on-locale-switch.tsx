@@ -35,7 +35,10 @@ import {
   syncSkipAnimationsFromSession,
   consumeSkipAnimationForPath,
 } from "@/ui/shared/utils/scroll-preservation";
-import { useSkipAnimationForPath, useSetSkipAnimationForPath } from "@/ui/shared/providers/skip-animation-for-path-provider/skip-animation-for-path-provider";
+import {
+  useSkipAnimationForPath,
+  useSetSkipAnimationForPath,
+} from "@/ui/shared/providers/skip-animation-for-path-provider/skip-animation-for-path-provider";
 
 type SkipAnimationOnLocaleSwitchContextValue = {
   skipAnimation: boolean;
@@ -71,7 +74,8 @@ export function useSkipAnimationOnLocaleSwitch(): boolean {
 
   const pathMatches = pathToSkip !== null && normalizePath(pathToSkip) === normalizePath(pathname);
   const fromRootContext =
-    pathMatches || (cachedSkipPath !== null && normalizePath(cachedSkipPath) === normalizePath(pathname));
+    pathMatches ||
+    (cachedSkipPath !== null && normalizePath(cachedSkipPath) === normalizePath(pathname));
 
   useEffect(() => {
     if (pathToSkip !== null && normalizePath(pathToSkip) === normalizePath(pathname)) {

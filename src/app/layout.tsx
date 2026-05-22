@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { NextIntlClientProvider } from "next-intl";
+import { resolveDocumentLocale } from "@/i18n/document-locale";
 import "./globals.css";
 import { Sora } from "next/font/google";
 import { SmoothAnchorScroll } from "@/ui/shared/components/smooth-anchor-scroll/smooth-anchor-scroll";
@@ -8,10 +9,8 @@ import { HomeAnimationProvider } from "@/ui/home/providers/home-animation-provid
 import { ThemeProvider } from "@/ui/shared/providers/theme-provider";
 import { Toaster } from "@/ui/shared/components/toaster/toaster";
 import { SkipAnimationForPathProvider } from "@/ui/shared/providers/skip-animation-for-path-provider/skip-animation-for-path-provider";
-import { routing } from "@/i18n/routing";
+import { getTextDirection } from "@/i18n/routing";
 import Head from "./head";
-
-const LOCALE_COOKIE_NAME = "locale-preference";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -20,9 +19,9 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "KLab",
+  title: "K Lab — Programmable Trust for Institutional Money Movement",
   description:
-    "KLab develops the technology that automates risk, payments, and financial operations — all in one intelligent platform.",
+    "K Lab builds programmable infrastructure that determines whether money should move — and proves it did. Configurable, permissioned, and enforceable for FIs, governments, and private capital.",
 };
 
 export default async function RootLayout({
@@ -37,15 +36,12 @@ export default async function RootLayout({
       ? (cookieTheme as "light" | "dark")
       : undefined;
 
-  const localeCookie = cookieStore?.get?.(LOCALE_COOKIE_NAME)?.value?.trim();
-  const locale: (typeof routing.locales)[number] =
-    localeCookie && routing.locales.includes(localeCookie as (typeof routing.locales)[number])
-      ? (localeCookie as (typeof routing.locales)[number])
-      : routing.defaultLocale;
+  const locale = await resolveDocumentLocale();
   const messages = (await import(`@/messages/${locale}.json`)).default;
+  const dir = getTextDirection(locale);
 
   return (
-    <html className={sora.className} lang={locale} suppressHydrationWarning>
+    <html className={sora.className} lang={locale} dir={dir} suppressHydrationWarning>
       <head>
         <Head></Head>
       </head>

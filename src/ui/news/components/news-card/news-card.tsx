@@ -51,9 +51,11 @@ interface NewsCardProps {
     authorRole?: string;
   };
   index: number;
+  /** Base path without slug (K Lab `/news`, KEO `/news/keo`). */
+  articleHrefBase?: string;
 }
 
-export default function NewsCard({ article, index }: NewsCardProps) {
+export default function NewsCard({ article, index, articleHrefBase = "/news" }: NewsCardProps) {
   const tCategory = useTranslations("newsCategories");
   const categoryLabel = translateNewsCategory(tCategory, article.category);
 
@@ -69,7 +71,7 @@ export default function NewsCard({ article, index }: NewsCardProps) {
         ease: [0.22, 1, 0.36, 1],
       }}
     >
-      <Link href={`/news/${article.slug}`} className={styles.link}>
+      <Link href={`${articleHrefBase}/${article.slug}`} className={styles.link}>
         <div className={styles.imageContainer}>
           {article.youtubeId ? (
             <>
