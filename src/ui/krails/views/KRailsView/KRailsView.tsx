@@ -12,9 +12,21 @@ import type { KRailsWhyTranslations } from "@/ui/krails/types/krails-why-transla
 import KRailsDashboard from "@/ui/krails/components/krails-dashboard/krails-dashboard";
 import KRailsVideoPlayer from "@/ui/krails/components/krails-video-player/krails-video-player";
 
-const KRAILS_VIDEO_FI = "https://www.youtube.com/embed/v6XF9PLVIAw";
-const KRAILS_VIDEO_GOV = "https://www.youtube.com/embed/WFlJvmHsfPU";
 const KRAILS_VIDEO_POSTER = "/images/krails.webp";
+
+const KRAILS_VIDEO_FI_BY_LOCALE: Record<string, string> = {
+  en: "https://www.youtube.com/embed/v2lB2bFP3Cg",
+  pt: "https://www.youtube.com/embed/svpMk7kt3gA",
+  es: "https://www.youtube.com/embed/ZmvqN8hJGWI",
+  ar: "https://www.youtube.com/embed/v2lB2bFP3Cg",
+};
+
+const KRAILS_VIDEO_GOV_BY_LOCALE: Record<string, string> = {
+  en: "https://www.youtube.com/embed/GlwpGm72TK4",
+  pt: "https://www.youtube.com/embed/y_aROIpQ6XE",
+  es: "https://www.youtube.com/embed/ucO_EEX_nhc",
+  ar: "https://www.youtube.com/embed/GlwpGm72TK4",
+};
 
 export interface KRailsTranslations extends KRailsWhyTranslations {
   heroHeading: string;
@@ -48,6 +60,8 @@ export interface KRailsTranslations extends KRailsWhyTranslations {
 export function KRailsView({ translations }: { translations: KRailsTranslations }) {
   const skipAnimation = useSkipAnimationOnLocaleSwitch();
   const locale = useLocale();
+  const fiVideoUrl = KRAILS_VIDEO_FI_BY_LOCALE[locale] ?? KRAILS_VIDEO_FI_BY_LOCALE.en;
+  const govVideoUrl = KRAILS_VIDEO_GOV_BY_LOCALE[locale] ?? KRAILS_VIDEO_GOV_BY_LOCALE.en;
   return (
     <main className={styles.container}>
       <div className={styles.background}>
@@ -71,8 +85,8 @@ export function KRailsView({ translations }: { translations: KRailsTranslations 
           aria-label={translations.videoSectionTitle}
         >
           <KRailsVideoPlayer
-            fiVideoUrl={KRAILS_VIDEO_FI}
-            govVideoUrl={KRAILS_VIDEO_GOV}
+            fiVideoUrl={fiVideoUrl}
+            govVideoUrl={govVideoUrl}
             posterUrl={KRAILS_VIDEO_POSTER}
             posterAlt={translations.videoPosterAlt}
             fiLabel={translations.videoFiLabel}
