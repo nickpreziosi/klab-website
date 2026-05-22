@@ -14,6 +14,35 @@ import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
 import { formatReadTimeWithUnit } from "@/ui/news/utils/read-time";
 import { translateNewsCategory } from "@/ui/news/utils/news-category";
 
+interface GalleryImage {
+  url: string;
+  thumbnailUrl: string;
+  alt?: string;
+  caption?: string;
+}
+
+interface ArticleData {
+  title: string;
+  author?: string | null;
+  authorRole?: string | null;
+  embedLink?: string | null;
+  image?: { alt?: string | null; caption?: string | null } | null;
+  category?: string | null;
+  readTime?: number | null;
+}
+
+interface ArticleViewProps {
+  article: ArticleData;
+  imageUrl?: string;
+  formattedDate: string;
+  galleryImageUrls: GalleryImage[];
+  bodyHTML?: string | null;
+  contentDirection?: "ltr" | "rtl";
+  newsListingHref?: string;
+  galleryPasswordEnabled?: boolean;
+  slug?: string;
+}
+
 function isYouTubeOrVimeo(embedLink?: string): boolean {
   if (!embedLink) return false;
   return (

@@ -90,9 +90,7 @@ export function KlabLogo({
   const isOrangeFull = resolvedVariant === "orange-full";
   const useThemeSwitch = isOrangeFull && fullLogoTheme === "auto";
 
-  const [effectiveTheme, setEffectiveTheme] = useState<"light" | "dark" | null>(() =>
-    typeof document !== "undefined" ? getEffectiveTheme() : null
-  );
+  const [effectiveTheme, setEffectiveTheme] = useState<"light" | "dark" | null>(null);
   // Sync with head script / actual theme on mount for correct logo after hydration
   useLayoutEffect(() => {
     if (!useThemeSwitch) return;
