@@ -564,7 +564,21 @@
     "previousImage": "الصورة السابقة",
     "nextImage": "الصورة التالية",
     "galleryImageAlt": "صورة المعرض {number}",
-    "close": "إغلاق"
+    "close": "إغلاق",
+    "galleryLocked": "هذا المعرض محمي بكلمة مرور.",
+    "galleryGateButton": "أدخل كلمة المرور",
+    "galleryPasswordTitle": "الوصول إلى المعرض",
+    "galleryPasswordDescription": "أدخل كلمة المرور لعرض صور المعرض.",
+    "galleryPasswordLabel": "كلمة المرور",
+    "galleryUnlockButton": "فتح",
+    "galleryUnlockingButton": "جارٍ الفتح…",
+    "galleryPasswordHint": "هذا المعرض محمي بكلمة مرور.",
+    "galleryPasswordErrorInvalid": "كلمة مرور غير صحيحة. حاول مرة أخرى.",
+    "galleryPasswordErrorNetwork": "خطأ في الشبكة. حاول مرة أخرى.",
+    "galleryPasswordErrorGeneric": "حدث خطأ ما. حاول مرة أخرى.",
+    "galleryShowPassword": "إظهار كلمة المرور",
+    "galleryHidePassword": "إخفاء كلمة المرور",
+    "galleryCloseDialog": "إغلاق"
   },
   "newsCategories": {
     "awards-recognition": "الجوائز والتكريم",

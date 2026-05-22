@@ -564,7 +564,21 @@
     "previousImage": "Imagen anterior",
     "nextImage": "Siguiente imagen",
     "galleryImageAlt": "Imagen de galería {number}",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "galleryLocked": "Esta galería está protegida con contraseña.",
+    "galleryGateButton": "Introducir contraseña",
+    "galleryPasswordTitle": "Acceder a la galería",
+    "galleryPasswordDescription": "Introduce la contraseña para ver las imágenes de la galería.",
+    "galleryPasswordLabel": "Contraseña",
+    "galleryUnlockButton": "Desbloquear",
+    "galleryUnlockingButton": "Desbloqueando…",
+    "galleryPasswordHint": "Esta galería está protegida con contraseña.",
+    "galleryPasswordErrorInvalid": "Contraseña incorrecta. Inténtalo de nuevo.",
+    "galleryPasswordErrorNetwork": "Error de red. Inténtalo de nuevo.",
+    "galleryPasswordErrorGeneric": "Algo salió mal. Inténtalo de nuevo.",
+    "galleryShowPassword": "Mostrar contraseña",
+    "galleryHidePassword": "Ocultar contraseña",
+    "galleryCloseDialog": "Cerrar"
   },
   "newsCategories": {
     "awards-recognition": "Premios y reconocimientos",

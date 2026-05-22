@@ -67,6 +67,8 @@ export default async function ArticlePage({
         galleryImageUrls={galleryImageUrls}
         bodyHTML={bodyHTML}
         contentDirection={locale === "ar" ? "rtl" : "ltr"}
+        galleryPasswordEnabled={!!intlArticle.galleryPassword}
+        slug={slug}
       />
     );
   }

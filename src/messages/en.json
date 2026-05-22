@@ -564,7 +564,21 @@
     "previousImage": "Previous image",
     "nextImage": "Next image",
     "galleryImageAlt": "Gallery image {number}",
-    "close": "Close"
+    "close": "Close",
+    "galleryLocked": "This gallery is password protected.",
+    "galleryGateButton": "Enter password",
+    "galleryPasswordTitle": "Access Gallery",
+    "galleryPasswordDescription": "Enter the password to view the gallery images.",
+    "galleryPasswordLabel": "Password",
+    "galleryUnlockButton": "Unlock",
+    "galleryUnlockingButton": "Unlocking…",
+    "galleryPasswordHint": "This gallery is password protected.",
+    "galleryPasswordErrorInvalid": "Invalid password. Please try again.",
+    "galleryPasswordErrorNetwork": "Network error. Please try again.",
+    "galleryPasswordErrorGeneric": "Something went wrong. Please try again.",
+    "galleryShowPassword": "Show password",
+    "galleryHidePassword": "Hide password",
+    "galleryCloseDialog": "Close"
   },
   "newsCategories": {
     "awards-recognition": "Awards & Recognition",
