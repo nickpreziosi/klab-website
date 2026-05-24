@@ -1,0 +1,44 @@
+.dock {
+  display: flex;
+  margin: 0;
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.dockHorizontal {
+  flex-direction: row;
+}
+
+.dockVertical {
+  flex-direction: column;
+}
+
+.dockAlignStart {
+  align-items: flex-start;
+}
+
+.dockAlignCenter {
+  align-items: center;
+}
+
+.dockAlignEnd {
+  align-items: flex-end;
+}
+
+.dockIcon {
+  display: flex;
+  aspect-ratio: 1;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.dockIconInner {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}

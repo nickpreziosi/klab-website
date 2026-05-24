@@ -2,10 +2,9 @@
 
 import type React from "react";
 
-import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
-import { motion } from "framer-motion";
+import { Dock, DockIcon } from "@/ui/shared/components/dock/dock";
 import {
   Tooltip,
   TooltipContent,
@@ -37,8 +36,6 @@ const socialLinks: SocialLink[] = [
     labelKey: "connectLinkedIn",
     icon: (
       <svg
-        width="18"
-        height="18"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -56,8 +53,6 @@ const socialLinks: SocialLink[] = [
     labelKey: "followX",
     icon: (
       <svg
-        width="18"
-        height="18"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -75,8 +70,6 @@ const socialLinks: SocialLink[] = [
     labelKey: "followInstagram",
     icon: (
       <svg
-        width="18"
-        height="18"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -94,8 +87,6 @@ const socialLinks: SocialLink[] = [
     labelKey: "followTikTok",
     icon: (
       <svg
-        width="18"
-        height="18"
         viewBox="0 0 32 32"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
@@ -110,8 +101,6 @@ const socialLinks: SocialLink[] = [
     labelKey: "followYouTube",
     icon: (
       <svg
-        width="18"
-        height="18"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -129,8 +118,6 @@ const socialLinks: SocialLink[] = [
     labelKey: "sendEmail",
     icon: (
       <svg
-        width="18"
-        height="18"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -144,54 +131,50 @@ const socialLinks: SocialLink[] = [
   },
 ];
 
+const SOCIAL_LINK_SIZE = 36;
+/** ~1.3× hover scale from the previous manual implementation */
+const DOCK_ICON_MAGNIFICATION = Math.round(SOCIAL_LINK_SIZE * 1.3);
+const DOCK_ICON_DISTANCE = 100;
+
 export default function SocialSidebar() {
   const t = useTranslations("socialSidebar");
   const locale = useLocale();
   const isRtl = getTextDirection(locale as Locale) === "rtl";
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  const getScale = (index: number) => {
-    if (hoveredIndex === null) return 1;
-    if (hoveredIndex === index) return 1.3;
-    const distance = Math.abs(hoveredIndex - index);
-    if (distance === 1) return 1.15;
-    return 1;
-  };
 
   return (
     <TooltipProvider delayDuration={0}>
-      <div className={styles.sidebar}>
-        <div className={styles.linksContainer}>
-          {socialLinks.map((link, index) => (
-            <Tooltip key={link.name}>
-              <TooltipTrigger asChild>
-                <motion.a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.socialLink}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  animate={{
-                    scale: getScale(index),
-                  }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 100,
-                    delay: getScale(index) === 1.15 ? 0.1 : 0,
-                  }}
-                  aria-label={t(link.labelKey)}
-                >
-                  {link.icon}
-                </motion.a>
-              </TooltipTrigger>
-              <TooltipContent side={isRtl ? "left" : "right"} sideOffset={12}>
-                {t(link.labelKey)}
-              </TooltipContent>
-            </Tooltip>
+      <aside className={styles.sidebar}>
+        <Dock
+          orientation="vertical"
+          direction="center"
+          iconSize={SOCIAL_LINK_SIZE}
+          iconMagnification={DOCK_ICON_MAGNIFICATION}
+          iconDistance={DOCK_ICON_DISTANCE}
+          iconPadding={0}
+          className={styles.dock}
+        >
+          {socialLinks.map((link) => (
+            <DockIcon key={link.name}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.socialLink}
+                    aria-label={t(link.labelKey)}
+                  >
+                    {link.icon}
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent side={isRtl ? "left" : "right"} sideOffset={12}>
+                  {t(link.labelKey)}
+                </TooltipContent>
+              </Tooltip>
+            </DockIcon>
           ))}
-        </div>
-      </div>
+        </Dock>
+      </aside>
     </TooltipProvider>
   );
 }
