@@ -34,7 +34,9 @@
   width: 100%;
   font-family: "Sora", sans-serif;
   z-index: 10;
-  transition: transform 300ms ease-in-out, all 300ms ease-in-out;
+  transition:
+    transform 300ms ease-in-out,
+    all 300ms ease-in-out;
   border-bottom: 1px solid transparent;
   background: hsl(var(--background) / 0.75);
   backdrop-filter: blur(8px);
