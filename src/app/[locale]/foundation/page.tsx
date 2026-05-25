@@ -8,6 +8,7 @@ export default async function FoundationPage() {
     titleMain: t("titleMain"),
     subheading: t("subheading"),
     paragraph: t("paragraph"),
+    section1: t("section1"),
     section2: t("section2"),
     section3: t("section3"),
   };

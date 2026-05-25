@@ -7,6 +7,7 @@ export type FoundationTranslations = {
   titleMain: string;
   subheading: string;
   paragraph: string;
+  section1: string;
   section2: string;
   section3: string;
 };
@@ -20,7 +21,7 @@ export function FoundationView({ foundationTranslations }: FoundationViewProps =
     return null;
   }
   const t = foundationTranslations;
-  const rightSections = [t.section2, t.section3];
+  const rightSections = [t.section1, t.section2, t.section3];
   return (
     <main className={styles.page}>
       <section className={styles.section}>
