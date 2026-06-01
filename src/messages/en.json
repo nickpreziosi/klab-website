@@ -131,8 +131,12 @@
     "readBio": "Read Bio",
     "closeBio": "Close Bio",
     "employees": {
+      "jayHeller": {
+        "position": "CEO",
+        "bio": "Jay brings over 25 years of capital markets experience, with a proven track record of advising innovative companies across the public and private markets. During his 18-year tenure at Nasdaq, he led a team that executed more than 3,000 IPOs, including Coinbase, Arm Holdings, CoreWeave, and Airbnb to name a few. He also consulted onsite for the world's largest IPO, Saudi Aramco."
+      },
       "paoloFidanza": {
-        "position": "CEO & Founder",
+        "position": "Founder",
         "bio": "A serial entrepreneur and aerospace engineer, with a passion for making the world a better place. Paolo has been leading and developing revolutionary technology companies for the past two decades."
       },
       "faridShidfar": {

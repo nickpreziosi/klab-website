@@ -4,6 +4,14 @@
 
 export const EMPLOYEES_STATIC = [
   {
+    key: "jayHeller" as const,
+    name: "Jay Heller",
+    image: "/images/people/jay-heller-black.webp",
+    imageLight: "/images/people/jay-heller.webp",
+    imageDark: "/images/people/jay-heller-black.webp",
+    email: "jay@k-lab.ai",
+  },
+  {
     key: "paoloFidanza" as const,
     name: "Paolo Fidanza",
     image: "/images/people/paolo-fidanza-black.webp",
