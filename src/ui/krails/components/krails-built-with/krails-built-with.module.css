@@ -89,6 +89,43 @@
   height: auto;
 }
 
+.evmLockup {
+  --evm-text-size: clamp(2.5rem, 2.8vw, 3.25rem);
+  --evm-diamond-height: calc(var(--evm-text-size) * 1.35);
+  gap: calc(var(--evm-text-size) * 0.22);
+  align-items: center;
+}
+
+/* Clip to diamond bounds (84×138) inside the 150×150 canvas */
+.ethereumLogoClip {
+  width: calc(var(--evm-diamond-height) * 84 / 138);
+  height: var(--evm-diamond-height);
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.ethereumLogo {
+  position: absolute;
+  top: calc(var(--evm-diamond-height) * -6 / 138);
+  left: calc(var(--evm-diamond-height) * -33 / 138);
+  width: calc(var(--evm-diamond-height) * 150 / 138);
+  height: calc(var(--evm-diamond-height) * 150 / 138);
+  max-width: none;
+}
+
+.evmLabel {
+  font-size: var(--evm-text-size);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #1b1b1b;
+  white-space: nowrap;
+}
+
+:global(html.dark) .evmLabel {
+  color: #f7f7f7;
+}
+
 /* Responsive Design */
 @media (max-width: 1280px) {
   .content {
@@ -123,6 +160,10 @@
   .logoWrapper {
     width: 100%;
     height: 240px;
+  }
+
+  .evmLockup {
+    --evm-text-size: clamp(2.875rem, 7.25vw, 3.625rem);
   }
 }
 
