@@ -175,7 +175,7 @@
   }
 
   .item:hover .itemLogo svg {
-    color: #f37120;
+    color: hsl(var(--accent));
   }
 
   .item:hover .itemLogo svg *:not(.kabl-blue):not(.kabl-blue-stroke) {

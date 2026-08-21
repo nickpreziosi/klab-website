@@ -83,12 +83,12 @@
   border-radius: 999px;
   background: linear-gradient(
     to right,
-    #6b1a2d 0%,
-    #6b1a2d 15%,
-    #b83a35 30%,
-    #e06538 45%,
-    #f37120 60%,
-    #f37120 100%
+    #000000 0%,
+    #000000 15%,
+    #1e3d72 30%,
+    #1e3d72 45%,
+    #00acfd 60%,
+    #00acfd 100%
   );
   display: flex;
   align-items: center;

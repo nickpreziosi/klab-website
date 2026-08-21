@@ -134,7 +134,7 @@
 
 .variantAccentBrand {
   background-color: hsl(var(--accent));
-  color: #000;
+  color: hsl(var(--accent-foreground));
 }
 
 .variantAccentBrand:hover {

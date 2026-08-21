@@ -299,7 +299,7 @@ export async function POST(request: Request) {
                     <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Email</strong>
                     <a href="mailto:${escapeHtml(
                       data.email
-                    )}" style="color: #f37120; font-size: 16px; text-decoration: none;">${escapeHtml(
+                    )}" style="color: #1E3D72; font-size: 16px; text-decoration: none;">${escapeHtml(
                       data.email
                     )}</a>
                   </td>
@@ -328,7 +328,7 @@ export async function POST(request: Request) {
               ${
                 data.message?.trim()
                   ? `
-              <div style="background-color: #fafafa; border-left: 4px solid #f37120; padding: 20px; margin: 25px 0; border-radius: 4px;">
+              <div style="background-color: #fafafa; border-left: 4px solid #1E3D72; padding: 20px; margin: 25px 0; border-radius: 4px;">
                 <strong style="color: #0a0a0a; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 12px;">Message</strong>
                 <p style="margin: 0; color: #333333; font-size: 16px; line-height: 1.6; white-space: pre-wrap;">${formatMessage(
                   data.message

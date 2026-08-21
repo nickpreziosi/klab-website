@@ -117,9 +117,9 @@
   color: hsl(var(--foreground));
 }
 
-/* Title: exact gradient from 08-Tittle/SVG/02-Tittle.svg (all stops full opacity) – light to orange in both themes */
+/* Title: cyan to navy ramp in both themes */
 .timelineTitleAccent {
-  background: linear-gradient(90deg, #f6c59d 25%, #fa9649 62%, #fd7914 87%, #ff6e00 100%);
+  background: linear-gradient(90deg, #7bd2f2 25%, #00acfd 62%, #4a6fa8 87%, #1e3d72 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -161,7 +161,7 @@
   justify-content: center;
 }
 
-/* Track: gradient from white-ish to orange; layered over white so start reads light in both themes */
+/* Track: gradient from white-ish to navy; layered over cool white so start reads light in both themes */
 .timelineBar {
   position: absolute;
   left: 0;
@@ -172,15 +172,15 @@
   background:
     linear-gradient(
       90deg,
-      rgba(252, 190, 140, 0.25) 0%,
-      rgba(252, 190, 140, 0.62) 32%,
-      rgba(253, 170, 100, 0.75) 40%,
-      rgba(253, 150, 65, 0.86) 49%,
-      rgba(254, 125, 25, 0.94) 60%,
-      rgba(254, 111, 1, 0.99) 74%,
-      #ff6e00 100%
+      rgba(123, 210, 242, 0.25) 0%,
+      rgba(123, 210, 242, 0.62) 32%,
+      rgba(80, 191, 247, 0.75) 40%,
+      rgba(40, 181, 250, 0.86) 49%,
+      rgba(0, 172, 253, 0.94) 60%,
+      rgba(15, 116, 183, 0.99) 74%,
+      #1e3d72 100%
     ),
-    #fefdfb;
+    #f7fcfe;
 }
 
 .timelineStepLabels {
@@ -324,7 +324,7 @@
   transform: rotate(180deg);
 }
 
-/* Circle: gradient from white-ish to orange; layered over white so start reads light in both themes */
+/* Circle: gradient from white-ish to navy; layered over cool white so start reads light in both themes */
 .timelineStepIcon {
   width: 80px;
   height: 80px;
@@ -333,18 +333,18 @@
     linear-gradient(
       125deg,
       rgba(255, 255, 255, 0) 0%,
-      rgba(254, 250, 246, 0.04) 0%,
-      rgba(252, 240, 228, 0.16) 9%,
-      rgba(250, 220, 200, 0.32) 17%,
-      rgba(251, 200, 160, 0.48) 26%,
-      rgba(252, 180, 120, 0.62) 35%,
-      rgba(253, 160, 80, 0.75) 45%,
-      rgba(253, 140, 50, 0.86) 56%,
-      rgba(254, 120, 20, 0.94) 67%,
-      rgba(254, 111, 2, 0.99) 81%,
-      #ff6e00 100%
+      rgba(247, 252, 254, 0.04) 0%,
+      rgba(210, 240, 250, 0.16) 9%,
+      rgba(180, 228, 247, 0.32) 17%,
+      rgba(150, 218, 245, 0.48) 26%,
+      rgba(123, 210, 242, 0.62) 35%,
+      rgba(80, 191, 247, 0.75) 45%,
+      rgba(40, 181, 250, 0.86) 56%,
+      rgba(0, 172, 253, 0.94) 67%,
+      rgba(15, 116, 183, 0.99) 81%,
+      #1e3d72 100%
     ),
-    #fefdfb;
+    #f7fcfe;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -357,18 +357,18 @@
     linear-gradient(
       45deg,
       rgba(255, 255, 255, 0) 0%,
-      rgba(254, 250, 246, 0.04) 0%,
-      rgba(252, 240, 228, 0.16) 9%,
-      rgba(250, 220, 200, 0.32) 17%,
-      rgba(251, 200, 160, 0.48) 26%,
-      rgba(252, 180, 120, 0.62) 35%,
-      rgba(253, 160, 80, 0.75) 45%,
-      rgba(253, 140, 50, 0.86) 56%,
-      rgba(254, 120, 20, 0.94) 67%,
-      rgba(254, 111, 2, 0.99) 81%,
-      #ff6e00 100%
+      rgba(247, 252, 254, 0.04) 0%,
+      rgba(210, 240, 250, 0.16) 9%,
+      rgba(180, 228, 247, 0.32) 17%,
+      rgba(150, 218, 245, 0.48) 26%,
+      rgba(123, 210, 242, 0.62) 35%,
+      rgba(80, 191, 247, 0.75) 45%,
+      rgba(40, 181, 250, 0.86) 56%,
+      rgba(0, 172, 253, 0.94) 67%,
+      rgba(15, 116, 183, 0.99) 81%,
+      #1e3d72 100%
     ),
-    #fefdfb;
+    #f7fcfe;
 }
 
 .timelineStepIconSvg {
@@ -514,15 +514,15 @@
     background:
       linear-gradient(
         180deg,
-        rgba(251, 210, 175, 0.48) 24%,
-        rgba(252, 190, 140, 0.62) 32%,
-        rgba(253, 170, 100, 0.75) 40%,
-        rgba(253, 150, 65, 0.86) 49%,
-        rgba(254, 125, 25, 0.94) 60%,
-        rgba(254, 111, 1, 0.99) 74%,
-        #ff6e00 100%
+        rgba(150, 218, 245, 0.48) 24%,
+        rgba(123, 210, 242, 0.62) 32%,
+        rgba(80, 191, 247, 0.75) 40%,
+        rgba(40, 181, 250, 0.86) 49%,
+        rgba(0, 172, 253, 0.94) 60%,
+        rgba(15, 116, 183, 0.99) 74%,
+        #1e3d72 100%
       ),
-      #fefdfb;
+      #f7fcfe;
   }
 
   /* Step labels: one per row, centered in each sixth; arrow before/after per design */
@@ -680,18 +680,18 @@
       linear-gradient(
         270deg,
         rgba(255, 255, 255, 0) 0%,
-        rgba(243, 229, 216, 0.01) 0%,
-        rgba(245, 204, 171, 0.22) 9%,
-        rgba(247, 182, 131, 0.4) 17%,
-        rgba(249, 162, 95, 0.56) 26%,
-        rgba(251, 146, 66, 0.7) 35%,
-        rgba(252, 133, 42, 0.81) 45%,
-        rgba(253, 122, 23, 0.89) 56%,
-        rgba(254, 115, 10, 0.95) 67%,
-        rgba(254, 111, 2, 0.99) 81%,
-        #ff6e00 100%
+        rgba(230, 246, 252, 0.01) 0%,
+        rgba(180, 228, 247, 0.22) 9%,
+        rgba(150, 218, 245, 0.4) 17%,
+        rgba(123, 210, 242, 0.56) 26%,
+        rgba(80, 191, 247, 0.7) 35%,
+        rgba(40, 181, 250, 0.81) 45%,
+        rgba(0, 172, 253, 0.89) 56%,
+        rgba(15, 116, 183, 0.95) 67%,
+        rgba(15, 116, 183, 0.99) 81%,
+        #1e3d72 100%
       ),
-      #fefdfb;
+      #f7fcfe;
   }
   /* Steps 2, 4, 6: gradient from Vertical-Version/03-Step2/SVG/01-Circle_1.svg (left to right = 90deg) */
   .timelineRow1 .timelineCell:nth-child(2) .timelineStepIcon,
@@ -701,18 +701,18 @@
       linear-gradient(
         90deg,
         rgba(255, 255, 255, 0) 0%,
-        rgba(243, 229, 216, 0.01) 0%,
-        rgba(245, 204, 171, 0.22) 9%,
-        rgba(247, 182, 131, 0.4) 17%,
-        rgba(249, 162, 95, 0.56) 26%,
-        rgba(251, 146, 66, 0.7) 35%,
-        rgba(252, 133, 42, 0.81) 45%,
-        rgba(253, 122, 23, 0.89) 56%,
-        rgba(254, 115, 10, 0.95) 67%,
-        rgba(254, 111, 2, 0.99) 81%,
-        #ff6e00 100%
+        rgba(230, 246, 252, 0.01) 0%,
+        rgba(180, 228, 247, 0.22) 9%,
+        rgba(150, 218, 245, 0.4) 17%,
+        rgba(123, 210, 242, 0.56) 26%,
+        rgba(80, 191, 247, 0.7) 35%,
+        rgba(40, 181, 250, 0.81) 45%,
+        rgba(0, 172, 253, 0.89) 56%,
+        rgba(15, 116, 183, 0.95) 67%,
+        rgba(15, 116, 183, 0.99) 81%,
+        #1e3d72 100%
       ),
-      #fefdfb;
+      #f7fcfe;
   }
 }
 
