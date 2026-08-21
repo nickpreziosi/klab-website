@@ -1,4 +1,5 @@
 .root {
+  position: relative;
   overflow: hidden;
   line-height: 0;
 }
@@ -29,8 +30,20 @@
   height: 100%;
 }
 
-.svg {
+.themeLight,
+.themeDark {
+  position: absolute;
+  inset: 0;
+}
+
+.themeDark {
+  display: none;
+}
+
+:global(html.dark) .themeLight {
+  display: none;
+}
+
+:global(html.dark) .themeDark {
   display: block;
-  max-width: 100%;
-  max-height: 100%;
 }

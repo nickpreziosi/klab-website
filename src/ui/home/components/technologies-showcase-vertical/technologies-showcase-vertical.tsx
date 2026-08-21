@@ -176,7 +176,7 @@ function SVGLogo({ src, className }: { src: string; className?: string }) {
 type ShowcaseVariant = "orange" | "wave";
 
 function CenterCircle({ variant }: { variant: ShowcaseVariant }) {
-  const centerBgSrc = variant === "wave" ? "/images/bg-orange.webp" : "/images/bg-wave.webp";
+  const centerBgSrc = variant === "wave" ? "/images/bg-logo-right.webp" : "/images/bg-logo-left.webp";
   return (
     <div className={styles.centerItem}>
       <div className={styles.centerCircle}>

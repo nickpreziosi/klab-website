@@ -1,11 +1,8 @@
 "use client";
 
 import { cn } from "@/ui/shared/utils/utils";
-import { getEffectiveTheme } from "@/ui/shared/hooks/use-theme";
 import styles from "./klab-logo.module.css";
-import { useEffect, useLayoutEffect, useState } from "react";
-import { KlabLogoDarkTextSvg } from "./klab-logo-dark-text-svg";
-import { KlabLogoOrangeFullSvg } from "./klab-logo-orange-full-svg";
+import type { CSSProperties } from "react";
 
 /** Color variant of the K-Lab logo */
 export type KlabLogoColor = "light" | "orange";
@@ -13,44 +10,26 @@ export type KlabLogoColor = "light" | "orange";
 /** Format variant: "default" = icon/mark only, "full" = with wordmark */
 export type KlabLogoFormat = "default" | "full";
 
-/** When format is "full": "auto" follows theme; "light" = gradient text; "dark" = all-orange */
+/** When format is "full": "auto" follows theme; "light" = grey mark; "dark" = white mark */
 export type FullLogoTheme = "auto" | "light" | "dark";
 
 export type KlabLogoVariant = `${KlabLogoColor}-${KlabLogoFormat}`;
 
-/**
- * Full logo with gradient text (#171920 → black). Shown in light mode when fullLogoTheme is "auto".
- */
-const LOGO_FULL_LIGHT_PATH = "/logos/klab-logo-dark-text.svg";
+const LOGO_ICON_GREY = "/logos/klab-logo-icon.svg";
+const LOGO_ICON_WHITE = "/logos/klab-logo-icon-white.svg";
+const LOGO_FULL_GREY = "/logos/klab-logo-full-dark.svg";
+const LOGO_FULL_WHITE = "/logos/klab-logo-full-white.svg";
 
-/**
- * Map of (color, format) -> public path for the SVG.
- * Logo assets are SVG files but large (~4MB) due to embedded raster; we use <img> to avoid bundle bloat.
- * For orange-full with fullLogoTheme "auto", src is chosen by effective theme (single img = no stacking outline).
- */
-const LOGO_PATHS: Record<KlabLogoVariant, string> = {
-  "light-default": "/logos/klab-logo-icon.svg",
-  "light-full": "/logos/klab-logo-light-full.svg",
-  "orange-default": "/logos/klab-logo-icon.svg",
-  "orange-full": "/logos/klab-logo-orange-full.svg",
-};
-
-/** ViewBox dimensions per variant for aspect-ratio sizing when only one dimension is set */
-const LOGO_VIEWBOX: Record<KlabLogoVariant, { w: number; h: number }> = {
-  "light-default": { w: 167.66, h: 167.66 },
-  "light-full": { w: 867.95, h: 248.85 },
-  "orange-default": { w: 167.66, h: 167.66 },
-  "orange-full": { w: 576.81, h: 168 },
-};
-
-/** Variants that use inline SVG (self-contained gradients) instead of img */
-const INLINE_SVG_VARIANTS = [LOGO_FULL_LIGHT_PATH, "/logos/klab-logo-orange-full.svg"] as const;
+const LOGO_VIEWBOX = {
+  icon: { w: 217.361, h: 217.361 },
+  full: { w: 734.722, h: 217.585 },
+} as const;
 
 export interface KlabLogoProps {
   color?: KlabLogoColor;
   format?: KlabLogoFormat;
   variant?: KlabLogoVariant;
-  /** When format is "full": "auto" = follow theme (default); "light" = gradient text; "dark" = all-orange */
+  /** When format is "full": "auto" = follow theme (default); "light" = grey; "dark" = white */
   fullLogoTheme?: FullLogoTheme;
   /** Server-resolved theme for correct logo on first paint (e.g. from cookie). Omit for system preference. */
   initialTheme?: "light" | "dark";
@@ -78,7 +57,6 @@ export function KlabLogo({
   format = "default",
   variant,
   fullLogoTheme = "auto",
-  initialTheme,
   size = "md",
   width,
   height,
@@ -87,45 +65,17 @@ export function KlabLogo({
   objectFit = "contain",
 }: KlabLogoProps) {
   const resolvedVariant = variant ?? getVariant(color, format);
-  const isOrangeFull = resolvedVariant === "orange-full";
-  const useThemeSwitch = isOrangeFull && fullLogoTheme === "auto";
-
-  const [effectiveTheme, setEffectiveTheme] = useState<"light" | "dark" | null>(null);
-  // Sync with head script / actual theme on mount for correct logo after hydration
-  useLayoutEffect(() => {
-    if (!useThemeSwitch) return;
-    setEffectiveTheme(getEffectiveTheme());
-  }, [useThemeSwitch]);
-  useEffect(() => {
-    if (!useThemeSwitch) return;
-    const onThemeChange = () => setEffectiveTheme(getEffectiveTheme());
-    window.addEventListener("themechange", onThemeChange);
-    window.addEventListener("storage", onThemeChange);
-    return () => {
-      window.removeEventListener("themechange", onThemeChange);
-      window.removeEventListener("storage", onThemeChange);
-    };
-  }, [useThemeSwitch]);
-
-  const baseSrc = LOGO_PATHS[resolvedVariant];
-  // Use effectiveTheme when known; otherwise initialTheme (from cookie); otherwise default to dark (orange logo) so system dark mode paints correctly
-  const resolvedTheme = effectiveTheme ?? initialTheme ?? "dark";
-  const src =
-    useThemeSwitch && resolvedTheme === "light"
-      ? LOGO_FULL_LIGHT_PATH
-      : isOrangeFull && fullLogoTheme === "light"
-        ? LOGO_FULL_LIGHT_PATH
-        : baseSrc;
-  const viewBox = LOGO_VIEWBOX[resolvedVariant];
-
-  if (!src || !viewBox) {
-    if (process.env.NODE_ENV === "development") {
-      console.warn(
-        `[KlabLogo] Unknown variant: ${resolvedVariant}. Add to LOGO_PATHS and LOGO_VIEWBOX.`
-      );
-    }
-    return null;
-  }
+  const [resolvedColor, resolvedFormat] = resolvedVariant.split("-") as [KlabLogoColor, KlabLogoFormat];
+  const followTheme = resolvedColor !== "light" && fullLogoTheme === "auto";
+  const forcedTheme: "light" | "dark" | null = followTheme
+    ? null
+    : resolvedColor === "light" || fullLogoTheme === "dark"
+      ? "dark"
+      : "light";
+  const greySrc = resolvedFormat === "default" ? LOGO_ICON_GREY : LOGO_FULL_GREY;
+  const whiteSrc = resolvedFormat === "default" ? LOGO_ICON_WHITE : LOGO_FULL_WHITE;
+  const src = forcedTheme === "dark" ? whiteSrc : greySrc;
+  const viewBox = resolvedFormat === "default" ? LOGO_VIEWBOX.icon : LOGO_VIEWBOX.full;
 
   const sizeNum = sizeMap[size];
   const hasWidth = width !== undefined;
@@ -147,7 +97,7 @@ export function KlabLogo({
     w = viewBox.w === viewBox.h ? sizeNum : (sizeNum * viewBox.w) / viewBox.h;
   }
 
-  const wrapperStyle: React.CSSProperties = {
+  const wrapperStyle: CSSProperties = {
     display: "inline-block",
     flexShrink: 0,
     width: typeof w === "number" ? `${w}px` : w,
@@ -165,40 +115,33 @@ export function KlabLogo({
     typeof w === "string" || typeof h === "string"
       ? { width: "100%" as const, height: "100%" as const }
       : undefined;
+
   const imgProps = {
     alt,
     width: typeof w === "number" ? w : undefined,
     height: typeof h === "number" ? h : undefined,
-    className: imgClass,
     style: imgStyle,
     decoding: "async" as const,
     fetchPriority: "low" as const,
   };
 
-  const useInlineSvg = INLINE_SVG_VARIANTS.includes(src as (typeof INLINE_SVG_VARIANTS)[number]);
-  const svgPreserveAspectRatio =
-    objectFit === "contain" ? "xMidYMid meet" : objectFit === "cover" ? "xMidYMid slice" : "none";
-
   return (
     <span className={cn(styles.root, className)} style={wrapperStyle} role="img" aria-label={alt}>
-      {useInlineSvg ? (
-        <span className={imgClass} style={imgStyle ?? { width: "100%", height: "100%" }}>
-          {src === LOGO_FULL_LIGHT_PATH ? (
-            <KlabLogoDarkTextSvg
-              className={styles.svg}
-              preserveAspectRatio={svgPreserveAspectRatio}
-              style={{ width: "100%", height: "100%" }}
-            />
-          ) : (
-            <KlabLogoOrangeFullSvg
-              className={styles.svg}
-              preserveAspectRatio={svgPreserveAspectRatio}
-              style={{ width: "100%", height: "100%" }}
-            />
-          )}
-        </span>
+      {followTheme ? (
+        <>
+          <img
+            {...imgProps}
+            src={greySrc}
+            className={cn(imgClass, styles.themeLight)}
+          />
+          <img
+            {...imgProps}
+            src={whiteSrc}
+            className={cn(imgClass, styles.themeDark)}
+          />
+        </>
       ) : (
-        <img {...imgProps} src={src} />
+        <img {...imgProps} src={src} className={imgClass} />
       )}
     </span>
   );

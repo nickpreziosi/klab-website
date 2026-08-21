@@ -22,6 +22,19 @@ export const metadata: Metadata = {
   title: "K Lab — Programmable Trust for Institutional Money Movement",
   description:
     "K Lab builds programmable infrastructure that determines whether money should move — and proves it did. Configurable, permissioned, and enforceable for FIs, governments, and private capital.",
+  // Follows the browser/OS color scheme, not the in-app theme.
+  icons: {
+    icon: [
+      {
+        url: "/ico/favicon-grey.ico",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/ico/favicon-white.ico",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+  },
 };
 
 export default async function RootLayout({

@@ -82,7 +82,7 @@ export const CompanyHero = ({
           width={1200}
           height={1405}
           alt={t("employeeImageAlt")}
-          src="/images/bg-orange.webp"
+          src="/images/bg-logo-right.webp"
           placeholder="blur"
           blurDataURL={BLUR_PLACEHOLDER}
         />

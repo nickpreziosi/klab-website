@@ -287,7 +287,7 @@ export function TechnologiesShowcase({
             <div className={styles.centerCircle}>
               <div className={styles.centerBackground}>
                 <Image
-                  src="/images/bg-wave.webp"
+                  src="/images/bg-logo-left.webp"
                   alt=""
                   fill
                   sizes="(max-width: 1440px) 120px, 160px"
