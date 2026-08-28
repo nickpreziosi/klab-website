@@ -5,13 +5,54 @@
   padding-bottom: var(--padding-tablet);
 }
 
-.layout {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.4fr) minmax(0, 0.6fr);
-  align-items: center;
-  gap: var(--gap-lg);
+.frame {
+  --glow-end: 100%;
+  --glow-start: 0%;
+  position: relative;
+  overflow: hidden;
   max-width: 1440px;
   margin-inline: auto;
+  padding: var(--gap-lg);
+  border-radius: var(--rounded-app);
+  background-color: hsl(var(--background));
+  background-image:
+    radial-gradient(
+      ellipse 70% 90% at var(--glow-end) 115%,
+      hsl(199 100% 50% / 0.5) 0%,
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 40% 55% at var(--glow-start) 110%,
+      hsl(199 100% 50% / 0.22) 0%,
+      transparent 65%
+    );
+}
+
+.section[dir="rtl"] .frame {
+  --glow-end: 0%;
+  --glow-start: 100%;
+}
+
+:global(html.dark) .frame {
+  background-color: hsl(var(--surface));
+  background-image:
+    radial-gradient(
+      ellipse 70% 90% at var(--glow-end) 115%,
+      hsl(199 100% 50% / 0.32) 0%,
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 40% 55% at var(--glow-start) 110%,
+      hsl(218 58% 28% / 0.7) 0%,
+      transparent 65%
+    );
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+  align-items: stretch;
+  gap: var(--gap-lg);
 }
 
 .card {
@@ -109,16 +150,18 @@
   display: block;
   width: 100%;
   height: auto;
-  background: none;
-  padding: 0;
-  object-fit: cover;
-  border-radius: var(--rounded-app);
+  object-fit: contain;
+  scale: 1.15;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .section {
-    padding: 0 var(--padding-mobile);
+    padding: 0 var(--padding-tablet);
     padding-bottom: var(--padding-tablet);
+  }
+
+  .frame {
+    padding: var(--gap-md);
   }
 
   .layout {
@@ -126,9 +169,9 @@
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (max-width: 768px) {
   .section {
-    padding: 0 var(--padding-tablet);
+    padding: 0 var(--padding-mobile);
     padding-bottom: var(--padding-tablet);
   }
 }
