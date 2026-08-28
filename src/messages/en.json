@@ -21,14 +21,17 @@
     "description": "A programmable trust and execution layer for institutional money movement. Built for governments, financial institutions, and private capital. Configurable. Permissioned. Enforceable."
   },
   "hero": {
-    "title": "Programmable trust for institutional money movement.",
-    "titleHighlight": "institutional money movement.",
-    "subtitleIntro": "K Rails is the control layer that decides whether money should move – with permissioned privacy, compliance and proof built in.",
-    "subtitleHighlight0": "Configurable by the institution.",
-    "subtitleHighlight1": "Enforceable at every step.",
-    "subtitleHighlight2": "Auditable by design.",
-    "useCases": "Use Cases",
-    "contactSales": "Talk to Our Commercial Team"
+    "eyebrow": "K Lab is the trust infrastructure company behind K Rails.",
+    "titleLine1": "Money moves.",
+    "titleLine2": "K Rails decides when.",
+    "subtitle": "The Infrastructure governments, banks, companies, and private capital use to move regulated money. Every payment verified before it executes. No exceptions.",
+    "cta": "Book a Walkthrough",
+    "statBillionTitle": "$1 Billion+",
+    "statBillionBody": "Moved, fully authorized",
+    "statYearsTitle": "+5 years",
+    "statYearsBody": "In production, built on five years of proprietary transaction data & AI models",
+    "statLiveTitle": "Already live",
+    "statLiveBody": "in Canada, Mexico, Brazil and other Latin America markets."
   },
   "companyBrand": {
     "title": "Our Brand",

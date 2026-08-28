@@ -1,0 +1,109 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: var(--gap-md);
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  margin-top: auto;
+  padding: 0 var(--padding-desktop) var(--padding-desktop);
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem;
+  width: 301px;
+  min-height: 98px;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--rounded-app);
+  background: hsl(var(--foreground) / 0.1);
+  border: 1px solid hsl(var(--foreground) / 0.15);
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  opacity: 0;
+}
+
+.loaded:not(.skip) .card {
+  animation: heroStatFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.loaded:not(.skip) .card:nth-child(1) {
+  animation-delay: 0.7s;
+}
+
+.loaded:not(.skip) .card:nth-child(2) {
+  animation-delay: 0.8s;
+}
+
+.loaded:not(.skip) .card:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
+.skip .card {
+  opacity: 1;
+  animation: none;
+}
+
+@keyframes heroStatFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.title {
+  margin: 0;
+  font-weight: var(--font-bold);
+  font-size: 40px;
+  line-height: 1.1;
+  background-image: linear-gradient(180deg, hsl(var(--foreground)) 25%, hsl(var(--accent)) 85%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.titleLtr {
+  unicode-bidi: isolate;
+  direction: ltr;
+}
+
+.body {
+  margin: 0;
+  font-size: 12px;
+  font-weight: var(--font-medium);
+  line-height: 1.2;
+  color: hsl(var(--foreground));
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .list {
+    padding-inline: var(--padding-tablet);
+    padding-bottom: var(--padding-tablet);
+  }
+}
+
+@media (max-width: 768px) {
+  .list {
+    flex-direction: column;
+    align-items: stretch;
+    padding-inline: var(--padding-mobile);
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+}

@@ -1,12 +1,18 @@
 .hero {
+  /* Always the dark palette — video hero stays dark in light theme */
+  --background: 0 0% 0%;
+  --foreground: 0 0% 98%;
+  --accent: 199 100% 50%;
+  --accent-foreground: 0 0% 0%;
+  --border: 0 0% 19%;
   position: relative;
   width: 100%;
   /* Ensure hero is at least full viewport height minus the navbar, but can grow if content is larger */
   min-height: calc(100vh - var(--navbar-height));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  overflow-x: visible;
+  overflow-y: visible;
+  margin-bottom: var(--padding-tablet);
+  color: hsl(var(--foreground));
 }
 
 .videoEmbed {
@@ -34,25 +40,113 @@
   );
 }
 
+.stage {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - var(--navbar-height));
+  display: flex;
+  flex-direction: column;
+}
+
 .content {
-  position: relative; /* establish stacking context for overlay/video */
+  position: relative; /* stacking context so copy stays above overflowing cards */
+  z-index: 1;
   width: 100%;
   max-width: 1440px;
-  min-height: calc(100vh - var(--navbar-height));
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--gap-xl);
   padding: var(--padding-desktop);
+  padding-bottom: var(--gap-lg);
+  margin-inline: auto;
 }
 
 .mainContainer {
-  width: calc(100%);
+  width: 100%;
   height: fit-content;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-sm);
+  width: 100%;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0;
+  max-width: 716px;
+  width: 100%;
+  font-weight: var(--font-bold);
+  font-size: 24px;
+  line-height: normal;
+  color: hsl(var(--foreground));
+}
+
+.headline {
+  margin: 0;
+  max-width: 1048px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: var(--font-bold);
+  font-size: 64px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: hsl(var(--foreground));
+  text-align: center;
+}
+
+.headlineLine {
+  display: block;
+}
+
+.word {
+  display: inline-block;
+  white-space: pre;
+}
+
+.wordLtr {
+  unicode-bidi: isolate;
+  direction: ltr;
+}
+
+.headlineHighlight {
+  color: hsl(var(--accent));
+}
+
+.subtitle {
+  margin: 0;
+  max-width: 821px;
+  width: 100%;
+  font-weight: var(--font-medium);
+  font-size: 20px;
+  line-height: normal;
+  color: hsl(var(--foreground));
+}
+
+.ctaWrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: var(--gap-sm);
+}
+
+a.cta,
+button.cta {
+  background-color: hsl(var(--foreground));
+  color: hsl(var(--background));
+  font-size: 1.125rem;
+  font-weight: var(--font-base);
+  border-radius: var(--rounded-app);
 }
 
 .mainTextContainer {
@@ -135,12 +229,18 @@
   .contactButton:hover {
     background: hsl(var(--foreground) / 0.75);
   }
+
+  a.cta:hover,
+  button.cta:hover {
+    background-color: hsl(var(--foreground) / 0.9);
+  }
 }
 
 /* Tablet design */
 @media (max-width: 1024px) {
   .content {
     padding: var(--padding-tablet);
+    padding-bottom: var(--gap-lg);
   }
 }
 
@@ -148,8 +248,40 @@
 @media (max-width: 768px) {
   .content {
     padding: var(--padding-tablet) var(--padding-mobile);
+    padding-bottom: var(--gap-lg);
   }
   .videoEmbed {
     width: 100vw;
+  }
+
+  .eyebrow {
+    font-size: 18px;
+  }
+
+  .headline {
+    font-size: 40px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .eyebrow {
+    font-size: 16px;
+  }
+
+  .headline {
+    font-size: 32px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  a.cta,
+  button.cta {
+    width: 100%;
   }
 }

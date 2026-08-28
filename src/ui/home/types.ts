@@ -3,21 +3,31 @@
  * Passed from server (getTranslations) to client components.
  */
 export type HeroTranslations = {
-  title: string;
-  titleHighlight: string;
-  subtitleIntro: string;
-  subtitleHighlights: [string, string, string];
-  contactSales: string;
-  useCases: string;
+  eyebrow: string;
+  titleLine1: string;
+  titleLine2: string;
+  subtitle: string;
+  cta: string;
+  statBillionTitle: string;
+  statBillionBody: string;
+  statYearsTitle: string;
+  statYearsBody: string;
+  statLiveTitle: string;
+  statLiveBody: string;
 };
 
 export function buildHeroTranslations(t: (key: string) => string): HeroTranslations {
   return {
-    title: t("title"),
-    titleHighlight: t("titleHighlight"),
-    subtitleIntro: t("subtitleIntro"),
-    subtitleHighlights: [t("subtitleHighlight0"), t("subtitleHighlight1"), t("subtitleHighlight2")],
-    contactSales: t("contactSales"),
-    useCases: t("useCases"),
+    eyebrow: t("eyebrow"),
+    titleLine1: t("titleLine1"),
+    titleLine2: t("titleLine2"),
+    subtitle: t("subtitle"),
+    cta: t("cta"),
+    statBillionTitle: t("statBillionTitle"),
+    statBillionBody: t("statBillionBody"),
+    statYearsTitle: t("statYearsTitle"),
+    statYearsBody: t("statYearsBody"),
+    statLiveTitle: t("statLiveTitle"),
+    statLiveBody: t("statLiveBody"),
   };
 }

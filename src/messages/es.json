@@ -21,14 +21,17 @@
     "description": "Capa programable de confianza y ejecución para el movimiento institucional del dinero. Pensada para gobiernos, instituciones financieras y capital privado. Configurable. Con permisos. Ejecutable."
   },
   "hero": {
-    "title": "Confianza programable para el movimiento institucional del dinero.",
-    "titleHighlight": "movimiento institucional del dinero.",
-    "subtitleIntro": "K Rails es la capa de control que decide si el dinero debe moverse, con privacidad autorizada, cumplimiento y prueba integrados.",
-    "subtitleHighlight0": "Configurable por la institución.",
-    "subtitleHighlight1": "Exigible en cada paso.",
-    "subtitleHighlight2": "Auditable por diseño.",
-    "useCases": "Casos de uso",
-    "contactSales": "Hable con nuestro equipo comercial"
+    "eyebrow": "K Lab es la compañía de infraestructura de confianza detrás de K Rails.",
+    "titleLine1": "El dinero se mueve.",
+    "titleLine2": "K Rails decide cuándo.",
+    "subtitle": "La infraestructura que gobiernos, bancos, empresas y capital privado usan para mover dinero regulado. Cada pago se verifica antes de ejecutarse. Sin excepciones.",
+    "cta": "Agenda una demostración",
+    "statBillionTitle": "$1 mil millones+",
+    "statBillionBody": "Movidos, totalmente autorizados",
+    "statYearsTitle": "+5 años",
+    "statYearsBody": "En producción, construido sobre cinco años de datos transaccionales propietarios y modelos de IA",
+    "statLiveTitle": "Ya en operación",
+    "statLiveBody": "en Canadá, México, Brasil y otros mercados de América Latina."
   },
   "companyBrand": {
     "title": "Nuestra marca",

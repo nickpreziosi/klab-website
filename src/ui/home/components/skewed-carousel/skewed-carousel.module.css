@@ -1,0 +1,122 @@
+.root {
+  --slide-width: clamp(280px, 36vw, 560px);
+  --slide-gap: 1.5rem;
+  --shift: 0px;
+  --duration: 30s;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  width: 100%;
+  height: var(--hero-carousel-slot);
+  pointer-events: none;
+  overflow: visible;
+}
+
+.viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  perspective: 1400px;
+  perspective-origin: 40% 50%;
+}
+
+.lift {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: max-content;
+}
+
+.scene {
+  transform: rotate(-32deg) rotateX(26deg) rotateY(25deg) skewX(8deg) skewY(11deg);
+  transform-origin: 12% 50%;
+  transform-style: preserve-3d;
+}
+
+.rtl .scene {
+  transform: rotate(32deg) rotateX(26deg) rotateY(-25deg) skewX(-8deg) skewY(-11deg);
+  transform-origin: 88% 50%;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  direction: ltr;
+  will-change: transform;
+  animation: marquee var(--duration) linear infinite;
+  animation-play-state: paused;
+}
+
+.trackReady {
+  animation-play-state: running;
+}
+
+.rtl .track {
+  animation-name: marqueeRtl;
+}
+
+.group {
+  display: flex;
+  align-items: stretch;
+  gap: var(--slide-gap);
+  margin: 0;
+  padding: 0;
+  padding-right: var(--slide-gap);
+  list-style: none;
+}
+
+.slide {
+  flex: 0 0 auto;
+}
+
+.card {
+  position: relative;
+  width: var(--slide-width);
+  aspect-ratio: 1440 / 900;
+  border-radius: var(--rounded-app);
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--surface));
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(var(--shift) * -1), 0, 0);
+  }
+}
+
+@keyframes marqueeRtl {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(var(--shift), 0, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .root {
+    --slide-width: clamp(240px, 70vw, 400px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .trackReady {
+    animation: none;
+  }
+}

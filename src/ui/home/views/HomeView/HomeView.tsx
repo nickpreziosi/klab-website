@@ -10,13 +10,12 @@ import FaqSection from "@/ui/home/components/faq-section/faq-section";
 import { LoadingProgressBar } from "@/ui/shared/components/loading-progress-bar/loading-progress-bar";
 import { useHomeAnimation } from "@/ui/home/providers/home-animation-provider";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
-import { useEffectiveThemeSync } from "@/ui/shared/hooks/use-theme";
 import { useLocale } from "next-intl";
 import type { Locale } from "@/i18n/routing";
 import styles from "./HomeView.module.css";
 
-const VIDEO_DARK = "/videos/klab-home-loop.mp4";
-const VIDEO_LIGHT = "/videos/klab-home-loop-light.mp4";
+const BACKGROUND_VIDEO = "/videos/klab-hero-loop.mp4";
+const BACKGROUND_POSTER = "/images/bg-logo-zoom-right.webp";
 
 type HomeViewProps = {
   /** When provided (from server), hero copy is SSR'd */
@@ -34,16 +33,14 @@ export function HomeView({ heroTranslations, krailsWhyTranslations }: HomeViewPr
   const heroSkipAnimation =
     skipFromLocaleSwitch ||
     ((homeAnimation?.hasAnimated && homeAnimation?.homeHeroEntranceCompleted) ?? false);
-  const effectiveTheme = useEffectiveThemeSync();
-  const videoUrl = effectiveTheme === "dark" ? VIDEO_DARK : VIDEO_LIGHT;
 
   return (
     <>
       {/* Outside Suspense so the boundary resolving does not remount the loader and replay the 1s animation */}
       <LoadingProgressBar />
       <VideoBackground
-        videoUrl={videoUrl}
-        posterUrl="/images/klab-home-loop-poster.webp"
+        videoUrl={BACKGROUND_VIDEO}
+        posterUrl={BACKGROUND_POSTER}
         skipAnimation={skipAnimation}
       />
       <div className={styles.page}>
