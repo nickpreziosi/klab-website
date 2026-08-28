@@ -1,4 +1,9 @@
 .sidebar {
+  /* Same dark palette as the hero — sidebar stays light-on-dark in both themes */
+  --background: 0 0% 0%;
+  --foreground: 0 0% 98%;
+  --surface: 0 0% 8%;
+  --accent: 199 100% 50%;
   position: fixed;
   inset-inline-start: 2rem;
   top: 50%;
@@ -20,6 +25,7 @@
   border: 1px solid hsl(var(--foreground));
   border-radius: var(--rounded-app);
   color: hsl(var(--foreground));
+  background: hsl(var(--surface) / 0.9);
   text-decoration: none;
   transition: all 50ms ease-in-out;
   backdrop-filter: blur(20px);
