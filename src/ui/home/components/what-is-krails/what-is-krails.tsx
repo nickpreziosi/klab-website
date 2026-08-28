@@ -1,14 +1,18 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import type { HomeKrailsTranslations } from "@/ui/home/types";
 import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
-import { useEffectiveThemeSync } from "@/ui/shared/hooks/use-theme";
 import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
+import { cn } from "@/ui/shared/utils/utils";
 import styles from "./what-is-krails.module.css";
+
+const DASHBOARD_VIDEO = "/videos/krails-what-is-dashboard.mp4";
+const DASHBOARD_POSTER = "/images/krails-what-is-dashboard.webp";
 
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
 const LOGO_LIGHT = "/logos/krails-logo-light.svg";
@@ -33,8 +37,15 @@ export function WhatIsKrails({
 }: WhatIsKrailsProps) {
   const locale = useLocale() as Locale;
   const dir = getTextDirection(locale);
-  const effectiveTheme = useEffectiveThemeSync();
-  const logoSrc = effectiveTheme === "dark" ? LOGO_LIGHT : LOGO_DARK;
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setPrefersReducedMotion(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   return (
     <motion.section
@@ -51,14 +62,25 @@ export function WhatIsKrails({
           <h2 className={styles.heading}>
             <span className={styles.prefix}>{translations.whatIsPrefix}</span>
             <span className={styles.logoRow}>
-              <Image
-                src={logoSrc}
-                alt="K Rails"
-                width={245}
-                height={57}
-                className={styles.logo}
-                dir="ltr"
-              />
+              <span className={styles.logoWrap} dir="ltr">
+                <img
+                  src={LOGO_DARK}
+                  alt="K Rails"
+                  width={245}
+                  height={57}
+                  className={cn(styles.logo, styles.logoLight)}
+                  decoding="async"
+                />
+                <img
+                  src={LOGO_LIGHT}
+                  alt=""
+                  width={245}
+                  height={57}
+                  className={cn(styles.logo, styles.logoDark)}
+                  decoding="async"
+                  aria-hidden
+                />
+              </span>
               <span className={styles.mark} aria-hidden>
                 {translations.whatIsQuestionMark}
               </span>
@@ -69,16 +91,32 @@ export function WhatIsKrails({
             <p>{withBrandLtr(translations.whatIsBody2, styles.brandLtr)}</p>
           </div>
         </div>
-        <Image
-          src="/images/krails-what-is-dashboard.webp"
-          alt={translations.whatIsImageAlt}
-          width={1920}
-          height={1080}
-          className={styles.mediaImage}
-          placeholder="blur"
-          blurDataURL={BLUR_PLACEHOLDER}
-          sizes="(max-width: 768px) 100vw, 55vw"
-        />
+        {prefersReducedMotion ? (
+          <Image
+            src={DASHBOARD_POSTER}
+            alt={translations.whatIsImageAlt}
+            width={1116}
+            height={634}
+            className={styles.mediaImage}
+            placeholder="blur"
+            blurDataURL={BLUR_PLACEHOLDER}
+            sizes="(max-width: 768px) 100vw, 55vw"
+          />
+        ) : (
+          <video
+            className={styles.mediaImage}
+            src={DASHBOARD_VIDEO}
+            poster={DASHBOARD_POSTER}
+            width={1116}
+            height={634}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label={translations.whatIsImageAlt}
+          />
+        )}
       </div>
     </motion.section>
   );
