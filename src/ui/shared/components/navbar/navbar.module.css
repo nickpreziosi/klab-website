@@ -231,12 +231,6 @@
   .navbar {
     padding: 0 var(--padding-tablet);
   }
-  .forceNavStyles {
-    border-bottom: solid 1px hsl(var(--foreground) / 0.2) !important;
-    box-shadow: var(--shadow-black) !important;
-    backdrop-filter: blur(8px) !important;
-    background: hsl(var(--background) / 0.75) !important;
-  }
 }
 
 @media only screen and (max-width: 769px) {

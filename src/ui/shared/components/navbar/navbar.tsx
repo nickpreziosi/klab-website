@@ -17,7 +17,6 @@ import {
   preloadTechnologyLogos,
 } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
 import { useTheme } from "@/ui/shared/hooks/use-theme";
-import { getSavedScrollY } from "@/ui/shared/utils/scroll-preservation";
 import styles from "./navbar.module.css";
 
 type NavigationMenuDemoProps = {
@@ -38,18 +37,11 @@ export const NavigationMenuDemo = ({
   const t = useTranslations("nav");
   const nav = serverNavTranslations ?? buildNavTranslations(t);
   const { effectiveTheme } = useTheme();
-  const [isAtTop, setIsAtTop] = useState(() => {
-    if (typeof window === "undefined") return true;
-    const saved = getSavedScrollY();
-    if (saved !== null && saved > 0) return false;
-    return window.scrollY <= 0;
-  });
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [useCompactLogo, setUseCompactLogo] = useState(false);
   const [isNavbarHidden, setIsNavbarHidden] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const lastScrollY = useRef(0);
-  const spacerRef = useRef<HTMLDivElement>(null);
   const dropdownTriggerRef = useRef<HTMLButtonElement | null>(null);
   const dropdownContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -95,11 +87,6 @@ export const NavigationMenuDemo = ({
     const handleScroll = () => {
       if (cancelled) return;
       const scrollY = window.scrollY;
-
-      if (spacerRef.current) {
-        const elementTop = spacerRef.current.getBoundingClientRect().top;
-        setIsAtTop(elementTop >= 0);
-      }
 
       // Scroll-to-hide: hide on scroll down, show on scroll up or at top (desktop + mobile)
       const threshold = 80;
@@ -188,29 +175,24 @@ export const NavigationMenuDemo = ({
     };
   }, [dropdownOpen]);
 
-  // usePathname() returns path without locale (e.g. "/" for homepage in any locale)
-  const isHomepage = path === "/";
-  const useTransparentNav = isHomepage && isAtTop && !dropdownOpen;
   const shouldHideNavbar = isNavbarHidden && !dropdownOpen && !drawerOpen;
 
   return (
     <>
-      <div ref={spacerRef} className={styles.spacer}>
+      <div className={styles.spacer}>
         <nav
           style={{
             height: "auto",
-            backdropFilter: useTransparentNav ? "none" : "blur(8px)",
-            background: useTransparentNav ? "transparent" : "hsl(var(--background) / 0.7)",
-            borderBottom: useTransparentNav
-              ? "solid 1px transparent"
-              : "solid 1px hsl(var(--foreground) / 0.2)",
-            boxShadow: useTransparentNav ? "none" : "var(--shadow-black)",
+            backdropFilter: "blur(8px)",
+            background: "hsl(var(--background) / 0.7)",
+            borderBottom: "solid 1px hsl(var(--foreground) / 0.2)",
+            boxShadow: "var(--shadow-black)",
           }}
           id="navbarContainer"
           aria-label={nav.mainNav}
-          className={`${styles.container} ${!isHomepage && styles.forceNavStyles} ${
-            !useTransparentNav && styles.containerScrolled
-          } ${dropdownOpen && styles.containerDropdownOpen} ${shouldHideNavbar && styles.containerHidden}`}
+          className={`${styles.container} ${styles.containerScrolled} ${
+            dropdownOpen && styles.containerDropdownOpen
+          } ${shouldHideNavbar && styles.containerHidden}`}
         >
           {/* Preload tech logos on page load so drawer technologies dropdown shows them instantly */}
           <div className={styles.techLogoPreload} aria-hidden>
