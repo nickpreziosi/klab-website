@@ -6,7 +6,7 @@ import { ProductCarousel } from "@/ui/home/components/product-carousel/product-c
 import { WhatIsKrails } from "@/ui/home/components/what-is-krails/what-is-krails";
 import { ReplaceSystems } from "@/ui/home/components/replace-systems/replace-systems";
 import VideoBackground from "@/ui/home/components/video-background/video-background";
-import HomeSecondarySection from "@/ui/home/components/home-secondary-section/home-secondary-section";
+import { SimpleSecureFrictionless } from "@/ui/home/components/simple-secure-frictionless/simple-secure-frictionless";
 import { LoadingProgressBar } from "@/ui/shared/components/loading-progress-bar/loading-progress-bar";
 import { useHomeAnimation } from "@/ui/home/providers/home-animation-provider";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
@@ -51,7 +51,10 @@ export function HomeView({ heroTranslations, homeKrailsTranslations }: HomeViewP
             translations={homeKrailsTranslations}
             skipAnimation={skipFromLocaleSwitch}
           />
-          <HomeSecondarySection skipAnimation={skipFromLocaleSwitch} />
+          <SimpleSecureFrictionless
+            translations={homeKrailsTranslations}
+            skipAnimation={skipFromLocaleSwitch}
+          />
         </main>
       </div>
     </>

@@ -42,6 +42,21 @@ export type HomeKrailsTranslations = {
   replaceAnswer: string;
   replaceBody1: string;
   replaceBody2: string;
+  trustTitle: string;
+  trustTagline: string;
+  trustBody: string;
+  trustEmphasis: string;
+  trustEncryptTitle: string;
+  trustEncryptBody: string;
+  trustFailureTitle: string;
+  trustFailureBody: string;
+  trustPrivacyTitle: string;
+  trustPrivacyBody: string;
+  trustAuditTitle: string;
+  trustAuditBody: string;
+  trustPillConfigurable: string;
+  trustPillEssential: string;
+  trustPillAuditable: string;
 };
 
 export function buildHomeKrailsTranslations(
@@ -57,5 +72,20 @@ export function buildHomeKrailsTranslations(
     replaceAnswer: t("replaceAnswer"),
     replaceBody1: t("replaceBody1"),
     replaceBody2: t("replaceBody2"),
+    trustTitle: t("trustTitle"),
+    trustTagline: t("trustTagline"),
+    trustBody: t("trustBody"),
+    trustEmphasis: t("trustEmphasis"),
+    trustEncryptTitle: t("trustEncryptTitle"),
+    trustEncryptBody: t("trustEncryptBody"),
+    trustFailureTitle: t("trustFailureTitle"),
+    trustFailureBody: t("trustFailureBody"),
+    trustPrivacyTitle: t("trustPrivacyTitle"),
+    trustPrivacyBody: t("trustPrivacyBody"),
+    trustAuditTitle: t("trustAuditTitle"),
+    trustAuditBody: t("trustAuditBody"),
+    trustPillConfigurable: t("trustPillConfigurable"),
+    trustPillEssential: t("trustPillEssential"),
+    trustPillAuditable: t("trustPillAuditable"),
   };
 }

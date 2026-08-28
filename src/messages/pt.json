@@ -42,7 +42,22 @@
     "replaceQuestion": "Ele substitui os seus sistemas?",
     "replaceAnswer": "Não",
     "replaceBody1": "Você já opera no seu próprio sistema. O K Rails se conecta a essa base para adicionar regras de aprovação, visibilidade total do processo de pagamento e rastreabilidade de ponta a ponta.",
-    "replaceBody2": "O K Rails não substitui nada. Ele se conecta ao que você já tem e acrescenta três coisas que hoje não existem: regras de aprovação automáticas, a opção de factoring reverso para fornecedores que precisem e um registro que ninguém pode alterar."
+    "replaceBody2": "O K Rails não substitui nada. Ele se conecta ao que você já tem e acrescenta três coisas que hoje não existem: regras de aprovação automáticas, a opção de factoring reverso para fornecedores que precisem e um registro que ninguém pode alterar.",
+    "trustTitle": "SIMPLES • SEGURO • SEM ATRITO",
+    "trustTagline": "Feito para ser confiável. Desenhado para ser simples.",
+    "trustBody": "Governo, bancos e auditores veem exatamente os mesmos dados em tempo real.",
+    "trustEmphasis": "Sem conflitos. Sem disputas.",
+    "trustEncryptTitle": "Criptografia de grau militar",
+    "trustEncryptBody": "Dados financeiros protegidos por padrões criptográficos usados por agências de defesa.",
+    "trustFailureTitle": "Sem ponto único de falha",
+    "trustFailureBody": "Um ciberataque a um servidor não pode corromper o livro-razão. Os dados são distribuídos e replicados.",
+    "trustPrivacyTitle": "Privacidade permissionada",
+    "trustPrivacyBody": "Cada parte vê apenas o que está autorizada a ver. Os dados do fornecedor permanecem privados; os auditores veem o rastro completo.",
+    "trustAuditTitle": "Trilha de auditoria permanente",
+    "trustAuditBody": "Cada ação é registrada de forma permanente. Ninguém pode alterar os registros retroativamente.",
+    "trustPillConfigurable": "Configurável pela instituição",
+    "trustPillEssential": "Essencial em cada etapa",
+    "trustPillAuditable": "Auditável por design"
   },
   "companyBrand": {
     "title": "Nossa marca",

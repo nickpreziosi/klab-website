@@ -42,7 +42,22 @@
     "replaceQuestion": "Does it replace your systems?",
     "replaceAnswer": "No",
     "replaceBody1": "You already run your operations on your own system. K Rails connects to that foundation to add approval rules, full visibility into the payment process, and end-to-end traceability.",
-    "replaceBody2": "K Rails doesn’t replace anything. It connects to what you already have and adds three that don’t exist today: automatic approval rules, the option of reverse factoring for suppliers who need it, and a record no one can alter."
+    "replaceBody2": "K Rails doesn’t replace anything. It connects to what you already have and adds three that don’t exist today: automatic approval rules, the option of reverse factoring for suppliers who need it, and a record no one can alter.",
+    "trustTitle": "SIMPLE • SECURE • FRICTIONLESS",
+    "trustTagline": "Built to be trusted. Designed to be simple.",
+    "trustBody": "Government, banks and auditors all see the exact same real-time data.",
+    "trustEmphasis": "No conflicts. No disputes.",
+    "trustEncryptTitle": "Military-Grade Encryption",
+    "trustEncryptBody": "Financial data protected by cryptographic standards used by defense agencies.",
+    "trustFailureTitle": "No single point of failure",
+    "trustFailureBody": "A cyberattack on one server cannot corrupt the ledger. Data is distributed and replicated.",
+    "trustPrivacyTitle": "Permissioned private privacy",
+    "trustPrivacyBody": "Each party sees only what they're authorized to see. Vendor data stays private; auditors see the full trail.",
+    "trustAuditTitle": "Always-On Audit Trail",
+    "trustAuditBody": "Every action permanently recorded. Records cannot be retroactively altered by anyone.",
+    "trustPillConfigurable": "Configurable by the institution",
+    "trustPillEssential": "Essential at every step",
+    "trustPillAuditable": "Auditable by design"
   },
   "companyBrand": {
     "title": "Our Brand",

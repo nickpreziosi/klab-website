@@ -42,7 +42,22 @@
     "replaceQuestion": "¿Reemplaza tus sistemas?",
     "replaceAnswer": "No",
     "replaceBody1": "Ya operas sobre tu propio sistema. K Rails se conecta a esa base para añadir reglas de aprobación, visibilidad completa del proceso de pago y trazabilidad de extremo a extremo.",
-    "replaceBody2": "K Rails no reemplaza nada. Se conecta a lo que ya tienes y añade tres cosas que hoy no existen: reglas de aprobación automáticas, la opción de factoraje inverso para proveedores que lo necesiten y un registro que nadie puede alterar."
+    "replaceBody2": "K Rails no reemplaza nada. Se conecta a lo que ya tienes y añade tres cosas que hoy no existen: reglas de aprobación automáticas, la opción de factoraje inverso para proveedores que lo necesiten y un registro que nadie puede alterar.",
+    "trustTitle": "SIMPLE • SEGURO • SIN FRICCIÓN",
+    "trustTagline": "Hecho para merecer confianza. Diseñado para ser simple.",
+    "trustBody": "Gobiernos, bancos y auditores ven exactamente los mismos datos en tiempo real.",
+    "trustEmphasis": "Sin conflictos. Sin disputas.",
+    "trustEncryptTitle": "Cifrado de grado militar",
+    "trustEncryptBody": "Datos financieros protegidos con estándares criptográficos usados por agencias de defensa.",
+    "trustFailureTitle": "Sin un único punto de fallo",
+    "trustFailureBody": "Un ciberataque a un servidor no puede corromper el libro. Los datos están distribuidos y replicados.",
+    "trustPrivacyTitle": "Privacidad permissionada",
+    "trustPrivacyBody": "Cada parte ve solo lo que está autorizada a ver. Los datos del proveedor permanecen privados; los auditores ven el rastro completo.",
+    "trustAuditTitle": "Auditoría permanente",
+    "trustAuditBody": "Cada acción queda registrada de forma permanente. Nadie puede alterar los registros retroactivamente.",
+    "trustPillConfigurable": "Configurable por la institución",
+    "trustPillEssential": "Esencial en cada paso",
+    "trustPillAuditable": "Auditable por diseño"
   },
   "companyBrand": {
     "title": "Nuestra marca",
