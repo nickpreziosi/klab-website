@@ -33,6 +33,17 @@
     "statLiveTitle": "Já em operação",
     "statLiveBody": "no Canadá, México, Brasil e outros mercados da América Latina."
   },
+  "homeKrails": {
+    "whatIsPrefix": "O que é",
+    "whatIsQuestionMark": "?",
+    "whatIsBody1": "O K Rails não move dinheiro. Ele decide quando cada pagamento é autorizado e mantém um registro de todo o processo.",
+    "whatIsBody2": "O dinheiro se move pelos bancos e sistemas de pagamento que você já usa. O K Rails se conecta a esses sistemas para aprovar cada pagamento conforme regras definidas e registrar cada etapa de forma permanente e imutável.",
+    "whatIsImageAlt": "Painel do centro de controle do K Rails",
+    "replaceQuestion": "Ele substitui os seus sistemas?",
+    "replaceAnswer": "Não",
+    "replaceBody1": "Você já opera no seu próprio sistema. O K Rails se conecta a essa base para adicionar regras de aprovação, visibilidade total do processo de pagamento e rastreabilidade de ponta a ponta.",
+    "replaceBody2": "O K Rails não substitui nada. Ele se conecta ao que você já tem e acrescenta três coisas que hoje não existem: regras de aprovação automáticas, a opção de factoring reverso para fornecedores que precisem e um registro que ninguém pode alterar."
+  },
   "companyBrand": {
     "title": "Nossa marca",
     "promoVideoPosterAlt": "Vídeo promocional da K Lab",

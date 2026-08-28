@@ -24,9 +24,14 @@ const MARQUEE_PX_PER_SEC = 70;
 type SkewedCarouselProps = {
   /** When true, skip entrance animations (e.g. locale switch). */
   skipAnimation?: boolean;
+  /** In-flow homepage band (not absolutely pinned to the hero). */
+  inFlow?: boolean;
 };
 
-export function SkewedCarousel({ skipAnimation = false }: SkewedCarouselProps) {
+export function SkewedCarousel({
+  skipAnimation = false,
+  inFlow = false,
+}: SkewedCarouselProps) {
   const locale = useLocale() as Locale;
   const isRtl = getTextDirection(locale) === "rtl";
   const homeAnimation = useHomeAnimation();
@@ -40,8 +45,8 @@ export function SkewedCarousel({ skipAnimation = false }: SkewedCarouselProps) {
       setIsLoaded(true);
       return;
     }
-    if (loadingProgressFinished) setIsLoaded(true);
-  }, [skipAnimation, loadingProgressFinished]);
+    if (inFlow || loadingProgressFinished) setIsLoaded(true);
+  }, [skipAnimation, loadingProgressFinished, inFlow]);
 
   useEffect(() => {
     const el = groupRef.current;
@@ -62,7 +67,7 @@ export function SkewedCarousel({ skipAnimation = false }: SkewedCarouselProps) {
 
   return (
     <motion.div
-      className={cn(styles.root, isRtl && styles.rtl)}
+      className={cn(styles.root, isRtl && styles.rtl, inFlow && styles.inFlow)}
       aria-hidden
       style={
         {
@@ -77,9 +82,7 @@ export function SkewedCarousel({ skipAnimation = false }: SkewedCarouselProps) {
       <div className={styles.viewport}>
         <div className={styles.lift}>
           <div className={styles.scene}>
-            <div
-              className={cn(styles.track, shiftPx > 0 && styles.trackReady)}
-            >
+            <div className={cn(styles.track, shiftPx > 0 && styles.trackReady)}>
               {[0, 1].map((copy) => (
                 <ul
                   key={copy}

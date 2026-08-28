@@ -90,6 +90,19 @@
   display: block;
 }
 
+.inFlow {
+  --hero-carousel-slot: clamp(280px, 38vw, 480px);
+  position: relative;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  height: var(--hero-carousel-slot);
+}
+
+.inFlow .lift {
+  top: var(--gap-md);
+}
+
 @keyframes marquee {
   from {
     transform: translate3d(0, 0, 0);
@@ -111,6 +124,14 @@
 @media (max-width: 768px) {
   .root {
     --slide-width: clamp(240px, 70vw, 400px);
+  }
+
+  .inFlow {
+    --hero-carousel-slot: clamp(260px, 62vw, 380px);
+  }
+
+  .inFlow .lift {
+    top: 0;
   }
 }
 

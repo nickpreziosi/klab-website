@@ -31,3 +31,31 @@ export function buildHeroTranslations(t: (key: string) => string): HeroTranslati
     statLiveBody: t("statLiveBody"),
   };
 }
+
+export type HomeKrailsTranslations = {
+  whatIsPrefix: string;
+  whatIsQuestionMark: string;
+  whatIsBody1: string;
+  whatIsBody2: string;
+  whatIsImageAlt: string;
+  replaceQuestion: string;
+  replaceAnswer: string;
+  replaceBody1: string;
+  replaceBody2: string;
+};
+
+export function buildHomeKrailsTranslations(
+  t: (key: string) => string
+): HomeKrailsTranslations {
+  return {
+    whatIsPrefix: t("whatIsPrefix"),
+    whatIsQuestionMark: t("whatIsQuestionMark"),
+    whatIsBody1: t("whatIsBody1"),
+    whatIsBody2: t("whatIsBody2"),
+    whatIsImageAlt: t("whatIsImageAlt"),
+    replaceQuestion: t("replaceQuestion"),
+    replaceAnswer: t("replaceAnswer"),
+    replaceBody1: t("replaceBody1"),
+    replaceBody2: t("replaceBody2"),
+  };
+}

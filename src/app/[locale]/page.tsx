@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import type { HeroTranslations } from "@/ui/home/types";
-import { buildHeroTranslations } from "@/ui/home/types";
-import { buildKRailsWhyTranslations } from "@/ui/krails/types/krails-why-translations";
+import type { HeroTranslations, HomeKrailsTranslations } from "@/ui/home/types";
+import { buildHeroTranslations, buildHomeKrailsTranslations } from "@/ui/home/types";
 import { HomeView } from "@/ui/home/views/HomeView/HomeView";
 
 type Props = {
@@ -22,13 +21,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const [tHero, tKrails] = await Promise.all([
+  const [tHero, tHomeKrails] = await Promise.all([
     getTranslations("hero"),
-    getTranslations("krails"),
+    getTranslations("homeKrails"),
   ]);
   const heroTranslations: HeroTranslations = buildHeroTranslations(tHero);
-  const krailsWhyTranslations = buildKRailsWhyTranslations(tKrails);
+  const homeKrailsTranslations: HomeKrailsTranslations =
+    buildHomeKrailsTranslations(tHomeKrails);
   return (
-    <HomeView heroTranslations={heroTranslations} krailsWhyTranslations={krailsWhyTranslations} />
+    <HomeView
+      heroTranslations={heroTranslations}
+      homeKrailsTranslations={homeKrailsTranslations}
+    />
   );
 }

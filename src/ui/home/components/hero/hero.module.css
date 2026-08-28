@@ -11,7 +11,6 @@
   min-height: calc(100vh - var(--navbar-height));
   overflow-x: visible;
   overflow-y: visible;
-  margin-bottom: var(--padding-tablet);
   color: hsl(var(--foreground));
 }
 

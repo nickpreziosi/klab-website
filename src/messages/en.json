@@ -33,6 +33,17 @@
     "statLiveTitle": "Already live",
     "statLiveBody": "in Canada, Mexico, Brazil and other Latin America markets."
   },
+  "homeKrails": {
+    "whatIsPrefix": "What is",
+    "whatIsQuestionMark": "?",
+    "whatIsBody1": "K Rails doesn’t move money. It decides when each payment is authorized, and keeps a record of the entire process.",
+    "whatIsBody2": "The money moves through the banks and payment systems you already use. K Rails connects to those systems to approve each payment according to defined rules, and record every step permanently and immutably.",
+    "whatIsImageAlt": "K Rails control center dashboard",
+    "replaceQuestion": "Does it replace your systems?",
+    "replaceAnswer": "No",
+    "replaceBody1": "You already run your operations on your own system. K Rails connects to that foundation to add approval rules, full visibility into the payment process, and end-to-end traceability.",
+    "replaceBody2": "K Rails doesn’t replace anything. It connects to what you already have and adds three that don’t exist today: automatic approval rules, the option of reverse factoring for suppliers who need it, and a record no one can alter."
+  },
   "companyBrand": {
     "title": "Our Brand",
     "promoVideoPosterAlt": "K Lab promotional video",
