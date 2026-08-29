@@ -57,6 +57,10 @@ export type HomeKrailsTranslations = {
   trustPillConfigurable: string;
   trustPillEssential: string;
   trustPillAuditable: string;
+  rebateTitle: string;
+  rebateTagline: string;
+  rebateBody: string;
+  rebateSteps: { title: string; body: string }[];
   faqTitle: string;
   faqItems: { id: string; question: string; answer: string }[];
 };
@@ -89,6 +93,15 @@ export function buildHomeKrailsTranslations(
     trustPillConfigurable: t("trustPillConfigurable"),
     trustPillEssential: t("trustPillEssential"),
     trustPillAuditable: t("trustPillAuditable"),
+    rebateTitle: t("rebateTitle"),
+    rebateTagline: t("rebateTagline"),
+    rebateBody: t("rebateBody"),
+    rebateSteps: [
+      { title: t("rebateStep1Title"), body: t("rebateStep1Body") },
+      { title: t("rebateStep2Title"), body: t("rebateStep2Body") },
+      { title: t("rebateStep3Title"), body: t("rebateStep3Body") },
+      { title: t("rebateStep4Title"), body: t("rebateStep4Body") },
+    ],
     faqTitle: t("faqTitle"),
     faqItems: [
       { id: "factoring", question: t("faqFactoringQ"), answer: t("faqFactoringA") },

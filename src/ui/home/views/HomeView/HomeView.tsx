@@ -7,6 +7,7 @@ import { WhatIsKrails } from "@/ui/home/components/what-is-krails/what-is-krails
 import { ReplaceSystems } from "@/ui/home/components/replace-systems/replace-systems";
 import VideoBackground from "@/ui/home/components/video-background/video-background";
 import { SimpleSecureFrictionless } from "@/ui/home/components/simple-secure-frictionless/simple-secure-frictionless";
+import { InvoiceRebate } from "@/ui/home/components/invoice-rebate/invoice-rebate";
 import { HomeFaq } from "@/ui/home/components/home-faq/home-faq";
 import { LoadingProgressBar } from "@/ui/shared/components/loading-progress-bar/loading-progress-bar";
 import { useHomeAnimation } from "@/ui/home/providers/home-animation-provider";
@@ -53,6 +54,10 @@ export function HomeView({ heroTranslations, homeKrailsTranslations }: HomeViewP
             skipAnimation={skipFromLocaleSwitch}
           />
           <SimpleSecureFrictionless
+            translations={homeKrailsTranslations}
+            skipAnimation={skipFromLocaleSwitch}
+          />
+          <InvoiceRebate
             translations={homeKrailsTranslations}
             skipAnimation={skipFromLocaleSwitch}
           />
