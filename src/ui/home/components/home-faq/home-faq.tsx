@@ -45,7 +45,6 @@ export function HomeFaq({ translations, skipAnimation = false }: HomeFaqProps) {
       <Accordion.Root
         type="single"
         collapsible
-        defaultValue={translations.faqItems[0]?.id}
         className={styles.accordion}
       >
         {translations.faqItems.map((item) => (

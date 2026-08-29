@@ -1,10 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
-import { useHomeAnimation } from "@/ui/home/providers/home-animation-provider";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./skewed-carousel.module.css";
 
@@ -21,31 +19,15 @@ const SLIDES = [
 const MARQUEE_PX_PER_SEC = 70;
 
 type SkewedCarouselProps = {
-  /** When true, skip entrance animations (e.g. locale switch). */
-  skipAnimation?: boolean;
   /** In-flow homepage band (not absolutely pinned to the hero). */
   inFlow?: boolean;
 };
 
-export function SkewedCarousel({
-  skipAnimation = false,
-  inFlow = false,
-}: SkewedCarouselProps) {
+export function SkewedCarousel({ inFlow = false }: SkewedCarouselProps) {
   const locale = useLocale() as Locale;
   const isRtl = getTextDirection(locale) === "rtl";
-  const homeAnimation = useHomeAnimation();
-  const loadingProgressFinished = homeAnimation?.loadingProgressFinished ?? true;
-  const [isLoaded, setIsLoaded] = useState(skipAnimation);
   const groupRef = useRef<HTMLUListElement>(null);
   const [shiftPx, setShiftPx] = useState(0);
-
-  useEffect(() => {
-    if (skipAnimation) {
-      setIsLoaded(true);
-      return;
-    }
-    if (inFlow || loadingProgressFinished) setIsLoaded(true);
-  }, [skipAnimation, loadingProgressFinished, inFlow]);
 
   useEffect(() => {
     const el = groupRef.current;
@@ -65,7 +47,7 @@ export function SkewedCarousel({
   const durationSec = shiftPx > 0 ? Math.max(18, shiftPx / MARQUEE_PX_PER_SEC) : 30;
 
   return (
-    <motion.div
+    <div
       className={cn(styles.root, isRtl && styles.rtl, inFlow && styles.inFlow)}
       aria-hidden
       style={
@@ -74,9 +56,6 @@ export function SkewedCarousel({
           "--duration": `${durationSec}s`,
         } as React.CSSProperties
       }
-      initial={skipAnimation ? false : { opacity: 0 }}
-      animate={isLoaded ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className={styles.viewport}>
         <div className={styles.lift}>
@@ -105,6 +84,6 @@ export function SkewedCarousel({
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

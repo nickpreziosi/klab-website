@@ -44,7 +44,7 @@ export function HomeView({ heroTranslations, homeKrailsTranslations }: HomeViewP
       <div className={styles.page}>
         <main className={styles.main}>
           <Hero translations={heroTranslations} skipAnimation={heroSkipAnimation} />
-          <ProductCarousel skipAnimation={skipFromLocaleSwitch} />
+          <ProductCarousel />
           <WhatIsKrails
             translations={homeKrailsTranslations}
             skipAnimation={skipFromLocaleSwitch}
