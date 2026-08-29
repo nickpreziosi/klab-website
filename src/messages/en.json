@@ -57,7 +57,20 @@
     "trustAuditBody": "Every action permanently recorded. Records cannot be retroactively altered by anyone.",
     "trustPillConfigurable": "Configurable by the institution",
     "trustPillEssential": "Essential at every step",
-    "trustPillAuditable": "Auditable by design"
+    "trustPillAuditable": "Auditable by design",
+    "faqTitle": "FAQ",
+    "faqFactoringQ": "What is reverse factoring / confirming?",
+    "faqFactoringA": "Suppliers get paid early, funded by a bank instead of you. You keep your terms. A share of the savings comes back to you.",
+    "faqErpQ": "Does K Rails replace my ERP or banking systems?",
+    "faqErpA": "K Rails doesn’t replace anything. It connects to your ERP and banking systems to add approval rules, visibility, and an unalterable record.",
+    "faqFundingQ": "Who funds the early payments?",
+    "faqFundingA": "Bank partners on K Rails compete daily to fund reverse factoring. You don’t put up the capital.",
+    "faqTermsQ": "Does this change my payment terms?",
+    "faqTermsA": "No. You keep your current payment terms, with no change to DPO or working capital.",
+    "faqFraudQ": "How are invoices protected from fraud or duplication?",
+    "faqFraudA": "Duplicate and fraudulent invoices are blocked before payment, with full real-time visibility.",
+    "faqStartedQ": "How long does it take to get started?",
+    "faqStartedA": "K Rails plugs into your existing ERP and payment rails. Structured sprints take you from scoping to go-live without disrupting current operations."
   },
   "companyBrand": {
     "title": "Our Brand",

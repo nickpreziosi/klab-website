@@ -2,20 +2,19 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import { useHomeAnimation } from "@/ui/home/providers/home-animation-provider";
-import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./skewed-carousel.module.css";
 
+const DASHBOARD_GIF = "/images/krails-what-is-dashboard.gif";
 const SLIDES = [
-  { id: "logo-left", src: "/images/bg-logo-left.webp" },
-  { id: "logo-right", src: "/images/bg-logo-right.webp" },
-  { id: "logo-zoom-left", src: "/images/bg-logo-zoom-left.webp" },
-  { id: "logo-zoom-right", src: "/images/bg-logo-zoom-right.webp" },
-  { id: "gradient", src: "/images/klab-gradient.webp" },
+  { id: "dash-1" },
+  { id: "dash-2" },
+  { id: "dash-3" },
+  { id: "dash-4" },
+  { id: "dash-5" },
 ] as const;
 
 /** Pixels per second — keeps speed stable as card size changes. */
@@ -92,15 +91,10 @@ export function SkewedCarousel({
                   {SLIDES.map((item) => (
                     <li key={`${copy}-${item.id}`} className={styles.slide}>
                       <div className={styles.card}>
-                        <Image
-                          src={item.src}
+                        <img
+                          src={DASHBOARD_GIF}
                           alt=""
-                          width={1440}
-                          height={900}
                           className={styles.cardImage}
-                          placeholder="blur"
-                          blurDataURL={BLUR_PLACEHOLDER}
-                          sizes="(max-width: 768px) 70vw, 36vw"
                         />
                       </div>
                     </li>

@@ -57,6 +57,8 @@ export type HomeKrailsTranslations = {
   trustPillConfigurable: string;
   trustPillEssential: string;
   trustPillAuditable: string;
+  faqTitle: string;
+  faqItems: { id: string; question: string; answer: string }[];
 };
 
 export function buildHomeKrailsTranslations(
@@ -87,5 +89,14 @@ export function buildHomeKrailsTranslations(
     trustPillConfigurable: t("trustPillConfigurable"),
     trustPillEssential: t("trustPillEssential"),
     trustPillAuditable: t("trustPillAuditable"),
+    faqTitle: t("faqTitle"),
+    faqItems: [
+      { id: "factoring", question: t("faqFactoringQ"), answer: t("faqFactoringA") },
+      { id: "erp", question: t("faqErpQ"), answer: t("faqErpA") },
+      { id: "funding", question: t("faqFundingQ"), answer: t("faqFundingA") },
+      { id: "terms", question: t("faqTermsQ"), answer: t("faqTermsA") },
+      { id: "fraud", question: t("faqFraudQ"), answer: t("faqFraudA") },
+      { id: "started", question: t("faqStartedQ"), answer: t("faqStartedA") },
+    ],
   };
 }

@@ -57,7 +57,20 @@
     "trustAuditBody": "Cada ação é registrada de forma permanente. Ninguém pode alterar os registros retroativamente.",
     "trustPillConfigurable": "Configurável pela instituição",
     "trustPillEssential": "Essencial em cada etapa",
-    "trustPillAuditable": "Auditável por design"
+    "trustPillAuditable": "Auditável por design",
+    "faqTitle": "Perguntas frequentes",
+    "faqFactoringQ": "O que é factoring reverso / confirming?",
+    "faqFactoringA": "Os fornecedores recebem mais cedo, financiados por um banco em vez de por você. Você mantém os seus prazos. Uma parte da economia volta para você.",
+    "faqErpQ": "O K Rails substitui o meu ERP ou os sistemas bancários?",
+    "faqErpA": "O K Rails não substitui nada. Ele se conecta ao seu ERP e aos sistemas bancários para adicionar regras de aprovação, visibilidade e um registro inalterável.",
+    "faqFundingQ": "Quem financia os pagamentos antecipados?",
+    "faqFundingA": "Os bancos parceiros do K Rails competem diariamente para financiar o factoring reverso. Você não coloca o capital.",
+    "faqTermsQ": "Isso altera os meus prazos de pagamento?",
+    "faqTermsA": "Não. Você mantém os prazos de pagamento atuais, sem alteração no DPO nem no capital de giro.",
+    "faqFraudQ": "Como as faturas são protegidas contra fraude ou duplicação?",
+    "faqFraudA": "Faturas duplicadas e fraudulentas são bloqueadas antes do pagamento, com visibilidade total em tempo real.",
+    "faqStartedQ": "Quanto tempo leva para começar?",
+    "faqStartedA": "O K Rails se integra ao seu ERP e aos trilhos de pagamento existentes. Sprints estruturados levam você do escopo à operação sem interromper as operações atuais."
   },
   "companyBrand": {
     "title": "Nossa marca",
