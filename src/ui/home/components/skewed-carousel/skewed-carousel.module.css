@@ -36,11 +36,6 @@
   transform-style: preserve-3d;
 }
 
-.rtl .scene {
-  transform: rotate(32deg) rotateX(26deg) rotateY(-25deg) skewX(-8deg) skewY(-11deg);
-  transform-origin: 88% 50%;
-}
-
 .track {
   display: flex;
   width: max-content;
@@ -52,10 +47,6 @@
 
 .trackReady {
   animation-play-state: running;
-}
-
-.rtl .track {
-  animation-name: marqueeRtl;
 }
 
 .group {
@@ -109,15 +100,6 @@
   }
   to {
     transform: translate3d(calc(var(--shift) * -1), 0, 0);
-  }
-}
-
-@keyframes marqueeRtl {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(var(--shift), 0, 0);
   }
 }
 

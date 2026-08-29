@@ -18,7 +18,6 @@ interface VideoPlayerProps {
 export default function VideoPlayer({
   videoUrl,
   posterUrl,
-  fadeDurationMs = 300,
   skipAnimation = false,
 }: VideoPlayerProps) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -81,49 +80,65 @@ export default function VideoPlayer({
       return;
     }
 
+    // The video only exists after we portal. Initializing on the first in-tree node
+    // (or tearing down when skipAnimation flips) left a dead element in the portal.
+    if (!portalTarget) return;
+
     const vid = videoRef.current;
     if (!vid) return;
-
-    const previousUrl = vid.dataset.initializedUrl;
-    if (previousUrl === videoUrl) return;
-
-    setIsLoaded(false);
-    setMediaVisible(false);
 
     vid.muted = true;
     vid.loop = true;
     vid.playsInline = true;
     vid.preload = "auto";
-    vid.style.opacity = skipAnimation ? "1" : "0";
-    vid.style.transition = `opacity ${skipAnimation ? 0 : fadeDurationMs}ms ease`;
-    vid.src = videoUrl;
-    vid.dataset.initializedUrl = videoUrl;
 
-    const onCanPlay = () => {
-      requestAnimationFrame(() => {
-        vid.style.opacity = "1";
-        setMediaVisible(true);
-        setIsLoaded(true);
-      });
+    const reveal = () => {
+      setMediaVisible(true);
+      setIsLoaded(true);
     };
 
-    vid.addEventListener("canplay", onCanPlay);
-    vid.load();
-    const playPromise = vid.play();
-    if (playPromise && typeof playPromise.then === "function") {
-      playPromise.catch(() => {
-        /* muted autoplay can still be blocked; canplay will reveal the frame */
-      });
+    const tryPlay = () => {
+      const playPromise = vid.play();
+      if (playPromise && typeof playPromise.then === "function") {
+        playPromise.catch(() => {
+          /* muted autoplay can still be blocked; canplay/visibility will retry */
+        });
+      }
+    };
+
+    const onReady = () => {
+      tryPlay();
+      requestAnimationFrame(reveal);
+    };
+
+    vid.addEventListener("canplay", onReady);
+    vid.addEventListener("playing", reveal);
+
+    if (vid.dataset.initializedUrl !== videoUrl) {
+      vid.src = videoUrl;
+      vid.dataset.initializedUrl = videoUrl;
     }
 
-    return () => {
-      vid.pause();
-      vid.removeEventListener("canplay", onCanPlay);
-      vid.removeAttribute("data-initialized-url");
-      vid.removeAttribute("src");
-      vid.load();
+    if (vid.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      onReady();
+    } else {
+      tryPlay();
+    }
+
+    const onVisible = () => {
+      if (document.visibilityState === "visible") tryPlay();
     };
-  }, [videoUrl, fadeDurationMs, skipAnimation, prefersReducedMotion]);
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("pageshow", tryPlay);
+
+    return () => {
+      vid.removeEventListener("canplay", onReady);
+      vid.removeEventListener("playing", reveal);
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("pageshow", tryPlay);
+      vid.pause();
+    };
+  }, [portalTarget, videoUrl, prefersReducedMotion]);
 
   const content = (
     <div ref={wrapperRef} className={styles.backgroundVideo}>
@@ -165,10 +180,9 @@ export default function VideoPlayer({
     </div>
   );
 
-  // Portal into body so position:fixed is always relative to the viewport (avoids Safari
-  // mis-positioning when an ancestor has transform/filter or when the containing block is wrong).
-  if (portalTarget) {
-    return createPortal(content, portalTarget);
-  }
-  return content;
+  // Wait for body so position:fixed is always relative to the viewport (avoids Safari
+  // mis-positioning when an ancestor has transform/filter). Do not render the video in-tree
+  // first — that node is discarded when we portal, and the init effect would not re-run.
+  if (!portalTarget) return null;
+  return createPortal(content, portalTarget);
 }
