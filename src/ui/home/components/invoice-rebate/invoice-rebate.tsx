@@ -6,6 +6,7 @@ import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import type { HomeKrailsTranslations } from "@/ui/home/types";
 import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
+import { HomeAddons } from "@/ui/home/components/home-addons/home-addons";
 import styles from "./invoice-rebate.module.css";
 
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
@@ -124,6 +125,8 @@ export function InvoiceRebate({ translations, skipAnimation = false }: InvoiceRe
           </a>
         </div>
       </div>
+
+      <HomeAddons translations={translations} skipAnimation={skipAnimation} />
     </motion.section>
   );
 }

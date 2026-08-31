@@ -67,6 +67,16 @@ export type HomeKrailsTranslations = {
   rebateComparePhoneAlt: string;
   faqTitle: string;
   faqItems: { id: string; question: string; answer: string }[];
+  addonsEyebrow: string;
+  addonsTitleLine1: string;
+  addonsTitleLine2: string;
+  addonsBodyLead: string;
+  addonsBody: string;
+  addonsCallout1: string;
+  addonsCallout2: string;
+  addonsCallout3: string;
+  addonsCallout4: string;
+  addonsDashAlt: string;
   ctaTitle: string;
   ctaBody: string;
   ctaButton: string;
@@ -113,6 +123,16 @@ export function buildHomeKrailsTranslations(
     rebateCompareRight: t("rebateCompareRight"),
     rebateCompareCta: t("rebateCompareCta"),
     rebateComparePhoneAlt: t("rebateComparePhoneAlt"),
+    addonsEyebrow: t("addonsEyebrow"),
+    addonsTitleLine1: t("addonsTitleLine1"),
+    addonsTitleLine2: t("addonsTitleLine2"),
+    addonsBodyLead: t("addonsBodyLead"),
+    addonsBody: t("addonsBody"),
+    addonsCallout1: t("addonsCallout1"),
+    addonsCallout2: t("addonsCallout2"),
+    addonsCallout3: t("addonsCallout3"),
+    addonsCallout4: t("addonsCallout4"),
+    addonsDashAlt: t("addonsDashAlt"),
     faqTitle: t("faqTitle"),
     faqItems: [
       { id: "factoring", question: t("faqFactoringQ"), answer: t("faqFactoringA") },

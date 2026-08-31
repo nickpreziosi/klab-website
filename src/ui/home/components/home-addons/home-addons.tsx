@@ -1,0 +1,181 @@
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { useLocale } from "next-intl";
+import { getTextDirection, type Locale } from "@/i18n/routing";
+import type { HomeKrailsTranslations } from "@/ui/home/types";
+import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
+import { cn } from "@/ui/shared/utils/utils";
+import styles from "./home-addons.module.css";
+
+const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.7, ease: ENTRANCE_EASE },
+  },
+};
+
+const PRODUCTS = [
+  {
+    name: "K Risk",
+    href: "/technologies/krisk",
+    logoLight: "/images/home-addons/krisk-logo.png",
+    logoDark: "/logos/krisk-logo-light.svg",
+    className: styles.krisk,
+  },
+  {
+    name: "K Leads",
+    href: "/technologies/kleads",
+    logoLight: "/images/home-addons/kleads-logo.png",
+    logoDark: "/logos/kleads-logo-light.svg",
+    className: styles.kleads,
+  },
+  {
+    name: "K Talk",
+    href: "/technologies/ktalk",
+    logoLight: "/images/home-addons/ktalk-logo.png",
+    logoDark: "/logos/ktalk-logo-light.svg",
+    className: styles.ktalk,
+  },
+] as const;
+
+type HomeAddonsProps = {
+  translations: HomeKrailsTranslations;
+  skipAnimation?: boolean;
+};
+
+export function HomeAddons({ translations, skipAnimation = false }: HomeAddonsProps) {
+  const locale = useLocale() as Locale;
+  const dir = getTextDirection(locale);
+
+  return (
+    <motion.section
+      className={styles.section}
+      dir={dir}
+      aria-labelledby="home-addons-heading"
+      initial={skipAnimation ? false : "hidden"}
+      whileInView={skipAnimation ? undefined : "visible"}
+      animate={skipAnimation ? "visible" : undefined}
+      viewport={skipAnimation ? undefined : { once: true, amount: 0.15 }}
+      variants={fadeUp}
+    >
+      <div className={styles.top}>
+        <div className={styles.visual} dir="ltr">
+          <div className={styles.dashStack}>
+            <div className={styles.glowBack} aria-hidden />
+            <img
+              src="/images/home-addons/dashboard-back.png"
+              alt=""
+              className={styles.dashBack}
+              decoding="async"
+            />
+            <div className={styles.glowFront} aria-hidden />
+            <img
+              src="/images/home-addons/dashboard-front.png"
+              alt={translations.addonsDashAlt}
+              className={styles.dashFront}
+              decoding="async"
+            />
+            <span className={styles.leaderLeftWrap} aria-hidden>
+              <img
+                src="/images/home-addons/leader-left.svg"
+                alt=""
+                className={styles.leaderLeft}
+              />
+            </span>
+            <span className={styles.leaderRightWrap} aria-hidden>
+              <img
+                src="/images/home-addons/leader-right.svg"
+                alt=""
+                className={styles.leaderRight}
+              />
+            </span>
+          </div>
+
+          <div className={styles.callouts}>
+            <div className={styles.callout} dir={dir}>
+              <ul>
+                <li>{translations.addonsCallout1}</li>
+                <li>{translations.addonsCallout2}</li>
+              </ul>
+            </div>
+            <div className={styles.callout} dir={dir}>
+              <ul>
+                <li>{translations.addonsCallout3}</li>
+                <li>{translations.addonsCallout4}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.card}>
+          <div className={styles.pillLg}>
+            <span className={styles.plusLg} aria-hidden>
+              <img src="/images/home-addons/plus-circle-lg.svg" alt="" width={30} height={30} />
+              <span className={styles.plusBarVLg} />
+              <span className={styles.plusBarHLg} />
+            </span>
+            <span className={styles.eyebrow} dir={dir}>
+              {translations.addonsEyebrow}
+            </span>
+          </div>
+          <h2 id="home-addons-heading" className={styles.title}>
+            <span className={styles.titleLine}>{translations.addonsTitleLine1}</span>
+            <span className={styles.titleLine}>
+              {withBrandLtr(translations.addonsTitleLine2, styles.brandLtr)}
+            </span>
+          </h2>
+          <div className={styles.body}>
+            <p className={styles.bodyLead}>
+              {withBrandLtr(translations.addonsBodyLead, styles.brandLtr)}
+            </p>
+            <p className={styles.bodyRest}>
+              {withBrandLtr(translations.addonsBody, styles.brandLtr)}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.products} dir="ltr">
+        {PRODUCTS.map((product) => (
+          <Link
+            key={product.name}
+            href={product.href}
+            className={cn(styles.product, product.className)}
+            aria-label={product.name}
+          >
+            <span className={styles.pillSm} aria-hidden />
+            <span className={styles.plusSm} aria-hidden>
+              <img src="/images/home-addons/plus-circle-sm.svg" alt="" width={16} height={16} />
+              <span className={styles.plusBarVSm} />
+              <span className={styles.plusBarHSm} />
+            </span>
+            <span className={styles.pillSmLabel} dir={dir}>
+              {translations.addonsEyebrow}
+            </span>
+            <img
+              src={product.logoLight}
+              alt=""
+              className={cn(styles.productLogo, styles.logoLight)}
+              decoding="async"
+            />
+            <img
+              src={product.logoDark}
+              alt=""
+              className={cn(styles.productLogo, styles.logoDark)}
+              decoding="async"
+              aria-hidden
+            />
+            <span className={styles.play} aria-hidden>
+              <img src="/images/home-addons/play.svg" alt="" />
+            </span>
+          </Link>
+        ))}
+      </div>
+    </motion.section>
+  );
+}
