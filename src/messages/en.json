@@ -85,7 +85,10 @@
     "faqFraudQ": "How are invoices protected from fraud or duplication?",
     "faqFraudA": "Duplicate and fraudulent invoices are blocked before payment, with full real-time visibility.",
     "faqStartedQ": "How long does it take to get started?",
-    "faqStartedA": "K Rails plugs into your existing ERP and payment rails. Structured sprints take you from scoping to go-live without disrupting current operations."
+    "faqStartedA": "K Rails plugs into your existing ERP and payment rails. Structured sprints take you from scoping to go-live without disrupting current operations.",
+    "ctaTitle": "Unlock the savings already inside your invoices.",
+    "ctaBody": "Start today. Nothing about how you pay has to change.",
+    "ctaButton": "Book a Walkthrough"
   },
   "companyBrand": {
     "title": "Our Brand",

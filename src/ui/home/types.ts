@@ -67,6 +67,9 @@ export type HomeKrailsTranslations = {
   rebateComparePhoneAlt: string;
   faqTitle: string;
   faqItems: { id: string; question: string; answer: string }[];
+  ctaTitle: string;
+  ctaBody: string;
+  ctaButton: string;
 };
 
 export function buildHomeKrailsTranslations(
@@ -119,5 +122,8 @@ export function buildHomeKrailsTranslations(
       { id: "fraud", question: t("faqFraudQ"), answer: t("faqFraudA") },
       { id: "started", question: t("faqStartedQ"), answer: t("faqStartedA") },
     ],
+    ctaTitle: t("ctaTitle"),
+    ctaBody: t("ctaBody"),
+    ctaButton: t("ctaButton"),
   };
 }

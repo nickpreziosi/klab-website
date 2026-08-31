@@ -85,7 +85,10 @@
     "faqFraudQ": "Como as faturas são protegidas contra fraude ou duplicação?",
     "faqFraudA": "Faturas duplicadas e fraudulentas são bloqueadas antes do pagamento, com visibilidade total em tempo real.",
     "faqStartedQ": "Quanto tempo leva para começar?",
-    "faqStartedA": "O K Rails se integra ao seu ERP e aos trilhos de pagamento existentes. Sprints estruturados levam você do escopo à operação sem interromper as operações atuais."
+    "faqStartedA": "O K Rails se integra ao seu ERP e aos trilhos de pagamento existentes. Sprints estruturados levam você do escopo à operação sem interromper as operações atuais.",
+    "ctaTitle": "Liberte as economias que já estão nas suas faturas.",
+    "ctaBody": "Comece hoje. Nada na forma como você paga precisa mudar.",
+    "ctaButton": "Agende uma demonstração"
   },
   "companyBrand": {
     "title": "Nossa marca",
