@@ -1,41 +1,25 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import type { HomeKrailsTranslations } from "@/ui/home/types";
 import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
 import styles from "./why-k-lab.module.css";
 
-const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
-
-const fadeUp = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 0.7, ease: ENTRANCE_EASE },
-  },
-};
-
 type WhyKLabProps = {
   translations: HomeKrailsTranslations;
   skipAnimation?: boolean;
 };
 
-export function WhyKLab({ translations, skipAnimation = false }: WhyKLabProps) {
+export function WhyKLab({ translations }: WhyKLabProps) {
   const locale = useLocale() as Locale;
   const dir = getTextDirection(locale);
 
   return (
-    <motion.section
+    <section
       className={styles.section}
       dir={dir}
       aria-labelledby="why-k-lab-heading"
-      initial={skipAnimation ? false : "hidden"}
-      whileInView={skipAnimation ? undefined : "visible"}
-      animate={skipAnimation ? "visible" : undefined}
-      viewport={skipAnimation ? undefined : { once: true, amount: 0.2 }}
-      variants={fadeUp}
     >
       <p className={styles.eyebrow}>{withBrandLtr(translations.whyEyebrow, styles.brandLtr)}</p>
       <h2 id="why-k-lab-heading" className={styles.headline}>
@@ -98,6 +82,6 @@ export function WhyKLab({ translations, skipAnimation = false }: WhyKLabProps) {
       <p className={styles.outro}>
         {withBrandLtr(translations.whyOutro, styles.brandLtr)}
       </p>
-    </motion.section>
+    </section>
   );
 }

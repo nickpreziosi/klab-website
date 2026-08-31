@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { FileText, Landmark, Package } from "lucide-react";
 import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
@@ -10,8 +9,6 @@ import { HomeAddons } from "@/ui/home/components/home-addons/home-addons";
 import { WhoWeServe } from "@/ui/home/components/who-we-serve/who-we-serve";
 import { WhyKLab } from "@/ui/home/components/why-k-lab/why-k-lab";
 import styles from "./invoice-rebate.module.css";
-
-const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
 
 /** K Rails chevron, matching the Figma node inside the second circle. */
 function KrailsKMark({ className }: { className?: string }) {
@@ -34,14 +31,6 @@ function KrailsKMark({ className }: { className?: string }) {
   );
 }
 
-const fadeUp = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 0.7, ease: ENTRANCE_EASE },
-  },
-};
-
 type InvoiceRebateProps = {
   translations: HomeKrailsTranslations;
   skipAnimation?: boolean;
@@ -53,15 +42,10 @@ export function InvoiceRebate({ translations, skipAnimation = false }: InvoiceRe
   const steps = translations.rebateSteps;
 
   return (
-    <motion.section
+    <section
       className={styles.section}
       dir={dir}
       aria-labelledby="invoice-rebate-heading"
-      initial={skipAnimation ? false : "hidden"}
-      whileInView={skipAnimation ? undefined : "visible"}
-      animate={skipAnimation ? "visible" : undefined}
-      viewport={skipAnimation ? undefined : { once: true, amount: 0.2 }}
-      variants={fadeUp}
     >
       <header className={styles.intro}>
         <h2 id="invoice-rebate-heading" className={styles.title}>
@@ -131,6 +115,6 @@ export function InvoiceRebate({ translations, skipAnimation = false }: InvoiceRe
       <HomeAddons translations={translations} skipAnimation={skipAnimation} />
       <WhoWeServe translations={translations} skipAnimation={skipAnimation} />
       <WhyKLab translations={translations} skipAnimation={skipAnimation} />
-    </motion.section>
+    </section>
   );
 }

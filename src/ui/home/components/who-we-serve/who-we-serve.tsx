@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
 import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import type { HomeKrailsTranslations } from "@/ui/home/types";
@@ -13,15 +13,6 @@ import styles from "./who-we-serve.module.css";
 
 const DASHBOARD = "/images/who-we-serve/dashboard.png";
 const AUTOPLAY_MS = 8000;
-const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
-
-const fadeUp = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 0.7, ease: ENTRANCE_EASE },
-  },
-};
 
 const AUDIENCES: readonly { id: string; icon: string; rotate?: boolean }[] = [
   { id: "governments", icon: "/images/who-we-serve/icon-governments.svg" },
@@ -36,11 +27,13 @@ type WhoWeServeProps = {
   skipAnimation?: boolean;
 };
 
-export function WhoWeServe({ translations, skipAnimation = false }: WhoWeServeProps) {
+export function WhoWeServe({ translations }: WhoWeServeProps) {
   const locale = useLocale() as Locale;
   const dir = getTextDirection(locale);
+  const sectionRef = useRef<HTMLElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [selected, setSelected] = useState(0);
+  const isInView = useInView(sectionRef, { amount: 0.2 });
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     loop: true,
@@ -67,7 +60,7 @@ export function WhoWeServe({ translations, skipAnimation = false }: WhoWeServePr
   const items = translations.serveItems;
 
   useEffect(() => {
-    if (!emblaApi || items.length < 2) return;
+    if (!emblaApi || items.length < 2 || !isInView) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const id = window.setTimeout(() => {
@@ -75,7 +68,7 @@ export function WhoWeServe({ translations, skipAnimation = false }: WhoWeServePr
     }, AUTOPLAY_MS);
 
     return () => window.clearTimeout(id);
-  }, [emblaApi, items.length, selected]);
+  }, [emblaApi, items.length, selected, isInView]);
 
   const goTo = (index: number) => {
     emblaApi?.scrollTo(index);
@@ -112,15 +105,11 @@ export function WhoWeServe({ translations, skipAnimation = false }: WhoWeServePr
   };
 
   return (
-    <motion.section
+    <section
+      ref={sectionRef}
       className={styles.section}
       dir={dir}
       aria-labelledby="who-we-serve-heading"
-      initial={skipAnimation ? false : "hidden"}
-      whileInView={skipAnimation ? undefined : "visible"}
-      animate={skipAnimation ? "visible" : undefined}
-      viewport={skipAnimation ? undefined : { once: true, amount: 0.2 }}
-      variants={fadeUp}
     >
       <div className={styles.header}>
         <h2 id="who-we-serve-heading" className={styles.heading}>
@@ -240,6 +229,6 @@ export function WhoWeServe({ translations, skipAnimation = false }: WhoWeServePr
           <p className={styles.callout}>{translations.serveCallout}</p>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

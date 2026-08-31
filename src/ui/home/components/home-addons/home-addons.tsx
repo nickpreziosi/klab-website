@@ -1,23 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import type { HomeKrailsTranslations } from "@/ui/home/types";
 import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./home-addons.module.css";
-
-const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
-
-const fadeUp = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 0.7, ease: ENTRANCE_EASE },
-  },
-};
 
 const PRODUCTS = [
   {
@@ -48,20 +37,15 @@ type HomeAddonsProps = {
   skipAnimation?: boolean;
 };
 
-export function HomeAddons({ translations, skipAnimation = false }: HomeAddonsProps) {
+export function HomeAddons({ translations }: HomeAddonsProps) {
   const locale = useLocale() as Locale;
   const dir = getTextDirection(locale);
 
   return (
-    <motion.section
+    <section
       className={styles.section}
       dir={dir}
       aria-labelledby="home-addons-heading"
-      initial={skipAnimation ? false : "hidden"}
-      whileInView={skipAnimation ? undefined : "visible"}
-      animate={skipAnimation ? "visible" : undefined}
-      viewport={skipAnimation ? undefined : { once: true, amount: 0.15 }}
-      variants={fadeUp}
     >
       <div className={styles.top}>
         <div className={styles.visual} dir="ltr">
@@ -176,6 +160,6 @@ export function HomeAddons({ translations, skipAnimation = false }: HomeAddonsPr
           </Link>
         ))}
       </div>
-    </motion.section>
+    </section>
   );
 }

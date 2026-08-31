@@ -16,6 +16,10 @@
   color: var(--why-navy);
 }
 
+:global(html.dark) .eyebrow {
+  color: #ffffff;
+}
+
 .headline {
   margin: 0 0 1.25rem;
   max-width: 44rem;
