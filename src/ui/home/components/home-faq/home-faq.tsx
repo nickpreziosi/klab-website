@@ -30,6 +30,7 @@ export function HomeFaq({ translations, skipAnimation = false }: HomeFaqProps) {
 
   return (
     <motion.section
+      id="home-faq"
       className={styles.section}
       dir={dir}
       aria-labelledby="home-faq-heading"

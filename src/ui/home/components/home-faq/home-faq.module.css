@@ -1,6 +1,7 @@
 .section {
   width: 100%;
   padding: var(--padding-tablet) var(--padding-desktop);
+  scroll-margin-top: var(--navbar-height);
   color: hsl(var(--foreground));
   background: linear-gradient(180deg, #ffffff 0%, #f2f2f2 100%);
 }

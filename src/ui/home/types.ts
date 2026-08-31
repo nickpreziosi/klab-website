@@ -61,6 +61,10 @@ export type HomeKrailsTranslations = {
   rebateTagline: string;
   rebateBody: string;
   rebateSteps: { title: string; body: string }[];
+  rebateCompareLeft: string;
+  rebateCompareRight: string;
+  rebateCompareCta: string;
+  rebateComparePhoneAlt: string;
   faqTitle: string;
   faqItems: { id: string; question: string; answer: string }[];
 };
@@ -102,6 +106,10 @@ export function buildHomeKrailsTranslations(
       { title: t("rebateStep3Title"), body: t("rebateStep3Body") },
       { title: t("rebateStep4Title"), body: t("rebateStep4Body") },
     ],
+    rebateCompareLeft: t("rebateCompareLeft"),
+    rebateCompareRight: t("rebateCompareRight"),
+    rebateCompareCta: t("rebateCompareCta"),
+    rebateComparePhoneAlt: t("rebateComparePhoneAlt"),
     faqTitle: t("faqTitle"),
     faqItems: [
       { id: "factoring", question: t("faqFactoringQ"), answer: t("faqFactoringA") },

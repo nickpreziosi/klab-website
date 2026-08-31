@@ -95,6 +95,35 @@ export function InvoiceRebate({ translations, skipAnimation = false }: InvoiceRe
           ))}
         </ol>
       </div>
+
+      <div className={styles.compare}>
+        <img
+          src="/images/krails-rebate-waves.webp"
+          alt=""
+          className={styles.waves}
+          aria-hidden
+        />
+        <div className={styles.tint} aria-hidden />
+        <div className={styles.compareLeft}>
+          <p className={styles.compareCopy}>{translations.rebateCompareLeft}</p>
+        </div>
+        <div className={styles.phone}>
+          <img
+            src="/images/krails-rebate-phone.png"
+            alt={translations.rebateComparePhoneAlt}
+            width={448}
+            height={918}
+          />
+        </div>
+        <div className={styles.compareRight}>
+          <p className={styles.compareCopy}>
+            {withBrandLtr(translations.rebateCompareRight, styles.brandLtr)}
+          </p>
+          <a href="#home-faq" className={styles.cta}>
+            {translations.rebateCompareCta}
+          </a>
+        </div>
+      </div>
     </motion.section>
   );
 }
