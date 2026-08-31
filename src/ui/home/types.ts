@@ -83,6 +83,17 @@ export type HomeKrailsTranslations = {
   servePrev: string;
   serveNext: string;
   serveItems: { id: string; title: string; body: string }[];
+  whyEyebrow: string;
+  whyHeadline: string;
+  whyIntro: string;
+  whyOutro: string;
+  whyColWho: string;
+  whyColDo: string;
+  whyColDont: string;
+  whyRows: { who: string; do: string; dont: string }[];
+  whyKlabWho: string;
+  whyKlabDo: string;
+  whyKlabDont: string;
   ctaTitle: string;
   ctaBody: string;
   ctaButton: string;
@@ -151,6 +162,22 @@ export function buildHomeKrailsTranslations(
       { id: "banks", title: t("serveBanksTitle"), body: t("serveBanksBody") },
       { id: "capital", title: t("serveCapitalTitle"), body: t("serveCapitalBody") },
     ],
+    whyEyebrow: t("whyEyebrow"),
+    whyHeadline: t("whyHeadline"),
+    whyIntro: t("whyIntro"),
+    whyOutro: t("whyOutro"),
+    whyColWho: t("whyColWho"),
+    whyColDo: t("whyColDo"),
+    whyColDont: t("whyColDont"),
+    whyRows: [
+      { who: t("whyRow1Who"), do: t("whyRow1Do"), dont: t("whyRow1Dont") },
+      { who: t("whyRow2Who"), do: t("whyRow2Do"), dont: t("whyRow2Dont") },
+      { who: t("whyRow3Who"), do: t("whyRow3Do"), dont: t("whyRow3Dont") },
+      { who: t("whyRow4Who"), do: t("whyRow4Do"), dont: t("whyRow4Dont") },
+    ],
+    whyKlabWho: t("whyKlabWho"),
+    whyKlabDo: t("whyKlabDo"),
+    whyKlabDont: t("whyKlabDont"),
     faqTitle: t("faqTitle"),
     faqItems: [
       { id: "factoring", question: t("faqFactoringQ"), answer: t("faqFactoringA") },

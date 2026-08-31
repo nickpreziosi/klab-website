@@ -7,6 +7,8 @@ import { getTextDirection, type Locale } from "@/i18n/routing";
 import type { HomeKrailsTranslations } from "@/ui/home/types";
 import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
 import { HomeAddons } from "@/ui/home/components/home-addons/home-addons";
+import { WhoWeServe } from "@/ui/home/components/who-we-serve/who-we-serve";
+import { WhyKLab } from "@/ui/home/components/why-k-lab/why-k-lab";
 import styles from "./invoice-rebate.module.css";
 
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
@@ -127,6 +129,8 @@ export function InvoiceRebate({ translations, skipAnimation = false }: InvoiceRe
       </div>
 
       <HomeAddons translations={translations} skipAnimation={skipAnimation} />
+      <WhoWeServe translations={translations} skipAnimation={skipAnimation} />
+      <WhyKLab translations={translations} skipAnimation={skipAnimation} />
     </motion.section>
   );
 }

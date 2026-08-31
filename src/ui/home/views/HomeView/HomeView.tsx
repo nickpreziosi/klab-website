@@ -8,7 +8,6 @@ import { ReplaceSystems } from "@/ui/home/components/replace-systems/replace-sys
 import VideoBackground from "@/ui/home/components/video-background/video-background";
 import { SimpleSecureFrictionless } from "@/ui/home/components/simple-secure-frictionless/simple-secure-frictionless";
 import { InvoiceRebate } from "@/ui/home/components/invoice-rebate/invoice-rebate";
-import { WhoWeServe } from "@/ui/home/components/who-we-serve/who-we-serve";
 import { HomeFaq } from "@/ui/home/components/home-faq/home-faq";
 import { HomeCta } from "@/ui/home/components/home-cta/home-cta";
 import { LoadingProgressBar } from "@/ui/shared/components/loading-progress-bar/loading-progress-bar";
@@ -60,10 +59,6 @@ export function HomeView({ heroTranslations, homeKrailsTranslations }: HomeViewP
             skipAnimation={skipFromLocaleSwitch}
           />
           <InvoiceRebate
-            translations={homeKrailsTranslations}
-            skipAnimation={skipFromLocaleSwitch}
-          />
-          <WhoWeServe
             translations={homeKrailsTranslations}
             skipAnimation={skipFromLocaleSwitch}
           />
