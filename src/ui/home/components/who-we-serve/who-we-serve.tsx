@@ -23,13 +23,13 @@ const fadeUp = {
   },
 };
 
-const AUDIENCES = [
+const AUDIENCES: readonly { id: string; icon: string; rotate?: boolean }[] = [
   { id: "governments", icon: "/images/who-we-serve/icon-governments.svg" },
   { id: "enterprises", icon: "/images/who-we-serve/icon-enterprises.svg" },
   { id: "suppliers", icon: "/images/who-we-serve/icon-suppliers.svg", rotate: true },
   { id: "banks", icon: "/images/who-we-serve/icon-banks.svg", rotate: true },
   { id: "capital", icon: "/images/who-we-serve/icon-capital.svg" },
-] as const;
+];
 
 type WhoWeServeProps = {
   translations: HomeKrailsTranslations;
