@@ -1,6 +1,5 @@
 .section {
   width: 100%;
-  padding: var(--padding-tablet) var(--padding-desktop);
   scroll-margin-top: var(--navbar-height);
   color: hsl(var(--foreground));
   background: linear-gradient(180deg, #ffffff 0%, #f2f2f2 100%);
@@ -26,6 +25,9 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: var(--padding-tablet) var(--padding-desktop);
 }
 
 .item {
@@ -134,13 +136,13 @@
 }
 
 @media (max-width: 1024px) {
-  .section {
+  .accordion {
     padding: var(--padding-tablet);
   }
 }
 
 @media (max-width: 768px) {
-  .section {
+  .accordion {
     padding: var(--padding-tablet) var(--padding-mobile);
   }
 

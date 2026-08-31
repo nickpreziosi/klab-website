@@ -129,9 +129,10 @@ export const Hero = ({
   return (
     <section className={styles.hero}>
       <div className={styles.stage}>
-        <div className={styles.content}>
-          <div className={styles.mainContainer}>
-            <div dir={dir} className={styles.copy}>
+        <div className={styles.cluster}>
+          <div className={styles.content}>
+            <div className={styles.mainContainer}>
+              <div dir={dir} className={styles.copy}>
               <motion.p
                 className={styles.eyebrow}
                 initial={skipAnimation ? shown : faded}
@@ -197,14 +198,15 @@ export const Hero = ({
                   {translations.cta}
                 </Button>
               </motion.div>
+              </div>
             </div>
           </div>
+          <HeroStatCards
+            translations={translations}
+            skipAnimation={skipAnimation}
+            isLoaded={isLoaded}
+          />
         </div>
-        <HeroStatCards
-          translations={translations}
-          skipAnimation={skipAnimation}
-          isLoaded={isLoaded}
-        />
       </div>
     </section>
   );

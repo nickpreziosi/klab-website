@@ -45,20 +45,29 @@
   min-height: calc(100vh - var(--navbar-height));
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.content {
-  position: relative; /* stacking context so copy stays above overflowing cards */
+.cluster {
+  position: relative;
   z-index: 1;
-  width: 100%;
-  max-width: 1440px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--gap-xl);
-  padding: var(--padding-desktop);
-  padding-bottom: var(--gap-lg);
+  gap: var(--gap-lg);
+  width: 100%;
+  max-width: 1440px;
   margin-inline: auto;
+  padding: var(--padding-desktop);
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .mainContainer {
@@ -237,17 +246,15 @@ button.cta {
 
 /* Tablet design */
 @media (max-width: 1024px) {
-  .content {
+  .cluster {
     padding: var(--padding-tablet);
-    padding-bottom: var(--gap-lg);
   }
 }
 
 /* Mobile design */
 @media (max-width: 768px) {
-  .content {
+  .cluster {
     padding: var(--padding-tablet) var(--padding-mobile);
-    padding-bottom: var(--gap-lg);
   }
   .videoEmbed {
     width: 100vw;

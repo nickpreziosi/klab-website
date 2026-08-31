@@ -1,13 +1,14 @@
 .section {
   width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
   background: hsl(var(--background));
   padding: var(--gap-lg) var(--padding-desktop) var(--padding-desktop);
 }
 
 .card {
   position: relative;
-  max-width: 1440px;
-  margin-inline: auto;
+  width: 100%;
   padding: 40px 44px 18px;
   background: hsl(var(--surface));
   border: 1px solid hsl(var(--border));

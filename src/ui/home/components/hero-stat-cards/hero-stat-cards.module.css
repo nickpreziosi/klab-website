@@ -5,10 +5,8 @@
   align-items: stretch;
   gap: var(--gap-md);
   width: 100%;
-  max-width: 1440px;
-  margin-inline: auto;
-  margin-top: auto;
-  padding: 0 var(--padding-desktop) var(--padding-desktop);
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
@@ -86,18 +84,10 @@
   text-align: center;
 }
 
-@media (max-width: 1024px) {
-  .list {
-    padding-inline: var(--padding-tablet);
-    padding-bottom: var(--padding-tablet);
-  }
-}
-
 @media (max-width: 768px) {
   .list {
     flex-direction: column;
     align-items: stretch;
-    padding-inline: var(--padding-mobile);
   }
 
   .card {

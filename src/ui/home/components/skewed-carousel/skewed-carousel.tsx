@@ -6,7 +6,8 @@ import { getTextDirection, type Locale } from "@/i18n/routing";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./skewed-carousel.module.css";
 
-const DASHBOARD_GIF = "/images/krails-what-is-dashboard.gif";
+const DASHBOARD_VIDEO = "/videos/krails-what-is-dashboard.mp4";
+const DASHBOARD_POSTER = "/images/krails-what-is-dashboard.webp";
 const SLIDES = [
   { id: "dash-1" },
   { id: "dash-2" },
@@ -70,10 +71,15 @@ export function SkewedCarousel({ inFlow = false }: SkewedCarouselProps) {
                   {SLIDES.map((item) => (
                     <li key={`${copy}-${item.id}`} className={styles.slide}>
                       <div className={styles.card}>
-                        <img
-                          src={DASHBOARD_GIF}
-                          alt=""
+                        <video
                           className={styles.cardImage}
+                          src={DASHBOARD_VIDEO}
+                          poster={DASHBOARD_POSTER}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          preload="none"
                         />
                       </div>
                     </li>

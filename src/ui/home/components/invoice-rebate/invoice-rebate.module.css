@@ -2,9 +2,15 @@
   --rebate-node: 93px;
   --rebate-track: 14px;
   width: 100%;
-  padding: var(--padding-tablet) var(--padding-desktop);
   color: hsl(var(--accent));
   background: linear-gradient(180deg, #ffffff 0%, #f2f2f2 100%);
+}
+
+.inner {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: var(--padding-tablet) var(--padding-desktop);
 }
 
 :global(html.dark) .section {
@@ -302,7 +308,7 @@
 }
 
 @media (max-width: 1024px) {
-  .section {
+  .inner {
     padding: var(--padding-tablet);
   }
 
@@ -359,6 +365,9 @@
 @media (max-width: 768px) {
   .section {
     --rebate-node: 72px;
+  }
+
+  .inner {
     padding: var(--padding-tablet) var(--padding-mobile);
   }
 

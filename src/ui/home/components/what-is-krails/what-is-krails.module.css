@@ -1,5 +1,7 @@
 .section {
   width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
   background: hsl(var(--background));
   padding: 0 var(--padding-desktop);
   padding-bottom: var(--padding-tablet);
@@ -10,8 +12,7 @@
   --glow-start: 0%;
   position: relative;
   overflow: hidden;
-  max-width: 1440px;
-  margin-inline: auto;
+  width: 100%;
   padding: 22px;
   border-radius: var(--rounded-app);
   background-color: hsl(var(--background));

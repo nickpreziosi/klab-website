@@ -47,6 +47,7 @@ export function InvoiceRebate({ translations, skipAnimation = false }: InvoiceRe
       dir={dir}
       aria-labelledby="invoice-rebate-heading"
     >
+      <div className={styles.inner}>
       <header className={styles.intro}>
         <h2 id="invoice-rebate-heading" className={styles.title}>
           {translations.rebateTitle}
@@ -115,6 +116,7 @@ export function InvoiceRebate({ translations, skipAnimation = false }: InvoiceRe
       <HomeAddons translations={translations} skipAnimation={skipAnimation} />
       <WhoWeServe translations={translations} skipAnimation={skipAnimation} />
       <WhyKLab translations={translations} skipAnimation={skipAnimation} />
+      </div>
     </section>
   );
 }
