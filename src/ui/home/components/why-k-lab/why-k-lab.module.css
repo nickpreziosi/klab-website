@@ -198,6 +198,7 @@
   .klabRow {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     gap: 0.65rem;
     padding: 0.85rem 1rem;
     border-radius: 10px;
@@ -208,12 +209,15 @@
     background: hsl(var(--background));
   }
 
-  .cell {
+  .cell,
+  .klabCell {
     min-height: 0;
     padding: 0;
     border: 0;
     border-radius: 0;
     background: transparent;
+    justify-content: flex-start;
+    text-align: start;
   }
 
   :global(html.dark) .cell {

@@ -167,7 +167,7 @@
 
   .cards {
     grid-template-columns: 1fr;
-    max-width: 17.5rem;
+    max-width: none;
   }
 
   .pills {
