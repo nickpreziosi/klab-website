@@ -77,6 +77,12 @@ export type HomeKrailsTranslations = {
   addonsCallout3: string;
   addonsCallout4: string;
   addonsDashAlt: string;
+  serveTitle: string;
+  serveImageAlt: string;
+  serveCallout: string;
+  servePrev: string;
+  serveNext: string;
+  serveItems: { id: string; title: string; body: string }[];
   ctaTitle: string;
   ctaBody: string;
   ctaButton: string;
@@ -133,6 +139,18 @@ export function buildHomeKrailsTranslations(
     addonsCallout3: t("addonsCallout3"),
     addonsCallout4: t("addonsCallout4"),
     addonsDashAlt: t("addonsDashAlt"),
+    serveTitle: t("serveTitle"),
+    serveImageAlt: t("serveImageAlt"),
+    serveCallout: t("serveCallout"),
+    servePrev: t("servePrev"),
+    serveNext: t("serveNext"),
+    serveItems: [
+      { id: "governments", title: t("serveGovernmentsTitle"), body: t("serveGovernmentsBody") },
+      { id: "enterprises", title: t("serveEnterprisesTitle"), body: t("serveEnterprisesBody") },
+      { id: "suppliers", title: t("serveSuppliersTitle"), body: t("serveSuppliersBody") },
+      { id: "banks", title: t("serveBanksTitle"), body: t("serveBanksBody") },
+      { id: "capital", title: t("serveCapitalTitle"), body: t("serveCapitalBody") },
+    ],
     faqTitle: t("faqTitle"),
     faqItems: [
       { id: "factoring", question: t("faqFactoringQ"), answer: t("faqFactoringA") },
