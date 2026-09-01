@@ -64,7 +64,7 @@
   height: 0.5em;
   top: 50%;
   transform: translateY(-50%);
-  background-color: var(--accent-color);
+  background-color: #00acfd;
   z-index: 0;
 }
 

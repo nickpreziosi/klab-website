@@ -254,13 +254,13 @@
   .accordionTrigger:hover .cardTitle,
   .accordionTrigger:hover .cardPosition,
   .accordionTrigger:hover .accordionTriggerBio {
-    color: rgba(var(--accent-color-rgb));
+    color: #00acfd;
   }
   .socialLink:hover {
-    background: rgba(255, 0, 76, 0.1);
-    border-color: var(--accent-color, #ff004c);
-    color: var(--accent-color, #ff004c);
-    box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
+    background: rgba(0, 172, 253, 0.1);
+    border-color: #00acfd;
+    color: #00acfd;
+    box-shadow: 0 0 20px rgba(0, 172, 253, 0.3);
     transform: scale(1.1);
   }
 }
