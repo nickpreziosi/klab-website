@@ -1,6 +1,8 @@
 .section {
   --rebate-node: 93px;
   --rebate-track: 14px;
+  --rebate-beam: 2px;
+  --rebate-beam-span: calc(970 / 1003 * 100%);
   width: 100%;
   color: hsl(var(--accent));
   background: linear-gradient(180deg, #ffffff 0%, #f2f2f2 100%);
@@ -78,18 +80,19 @@
 
 .beam {
   position: absolute;
-  inset-block: 0;
-  width: 28%;
+  top: 50%;
+  width: var(--rebate-beam-span);
+  height: var(--rebate-beam);
+  transform: translateY(-50%);
   border-radius: 999px;
   background: linear-gradient(
     to right,
     transparent 0%,
-    rgb(255 255 255 / 0.2) 28%,
-    #ffffff 50%,
-    rgb(255 255 255 / 0.2) 72%,
+    #ffffff 6%,
+    #ffffff 94%,
     transparent 100%
   );
-  box-shadow: 0 0 16px 2px rgb(255 255 255 / 0.7);
+  box-shadow: 0 0 4px 0 rgb(255 255 255 / 0.55);
   animation: rebate-beam-x 3.2s linear infinite;
 }
 
@@ -97,9 +100,8 @@
   background: linear-gradient(
     to left,
     transparent 0%,
-    rgb(255 255 255 / 0.2) 28%,
-    #ffffff 50%,
-    rgb(255 255 255 / 0.2) 72%,
+    #ffffff 6%,
+    #ffffff 94%,
     transparent 100%
   );
 }
@@ -291,7 +293,7 @@
 
 @keyframes rebate-beam-x {
   from {
-    inset-inline-start: -28%;
+    inset-inline-start: calc(-1 * var(--rebate-beam-span));
   }
   to {
     inset-inline-start: 100%;
@@ -300,7 +302,7 @@
 
 @keyframes rebate-beam-y {
   from {
-    inset-block-start: -28%;
+    inset-block-start: calc(-1 * var(--rebate-beam-span));
   }
   to {
     inset-block-start: 100%;
@@ -404,15 +406,17 @@
   }
 
   .beam {
-    inset-inline: 0;
-    width: auto;
-    height: 28%;
+    top: auto;
+    inset-inline: unset;
+    left: 50%;
+    width: var(--rebate-beam);
+    height: var(--rebate-beam-span);
+    transform: translateX(-50%);
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      rgb(255 255 255 / 0.2) 28%,
-      #ffffff 50%,
-      rgb(255 255 255 / 0.2) 72%,
+      #ffffff 6%,
+      #ffffff 94%,
       transparent 100%
     );
     animation-name: rebate-beam-y;
@@ -422,9 +426,8 @@
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      rgb(255 255 255 / 0.2) 28%,
-      #ffffff 50%,
-      rgb(255 255 255 / 0.2) 72%,
+      #ffffff 6%,
+      #ffffff 94%,
       transparent 100%
     );
   }
@@ -469,13 +472,14 @@
 @media (prefers-reduced-motion: reduce) {
   .beam {
     animation: none;
-    inset-inline-start: 36%;
+    inset-inline-start: calc((100% - var(--rebate-beam-span)) / 2);
   }
 
   @media (max-width: 768px) {
     .beam {
-      inset-inline-start: 0;
-      inset-block-start: 36%;
+      inset-inline-start: unset;
+      left: 50%;
+      inset-block-start: calc((100% - var(--rebate-beam-span)) / 2);
     }
   }
 }
