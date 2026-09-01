@@ -1,9 +1,13 @@
 .section {
   width: 100%;
+  background: hsl(var(--background));
+}
+
+.inner {
+  width: 100%;
   max-width: 1440px;
   margin-inline: auto;
-  background: hsl(var(--background));
-  padding: var(--gap-lg) var(--padding-desktop) var(--padding-desktop);
+  padding: 0 var(--padding-desktop) var(--padding-desktop);
 }
 
 .card {
@@ -85,8 +89,8 @@
 }
 
 @media (max-width: 768px) {
-  .section {
-    padding: var(--gap-lg) var(--padding-mobile) var(--padding-mobile);
+  .inner {
+    padding: 0 var(--padding-mobile) var(--padding-mobile);
   }
 
   .card {
@@ -117,8 +121,8 @@
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .section {
-    padding: var(--gap-lg) var(--padding-tablet) var(--padding-tablet);
+  .inner {
+    padding: 0 var(--padding-tablet) var(--padding-tablet);
   }
 
   .card {

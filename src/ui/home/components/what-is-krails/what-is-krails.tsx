@@ -8,8 +8,7 @@ import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./what-is-krails.module.css";
 
-const DASHBOARD_VIDEO = "/videos/krails-what-is-dashboard.mp4";
-const DASHBOARD_POSTER = "/images/krails-what-is-dashboard.webp";
+const DASHBOARD_GIF = "/images/krails-what-is-dashboard.gif";
 
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
 const LOGO_LIGHT = "/logos/krails-logo-light.svg";
@@ -42,7 +41,8 @@ export function WhatIsKrails({ translations, skipAnimation = false }: WhatIsKrai
       viewport={skipAnimation ? undefined : { once: true, amount: 0.25 }}
       variants={fadeUp}
     >
-      <div className={styles.frame}>
+      <div className={styles.inner}>
+        <div className={styles.frame}>
         <div className={styles.layout}>
           <div className={styles.card}>
             <h2 className={styles.heading}>
@@ -78,17 +78,13 @@ export function WhatIsKrails({ translations, skipAnimation = false }: WhatIsKrai
             </div>
           </div>
 
-          <video
+          <img
+            src={DASHBOARD_GIF}
+            alt={translations.whatIsImageAlt}
             className={styles.mediaImage}
-            src={DASHBOARD_VIDEO}
-            poster={DASHBOARD_POSTER}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-label={translations.whatIsImageAlt}
+            decoding="async"
           />
+        </div>
         </div>
       </div>
     </motion.section>

@@ -1,8 +1,12 @@
 .section {
   width: 100%;
+  background: hsl(var(--background));
+}
+
+.inner {
+  width: 100%;
   max-width: 1440px;
   margin-inline: auto;
-  background: hsl(var(--background));
   padding: 0 var(--padding-desktop);
   padding-bottom: var(--padding-tablet);
 }
@@ -156,7 +160,7 @@
 }
 
 @media (max-width: 1200px) {
-  .section {
+  .inner {
     padding: 0 var(--padding-tablet);
     padding-bottom: var(--padding-tablet);
   }
@@ -176,7 +180,7 @@
 }
 
 @media (max-width: 768px) {
-  .section {
+  .inner {
     padding: 0 var(--padding-mobile);
     padding-bottom: var(--padding-tablet);
   }

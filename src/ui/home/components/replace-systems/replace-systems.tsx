@@ -33,7 +33,8 @@ export function ReplaceSystems({
         skipAnimation ? { duration: 0 } : { duration: 0.7, ease: ENTRANCE_EASE }
       }
     >
-      <div className={styles.card}>
+      <div className={styles.inner}>
+        <div className={styles.card}>
         <div className={styles.pills}>
           <h2 className={styles.question}>{translations.replaceQuestion}</h2>
           <p className={styles.answer}>{translations.replaceAnswer}</p>
@@ -42,6 +43,7 @@ export function ReplaceSystems({
           <p>{withBrandLtr(translations.replaceBody1, styles.brandLtr)}</p>
           <p>{withBrandLtr(translations.replaceBody2, styles.brandLtr)}</p>
         </div>
+      </div>
       </div>
     </motion.section>
   );

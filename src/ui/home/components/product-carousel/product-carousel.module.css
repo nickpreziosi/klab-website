@@ -1,16 +1,16 @@
 .section {
+  position: relative;
+  z-index: 2;
   width: 100%;
+  margin-top: -3.5vw;
+  padding: 0;
   background: hsl(var(--background));
-  padding-top: calc(var(--padding-tablet) + var(--gap-lg) + var(--gap-sm));
-  padding-bottom: 0;
-  /* clip, not hidden: hidden on one axis forces the other to auto and makes this a scroll container */
   overflow: clip;
   pointer-events: none;
 }
 
 @media (max-width: 768px) {
   .section {
-    padding-top: var(--padding-tablet);
-    padding-bottom: var(--padding-tablet);
+    margin-top: calc(var(--padding-tablet) * -0.5);
   }
 }
