@@ -5,7 +5,6 @@
   gap: 0;
 }
 
-/* Full-bleed poster + scrim sit inside shared `.posterContainer` */
 .posterRoot {
   overflow: hidden;
 }
@@ -19,17 +18,16 @@
   object-position: center;
 }
 
-.posterScrim {
+.choiceTitle {
   position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(
-    to top,
-    hsl(0 0% 0% / 0.62) 0%,
-    hsl(0 0% 0% / 0.35) 38%,
-    hsl(0 0% 0% / 0.22) 100%
-  );
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .choiceDock {
@@ -58,7 +56,6 @@
   box-shadow: 0 -12px 40px hsl(0 0% 0% / 0.25);
 }
 
-/* Initial state: full-poster split (two halves edge to edge) */
 .choiceDock.dockStack {
   inset: 0;
   flex-direction: column;
@@ -77,6 +74,7 @@
   min-height: 0;
   min-width: 0;
   width: 100%;
+  gap: 9px;
 }
 
 .halfChoice {
@@ -86,32 +84,34 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(12px, 3vw, 24px);
+  gap: 12px;
   padding: clamp(16px, 4vw, 36px);
-  border: none;
+  border: 1px solid transparent;
   cursor: pointer;
   font-family: inherit;
-  color: hsl(0 0% 100% / 0.95);
-  background: hsl(0 0% 0% / 0.4);
-  backdrop-filter: blur(12px) saturate(1.1);
-  -webkit-backdrop-filter: blur(12px) saturate(1.1);
-  transition: background 0.22s ease;
+  color: hsl(var(--accent));
+  background: rgb(255 255 255 / 0.85);
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease,
+    color 0.22s ease;
 }
 
 .halfChoice:hover,
 .halfChoice:focus-visible {
-  background: hsl(0 0% 100% / 0.12);
+  background: rgb(255 255 255 / 0.96);
   outline: none;
 }
 
-.splitDivider {
-  flex-shrink: 0;
-  width: 5px;
-  align-self: stretch;
-  background: hsl(0 0% 100% / 0.4);
+:global(html.dark) .halfChoice {
+  background: hsl(var(--background) / 0.5);
 }
 
-/* Playing: toggle at top, centered; hidden until hover (touch: always visible) */
+:global(html.dark) .halfChoice:hover,
+:global(html.dark) .halfChoice:focus-visible {
+  background: hsl(var(--background) / 0.68);
+}
+
 .choiceDockCompact {
   top: 0;
   bottom: auto;
@@ -164,7 +164,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(10px, 2vw, 16px);
+  gap: 8px;
   padding: clamp(16px, 3vw, 28px) clamp(12px, 2.5vw, 20px);
   border: none;
   cursor: pointer;
@@ -182,86 +182,58 @@
 
 .choiceSplit:hover,
 .choiceSplit:focus-visible {
-  background: hsl(0 0% 100% / 0.08);
+  background: hsl(0 0% 100% / 0.12);
   outline: none;
 }
 
 .choiceSplitActive {
-  background: hsl(var(--accent) / 0.5);
+  background: hsl(var(--accent) / 0.55);
 }
 
 .choiceSplitActive:hover,
 .choiceSplitActive:focus-visible {
-  background: hsl(var(--accent) / 0.5);
+  background: hsl(var(--accent) / 0.7);
 }
 
 .choiceLabel {
-  font-size: clamp(0.62rem, 2.8vw, 0.8125rem);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-align: center;
-  line-height: 1.25;
-  max-width: 18ch;
-}
-
-/* Horizontal split: title overlays the poster */
-.choiceTitle {
-  position: absolute;
-  top: clamp(16px, 4vw, 40px);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  width: min(calc(100% - 32px), 52rem);
   margin: 0;
+  max-width: 16.5rem;
+  font-size: 36px;
+  font-weight: var(--font-medium);
+  line-height: 1;
   text-align: center;
-  font-size: clamp(1.25rem, 3.2vw, 2rem);
-  font-weight: 600;
+  color: hsl(var(--accent));
+  transition: color 0.22s ease;
+}
+
+.choiceDockCompact .choiceLabel {
+  max-width: none;
+  font-size: 14px;
   line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: hsl(0 0% 100%);
-  text-shadow:
-    0 2px 16px hsl(0 0% 0% / 0.55),
-    0 1px 4px hsl(0 0% 0% / 0.4);
-  pointer-events: none;
+  color: hsl(0 0% 100% / 0.95);
 }
 
-.playWrapPrimary {
+.playWrap {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 86px;
+  height: 86px;
+  flex-shrink: 0;
 }
 
-.playButtonPrimary {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: clamp(52px, 8.5vw, 88px);
-  height: clamp(52px, 8.5vw, 88px);
-  border: none;
-  border-radius: var(--rounded-full);
-  background: transparent;
-  cursor: pointer;
+.playIcon {
+  display: block;
+  width: 67px;
+  height: 60px;
+  transform: rotate(90deg);
   transition: transform 0.25s ease;
-}
-
-.playIconPrimary {
-  width: clamp(52px, 8.5vw, 88px);
-  height: clamp(52px, 8.5vw, 88px);
-  transition: transform 0.25s ease;
-}
-
-.playIconPrimary path {
-  fill: rgba(255, 255, 255, 0.88);
-  transition: fill 0.2s ease;
 }
 
 @media (pointer: fine) and (hover: hover) {
-  .choiceSplit:hover .playButtonPrimary .playIconPrimary,
-  .choiceSplit:focus-visible .playButtonPrimary .playIconPrimary,
-  .halfChoice:hover .playButtonPrimary .playIconPrimary,
-  .halfChoice:focus-visible .playButtonPrimary .playIconPrimary {
-    transform: scale(1.08);
+  .halfChoice:hover .playIcon,
+  .halfChoice:focus-visible .playIcon {
+    transform: rotate(90deg) scale(1.08);
   }
 }
 
@@ -273,80 +245,43 @@
   background-color: hsl(var(--background));
 }
 
-.choiceDockCompact .choiceLabel {
-  font-size: clamp(0.62rem, 1.8vw, 0.7rem);
-}
-
 .choiceDockCompact .choiceSplit {
   flex-direction: row;
-  gap: 10px;
-  padding: 10px 14px;
+  gap: 0;
+  padding: 12px 18px;
 }
 
-.choiceDockCompact .playWrapPrimary {
-  order: 2;
-}
-
-.choiceDockCompact .playButtonPrimary {
-  width: 40px;
-  height: 40px;
-}
-
-.choiceDockCompact .playIconPrimary {
-  width: 40px;
-  height: 40px;
+@media (max-width: 1024px) {
+  .choiceLabel {
+    font-size: clamp(1.25rem, 3.2vw, 36px);
+  }
 }
 
 @media (max-width: 768px) {
-  .choiceTitle {
-    top: clamp(12px, 3vw, 24px);
-    font-size: clamp(1.0625rem, 4.5vw, 1.375rem);
-  }
-
   .halfChoice {
-    gap: clamp(8px, 2.5vw, 14px);
+    gap: 10px;
     padding: clamp(10px, 3vw, 20px) clamp(8px, 2vw, 14px);
   }
 
-  .halfChoice .playButtonPrimary,
-  .halfChoice .playIconPrimary {
-    width: 44px;
+  .playWrap {
+    width: 64px;
+    height: 64px;
+  }
+
+  .playIcon {
+    width: 50px;
     height: 44px;
   }
 }
 
 @media (max-width: 600px) {
-  /* Vertical split: title sits above the video player */
-  .choiceTitle {
-    position: static;
-    transform: none;
-    z-index: auto;
-    width: 100%;
-    max-width: none;
-    margin: 0 0 var(--padding-tablet);
-    padding-inline: var(--padding-mobile);
-    box-sizing: border-box;
-    color: hsl(var(--foreground));
-    text-shadow: none;
-    font-size: clamp(1.125rem, 5vw, 1.5rem);
-  }
-
   .initialSplit {
     flex-direction: column;
+    gap: 9px;
   }
 
-  .splitDivider {
-    width: 100%;
-    height: 5px;
-    flex-shrink: 0;
-    align-self: stretch;
-    background: hsl(0 0% 100% / 0.4);
-  }
-
-  .halfChoice .playButtonPrimary,
-  .halfChoice .playIconPrimary {
-    width: 40px;
-    height: 40px;
+  .choiceLabel {
+    font-size: 1.25rem;
   }
 
   .choiceDockInner {
@@ -365,5 +300,9 @@
   .choiceDockCompact .choiceSplit:not(:last-child) {
     border-bottom: none;
     border-right: 1px solid hsl(0 0% 100% / 0.12);
+  }
+
+  .choiceDockCompact .choiceLabel {
+    font-size: 12px;
   }
 }
