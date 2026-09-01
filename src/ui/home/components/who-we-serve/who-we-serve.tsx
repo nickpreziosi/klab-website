@@ -3,16 +3,16 @@
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
-import type { HomeKrailsTranslations } from "@/ui/home/types";
 import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./who-we-serve.module.css";
 
 const DASHBOARD = "/images/who-we-serve/dashboard.png";
 const AUTOPLAY_MS = 8000;
+const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
 
 const AUDIENCES: readonly { id: string; icon: string; rotate?: boolean }[] = [
   { id: "governments", icon: "/images/who-we-serve/icon-governments.svg" },
@@ -22,11 +22,23 @@ const AUDIENCES: readonly { id: string; icon: string; rotate?: boolean }[] = [
   { id: "capital", icon: "/images/who-we-serve/icon-capital.svg" },
 ];
 
-type ServeItem = HomeKrailsTranslations["serveItems"][number];
+export type WhoWeServeTranslations = {
+  serveTitle: string;
+  serveImageAlt: string;
+  serveCallout: string;
+  servePrev: string;
+  serveNext: string;
+  servePause: string;
+  servePlay: string;
+  serveItems: { id: string; title: string; body: string }[];
+};
+
+type ServeItem = WhoWeServeTranslations["serveItems"][number];
 
 type WhoWeServeProps = {
-  translations: HomeKrailsTranslations;
+  translations: WhoWeServeTranslations;
   skipAnimation?: boolean;
+  className?: string;
 };
 
 type AudienceCopyProps = {
@@ -75,7 +87,11 @@ function AudienceCopy({
   );
 }
 
-export function WhoWeServe({ translations }: WhoWeServeProps) {
+export function WhoWeServe({
+  translations,
+  skipAnimation = false,
+  className,
+}: WhoWeServeProps) {
   const locale = useLocale() as Locale;
   const dir = getTextDirection(locale);
   const sectionRef = useRef<HTMLElement>(null);
@@ -154,11 +170,18 @@ export function WhoWeServe({ translations }: WhoWeServeProps) {
   };
 
   return (
-    <section
+    <motion.section
       ref={sectionRef}
-      className={styles.section}
+      className={cn(styles.section, className)}
       dir={dir}
       aria-labelledby="who-we-serve-heading"
+      initial={skipAnimation ? false : { opacity: 0 }}
+      whileInView={skipAnimation ? undefined : { opacity: 1 }}
+      animate={skipAnimation ? { opacity: 1 } : undefined}
+      viewport={skipAnimation ? undefined : { once: true, amount: 0.15 }}
+      transition={
+        skipAnimation ? { duration: 0 } : { duration: 0.7, ease: ENTRANCE_EASE }
+      }
     >
       <div className={styles.header}>
         <h2 id="who-we-serve-heading" className={styles.heading}>
@@ -288,6 +311,6 @@ export function WhoWeServe({ translations }: WhoWeServeProps) {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

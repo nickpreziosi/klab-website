@@ -57,6 +57,18 @@
   scroll-margin-top: var(--navbar-height);
 }
 
+.whoWeServe {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: var(--padding-tablet) var(--padding-desktop);
+  box-sizing: border-box;
+}
+
+.whoWeServe > * {
+  margin-top: 0;
+}
+
 .lastSection {
   position: relative;
   z-index: 2;
@@ -72,11 +84,19 @@
   .videoSection {
     padding: var(--padding-tablet);
   }
+
+  .whoWeServe {
+    padding: var(--padding-tablet);
+  }
 }
 
 @media (max-width: 768px) {
   .videoSection {
     padding: var(--padding-tablet) var(--padding-mobile);
     padding-top: var(--padding-tablet);
+  }
+
+  .whoWeServe {
+    padding: var(--padding-tablet) var(--padding-mobile);
   }
 }
