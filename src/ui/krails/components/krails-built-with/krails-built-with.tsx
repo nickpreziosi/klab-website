@@ -112,14 +112,17 @@ const StablecorpLogo = (props: LogoProps) => (
   </svg>
 );
 
-import type { KRailsTranslations } from "@/ui/krails/views/KRailsView/KRailsView";
 import { useTranslations } from "next-intl";
+
+export type KRailsBuiltWithTranslations = {
+  builtWithHeading: string;
+};
 
 export default function KRailsBuiltWith({
   translations,
   skipAnimation = false,
 }: {
-  translations: KRailsTranslations;
+  translations: KRailsBuiltWithTranslations;
   skipAnimation?: boolean;
 }) {
   const t = useTranslations("krails");

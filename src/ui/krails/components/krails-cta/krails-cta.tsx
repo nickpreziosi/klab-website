@@ -4,14 +4,18 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import styles from "./krails-cta.module.css";
 import Button from "@/ui/shared/components/button/button";
-import type { KRailsTranslations } from "@/ui/krails/views/KRailsView/KRailsView";
 import { useLocale } from "next-intl";
+
+export type KRailsCtaTranslations = {
+  ctaSubheading: string;
+  ctaButton: string;
+};
 
 export default function KRailsCta({
   translations,
   skipAnimation = false,
 }: {
-  translations: KRailsTranslations;
+  translations: KRailsCtaTranslations;
   skipAnimation?: boolean;
 }) {
   const ref = useRef(null);

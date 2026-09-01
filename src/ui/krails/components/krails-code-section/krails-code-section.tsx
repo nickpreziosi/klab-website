@@ -7,13 +7,25 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/shared/components/card/card";
 import styles from "./krails-code-section.module.css";
 import { useRef, useEffect } from "react";
-import type { KRailsTranslations } from "@/ui/krails/views/KRailsView/KRailsView";
+
+export type KRailsCodeSectionTranslations = {
+  codeSectionHeadingLine1: string;
+  codeSectionHeadingLine2: string;
+  codeSectionHowCard0Title: string;
+  codeSectionHowCard0Description: string;
+  codeSectionHowCard1Title: string;
+  codeSectionHowCard1Description: string;
+  codeSectionHowCard2Title: string;
+  codeSectionHowCard2Description: string;
+  codeSectionHowCard3Title: string;
+  codeSectionHowCard3Description: string;
+};
 
 export default function KRailsCodeSection({
   translations,
   skipAnimation = false,
 }: {
-  translations: KRailsTranslations;
+  translations: KRailsCodeSectionTranslations;
   skipAnimation?: boolean;
 }) {
   const howItWorksCards = [
