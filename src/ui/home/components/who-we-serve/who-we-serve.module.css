@@ -212,16 +212,28 @@
   position: sticky;
   top: calc(var(--navbar-height) + 1rem);
   min-width: 0;
+  overflow: visible;
 }
 
 .stage {
   position: relative;
   padding: 8px;
+  overflow: visible;
+}
+
+.imageFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 553 / 425;
+  overflow: visible;
 }
 
 .glow {
   position: absolute;
-  inset: 8px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(312 / 425 * 100%);
   border-radius: 8px;
   filter: blur(6.9px);
   pointer-events: none;
@@ -233,8 +245,12 @@
 }
 
 .viewport {
-  position: relative;
+  position: absolute;
   z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(312 / 425 * 100%);
   overflow: hidden;
   border-radius: 8px;
 }
@@ -247,6 +263,7 @@
   position: relative;
   flex: 0 0 100%;
   min-width: 0;
+  height: 100%;
 }
 
 .slideCopy {
@@ -263,45 +280,37 @@
 .image {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   aspect-ratio: 553 / 312;
   object-fit: cover;
   border-radius: 8px;
 }
 
 .leader {
-  position: relative;
+  position: absolute;
   z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 68px;
-  margin-block-start: -37px;
-  margin-inline-start: auto;
-  margin-inline-end: 18%;
+  top: calc(275 / 425 * 100%);
+  left: calc(345 / 553 * 100%);
+  width: calc(24 / 553 * 100%);
+  height: calc(68 / 425 * 100%);
+  overflow: visible;
   pointer-events: none;
 }
 
 .leaderImg {
-  width: 68px;
-  height: 24px;
-  flex-shrink: 0;
+  display: block;
+  flex: none;
+  width: calc(68 / 24 * 100%);
+  height: calc(24 / 68 * 100%);
   transform: rotate(90deg);
-}
-
-.section[dir="rtl"] .leaderImg {
-  transform: rotate(-90deg);
+  transform-origin: center;
 }
 
 .callout {
-  position: relative;
-  z-index: 2;
   box-sizing: border-box;
-  width: min(276px, 100%);
-  min-height: 87px;
-  margin-block-start: -5px;
-  margin-inline-start: 11%;
   padding: 8px 10px;
   border: 1px solid var(--serve-cyan);
   border-radius: 6px;
@@ -310,6 +319,16 @@
   font-weight: var(--font-thin);
   line-height: normal;
   color: hsl(var(--foreground));
+}
+
+.overlayCallout {
+  position: absolute;
+  z-index: 2;
+  top: calc(338 / 425 * 100%);
+  left: calc(60 / 553 * 100%);
+  width: calc(276 / 553 * 100%);
+  min-height: calc(87 / 425 * 100%);
+  margin: 0;
 }
 
 @media (max-width: 1024px) {
@@ -339,13 +358,26 @@
     order: -1;
   }
 
+  .imageFrame {
+    aspect-ratio: auto;
+  }
+
   .viewport {
+    position: relative;
+    height: auto;
     border-radius: 0;
   }
 
   .glow {
+    position: absolute;
+    width: 100%;
+    height: auto;
     bottom: auto;
     aspect-ratio: 553 / 312;
+  }
+
+  .image {
+    height: auto;
   }
 
   .slideCopy {

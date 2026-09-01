@@ -236,54 +236,56 @@ export function WhoWeServe({ translations }: WhoWeServeProps) {
 
         <div className={styles.media}>
           <div className={styles.stage}>
-            <div className={styles.glow} aria-hidden />
-            <div className={styles.viewport} ref={emblaRef}>
-              <div className={styles.container}>
-                {items.map((item, index) => {
-                  const active = index === selected;
-                  const audience = AUDIENCES[index];
-                  return (
-                    <div
-                      key={item.id}
-                      className={styles.slide}
-                      role="tabpanel"
-                      id={`serve-panel-${item.id}`}
-                      aria-labelledby={`serve-tab-${item.id}`}
-                      aria-hidden={!active}
-                      inert={!active}
-                    >
-                      <img
-                        src={DASHBOARD}
-                        alt={active ? translations.serveImageAlt : ""}
-                        className={styles.image}
-                        decoding="async"
-                      />
-                      <p className={cn(styles.callout, styles.slideCallout)}>
-                        {translations.serveCallout}
-                      </p>
-                      <div className={cn(styles.slideCopy, styles.itemActive)}>
-                        <AudienceCopy
-                          item={item}
-                          icon={audience?.icon}
-                          rotate={audience?.rotate}
+            <div className={styles.imageFrame} dir="ltr">
+              <div className={styles.glow} aria-hidden />
+              <div className={styles.viewport} ref={emblaRef}>
+                <div className={styles.container}>
+                  {items.map((item, index) => {
+                    const active = index === selected;
+                    const audience = AUDIENCES[index];
+                    return (
+                      <div
+                        key={item.id}
+                        className={styles.slide}
+                        role="tabpanel"
+                        id={`serve-panel-${item.id}`}
+                        aria-labelledby={`serve-tab-${item.id}`}
+                        aria-hidden={!active}
+                        inert={!active}
+                      >
+                        <img
+                          src={DASHBOARD}
+                          alt={active ? translations.serveImageAlt : ""}
+                          className={styles.image}
+                          decoding="async"
                         />
+                        <p className={cn(styles.callout, styles.slideCallout)}>
+                          {translations.serveCallout}
+                        </p>
+                        <div className={cn(styles.slideCopy, styles.itemActive)}>
+                          <AudienceCopy
+                            item={item}
+                            icon={audience?.icon}
+                            rotate={audience?.rotate}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
+              <span className={styles.leader} aria-hidden>
+                <img
+                  src="/images/who-we-serve/callout-leader.svg"
+                  alt=""
+                  className={styles.leaderImg}
+                />
+              </span>
+              <p className={cn(styles.callout, styles.overlayCallout)}>
+                {translations.serveCallout}
+              </p>
             </div>
           </div>
-          <span className={styles.leader} aria-hidden>
-            <img
-              src="/images/who-we-serve/callout-leader.svg"
-              alt=""
-              className={styles.leaderImg}
-            />
-          </span>
-          <p className={cn(styles.callout, styles.overlayCallout)}>
-            {translations.serveCallout}
-          </p>
         </div>
       </div>
     </section>

@@ -50,48 +50,50 @@ export function HomeAddons({ translations }: HomeAddonsProps) {
       <div className={styles.top}>
         <div className={styles.visual} dir="ltr">
           <div className={styles.dashStack}>
-            <div className={styles.glowBack} aria-hidden />
-            <img
-              src="/images/home-addons/dashboard-back.png"
-              alt=""
-              className={styles.dashBack}
-              decoding="async"
-            />
-            <div className={styles.glowFront} aria-hidden />
-            <img
-              src="/images/home-addons/dashboard-front.png"
-              alt={translations.addonsDashAlt}
-              className={styles.dashFront}
-              decoding="async"
-            />
-            <span className={styles.leaderLeftWrap} aria-hidden>
+            <div className={styles.mockupBoard}>
+              <div className={styles.glowBack} aria-hidden />
               <img
-                src="/images/home-addons/leader-left.svg"
+                src="/images/home-addons/dashboard-back.png"
                 alt=""
-                className={styles.leaderLeft}
+                className={styles.dashBack}
+                decoding="async"
               />
-            </span>
-            <span className={styles.leaderRightWrap} aria-hidden>
+              <div className={styles.glowFront} aria-hidden />
               <img
-                src="/images/home-addons/leader-right.svg"
-                alt=""
-                className={styles.leaderRight}
+                src="/images/home-addons/dashboard-front.png"
+                alt={translations.addonsDashAlt}
+                className={styles.dashFront}
+                decoding="async"
               />
-            </span>
-          </div>
-
-          <div className={styles.callouts}>
-            <div className={styles.callout} dir={dir}>
-              <ul>
-                <li>{translations.addonsCallout1}</li>
-                <li>{translations.addonsCallout2}</li>
-              </ul>
+              <span className={styles.leaderLeftWrap} aria-hidden>
+                <img
+                  src="/images/home-addons/leader-left.svg"
+                  alt=""
+                  className={styles.leaderLeft}
+                />
+              </span>
+              <span className={styles.leaderRightWrap} aria-hidden>
+                <img
+                  src="/images/home-addons/leader-right.svg"
+                  alt=""
+                  className={styles.leaderRight}
+                />
+              </span>
             </div>
-            <div className={styles.callout} dir={dir}>
-              <ul>
-                <li>{translations.addonsCallout3}</li>
-                <li>{translations.addonsCallout4}</li>
-              </ul>
+
+            <div className={styles.callouts}>
+              <div className={cn(styles.callout, styles.calloutLeft)} dir={dir}>
+                <ul>
+                  <li>{translations.addonsCallout1}</li>
+                  <li>{translations.addonsCallout2}</li>
+                </ul>
+              </div>
+              <div className={cn(styles.callout, styles.calloutRight)} dir={dir}>
+                <ul>
+                  <li>{translations.addonsCallout3}</li>
+                  <li>{translations.addonsCallout4}</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
