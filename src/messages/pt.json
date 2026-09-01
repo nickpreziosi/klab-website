@@ -750,11 +750,13 @@
     "showSlide": "Ver slide {number}"
   },
   "krails": {
-    "heroHeading": "Uma camada programável de confiança e execução para a movimentação institucional de valores",
-    "heroHeadingHighlight": "movimentação institucional de valores",
-    "heroDescription": "O K Rails é uma camada de infraestrutura programável que torna pagamentos, contratos, aprovações, relacionamentos com fornecedores, financiamento, liquidação e auditabilidade configuráveis, com permissões e aplicáveis. Ele não apenas move valores: determina se o valor deve se mover, sob quais condições, por qual canal de pagamento, com qual estrutura econômica e com qual prova defensível.",
-    "heroButtonPrimary": "Saiba mais",
-    "heroButtonSecondary": "Solicitar acesso",
+    "heroHeadingPrefix": "O que é",
+    "heroHeadingQuestionMark": "?",
+    "heroDescription1": "O K Rails não move dinheiro. Ele decide quando cada pagamento é autorizado e mantém um registro de todo o processo.",
+    "heroDescription2": "O dinheiro se move pelos bancos e sistemas de pagamento que você já usa. O K Rails se conecta a esses sistemas para aprovar cada pagamento conforme regras definidas e registrar cada etapa de forma permanente e imutável.",
+    "replaceQuestion": "Ele substitui os seus sistemas?",
+    "replaceAnswer": "Não",
+    "replaceBody": "O K Rails não substitui nada. Ele se conecta ao que você já tem e acrescenta três coisas que hoje não existem: regras de aprovação automáticas, a opção de factoring reverso para fornecedores que precisem e um registro que ninguém pode alterar.",
     "whyHeading": "Casos de uso",
     "whySubheading": "",
     "whyBlock0Heading": "Instituições financeiras — Aprimoramento da rede de pagamentos",

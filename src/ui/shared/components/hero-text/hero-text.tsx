@@ -148,11 +148,15 @@ interface HeroTextProps {
   maxWidth?: string;
   /** When set, overrides default flex `gap` between headline, subcopy, and CTAs (CSS length, e.g. `var(--gap-sm)`). */
   contentGap?: string;
-  text: string;
+  text?: string;
+  /** Replaces the tokenized headline (e.g. custom heading with a logo). */
+  heading?: ReactNode;
   /** Substring of `text` to render in accent color (locale-specific). */
   highlightPhrase?: string;
   subheader?: string;
   subtitle?: string;
+  /** Multiple body paragraphs under the headline. */
+  subtitles?: ReactNode[];
   /** Emphasized lines below the subtitle (e.g. home hero pillars with icons). */
   subtitleHighlights?: HeroSubtitleHighlight[];
   className?: string;
@@ -201,9 +205,11 @@ export default function HeroText({
   maxWidth,
   contentGap,
   text,
+  heading,
   highlightPhrase,
   subheader,
   subtitle,
+  subtitles,
   subtitleHighlights,
   className = "",
   buttonText,
@@ -253,8 +259,8 @@ export default function HeroText({
   const isRtl = dir === "rtl";
 
   const headlineTokens = useMemo(
-    () => getHeadlineTokens(text, highlightPhrase),
-    [text, highlightPhrase]
+    () => (heading ? [] : getHeadlineTokens(text ?? "", highlightPhrase)),
+    [heading, text, highlightPhrase]
   );
 
   const resolvedPrimaryIcon = resolveHeroButtonIcon(buttonIcon, DEFAULT_PRIMARY_BUTTON_ICON);
@@ -336,30 +342,32 @@ export default function HeroText({
           }
         }}
       >
-        {headlineTokens.map((token, index) => (
-          <motion.span
-            key={`${index}-${token.word}`}
-            variants={{
-              hidden: {
-                opacity: 0,
-                filter: "blur(10px)",
-                y: 20,
-              },
-              visible: {
-                opacity: 1,
-                filter: "blur(0px)",
-                y: 0,
-                transition: {
-                  duration: 0.8,
-                  ease: [0.16, 1, 0.3, 1],
-                },
-              },
-            }}
-            className={cn(styles.word, token.highlight && styles.headlineHighlight)}
-          >
-            {token.word}{" "}
-          </motion.span>
-        ))}
+        {heading
+          ? heading
+          : headlineTokens.map((token, index) => (
+              <motion.span
+                key={`${index}-${token.word}`}
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                    filter: "blur(10px)",
+                    y: 20,
+                  },
+                  visible: {
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    y: 0,
+                    transition: {
+                      duration: 0.8,
+                      ease: [0.16, 1, 0.3, 1],
+                    },
+                  },
+                }}
+                className={cn(styles.word, token.highlight && styles.headlineHighlight)}
+              >
+                {token.word}{" "}
+              </motion.span>
+            ))}
       </motion.h1>
       {subheader && (
         <motion.h2
@@ -379,7 +387,9 @@ export default function HeroText({
           {subheader}
         </motion.h2>
       )}
-      {(subtitle || (subtitleHighlights && subtitleHighlights.length > 0)) && (
+      {(subtitle ||
+        (subtitles && subtitles.length > 0) ||
+        (subtitleHighlights && subtitleHighlights.length > 0)) && (
         <motion.div
           className={styles.subtitleBlock}
           initial={
@@ -394,7 +404,13 @@ export default function HeroText({
           }
           transition={{ delay: 0.6, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          {subtitle && <p className={styles.mainText}>{subtitle}</p>}
+          {subtitles && subtitles.length > 0
+            ? subtitles.map((paragraph, index) => (
+                <p key={index} className={styles.mainText}>
+                  {paragraph}
+                </p>
+              ))
+            : subtitle && <p className={styles.mainText}>{subtitle}</p>}
           {subtitleHighlights && subtitleHighlights.length > 0 && (
             <ul className={styles.subtitleHighlights} aria-label={subtitle ? undefined : text}>
               {subtitleHighlights.map((item, index) => (

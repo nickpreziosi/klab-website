@@ -750,11 +750,13 @@
     "showSlide": "Show slide {number}"
   },
   "krails": {
-    "heroHeading": "A programmable trust and execution layer for institutional money movement",
-    "heroHeadingHighlight": "institutional money movement",
-    "heroDescription": "K Rails is a programmable infrastructure layer that makes payments, contracts, approvals, vendor relationships, financing, settlement, and auditability configurable, permissioned, and enforceable. It does not just move money. It determines whether money should move, under what conditions, through which rail, with what economics, and with what defensible proof.",
-    "heroButtonPrimary": "Learn More",
-    "heroButtonSecondary": "Request Access",
+    "heroHeadingPrefix": "What is",
+    "heroHeadingQuestionMark": "?",
+    "heroDescription1": "K Rails doesn’t move money. It decides when each payment is authorized, and keeps a record of the entire process.",
+    "heroDescription2": "The money moves through the banks and payment systems you already use. K Rails connects to those systems to approve each payment according to defined rules, and record every step permanently and immutably.",
+    "replaceQuestion": "Does it replace your systems?",
+    "replaceAnswer": "No",
+    "replaceBody": "K Rails doesn’t replace anything. It connects to what you already have and adds three that don’t exist today: automatic approval rules, the option of reverse factoring for suppliers who need it, and a record no one can alter.",
     "whyHeading": "Use Cases",
     "whySubheading": "",
     "whyBlock0Heading": "Financial Institutions — Payment Network Enhancement",

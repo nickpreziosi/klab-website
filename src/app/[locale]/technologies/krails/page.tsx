@@ -8,11 +8,13 @@ export default async function KRailsPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("krails");
   const translations = {
-    heroHeading: t("heroHeading"),
-    heroHeadingHighlight: t("heroHeadingHighlight"),
-    heroDescription: t("heroDescription"),
-    heroButtonPrimary: t("heroButtonPrimary"),
-    heroButtonSecondary: t("heroButtonSecondary"),
+    heroHeadingPrefix: t("heroHeadingPrefix"),
+    heroHeadingQuestionMark: t("heroHeadingQuestionMark"),
+    heroDescription1: t("heroDescription1"),
+    heroDescription2: t("heroDescription2"),
+    replaceQuestion: t("replaceQuestion"),
+    replaceAnswer: t("replaceAnswer"),
+    replaceBody: t("replaceBody"),
     logoAlt: t("logoAlt"),
     whyHeading: t("whyHeading"),
     whySubheading: t("whySubheading"),

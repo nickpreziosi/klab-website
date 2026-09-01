@@ -109,15 +109,28 @@
   font-size: 30px;
 }
 
-/* Technology / product pages (e.g. K Rails) — slightly smaller type scale */
+/* Technology / product pages (e.g. K Rails) */
 .krailsHero .mainHeading {
-  font-size: clamp(2.125rem, 4.5vw, 2.875rem);
-  line-height: 1.18;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: 1.1;
+  letter-spacing: 0;
+  color: hsl(var(--accent));
+}
+
+.krailsHero .subtitleBlock {
+  gap: 1.5rem;
 }
 
 .krailsHero .mainText {
-  font-size: clamp(1rem, 1.55vw, 1.1875rem);
-  line-height: 1.55;
+  font-size: clamp(1.0625rem, 1.7vw, 1.5rem);
+  font-weight: var(--font-medium);
+  line-height: normal;
+  letter-spacing: 0;
+  color: hsl(var(--foreground));
 }
 
 /* Updated subtitle styles to match provided mainText */
@@ -231,14 +244,9 @@
   .wordsContainer {
     gap: 0.4rem;
   }
-  .krailsHero .mainHeading {
-    font-size: clamp(1.75rem, 4.75vw, 2.125rem);
-    line-height: 1.2;
-  }
-
   .krailsHero .mainText {
-    font-size: clamp(0.9375rem, 3.5vw, 1.0625rem);
-    line-height: 1.5;
+    font-size: clamp(1rem, 3.5vw, 1.25rem);
+    line-height: 1.45;
   }
 }
 
@@ -288,14 +296,9 @@
     flex-direction: column;
   }
 
-  .krailsHero .mainHeading {
-    font-size: clamp(1.5rem, 5.5vw, 1.875rem);
-    line-height: 1.22;
-  }
-
   .krailsHero .mainText {
-    font-size: clamp(0.9375rem, 3.6vw, 1rem);
-    line-height: 1.5;
+    font-size: clamp(0.9375rem, 3.6vw, 1.125rem);
+    line-height: 1.45;
   }
 }
 

@@ -11,6 +11,10 @@ import KRailsWhy from "@/ui/krails/components/krails-why/krails-why";
 import type { KRailsWhyTranslations } from "@/ui/krails/types/krails-why-translations";
 import KRailsDashboard from "@/ui/krails/components/krails-dashboard/krails-dashboard";
 import KRailsVideoPlayer from "@/ui/krails/components/krails-video-player/krails-video-player";
+import {
+  KRailsReplaceSystems,
+  type KRailsReplaceSystemsTranslations,
+} from "@/ui/krails/components/krails-replace-systems/krails-replace-systems";
 
 const KRAILS_VIDEO_POSTER = "/images/krails.webp";
 
@@ -28,12 +32,11 @@ const KRAILS_VIDEO_GOV_BY_LOCALE: Record<string, string> = {
   ar: "https://www.youtube.com/embed/GlwpGm72TK4",
 };
 
-export interface KRailsTranslations extends KRailsWhyTranslations {
-  heroHeading: string;
-  heroHeadingHighlight: string;
-  heroDescription: string;
-  heroButtonPrimary: string;
-  heroButtonSecondary: string;
+export interface KRailsTranslations extends KRailsWhyTranslations, KRailsReplaceSystemsTranslations {
+  heroHeadingPrefix: string;
+  heroHeadingQuestionMark: string;
+  heroDescription1: string;
+  heroDescription2: string;
   logoAlt: string;
   builtWithHeading: string;
   ctaSubheading: string;
@@ -66,19 +69,16 @@ export function KRailsView({ translations }: { translations: KRailsTranslations 
     <main className={styles.container}>
       <div className={styles.background}>
         <KRailsHero
-          logoAlt={translations.logoAlt}
-          heading={translations.heroHeading}
-          headingHighlight={translations.heroHeadingHighlight}
-          description={translations.heroDescription}
-          buttonText={translations.heroButtonPrimary}
-          buttonHref="#krails-video"
-          buttonTwoText={translations.heroButtonSecondary}
-          buttonTwoHref={`/${locale}/contact/sales`}
+          headingPrefix={translations.heroHeadingPrefix}
+          headingQuestionMark={translations.heroHeadingQuestionMark}
+          description1={translations.heroDescription1}
+          description2={translations.heroDescription2}
           skipAnimation={skipAnimation}
         />
         <div className={styles.dashboardWrapper}>
           <KRailsDashboard skipAnimation={skipAnimation} />
         </div>
+        <KRailsReplaceSystems translations={translations} skipAnimation={skipAnimation} />
         <section
           id="krails-video"
           className={styles.videoSection}

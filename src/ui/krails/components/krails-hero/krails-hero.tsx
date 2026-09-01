@@ -1,97 +1,111 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDownIcon } from "lucide-react";
 import styles from "./krails-hero.module.css";
-import HeroText, { type HeroTextButtonOrder } from "@/ui/shared/components/hero-text/hero-text";
+import HeroText from "@/ui/shared/components/hero-text/hero-text";
 import heroTextStyles from "@/ui/shared/components/hero-text/hero-text.module.css";
 import { ProductLogo } from "@k-lab/components";
 import { cn } from "@/ui/shared/utils/utils";
 import { Locale } from "@/i18n/routing";
 import { useLocale } from "next-intl";
+import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
 
-/** Learn More: downward (scroll to content). Request Access: forward arrow (same as HeroText default primary). */
-const learnMoreButtonIcon = <ArrowDownIcon className={heroTextStyles.arrowIcon} aria-hidden />;
+const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
 
-const requestAccessButtonIcon = (
-  <svg
-    className={cn(heroTextStyles.primaryButtonIcon, heroTextStyles.iconRtlMirror)}
-    width="20"
-    height="20"
-    viewBox="0 0 15 15"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden
-  >
-    <path
-      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
-      fill="currentColor"
-      fillRule="evenodd"
-      clipRule="evenodd"
-    />
-  </svg>
-);
+const headlineLineVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const wordVariants = {
+  hidden: {
+    opacity: 0,
+    filter: "blur(10px)",
+    y: 20,
+  },
+  visible: {
+    opacity: 1,
+    filter: "blur(0px)",
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: ENTRANCE_EASE,
+    },
+  },
+};
 
 interface KRailsHeroProps {
-  heading: string;
-  headingHighlight: string;
-  description: string;
-  logoAlt: string;
-  buttonText: string;
-  buttonHref: string;
-  buttonTwoText?: string;
-  buttonTwoHref?: string;
-  buttonOrder?: HeroTextButtonOrder;
+  headingPrefix: string;
+  headingQuestionMark: string;
+  description1: string;
+  description2: string;
   skipAnimation?: boolean;
 }
 
 export default function KRailsHero({
-  heading,
-  headingHighlight,
-  description,
-  logoAlt,
-  buttonText,
-  buttonHref,
-  buttonTwoText,
-  buttonTwoHref,
-  buttonOrder = "primary-first",
+  headingPrefix,
+  headingQuestionMark,
+  description1,
+  description2,
   skipAnimation = false,
 }: KRailsHeroProps) {
   const locale = useLocale() as Locale;
   const HERO_TEXT_MAX_WIDTH: Record<Locale, string> = {
-    en: "920px",
-    ar: "920px",
-    es: "1100px",
-    pt: "1200px",
+    en: "1094px",
+    ar: "1094px",
+    es: "1094px",
+    pt: "1094px",
   };
+
+  const prefixWords = headingPrefix.split(/\s+/u).filter(Boolean);
+
+  const heading = [
+    <motion.span key="prefix" className={styles.prefixLine} variants={headlineLineVariants}>
+      {prefixWords.map((word, index) => (
+        <motion.span
+          key={`${index}-${word}`}
+          variants={wordVariants}
+          className={cn(heroTextStyles.word, styles.prefix)}
+        >
+          {word}{" "}
+        </motion.span>
+      ))}
+    </motion.span>,
+    <motion.span key="logo" className={styles.logoLine} variants={wordVariants}>
+      <span className={styles.logoWrap} dir="ltr">
+        <ProductLogo
+          product="k-rails"
+          variant="theme-aware"
+          size="full"
+          alt=""
+          aria-hidden
+          className={styles.heroLogoImg}
+          wrapperClassName={styles.heroLogoWrap}
+        />
+      </span>
+      <span className={styles.srOnly} dir="ltr">
+        K Rails
+      </span>
+      <span className={styles.mark}>{headingQuestionMark}</span>
+    </motion.span>,
+  ];
 
   return (
     <section className={styles.heroSection}>
       <div className={styles.contentWrapper}>
         <div className={styles.heroTextContainer}>
-          <div className={styles.logoRow}>
-            <motion.div
-              className={styles.heroLogo}
-              initial={skipAnimation ? { opacity: 1 } : { opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={skipAnimation ? { duration: 0 } : { duration: 0.5, ease: "easeOut" }}
-            >
-              <ProductLogo product="k-rails" alt={logoAlt} className={styles.heroLogoImg} />
-            </motion.div>
-          </div>
           <HeroText
             className={heroTextStyles.krailsHero}
             maxWidth={HERO_TEXT_MAX_WIDTH[locale]}
-            text={heading}
-            highlightPhrase={headingHighlight}
-            subtitle={description}
-            buttonText={buttonText}
-            buttonHref={buttonHref}
-            buttonIcon={learnMoreButtonIcon}
-            buttonTwoText={buttonTwoText}
-            buttonTwoHref={buttonTwoHref}
-            buttonTwoIcon={requestAccessButtonIcon}
-            buttonOrder={buttonOrder}
+            heading={heading}
+            subtitles={[
+              withBrandLtr(description1, styles.brandLtr),
+              withBrandLtr(description2, styles.brandLtr),
+            ]}
             skipAnimation={skipAnimation}
           />
         </div>
