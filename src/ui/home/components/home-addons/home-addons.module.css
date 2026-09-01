@@ -326,6 +326,48 @@
   pointer-events: none;
 }
 
+.sphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.sphereVideo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 132%;
+  height: 132%;
+  object-fit: cover;
+  object-position: center;
+  transform: translate(-50%, -50%);
+}
+
+.sphereVideoPlaying {
+  opacity: 0;
+}
+
+.sphereVideoPlaying[data-ready="true"] {
+  opacity: 1;
+}
+
+.sphere[data-playing="true"] ~ .play {
+  opacity: 0;
+}
+
+.sphere[data-playing="true"] ~ .pause {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sphereVideo {
+    display: none;
+  }
+}
+
 :global(html.dark) .product::before {
   background: #2a2a2a;
 }
@@ -388,45 +430,34 @@
 .productLogo {
   position: absolute;
   z-index: 1;
-  top: 32%;
+  top: 32.14%;
   object-fit: contain;
-}
-
-.logoDark {
-  display: none;
-}
-
-:global(html.dark) .logoLight {
-  display: none;
-}
-
-:global(html.dark) .logoDark {
-  display: block;
 }
 
 .krisk .productLogo {
   left: 22.6%;
-  width: 54%;
+  width: 53.9%;
   height: 20.5%;
 }
 
 .kleads .productLogo {
   left: 11.3%;
   width: 78%;
-  height: 23%;
+  height: 23.1%;
 }
 
 .ktalk .productLogo {
   left: 18.4%;
-  width: 64%;
+  width: 64.1%;
   height: 15.5%;
+  filter: brightness(0);
 }
 
 .play {
   position: absolute;
   z-index: 1;
+  top: 55.16%;
   left: 50%;
-  bottom: 8%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -441,6 +472,33 @@
   width: 75%;
   height: auto;
   transform: rotate(90deg);
+}
+
+.pause {
+  position: absolute;
+  z-index: 1;
+  top: 55.16%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14%;
+  width: 25%;
+  height: 25%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.pauseBar {
+  width: 16%;
+  height: 52%;
+  border-radius: 2px;
+  background: #ffffff;
+}
+
+.ktalk .pauseBar {
+  background: #000000;
 }
 
 @media (max-width: 1024px) {
