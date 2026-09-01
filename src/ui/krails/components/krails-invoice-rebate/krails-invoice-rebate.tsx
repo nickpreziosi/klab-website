@@ -1,0 +1,127 @@
+"use client";
+
+import { FileText, Landmark, Package } from "lucide-react";
+import { motion } from "framer-motion";
+import { useLocale } from "next-intl";
+import { getTextDirection, type Locale } from "@/i18n/routing";
+import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
+import styles from "./krails-invoice-rebate.module.css";
+
+const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
+
+function KrailsKMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 72 108" className={className} aria-hidden focusable="false">
+      <path
+        fill="currentColor"
+        d="M0.384 4.867C1.12 3.121 2.739 2.037 4.609 2.037h24.817c1.201 0 2.405.501 3.175 1.298l30.842 26.961c2.034 2.084 2.034 5.474 0 7.557L51.988 49.587c-.997 1.021-2.326 1.583-3.74 1.583-1.416 0-2.733-.552-3.678-1.525L1.346 9.997C0 8.619-.368 6.653.384 4.867z"
+      />
+      <path
+        fill="currentColor"
+        d="M47.563 57.732l-.047-.049 17.209-17.352c1.334-1.346 3.241-1.73 4.978-1.008 1.776.739 2.87 2.409 2.856 4.36l-.196 25.421c-.009 1.241-.492 2.406-1.359 3.278l-1.308 1.318c-.91.918-2.117 1.424-3.436 1.424-1.297-.01-2.51-.535-3.416-1.478l-2.335-2.43v10.016c0 1.24-.473 2.408-1.333 3.29L39.342 104.84c-.857.877-2.046 1.381-3.263 1.381H11.263c-1.871 0-3.489-1.085-4.224-2.831-.752-1.786-.384-3.752.961-5.131L47.563 57.732z"
+      />
+    </svg>
+  );
+}
+
+export type KRailsInvoiceRebateTranslations = {
+  rebateBody: string;
+  rebateSteps: { title: string; body: string }[];
+  rebateCompareLeft: string;
+  rebateCompareRight: string;
+  rebateCompareCta: string;
+  rebateComparePhoneAlt: string;
+};
+
+type KRailsInvoiceRebateProps = {
+  translations: KRailsInvoiceRebateTranslations;
+  skipAnimation?: boolean;
+};
+
+export function KRailsInvoiceRebate({
+  translations,
+  skipAnimation = false,
+}: KRailsInvoiceRebateProps) {
+  const locale = useLocale() as Locale;
+  const dir = getTextDirection(locale);
+  const steps = translations.rebateSteps;
+  const fade = skipAnimation
+    ? { duration: 0 }
+    : { duration: 0.7, ease: ENTRANCE_EASE };
+
+  return (
+    <section className={styles.section} dir={dir} aria-labelledby="krails-invoice-rebate-heading">
+      <div className={styles.inner}>
+        <motion.div
+          className={styles.card}
+          initial={skipAnimation ? false : { opacity: 0 }}
+          whileInView={skipAnimation ? undefined : { opacity: 1 }}
+          animate={skipAnimation ? { opacity: 1 } : undefined}
+          viewport={skipAnimation ? undefined : { once: true, amount: 0.2 }}
+          transition={fade}
+        >
+          <h2 id="krails-invoice-rebate-heading" className={styles.lede}>
+            {translations.rebateBody}
+          </h2>
+          <div className={styles.stepperWrap}>
+            <div className={styles.track} aria-hidden>
+              <span className={styles.beam} />
+            </div>
+            <ol className={styles.stepper}>
+              {steps.map((step, index) => (
+                <li key={step.title} className={styles.step}>
+                  <span className={styles.node}>
+                    {index === 0 ? (
+                      <Package className={styles.icon} strokeWidth={1.5} aria-hidden />
+                    ) : null}
+                    {index === 1 ? (
+                      <FileText className={styles.icon} strokeWidth={1.5} aria-hidden />
+                    ) : null}
+                    {index === 2 ? (
+                      <Landmark className={styles.icon} strokeWidth={1.5} aria-hidden />
+                    ) : null}
+                    {index === 3 ? <KrailsKMark className={styles.krailsMark} /> : null}
+                  </span>
+                  <div className={styles.copy}>
+                    <p className={styles.stepTitle}>{withBrandLtr(step.title, styles.brandLtr)}</p>
+                    <p className={styles.stepBody}>{withBrandLtr(step.body, styles.brandLtr)}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className={styles.compare}
+          initial={skipAnimation ? false : { opacity: 0 }}
+          whileInView={skipAnimation ? undefined : { opacity: 1 }}
+          animate={skipAnimation ? { opacity: 1 } : undefined}
+          viewport={skipAnimation ? undefined : { once: true, amount: 0.2 }}
+          transition={fade}
+        >
+          <img src="/images/krails-rebate-waves.webp" alt="" className={styles.waves} aria-hidden />
+          <div className={styles.compareLeft}>
+            <p className={styles.compareCopy}>{translations.rebateCompareLeft}</p>
+          </div>
+          <div className={styles.phone}>
+            <img
+              src="/images/krails-rebate-phone.png"
+              alt={translations.rebateComparePhoneAlt}
+              width={448}
+              height={918}
+            />
+          </div>
+          <div className={styles.compareRight}>
+            <p className={styles.compareCopy}>
+              {withBrandLtr(translations.rebateCompareRight, styles.brandLtr)}
+            </p>
+            <a href={`/${locale}/contact/sales`} className={styles.cta}>
+              {translations.rebateCompareCta}
+            </a>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

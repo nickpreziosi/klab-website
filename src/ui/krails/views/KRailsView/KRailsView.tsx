@@ -15,6 +15,10 @@ import {
   KRailsReplaceSystems,
   type KRailsReplaceSystemsTranslations,
 } from "@/ui/krails/components/krails-replace-systems/krails-replace-systems";
+import {
+  KRailsInvoiceRebate,
+  type KRailsInvoiceRebateTranslations,
+} from "@/ui/krails/components/krails-invoice-rebate/krails-invoice-rebate";
 
 const KRAILS_VIDEO_POSTER = "/images/krails.webp";
 
@@ -32,7 +36,10 @@ const KRAILS_VIDEO_GOV_BY_LOCALE: Record<string, string> = {
   ar: "https://www.youtube.com/embed/GlwpGm72TK4",
 };
 
-export interface KRailsTranslations extends KRailsWhyTranslations, KRailsReplaceSystemsTranslations {
+export interface KRailsTranslations
+  extends KRailsWhyTranslations,
+    KRailsReplaceSystemsTranslations,
+    KRailsInvoiceRebateTranslations {
   heroHeadingPrefix: string;
   heroHeadingQuestionMark: string;
   heroDescription1: string;
@@ -97,6 +104,7 @@ export function KRailsView({ translations }: { translations: KRailsTranslations 
             skipAnimation={skipAnimation}
           />
         </section>
+        <KRailsInvoiceRebate translations={translations} skipAnimation={skipAnimation} />
         <KRailsCodeSection translations={translations} skipAnimation={skipAnimation} />
       </div>
 
