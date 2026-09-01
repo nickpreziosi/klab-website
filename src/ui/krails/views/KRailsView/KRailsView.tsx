@@ -4,11 +4,6 @@ import { useLocale } from "next-intl";
 import KRailsHero from "@/ui/krails/components/krails-hero/krails-hero";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import styles from "./KRailsView.module.css";
-import KRailsBuiltWith from "@/ui/krails/components/krails-built-with/krails-built-with";
-import KRailsCta from "@/ui/krails/components/krails-cta/krails-cta";
-import KRailsCodeSection from "@/ui/krails/components/krails-code-section/krails-code-section";
-import KRailsWhy from "@/ui/krails/components/krails-why/krails-why";
-import type { KRailsWhyTranslations } from "@/ui/krails/types/krails-why-translations";
 import KRailsDashboard from "@/ui/krails/components/krails-dashboard/krails-dashboard";
 import KRailsVideoPlayer from "@/ui/krails/components/krails-video-player/krails-video-player";
 import {
@@ -37,27 +32,12 @@ const KRAILS_VIDEO_GOV_BY_LOCALE: Record<string, string> = {
 };
 
 export interface KRailsTranslations
-  extends KRailsWhyTranslations,
-    KRailsReplaceSystemsTranslations,
+  extends KRailsReplaceSystemsTranslations,
     KRailsInvoiceRebateTranslations {
   heroHeadingPrefix: string;
   heroHeadingQuestionMark: string;
   heroDescription1: string;
   heroDescription2: string;
-  logoAlt: string;
-  builtWithHeading: string;
-  ctaSubheading: string;
-  ctaButton: string;
-  codeSectionHeadingLine1: string;
-  codeSectionHeadingLine2: string;
-  codeSectionHowCard0Title: string;
-  codeSectionHowCard0Description: string;
-  codeSectionHowCard1Title: string;
-  codeSectionHowCard1Description: string;
-  codeSectionHowCard2Title: string;
-  codeSectionHowCard2Description: string;
-  codeSectionHowCard3Title: string;
-  codeSectionHowCard3Description: string;
   videoSectionTitle: string;
   videoPosterAlt: string;
   videoChoicePrompt: string;
@@ -105,13 +85,6 @@ export function KRailsView({ translations }: { translations: KRailsTranslations 
           />
         </section>
         <KRailsInvoiceRebate translations={translations} skipAnimation={skipAnimation} />
-        <KRailsCodeSection translations={translations} skipAnimation={skipAnimation} />
-      </div>
-
-      <KRailsWhy translations={translations} skipAnimation={skipAnimation} />
-      <div className={styles.lastSection}>
-        <KRailsBuiltWith translations={translations} skipAnimation={skipAnimation} />
-        <KRailsCta translations={translations} skipAnimation={skipAnimation} />
       </div>
     </main>
   );
