@@ -29,9 +29,9 @@
     "statBillionTitle": "$1 Billion+",
     "statBillionBody": "Moved, fully authorized",
     "statYearsTitle": "+5 years",
-    "statYearsBody": "In production, built on five years of proprietary transaction data & AI models",
+    "statYearsBody": "Powered by five years of proprietary transaction data & AI models",
     "statLiveTitle": "Already live",
-    "statLiveBody": "in Canada, Mexico, Brazil and other Latin America markets."
+    "statLiveBody": "in Canada, Mexico, Brazil and other Latin American markets."
   },
   "homeKrails": {
     "whatIsPrefix": "What is",
@@ -51,7 +51,7 @@
     "trustEncryptBody": "Financial data protected by cryptographic standards used by defense agencies.",
     "trustFailureTitle": "No single point of failure",
     "trustFailureBody": "A cyberattack on one server cannot corrupt the ledger. Data is distributed and replicated.",
-    "trustPrivacyTitle": "Permissioned private privacy",
+    "trustPrivacyTitle": "Private by permission",
     "trustPrivacyBody": "Each party sees only what they're authorized to see. Vendor data stays private; auditors see the full trail.",
     "trustAuditTitle": "Always-On Audit Trail",
     "trustAuditBody": "Every action permanently recorded. Records cannot be retroactively altered by anyone.",

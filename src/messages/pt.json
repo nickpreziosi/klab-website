@@ -29,9 +29,9 @@
     "statBillionTitle": "US$ 1 bilhão+",
     "statBillionBody": "Movimentados, totalmente autorizados",
     "statYearsTitle": "+5 anos",
-    "statYearsBody": "Em produção, construído sobre cinco anos de dados transacionais proprietários e modelos de IA",
+    "statYearsBody": "Impulsionado por cinco anos de dados transacionais proprietários e modelos de IA",
     "statLiveTitle": "Já em operação",
-    "statLiveBody": "no Canadá, México, Brasil e outros mercados da América Latina."
+    "statLiveBody": "no Canadá, México, Brasil e outros mercados latino-americanos."
   },
   "homeKrails": {
     "whatIsPrefix": "O que é",
@@ -51,7 +51,7 @@
     "trustEncryptBody": "Dados financeiros protegidos por padrões criptográficos usados por agências de defesa.",
     "trustFailureTitle": "Sem ponto único de falha",
     "trustFailureBody": "Um ciberataque a um servidor não pode corromper o livro-razão. Os dados são distribuídos e replicados.",
-    "trustPrivacyTitle": "Privacidade permissionada",
+    "trustPrivacyTitle": "Privado por permissão",
     "trustPrivacyBody": "Cada parte vê apenas o que está autorizada a ver. Os dados do fornecedor permanecem privados; os auditores veem o rastro completo.",
     "trustAuditTitle": "Trilha de auditoria permanente",
     "trustAuditBody": "Cada ação é registrada de forma permanente. Ninguém pode alterar os registros retroativamente.",
