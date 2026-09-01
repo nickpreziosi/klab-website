@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { useInView } from "framer-motion";
 import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
@@ -22,10 +22,58 @@ const AUDIENCES: readonly { id: string; icon: string; rotate?: boolean }[] = [
   { id: "capital", icon: "/images/who-we-serve/icon-capital.svg" },
 ];
 
+type ServeItem = HomeKrailsTranslations["serveItems"][number];
+
 type WhoWeServeProps = {
   translations: HomeKrailsTranslations;
   skipAnimation?: boolean;
 };
+
+type AudienceCopyProps = {
+  item: ServeItem;
+  icon?: string;
+  rotate?: boolean;
+  active?: boolean;
+  collapseBody?: boolean;
+};
+
+function AudienceCopy({
+  item,
+  icon,
+  rotate,
+  active = true,
+  collapseBody = false,
+}: AudienceCopyProps) {
+  const collapsed = collapseBody && !active;
+
+  return (
+    <>
+      <span className={styles.iconBox} aria-hidden>
+        {icon ? (
+          <span
+            className={cn(styles.icon, rotate && styles.iconRotated)}
+            style={{
+              maskImage: `url(${icon})`,
+              WebkitMaskImage: `url(${icon})`,
+            }}
+          />
+        ) : null}
+      </span>
+      <span className={styles.itemCopy}>
+        <span className={styles.itemTitle}>{item.title}</span>
+        <span className={styles.itemBody} aria-hidden={collapsed} inert={collapsed}>
+          <span className={styles.itemBodyInner}>
+            {item.body.split("\n\n").map((paragraph, paragraphIndex) => (
+              <span key={paragraphIndex} className={styles.itemPara}>
+                {withBrandLtr(paragraph, styles.brandLtr)}
+              </span>
+            ))}
+          </span>
+        </span>
+      </span>
+    </>
+  );
+}
 
 export function WhoWeServe({ translations }: WhoWeServeProps) {
   const locale = useLocale() as Locale;
@@ -33,6 +81,7 @@ export function WhoWeServe({ translations }: WhoWeServeProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [selected, setSelected] = useState(0);
+  const [autoplayPaused, setAutoplayPaused] = useState(false);
   const isInView = useInView(sectionRef, { amount: 0.2 });
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
@@ -60,7 +109,7 @@ export function WhoWeServe({ translations }: WhoWeServeProps) {
   const items = translations.serveItems;
 
   useEffect(() => {
-    if (!emblaApi || items.length < 2 || !isInView) return;
+    if (!emblaApi || items.length < 2 || !isInView || autoplayPaused) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const id = window.setTimeout(() => {
@@ -68,7 +117,7 @@ export function WhoWeServe({ translations }: WhoWeServeProps) {
     }, AUTOPLAY_MS);
 
     return () => window.clearTimeout(id);
-  }, [emblaApi, items.length, selected, isInView]);
+  }, [emblaApi, items.length, selected, isInView, autoplayPaused]);
 
   const goTo = (index: number) => {
     emblaApi?.scrollTo(index);
@@ -118,7 +167,7 @@ export function WhoWeServe({ translations }: WhoWeServeProps) {
         <div className={styles.controls}>
           <button
             type="button"
-            className={styles.navButton}
+            className={cn(styles.navButton, styles.stepButton)}
             aria-label={translations.servePrev}
             onClick={goPrev}
           >
@@ -126,11 +175,23 @@ export function WhoWeServe({ translations }: WhoWeServeProps) {
           </button>
           <button
             type="button"
-            className={styles.navButton}
+            className={cn(styles.navButton, styles.stepButton)}
             aria-label={translations.serveNext}
             onClick={goNext}
           >
             <ChevronRight className="rtlFlipH" aria-hidden />
+          </button>
+          <button
+            type="button"
+            className={styles.navButton}
+            aria-label={autoplayPaused ? translations.servePlay : translations.servePause}
+            onClick={() => setAutoplayPaused((paused) => !paused)}
+          >
+            {autoplayPaused ? (
+              <Play aria-hidden />
+            ) : (
+              <Pause aria-hidden />
+            )}
           </button>
         </div>
       </div>
@@ -144,7 +205,7 @@ export function WhoWeServe({ translations }: WhoWeServeProps) {
         >
           {items.map((item, index) => {
             const active = index === selected;
-            const icon = AUDIENCES[index]?.icon;
+            const audience = AUDIENCES[index];
             return (
               <button
                 key={item.id}
@@ -161,30 +222,13 @@ export function WhoWeServe({ translations }: WhoWeServeProps) {
                 onClick={() => goTo(index)}
                 onKeyDown={(event) => onTabKeyDown(event, index)}
               >
-                <span className={styles.iconBox} aria-hidden>
-                  {icon ? (
-                    <span
-                      className={cn(
-                        styles.icon,
-                        AUDIENCES[index]?.rotate && styles.iconRotated
-                      )}
-                      style={{
-                        maskImage: `url(${icon})`,
-                        WebkitMaskImage: `url(${icon})`,
-                      }}
-                    />
-                  ) : null}
-                </span>
-                <span className={styles.itemCopy}>
-                  <span className={styles.itemTitle}>{item.title}</span>
-                  <span className={styles.itemBody}>
-                    {item.body.split("\n\n").map((paragraph, paragraphIndex) => (
-                      <span key={paragraphIndex} className={styles.itemPara}>
-                        {withBrandLtr(paragraph, styles.brandLtr)}
-                      </span>
-                    ))}
-                  </span>
-                </span>
+                <AudienceCopy
+                  item={item}
+                  icon={audience?.icon}
+                  rotate={audience?.rotate}
+                  active={active}
+                  collapseBody
+                />
               </button>
             );
           })}
@@ -197,6 +241,7 @@ export function WhoWeServe({ translations }: WhoWeServeProps) {
               <div className={styles.container}>
                 {items.map((item, index) => {
                   const active = index === selected;
+                  const audience = AUDIENCES[index];
                   return (
                     <div
                       key={item.id}
@@ -213,6 +258,16 @@ export function WhoWeServe({ translations }: WhoWeServeProps) {
                         className={styles.image}
                         decoding="async"
                       />
+                      <p className={cn(styles.callout, styles.slideCallout)}>
+                        {translations.serveCallout}
+                      </p>
+                      <div className={cn(styles.slideCopy, styles.itemActive)}>
+                        <AudienceCopy
+                          item={item}
+                          icon={audience?.icon}
+                          rotate={audience?.rotate}
+                        />
+                      </div>
                     </div>
                   );
                 })}
@@ -226,7 +281,9 @@ export function WhoWeServe({ translations }: WhoWeServeProps) {
               className={styles.leaderImg}
             />
           </span>
-          <p className={styles.callout}>{translations.serveCallout}</p>
+          <p className={cn(styles.callout, styles.overlayCallout)}>
+            {translations.serveCallout}
+          </p>
         </div>
       </div>
     </section>

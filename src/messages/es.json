@@ -88,6 +88,8 @@
     "serveCallout": "Mejora la eficiencia de los informes de auditoría y facilita la notificación oportuna de riesgos y fraude mediante la automatización de contratos inteligentes según reglas predefinidas",
     "servePrev": "Audiencia anterior",
     "serveNext": "Siguiente audiencia",
+    "servePause": "Pausar reproducción automática",
+    "servePlay": "Reanudar reproducción automática",
     "serveGovernmentsTitle": "Gobiernos",
     "serveGovernmentsBody": "Miles de millones quedan atrapados en retrasos de pago, lagunas de auditoría y facturas duplicadas que nadie detecta hasta que es demasiado tarde.\n\nContratos, aprobaciones, proveedores, facturas y plazos de pago quedan visibles y exigibles antes de que se mueva el dinero. Evita pagos duplicados, fraude de proveedores, manipulación de contratos y el uso indebido de fondos públicos.\n\nLos mismos plazos de pago. Un reembolso en cada factura. El fraude se bloquea antes de pagarse. Cero desembolso de capital.",
     "serveEnterprisesTitle": "Multinacionales y empresas",

@@ -88,6 +88,8 @@
     "serveCallout": "Aumente a eficiência dos relatórios de auditoria e facilite a notificação oportuna de riscos e fraudes por meio da automação de contratos inteligentes com regras predefinidas",
     "servePrev": "Público anterior",
     "serveNext": "Próximo público",
+    "servePause": "Pausar reprodução automática",
+    "servePlay": "Retomar reprodução automática",
     "serveGovernmentsTitle": "Governos",
     "serveGovernmentsBody": "Bilhões ficam parados em atrasos de pagamento, lacunas de auditoria e faturas duplicadas que ninguém detecta até ser tarde demais.\n\nContratos, aprovações, fornecedores, faturas e prazos de pagamento ficam visíveis e exigíveis antes de o dinheiro se mover. Impede pagamentos duplicados, fraude de fornecedores, manipulação de contratos e o uso indevido de fundos públicos.\n\nOs mesmos prazos de pagamento. Um reembolso em cada fatura. A fraude é bloqueada antes de ser paga. Zero desembolso de capital.",
     "serveEnterprisesTitle": "Multinacionais e empresas",

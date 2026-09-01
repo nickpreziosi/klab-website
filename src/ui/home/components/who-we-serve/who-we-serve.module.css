@@ -25,7 +25,7 @@
 }
 
 .controls {
-  display: none;
+  display: flex;
   flex-shrink: 0;
   gap: 0.5rem;
 }
@@ -52,6 +52,10 @@
 .navButton svg {
   width: 22px;
   height: 22px;
+}
+
+.stepButton {
+  display: none;
 }
 
 .layout {
@@ -131,7 +135,7 @@
 .itemCopy {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0;
   min-width: 0;
   padding-top: 0.1rem;
 }
@@ -149,9 +153,36 @@
 }
 
 .itemBody {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    grid-template-rows 0.3s ease,
+    opacity 0.2s ease;
+}
+
+.itemActive .itemBody {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.itemBodyInner {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.itemActive .itemBodyInner,
+.slideCopy .itemBodyInner {
+  padding-top: 0.3rem;
+}
+
+.slideCopy .itemBody {
+  grid-template-rows: 1fr;
+  opacity: 1;
 }
 
 .itemPara {
@@ -169,6 +200,12 @@
 .brandLtr {
   unicode-bidi: isolate;
   direction: ltr;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .itemBody {
+    transition: none;
+  }
 }
 
 .media {
@@ -210,6 +247,17 @@
   position: relative;
   flex: 0 0 100%;
   min-width: 0;
+}
+
+.slideCopy {
+  display: none;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding-top: var(--padding-tablet);
+}
+
+.slideCallout {
+  display: none;
 }
 
 .image {
@@ -273,7 +321,11 @@
     display: flex;
   }
 
-  .item:not(.itemActive) {
+  .stepButton {
+    display: flex;
+  }
+
+  .list {
     display: none;
   }
 
@@ -285,6 +337,30 @@
   .media {
     position: static;
     order: -1;
+  }
+
+  .viewport {
+    border-radius: 0;
+  }
+
+  .glow {
+    bottom: auto;
+    aspect-ratio: 553 / 312;
+  }
+
+  .slideCopy {
+    display: flex;
+  }
+
+  .slideCallout {
+    display: block;
+    width: 100%;
+    min-height: 0;
+    margin: 0.75rem 0 0;
+  }
+
+  .overlayCallout {
+    display: none;
   }
 
   .leader {

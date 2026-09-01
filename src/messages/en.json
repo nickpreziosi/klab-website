@@ -88,6 +88,8 @@
     "serveCallout": "Enhance audit reporting efficiency and facilitate the timely notification of risk and fraud-related activities through the automation of smart contracts based on predefined rules",
     "servePrev": "Previous audience",
     "serveNext": "Next audience",
+    "servePause": "Pause autoplay",
+    "servePlay": "Play autoplay",
     "serveGovernmentsTitle": "Governments",
     "serveGovernmentsBody": "Billions sit in payment delays, audit gaps, and duplicate invoices that no one catches until it's too late.\n\nContracts, approvals, suppliers, invoices, and payment terms become visible and enforceable before money moves. It prevents duplicate payments, supplier fraud, contract manipulation, and misuse of public funds.\n\nSame payment terms. A rebate on every invoice. Fraud blocked before it's paid. Zero capital outlay.",
     "serveEnterprisesTitle": "Multinational & Enterprises",
