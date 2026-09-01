@@ -35,7 +35,13 @@
   aspect-ratio: 1;
   overflow: visible;
   text-decoration: none;
+  border-radius: 50%;
   --tech-showcase-arrow-color: #ffffff;
+}
+
+.product:focus-visible {
+  outline: 2px solid hsl(var(--foreground));
+  outline-offset: 2px;
 }
 
 .product::before {
@@ -59,6 +65,8 @@
   overflow: hidden;
   border-radius: 50%;
   pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle closest-side, #000 99.5%, transparent 100%);
+  mask-image: radial-gradient(circle closest-side, #000 99.5%, transparent 100%);
 }
 
 .sphereVideo {
@@ -183,8 +191,29 @@
   transform: none;
 }
 
-.techTooltip {
-  max-width: min(280px, 90vw);
-  white-space: normal;
+.description {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  z-index: 10;
+  width: max(200px, min(260px, 90vw));
+  padding: 12px 14px;
+  overflow: visible;
+  border-radius: var(--rounded-app);
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
+  font-size: 16px;
+  font-weight: 400;
   line-height: 1.5;
+  text-align: center;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.product:hover .description,
+.product:focus-visible .description {
+  opacity: 1;
+  visibility: visible;
 }

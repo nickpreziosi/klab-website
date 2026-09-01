@@ -5,12 +5,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import { TechnologiesShowcaseLogoArrow } from "@/ui/shared/components/technologies-showcase/technologies-showcase-arrow";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/ui/shared/components/tooltip/tooltip";
 import { cn } from "@/ui/shared/utils/utils";
 import { ADDON_SPHERE_PRODUCTS } from "./addon-sphere-products";
 import styles from "./nav-addon-spheres.module.css";
@@ -59,58 +53,53 @@ export function NavAddonSpheres({ onLinkClick, headerTitle }: NavAddonSpheresPro
   return (
     <div className={styles.wrapper}>
       {headerTitle ? <h3 className={styles.headerTitle}>{headerTitle}</h3> : null}
-      <TooltipProvider delayDuration={200}>
-        <div className={styles.products}>
-          {ADDON_SPHERE_PRODUCTS.map((product) => (
-            <Tooltip key={product.id}>
-              <TooltipTrigger asChild>
-                <Link
-                  href={product.href}
-                  className={cn(styles.product, product.id === "ktalk" && styles.ktalk)}
-                  aria-label={product.name}
-                  onClick={(event) => {
-                    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
-                      onLinkClick?.();
-                    }
-                  }}
-                >
-                  {!product.hideAddons ? (
-                    <>
-                      <span className={styles.pillSm} aria-hidden />
-                      <span className={styles.plusSm} aria-hidden>
-                        <img
-                          src="/images/home-addons/plus-circle-sm.svg"
-                          alt=""
-                          width={16}
-                          height={16}
-                        />
-                        <span className={styles.plusBarVSm} />
-                        <span className={styles.plusBarHSm} />
-                      </span>
-                      <span className={styles.pillSmLabel} dir={dir}>
-                        {tAddons("addonsEyebrow")}
-                      </span>
-                    </>
-                  ) : null}
-                  <IdleSphereVideo src={product.idleVideo} />
+      <div className={styles.products}>
+        {ADDON_SPHERE_PRODUCTS.map((product) => (
+          <Link
+            key={product.id}
+            href={product.href}
+            className={cn(styles.product, product.id === "ktalk" && styles.ktalk)}
+            aria-label={product.name}
+            onClick={(event) => {
+              if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+                onLinkClick?.();
+              }
+            }}
+          >
+            {!product.hideAddons ? (
+              <>
+                <span className={styles.pillSm} aria-hidden />
+                <span className={styles.plusSm} aria-hidden>
                   <img
-                    src={product.logo}
+                    src="/images/home-addons/plus-circle-sm.svg"
                     alt=""
-                    className={styles.productLogo}
-                    decoding="async"
+                    width={16}
+                    height={16}
                   />
-                  <span className={styles.arrowWrap} aria-hidden>
-                    <TechnologiesShowcaseLogoArrow />
-                  </span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="bottom" sideOffset={24} className={styles.techTooltip}>
-                {tShowcase(`technologies.${product.id}`)}
-              </TooltipContent>
-            </Tooltip>
-          ))}
-        </div>
-      </TooltipProvider>
+                  <span className={styles.plusBarVSm} />
+                  <span className={styles.plusBarHSm} />
+                </span>
+                <span className={styles.pillSmLabel} dir={dir}>
+                  {tAddons("addonsEyebrow")}
+                </span>
+              </>
+            ) : null}
+            <IdleSphereVideo src={product.idleVideo} />
+            <img
+              src={product.logo}
+              alt=""
+              className={styles.productLogo}
+              decoding="async"
+            />
+            <span className={styles.arrowWrap} aria-hidden>
+              <TechnologiesShowcaseLogoArrow />
+            </span>
+            <span className={styles.description} role="tooltip">
+              {tShowcase(`technologies.${product.id}`)}
+            </span>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

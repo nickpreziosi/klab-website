@@ -188,8 +188,11 @@ export const NavigationMenuDemo = ({
         <nav
           style={{
             height: "auto",
-            backdropFilter: "blur(8px)",
-            background: "hsl(var(--background) / 0.7)",
+            backdropFilter: dropdownOpen ? "none" : "blur(8px)",
+            WebkitBackdropFilter: dropdownOpen ? "none" : "blur(8px)",
+            background: dropdownOpen
+              ? "hsl(var(--background))"
+              : "hsl(var(--background) / 0.7)",
             borderBottom: "solid 1px hsl(var(--foreground) / 0.2)",
             boxShadow: "var(--shadow-black)",
           }}
