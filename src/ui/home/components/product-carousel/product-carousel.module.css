@@ -9,8 +9,19 @@
   pointer-events: none;
 }
 
+:global(html.dark) .section {
+  margin-top: 0;
+  padding-top: calc(var(--padding-tablet) + var(--gap-lg) + var(--gap-sm));
+}
+
 @media (max-width: 768px) {
   .section {
     margin-top: calc(var(--padding-tablet) * -0.5);
+  }
+
+  :global(html.dark) .section {
+    margin-top: 0;
+    padding-top: var(--padding-tablet);
+    padding-bottom: var(--padding-tablet);
   }
 }
