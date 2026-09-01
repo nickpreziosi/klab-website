@@ -1,12 +1,16 @@
 {
   "nav": {
-    "about": "Nosotros",
-    "technologies": "Soluciones",
+    "whatWeDo": "Qué hacemos",
+    "kRails": "K Rails",
+    "whoWeServe": "A quién servimos",
     "company": "Empresa",
+    "resources": "Recursos",
     "news": "Noticias",
     "contact": "Contacto",
+    "signIn": "Iniciar sesión",
+    "comingSoon": "Próximamente",
     "goToHomepage": "Ir al inicio",
-    "technologiesMenuLabel": "Menú de soluciones, pulse enter o espacio para abrir",
+    "kRailsMenuLabel": "Menú de K Rails, pulse enter o espacio para abrir",
     "mainNav": "Navegación principal"
   },
   "drawer": {

@@ -4,13 +4,17 @@
  */
 
 export type NavTranslations = {
-  about: string;
-  technologies: string;
+  whatWeDo: string;
+  kRails: string;
+  whoWeServe: string;
   company: string;
+  resources: string;
   news: string;
   contact: string;
+  signIn: string;
+  comingSoon: string;
   goToHomepage: string;
-  technologiesMenuLabel: string;
+  kRailsMenuLabel: string;
   mainNav: string;
 };
 
@@ -24,13 +28,17 @@ export type DrawerTranslations = {
 
 export function buildNavTranslations(t: (key: string) => string): NavTranslations {
   return {
-    about: t("about"),
-    technologies: t("technologies"),
+    whatWeDo: t("whatWeDo"),
+    kRails: t("kRails"),
+    whoWeServe: t("whoWeServe"),
     company: t("company"),
+    resources: t("resources"),
     news: t("news"),
     contact: t("contact"),
+    signIn: t("signIn"),
+    comingSoon: t("comingSoon"),
     goToHomepage: t("goToHomepage"),
-    technologiesMenuLabel: t("technologiesMenuLabel"),
+    kRailsMenuLabel: t("kRailsMenuLabel"),
     mainNav: t("mainNav"),
   };
 }

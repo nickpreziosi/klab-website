@@ -1,12 +1,16 @@
 {
   "nav": {
-    "about": "About",
-    "technologies": "Solutions",
+    "whatWeDo": "What we do",
+    "kRails": "K Rails",
+    "whoWeServe": "Who we serve",
     "company": "Company",
+    "resources": "Resources",
     "news": "News",
     "contact": "Contact",
+    "signIn": "Sign in",
+    "comingSoon": "Coming soon",
     "goToHomepage": "Go to Homepage",
-    "technologiesMenuLabel": "Solutions menu, press enter or space to open",
+    "kRailsMenuLabel": "K Rails menu, press enter or space to open",
     "mainNav": "Main navigation"
   },
   "drawer": {

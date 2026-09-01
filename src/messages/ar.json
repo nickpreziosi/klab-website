@@ -1,12 +1,16 @@
 {
   "nav": {
-    "about": "من نحن",
-    "technologies": "الحلول",
+    "whatWeDo": "ماذا نفعل",
+    "kRails": "K Rails",
+    "whoWeServe": "من نخدم",
     "company": "الشركة",
+    "resources": "الموارد",
     "news": "الأخبار",
     "contact": "اتصل بنا",
+    "signIn": "تسجيل الدخول",
+    "comingSoon": "قريبًا",
     "goToHomepage": "الذهاب للصفحة الرئيسية",
-    "technologiesMenuLabel": "قائمة الحلول، اضغط Enter أو المسافة للفتح",
+    "kRailsMenuLabel": "قائمة K Rails، اضغط Enter أو المسافة للفتح",
     "mainNav": "القائمة الرئيسية"
   },
   "drawer": {
