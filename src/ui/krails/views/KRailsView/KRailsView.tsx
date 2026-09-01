@@ -15,6 +15,10 @@ import {
   type KRailsInvoiceRebateTranslations,
 } from "@/ui/krails/components/krails-invoice-rebate/krails-invoice-rebate";
 import {
+  KRailsCapabilities,
+  type KRailsCapabilitiesTranslations,
+} from "@/ui/krails/components/krails-capabilities/krails-capabilities";
+import {
   WhoWeServe,
   type WhoWeServeTranslations,
 } from "@/ui/home/components/who-we-serve/who-we-serve";
@@ -38,6 +42,7 @@ const KRAILS_VIDEO_GOV_BY_LOCALE: Record<string, string> = {
 export interface KRailsTranslations
   extends KRailsReplaceSystemsTranslations,
     KRailsInvoiceRebateTranslations,
+    KRailsCapabilitiesTranslations,
     WhoWeServeTranslations {
   heroHeadingPrefix: string;
   heroHeadingQuestionMark: string;
@@ -90,6 +95,7 @@ export function KRailsView({ translations }: { translations: KRailsTranslations 
           />
         </section>
         <KRailsInvoiceRebate translations={translations} skipAnimation={skipAnimation} />
+        <KRailsCapabilities translations={translations} skipAnimation={skipAnimation} />
         <div className={styles.whoWeServe}>
           <WhoWeServe translations={translations} skipAnimation={skipAnimation} />
         </div>
