@@ -35,6 +35,10 @@ export type KRailsInvoiceRebateTranslations = {
   rebateSteps: { title: string; body: string }[];
   rebateCards: { title: string; body: string }[];
   rebatePhoneAlt: string;
+  rebateAlignTitle: string;
+  rebateAlignItems: string[];
+  rebateAlignCta: string;
+  rebateAlignDashAlt: string;
 };
 
 type KRailsInvoiceRebateProps = {
@@ -212,6 +216,49 @@ export function KRailsInvoiceRebate({
             </div>
           </motion.li>
         </motion.ul>
+
+        <motion.div
+          className={styles.align}
+          variants={stagger}
+          initial={skipAnimation ? false : "hidden"}
+          whileInView={skipAnimation ? undefined : "visible"}
+          animate={skipAnimation ? "visible" : undefined}
+          viewport={skipAnimation ? undefined : { once: true, amount: 0.2 }}
+        >
+          <div className={styles.alignPhoto} aria-hidden>
+            <img src="/images/krails-rebate-align/bg.png" alt="" />
+            <span className={styles.alignTint} />
+          </div>
+          <div className={styles.alignInner}>
+            <div className={styles.alignCopy}>
+              <motion.h3 className={styles.alignTitle} variants={cardFade}>
+                {withBrandLtr(translations.rebateAlignTitle, styles.brandLtr)}
+              </motion.h3>
+              <ul className={styles.alignList}>
+                {translations.rebateAlignItems.map((item) => (
+                  <motion.li key={item} className={styles.alignItem} variants={cardFade}>
+                    {withBrandLtr(item, styles.brandLtr)}
+                  </motion.li>
+                ))}
+              </ul>
+              <motion.a
+                className={styles.alignCta}
+                href="#krails-invoice-rebate-heading"
+                variants={cardFade}
+              >
+                {translations.rebateAlignCta}
+              </motion.a>
+            </div>
+            <motion.img
+              className={styles.alignDash}
+              src="/images/krails-rebate-align/dashboard.png"
+              alt={translations.rebateAlignDashAlt}
+              width={463}
+              height={260}
+              variants={cardFade}
+            />
+          </div>
+        </motion.div>
       </div>
     </section>
   );
