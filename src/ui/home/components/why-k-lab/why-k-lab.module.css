@@ -131,7 +131,7 @@
   min-height: 77px;
   border-radius: 10px;
   background: var(--why-cyan);
-  color: #ffffff;
+  color: #000000;
 }
 
 .klabCell {
@@ -146,7 +146,7 @@
   font-size: 16px;
   font-weight: var(--font-semibold);
   line-height: normal;
-  color: #ffffff;
+  color: #000000;
 }
 
 @media (max-width: 1024px) {
@@ -237,6 +237,6 @@
   }
 
   .klabRow .cellLabel {
-    color: rgb(255 255 255 / 0.75);
+    color: #000000;
   }
 }
