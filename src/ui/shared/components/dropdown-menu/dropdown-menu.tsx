@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import styles from "./dropdown-menu.module.css";
 import { useEffect, useRef } from "react";
-import { TechnologiesShowcase } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
+import { NavAddonSpheres } from "@/ui/shared/components/addon-spheres/nav-addon-spheres";
 
 /**
  * Original grid implementation is in dropdown-menu-grid.tsx.
@@ -65,12 +65,7 @@ export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
               }}
               exit={{ y: -20, opacity: 0, transition: { delay: 0 } }}
             >
-              <TechnologiesShowcase
-                onLinkClick={onClose}
-                expandOnFirstTap={false}
-                className={styles.technologiesShowcase}
-                headerTitle={t("heading")}
-              />
+              <NavAddonSpheres onLinkClick={onClose} headerTitle={t("heading")} />
             </motion.div>
           </div>
         </motion.div>

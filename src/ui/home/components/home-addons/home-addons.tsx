@@ -6,48 +6,16 @@ import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import type { HomeKrailsTranslations } from "@/ui/home/types";
 import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
+import { ADDON_SPHERE_PRODUCTS } from "@/ui/shared/components/addon-spheres/addon-sphere-products";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./home-addons.module.css";
 
-type AddonProduct = {
-  name: string;
-  href: string;
-  idleVideo: string;
-  playingVideo: string;
-  logo: string;
-  playIcon: string;
-  className: string;
-};
-
-const PRODUCTS: AddonProduct[] = [
-  {
-    name: "K Risk",
-    href: "/technologies/krisk",
-    idleVideo: "/videos/krisk-idle.mp4",
-    playingVideo: "/videos/krisk-loop.mp4",
-    logo: "/logos/krisk-logo-light.svg",
-    playIcon: "/images/home-addons/play.svg",
-    className: styles.krisk,
-  },
-  {
-    name: "K Leads",
-    href: "/technologies/kleads",
-    idleVideo: "/videos/kleads-idle.mp4",
-    playingVideo: "/videos/kleads-loop.mp4",
-    logo: "/logos/kleads-logo-light.svg",
-    playIcon: "/images/home-addons/play.svg",
-    className: styles.kleads,
-  },
-  {
-    name: "K Talk",
-    href: "/technologies/ktalk",
-    idleVideo: "/videos/ktalk-idle.mp4",
-    playingVideo: "/videos/ktalk-loop.mp4",
-    logo: "/logos/ktalk-logo-dark.svg",
-    playIcon: "/images/home-addons/play-black.svg",
-    className: styles.ktalk,
-  },
-];
+const PRODUCT_CLASS = {
+  krails: styles.krails,
+  krisk: styles.krisk,
+  kleads: styles.kleads,
+  ktalk: styles.ktalk,
+} as const;
 
 type PlaybackMode = "idle" | "playing" | "paused";
 
@@ -256,14 +224,14 @@ export function HomeAddons({ translations }: HomeAddonsProps) {
       </div>
 
       <div className={styles.products} dir="ltr">
-        {PRODUCTS.map((product) => {
+        {ADDON_SPHERE_PRODUCTS.map((product) => {
           const productMode = activeName === product.name ? mode : "idle";
           const playing = productMode === "playing";
           return (
             <Link
               key={product.name}
               href={product.href}
-              className={cn(styles.product, product.className)}
+              className={cn(styles.product, PRODUCT_CLASS[product.id])}
               aria-label={playing ? `Pause ${product.name}` : `Play ${product.name}`}
               onClick={(event) => {
                 if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -271,15 +239,19 @@ export function HomeAddons({ translations }: HomeAddonsProps) {
                 toggleProduct(product.name);
               }}
             >
-              <span className={styles.pillSm} aria-hidden />
-              <span className={styles.plusSm} aria-hidden>
-                <img src="/images/home-addons/plus-circle-sm.svg" alt="" width={16} height={16} />
-                <span className={styles.plusBarVSm} />
-                <span className={styles.plusBarHSm} />
-              </span>
-              <span className={styles.pillSmLabel} dir={dir}>
-                {translations.addonsEyebrow}
-              </span>
+              {!product.hideAddons ? (
+                <>
+                  <span className={styles.pillSm} aria-hidden />
+                  <span className={styles.plusSm} aria-hidden>
+                    <img src="/images/home-addons/plus-circle-sm.svg" alt="" width={16} height={16} />
+                    <span className={styles.plusBarVSm} />
+                    <span className={styles.plusBarHSm} />
+                  </span>
+                  <span className={styles.pillSmLabel} dir={dir}>
+                    {translations.addonsEyebrow}
+                  </span>
+                </>
+              ) : null}
               <SphereVideo
                 idleSrc={product.idleVideo}
                 playingSrc={product.playingVideo}

@@ -1,0 +1,190 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 0;
+  padding: var(--padding-sm) 0;
+  box-sizing: border-box;
+}
+
+.headerTitle {
+  font-family: "Sora", sans-serif;
+  font-size: var(--text-base);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: hsl(var(--foreground));
+  margin: 0 0 var(--padding-sm) 0;
+}
+
+.products {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.product {
+  position: relative;
+  flex: 1 1 0;
+  max-width: 200px;
+  aspect-ratio: 1;
+  overflow: visible;
+  text-decoration: none;
+  --tech-showcase-arrow-color: #ffffff;
+}
+
+.product::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 50%;
+  background: #d9d9d9;
+  pointer-events: none;
+}
+
+:global(html.dark) .product::before {
+  background: #2a2a2a;
+}
+
+.sphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.sphereVideo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 132%;
+  height: 132%;
+  object-fit: cover;
+  object-position: center;
+  transform: translate(-50%, -50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sphereVideo {
+    display: none;
+  }
+}
+
+.pillSm {
+  position: absolute;
+  z-index: 2;
+  top: 9.5%;
+  left: -8%;
+  width: 45%;
+  min-width: 114px;
+  height: 23px;
+  overflow: visible;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #2f499e 0%, #00acfd 100%);
+}
+
+.plusSm {
+  position: absolute;
+  z-index: 3;
+  top: 11%;
+  left: -11%;
+  width: 16px;
+  height: 16px;
+}
+
+.plusBarVSm,
+.plusBarHSm {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+.plusBarVSm {
+  top: 2.93px;
+  left: 6.49px;
+  width: 3.227px;
+  height: 10.218px;
+}
+
+.plusBarHSm {
+  top: 6.42px;
+  left: 2.69px;
+  width: 10.218px;
+  height: 3.227px;
+}
+
+.pillSmLabel {
+  position: absolute;
+  z-index: 3;
+  top: 9.5%;
+  left: -4%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 38%;
+  min-width: 95px;
+  height: 23px;
+  overflow: visible;
+  font-size: 20px;
+  font-weight: var(--font-bold);
+  line-height: 1;
+  color: #ffffff;
+  text-align: right;
+}
+
+.productLogo {
+  position: absolute;
+  z-index: 1;
+  top: 32.14%;
+  left: 50%;
+  height: 16%;
+  width: auto;
+  max-width: 78%;
+  object-fit: contain;
+  object-position: center;
+  transform: translateX(-50%);
+}
+
+.ktalk .productLogo {
+  filter: brightness(0);
+}
+
+.ktalk {
+  --tech-showcase-arrow-color: #000000;
+}
+
+.arrowWrap {
+  position: absolute;
+  z-index: 1;
+  top: 55.16%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  height: 25%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.arrowWrap > span {
+  position: static;
+  left: auto;
+  top: auto;
+  transform: none;
+}
+
+.techTooltip {
+  max-width: min(280px, 90vw);
+  white-space: normal;
+  line-height: 1.5;
+}

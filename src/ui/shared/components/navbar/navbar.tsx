@@ -12,6 +12,7 @@ import { DesktopDropdown } from "@/ui/shared/components/dropdown-menu/dropdown-m
 import { ThemeToggle } from "@/ui/shared/components/theme-toggle/theme-toggle";
 import { LocaleSwitcher } from "@/ui/shared/components/locale-switcher/locale-switcher";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
+import { preloadAddonSphereVideos } from "@/ui/shared/components/addon-spheres/addon-sphere-products";
 import {
   TECHNOLOGIES,
   preloadTechnologyLogos,
@@ -81,6 +82,10 @@ export const NavigationMenuDemo = ({
   const handleDropdownClick = () => {
     setDropdownOpen(!dropdownOpen);
   };
+
+  useEffect(() => {
+    setDropdownOpen(false);
+  }, [path]);
 
   useEffect(() => {
     let cancelled = false;
@@ -264,8 +269,14 @@ export const NavigationMenuDemo = ({
                   ref={dropdownTriggerRef}
                   onClick={handleDropdownClick}
                   onKeyDown={handleTriggerKeyDown}
-                  onMouseEnter={() => preloadTechnologyLogos(effectiveTheme)}
-                  onFocus={() => preloadTechnologyLogos(effectiveTheme)}
+                  onMouseEnter={() => {
+                    preloadTechnologyLogos(effectiveTheme);
+                    preloadAddonSphereVideos();
+                  }}
+                  onFocus={() => {
+                    preloadTechnologyLogos(effectiveTheme);
+                    preloadAddonSphereVideos();
+                  }}
                   className={styles.navLink}
                   aria-expanded={dropdownOpen}
                   aria-haspopup="true"
