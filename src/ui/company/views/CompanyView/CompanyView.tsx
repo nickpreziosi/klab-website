@@ -7,7 +7,6 @@ import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-anima
 import styles from "./CompanyView.module.css";
 import JourneyTimeline from "@/ui/company/components/journey-timeline/journey-timeline";
 import CompanyCulture from "@/ui/company/components/company-culture/company-culture";
-import CompanyBrandSection from "@/ui/company/components/company-brand-section/company-brand-section";
 import KlabFoundationSection from "@/ui/company/components/klab-foundation-section/klab-foundation-section";
 import CompanyManifesto from "@/ui/company/components/company-manifesto/company-manifesto";
 import CompanyStaffSection from "@/ui/company/components/company-staff-section/company-staff-section";
@@ -27,7 +26,6 @@ export function CompanyView({ companyHeroTranslations, employees, board }: Compa
       <CompanyHero translations={companyHeroTranslations} skipAnimation={skipAnimation} />
       <main className={styles.main}>
         <JourneyTimeline skipAnimation={skipAnimation} />
-        <CompanyBrandSection skipAnimation={skipAnimation} />
         <CompanyManifesto skipAnimation={skipAnimation} />
         <KlabFoundationSection skipAnimation={skipAnimation} />
         <CompanyCulture skipAnimation={skipAnimation} />

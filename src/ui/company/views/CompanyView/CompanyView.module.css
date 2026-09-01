@@ -15,6 +15,11 @@
   height: fit-content;
   width: 100%;
   padding: 0;
+  --theme-gradient: linear-gradient(180deg, #ffffff 0%, #f2f2f2 100%);
+}
+
+:global(html.dark) .main {
+  --theme-gradient: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
 }
 
 .staffContainer {
