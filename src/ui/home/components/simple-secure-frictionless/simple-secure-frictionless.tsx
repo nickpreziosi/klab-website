@@ -68,15 +68,7 @@ export function SimpleSecureFrictionless({
   ];
 
   return (
-    <motion.section
-      className={styles.section}
-      dir={dir}
-      initial={skipAnimation ? false : "hidden"}
-      whileInView={skipAnimation ? undefined : "visible"}
-      animate={skipAnimation ? "visible" : undefined}
-      viewport={skipAnimation ? undefined : { once: true, amount: 0.2 }}
-      variants={fadeUp}
-    >
+    <section className={styles.section} dir={dir}>
       <div className={styles.inner}>
         <h2 className={styles.title}>{translations.trustTitle}</h2>
         <p className={styles.tagline}>{translations.trustTagline}</p>
@@ -135,6 +127,6 @@ export function SimpleSecureFrictionless({
           ))}
         </motion.ul>
       </div>
-    </motion.section>
+    </section>
   );
 }

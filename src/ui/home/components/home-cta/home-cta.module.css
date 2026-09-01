@@ -11,6 +11,13 @@
   background: #ffffff;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 :global(html.dark) .section {
   background: #000000;
 }

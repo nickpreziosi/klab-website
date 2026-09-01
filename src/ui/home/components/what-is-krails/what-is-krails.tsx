@@ -32,16 +32,15 @@ export function WhatIsKrails({ translations, skipAnimation = false }: WhatIsKrai
   const dir = getTextDirection(locale);
 
   return (
-    <motion.section
-      className={styles.section}
-      dir={dir}
-      initial={skipAnimation ? false : "hidden"}
-      whileInView={skipAnimation ? undefined : "visible"}
-      animate={skipAnimation ? "visible" : undefined}
-      viewport={skipAnimation ? undefined : { once: true, amount: 0.25 }}
-      variants={fadeUp}
-    >
-      <div className={styles.inner}>
+    <section className={styles.section} dir={dir}>
+      <motion.div
+        className={styles.inner}
+        initial={skipAnimation ? false : "hidden"}
+        whileInView={skipAnimation ? undefined : "visible"}
+        animate={skipAnimation ? "visible" : undefined}
+        viewport={skipAnimation ? undefined : { once: true, amount: 0.25 }}
+        variants={fadeUp}
+      >
         <div className={styles.frame}>
         <div className={styles.layout}>
           <div className={styles.card}>
@@ -86,7 +85,7 @@ export function WhatIsKrails({ translations, skipAnimation = false }: WhatIsKrai
           />
         </div>
         </div>
-      </div>
-    </motion.section>
+      </motion.div>
+    </section>
   );
 }

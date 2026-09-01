@@ -22,18 +22,17 @@ export function ReplaceSystems({
   const dir = getTextDirection(locale);
 
   return (
-    <motion.section
-      className={styles.section}
-      dir={dir}
-      initial={skipAnimation ? false : { opacity: 0 }}
-      whileInView={skipAnimation ? undefined : { opacity: 1 }}
-      animate={skipAnimation ? { opacity: 1 } : undefined}
-      viewport={skipAnimation ? undefined : { once: true, amount: 0.25 }}
-      transition={
-        skipAnimation ? { duration: 0 } : { duration: 0.7, ease: ENTRANCE_EASE }
-      }
-    >
-      <div className={styles.inner}>
+    <section className={styles.section} dir={dir}>
+      <motion.div
+        className={styles.inner}
+        initial={skipAnimation ? false : { opacity: 0 }}
+        whileInView={skipAnimation ? undefined : { opacity: 1 }}
+        animate={skipAnimation ? { opacity: 1 } : undefined}
+        viewport={skipAnimation ? undefined : { once: true, amount: 0.25 }}
+        transition={
+          skipAnimation ? { duration: 0 } : { duration: 0.7, ease: ENTRANCE_EASE }
+        }
+      >
         <div className={styles.card}>
         <div className={styles.pills}>
           <h2 className={styles.question}>{translations.replaceQuestion}</h2>
@@ -44,7 +43,7 @@ export function ReplaceSystems({
           <p>{withBrandLtr(translations.replaceBody2, styles.brandLtr)}</p>
         </div>
       </div>
-      </div>
-    </motion.section>
+      </motion.div>
+    </section>
   );
 }

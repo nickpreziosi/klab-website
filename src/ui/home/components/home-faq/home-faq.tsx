@@ -29,20 +29,22 @@ export function HomeFaq({ translations, skipAnimation = false }: HomeFaqProps) {
   const dir = getTextDirection(locale);
 
   return (
-    <motion.section
+    <section
       id="home-faq"
       className={styles.section}
       dir={dir}
       aria-labelledby="home-faq-heading"
-      initial={skipAnimation ? false : "hidden"}
-      whileInView={skipAnimation ? undefined : "visible"}
-      animate={skipAnimation ? "visible" : undefined}
-      viewport={skipAnimation ? undefined : { once: true, amount: 0.2 }}
-      variants={fadeUp}
     >
       <h2 id="home-faq-heading" className={styles.srOnly}>
         {translations.faqTitle}
       </h2>
+      <motion.div
+        initial={skipAnimation ? false : "hidden"}
+        whileInView={skipAnimation ? undefined : "visible"}
+        animate={skipAnimation ? "visible" : undefined}
+        viewport={skipAnimation ? undefined : { once: true, amount: 0.2 }}
+        variants={fadeUp}
+      >
       <Accordion.Root
         type="single"
         collapsible
@@ -66,6 +68,7 @@ export function HomeFaq({ translations, skipAnimation = false }: HomeFaqProps) {
           </Accordion.Item>
         ))}
       </Accordion.Root>
-    </motion.section>
+      </motion.div>
+    </section>
   );
 }

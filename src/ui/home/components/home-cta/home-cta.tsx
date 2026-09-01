@@ -27,28 +27,32 @@ export function HomeCta({ translations, skipAnimation = false }: HomeCtaProps) {
   const dir = getTextDirection(locale);
 
   return (
-    <motion.section
+    <section
       className={styles.section}
       dir={dir}
       aria-labelledby="home-cta-heading"
-      initial={skipAnimation ? false : "hidden"}
-      whileInView={skipAnimation ? undefined : "visible"}
-      animate={skipAnimation ? "visible" : undefined}
-      viewport={skipAnimation ? undefined : { once: true, amount: 0.3 }}
-      variants={fadeUp}
     >
-      <h2 id="home-cta-heading" className={styles.title}>
-        {translations.ctaTitle}
-      </h2>
-      <p className={styles.body}>{translations.ctaBody}</p>
-      <Button
-        href="/contact/sales"
-        variant="accent-brand-outline"
-        size="lg"
-        className={styles.button}
+      <motion.div
+        className={styles.content}
+        initial={skipAnimation ? false : "hidden"}
+        whileInView={skipAnimation ? undefined : "visible"}
+        animate={skipAnimation ? "visible" : undefined}
+        viewport={skipAnimation ? undefined : { once: true, amount: 0.3 }}
+        variants={fadeUp}
       >
-        {translations.ctaButton}
-      </Button>
-    </motion.section>
+        <h2 id="home-cta-heading" className={styles.title}>
+          {translations.ctaTitle}
+        </h2>
+        <p className={styles.body}>{translations.ctaBody}</p>
+        <Button
+          href="/contact/sales"
+          variant="accent-brand-outline"
+          size="lg"
+          className={styles.button}
+        >
+          {translations.ctaButton}
+        </Button>
+      </motion.div>
+    </section>
   );
 }
