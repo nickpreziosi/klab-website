@@ -9,8 +9,7 @@ export function KTalkView({ translations, hero, mockups, sections }: TechnologyP
   return (
     <TechnologyPageLayout
       technologyName="K-Talk"
-      logoLight="/logos/ktalk-logo-light.svg"
-      logoDark="/logos/ktalk-logo-dark.svg"
+      logoProduct="k-talk"
       hero={hero}
       mockups={mockups}
       sections={sections}

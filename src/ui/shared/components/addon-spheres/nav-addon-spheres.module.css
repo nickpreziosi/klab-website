@@ -149,6 +149,10 @@
   text-align: right;
 }
 
+.productLogoWrap {
+  display: contents !important;
+}
+
 .productLogo {
   position: absolute;
   z-index: 1;
@@ -160,10 +164,6 @@
   object-fit: contain;
   object-position: center;
   transform: translateX(-50%);
-}
-
-.ktalk .productLogo {
-  filter: brightness(0);
 }
 
 .ktalk {

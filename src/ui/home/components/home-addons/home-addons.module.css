@@ -427,36 +427,22 @@
   text-align: right;
 }
 
+/* ProductLogo wraps the img in inline-flex; contents restores img-as-positioned-element sizing */
+.productLogoWrap {
+  display: contents !important;
+}
+
 .productLogo {
   position: absolute;
   z-index: 1;
   top: 32.14%;
+  left: 50%;
+  height: 16%;
+  width: auto;
+  max-width: 78%;
   object-fit: contain;
-}
-
-.krisk .productLogo {
-  left: 22.6%;
-  width: 53.9%;
-  height: 20.5%;
-}
-
-.krails .productLogo {
-  left: 11.3%;
-  width: 78%;
-  height: 23.1%;
-}
-
-.kleads .productLogo {
-  left: 11.3%;
-  width: 78%;
-  height: 23.1%;
-}
-
-.ktalk .productLogo {
-  left: 18.4%;
-  width: 64.1%;
-  height: 15.5%;
-  filter: brightness(0);
+  object-position: center;
+  transform: translateX(-50%);
 }
 
 .play {

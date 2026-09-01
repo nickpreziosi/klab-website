@@ -200,8 +200,8 @@
 
 /* Drawer tech logos: native img for instant display (no async fetch delay) */
 .dropdownItemLogoImg {
-  height: 24px;
-  width: auto;
+  height: 24px !important;
+  width: auto !important;
   display: block;
   object-fit: contain;
 }

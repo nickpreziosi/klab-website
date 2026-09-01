@@ -9,8 +9,7 @@ export function KRiskView({ translations, hero, mockups, sections }: TechnologyP
   return (
     <TechnologyPageLayout
       technologyName="KRisk"
-      logoLight="/logos/krisk-logo-light.svg"
-      logoDark="/logos/krisk-logo-dark.svg"
+      logoProduct="k-risk"
       hero={hero}
       mockups={mockups}
       sections={sections}

@@ -5,13 +5,10 @@ import { ArrowDownIcon } from "lucide-react";
 import styles from "./krails-hero.module.css";
 import HeroText, { type HeroTextButtonOrder } from "@/ui/shared/components/hero-text/hero-text";
 import heroTextStyles from "@/ui/shared/components/hero-text/hero-text.module.css";
+import { ProductLogo } from "@k-lab/components";
 import { cn } from "@/ui/shared/utils/utils";
-import { useEffectiveThemeSync } from "@/ui/shared/hooks/use-theme";
 import { Locale } from "@/i18n/routing";
 import { useLocale } from "next-intl";
-
-const LOGO_LIGHT = "/logos/krails-logo-light.svg";
-const LOGO_DARK = "/logos/krails-logo-dark.svg";
 
 /** Learn More: downward (scroll to content). Request Access: forward arrow (same as HeroText default primary). */
 const learnMoreButtonIcon = <ArrowDownIcon className={heroTextStyles.arrowIcon} aria-hidden />;
@@ -60,9 +57,7 @@ export default function KRailsHero({
   buttonOrder = "primary-first",
   skipAnimation = false,
 }: KRailsHeroProps) {
-  const effectiveTheme = useEffectiveThemeSync();
   const locale = useLocale() as Locale;
-  const logoSrc = effectiveTheme === "dark" ? LOGO_LIGHT : LOGO_DARK;
   const HERO_TEXT_MAX_WIDTH: Record<Locale, string> = {
     en: "920px",
     ar: "920px",
@@ -75,18 +70,14 @@ export default function KRailsHero({
       <div className={styles.contentWrapper}>
         <div className={styles.heroTextContainer}>
           <div className={styles.logoRow}>
-            <motion.img
+            <motion.div
               className={styles.heroLogo}
-              src={logoSrc}
-              alt={logoAlt}
-              width={280}
-              height={72}
               initial={skipAnimation ? { opacity: 1 } : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={skipAnimation ? { duration: 0 } : { duration: 0.5, ease: "easeOut" }}
-              fetchPriority="high"
-              decoding="async"
-            />
+            >
+              <ProductLogo product="k-rails" alt={logoAlt} className={styles.heroLogoImg} />
+            </motion.div>
           </div>
           <HeroText
             className={heroTextStyles.krailsHero}

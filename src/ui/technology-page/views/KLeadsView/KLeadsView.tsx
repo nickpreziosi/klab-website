@@ -9,8 +9,7 @@ export function KLeadsView({ translations, hero, mockups, sections }: Technology
   return (
     <TechnologyPageLayout
       technologyName="K-Leads"
-      logoLight="/logos/kleads-logo-light.svg"
-      logoDark="/logos/kleads-logo-dark.svg"
+      logoProduct="k-leads"
       hero={hero}
       mockups={mockups}
       sections={sections}

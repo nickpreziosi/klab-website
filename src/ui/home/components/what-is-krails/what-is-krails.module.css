@@ -99,7 +99,8 @@
 
 .logoWrap {
   position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
   height: 2.5rem;
   width: auto;
   max-width: 11rem;
@@ -107,23 +108,11 @@
 
 .logo {
   display: block;
-  height: 2.5rem;
-  width: auto;
+  height: 2.5rem !important;
+  width: auto !important;
   max-width: 11rem;
   object-fit: contain;
   object-position: left center;
-}
-
-.logoDark {
-  display: none;
-}
-
-:global(html.dark) .logoLight {
-  display: none;
-}
-
-:global(html.dark) .logoDark {
-  display: block;
 }
 
 .mark {

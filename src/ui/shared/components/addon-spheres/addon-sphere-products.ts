@@ -1,4 +1,6 @@
-export type AddonSphereId = "krails" | "krisk" | "kleads" | "ktalk";
+import { BRAND_PRODUCT_SLUG, type BrandTechId } from "./brand-logos";
+
+export type AddonSphereId = BrandTechId;
 
 export type AddonSphereProduct = {
   id: AddonSphereId;
@@ -6,7 +8,9 @@ export type AddonSphereProduct = {
   href: string;
   idleVideo: string;
   playingVideo: string;
-  logo: string;
+  product: (typeof BRAND_PRODUCT_SLUG)[BrandTechId];
+  /** White on video for most spheres; K Talk's clip is light so it uses the dark mark. */
+  logoVariant: "white" | "dark";
   playIcon: string;
   hideAddons?: boolean;
   darkControls?: boolean;
@@ -30,7 +34,8 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
     href: "/technologies/krails",
     idleVideo: "/videos/krails-idle.mp4",
     playingVideo: "/videos/krails-sphere-loop.mp4",
-    logo: "/logos/krails-logo-light.svg",
+    product: BRAND_PRODUCT_SLUG.krails,
+    logoVariant: "white",
     playIcon: "/images/home-addons/play.svg",
     hideAddons: true,
   },
@@ -40,7 +45,8 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
     href: "/technologies/krisk",
     idleVideo: "/videos/krisk-idle.mp4",
     playingVideo: "/videos/krisk-loop.mp4",
-    logo: "/logos/krisk-logo-light.svg",
+    product: BRAND_PRODUCT_SLUG.krisk,
+    logoVariant: "white",
     playIcon: "/images/home-addons/play.svg",
   },
   {
@@ -49,7 +55,8 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
     href: "/technologies/kleads",
     idleVideo: "/videos/kleads-idle.mp4",
     playingVideo: "/videos/kleads-loop.mp4",
-    logo: "/logos/kleads-logo-light.svg",
+    product: BRAND_PRODUCT_SLUG.kleads,
+    logoVariant: "white",
     playIcon: "/images/home-addons/play.svg",
   },
   {
@@ -58,7 +65,8 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
     href: "/technologies/ktalk",
     idleVideo: "/videos/ktalk-idle.mp4",
     playingVideo: "/videos/ktalk-loop.mp4",
-    logo: "/logos/ktalk-logo-dark.svg",
+    product: BRAND_PRODUCT_SLUG.ktalk,
+    logoVariant: "dark",
     playIcon: "/images/home-addons/play-black.svg",
     darkControls: true,
   },

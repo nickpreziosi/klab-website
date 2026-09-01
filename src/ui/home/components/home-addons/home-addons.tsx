@@ -7,6 +7,7 @@ import { getTextDirection, type Locale } from "@/i18n/routing";
 import type { HomeKrailsTranslations } from "@/ui/home/types";
 import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
 import { ADDON_SPHERE_PRODUCTS } from "@/ui/shared/components/addon-spheres/addon-sphere-products";
+import { ProductLogo } from "@k-lab/components";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./home-addons.module.css";
 
@@ -261,11 +262,12 @@ export function HomeAddons({ translations }: HomeAddonsProps) {
                   setMode("idle");
                 }}
               />
-              <img
-                src={product.logo}
-                alt=""
+              <ProductLogo
+                product={product.product}
+                variant={product.logoVariant}
                 className={styles.productLogo}
-                decoding="async"
+                wrapperClassName={styles.productLogoWrap}
+                aria-hidden
               />
               <span className={styles.play} aria-hidden>
                 <img src={product.playIcon} alt="" />

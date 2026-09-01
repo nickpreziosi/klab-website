@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/ui/shared/components/card/card";
+import { ProductLogo } from "@k-lab/components";
 import { useTheme } from "@/ui/shared/hooks/use-theme";
 import { cn } from "@/ui/shared/utils/utils";
 import type {
@@ -229,6 +230,7 @@ function InfoSectionRenderer({
 
 export function TechnologyPageLayout({
   technologyName,
+  logoProduct,
   logoLight,
   logoDark,
   hero,
@@ -273,7 +275,14 @@ export function TechnologyPageLayout({
             <div className={styles.heroRow}>
               <div className={styles.heroTextCol}>
                 <div className={styles.heroTitleRow}>
-                {logoSrc ? (
+                {logoProduct ? (
+                  <ProductLogo
+                    product={logoProduct}
+                    className={styles.heroLogo}
+                    wrapperClassName={styles.heroLogoWrap}
+                    aria-hidden
+                  />
+                ) : logoSrc ? (
                   <Image
                     key={logoSrc}
                     src={logoSrc}

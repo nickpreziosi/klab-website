@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffectiveThemeSync } from "@/ui/shared/hooks/use-theme";
+import { ProductLogo } from "@k-lab/components";
 import { easeInOut, motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useId, useState } from "react";
@@ -10,8 +10,6 @@ function useSvgIdPrefix(): string {
   return "dash-" + useId().replace(/:/g, "-");
 }
 
-const LOGO_LIGHT = "/logos/krails-logo-light.svg";
-const LOGO_DARK = "/logos/krails-logo-dark.svg";
 // using inline SVGs for language icons instead of raster Image imports
 
 interface KRailsDashboardProps {
@@ -20,8 +18,6 @@ interface KRailsDashboardProps {
 
 export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboardProps) {
   const t = useTranslations("krails");
-  const effectiveTheme = useEffectiveThemeSync();
-  const logoSrc = effectiveTheme === "dark" ? LOGO_LIGHT : LOGO_DARK;
   const rubySvgId = useSvgIdPrefix();
   const pythonSvgId = useSvgIdPrefix();
 
@@ -456,7 +452,11 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
                 </div>
                 <nav tabIndex={-1} className={styles.navList}>
                   <div className={styles.navGroupTitle}>
-                    <img className={styles.navGroupTitleIcon} src={logoSrc} alt={t("logoAlt")} />{" "}
+                    <ProductLogo
+                      product="k-rails"
+                      className={styles.navGroupTitleIcon}
+                      alt={t("logoAlt")}
+                    />{" "}
                     API
                   </div>
 
@@ -593,7 +593,7 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
               </div>
               <div className={styles.panelContent}>
                 <div className={styles.endpointHeader}>
-                  <img className={styles.endpointIcon} src={logoSrc} alt={t("logoAlt")} />
+                  <ProductLogo product="k-rails" className={styles.endpointIcon} alt={t("logoAlt")} />
                   <h1 className={styles.endpointPath}>/api/health</h1>
                 </div>
                 <div className={styles.urlDisplay}>
@@ -717,7 +717,11 @@ export default function KRailsDashboard({ skipAnimation = false }: KRailsDashboa
               <div tabIndex={-1} className={styles.panelContent}>
                 <div className={styles.languageSection}>
                   <div className={styles.languageLabel}>
-                    <img className={styles.languageIcon} src={logoSrc} alt={t("logoAlt")} />{" "}
+                    <ProductLogo
+                      product="k-rails"
+                      className={styles.languageIcon}
+                      alt={t("logoAlt")}
+                    />{" "}
                     <span>LANGUAGE</span>
                   </div>
                   <div className={styles.langTabs}>

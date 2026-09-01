@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getTextDirection, type Locale } from "@/i18n/routing";
+import { ProductLogo } from "@k-lab/components";
 import { TechnologiesShowcaseLogoArrow } from "@/ui/shared/components/technologies-showcase/technologies-showcase-arrow";
 import { cn } from "@/ui/shared/utils/utils";
 import { ADDON_SPHERE_PRODUCTS } from "./addon-sphere-products";
@@ -85,11 +86,12 @@ export function NavAddonSpheres({ onLinkClick, headerTitle }: NavAddonSpheresPro
               </>
             ) : null}
             <IdleSphereVideo src={product.idleVideo} />
-            <img
-              src={product.logo}
-              alt=""
+            <ProductLogo
+              product={product.product}
+              variant={product.logoVariant}
               className={styles.productLogo}
-              decoding="async"
+              wrapperClassName={styles.productLogoWrap}
+              aria-hidden
             />
             <span className={styles.arrowWrap} aria-hidden>
               <TechnologiesShowcaseLogoArrow />

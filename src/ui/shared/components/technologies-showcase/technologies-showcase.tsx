@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { ProductLogo } from "@k-lab/components";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 import {
   Tooltip,
@@ -12,6 +13,7 @@ import {
   TooltipTrigger,
 } from "@/ui/shared/components/tooltip/tooltip";
 import { useTheme } from "@/ui/shared/hooks/use-theme";
+import { BRAND_LOGO_SRC, BRAND_PRODUCT_SLUG } from "@/ui/shared/components/addon-spheres/brand-logos";
 import { TechnologiesShowcaseLogoArrow } from "./technologies-showcase-arrow";
 import styles from "./technologies-showcase.module.css";
 
@@ -37,13 +39,15 @@ export const TECHNOLOGIES: {
   logoDark: string;
   descriptionKey: TechDescriptionKey;
   href: string;
+  product?: (typeof BRAND_PRODUCT_SLUG)[keyof typeof BRAND_PRODUCT_SLUG];
 }[] = [
   {
     title: "K-Rails",
-    logoLight: "/logos/krails-logo-light.svg",
-    logoDark: "/logos/krails-logo-dark.svg",
+    logoLight: BRAND_LOGO_SRC.krails.white,
+    logoDark: BRAND_LOGO_SRC.krails.dark,
     descriptionKey: "krails",
     href: "/technologies/krails",
+    product: BRAND_PRODUCT_SLUG.krails,
   },
   {
     title: "Kena",
@@ -54,17 +58,19 @@ export const TECHNOLOGIES: {
   },
   {
     title: "K-Risk",
-    logoLight: "/logos/krisk-logo-light.svg",
-    logoDark: "/logos/krisk-logo-dark.svg",
+    logoLight: BRAND_LOGO_SRC.krisk.white,
+    logoDark: BRAND_LOGO_SRC.krisk.dark,
     descriptionKey: "krisk",
     href: "/technologies/krisk",
+    product: BRAND_PRODUCT_SLUG.krisk,
   },
   {
     title: "K-Leads",
-    logoLight: "/logos/kleads-logo-light.svg",
-    logoDark: "/logos/kleads-logo-dark.svg",
+    logoLight: BRAND_LOGO_SRC.kleads.white,
+    logoDark: BRAND_LOGO_SRC.kleads.dark,
     descriptionKey: "kleads",
     href: "/technologies/kleads",
+    product: BRAND_PRODUCT_SLUG.kleads,
   },
   {
     title: "KABL",
@@ -225,17 +231,21 @@ export function TechnologiesShowcase({
     const el = kleadsLogoRef.current;
     if (!el) return;
     const ro = new ResizeObserver(() => {
-      const svg = el.querySelector("svg");
-      if (svg) {
-        const h = svg.getBoundingClientRect().height;
+      const mark = [...el.querySelectorAll("img, svg")].find(
+        (node) => getComputedStyle(node).display !== "none"
+      );
+      if (mark) {
+        const h = mark.getBoundingClientRect().height;
         if (h > 0) setLogoHeight(h);
       }
     });
     ro.observe(el);
     const tId = setTimeout(() => {
-      const svg = el.querySelector("svg");
-      if (svg) {
-        const h = svg.getBoundingClientRect().height;
+      const mark = [...el.querySelectorAll("img, svg")].find(
+        (node) => getComputedStyle(node).display !== "none"
+      );
+      if (mark) {
+        const h = mark.getBoundingClientRect().height;
         if (h > 0) setLogoHeight(h);
       }
     }, 100);
@@ -387,7 +397,16 @@ function TechSemiCircle({
                 ref={logoRef}
                 className={`${styles.techLogo} ${isWidestLogo ? styles.techLogoWidest : ""} ${tech.descriptionKey === "kbpm" ? styles.techLogoKbpm : ""}`}
               >
-                <LogoComponent src={logoSrc} />
+                {tech.product ? (
+                  <ProductLogo
+                    product={tech.product}
+                    className={styles.techLogoImg}
+                    wrapperClassName={styles.techLogoMark}
+                    aria-hidden
+                  />
+                ) : (
+                  <LogoComponent src={logoSrc} />
+                )}
                 <TechnologiesShowcaseLogoArrow />
               </div>
             </div>

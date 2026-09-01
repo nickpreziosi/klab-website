@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ClientOnly } from "@/ui/shared/components/client-only/client-only";
+import { ProductLogo } from "@k-lab/components";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 import Button from "@/ui/shared/components/button/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/shared/components/popover/popover";
@@ -14,6 +15,7 @@ import {
 } from "@/ui/shared/components/tooltip/tooltip";
 import { useTranslations } from "next-intl";
 import { useTheme } from "@/ui/shared/hooks/use-theme";
+import { BRAND_LOGO_SRC, BRAND_PRODUCT_SLUG } from "@/ui/shared/components/addon-spheres/brand-logos";
 import { TechnologiesShowcaseLogoArrow } from "@/ui/shared/components/technologies-showcase/technologies-showcase-arrow";
 import styles from "./technologies-showcase-vertical.module.css";
 
@@ -40,13 +42,15 @@ const TECHNOLOGIES: {
   logoDark: string;
   descriptionKey: TechKey;
   href: string;
+  product?: (typeof BRAND_PRODUCT_SLUG)[keyof typeof BRAND_PRODUCT_SLUG];
 }[] = [
   {
     title: "K Rails",
-    logoLight: "/logos/krails-logo-light.svg",
-    logoDark: "/logos/krails-logo-dark.svg",
+    logoLight: BRAND_LOGO_SRC.krails.white,
+    logoDark: BRAND_LOGO_SRC.krails.dark,
     descriptionKey: "krails",
     href: "/technologies/krails",
+    product: BRAND_PRODUCT_SLUG.krails,
   },
   {
     title: "Kena",
@@ -57,17 +61,19 @@ const TECHNOLOGIES: {
   },
   {
     title: "KRisk",
-    logoLight: "/logos/krisk-logo-light.svg",
-    logoDark: "/logos/krisk-logo-dark.svg",
+    logoLight: BRAND_LOGO_SRC.krisk.white,
+    logoDark: BRAND_LOGO_SRC.krisk.dark,
     descriptionKey: "krisk",
     href: "/technologies/krisk",
+    product: BRAND_PRODUCT_SLUG.krisk,
   },
   {
     title: "KLeads",
-    logoLight: "/logos/kleads-logo-light.svg",
-    logoDark: "/logos/kleads-logo-dark.svg",
+    logoLight: BRAND_LOGO_SRC.kleads.white,
+    logoDark: BRAND_LOGO_SRC.kleads.dark,
     descriptionKey: "kleads",
     href: "/technologies/kleads",
+    product: BRAND_PRODUCT_SLUG.kleads,
   },
   {
     title: "KAbl",
@@ -204,6 +210,7 @@ function CenterCircle({ variant }: { variant: ShowcaseVariant }) {
 function TechSlot({
   tech,
   logoSrc,
+  productLogoVariant,
   description,
   learnMoreLabel,
   side,
@@ -217,6 +224,7 @@ function TechSlot({
 }: {
   tech: (typeof TECHNOLOGIES)[0];
   logoSrc: string;
+  productLogoVariant: "dark" | "theme-aware";
   description: string;
   learnMoreLabel: string;
   side: "left" | "right";
@@ -234,6 +242,12 @@ function TechSlot({
     variant === "mobile" && isWidestLogo
       ? `${styles.techLogo} ${styles.techLogoWidest}`
       : styles.techLogo;
+
+  const logoMark = tech.product ? (
+    <ProductLogo product={tech.product} variant={productLogoVariant} aria-hidden />
+  ) : (
+    <LogoComponent src={logoSrc} />
+  );
 
   if (variant === "mobile") {
     return (
@@ -254,7 +268,7 @@ function TechSlot({
             >
               <div className={styles.techContent}>
                 <div ref={logoRef} className={logoClassName}>
-                  <LogoComponent src={logoSrc} />
+                  {logoMark}
                   <TechnologiesShowcaseLogoArrow />
                 </div>
               </div>
@@ -304,7 +318,7 @@ function TechSlot({
           >
             <div className={styles.techContent}>
               <div className={styles.techLogo}>
-                <LogoComponent src={logoSrc} />
+                  {logoMark}
                 <TechnologiesShowcaseLogoArrow />
               </div>
             </div>
@@ -375,9 +389,11 @@ export function TechnologiesShowcaseVertical({
     if (!el) return;
     const MAX_MOBILE_LOGO_HEIGHT = MOBILE_ICON_HEIGHT;
     const measure = () => {
-      const svg = el.querySelector("svg");
-      if (svg) {
-        const h = Math.min(svg.getBoundingClientRect().height, MAX_MOBILE_LOGO_HEIGHT);
+      const mark = [...el.querySelectorAll("img, svg")].find(
+        (node) => getComputedStyle(node).display !== "none"
+      );
+      if (mark) {
+        const h = Math.min(mark.getBoundingClientRect().height, MAX_MOBILE_LOGO_HEIGHT);
         if (h > 0) setLogoHeight(h);
       }
     };
@@ -412,6 +428,7 @@ export function TechnologiesShowcaseVertical({
                   key={`left-${tech.title}-${index}`}
                   tech={tech}
                   logoSrc={logoSrc(tech)}
+                  productLogoVariant="dark"
                   description={getDescription(tech)}
                   learnMoreLabel={tCommon("learnMore")}
                   side="left"
@@ -427,6 +444,7 @@ export function TechnologiesShowcaseVertical({
                   key={`right-${tech.title}-${index}`}
                   tech={tech}
                   logoSrc={logoSrc(tech)}
+                  productLogoVariant="dark"
                   description={getDescription(tech)}
                   learnMoreLabel={tCommon("learnMore")}
                   side="right"
@@ -462,6 +480,7 @@ export function TechnologiesShowcaseVertical({
                   key={`left-${tech.title}-${index}`}
                   tech={tech}
                   logoSrc={mobileLogoSrc(tech)}
+                  productLogoVariant={useThemeForMobile ? "theme-aware" : "dark"}
                   description={getDescription(tech)}
                   learnMoreLabel={tCommon("learnMore")}
                   side="left"
@@ -484,6 +503,7 @@ export function TechnologiesShowcaseVertical({
                   key={`right-${tech.title}-${index}`}
                   tech={tech}
                   logoSrc={mobileLogoSrc(tech)}
+                  productLogoVariant={useThemeForMobile ? "theme-aware" : "dark"}
                   description={getDescription(tech)}
                   learnMoreLabel={tCommon("learnMore")}
                   side="right"

@@ -288,3 +288,24 @@ html.no-transitions *:not([data-allow-transition]):not([data-allow-transition] *
 div[data-ui="Layer"] {
   z-index: 1 !important;
 }
+
+/* ProductLogo / BrandLogo utilities — this site does not load Tailwind.
+   Theme-aware logos render both marks and hide one via these classes.
+   !important is required so CSS-module `display: block` cannot unhide the off-theme mark. */
+.inline-flex {
+  display: inline-flex;
+}
+.inline-block {
+  display: inline-block;
+}
+.hidden {
+  display: none !important;
+}
+html.dark .dark\:hidden,
+.dark .dark\:hidden {
+  display: none !important;
+}
+html.dark .dark\:inline-block,
+.dark .dark\:inline-block {
+  display: inline-block !important;
+}

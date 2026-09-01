@@ -1,16 +1,13 @@
+import { brandLogoPreloadUrls } from "@/ui/shared/components/addon-spheres/brand-logos";
+
 /**
  * All technology logo URLs (light + dark) for preloading in document head.
  * Kept in a non–"use client" module so server components can import it.
  */
 export const TECH_LOGO_PRELOAD_URLS: string[] = [
-  "/logos/krails-logo-light.svg",
-  "/logos/krails-logo-dark.svg",
+  ...brandLogoPreloadUrls(),
   "/logos/kena-logo-light.svg",
   "/logos/kena-logo-dark.svg",
-  "/logos/ktalk-logo-light.svg",
-  "/logos/ktalk-logo-dark.svg",
-  "/logos/krisk-logo-light.svg",
-  "/logos/krisk-logo-dark.svg",
   "/logos/kabl-logo-light.svg",
   "/logos/kabl-logo-dark.svg",
   "/logos/kcard-logo-light.svg",
@@ -21,8 +18,6 @@ export const TECH_LOGO_PRELOAD_URLS: string[] = [
   "/logos/kim-logo-dark.svg",
   "/logos/kaxis-logo-light.svg",
   "/logos/kaxis-logo-dark.svg",
-  "/logos/kleads-logo-light.svg",
-  "/logos/kleads-logo-dark.svg",
   "/logos/kai-logo-light.svg",
   "/logos/kai-logo-dark.svg",
 ];

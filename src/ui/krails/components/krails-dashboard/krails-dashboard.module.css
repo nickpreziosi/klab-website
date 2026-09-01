@@ -269,8 +269,8 @@
 }
 
 .endpointIcon {
-  width: auto;
-  height: 30px;
+  width: auto !important;
+  height: 30px !important;
 }
 
 .endpointHeader {
@@ -420,8 +420,8 @@
 }
 
 .languageIcon {
-  width: auto;
-  height: 30px;
+  width: auto !important;
+  height: 30px !important;
 }
 
 .languageSection {

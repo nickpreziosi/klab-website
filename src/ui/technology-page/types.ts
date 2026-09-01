@@ -67,6 +67,8 @@ export type TechnologyInfoSection =
 export interface TechnologyPageLayoutProps {
   /** Technology name for fallback when no logo (e.g. "Kai") */
   technologyName: string;
+  /** Brand product for ProductLogo (theme-aware). */
+  logoProduct?: "k-rails" | "k-leads" | "k-risk" | "k-talk";
   /** Logo for hero: light theme variant */
   logoLight?: string;
   /** Logo for hero: dark theme variant */

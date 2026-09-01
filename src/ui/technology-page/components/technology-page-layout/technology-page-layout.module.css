@@ -121,10 +121,17 @@
   flex-wrap: wrap;
 }
 
-.heroLogo {
-  display: block;
+.heroLogoWrap {
+  display: flex;
   height: 48px;
   width: auto;
+  align-items: center;
+}
+
+.heroLogo {
+  display: block;
+  height: 48px !important;
+  width: auto !important;
   object-fit: contain;
   object-position: left center;
 }

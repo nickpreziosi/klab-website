@@ -5,14 +5,12 @@ import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import type { HomeKrailsTranslations } from "@/ui/home/types";
 import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
-import { cn } from "@/ui/shared/utils/utils";
+import { ProductLogo } from "@k-lab/components";
 import styles from "./what-is-krails.module.css";
 
 const DASHBOARD_GIF = "/images/krails-what-is-dashboard.gif";
 
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
-const LOGO_LIGHT = "/logos/krails-logo-light.svg";
-const LOGO_DARK = "/logos/krails-logo-dark.svg";
 
 const fadeUp = {
   hidden: { opacity: 0 },
@@ -48,23 +46,7 @@ export function WhatIsKrails({ translations, skipAnimation = false }: WhatIsKrai
               <span className={styles.prefix}>{translations.whatIsPrefix}</span>
               <span className={styles.logoRow}>
                 <span className={styles.logoWrap} dir="ltr">
-                  <img
-                    src={LOGO_DARK}
-                    alt="K Rails"
-                    width={245}
-                    height={57}
-                    className={cn(styles.logo, styles.logoLight)}
-                    decoding="async"
-                  />
-                  <img
-                    src={LOGO_LIGHT}
-                    alt=""
-                    width={245}
-                    height={57}
-                    className={cn(styles.logo, styles.logoDark)}
-                    decoding="async"
-                    aria-hidden
-                  />
+                  <ProductLogo product="k-rails" alt="K Rails" className={styles.logo} />
                 </span>
                 <span className={styles.mark} aria-hidden>
                   {translations.whatIsQuestionMark}

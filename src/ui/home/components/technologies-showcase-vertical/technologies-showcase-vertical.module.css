@@ -72,19 +72,23 @@
   padding-bottom: 22px;
 }
 
-.techLogo > div {
-  display: flex;
+.techLogo > div,
+.techLogo > :global(span) {
+  display: flex !important;
   align-items: center;
   justify-content: center;
   height: var(--icon-height);
   width: auto;
   max-width: 100%;
+  min-width: 0;
 }
 
-.techLogo > div svg {
+.techLogo > div svg,
+.techLogo > :global(span) :global(img) {
   height: 100%;
   width: auto;
   max-width: 100%;
+  min-width: 0;
   object-fit: contain;
   color: var(--showcase-fg);
   fill: currentColor;
@@ -95,7 +99,8 @@
   width: 100%;
 }
 
-.wrapperMobile .techLogo.techLogoWidest > div {
+.wrapperMobile .techLogo.techLogoWidest > div,
+.wrapperMobile .techLogo.techLogoWidest > :global(span) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -104,24 +109,29 @@
   max-height: var(--tech-logo-height, 26px);
 }
 
-.wrapperMobile .techLogo.techLogoWidest > div svg {
+.wrapperMobile .techLogo.techLogoWidest > div svg,
+.wrapperMobile .techLogo.techLogoWidest > :global(span) :global(img) {
   width: 100% !important;
   height: auto !important;
   max-width: 100%;
   max-height: var(--tech-logo-height, 26px);
+  min-width: 0;
   object-fit: contain;
 }
 
-.wrapperMobile .techLogo:not(.techLogoWidest) > div {
+.wrapperMobile .techLogo:not(.techLogoWidest) > div,
+.wrapperMobile .techLogo:not(.techLogoWidest) > :global(span) {
   height: var(--tech-logo-height, 26px);
   width: auto;
   max-width: 100%;
 }
 
-.wrapperMobile .techLogo:not(.techLogoWidest) > div svg {
+.wrapperMobile .techLogo:not(.techLogoWidest) > div svg,
+.wrapperMobile .techLogo:not(.techLogoWidest) > :global(span) :global(img) {
   height: 100%;
   width: auto;
   max-width: 100%;
+  min-width: 0;
   object-fit: contain;
 }
 

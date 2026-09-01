@@ -1,5 +1,6 @@
 "use client";
 
+import { ProductLogo, type ProductLogoProps } from "@k-lab/components";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./klab-logo.module.css";
 import type { CSSProperties } from "react";
@@ -14,11 +15,6 @@ export type KlabLogoFormat = "default" | "full";
 export type FullLogoTheme = "auto" | "light" | "dark";
 
 export type KlabLogoVariant = `${KlabLogoColor}-${KlabLogoFormat}`;
-
-const LOGO_ICON_GREY = "/logos/klab-logo-icon.svg";
-const LOGO_ICON_WHITE = "/logos/klab-logo-icon-white.svg";
-const LOGO_FULL_GREY = "/logos/klab-logo-full-dark.svg";
-const LOGO_FULL_WHITE = "/logos/klab-logo-full-white.svg";
 
 const LOGO_VIEWBOX = {
   icon: { w: 217.361, h: 217.361 },
@@ -52,6 +48,15 @@ const sizeMap = {
   xl: 160,
 } as const;
 
+function resolveProductVariant(
+  color: KlabLogoColor,
+  fullLogoTheme: FullLogoTheme
+): NonNullable<ProductLogoProps["variant"]> {
+  if (color === "light" || fullLogoTheme === "dark") return "white";
+  if (fullLogoTheme === "light") return "dark";
+  return "theme-aware";
+}
+
 export function KlabLogo({
   color = "orange",
   format = "default",
@@ -66,16 +71,8 @@ export function KlabLogo({
 }: KlabLogoProps) {
   const resolvedVariant = variant ?? getVariant(color, format);
   const [resolvedColor, resolvedFormat] = resolvedVariant.split("-") as [KlabLogoColor, KlabLogoFormat];
-  const followTheme = resolvedColor !== "light" && fullLogoTheme === "auto";
-  const forcedTheme: "light" | "dark" | null = followTheme
-    ? null
-    : resolvedColor === "light" || fullLogoTheme === "dark"
-      ? "dark"
-      : "light";
-  const greySrc = resolvedFormat === "default" ? LOGO_ICON_GREY : LOGO_FULL_GREY;
-  const whiteSrc = resolvedFormat === "default" ? LOGO_ICON_WHITE : LOGO_FULL_WHITE;
-  const src = forcedTheme === "dark" ? whiteSrc : greySrc;
-  const viewBox = resolvedFormat === "default" ? LOGO_VIEWBOX.icon : LOGO_VIEWBOX.full;
+  const isIcon = resolvedFormat === "default";
+  const viewBox = isIcon ? LOGO_VIEWBOX.icon : LOGO_VIEWBOX.full;
 
   const sizeNum = sizeMap[size];
   const hasWidth = width !== undefined;
@@ -105,44 +102,22 @@ export function KlabLogo({
     lineHeight: 0,
   };
 
-  const imgClass = cn(
-    styles.img,
-    objectFit === "contain" && styles.objectContain,
-    objectFit === "cover" && styles.objectCover,
-    objectFit === "fill" && styles.objectFill
-  );
-  const imgStyle =
-    typeof w === "string" || typeof h === "string"
-      ? { width: "100%" as const, height: "100%" as const }
-      : undefined;
-
-  const imgProps = {
-    alt,
-    width: typeof w === "number" ? w : undefined,
-    height: typeof h === "number" ? h : undefined,
-    style: imgStyle,
-    decoding: "async" as const,
-    fetchPriority: "low" as const,
-  };
-
   return (
     <span className={cn(styles.root, className)} style={wrapperStyle} role="img" aria-label={alt}>
-      {followTheme ? (
-        <>
-          <img
-            {...imgProps}
-            src={greySrc}
-            className={cn(imgClass, styles.themeLight)}
-          />
-          <img
-            {...imgProps}
-            src={whiteSrc}
-            className={cn(imgClass, styles.themeDark)}
-          />
-        </>
-      ) : (
-        <img {...imgProps} src={src} className={imgClass} />
-      )}
+      <ProductLogo
+        product="klab"
+        size={isIcon ? "icon" : "full"}
+        variant={resolveProductVariant(resolvedColor, fullLogoTheme)}
+        alt={alt}
+        aria-hidden
+        className={cn(
+          styles.img,
+          objectFit === "contain" && styles.objectContain,
+          objectFit === "cover" && styles.objectCover,
+          objectFit === "fill" && styles.objectFill
+        )}
+        wrapperClassName={styles.inner}
+      />
     </span>
   );
 }

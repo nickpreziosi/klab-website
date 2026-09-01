@@ -41,6 +41,13 @@
   width: auto;
   height: auto;
   max-height: clamp(48px, 10vw, 72px);
+}
+
+.heroLogoImg {
+  display: block;
+  width: auto !important;
+  height: auto !important;
+  max-height: clamp(48px, 10vw, 72px);
   object-fit: contain;
 }
 
