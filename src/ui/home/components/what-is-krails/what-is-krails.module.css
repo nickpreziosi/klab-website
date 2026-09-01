@@ -73,12 +73,21 @@
   box-shadow: var(--card-shadow);
 }
 
+.headingRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+}
+
 .heading {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.15rem;
   margin: 0;
+  min-width: 0;
   font-weight: inherit;
   color: hsl(var(--accent));
 }
@@ -119,6 +128,114 @@
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: var(--font-bold);
   line-height: 0.85;
+}
+
+.clip {
+  position: relative;
+  flex-shrink: 0;
+  width: 6rem;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #d9d9d9;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.clip:focus-visible {
+  outline: 2px solid hsl(var(--foreground));
+  outline-offset: 2px;
+}
+
+:global(html.dark) .clip {
+  background: #2a2a2a;
+}
+
+.sphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.sphereVideo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 132%;
+  height: 132%;
+  object-fit: cover;
+  object-position: center;
+  transform: translate(-50%, -50%);
+}
+
+.sphereVideoPlaying {
+  opacity: 0;
+}
+
+.sphereVideoPlaying[data-ready="true"] {
+  opacity: 1;
+}
+
+.sphere[data-playing="true"] ~ .play {
+  opacity: 0;
+}
+
+.sphere[data-playing="true"] ~ .pause {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sphereVideo {
+    display: none;
+  }
+}
+
+.play {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42%;
+  height: 42%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.play img {
+  display: block;
+  width: 75%;
+  height: auto;
+  transform: rotate(90deg);
+}
+
+.pause {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14%;
+  width: 42%;
+  height: 42%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.pauseBar {
+  width: 16%;
+  height: 52%;
+  border-radius: 2px;
+  background: #ffffff;
 }
 
 .body {
