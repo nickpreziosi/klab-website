@@ -11,6 +11,7 @@
     "comingSoon": "Em breve",
     "goToHomepage": "Ir para início",
     "kRailsMenuLabel": "Menu do K Rails, pressione enter ou espaço para abrir",
+    "resourcesMenuLabel": "Menu de recursos, pressione enter ou espaço para abrir",
     "mainNav": "Navegação principal"
   },
   "drawer": {
@@ -324,7 +325,7 @@
     "portuguese": "Português"
   },
   "technologiesDropdown": {
-    "heading": "Nosso ecossistema",
+    "heading": "Infraestrutura",
     "krailsDesc": "Pagamentos e empréstimos B2B blockchain com liquidações instantâneas",
     "kenaDesc": "O primeiro subscritor de risco com IA do mundo para decisões de crédito inteligentes",
     "ktalkDesc": "Chatbot com IA para suporte interno e externo",
@@ -336,6 +337,13 @@
     "kaxisDesc": "Plataforma API-first que conecta instituições financeiras",
     "kleadsDesc": "Análises em tempo real e insights preditivos",
     "kaiDesc": "Carteira digital empresarial com suporte multisignatura"
+  },
+  "resourcesDropdown": {
+    "heading": "Recursos",
+    "brand": "Marca",
+    "marketing": "Marketing",
+    "wellness": "Bem-estar",
+    "press": "Imprensa"
   },
   "techPlaceholder": {
     "contactSales": "Contactar vendas",

@@ -11,6 +11,7 @@
     "comingSoon": "قريبًا",
     "goToHomepage": "الذهاب للصفحة الرئيسية",
     "kRailsMenuLabel": "قائمة K Rails، اضغط Enter أو المسافة للفتح",
+    "resourcesMenuLabel": "قائمة الموارد، اضغط Enter أو المسافة للفتح",
     "mainNav": "القائمة الرئيسية"
   },
   "drawer": {
@@ -324,7 +325,7 @@
     "portuguese": "البرتغالية"
   },
   "technologiesDropdown": {
-    "heading": "نظامنا البيئي",
+    "heading": "البنية التحتية",
     "krailsDesc": "مدفوعات وإقراض B2B بلوكتشين مع تسويات فورية",
     "kenaDesc": "أول ضامن مخاطر بالذكاء الاصطناعي في العالم لقرارات ائتمان ذكية",
     "ktalkDesc": "روبوت دردشة مدعوم بالذكاء الاصطناعي للدعم الداخلي والخارجي",
@@ -336,6 +337,13 @@
     "kaxisDesc": "منصة API-first تربط المؤسسات المالية",
     "kleadsDesc": "تحليلات فورية ورؤى تنبؤية",
     "kaiDesc": "محفظة رقمية مؤسسية مع دعم التوقيع المتعدد"
+  },
+  "resourcesDropdown": {
+    "heading": "الموارد",
+    "brand": "العلامة التجارية",
+    "marketing": "التسويق",
+    "wellness": "العافية",
+    "press": "الصحافة"
   },
   "techPlaceholder": {
     "contactSales": "اتصل بالمبيعات",

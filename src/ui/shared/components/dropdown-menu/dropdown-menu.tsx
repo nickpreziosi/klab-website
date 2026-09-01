@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import styles from "./dropdown-menu.module.css";
 import { useEffect, useRef } from "react";
 import { NavAddonSpheres } from "@/ui/shared/components/addon-spheres/nav-addon-spheres";
+import { NavResourceSpheres } from "@/ui/shared/components/addon-spheres/nav-resource-spheres";
 
 /**
  * Original grid implementation is in dropdown-menu-grid.tsx.
@@ -12,13 +13,17 @@ import { NavAddonSpheres } from "@/ui/shared/components/addon-spheres/nav-addon-
  * and render <TechnologiesDropdownGrid isOpen={isOpen} onClose={onClose} /> inside the content div.
  */
 
+export type DesktopDropdownVariant = "krails" | "resources";
+
 interface DesktopDropdownProps {
   isOpen: boolean;
+  variant: DesktopDropdownVariant;
   onClose: () => void;
 }
 
-export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
-  const t = useTranslations("technologiesDropdown");
+export function DesktopDropdown({ isOpen, variant, onClose }: DesktopDropdownProps) {
+  const tKrails = useTranslations("technologiesDropdown");
+  const tResources = useTranslations("resourcesDropdown");
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   // Close dropdown when viewport shrinks from desktop to mobile while open
@@ -55,6 +60,7 @@ export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
         >
           <div className={styles.container}>
             <motion.div
+              key={variant}
               className={styles.content}
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -65,7 +71,11 @@ export function DesktopDropdown({ isOpen, onClose }: DesktopDropdownProps) {
               }}
               exit={{ y: -20, opacity: 0, transition: { delay: 0 } }}
             >
-              <NavAddonSpheres onLinkClick={onClose} headerTitle={t("heading")} />
+              {variant === "resources" ? (
+                <NavResourceSpheres onLinkClick={onClose} headerTitle={tResources("heading")} />
+              ) : (
+                <NavAddonSpheres onLinkClick={onClose} headerTitle={tKrails("heading")} />
+              )}
             </motion.div>
           </div>
         </motion.div>

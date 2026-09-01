@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { motion, AnimatePresence } from "framer-motion";
+import { ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import type { NavTranslations, DrawerTranslations } from "@/ui/shared/types/translations";
@@ -18,6 +19,7 @@ import {
   TECHNOLOGIES,
   preloadTechnologyLogos,
 } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
+import { RESOURCE_NAV_ITEMS } from "@/ui/shared/components/addon-spheres/resource-nav-items";
 import { useTheme } from "@/ui/shared/hooks/use-theme";
 import {
   consumeShouldReopenDrawerAfterLocale,
@@ -95,6 +97,7 @@ export const Drawer = (props: DrawerProps) => {
   });
   const [skipDrawerAnimation, setSkipDrawerAnimation] = useState(() => reopenedRef.current);
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+  const [isResourcesOpen, setIsResourcesOpen] = useState(false);
   const { effectiveTheme } = useTheme();
   const pathname = usePathname();
 
@@ -170,6 +173,7 @@ export const Drawer = (props: DrawerProps) => {
 
   const t = useTranslations("drawer");
   const tNav = useTranslations("nav");
+  const tResources = useTranslations("resourcesDropdown");
   const drawer = serverDrawerTranslations ?? buildDrawerTranslations(t);
   const nav = serverNavTranslations ?? buildNavTranslations(tNav);
 
@@ -425,13 +429,68 @@ export const Drawer = (props: DrawerProps) => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={skipDrawerAnimation ? { duration: 0 } : { delay: 0.28 }}
                     >
-                      <span
-                        className={`${styles.navLink} ${styles.navLinkDisabled}`}
-                        aria-disabled="true"
-                        title={nav.comingSoon}
+                      <button
+                        className={styles.navLink}
+                        onClick={() => setIsResourcesOpen(!isResourcesOpen)}
                       >
-                        <span className={styles.navLinkText}>{nav.resources}</span>
-                      </span>
+                        <span className={styles.navLinkText}>
+                          {nav.resources}
+                          <motion.svg
+                            width="30"
+                            height="30"
+                            viewBox="0 0 15 15"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className={styles.chevron}
+                            animate={{ rotate: isResourcesOpen ? 180 : 0 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <path
+                              d="M4 6L7.5 9.5L11 6"
+                              fill="currentColor"
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                            />
+                          </motion.svg>
+                        </span>
+                        <motion.div
+                          className={styles.navLinkUnderline}
+                          whileHover={{ scaleX: 1 }}
+                          initial={{ scaleX: 0 }}
+                        />
+                      </button>
+
+                      <AnimatePresence>
+                        {isResourcesOpen && (
+                          <motion.div
+                            className={styles.dropdown}
+                            initial={
+                              skipDrawerAnimation
+                                ? { height: "auto", opacity: 1 }
+                                : { height: 0, opacity: 0 }
+                            }
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: skipDrawerAnimation ? 0 : 0.3 }}
+                          >
+                            {RESOURCE_NAV_ITEMS.map((item) => (
+                              <a
+                                key={item.id}
+                                href={item.href}
+                                className={`${styles.dropdownItem} ${styles.dropdownItemResource}`}
+                                onClick={() => handleOpenChange(false)}
+                              >
+                                {tResources(item.id)}
+                                <ExternalLink
+                                  className={`${styles.dropdownItemExternal} rtlFlipH`}
+                                  aria-hidden
+                                  strokeWidth={2}
+                                />
+                              </a>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </motion.div>
 
                     <motion.div

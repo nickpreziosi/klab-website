@@ -1,0 +1,42 @@
+.product {
+  --tech-showcase-arrow-color: #ffffff;
+}
+
+.productOnLight {
+  --tech-showcase-arrow-color: #000000;
+}
+
+.label {
+  position: absolute;
+  z-index: 1;
+  top: 32%;
+  left: 50%;
+  width: 80%;
+  transform: translateX(-50%);
+  font-family: "Sora", sans-serif;
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #ffffff;
+  text-align: center;
+  white-space: normal;
+}
+
+.productOnLight .label {
+  color: #000000;
+}
+
+.externalIcon {
+  display: block;
+  width: 28px;
+  height: 28px;
+  color: var(--tech-showcase-arrow-color);
+  stroke: var(--tech-showcase-arrow-color);
+}
+
+@media (min-width: 1024px) {
+  .externalIcon {
+    width: 32px;
+    height: 32px;
+  }
+}

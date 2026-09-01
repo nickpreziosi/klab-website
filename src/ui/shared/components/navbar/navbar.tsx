@@ -7,7 +7,7 @@ import type { NavTranslations, DrawerTranslations } from "@/ui/shared/types/tran
 import { buildNavTranslations } from "@/ui/shared/types/translations";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Drawer } from "../drawer/drawer";
-import { DesktopDropdown } from "@/ui/shared/components/dropdown-menu/dropdown-menu";
+import { DesktopDropdown, type DesktopDropdownVariant } from "@/ui/shared/components/dropdown-menu/dropdown-menu";
 import { ThemeToggle } from "@/ui/shared/components/theme-toggle/theme-toggle";
 import { LocaleSwitcher } from "@/ui/shared/components/locale-switcher/locale-switcher";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
@@ -37,12 +37,13 @@ export const NavigationMenuDemo = ({
   const t = useTranslations("nav");
   const nav = serverNavTranslations ?? buildNavTranslations(t);
   const { effectiveTheme } = useTheme();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<DesktopDropdownVariant | null>(null);
   const [isNavbarHidden, setIsNavbarHidden] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [useCompactNav, setUseCompactNav] = useState(false);
   const lastScrollY = useRef(0);
-  const dropdownTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const krailsTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const resourcesTriggerRef = useRef<HTMLButtonElement | null>(null);
   const dropdownContainerRef = useRef<HTMLDivElement | null>(null);
   const navbarRef = useRef<HTMLDivElement | null>(null);
   const logoRef = useRef<HTMLDivElement | null>(null);
@@ -110,12 +111,12 @@ export const NavigationMenuDemo = ({
     return () => links.forEach((link) => link.remove());
   }, []);
 
-  const handleDropdownClick = () => {
-    setDropdownOpen(!dropdownOpen);
+  const toggleDropdown = (id: DesktopDropdownVariant) => {
+    setOpenDropdown((current) => (current === id ? null : id));
   };
 
   useEffect(() => {
-    setDropdownOpen(false);
+    setOpenDropdown(null);
   }, [path]);
 
   useEffect(() => {
@@ -159,11 +160,13 @@ export const NavigationMenuDemo = ({
     };
   }, [path]);
 
-  const handleTriggerKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+  const handleTriggerKeyDown = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    id: DesktopDropdownVariant
+  ) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      setDropdownOpen(true);
-      // Focus first item in dropdown after it opens
+      setOpenDropdown(id);
       setTimeout(() => {
         const firstLink = dropdownContainerRef.current?.querySelector("a");
         firstLink?.focus();
@@ -173,44 +176,47 @@ export const NavigationMenuDemo = ({
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && dropdownOpen) {
-        setDropdownOpen(false);
-        // Return focus to trigger button when closing with Escape
-        dropdownTriggerRef.current?.focus();
+      if (event.key === "Escape" && openDropdown) {
+        const trigger =
+          openDropdown === "resources" ? resourcesTriggerRef.current : krailsTriggerRef.current;
+        setOpenDropdown(null);
+        trigger?.focus();
       }
     };
 
-    if (dropdownOpen) {
+    if (openDropdown) {
       document.addEventListener("keydown", handleKeyDown);
     }
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [dropdownOpen]);
+  }, [openDropdown]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
       if (
-        dropdownOpen &&
+        openDropdown &&
         dropdownContainerRef.current &&
-        !dropdownContainerRef.current.contains(event.target as Node) &&
-        !dropdownTriggerRef.current?.contains(event.target as Node)
+        !dropdownContainerRef.current.contains(target) &&
+        !krailsTriggerRef.current?.contains(target) &&
+        !resourcesTriggerRef.current?.contains(target)
       ) {
-        setDropdownOpen(false);
+        setOpenDropdown(null);
       }
     };
 
-    if (dropdownOpen) {
+    if (openDropdown) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropdownOpen]);
+  }, [openDropdown]);
 
-  const shouldHideNavbar = isNavbarHidden && !dropdownOpen && !drawerOpen;
+  const shouldHideNavbar = isNavbarHidden && !openDropdown && !drawerOpen;
 
   const preloadKRails = () => {
     preloadTechnologyLogos(effectiveTheme);
@@ -223,9 +229,9 @@ export const NavigationMenuDemo = ({
         <nav
           style={{
             height: "auto",
-            backdropFilter: dropdownOpen ? "none" : "blur(8px)",
-            WebkitBackdropFilter: dropdownOpen ? "none" : "blur(8px)",
-            background: dropdownOpen
+            backdropFilter: openDropdown ? "none" : "blur(8px)",
+            WebkitBackdropFilter: openDropdown ? "none" : "blur(8px)",
+            background: openDropdown
               ? "hsl(var(--background))"
               : "hsl(var(--background) / 0.7)",
             borderBottom: "solid 1px hsl(var(--foreground) / 0.2)",
@@ -234,7 +240,7 @@ export const NavigationMenuDemo = ({
           id="navbarContainer"
           aria-label={nav.mainNav}
           className={`${styles.container} ${styles.containerScrolled} ${
-            dropdownOpen && styles.containerDropdownOpen
+            openDropdown && styles.containerDropdownOpen
           } ${shouldHideNavbar && styles.containerHidden}`}
         >
           {/* Preload tech logos on page load so drawer technologies dropdown shows them instantly */}
@@ -292,20 +298,20 @@ export const NavigationMenuDemo = ({
 
                 <li className={styles.navListItem}>
                   <button
-                    ref={dropdownTriggerRef}
-                    onClick={handleDropdownClick}
-                    onKeyDown={handleTriggerKeyDown}
+                    ref={krailsTriggerRef}
+                    onClick={() => toggleDropdown("krails")}
+                    onKeyDown={(event) => handleTriggerKeyDown(event, "krails")}
                     onMouseEnter={preloadKRails}
                     onFocus={preloadKRails}
                     className={styles.navLink}
-                    aria-expanded={dropdownOpen}
+                    aria-expanded={openDropdown === "krails"}
                     aria-haspopup="true"
-                    aria-controls="technologies-dropdown"
+                    aria-controls="nav-dropdown"
                     aria-label={nav.kRailsMenuLabel}
                   >
                     {nav.kRails}
                     <svg
-                      className={`${!dropdownOpen && styles.caretIconOpen} ${styles.caretIcon}`}
+                      className={`${openDropdown !== "krails" && styles.caretIconOpen} ${styles.caretIcon}`}
                       width="16"
                       height="16"
                       viewBox="0 0 15 15"
@@ -331,13 +337,31 @@ export const NavigationMenuDemo = ({
                 </li>
 
                 <li className={styles.navListItem}>
-                  <span
-                    className={`${styles.navLink} ${styles.navLinkDisabled}`}
-                    aria-disabled="true"
-                    title={nav.comingSoon}
+                  <button
+                    ref={resourcesTriggerRef}
+                    onClick={() => toggleDropdown("resources")}
+                    onKeyDown={(event) => handleTriggerKeyDown(event, "resources")}
+                    onMouseEnter={preloadKRails}
+                    onFocus={preloadKRails}
+                    className={styles.navLink}
+                    aria-expanded={openDropdown === "resources"}
+                    aria-haspopup="true"
+                    aria-controls="nav-dropdown"
+                    aria-label={nav.resourcesMenuLabel}
                   >
                     {nav.resources}
-                  </span>
+                    <svg
+                      className={`${openDropdown !== "resources" && styles.caretIconOpen} ${styles.caretIcon}`}
+                      width="16"
+                      height="16"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path d="M4 9H11L7.5 4.5L4 9Z" fill="currentColor"></path>
+                    </svg>
+                  </button>
                 </li>
 
                 <li className={styles.navListItem}>
@@ -371,7 +395,11 @@ export const NavigationMenuDemo = ({
           </div>
 
           <div className={styles.dropdownContainer} ref={dropdownContainerRef}>
-            <DesktopDropdown isOpen={dropdownOpen} onClose={() => setDropdownOpen(false)} />
+            <DesktopDropdown
+              isOpen={openDropdown !== null}
+              variant={openDropdown ?? "krails"}
+              onClose={() => setOpenDropdown(null)}
+            />
           </div>
         </nav>
       </div>

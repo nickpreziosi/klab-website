@@ -179,6 +179,17 @@
   border-inline-start: 2px solid hsl(var(--accent) / 0.5);
 }
 
+.dropdownItemResource {
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+.dropdownItemExternal {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
 .dropdownItemLogo {
   display: flex;
   align-items: center;

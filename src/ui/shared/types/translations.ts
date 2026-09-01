@@ -15,6 +15,7 @@ export type NavTranslations = {
   comingSoon: string;
   goToHomepage: string;
   kRailsMenuLabel: string;
+  resourcesMenuLabel: string;
   mainNav: string;
 };
 
@@ -39,6 +40,7 @@ export function buildNavTranslations(t: (key: string) => string): NavTranslation
     comingSoon: t("comingSoon"),
     goToHomepage: t("goToHomepage"),
     kRailsMenuLabel: t("kRailsMenuLabel"),
+    resourcesMenuLabel: t("resourcesMenuLabel"),
     mainNav: t("mainNav"),
   };
 }

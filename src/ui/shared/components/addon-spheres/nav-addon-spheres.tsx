@@ -14,7 +14,7 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-function IdleSphereVideo({ src }: { src: string }) {
+export function IdleSphereVideo({ src }: { src: string }) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {

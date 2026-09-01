@@ -11,6 +11,7 @@
     "comingSoon": "Coming soon",
     "goToHomepage": "Go to Homepage",
     "kRailsMenuLabel": "K Rails menu, press enter or space to open",
+    "resourcesMenuLabel": "Resources menu, press enter or space to open",
     "mainNav": "Main navigation"
   },
   "drawer": {
@@ -110,19 +111,19 @@
     "whyOutro": "This gap persists for structural reasons: it sits outside each participant's core business, requires data no single institution holds, and would take years and significant capital to replicate. K Lab doesn't replace banks, ERPs, or payment networks — it enables every participant to trust the same transaction.",
     "whyColWho": "Who",
     "whyColDo": "What they do",
-    "whyColDont": "What they don’t do",
+    "whyColDont": "What they don't do",
     "whyRow1Who": "Enterprise ERP &\nprocurement systems",
     "whyRow1Do": "Owns ERP and procurement systems",
-    "whyRow1Dont": "Doesn’t create trusted, finance-ready assets across institutions",
+    "whyRow1Dont": "Doesn't create trusted, finance-ready assets across institutions",
     "whyRow2Who": "Payment processors",
     "whyRow2Do": "Moves money",
-    "whyRow2Dont": "Doesn’t verify contracts, authorize invoices, or manage end-to-end finance workflows",
+    "whyRow2Dont": "Doesn't verify contracts, authorize invoices, or manage end-to-end finance workflows",
     "whyRow3Who": "Card & payment networks",
     "whyRow3Do": "Operate payment networks",
-    "whyRow3Dont": "Doesn’t manage enterprise workflows or institutional credit processes",
+    "whyRow3Dont": "Doesn't manage enterprise workflows or institutional credit processes",
     "whyRow4Who": "Banks",
     "whyRow4Do": "Provide capital, make credit decisions",
-    "whyRow4Dont": "Don’t own the workflows or technology to continuously verify and orchestrate every transaction",
+    "whyRow4Dont": "Don't own the workflows or technology to continuously verify and orchestrate every transaction",
     "whyKlabWho": "K Lab",
     "whyKlabDo": "Connects all participants through a programmable trust infrastructure",
     "whyKlabDont": "Create the trusted, finance-ready assets every participant can rely on",
@@ -130,7 +131,7 @@
     "faqFactoringQ": "What is reverse factoring / confirming?",
     "faqFactoringA": "Suppliers get paid early, funded by a bank instead of you. You keep your terms. A share of the savings comes back to you.",
     "faqErpQ": "Does K Rails replace my ERP or banking systems?",
-    "faqErpA": "K Rails doesn’t replace anything. It connects to your ERP and banking systems to add approval rules, visibility, and an unalterable record.",
+    "faqErpA": "K Rails doesn't replace anything. It connects to your ERP and banking systems to add approval rules, visibility, and an unalterable record.",
     "faqFundingQ": "Who funds the early payments?",
     "faqFundingA": "Bank partners on K Rails compete daily to fund reverse factoring. You don’t put up the capital.",
     "faqTermsQ": "Does this change my payment terms?",
@@ -324,7 +325,7 @@
     "portuguese": "Portuguese"
   },
   "technologiesDropdown": {
-    "heading": "Our Ecosystem",
+    "heading": "Infrastructure",
     "krailsDesc": "B2B blockchain payments and lending with instant settlements",
     "kenaDesc": "World's first AI underwriter for intelligent credit decisions",
     "ktalkDesc": "AI-powered chatbot for internal and external support",
@@ -336,6 +337,13 @@
     "kaxisDesc": "API-first platform connecting financial institutions",
     "kleadsDesc": "Real-time analytics and predictive insights",
     "kaiDesc": "Enterprise digital wallet with multi-signature support"
+  },
+  "resourcesDropdown": {
+    "heading": "Resources",
+    "brand": "Brand",
+    "marketing": "Marketing",
+    "wellness": "Wellness",
+    "press": "Press"
   },
   "techPlaceholder": {
     "contactSales": "Contact sales",
