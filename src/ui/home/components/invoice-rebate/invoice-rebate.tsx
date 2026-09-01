@@ -1,6 +1,5 @@
 "use client";
 
-import { FileText, Landmark, Package } from "lucide-react";
 import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import type { HomeKrailsTranslations } from "@/ui/home/types";
@@ -8,28 +7,13 @@ import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
 import { HomeAddons } from "@/ui/home/components/home-addons/home-addons";
 import { WhoWeServe } from "@/ui/home/components/who-we-serve/who-we-serve";
 import { WhyKLab } from "@/ui/home/components/why-k-lab/why-k-lab";
+import {
+  RebateBankIcon,
+  RebateInvoiceIcon,
+  RebateKrailsIcon,
+  RebatePackageIcon,
+} from "@/ui/shared/components/rebate-step-icons/rebate-step-icons";
 import styles from "./invoice-rebate.module.css";
-
-/** K Rails chevron, matching the Figma node inside the second circle. */
-function KrailsKMark({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 72 108"
-      className={className}
-      aria-hidden
-      focusable="false"
-    >
-      <path
-        fill="currentColor"
-        d="M0.384 4.867C1.12 3.121 2.739 2.037 4.609 2.037h24.817c1.201 0 2.405.501 3.175 1.298l30.842 26.961c2.034 2.084 2.034 5.474 0 7.557L51.988 49.587c-.997 1.021-2.326 1.583-3.74 1.583-1.416 0-2.733-.552-3.678-1.525L1.346 9.997C0 8.619-.368 6.653.384 4.867z"
-      />
-      <path
-        fill="currentColor"
-        d="M47.563 57.732l-.047-.049 17.209-17.352c1.334-1.346 3.241-1.73 4.978-1.008 1.776.739 2.87 2.409 2.856 4.36l-.196 25.421c-.009 1.241-.492 2.406-1.359 3.278l-1.308 1.318c-.91.918-2.117 1.424-3.436 1.424-1.297-.01-2.51-.535-3.416-1.478l-2.335-2.43v10.016c0 1.24-.473 2.408-1.333 3.29L39.342 104.84c-.857.877-2.046 1.381-3.263 1.381H11.263c-1.871 0-3.489-1.085-4.224-2.831-.752-1.786-.384-3.752.961-5.131L47.563 57.732z"
-      />
-    </svg>
-  );
-}
 
 type InvoiceRebateProps = {
   translations: HomeKrailsTranslations;
@@ -64,16 +48,10 @@ export function InvoiceRebate({ translations, skipAnimation = false }: InvoiceRe
           {steps.map((step, index) => (
             <li key={step.title} className={styles.step}>
               <span className={styles.node}>
-                {index === 0 ? (
-                  <FileText className={styles.icon} strokeWidth={1.5} aria-hidden />
-                ) : null}
-                {index === 1 ? <KrailsKMark className={styles.krailsMark} /> : null}
-                {index === 2 ? (
-                  <Landmark className={styles.icon} strokeWidth={1.5} aria-hidden />
-                ) : null}
-                {index === 3 ? (
-                  <Package className={styles.icon} strokeWidth={1.5} aria-hidden />
-                ) : null}
+                {index === 0 ? <RebateInvoiceIcon /> : null}
+                {index === 1 ? <RebateKrailsIcon /> : null}
+                {index === 2 ? <RebateBankIcon /> : null}
+                {index === 3 ? <RebatePackageIcon /> : null}
               </span>
               <div className={styles.copy}>
                 <p className={styles.stepTitle}>{withBrandLtr(step.title, styles.brandLtr)}</p>

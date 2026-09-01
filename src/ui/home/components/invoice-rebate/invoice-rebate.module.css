@@ -127,6 +127,7 @@
   width: var(--rebate-node);
   height: var(--rebate-node);
   margin-bottom: 0.75rem;
+  overflow: hidden;
   border: 1.5px solid #ffffff;
   border-radius: 50%;
   background: hsl(var(--accent));

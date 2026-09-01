@@ -112,6 +112,7 @@
   width: var(--rebate-node);
   height: var(--rebate-node);
   margin-bottom: 0.75rem;
+  overflow: hidden;
   border: 1.5px solid #ffffff;
   border-radius: 50%;
   background: hsl(var(--accent));
@@ -162,120 +163,6 @@
   direction: ltr;
 }
 
-.compare {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: var(--gap-md);
-  width: 100%;
-  min-height: 328px;
-  padding: 1.125rem 2rem 0;
-  overflow: hidden;
-  border-radius: 10px;
-  color: #ffffff;
-  background: hsl(199 100% 50%);
-}
-
-.waves {
-  position: absolute;
-  z-index: 0;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 185%;
-  object-fit: cover;
-  object-position: left top;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-}
-
-.compareLeft,
-.compareRight,
-.phone {
-  position: relative;
-  z-index: 2;
-}
-
-.compareLeft,
-.compareRight {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-}
-
-.compareCopy {
-  margin: 0;
-  font-size: 24px;
-  font-weight: var(--font-bold);
-  line-height: normal;
-  text-align: center;
-  color: #ffffff;
-}
-
-.compareLeft .compareCopy {
-  max-width: 280px;
-}
-
-.compareRight .compareCopy {
-  max-width: 347px;
-}
-
-.phone {
-  position: relative;
-  width: 274px;
-  height: 310px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-@media (min-width: 1025px) {
-  .phone {
-    align-self: end;
-  }
-}
-
-.phone img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 100%;
-  height: 181.11%;
-  max-width: none;
-  object-fit: fill;
-}
-
-.cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 264px;
-  max-width: 100%;
-  height: 37px;
-  margin-top: 0.75rem;
-  border: 1px solid #ffffff;
-  border-radius: 10px;
-  background: rgb(255 255 255 / 0.1);
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: var(--font-medium);
-  line-height: 1;
-  text-align: center;
-  text-decoration: none;
-}
-
-.cta:hover {
-  background: rgb(255 255 255 / 0.18);
-}
-
-.cta:focus-visible {
-  outline: 2px solid #ffffff;
-  outline-offset: 3px;
-}
-
 @keyframes rebate-beam-x {
   from {
     inset-inline-start: calc(-1 * var(--rebate-beam-span));
@@ -292,50 +179,6 @@
 
   .lede {
     font-size: clamp(1.125rem, 2.2vw, 24px);
-  }
-
-  .compare {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 0;
-    padding: 1.25rem 1.25rem 0;
-    gap: 1.25rem;
-  }
-
-  .compareLeft,
-  .compareRight {
-    width: 100%;
-  }
-
-  .compareLeft {
-    order: 1;
-  }
-
-  .compareRight {
-    order: 2;
-  }
-
-  .phone {
-    order: 3;
-    align-self: center;
-    width: min(274px, 72vw);
-    height: 310px;
-    margin-inline: auto;
-  }
-
-  .compareCopy {
-    font-size: 18px;
-  }
-
-  .compareLeft .compareCopy,
-  .compareRight .compareCopy {
-    max-width: none;
-  }
-
-  .cta {
-    width: min(264px, 100%);
-    font-size: 16px;
   }
 }
 
