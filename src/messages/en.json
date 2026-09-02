@@ -341,9 +341,10 @@
   "resourcesDropdown": {
     "heading": "Resources",
     "brand": "Brand",
-    "marketing": "Marketing",
-    "wellness": "Wellness",
-    "press": "Press"
+    "press": "Press",
+    "poc": "POC",
+    "manuals": "Manuals",
+    "documentation": "Documentation"
   },
   "techPlaceholder": {
     "contactSales": "Contact sales",

@@ -341,9 +341,10 @@
   "resourcesDropdown": {
     "heading": "Recursos",
     "brand": "Marca",
-    "marketing": "Marketing",
-    "wellness": "Bem-estar",
-    "press": "Imprensa"
+    "press": "Imprensa",
+    "poc": "POC",
+    "manuals": "Manuais",
+    "documentation": "Documentação"
   },
   "techPlaceholder": {
     "contactSales": "Contactar vendas",

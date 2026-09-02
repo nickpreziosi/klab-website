@@ -184,10 +184,24 @@
   font-size: 18px;
 }
 
+.dropdownItemResourceLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.dropdownItemCategory {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
 .dropdownItemExternal {
   flex-shrink: 0;
   width: 18px;
   height: 18px;
+  color: hsl(var(--muted-foreground));
 }
 
 .dropdownItemLogo {

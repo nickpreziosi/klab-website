@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import styles from "./dropdown-menu.module.css";
 import { useEffect, useRef } from "react";
 import { NavAddonSpheres } from "@/ui/shared/components/addon-spheres/nav-addon-spheres";
-import { NavResourceSpheres } from "@/ui/shared/components/addon-spheres/nav-resource-spheres";
+import { NavResourceLinks } from "@/ui/shared/components/addon-spheres/nav-resource-links";
 
 /**
  * Original grid implementation is in dropdown-menu-grid.tsx.
@@ -72,7 +72,7 @@ export function DesktopDropdown({ isOpen, variant, onClose }: DesktopDropdownPro
               exit={{ y: -20, opacity: 0, transition: { delay: 0 } }}
             >
               {variant === "resources" ? (
-                <NavResourceSpheres onLinkClick={onClose} headerTitle={tResources("heading")} />
+                <NavResourceLinks onLinkClick={onClose} headerTitle={tResources("heading")} />
               ) : (
                 <NavAddonSpheres onLinkClick={onClose} headerTitle={tKrails("heading")} />
               )}

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, MoveRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import type { NavTranslations, DrawerTranslations } from "@/ui/shared/types/translations";
@@ -19,7 +19,10 @@ import {
   TECHNOLOGIES,
   preloadTechnologyLogos,
 } from "@/ui/shared/components/technologies-showcase/technologies-showcase";
-import { RESOURCE_NAV_ITEMS } from "@/ui/shared/components/addon-spheres/resource-nav-items";
+import {
+  RESOURCE_NAV_ICONS,
+  RESOURCE_NAV_ITEMS,
+} from "@/ui/shared/components/addon-spheres/resource-nav-items";
 import { useTheme } from "@/ui/shared/hooks/use-theme";
 import {
   consumeShouldReopenDrawerAfterLocale,
@@ -473,21 +476,54 @@ export const Drawer = (props: DrawerProps) => {
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: skipDrawerAnimation ? 0 : 0.3 }}
                           >
-                            {RESOURCE_NAV_ITEMS.map((item) => (
-                              <a
-                                key={item.id}
-                                href={item.href}
-                                className={`${styles.dropdownItem} ${styles.dropdownItemResource}`}
-                                onClick={() => handleOpenChange(false)}
-                              >
-                                {tResources(item.id)}
-                                <ExternalLink
-                                  className={`${styles.dropdownItemExternal} rtlFlipH`}
-                                  aria-hidden
-                                  strokeWidth={2}
-                                />
-                              </a>
-                            ))}
+                            {RESOURCE_NAV_ITEMS.map((item) => {
+                              const CategoryIcon = RESOURCE_NAV_ICONS[item.id];
+                              const LinkIcon = item.external ? ExternalLink : MoveRight;
+                              const isPlaceholder = item.href === "#";
+                              const content = (
+                                <>
+                                  <span className={styles.dropdownItemResourceLabel}>
+                                    <CategoryIcon
+                                      className={styles.dropdownItemCategory}
+                                      aria-hidden
+                                      strokeWidth={1.75}
+                                    />
+                                    {tResources(item.id)}
+                                  </span>
+                                  <LinkIcon
+                                    className={`${styles.dropdownItemExternal} rtlFlipH`}
+                                    aria-hidden
+                                    strokeWidth={2}
+                                  />
+                                </>
+                              );
+
+                              if (item.external) {
+                                return (
+                                  <a
+                                    key={item.id}
+                                    href={item.href}
+                                    className={`${styles.dropdownItem} ${styles.dropdownItemResource}`}
+                                    target={isPlaceholder ? undefined : "_blank"}
+                                    rel={isPlaceholder ? undefined : "noopener noreferrer"}
+                                    onClick={() => handleOpenChange(false)}
+                                  >
+                                    {content}
+                                  </a>
+                                );
+                              }
+
+                              return (
+                                <Link
+                                  key={item.id}
+                                  href={item.href}
+                                  className={`${styles.dropdownItem} ${styles.dropdownItemResource}`}
+                                  onClick={() => handleOpenChange(false)}
+                                >
+                                  {content}
+                                </Link>
+                              );
+                            })}
                           </motion.div>
                         )}
                       </AnimatePresence>

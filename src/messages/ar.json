@@ -341,9 +341,10 @@
   "resourcesDropdown": {
     "heading": "الموارد",
     "brand": "العلامة التجارية",
-    "marketing": "التسويق",
-    "wellness": "العافية",
-    "press": "الصحافة"
+    "press": "الصحافة",
+    "poc": "إثبات المفهوم",
+    "manuals": "الأدلة",
+    "documentation": "التوثيق"
   },
   "techPlaceholder": {
     "contactSales": "اتصل بالمبيعات",
