@@ -149,6 +149,10 @@
   text-align: right;
 }
 
+.productLogoHost {
+  display: contents;
+}
+
 .productLogoWrap {
   display: contents !important;
 }

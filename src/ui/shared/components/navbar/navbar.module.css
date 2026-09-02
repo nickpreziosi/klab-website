@@ -12,6 +12,18 @@
   pointer-events: none;
 }
 
+/* Off-screen ProductLogo copies. visibility:hidden still loads; opacity:0 and 1px clips do not. */
+.addonLogoPreload {
+  position: absolute;
+  left: -10000px;
+  top: 0;
+  width: 200px;
+  height: 48px;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 /* NAVBAR CONTAINER */
 .spacer {
   display: flex;

@@ -1,4 +1,4 @@
-import { BRAND_PRODUCT_SLUG, type BrandTechId } from "./brand-logos";
+import { BRAND_LOGO_SRC, BRAND_PRODUCT_SLUG, type BrandTechId } from "./brand-logos";
 
 export type AddonSphereId = BrandTechId;
 
@@ -15,6 +15,24 @@ export type AddonSphereProduct = {
   hideAddons?: boolean;
   darkControls?: boolean;
 };
+
+export function addonSphereLogoSrc(product: AddonSphereProduct): string {
+  const marks = BRAND_LOGO_SRC[product.id];
+  return product.logoVariant === "dark" ? marks.dark : marks.white;
+}
+
+const retainedLogoPreloads: HTMLImageElement[] = [];
+
+export function preloadAddonSphereLogos() {
+  if (typeof window === "undefined") return;
+  if (retainedLogoPreloads.length > 0) return;
+  for (const product of ADDON_SPHERE_PRODUCTS) {
+    const img = new Image();
+    img.decoding = "sync";
+    img.src = addonSphereLogoSrc(product);
+    retainedLogoPreloads.push(img);
+  }
+}
 
 export function preloadAddonSphereVideos() {
   if (typeof document === "undefined") return;

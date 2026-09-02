@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, type ComponentProps } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getTextDirection, type Locale } from "@/i18n/routing";
@@ -36,6 +36,29 @@ export function IdleSphereVideo({ src }: { src: string }) {
         autoPlay
         preload="auto"
       />
+    </span>
+  );
+}
+
+/** ProductLogo imgs default to async decode and sit in a height:0/opacity:0 panel, so the browser skips the request until the menu finishes opening. */
+function DropdownProductLogo(props: ComponentProps<typeof ProductLogo>) {
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useLayoutEffect(() => {
+    const img = ref.current?.querySelector("img");
+    if (!img) return;
+    img.loading = "eager";
+    img.fetchPriority = "high";
+    img.decoding = "sync";
+    const src = img.getAttribute("src");
+    if (!src) return;
+    img.removeAttribute("src");
+    img.setAttribute("src", src);
+  }, [props.product, props.variant]);
+
+  return (
+    <span ref={ref} className={styles.productLogoHost}>
+      <ProductLogo {...props} />
     </span>
   );
 }
@@ -86,7 +109,7 @@ export function NavAddonSpheres({ onLinkClick, headerTitle }: NavAddonSpheresPro
               </>
             ) : null}
             <IdleSphereVideo src={product.idleVideo} />
-            <ProductLogo
+            <DropdownProductLogo
               product={product.product}
               variant={product.logoVariant}
               className={styles.productLogo}

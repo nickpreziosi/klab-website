@@ -11,7 +11,12 @@ import { DesktopDropdown, type DesktopDropdownVariant } from "@/ui/shared/compon
 import { ThemeToggle } from "@/ui/shared/components/theme-toggle/theme-toggle";
 import { LocaleSwitcher } from "@/ui/shared/components/locale-switcher/locale-switcher";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
-import { preloadAddonSphereVideos } from "@/ui/shared/components/addon-spheres/addon-sphere-products";
+import { ProductLogo } from "@k-lab/components";
+import {
+  ADDON_SPHERE_PRODUCTS,
+  preloadAddonSphereLogos,
+  preloadAddonSphereVideos,
+} from "@/ui/shared/components/addon-spheres/addon-sphere-products";
 import {
   TECHNOLOGIES,
   preloadTechnologyLogos,
@@ -90,6 +95,12 @@ export const NavigationMenuDemo = ({
       window.removeEventListener("resize", check);
     };
   }, [nav.whatWeDo, nav.kRails, nav.whoWeServe, nav.resources]);
+
+  // Warm K Rails dropdown logos in the decoder cache. Those ProductLogo <img>s
+  // only mount when the menu opens, so without this they fetch/decode on click.
+  useEffect(() => {
+    preloadAddonSphereLogos();
+  }, []);
 
   // Preload all tech logos on page load so drawer/dropdown show them instantly (Safari/mobile).
   // Must run in main document before drawer opens; link preload gives highest priority.
@@ -219,6 +230,7 @@ export const NavigationMenuDemo = ({
   const shouldHideNavbar = isNavbarHidden && !openDropdown && !drawerOpen;
 
   const preloadKRails = () => {
+    preloadAddonSphereLogos();
     preloadTechnologyLogos(effectiveTheme);
     preloadAddonSphereVideos();
   };
@@ -243,6 +255,17 @@ export const NavigationMenuDemo = ({
             openDropdown && styles.containerDropdownOpen
           } ${shouldHideNavbar && styles.containerHidden}`}
         >
+          {/* Same ProductLogo marks as the K Rails menu, kept mounted so they fetch before the menu opens. */}
+          <div className={styles.addonLogoPreload} aria-hidden>
+            {ADDON_SPHERE_PRODUCTS.map((product) => (
+              <ProductLogo
+                key={product.id}
+                product={product.product}
+                variant={product.logoVariant}
+                aria-hidden
+              />
+            ))}
+          </div>
           {/* Preload tech logos on page load so drawer technologies dropdown shows them instantly */}
           <div className={styles.techLogoPreload} aria-hidden>
             {TECHNOLOGIES.flatMap((tech) => [
