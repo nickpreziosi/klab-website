@@ -59,8 +59,35 @@
 
 .module {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
   padding-inline-start: var(--padding-md);
   border-inline-start: 3px solid var(--accent-color);
+}
+
+.moduleLogoWrap {
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  width: auto;
+  max-width: 11rem;
+}
+
+.moduleLogoInner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: auto;
+}
+
+.moduleLogo {
+  display: block;
+  height: 2rem !important;
+  width: auto !important;
+  max-width: 11rem;
+  object-fit: contain;
+  object-position: left center;
 }
 
 .moduleText {
@@ -71,10 +98,140 @@
   color: rgba(var(--secondary-color-rgb), 0.98);
 }
 
+.valuesCard {
+  position: relative;
+  width: 100%;
+  margin-top: calc(var(--gap-md) + 1rem);
+  padding: 56px 44px 28px;
+  background: hsl(var(--surface));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--rounded-app);
+  box-shadow: var(--card-shadow);
+}
+
+.valuesPills {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 32px;
+  display: flex;
+  align-items: center;
+  transform: translateY(-50%);
+  max-width: calc(100% - 64px);
+}
+
+.valuesQuestion {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  height: 50px;
+  padding: 0 1.25rem;
+  border-radius: var(--rounded-app);
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  font-size: 36px;
+  font-weight: var(--font-medium);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.valuesAnswer {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  margin-inline-start: -1.1rem;
+  height: 56px;
+  padding: 0 1.15rem;
+  padding-inline-start: 1.65rem;
+  border-radius: var(--rounded-app);
+  background: hsl(199 100% 50%);
+  color: hsl(0 0% 100%);
+  font-size: 36px;
+  font-weight: var(--font-bold);
+  line-height: 1;
+}
+
+:global(html.dark) .valuesAnswer {
+  background: hsl(218 58% 28%);
+  color: hsl(0 0% 100%);
+}
+
 .valuesGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px 28px;
+  gap: 36px 32px;
+}
+
+.valueItem {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+}
+
+.valueBadge {
+  flex-shrink: 0;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: var(--rounded-app);
+  background: rgba(var(--accent-color-rgb), 0.12);
+  color: var(--accent-color);
+}
+
+.valueBadgeFill {
+  overflow: visible;
+  background: transparent;
+  padding: 0;
+}
+
+.valueBadgeFill .valueKlabLogo {
+  overflow: hidden;
+  border-radius: var(--rounded-app);
+}
+
+.valueNumber {
+  position: absolute;
+  z-index: 1;
+  inset-inline-start: -0.4rem;
+  top: -0.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.65rem;
+  height: 1.65rem;
+  padding-inline: 0.3rem;
+  border-radius: var(--rounded-app);
+  background: var(--accent-color);
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: var(--font-bold);
+  line-height: 1;
+  text-align: center;
+}
+
+.valueIcon {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.valueKlabLogo {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  line-height: 0;
+}
+
+.valueKlabLogo :global(img),
+.valueKlabLogo :global(svg) {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
 }
 
 .valueText {
@@ -82,8 +239,7 @@
   font-size: clamp(0.95rem, 1vw + 0.65rem, 1.15rem);
   font-weight: var(--font-medium);
   line-height: 1.7;
-  color: rgba(var(--secondary-color-rgb), 0.98);
-  opacity: 0.92;
+  color: hsl(var(--foreground));
 }
 
 @media (max-width: 1024px) {
@@ -97,6 +253,18 @@
 
   .modulesGrid {
     gap: 22px;
+  }
+
+  .valuesCard {
+    padding: 56px 44px 28px;
+  }
+
+  .valuesQuestion {
+    font-size: clamp(1.25rem, 3.2vw, 36px);
+  }
+
+  .valuesAnswer {
+    font-size: clamp(1.5rem, 3.5vw, 36px);
   }
 }
 
@@ -113,14 +281,59 @@
     grid-template-columns: 1fr;
   }
 
+  .valuesCard {
+    padding: var(--gap-lg, 2rem) var(--padding-mobile) var(--gap-md);
+    padding-top: 3rem;
+  }
+
+  .valuesPills {
+    flex-wrap: wrap;
+    inset-inline-start: var(--padding-sm);
+    max-width: calc(100% - var(--padding-sm) * 2);
+  }
+
+  .valuesQuestion {
+    height: auto;
+    padding: 0.5rem 1rem;
+    font-size: 1.125rem;
+    line-height: 1.2;
+    white-space: normal;
+  }
+
+  .valuesAnswer {
+    height: auto;
+    padding: 0.5rem 1rem;
+    padding-inline-start: 1.35rem;
+    margin-inline-start: -0.75rem;
+    font-size: 1.5rem;
+  }
+
   .valuesGrid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 24px;
+    padding-inline-start: var(--padding-sm);
+  }
+
+  .valueBadge {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+
+  .valueIcon {
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
   .leadStack {
     max-width: 100%;
     gap: 12px;
   }
-}
 
+  .moduleLogoWrap {
+    height: 1.75rem;
+  }
+
+  .moduleLogo {
+    height: 1.75rem !important;
+  }
+}
