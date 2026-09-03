@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import styles from "./dropdown-menu.module.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { NavAddonSpheres } from "@/ui/shared/components/addon-spheres/nav-addon-spheres";
 import { NavResourceLinks } from "@/ui/shared/components/addon-spheres/nav-resource-links";
 
@@ -27,6 +27,9 @@ export function DesktopDropdown({ isOpen, variant, onClose }: DesktopDropdownPro
   const tKrails = useTranslations("technologiesDropdown");
   const tResources = useTranslations("resourcesDropdown");
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const lastHeightRef = useRef<number | null>(null);
+  const [swapHeight, setSwapHeight] = useState<number | "auto">("auto");
   const isOpenRef = useRef(isOpen);
   isOpenRef.current = isOpen;
   const prevVariantRef = useRef<DesktopDropdownVariant | null>(null);
@@ -36,9 +39,29 @@ export function DesktopDropdown({ isOpen, variant, onClose }: DesktopDropdownPro
     if (isOpen) prevVariantRef.current = variant;
     else {
       prevVariantRef.current = null;
+      lastHeightRef.current = null;
+      setSwapHeight("auto");
       if (dropdownRef.current) dropdownRef.current.style.overflow = "hidden";
     }
   }, [isOpen, variant]);
+
+  useLayoutEffect(() => {
+    const panel = panelRef.current;
+    if (!isOpen || !panel) return;
+
+    const next = panel.scrollHeight;
+    const prev = lastHeightRef.current;
+
+    if (!isSwap || prev == null || Math.abs(prev - next) < 1) {
+      lastHeightRef.current = next;
+      return;
+    }
+
+    lastHeightRef.current = next;
+    setSwapHeight(prev);
+    const frame = requestAnimationFrame(() => setSwapHeight(next));
+    return () => cancelAnimationFrame(frame);
+  }, [variant, isOpen, isSwap]);
 
   useEffect(() => {
     if (!isOpen || typeof window === "undefined") return;
@@ -81,10 +104,20 @@ export function DesktopDropdown({ isOpen, variant, onClose }: DesktopDropdownPro
           }}
         >
           <div className={styles.container}>
-            <motion.div className={styles.swap} layout="size" transition={{ duration: 0.3, ease: EASE }}>
-              <AnimatePresence mode="popLayout">
+            <motion.div
+              className={styles.swap}
+              initial={false}
+              animate={{ height: swapHeight }}
+              transition={{ duration: isSwap ? 0.3 : 0, ease: EASE }}
+            >
+              <AnimatePresence
+                onExitComplete={() => {
+                  if (isOpenRef.current) setSwapHeight("auto");
+                }}
+              >
                 <motion.div
                   key={variant}
+                  ref={panelRef}
                   className={styles.content}
                   initial={isSwap ? { opacity: 0 } : { y: -20, opacity: 0 }}
                   animate={{ opacity: 1, y: 0 }}

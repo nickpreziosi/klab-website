@@ -39,6 +39,13 @@
 .swap {
   position: relative;
   width: 100%;
+  display: grid;
+}
+
+.swap > * {
+  grid-area: 1 / 1;
+  align-self: start;
+  height: max-content;
 }
 
 .content {
