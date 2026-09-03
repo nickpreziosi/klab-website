@@ -1,14 +1,7 @@
-export type PressAssetType = "image" | "document" | "video" | "archive";
+import type { ResourceAsset, ResourceCollection } from "@/ui/resource-library/types";
 
-export type PressAsset = {
-  id: string;
-  type: PressAssetType;
-  href: string;
-  filename: string;
-  titleKey?: string;
-  previewSrc?: string;
-};
-
+export type PressAssetType = ResourceAsset["type"];
+export type PressAsset = ResourceAsset;
 export type PressCollection = {
   id: string;
   titleKey: string;
@@ -19,10 +12,10 @@ export type PressCollection = {
     name: string;
     titleKey: string;
   };
-  assets: PressAsset[];
+  assets: ResourceAsset[];
 };
 
-function imageAssets(slug: string, count: number): PressAsset[] {
+function imageAssets(slug: string, count: number): ResourceAsset[] {
   return Array.from({ length: count }, (_, index) => {
     const number = index + 1;
     const filename = `${slug}-${number}.jpg`;
@@ -62,18 +55,21 @@ export const PRESS_COLLECTIONS: PressCollection[] = [
   },
 ];
 
-export function splitPressAssets(assets: PressAsset[]): {
-  images: PressAsset[];
-  files: PressAsset[];
-} {
-  const images: PressAsset[] = [];
-  const files: PressAsset[] = [];
-  for (const asset of assets) {
-    if (asset.type === "image") {
-      images.push(asset);
-    } else {
-      files.push(asset);
-    }
+export function toResourceCollections(
+  collections: PressCollection[],
+  resolve: {
+    title: (collection: PressCollection) => string;
+    description: (collection: PressCollection) => string | undefined;
   }
-  return { images, files };
+): ResourceCollection[] {
+  return collections.map((collection) => ({
+    id: collection.id,
+    title: resolve.title(collection),
+    description: resolve.description(collection),
+    zipHref: collection.zipHref,
+    zipFilename: collection.zipFilename,
+    personName: collection.person?.name,
+    priorityCount: collection.id === "jayHeller" ? 4 : 0,
+    assets: collection.assets,
+  }));
 }

@@ -352,10 +352,17 @@
   "press": {
     "heading": "Press",
     "subtitle": "Official photos and media assets for journalists and partners. View and download them here.",
+    "collections": {
+      "jayHeller": "Jay Heller",
+      "paoloFidanza": "Paolo Fidanza"
+    }
+  },
+  "resourceLibrary": {
     "downloadAll": "Download all",
     "downloadPhoto": "Download photo",
     "downloadFile": "Download",
     "viewPhoto": "View photo",
+    "playVideo": "Play",
     "close": "Close",
     "previousImage": "Previous photo",
     "nextImage": "Next photo",
@@ -363,11 +370,26 @@
     "photoAlt": "{name}, photo {number}",
     "fileTypeDocument": "Document",
     "fileTypeVideo": "Video",
-    "fileTypeArchive": "Archive",
-    "collections": {
-      "jayHeller": "Jay Heller",
-      "paoloFidanza": "Paolo Fidanza"
-    }
+    "fileTypeArchive": "Archive"
+  },
+  "pocMetadata": {
+    "title": "POC | K Lab",
+    "description": "K Lab proof-of-concept videos and related assets."
+  },
+  "poc": {
+    "heading": "POC",
+    "subtitle": "Proof-of-concept videos and related assets. View and download them here.",
+    "demoTitle": "K Rails demo",
+    "demoDescription": "Web demonstration of K Rails."
+  },
+  "manualsMetadata": {
+    "title": "Manuals | K Lab",
+    "description": "K Lab product manuals and documentation."
+  },
+  "manuals": {
+    "heading": "Manuals",
+    "subtitle": "Product manuals and documentation. View and download them here.",
+    "empty": "Manuals will appear here soon."
   },
   "techPlaceholder": {
     "contactSales": "Contact sales",

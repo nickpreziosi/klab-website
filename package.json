@@ -10,7 +10,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check-unused-css": "check-unused-css"
+    "check-unused-css": "check-unused-css",
+    "upload-poc-demo": "tsx scripts/upload-poc-demo.ts"
   },
   "dependencies": {
     "@k-lab/components": "^0.12.0",

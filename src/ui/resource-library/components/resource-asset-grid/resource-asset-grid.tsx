@@ -3,23 +3,23 @@
 import Image from "next/image";
 import { Download } from "lucide-react";
 import { useTranslations } from "next-intl";
-import type { PressAsset } from "@/ui/press/data/press-collections";
-import styles from "./press-asset-grid.module.css";
+import type { ResourceAsset } from "@/ui/resource-library/types";
+import styles from "./resource-asset-grid.module.css";
 
-type PressAssetGridProps = {
-  images: PressAsset[];
+type ResourceAssetGridProps = {
+  images: ResourceAsset[];
   personName?: string;
   priorityCount?: number;
   onOpen: (index: number) => void;
 };
 
-export function PressAssetGrid({
+export function ResourceAssetGrid({
   images,
   personName,
   priorityCount = 0,
   onOpen,
-}: PressAssetGridProps) {
-  const t = useTranslations("press");
+}: ResourceAssetGridProps) {
+  const t = useTranslations("resourceLibrary");
 
   return (
     <ul className={styles.grid}>
@@ -46,15 +46,17 @@ export function PressAssetGrid({
                 className={styles.image}
               />
             </button>
-            <a
-              href={image.href}
-              download={image.filename}
-              className={styles.download}
-              aria-label={t("downloadPhoto")}
-              onClick={(event) => event.stopPropagation()}
-            >
-              <Download aria-hidden strokeWidth={2} />
-            </a>
+            {image.href ? (
+              <a
+                href={image.href}
+                download={image.filename}
+                className={styles.download}
+                aria-label={t("downloadPhoto")}
+                onClick={(event) => event.stopPropagation()}
+              >
+                <Download aria-hidden strokeWidth={2} />
+              </a>
+            ) : null}
           </li>
         );
       })}

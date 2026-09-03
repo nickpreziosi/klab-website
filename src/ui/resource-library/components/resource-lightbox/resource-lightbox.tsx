@@ -7,18 +7,23 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Download } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Button from "@/ui/shared/components/button/button";
-import type { PressAsset } from "@/ui/press/data/press-collections";
-import styles from "./press-lightbox.module.css";
+import type { ResourceAsset } from "@/ui/resource-library/types";
+import styles from "./resource-lightbox.module.css";
 
-type PressLightboxProps = {
-  images: PressAsset[];
+type ResourceLightboxProps = {
+  images: ResourceAsset[];
   index: number | null;
   personName?: string;
   onIndexChange: (index: number | null) => void;
 };
 
-export function PressLightbox({ images, index, personName, onIndexChange }: PressLightboxProps) {
-  const t = useTranslations("press");
+export function ResourceLightbox({
+  images,
+  index,
+  personName,
+  onIndexChange,
+}: ResourceLightboxProps) {
+  const t = useTranslations("resourceLibrary");
   const open = index !== null && images[index] != null;
   const current = open && index !== null ? images[index] : null;
   const canGoPrev = index !== null && index > 0;
@@ -91,7 +96,7 @@ export function PressLightbox({ images, index, personName, onIndexChange }: Pres
             <div className={styles.figure}>
               <div className={styles.imageWrap}>
                 <Image
-                  src={current.href}
+                  src={current.href || current.previewSrc || ""}
                   alt={alt}
                   fill
                   sizes="(max-width: 768px) 100vw, 1200px"
@@ -100,17 +105,19 @@ export function PressLightbox({ images, index, personName, onIndexChange }: Pres
               </div>
               <div className={styles.caption}>
                 <span className={styles.filename}>{current.filename}</span>
-                <Button
-                  asChild
-                  variant="accent-brand"
-                  size="sm"
-                  icon={<Download />}
-                  iconPosition="left"
-                >
-                  <a href={current.href} download={current.filename}>
-                    {t("downloadPhoto")}
-                  </a>
-                </Button>
+                {current.href ? (
+                  <Button
+                    asChild
+                    variant="accent-brand"
+                    size="sm"
+                    icon={<Download />}
+                    iconPosition="left"
+                  >
+                    <a href={current.href} download={current.filename}>
+                      {t("downloadPhoto")}
+                    </a>
+                  </Button>
+                ) : null}
               </div>
             </div>
           ) : null}

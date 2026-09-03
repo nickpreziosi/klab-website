@@ -30,6 +30,16 @@
   width: 100%;
 }
 
+.empty {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 300;
+  line-height: 1.5;
+  text-align: center;
+  color: hsl(var(--muted-foreground));
+  max-width: 40rem;
+}
+
 @media (max-width: 1024px) {
   .container {
     gap: 64px;

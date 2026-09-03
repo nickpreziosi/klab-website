@@ -352,10 +352,17 @@
   "press": {
     "heading": "الصحافة",
     "subtitle": "صور وموارد إعلامية رسمية للصحفيين والشركاء. اعرضها وحمّلها هنا.",
+    "collections": {
+      "jayHeller": "Jay Heller",
+      "paoloFidanza": "Paolo Fidanza"
+    }
+  },
+  "resourceLibrary": {
     "downloadAll": "تنزيل الكل",
     "downloadPhoto": "تنزيل الصورة",
     "downloadFile": "تنزيل",
     "viewPhoto": "عرض الصورة",
+    "playVideo": "تشغيل",
     "close": "إغلاق",
     "previousImage": "الصورة السابقة",
     "nextImage": "الصورة التالية",
@@ -363,11 +370,26 @@
     "photoAlt": "{name}، صورة {number}",
     "fileTypeDocument": "مستند",
     "fileTypeVideo": "فيديو",
-    "fileTypeArchive": "أرشيف",
-    "collections": {
-      "jayHeller": "Jay Heller",
-      "paoloFidanza": "Paolo Fidanza"
-    }
+    "fileTypeArchive": "أرشيف"
+  },
+  "pocMetadata": {
+    "title": "إثبات المفهوم | K Lab",
+    "description": "فيديوهات إثبات المفهوم والموارد ذات الصلة من K Lab."
+  },
+  "poc": {
+    "heading": "إثبات المفهوم",
+    "subtitle": "فيديوهات إثبات المفهوم والموارد ذات الصلة. اعرضها وحمّلها هنا.",
+    "demoTitle": "عرض K Rails",
+    "demoDescription": "عرض ويب لـ K Rails."
+  },
+  "manualsMetadata": {
+    "title": "الأدلة | K Lab",
+    "description": "أدلة ومنتجات توثيق K Lab."
+  },
+  "manuals": {
+    "heading": "الأدلة",
+    "subtitle": "أدلة المنتجات والتوثيق. اعرضها وحمّلها هنا.",
+    "empty": "ستظهر الأدلة هنا قريباً."
   },
   "techPlaceholder": {
     "contactSales": "اتصل بالمبيعات",

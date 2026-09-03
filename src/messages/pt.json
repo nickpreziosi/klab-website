@@ -352,10 +352,17 @@
   "press": {
     "heading": "Imprensa",
     "subtitle": "Fotos e recursos oficiais para jornalistas e parceiros. Veja e baixe-os aqui.",
+    "collections": {
+      "jayHeller": "Jay Heller",
+      "paoloFidanza": "Paolo Fidanza"
+    }
+  },
+  "resourceLibrary": {
     "downloadAll": "Baixar tudo",
     "downloadPhoto": "Baixar foto",
     "downloadFile": "Baixar",
     "viewPhoto": "Ver foto",
+    "playVideo": "Reproduzir",
     "close": "Fechar",
     "previousImage": "Foto anterior",
     "nextImage": "Próxima foto",
@@ -363,11 +370,26 @@
     "photoAlt": "{name}, foto {number}",
     "fileTypeDocument": "Documento",
     "fileTypeVideo": "Vídeo",
-    "fileTypeArchive": "Arquivo",
-    "collections": {
-      "jayHeller": "Jay Heller",
-      "paoloFidanza": "Paolo Fidanza"
-    }
+    "fileTypeArchive": "Arquivo"
+  },
+  "pocMetadata": {
+    "title": "POC | K Lab",
+    "description": "Vídeos de prova de conceito e recursos relacionados da K Lab."
+  },
+  "poc": {
+    "heading": "POC",
+    "subtitle": "Vídeos de prova de conceito e recursos relacionados. Veja e baixe-os aqui.",
+    "demoTitle": "Demo do K Rails",
+    "demoDescription": "Demonstração web do K Rails."
+  },
+  "manualsMetadata": {
+    "title": "Manuais | K Lab",
+    "description": "Manuais e documentação de produtos K Lab."
+  },
+  "manuals": {
+    "heading": "Manuais",
+    "subtitle": "Manuais e documentação de produtos. Veja e baixe-os aqui.",
+    "empty": "Os manuais aparecerão aqui em breve."
   },
   "techPlaceholder": {
     "contactSales": "Contactar vendas",

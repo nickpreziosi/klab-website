@@ -11,6 +11,8 @@ const STATIC_PATHS = [
   "",
   "company",
   "press",
+  "poc",
+  "manuals",
   "foundation",
   "contact",
   "contact/sales",

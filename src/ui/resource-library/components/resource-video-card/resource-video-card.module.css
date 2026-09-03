@@ -1,0 +1,104 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 720px;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--rounded-app);
+  overflow: hidden;
+  background: transparent;
+  color: hsl(var(--foreground));
+}
+
+.posterWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: hsl(var(--surface));
+}
+
+.poster {
+  object-fit: cover;
+}
+
+.playOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  background: hsl(0 0% 0% / 0.28);
+  cursor: pointer;
+  color: white;
+}
+
+.playOverlay:focus-visible {
+  outline: 2px solid hsl(var(--foreground));
+  outline-offset: -4px;
+}
+
+.playIcon {
+  width: 72px;
+  height: 72px;
+}
+
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-md);
+  padding: 20px;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+  font-size: var(--text-base);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.type {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 300;
+  color: hsl(var(--muted-foreground));
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.embed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: var(--rounded-app);
+}
+
+@media (pointer: fine) and (hover: hover) {
+  .playOverlay:hover {
+    background: hsl(0 0% 0% / 0.4);
+  }
+}
+
+@media (max-width: 768px) {
+  .body {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
