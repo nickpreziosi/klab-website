@@ -343,8 +343,31 @@
     "brand": "العلامة التجارية",
     "press": "الصحافة",
     "poc": "إثبات المفهوم",
-    "manuals": "الأدلة",
-    "documentation": "التوثيق"
+    "manuals": "الأدلة"
+  },
+  "pressMetadata": {
+    "title": "الصحافة | K Lab",
+    "description": "صور وموارد إعلامية رسمية من K Lab للصحفيين والشركاء."
+  },
+  "press": {
+    "heading": "الصحافة",
+    "subtitle": "صور وموارد إعلامية رسمية للصحفيين والشركاء. اعرضها وحمّلها هنا.",
+    "downloadAll": "تنزيل الكل",
+    "downloadPhoto": "تنزيل الصورة",
+    "downloadFile": "تنزيل",
+    "viewPhoto": "عرض الصورة",
+    "close": "إغلاق",
+    "previousImage": "الصورة السابقة",
+    "nextImage": "الصورة التالية",
+    "assetCount": "{count} موارد",
+    "photoAlt": "{name}، صورة {number}",
+    "fileTypeDocument": "مستند",
+    "fileTypeVideo": "فيديو",
+    "fileTypeArchive": "أرشيف",
+    "collections": {
+      "jayHeller": "Jay Heller",
+      "paoloFidanza": "Paolo Fidanza"
+    }
   },
   "techPlaceholder": {
     "contactSales": "اتصل بالمبيعات",

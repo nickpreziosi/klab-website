@@ -343,8 +343,31 @@
     "brand": "Marca",
     "press": "Imprensa",
     "poc": "POC",
-    "manuals": "Manuais",
-    "documentation": "Documentação"
+    "manuals": "Manuais"
+  },
+  "pressMetadata": {
+    "title": "Imprensa | K Lab",
+    "description": "Fotos e recursos oficiais da K Lab para jornalistas e parceiros."
+  },
+  "press": {
+    "heading": "Imprensa",
+    "subtitle": "Fotos e recursos oficiais para jornalistas e parceiros. Veja e baixe-os aqui.",
+    "downloadAll": "Baixar tudo",
+    "downloadPhoto": "Baixar foto",
+    "downloadFile": "Baixar",
+    "viewPhoto": "Ver foto",
+    "close": "Fechar",
+    "previousImage": "Foto anterior",
+    "nextImage": "Próxima foto",
+    "assetCount": "{count} recursos",
+    "photoAlt": "{name}, foto {number}",
+    "fileTypeDocument": "Documento",
+    "fileTypeVideo": "Vídeo",
+    "fileTypeArchive": "Arquivo",
+    "collections": {
+      "jayHeller": "Jay Heller",
+      "paoloFidanza": "Paolo Fidanza"
+    }
   },
   "techPlaceholder": {
     "contactSales": "Contactar vendas",

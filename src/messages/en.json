@@ -343,8 +343,31 @@
     "brand": "Brand",
     "press": "Press",
     "poc": "POC",
-    "manuals": "Manuals",
-    "documentation": "Documentation"
+    "manuals": "Manuals"
+  },
+  "pressMetadata": {
+    "title": "Press | K Lab",
+    "description": "Official K Lab photos and media assets for journalists and partners."
+  },
+  "press": {
+    "heading": "Press",
+    "subtitle": "Official photos and media assets for journalists and partners. View and download them here.",
+    "downloadAll": "Download all",
+    "downloadPhoto": "Download photo",
+    "downloadFile": "Download",
+    "viewPhoto": "View photo",
+    "close": "Close",
+    "previousImage": "Previous photo",
+    "nextImage": "Next photo",
+    "assetCount": "{count} assets",
+    "photoAlt": "{name}, photo {number}",
+    "fileTypeDocument": "Document",
+    "fileTypeVideo": "Video",
+    "fileTypeArchive": "Archive",
+    "collections": {
+      "jayHeller": "Jay Heller",
+      "paoloFidanza": "Paolo Fidanza"
+    }
   },
   "techPlaceholder": {
     "contactSales": "Contact sales",

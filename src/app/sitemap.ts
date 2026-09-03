@@ -10,6 +10,7 @@ const BASE_URL = "https://k-lab.ai";
 const STATIC_PATHS = [
   "",
   "company",
+  "press",
   "foundation",
   "contact",
   "contact/sales",
