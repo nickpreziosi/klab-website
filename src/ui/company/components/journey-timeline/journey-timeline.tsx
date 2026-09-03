@@ -3,7 +3,8 @@
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { getTextDirection, type Locale } from "@/i18n/routing";
 import CompanySectionTitle from "@/ui/company/components/company-section-title/company-section-title";
 import type { JourneyTimelineTranslations } from "@/ui/company/types";
 import { buildJourneyTimelineTranslations } from "@/ui/company/types";
@@ -23,10 +24,12 @@ export default function JourneyTimeline({
   const t = useTranslations("journeyTimeline");
   const translations = serverTranslations ?? buildJourneyTimelineTranslations(t);
   const tCommon = useTranslations("common");
+  const locale = useLocale() as Locale;
+  const dir = getTextDirection(locale);
 
   return (
     <div className={styles.outerContainer}>
-      <section ref={sectionRef} className={styles.section}>
+      <section ref={sectionRef} className={styles.section} dir={dir}>
         <div className={styles.container}>
           <div className={styles.header}>
             <CompanySectionTitle title={translations.title} inView={effectiveInView} skipAnimation={skipAnimation} />
@@ -65,9 +68,7 @@ export default function JourneyTimeline({
                 <span className={`${styles.arrow} rtlFlipH`}>→</span>
                 <div className={styles.badgeWithYear}>
                   <span className={styles.yearLabel}>{translations.year2025}</span>
-                  <div className={`${styles.circularBadge} ${styles.soldBadge}`}>
-                    {translations.sold}
-                  </div>
+                  <span className={styles.soldLabel}>{translations.sold}</span>
                 </div>
                 <span className={`${styles.arrow} rtlFlipH`}>→</span>
               </div>

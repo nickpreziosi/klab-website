@@ -76,6 +76,9 @@
 }
 
 .timelineBar {
+  --timeline-from: var(--keo-pink);
+  --timeline-mid: #1e3d72;
+  --timeline-to: #00acfd;
   position: relative;
   width: 100%;
   height: 88px;
@@ -83,17 +86,29 @@
   border-radius: 999px;
   background: linear-gradient(
     to right,
-    #000000 0%,
-    #000000 15%,
-    #1e3d72 30%,
-    #1e3d72 45%,
-    #00acfd 60%,
-    #00acfd 100%
+    var(--timeline-from) 0%,
+    var(--timeline-from) 15%,
+    var(--timeline-mid) 40%,
+    var(--timeline-to) 62%,
+    var(--timeline-to) 100%
   );
   display: flex;
   align-items: center;
-  padding: 12px 24px 12px 12px; /* left = top = bottom */
+  padding-block: 12px;
+  padding-inline-start: 12px;
+  padding-inline-end: 24px;
   overflow: visible;
+}
+
+.section[dir="rtl"] .timelineBar {
+  background: linear-gradient(
+    to left,
+    var(--timeline-from) 0%,
+    var(--timeline-from) 15%,
+    var(--timeline-mid) 40%,
+    var(--timeline-to) 62%,
+    var(--timeline-to) 100%
+  );
 }
 
 .futureZone {
@@ -163,12 +178,17 @@
   object-fit: contain;
 }
 
-.soldBadge {
-  background: var(--keo-pink);
-  color: white;
-  font-size: 1rem;
+.soldLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #ffffff !important;
+  font-size: clamp(0.625rem, 1.1vw + 0.5rem, 1rem);
   font-weight: var(--font-bold);
   letter-spacing: 0.04em;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .arrow {
@@ -221,7 +241,9 @@
 
   .timelineBar {
     min-height: 88px;
-    padding: 12px 24px 12px 12px;
+    padding-block: 12px;
+    padding-inline-start: 12px;
+    padding-inline-end: 24px;
   }
 
   .badgesRow {
@@ -241,8 +263,9 @@
   .arrow {
     font-size: 1.5rem;
   }
-  .soldBadge {
-    font-size: 0.7rem;
+
+  .soldLabel {
+    font-size: 0.875rem;
   }
 }
 
@@ -262,17 +285,20 @@
   }
 
   .timelineBar {
-    padding: 8px 20px 8px 8px;
+    padding-block: 8px;
+    padding-inline-start: 8px;
+    padding-inline-end: 20px;
     min-height: 60px;
     height: 60px;
   }
 
-  .soldBadge {
-    font-size: 0.6rem;
-  }
-
   .badgesRow {
     gap: 18px;
+  }
+
+  .soldLabel {
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
   }
 
   .futureOverlay {
@@ -290,23 +316,26 @@
 
 @media (max-width: 500px) {
   .timelineBar {
-    padding: 6px 16px 6px 6px;
+    padding-block: 6px;
+    padding-inline-start: 6px;
+    padding-inline-end: 16px;
     min-height: 56px;
     height: 56px;
   }
 
   .badgesRow {
-    gap: 10px;
+    gap: 8px;
+  }
+
+  .soldLabel {
+    font-size: 0.625rem;
+    letter-spacing: 0.01em;
   }
 
   .circularBadge {
     width: auto;
     height: 100%;
     aspect-ratio: 1 / 1;
-  }
-
-  .soldBadge {
-    font-size: 0.6rem;
   }
 
   .futureOverlay {

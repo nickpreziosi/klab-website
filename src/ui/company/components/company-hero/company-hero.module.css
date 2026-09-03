@@ -30,6 +30,13 @@
   text-align: start;
 }
 
+.brandLtr {
+  display: inline-block;
+  unicode-bidi: isolate;
+  direction: ltr;
+  white-space: nowrap;
+}
+
 .heroHeaderHighlight {
   color: var(--accent-color);
 }

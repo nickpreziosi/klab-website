@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import type { CompanyHeroTranslations } from "@/ui/company/types";
 import { buildCompanyHeroTranslations } from "@/ui/company/types";
+import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 import styles from "./company-hero.module.css";
 
@@ -105,7 +106,10 @@ export const CompanyHero = ({
               animate={animate}
               transition={{ duration, ease }}
             >
-              {translations.headlineLine1} {translations.headlineLine2}
+              {withBrandLtr(
+                `${translations.headlineLine1} ${translations.headlineLine2}`,
+                styles.brandLtr
+              )}
             </motion.h1>
           </div>
 
