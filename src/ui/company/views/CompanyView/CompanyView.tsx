@@ -1,6 +1,10 @@
 "use client";
 
-import type { CompanyHeroTranslations } from "@/ui/company/types";
+import type {
+  CompanyHeroTranslations,
+  CompanyWhatWeBuiltTranslations,
+  JourneyTimelineTranslations,
+} from "@/ui/company/types";
 import type { StaffMember } from "@/ui/company/components/company-staff-section/company-staff-section";
 import { CompanyHero } from "@/ui/company/components/company-hero/company-hero";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
@@ -15,19 +19,32 @@ import CompanyWhatWeBuiltSection from "@/ui/company/components/company-what-we-b
 type CompanyViewProps = {
   /** When provided (from server), company hero copy is SSR'd */
   companyHeroTranslations?: CompanyHeroTranslations;
+  /** When provided (from server), What We Built copy is SSR'd */
+  companyWhatWeBuiltTranslations?: CompanyWhatWeBuiltTranslations;
+  /** When provided (from server), trajectory copy is SSR'd */
+  journeyTimelineTranslations?: JourneyTimelineTranslations;
   /** Staff with translated position/bio (from server) */
   employees: StaffMember[];
   board: StaffMember[];
 };
 
-export function CompanyView({ companyHeroTranslations, employees, board }: CompanyViewProps) {
+export function CompanyView({
+  companyHeroTranslations,
+  companyWhatWeBuiltTranslations,
+  journeyTimelineTranslations,
+  employees,
+  board,
+}: CompanyViewProps) {
   const skipAnimation = useSkipAnimationOnLocaleSwitch();
   return (
     <div className={styles.page}>
       <CompanyHero translations={companyHeroTranslations} skipAnimation={skipAnimation} />
       <main className={styles.main}>
-        <CompanyWhatWeBuiltSection skipAnimation={skipAnimation} />
-        <JourneyTimeline skipAnimation={skipAnimation} />
+        <CompanyWhatWeBuiltSection
+          translations={companyWhatWeBuiltTranslations}
+          skipAnimation={skipAnimation}
+        />
+        <JourneyTimeline translations={journeyTimelineTranslations} skipAnimation={skipAnimation} />
         <CompanyManifesto skipAnimation={skipAnimation} />
         <KlabFoundationSection skipAnimation={skipAnimation} />
         <CompanyCulture skipAnimation={skipAnimation} />

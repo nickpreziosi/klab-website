@@ -6,6 +6,8 @@ import { useTranslations } from "next-intl";
 import { ProductLogo } from "@k-lab/components";
 import { Building2, Landmark, Package } from "lucide-react";
 import CompanySectionTitle from "@/ui/company/components/company-section-title/company-section-title";
+import type { CompanyWhatWeBuiltTranslations } from "@/ui/company/types";
+import { buildCompanyWhatWeBuiltTranslations } from "@/ui/company/types";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 import styles from "./company-what-we-built-section.module.css";
 
@@ -66,15 +68,23 @@ const VALUES: {
 ];
 
 export default function CompanyWhatWeBuiltSection({
+  translations: serverTranslations,
   skipAnimation = false,
 }: {
+  /** When provided (from server), copy is SSR'd; otherwise use client useTranslations */
+  translations?: CompanyWhatWeBuiltTranslations;
   skipAnimation?: boolean;
 }) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
   const effectiveInView = skipAnimation || inView;
   const t = useTranslations("companyWhatWeBuilt");
-  const leadParagraphs = [t("leadParagraph1"), t("leadParagraph2"), t("leadParagraph3")]
+  const translations = serverTranslations ?? buildCompanyWhatWeBuiltTranslations(t);
+  const leadParagraphs = [
+    translations.leadParagraph1,
+    translations.leadParagraph2,
+    translations.leadParagraph3,
+  ]
     .map((p) => p.trim())
     .filter(Boolean);
 
@@ -83,7 +93,7 @@ export default function CompanyWhatWeBuiltSection({
       <div className={styles.container}>
         <div className={styles.header}>
           <CompanySectionTitle
-            title={t("title")}
+            title={translations.title}
             inView={effectiveInView}
             skipAnimation={skipAnimation}
           />
@@ -103,7 +113,7 @@ export default function CompanyWhatWeBuiltSection({
             ))}
           </div>
 
-          <p className={styles.introLine}>{t("introLine")}</p>
+          <p className={styles.introLine}>{translations.introLine}</p>
 
           <div className={styles.modulesGrid}>
             {MODULES.map((module) => (
@@ -112,20 +122,20 @@ export default function CompanyWhatWeBuiltSection({
                   <ProductLogo
                     product={module.product}
                     variant="theme-aware"
-                    alt={t(module.altKey)}
+                    alt={translations[module.altKey]}
                     className={styles.moduleLogo}
                     wrapperClassName={styles.moduleLogoInner}
                   />
                 </div>
-                <p className={styles.moduleText}>{t(module.textKey)}</p>
+                <p className={styles.moduleText}>{translations[module.textKey]}</p>
               </div>
             ))}
           </div>
 
           <div className={styles.valuesCard}>
             <div className={styles.valuesPills}>
-              <h3 className={styles.valuesQuestion}>{t("valuesQuestion")}</h3>
-              <p className={styles.valuesAnswer}>{t("valuesAnswer")}</p>
+              <h3 className={styles.valuesQuestion}>{translations.valuesQuestion}</h3>
+              <p className={styles.valuesAnswer}>{translations.valuesAnswer}</p>
             </div>
             <div className={styles.valuesGrid}>
               {VALUES.map(({ icon, textKey, fillBadge }, index) => (
@@ -137,7 +147,7 @@ export default function CompanyWhatWeBuiltSection({
                     <span className={styles.valueNumber}>{index + 1}</span>
                     {icon}
                   </span>
-                  <p className={styles.valueText}>{t(textKey)}</p>
+                  <p className={styles.valueText}>{translations[textKey]}</p>
                 </div>
               ))}
             </div>

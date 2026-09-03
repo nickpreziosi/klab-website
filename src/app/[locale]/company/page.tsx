@@ -1,15 +1,29 @@
-import { getTranslations } from "next-intl/server";
-import { buildCompanyHeroTranslations } from "@/ui/company/types";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import {
+  buildCompanyHeroTranslations,
+  buildCompanyWhatWeBuiltTranslations,
+  buildJourneyTimelineTranslations,
+} from "@/ui/company/types";
 import { CompanyView } from "@/ui/company/views/CompanyView/CompanyView";
 import { EMPLOYEES_STATIC, BOARD_STATIC } from "@/ui/company/views/CompanyView/company-staff-data";
 import type { StaffMember } from "@/ui/company/components/company-staff-section/company-staff-section";
 
-export default async function CompanyPage() {
-  const [tHero, tStaff] = await Promise.all([
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function CompanyPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const [tHero, tWhatWeBuilt, tJourney, tStaff] = await Promise.all([
     getTranslations("companyHero"),
+    getTranslations("companyWhatWeBuilt"),
+    getTranslations("journeyTimeline"),
     getTranslations("companyStaff"),
   ]);
   const companyHeroTranslations = buildCompanyHeroTranslations(tHero);
+  const companyWhatWeBuiltTranslations = buildCompanyWhatWeBuiltTranslations(tWhatWeBuilt);
+  const journeyTimelineTranslations = buildJourneyTimelineTranslations(tJourney);
 
   const employees: StaffMember[] = EMPLOYEES_STATIC.map((e) => ({
     name: e.name,
@@ -33,6 +47,8 @@ export default async function CompanyPage() {
   return (
     <CompanyView
       companyHeroTranslations={companyHeroTranslations}
+      companyWhatWeBuiltTranslations={companyWhatWeBuiltTranslations}
+      journeyTimelineTranslations={journeyTimelineTranslations}
       employees={employees}
       board={board}
     />

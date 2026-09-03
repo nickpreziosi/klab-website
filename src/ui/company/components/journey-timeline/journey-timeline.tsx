@@ -5,13 +5,23 @@ import Image from "next/image";
 import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import CompanySectionTitle from "@/ui/company/components/company-section-title/company-section-title";
+import type { JourneyTimelineTranslations } from "@/ui/company/types";
+import { buildJourneyTimelineTranslations } from "@/ui/company/types";
 import styles from "./journey-timeline.module.css";
 
-export default function JourneyTimeline({ skipAnimation = false }: { skipAnimation?: boolean }) {
+export default function JourneyTimeline({
+  translations: serverTranslations,
+  skipAnimation = false,
+}: {
+  /** When provided (from server), copy is SSR'd; otherwise use client useTranslations */
+  translations?: JourneyTimelineTranslations;
+  skipAnimation?: boolean;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, amount: 0.1 });
   const effectiveInView = skipAnimation || inView;
   const t = useTranslations("journeyTimeline");
+  const translations = serverTranslations ?? buildJourneyTimelineTranslations(t);
   const tCommon = useTranslations("common");
 
   return (
@@ -19,14 +29,14 @@ export default function JourneyTimeline({ skipAnimation = false }: { skipAnimati
       <section ref={sectionRef} className={styles.section}>
         <div className={styles.container}>
           <div className={styles.header}>
-            <CompanySectionTitle title={t("title")} inView={effectiveInView} skipAnimation={skipAnimation} />
+            <CompanySectionTitle title={translations.title} inView={effectiveInView} skipAnimation={skipAnimation} />
           </div>
 
           <div className={styles.intro}>
-            <p className={styles.subtitle}>{t("subtitle")}</p>
+            <p className={styles.subtitle}>{translations.subtitle}</p>
             <div className={styles.paragraphs}>
-              <p className={styles.paragraph}>{t("paragraph1")}</p>
-              <p className={styles.paragraph}>{t("paragraph2")}</p>
+              <p className={styles.paragraph}>{translations.paragraph1}</p>
+              <p className={styles.paragraph}>{translations.paragraph2}</p>
             </div>
           </div>
 
@@ -41,7 +51,7 @@ export default function JourneyTimeline({ skipAnimation = false }: { skipAnimati
             <div className={styles.timelineBar}>
               <div className={styles.badgesRow}>
                 <div className={styles.badgeWithYear}>
-                  <span className={styles.yearLabel}>{t("year2020")}</span>
+                  <span className={styles.yearLabel}>{translations.year2020}</span>
                   <div className={styles.circularBadge}>
                     <Image
                       src="/logos/keo-logo.png"
@@ -54,31 +64,31 @@ export default function JourneyTimeline({ skipAnimation = false }: { skipAnimati
                 </div>
                 <span className={`${styles.arrow} rtlFlipH`}>→</span>
                 <div className={styles.badgeWithYear}>
-                  <span className={styles.yearLabel}>{t("year2025")}</span>
+                  <span className={styles.yearLabel}>{translations.year2025}</span>
                   <div className={`${styles.circularBadge} ${styles.soldBadge}`}>
-                    {t("sold")}
+                    {translations.sold}
                   </div>
                 </div>
                 <span className={`${styles.arrow} rtlFlipH`}>→</span>
               </div>
               <div className={styles.futureZone}>
                 <span className={styles.futureOverlay} aria-hidden>
-                  {t("future")}
+                  {translations.future}
                 </span>
               </div>
             </div>
             <div className={styles.eventsRow}>
               <div className={styles.event}>
                 <span className={`${styles.eventArrow} rtlFlipH`}>→</span>
-                <span>{t("event1")}</span>
+                <span>{translations.event1}</span>
               </div>
               <div className={styles.event}>
                 <span className={`${styles.eventArrow} rtlFlipH`}>→</span>
-                <span>{t("event2")}</span>
+                <span>{translations.event2}</span>
               </div>
               <div className={styles.event}>
                 <span className={`${styles.eventArrow} rtlFlipH`}>→</span>
-                <span>{t("event3")}</span>
+                <span>{translations.event3}</span>
               </div>
             </div>
           </motion.div>
