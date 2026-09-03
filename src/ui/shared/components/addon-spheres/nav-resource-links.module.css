@@ -18,7 +18,7 @@
   padding: 20px;
   border: 1px solid hsl(var(--border));
   border-radius: var(--rounded-app);
-  background: transparent;
+  background: hsl(var(--background));
   text-decoration: none;
   color: hsl(var(--foreground));
   transition:

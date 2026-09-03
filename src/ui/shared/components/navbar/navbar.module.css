@@ -53,7 +53,7 @@
     border-color 300ms ease-in-out,
     box-shadow 300ms ease-in-out;
   border-bottom: 1px solid transparent;
-  background: hsl(var(--background) / 0.75);
+  background: hsl(var(--background) / 0.7);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -65,25 +65,14 @@
 
 .containerDropdownOpen {
   padding-bottom: 24px;
-  background: hsl(var(--background));
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border-bottom: solid 1px hsl(var(--foreground) / 0.2);
-  box-shadow: var(--shadow-black);
 }
 
 .containerScrolled {
-  background-color: hsl(var(--background) / 0.75);
+  background-color: hsl(var(--background) / 0.7);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-bottom: solid 1px hsl(var(--foreground) / 0.2);
   box-shadow: var(--shadow-black);
-}
-
-.containerScrolled.containerDropdownOpen {
-  background: hsl(var(--background));
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
 }
 
 .container * {

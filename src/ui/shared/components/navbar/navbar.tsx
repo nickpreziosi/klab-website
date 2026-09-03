@@ -7,7 +7,10 @@ import type { NavTranslations, DrawerTranslations } from "@/ui/shared/types/tran
 import { buildNavTranslations } from "@/ui/shared/types/translations";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Drawer } from "../drawer/drawer";
-import { DesktopDropdown, type DesktopDropdownVariant } from "@/ui/shared/components/dropdown-menu/dropdown-menu";
+import {
+  DesktopDropdown,
+  type DesktopDropdownVariant,
+} from "@/ui/shared/components/dropdown-menu/dropdown-menu";
 import { ThemeToggle } from "@/ui/shared/components/theme-toggle/theme-toggle";
 import { LocaleSwitcher } from "@/ui/shared/components/locale-switcher/locale-switcher";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
@@ -241,11 +244,9 @@ export const NavigationMenuDemo = ({
         <nav
           style={{
             height: "auto",
-            backdropFilter: openDropdown ? "none" : "blur(8px)",
-            WebkitBackdropFilter: openDropdown ? "none" : "blur(8px)",
-            background: openDropdown
-              ? "hsl(var(--background))"
-              : "hsl(var(--background) / 0.7)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            background: "hsl(var(--background) / 0.7)",
             borderBottom: "solid 1px hsl(var(--foreground) / 0.2)",
             boxShadow: "var(--shadow-black)",
           }}
