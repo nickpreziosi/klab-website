@@ -21,12 +21,25 @@ interface DesktopDropdownProps {
   onClose: () => void;
 }
 
+const EASE = [0.4, 0, 0.2, 1] as const;
+
 export function DesktopDropdown({ isOpen, variant, onClose }: DesktopDropdownProps) {
   const tKrails = useTranslations("technologiesDropdown");
   const tResources = useTranslations("resourcesDropdown");
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const isOpenRef = useRef(isOpen);
+  isOpenRef.current = isOpen;
+  const prevVariantRef = useRef<DesktopDropdownVariant | null>(null);
+  const isSwap = isOpen && prevVariantRef.current != null && prevVariantRef.current !== variant;
 
-  // Close dropdown when viewport shrinks from desktop to mobile while open
+  useEffect(() => {
+    if (isOpen) prevVariantRef.current = variant;
+    else {
+      prevVariantRef.current = null;
+      if (dropdownRef.current) dropdownRef.current.style.overflow = "hidden";
+    }
+  }, [isOpen, variant]);
+
   useEffect(() => {
     if (!isOpen || typeof window === "undefined") return;
 
@@ -54,28 +67,41 @@ export function DesktopDropdown({ isOpen, variant, onClose }: DesktopDropdownPro
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{
-            height: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
+            height: { duration: 0.3, ease: EASE },
             opacity: { duration: 0.3 },
+          }}
+          onAnimationStart={() => {
+            if (dropdownRef.current) dropdownRef.current.style.overflow = "hidden";
+          }}
+          onAnimationComplete={() => {
+            if (isOpenRef.current && dropdownRef.current) {
+              dropdownRef.current.style.height = "auto";
+              dropdownRef.current.style.overflow = "visible";
+            }
           }}
         >
           <div className={styles.container}>
-            <motion.div
-              key={variant}
-              className={styles.content}
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{
-                delay: 0.15,
-                duration: 0.3,
-                ease: [0.4, 0, 0.2, 1],
-              }}
-              exit={{ y: -20, opacity: 0, transition: { delay: 0 } }}
-            >
-              {variant === "resources" ? (
-                <NavResourceLinks onLinkClick={onClose} headerTitle={tResources("heading")} />
-              ) : (
-                <NavAddonSpheres onLinkClick={onClose} headerTitle={tKrails("heading")} />
-              )}
+            <motion.div className={styles.swap} layout="size" transition={{ duration: 0.3, ease: EASE }}>
+              <AnimatePresence mode="popLayout">
+                <motion.div
+                  key={variant}
+                  className={styles.content}
+                  initial={isSwap ? { opacity: 0 } : { y: -20, opacity: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={isSwap ? { opacity: 0 } : { opacity: 1, y: 0, transition: { duration: 0 } }}
+                  transition={
+                    isSwap
+                      ? { duration: 0.2, ease: EASE }
+                      : { delay: 0.15, duration: 0.3, ease: EASE }
+                  }
+                >
+                  {variant === "resources" ? (
+                    <NavResourceLinks onLinkClick={onClose} headerTitle={tResources("heading")} />
+                  ) : (
+                    <NavAddonSpheres onLinkClick={onClose} headerTitle={tKrails("heading")} />
+                  )}
+                </motion.div>
+              </AnimatePresence>
             </motion.div>
           </div>
         </motion.div>

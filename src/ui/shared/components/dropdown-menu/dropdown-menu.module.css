@@ -5,7 +5,7 @@
   width: 100%;
   max-width: 100%;
   border-radius: var(--rounded-app);
-  overflow: visible;
+  overflow: hidden;
 }
 
 /* Technologies showcase in dropdown: fill width of dropdown content, no extra horizontal padding */
@@ -34,6 +34,11 @@
   height: fit-content;
   border-radius: var(--rounded-app);
   overflow: visible;
+}
+
+.swap {
+  position: relative;
+  width: 100%;
 }
 
 .content {
