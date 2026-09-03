@@ -1,0 +1,126 @@
+.section {
+  width: 100%;
+  background: var(--theme-gradient);
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--padding-desktop);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-bottom: var(--margin-lg);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+.leadStack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 60rem;
+}
+
+.leadParagraph {
+  margin: 0;
+  font-size: clamp(1rem, 1.25vw + 0.7rem, 1.25rem);
+  font-weight: var(--font-medium);
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: rgba(var(--secondary-color-rgb), 0.98);
+  line-height: 1.7;
+  opacity: 0.92;
+}
+
+.introLine {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.4vw + 0.75rem, 1.35rem);
+  font-weight: var(--font-bold);
+  letter-spacing: -0.01em;
+  color: rgba(var(--secondary-color-rgb), 0.98);
+  line-height: 1.55;
+}
+
+.modulesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.module {
+  position: relative;
+  padding-inline-start: var(--padding-md);
+  border-inline-start: 3px solid var(--accent-color);
+}
+
+.moduleText {
+  margin: 0;
+  font-size: clamp(1rem, 1.15vw + 0.75rem, 1.25rem);
+  font-weight: var(--font-medium);
+  line-height: 1.65;
+  color: rgba(var(--secondary-color-rgb), 0.98);
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 28px;
+}
+
+.valueText {
+  margin: 0;
+  font-size: clamp(0.95rem, 1vw + 0.65rem, 1.15rem);
+  font-weight: var(--font-medium);
+  line-height: 1.7;
+  color: rgba(var(--secondary-color-rgb), 0.98);
+  opacity: 0.92;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: var(--padding-tablet);
+  }
+
+  .header {
+    margin-bottom: var(--margin-lg);
+  }
+
+  .modulesGrid {
+    gap: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-tablet) var(--padding-mobile);
+  }
+
+  .header {
+    margin-bottom: var(--margin-md);
+  }
+
+  .modulesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .valuesGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .leadStack {
+    max-width: 100%;
+    gap: 12px;
+  }
+}
+

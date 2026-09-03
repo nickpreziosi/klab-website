@@ -66,6 +66,7 @@ export const CompanyHero = ({
   const logoHeight = useHeroLogoHeight();
   const t = useTranslations("companyHero");
   const translations = serverTranslations ?? buildCompanyHeroTranslations(t);
+  const subheadText = translations.subhead.trim();
   const initial = skipAnimation ? visible : fadeUp.initial;
   const animate = skipAnimation ? visible : fadeUp.animate;
   const logoInitial = skipAnimation
@@ -104,22 +105,22 @@ export const CompanyHero = ({
               animate={animate}
               transition={{ duration, ease }}
             >
-              {translations.headlineLine1}
-              <br />
-              {translations.headlineLine2}
+              {translations.headlineLine1} {translations.headlineLine2}
             </motion.h1>
           </div>
 
-          <div className={styles.heroTaglinesContainer}>
-            <motion.p
-              className={styles.heroSubhead}
-              initial={initial}
-              animate={animate}
-              transition={{ duration, delay: stagger * 2, ease }}
-            >
-              {translations.subhead}
-            </motion.p>
-          </div>
+          {subheadText ? (
+            <div className={styles.heroTaglinesContainer}>
+              <motion.p
+                className={styles.heroSubhead}
+                initial={initial}
+                animate={animate}
+                transition={{ duration, delay: stagger * 2, ease }}
+              >
+                {subheadText}
+              </motion.p>
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

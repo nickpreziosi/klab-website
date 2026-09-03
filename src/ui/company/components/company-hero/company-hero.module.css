@@ -164,6 +164,7 @@
     align-items: center;
     justify-content: flex-start;
     gap: var(--gap-sm);
+    flex-wrap: nowrap;
   }
 
   .heroHeader {
@@ -171,6 +172,8 @@
     line-height: 1.2;
     max-width: 100% !important;
     text-align: start;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
   .heroSubhead {

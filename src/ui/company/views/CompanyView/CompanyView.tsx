@@ -10,6 +10,7 @@ import CompanyCulture from "@/ui/company/components/company-culture/company-cult
 import KlabFoundationSection from "@/ui/company/components/klab-foundation-section/klab-foundation-section";
 import CompanyManifesto from "@/ui/company/components/company-manifesto/company-manifesto";
 import CompanyStaffSection from "@/ui/company/components/company-staff-section/company-staff-section";
+import CompanyWhatWeBuiltSection from "@/ui/company/components/company-what-we-built-section/company-what-we-built-section";
 
 type CompanyViewProps = {
   /** When provided (from server), company hero copy is SSR'd */
@@ -25,6 +26,7 @@ export function CompanyView({ companyHeroTranslations, employees, board }: Compa
     <div className={styles.page}>
       <CompanyHero translations={companyHeroTranslations} skipAnimation={skipAnimation} />
       <main className={styles.main}>
+        <CompanyWhatWeBuiltSection skipAnimation={skipAnimation} />
         <JourneyTimeline skipAnimation={skipAnimation} />
         <CompanyManifesto skipAnimation={skipAnimation} />
         <KlabFoundationSection skipAnimation={skipAnimation} />
