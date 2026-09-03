@@ -58,6 +58,10 @@ export const NavigationMenuDemo = ({
   const navListRef = useRef<HTMLUListElement | null>(null);
   const compactNavRef = useRef(false);
   const lastNavWidth = useRef(0);
+  const openDropdownRef = useRef(openDropdown);
+  const drawerOpenRef = useRef(drawerOpen);
+  openDropdownRef.current = openDropdown;
+  drawerOpenRef.current = drawerOpen;
 
   useLayoutEffect(() => {
     const navbar = navbarRef.current;
@@ -130,6 +134,10 @@ export const NavigationMenuDemo = ({
   };
 
   useEffect(() => {
+    if (openDropdown) setIsNavbarHidden(false);
+  }, [openDropdown]);
+
+  useEffect(() => {
     setOpenDropdown(null);
   }, [path]);
 
@@ -142,6 +150,11 @@ export const NavigationMenuDemo = ({
       // Scroll-to-hide: hide on scroll down, show on scroll up or at top (desktop + mobile)
       const threshold = 80;
       const scrollDelta = scrollY - lastScrollY.current;
+
+      if (openDropdownRef.current || drawerOpenRef.current) {
+        lastScrollY.current = scrollY;
+        return;
+      }
 
       if (scrollY <= threshold) {
         setIsNavbarHidden(false);
