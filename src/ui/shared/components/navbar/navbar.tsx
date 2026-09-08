@@ -362,9 +362,9 @@ export const NavigationMenuDemo = ({
                 </li>
 
                 <li className={styles.navListItem}>
-                  <a className={styles.navLink} href="#">
+                  <Link className={styles.navLink} href="/#who-we-serve">
                     {nav.whoWeServe}
-                  </a>
+                  </Link>
                 </li>
 
                 <li className={styles.navListItem}>

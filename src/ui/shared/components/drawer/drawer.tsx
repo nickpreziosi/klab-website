@@ -394,8 +394,8 @@ export const Drawer = (props: DrawerProps) => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={skipDrawerAnimation ? { duration: 0 } : { delay: 0.2 }}
                     >
-                      <a
-                        href="#"
+                      <Link
+                        href="/#who-we-serve"
                         className={styles.navLink}
                         onClick={() => handleOpenChange(false)}
                       >
@@ -405,7 +405,7 @@ export const Drawer = (props: DrawerProps) => {
                           whileHover={{ scaleX: 1 }}
                           initial={{ scaleX: 0 }}
                         />
-                      </a>
+                      </Link>
                     </motion.div>
 
                     <motion.div

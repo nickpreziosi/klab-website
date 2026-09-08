@@ -46,7 +46,10 @@ export function ScrollToTopOnRouteChange() {
         });
       }
     } else if (prevPathWithoutLocale.current !== null && prevPathWithoutLocale.current !== current) {
-      window.scrollTo(0, 0);
+      // Keep hash targets (e.g. /#who-we-serve) instead of forcing the top of the page.
+      if (!window.location.hash) {
+        window.scrollTo(0, 0);
+      }
     }
 
     prevPathWithoutLocale.current = current;

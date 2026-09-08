@@ -172,6 +172,7 @@ export function WhoWeServe({
   return (
     <motion.section
       ref={sectionRef}
+      id="who-we-serve"
       className={cn(styles.section, className)}
       dir={dir}
       aria-labelledby="who-we-serve-heading"
