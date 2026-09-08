@@ -6,9 +6,10 @@
   --accent-foreground: 0 0% 0%;
   --border: 0 0% 19%;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
-  /* Fill the viewport below the navbar; grow when content is taller */
-  height: fit-content;
   min-height: calc(100vh - var(--navbar-height));
   min-height: calc(100dvh - var(--navbar-height));
   overflow-x: visible;
@@ -44,9 +45,6 @@
 .stage {
   position: relative;
   width: 100%;
-  height: fit-content;
-  min-height: calc(100vh - var(--navbar-height));
-  min-height: calc(100dvh - var(--navbar-height));
   display: flex;
   flex-direction: column;
   justify-content: center;

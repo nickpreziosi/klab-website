@@ -2,7 +2,7 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  margin-top: -3.5vw;
+  margin-top: 0;
   padding: 0;
   background: hsl(var(--background));
   overflow: clip;
@@ -16,7 +16,7 @@
 
 @media (max-width: 768px) {
   .section {
-    margin-top: calc(var(--padding-tablet) * -0.5);
+    margin-top: 0;
   }
 
   :global(html.dark) .section {
