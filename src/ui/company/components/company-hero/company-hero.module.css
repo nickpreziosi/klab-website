@@ -17,7 +17,7 @@
   height: 100%;
   min-height: 420px;
   object-fit: cover;
-  object-position: right bottom;
+  object-position: right center;
   opacity: 0.5;
 }
 
