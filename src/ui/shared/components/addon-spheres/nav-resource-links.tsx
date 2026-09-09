@@ -23,14 +23,13 @@ export function NavResourceLinks({ onLinkClick, headerTitle }: NavResourceLinksP
           const label = t(item.id);
 
           if (item.external) {
-            const isPlaceholder = item.href === "#";
             return (
               <a
                 key={item.id}
                 href={item.href}
                 className={className}
-                target={isPlaceholder ? undefined : "_blank"}
-                rel={isPlaceholder ? undefined : "noopener noreferrer"}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => {
                   onLinkClick?.();
                 }}

@@ -479,7 +479,6 @@ export const Drawer = (props: DrawerProps) => {
                             {RESOURCE_NAV_ITEMS.map((item) => {
                               const CategoryIcon = RESOURCE_NAV_ICONS[item.id];
                               const LinkIcon = item.external ? ExternalLink : MoveRight;
-                              const isPlaceholder = item.href === "#";
                               const content = (
                                 <>
                                   <span className={styles.dropdownItemResourceLabel}>
@@ -504,8 +503,8 @@ export const Drawer = (props: DrawerProps) => {
                                     key={item.id}
                                     href={item.href}
                                     className={`${styles.dropdownItem} ${styles.dropdownItemResource}`}
-                                    target={isPlaceholder ? undefined : "_blank"}
-                                    rel={isPlaceholder ? undefined : "noopener noreferrer"}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     onClick={() => handleOpenChange(false)}
                                   >
                                     {content}

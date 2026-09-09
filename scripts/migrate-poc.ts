@@ -95,7 +95,7 @@ async function main() {
   const nextDoc = publicFields(source as Record<string, unknown>);
   const tx = client.transaction().createOrReplace(nextDoc);
 
-  if (privateDoc && PRIVATE_ID !== PUBLIC_ID) {
+  if (privateDoc) {
     tx.delete(PRIVATE_ID);
   }
   if (legacyDoc) {
