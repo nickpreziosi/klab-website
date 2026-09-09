@@ -46,7 +46,7 @@ export default function CompanyCulture({ skipAnimation = false }: { skipAnimatio
   const effectiveInView = skipAnimation || inView;
   const t = useTranslations("companyCulture");
   const stats = [
-    { labelKey: "statPeople" as const, value: 40, suffix: "+" },
+    { labelKey: "statPeople" as const, value: 50, suffix: "+" },
     { labelKey: "statNationalities" as const, value: 10, suffix: "+" },
     { labelKey: "statLanguages" as const, value: 7, suffix: "+" },
   ];
