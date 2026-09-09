@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, type ComponentProps } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ComponentProps } from "react";
+import { createPortal } from "react-dom";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getTextDirection, type Locale } from "@/i18n/routing";
@@ -10,32 +11,149 @@ import { cn } from "@/ui/shared/utils/utils";
 import { ADDON_SPHERE_PRODUCTS } from "./addon-sphere-products";
 import styles from "./nav-addon-spheres.module.css";
 
+const SPHERE_VIDEO_SCALE = 1.32;
+
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+function drawCover(
+  ctx: CanvasRenderingContext2D,
+  video: HTMLVideoElement,
+  canvas: HTMLCanvasElement,
+  scale: number,
+) {
+  const vw = video.videoWidth;
+  const vh = video.videoHeight;
+  const cw = canvas.width;
+  const ch = canvas.height;
+  if (!vw || !vh || !cw || !ch) return false;
+
+  const videoAspect = vw / vh;
+  const canvasAspect = cw / ch;
+  let dw: number;
+  let dh: number;
+  if (videoAspect > canvasAspect) {
+    dh = ch;
+    dw = ch * videoAspect;
+  } else {
+    dw = cw;
+    dh = cw / videoAspect;
+  }
+  dw *= scale;
+  dh *= scale;
+  ctx.drawImage(video, 0, 0, vw, vh, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+  return true;
+}
+
 export function IdleSphereVideo({ src }: { src: string }) {
-  const ref = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const sphereRef = useRef<HTMLSpanElement>(null);
+  const [ready, setReady] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const video = ref.current;
-    if (!video) return;
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    const sphere = sphereRef.current;
+    if (!mounted || !video || !canvas || !sphere) return;
     if (prefersReducedMotion()) return;
+
+    const ctx = canvas.getContext("2d", { alpha: false });
+    if (!ctx) return;
+
+    setReady(false);
+    let painted = false;
+    let running = true;
+    let raf = 0;
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const width = sphere.clientWidth;
+      const height = sphere.clientHeight;
+      if (!width || !height) return;
+      const nextWidth = Math.round(width * dpr);
+      const nextHeight = Math.round(height * dpr);
+      if (canvas.width !== nextWidth) canvas.width = nextWidth;
+      if (canvas.height !== nextHeight) canvas.height = nextHeight;
+    };
+
+    const tick = () => {
+      if (!running) return;
+      resize();
+      if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA && !video.seeking) {
+        if (drawCover(ctx, video, canvas, SPHERE_VIDEO_SCALE) && !painted) {
+          painted = true;
+          setReady(true);
+        }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    const restartBeforeEnd = () => {
+      if (!video.duration || !Number.isFinite(video.duration)) return;
+      if (video.currentTime >= video.duration - 0.08) {
+        video.currentTime = 0.04;
+      }
+    };
+
+    const onVisibility = () => {
+      if (document.hidden) {
+        running = false;
+        cancelAnimationFrame(raf);
+        video.pause();
+        return;
+      }
+      running = true;
+      video.play().catch(() => {});
+      raf = requestAnimationFrame(tick);
+    };
+
+    const observer = new ResizeObserver(resize);
+    observer.observe(sphere);
+    video.addEventListener("timeupdate", restartBeforeEnd);
+    document.addEventListener("visibilitychange", onVisibility);
     video.play().catch(() => {});
-  }, [src]);
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      running = false;
+      cancelAnimationFrame(raf);
+      observer.disconnect();
+      video.removeEventListener("timeupdate", restartBeforeEnd);
+      document.removeEventListener("visibilitychange", onVisibility);
+      video.pause();
+    };
+  }, [src, mounted]);
 
   return (
-    <span className={styles.sphere} aria-hidden>
-      <video
-        ref={ref}
-        className={styles.sphereVideo}
-        src={src}
-        muted
-        loop
-        playsInline
-        autoPlay
-        preload="auto"
+    <span ref={sphereRef} className={styles.sphere} aria-hidden>
+      <canvas
+        ref={canvasRef}
+        className={styles.sphereCanvas}
+        data-ready={ready ? "true" : undefined}
       />
+      {mounted && !prefersReducedMotion()
+        ? createPortal(
+            <video
+              ref={videoRef}
+              className={styles.sphereVideoSource}
+              src={src}
+              muted
+              playsInline
+              autoPlay
+              preload="auto"
+              disablePictureInPicture
+              aria-hidden
+            />,
+            document.body,
+          )
+        : null}
     </span>
   );
 }
