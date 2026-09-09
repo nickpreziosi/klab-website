@@ -16,6 +16,7 @@ export function KRiskView({ translations, hero, mockups, sections }: TechnologyP
       cta={{ label: translations.contactSales, href: "/contact/sales" }}
       defaultAlt={translations.technologyScreenshot}
       skipAnimation={skipAnimation}
+      neutralGradient
     />
   );
 }

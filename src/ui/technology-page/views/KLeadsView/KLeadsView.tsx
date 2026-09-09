@@ -16,6 +16,7 @@ export function KLeadsView({ translations, hero, mockups, sections }: Technology
       cta={{ label: translations.contactSales, href: "/contact/sales" }}
       defaultAlt={translations.technologyScreenshot}
       skipAnimation={skipAnimation}
+      neutralGradient
     />
   );
 }

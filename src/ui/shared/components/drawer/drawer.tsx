@@ -32,7 +32,6 @@ import {
 import { routing } from "@/i18n/routing";
 import styles from "./drawer.module.css";
 
-const VISIBLE_TECH_DESCRIPTION_KEYS: Set<string> = new Set(["ktalk", "krisk", "krails", "kena", "kleads"]);
 
 /** Path without the locale segment (e.g. /en/about → /about) so we can tell locale switch from route change. */
 function pathWithoutLocale(pathname: string): string {
@@ -180,9 +179,7 @@ export const Drawer = (props: DrawerProps) => {
   const drawer = serverDrawerTranslations ?? buildDrawerTranslations(t);
   const nav = serverNavTranslations ?? buildNavTranslations(tNav);
 
-  const visibleTechnologies = TECHNOLOGIES.filter((tech) =>
-    VISIBLE_TECH_DESCRIPTION_KEYS.has(tech.descriptionKey)
-  );
+  const visibleTechnologies = TECHNOLOGIES;
 
   const hamburgerPlaceholder = (
     <button type="button" className={styles.hamburger} aria-label={drawer.openMenu}>
@@ -378,7 +375,7 @@ export const Drawer = (props: DrawerProps) => {
                                     src={logoSrc}
                                     product={tech.product}
                                     title={tech.title}
-                                    className={`${styles.dropdownItemLogo} ${tech.descriptionKey === "kbpm" ? styles.dropdownItemLogoKbpm : ""}`}
+                                    className={styles.dropdownItemLogo}
                                   />
                                   <VisuallyHidden>{tech.title}</VisuallyHidden>
                                 </Link>

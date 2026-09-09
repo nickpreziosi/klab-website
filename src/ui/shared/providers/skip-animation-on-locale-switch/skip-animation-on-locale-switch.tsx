@@ -13,9 +13,8 @@
  * - mobile-locale-switcher.tsx (mobile drawer)
  *
  * Pages/views that use useSkipAnimationOnLocaleSwitch() and pass skipAnimation to
- * animated children: HomeView, CompanyView, ContactView, NewsView, all technology
- * views (Kabl, KAxis, KBpm, KCard, KRisk, KTalk, Kim, Kai, TechnologyPlaceholderView),
- * KenaView, KRailsView.
+ * animated children: HomeView, CompanyView, ContactView, NewsView,
+ * KRailsView, KRiskView, KLeadsView, KTalkView.
  *
  * Pages with no entrance animations (no wiring needed): FoundationView, LitepapersView.
  *

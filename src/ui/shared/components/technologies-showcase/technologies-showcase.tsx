@@ -17,18 +17,7 @@ import { BRAND_LOGO_SRC, BRAND_PRODUCT_SLUG } from "@/ui/shared/components/addon
 import { TechnologiesShowcaseLogoArrow } from "./technologies-showcase-arrow";
 import styles from "./technologies-showcase.module.css";
 
-const TECH_DESCRIPTION_KEYS = [
-  "krails",
-  "kena",
-  "krisk",
-  "kleads",
-  "kabl",
-  "kcard",
-  "kbpm",
-  "kim",
-  "kaxis",
-  "kai",
-] as const;
+const TECH_DESCRIPTION_KEYS = ["krails", "ktalk", "krisk", "kleads"] as const;
 
 export type TechDescriptionKey = (typeof TECH_DESCRIPTION_KEYS)[number];
 
@@ -46,22 +35,23 @@ export const TECHNOLOGIES: {
     logoLight: BRAND_LOGO_SRC.krails.white,
     logoDark: BRAND_LOGO_SRC.krails.dark,
     descriptionKey: "krails",
-    href: "/technologies/krails",
+    href: "/krails",
     product: BRAND_PRODUCT_SLUG.krails,
   },
   {
-    title: "Kena",
-    logoLight: "/logos/kena-logo-light.svg",
-    logoDark: "/logos/kena-logo-dark.svg",
-    descriptionKey: "kena",
-    href: "/technologies/kena",
+    title: "K-Talk",
+    logoLight: BRAND_LOGO_SRC.ktalk.white,
+    logoDark: BRAND_LOGO_SRC.ktalk.dark,
+    descriptionKey: "ktalk",
+    href: "/ktalk",
+    product: BRAND_PRODUCT_SLUG.ktalk,
   },
   {
     title: "K-Risk",
     logoLight: BRAND_LOGO_SRC.krisk.white,
     logoDark: BRAND_LOGO_SRC.krisk.dark,
     descriptionKey: "krisk",
-    href: "/technologies/krisk",
+    href: "/krisk",
     product: BRAND_PRODUCT_SLUG.krisk,
   },
   {
@@ -69,58 +59,16 @@ export const TECHNOLOGIES: {
     logoLight: BRAND_LOGO_SRC.kleads.white,
     logoDark: BRAND_LOGO_SRC.kleads.dark,
     descriptionKey: "kleads",
-    href: "/technologies/kleads",
+    href: "/kleads",
     product: BRAND_PRODUCT_SLUG.kleads,
-  },
-  {
-    title: "KABL",
-    logoLight: "/logos/kabl-logo-light.svg",
-    logoDark: "/logos/kabl-logo-dark.svg",
-    descriptionKey: "kabl",
-    href: "/technologies/kabl",
-  },
-  {
-    title: "K-Pay",
-    logoLight: "/logos/kcard-logo-light.svg",
-    logoDark: "/logos/kcard-logo-dark.svg",
-    descriptionKey: "kcard",
-    href: "/technologies/kcard",
-  },
-  {
-    title: "K-Comply",
-    logoLight: "/logos/kbpm-logo-light.svg",
-    logoDark: "/logos/kbpm-logo-dark.svg",
-    descriptionKey: "kbpm",
-    href: "/technologies/kbpm",
-  },
-  {
-    title: "K-Ledger",
-    logoLight: "/logos/kim-logo-light.svg",
-    logoDark: "/logos/kim-logo-dark.svg",
-    descriptionKey: "kim",
-    href: "/technologies/kim",
-  },
-  {
-    title: "K-Connect",
-    logoLight: "/logos/kaxis-logo-light.svg",
-    logoDark: "/logos/kaxis-logo-dark.svg",
-    descriptionKey: "kaxis",
-    href: "/technologies/kaxis",
-  },
-  {
-    title: "K-Wallet",
-    logoLight: "/logos/kai-logo-light.svg",
-    logoDark: "/logos/kai-logo-dark.svg",
-    descriptionKey: "kai",
-    href: "/technologies/kai",
   },
 ];
 
-/* Left row (4): K-Rails, Kena, K-Pay, K-Connect */
-const LEFT_ORDER = [0, 1, 5, 8];
+/* Left: K-Rails, K-Talk */
+const LEFT_ORDER = [0, 1];
 
-/* Right row (6): K-Risk, K-Leads, K-Wallet, KABL, K-Comply, K-Ledger */
-const RIGHT_ORDER_FIXED = [2, 3, 9, 4, 6, 7];
+/* Right: K-Risk, K-Leads */
+const RIGHT_ORDER_FIXED = [2, 3];
 
 /** Cache SVG content by URL so dropdown/drawer and theme switches reuse the same fetch. */
 const svgContentCache = new Map<string, Promise<string>>();
@@ -173,13 +121,6 @@ const rightTechs = RIGHT_ORDER_FIXED.map((i) => TECHNOLOGIES[i]).filter(Boolean)
 /** KLeads is the widest logo - used as the full-width reference; others match its height. */
 const WIDEST_LOGO_KEY: TechDescriptionKey = "kleads";
 
-/**
- * Allowlist for which technology semicircles should be visible.
- * Keep the rest of the data intact so we can re-enable later.
- */
-const NAVIGABLE_TECH_KEYS: readonly TechDescriptionKey[] = ["krails", "kena", "krisk", "kleads"];
-const NAVIGABLE_TECH_KEY_SET = new Set<TechDescriptionKey>(NAVIGABLE_TECH_KEYS);
-
 export function TechnologiesShowcase({
   onLinkClick,
   className,
@@ -204,8 +145,8 @@ export function TechnologiesShowcase({
     index: number;
   } | null>(null);
 
-  const visibleLeftTechs = leftTechs.filter((tech) => NAVIGABLE_TECH_KEY_SET.has(tech.descriptionKey));
-  const visibleRightTechs = rightTechs.filter((tech) => NAVIGABLE_TECH_KEY_SET.has(tech.descriptionKey));
+  const visibleLeftTechs = leftTechs;
+  const visibleRightTechs = rightTechs;
   // Keep the center K-Lab circle occupying 2 columns, and distribute the remaining
   // columns evenly based on how many visible tech semicircles are on each side.
   // This avoids "placeholder" DOM and keeps the remaining items centered.
@@ -367,8 +308,6 @@ function TechSemiCircle({
   isWidestLogo: boolean;
   logoRef?: React.RefObject<HTMLDivElement | null>;
 }) {
-  if (!NAVIGABLE_TECH_KEY_SET.has(tech.descriptionKey)) return null;
-
   return (
     <div
       className={`${styles.techItem} ${isExpanded ? styles.expanded : ""}`}
@@ -395,7 +334,7 @@ function TechSemiCircle({
             <div className={styles.techContent}>
               <div
                 ref={logoRef}
-                className={`${styles.techLogo} ${isWidestLogo ? styles.techLogoWidest : ""} ${tech.descriptionKey === "kbpm" ? styles.techLogoKbpm : ""}`}
+                className={`${styles.techLogo} ${isWidestLogo ? styles.techLogoWidest : ""}`}
               >
                 {tech.product ? (
                   <ProductLogo

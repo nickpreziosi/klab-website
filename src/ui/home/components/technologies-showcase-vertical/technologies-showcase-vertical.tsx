@@ -21,18 +21,7 @@ import styles from "./technologies-showcase-vertical.module.css";
 
 const BREAKPOINT_DESKTOP = 1024;
 
-const TECH_KEYS = [
-  "krails",
-  "kena",
-  "krisk",
-  "kleads",
-  "kabl",
-  "kcard",
-  "kbpm",
-  "kim",
-  "kaxis",
-  "kai",
-] as const;
+const TECH_KEYS = ["krails", "ktalk", "krisk", "kleads"] as const;
 
 type TechKey = (typeof TECH_KEYS)[number];
 
@@ -49,22 +38,23 @@ const TECHNOLOGIES: {
     logoLight: BRAND_LOGO_SRC.krails.white,
     logoDark: BRAND_LOGO_SRC.krails.dark,
     descriptionKey: "krails",
-    href: "/technologies/krails",
+    href: "/krails",
     product: BRAND_PRODUCT_SLUG.krails,
   },
   {
-    title: "Kena",
-    logoLight: "/logos/kena-logo-light.svg",
-    logoDark: "/logos/kena-logo-dark.svg",
-    descriptionKey: "kena",
-    href: "/technologies/kena",
+    title: "K Talk",
+    logoLight: BRAND_LOGO_SRC.ktalk.white,
+    logoDark: BRAND_LOGO_SRC.ktalk.dark,
+    descriptionKey: "ktalk",
+    href: "/ktalk",
+    product: BRAND_PRODUCT_SLUG.ktalk,
   },
   {
     title: "KRisk",
     logoLight: BRAND_LOGO_SRC.krisk.white,
     logoDark: BRAND_LOGO_SRC.krisk.dark,
     descriptionKey: "krisk",
-    href: "/technologies/krisk",
+    href: "/krisk",
     product: BRAND_PRODUCT_SLUG.krisk,
   },
   {
@@ -72,72 +62,18 @@ const TECHNOLOGIES: {
     logoLight: BRAND_LOGO_SRC.kleads.white,
     logoDark: BRAND_LOGO_SRC.kleads.dark,
     descriptionKey: "kleads",
-    href: "/technologies/kleads",
+    href: "/kleads",
     product: BRAND_PRODUCT_SLUG.kleads,
-  },
-  {
-    title: "KAbl",
-    logoLight: "/logos/kabl-logo-light.svg",
-    logoDark: "/logos/kabl-logo-dark.svg",
-    descriptionKey: "kabl",
-    href: "/technologies/kabl",
-  },
-  {
-    title: "KCard",
-    logoLight: "/logos/kcard-logo-light.svg",
-    logoDark: "/logos/kcard-logo-dark.svg",
-    descriptionKey: "kcard",
-    href: "/technologies/kcard",
-  },
-  {
-    title: "KBpm",
-    logoLight: "/logos/kbpm-logo-light.svg",
-    logoDark: "/logos/kbpm-logo-dark.svg",
-    descriptionKey: "kbpm",
-    href: "/technologies/kbpm",
-  },
-  {
-    title: "Kim",
-    logoLight: "/logos/kim-logo-light.svg",
-    logoDark: "/logos/kim-logo-dark.svg",
-    descriptionKey: "kim",
-    href: "/technologies/kim",
-  },
-  {
-    title: "KAxis",
-    logoLight: "/logos/kaxis-logo-light.svg",
-    logoDark: "/logos/kaxis-logo-dark.svg",
-    descriptionKey: "kaxis",
-    href: "/technologies/kaxis",
-  },
-  {
-    title: "Kai",
-    logoLight: "/logos/kai-logo-light.svg",
-    logoDark: "/logos/kai-logo-dark.svg",
-    descriptionKey: "kai",
-    href: "/technologies/kai",
   },
 ];
 
-const LEFT_ORDER = [0, 1, 5, 8];
-const RIGHT_ORDER_FIXED = [2, 3, 9, 4, 6, 7];
+const LEFT_ORDER = [0, 1];
+const RIGHT_ORDER_FIXED = [2, 3];
 
 const leftTechs = LEFT_ORDER.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 const rightTechs = RIGHT_ORDER_FIXED.map((i) => TECHNOLOGIES[i]).filter(Boolean);
 
 const WIDEST_LOGO_KEY: TechKey = "kleads";
-
-/**
- * Allowlist for which technology semicircles should be visible.
- * Keep the rest of the data intact so we can re-enable later.
- */
-const VISIBLE_TECH_KEYS: readonly TechKey[] = ["krails", "kena", "krisk", "kleads"];
-const VISIBLE_TECH_KEY_SET = new Set<TechKey>(VISIBLE_TECH_KEYS);
-
-const visibleLeftTechs = leftTechs.filter((tech) => VISIBLE_TECH_KEY_SET.has(tech.descriptionKey));
-const visibleRightTechs = rightTechs.filter((tech) =>
-  VISIBLE_TECH_KEY_SET.has(tech.descriptionKey)
-);
 
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -423,7 +359,7 @@ export function TechnologiesShowcaseVertical({
         <TooltipProvider delayDuration={200}>
           <div className={`${styles.wrapperDesktop} ${className ?? ""}`.trim()}>
             <div className={styles.gridDesktop}>
-              {visibleLeftTechs.map((tech, index) => (
+              {leftTechs.map((tech, index) => (
                 <TechSlot
                   key={`left-${tech.title}-${index}`}
                   tech={tech}
@@ -439,7 +375,7 @@ export function TechnologiesShowcaseVertical({
                 />
               ))}
               <CenterCircle variant={variant} />
-              {visibleRightTechs.map((tech, index) => (
+              {rightTechs.map((tech, index) => (
                 <TechSlot
                   key={`right-${tech.title}-${index}`}
                   tech={tech}
@@ -475,7 +411,7 @@ export function TechnologiesShowcaseVertical({
         >
           <div className={styles.columnMobile}>
             <div className={styles.rowMobileTop}>
-              {visibleLeftTechs.map((tech, index) => (
+              {leftTechs.map((tech, index) => (
                 <TechSlot
                   key={`left-${tech.title}-${index}`}
                   tech={tech}
@@ -498,7 +434,7 @@ export function TechnologiesShowcaseVertical({
             </div>
             <CenterCircle variant={variant} />
             <div className={styles.rowMobileBottom}>
-              {visibleRightTechs.map((tech, index) => (
+              {rightTechs.map((tech, index) => (
                 <TechSlot
                   key={`right-${tech.title}-${index}`}
                   tech={tech}

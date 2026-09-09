@@ -348,16 +348,9 @@
   "technologiesDropdown": {
     "heading": "Infraestrutura",
     "krailsDesc": "Pagamentos e empréstimos B2B blockchain com liquidações instantâneas",
-    "kenaDesc": "O primeiro subscritor de risco com IA do mundo para decisões de crédito inteligentes",
     "ktalkDesc": "Chatbot com IA para suporte interno e externo",
     "kriskDesc": "Avaliação de risco e tomada de decisão com IA",
-    "kablDesc": "Automação integrada que elimina silos com IA e blockchain",
-    "kcardDesc": "Gateway de pagamento multimoeda com FX em tempo real",
-    "kbpmDesc": "Automação de conformidade regulatória com blockchain",
-    "kimDesc": "Livro-razão de transações imutável com segurança empresarial",
-    "kaxisDesc": "Plataforma API-first que conecta instituições financeiras",
-    "kleadsDesc": "Análises em tempo real e insights preditivos",
-    "kaiDesc": "Carteira digital empresarial com suporte multisignatura"
+    "kleadsDesc": "Análises em tempo real e insights preditivos"
   },
   "resourcesDropdown": {
     "heading": "Recursos",
@@ -425,17 +418,7 @@
     "subtitle": "Manuais e documentação de produtos. Veja e baixe-os aqui.",
     "empty": "Os manuais aparecerão aqui em breve."
   },
-  "techPlaceholder": {
-    "contactSales": "Contactar vendas",
-    "comingSoonSubline": "Casos de uso e benefícios detalhados para esta tecnologia em breve.",
-    "overview": "Visão geral",
-    "learnMoreSoon": "Mais informações em breve",
-    "bullet1": "Esta página incluirá mockups, casos de uso e informações detalhadas.",
-    "bullet2": "Entre em contato para acesso antecipado ou demos."
-  },
   "homeSecondary": {
-    "kenaTitle": "Kena",
-    "kenaDescription": "A Kena, nossa IA de risco proprietária, replica o raciocínio dos subscritores financeiros e se treina continuamente com dados globais.",
     "timelineTitlePrimary": "Ao ar em 90 dias.",
     "timelineTitleAccent": "Sem rip-and-replace",
     "timelineMethodology": "O K Rails integra-se aos seus trilhos de pagamento, sistemas ERP e infraestrutura de liquidação existentes. A nossa metodologia estruturada de sprints leva-o do âmbito ao go-live sem interromper as operações correntes.",
@@ -507,8 +490,7 @@
       "softwareBug": "Bug de software"
     },
     "products": {
-      "krails": "K Rails",
-      "kena": "Kena"
+      "krails": "K Rails"
     }
   },
   "salesForm": {
@@ -578,16 +560,9 @@
     },
     "products": {
       "krails": "K Rails",
-      "kena": "Kena",
-      "kcard": "K Card",
       "kleads": "K Leads",
       "ktalk": "K Talk",
-      "kaxis": "K Axis",
       "krisk": "K Risk",
-      "kai": "Kai",
-      "kabl": "K Abl",
-      "kbpm": "K Bpm",
-      "kim": "Kim",
       "other": "Outro"
     }
   },
@@ -711,16 +686,9 @@
   "technologiesShowcase": {
     "technologies": {
       "krails": "O núcleo. Decide se um pagamento deve se mover, sob quais condições e por qual trilho. Conformidade e auditoria, de série.",
-      "kena": "Kena é um sistema proprietário de Infraestrutura Financeira Inteligente (IFI).",
       "ktalk": "Faça perguntas por texto ou voz. Receba respostas instantâneas, resumos e visualizações, extraídos de cada fonte de dados da plataforma.",
       "krisk": "Pontuação de crédito e risco em tempo real sobre dados financeiros, fiscais, bancários e de birô. Monitoramento contínuo, não uma análise pontual.",
-      "kabl": "K Abl é um ecossistema financeiro alimentado por IA e blockchain, ancorado pelo K Rails que unifica todos os módulos K em uma única plataforma inteligente.",
-      "kcard": "Emissão de cartões corporativos, gestão de despesas e controle global. Automatização de processos manuais para gestão de gastos e supervisão de relatórios mais eficientes.",
-      "kbpm": "O motor de orquestração que impulsa cada processo operacional do ecossistema de empréstimos K Lab.",
-      "kim": "Transforma um processo tradicionalmente manual e propenso a erros em um fluxo de trabalho digital totalmente automatizado, inteligente e confiável, desbloqueando velocidade, liquidez e confiança na cadeia de suprimentos.",
-      "kaxis": "Sistema CRM poderoso criado para dar visibilidade em tempo real a cada aspecto da jornada financeira do cliente. De linhas de crédito e empréstimos a pagamentos e saldos, centraliza dados essenciais do cliente em uma única plataforma fácil de usar.",
-      "kleads": "Encontra e classifica oportunidades comerciais, alimentando a originação de novos negócios.",
-      "kai": "No núcleo de nossa suíte de módulos. Kai suporta orquestração de ciclo de vida completo desde onboarding, originación até gestão de empréstimos e liquidação."
+      "kleads": "Encontra e classifica oportunidades comerciais, alimentando a originação de novos negócios."
     }
   },
   "localeSwitcher": {
@@ -792,54 +760,6 @@
     "interviews-insights": "Entrevistas e insights",
     "technology-innovation": "Tecnologia e inovação",
     "uncategorized": "Sem categoria"
-  },
-  "kena": {
-    "heroHeading": "IA que entende risco do jeito",
-    "heroSecondHeading": "que humanos entendem — só que mais inteligente.",
-    "heroSubtitle": "Kena é a primeira IA de risco do mundo que replica a tomada de decisão de subscritores financeiros, analisando, conversando e melhorando em tempo real.",
-    "twoColLeft": "Kena é o primeiro agente de IA de inteligência financeira do mundo.",
-    "twoColRight": "Um especialista financeiro que entende, analisa e previne risco financeiro em tempo real com raciocínio de nível humano e precisão de máquina. Da avaliação de crédito e modelagem financeira à análise preditiva e detecção de padrões, a Kena evolui continuamente com milhões de dados de PMEs — impulsionando decisões inteligentes e rápidas.",
-    "cardsHeading": "Por que Kena muda tudo",
-    "cardsImageAlt": "Kena — Inteligência de risco com IA",
-    "feature0Title": "Raciocínio de nível humano",
-    "feature0Description": "Entende lógica financeira e sinais qualitativos como um verdadeiro oficial de risco.",
-    "feature1Title": "Autoaprendizado contínuo",
-    "feature1Description": "Melhora precisão e consciência de contexto a cada novo conjunto de dados.",
-    "feature2Title": "Integração fluida",
-    "feature2Description": "Conecta-se aos fluxos existentes por chat, APIs e sistemas centrais.",
-    "feature3Title": "Automação de risco escalável",
-    "feature3Description": "De uma única PME a carteiras globais — Kena evolui com seu negócio.",
-    "section3dHeading": "Como a Kena pensa, aprende e decide",
-    "step0Heading": "Entrada e contexto",
-    "step0Text": "Usuários compartilham dados e documentos por chat ou integração de sistemas.",
-    "step1Heading": "Compreensão e raciocínio",
-    "step1Text": "Kena interpreta cada caso como um subscritor: lógica, índices e narrativa.",
-    "step2Heading": "Decisão",
-    "step2Text": "Gera resultados de risco de crédito em tempo real com lógica transparente e explicável.",
-    "step3Heading": "Ciclo de aprendizado",
-    "step3Text": "Cada decisão e resultado retroalimenta sua estrutura neural — refinando a precisão continuamente.",
-    "step4Heading": "Escala e implantação",
-    "step4Text": "Organizações podem treinar modelos Kena para novos mercados, produtos ou regulamentos.",
-    "ctaHeading": "Transforme sua estratégia de risco com automação inteligente.",
-    "ctaButton": "Solicitar uma demo",
-    "showPassword": "Mostrar senha",
-    "hidePassword": "Ocultar senha",
-    "passwordAccessTitle": "Acesso ao Kena",
-    "passwordAccessDescription": "Digite a senha de acesso para ver o restante desta página.",
-    "passwordLabel": "Senha",
-    "unlockButton": "Desbloquear",
-    "unlockingButton": "Desbloqueando…",
-    "passwordGateMessage": "Acesso restrito. Digite a senha para acessar informações adicionais sobre o Kena.",
-    "passwordGateButton": "Digitar senha",
-    "passwordHint": "Este conteúdo é restrito.",
-    "passwordErrorInvalid": "Senha incorreta. Por favor, tente novamente.",
-    "passwordErrorNetwork": "Erro de rede. Por favor, tente novamente.",
-    "passwordErrorGeneric": "Algo deu errado. Por favor, tente novamente.",
-    "closeDialog": "Fechar",
-    "previousCaseStudy": "Caso de estudo anterior",
-    "nextCaseStudy": "Próximo caso de estudo",
-    "showCaseStudy": "Ver {name}",
-    "showSlide": "Ver slide {number}"
   },
   "krails": {
     "heroHeadingPrefix": "O que é",
@@ -955,9 +875,6 @@
     "logoAlt": "Logo K Rails"
   },
   "techPages": {
-    "kabl": {
-      "heroTitle": "Em breve..."
-    },
     "krisk": {
       "heroTitle": "Conheça seu cliente para servi-lo melhor",
       "heroTagline": "Motor de inteligência que integra histórico interno e fontes de dados externas para fortalecer subscrição, proteger a carteira de forma proativa e impulsionar decisões estratégicas baseadas em dados.",
@@ -981,58 +898,6 @@
       "heroHighlight1": "Maximizar a eficiência comercial",
       "heroHighlight2": "Acelerar o crescimento"
     },
-    "kaxis": {
-      "heroTitle": "CRM financeiro do cliente",
-      "heroTagline": "Um CRM poderoso com visibilidade em tempo real de cada aspecto da jornada financeira do cliente: linhas de crédito, empréstimos, pagamentos e saldos em uma única plataforma fácil de usar."
-    },
-    "kim": {
-      "heroTitle": "Gestão de faturas com IA",
-      "heroTagline": "Nossa solução de gestão de faturas com IA transforma um processo tradicionalmente manual e propenso a erros em um fluxo digital totalmente automatizado, inteligente e confiável, desbloqueando velocidade, liquidez e confiança na cadeia de suprimentos.",
-      "block0Heading": "Processamento e financiamento mais rápidos",
-      "block0Bullet0": "Reduz o processamento de dias para minutos",
-      "block0Bullet1": "Acelera aprovações e acesso a financiamento",
-      "block0Bullet2": "Habilita descontos dinâmicos e programas de pagamento antecipado",
-      "block1Heading": "Reduzir risco e erros",
-      "block1Bullet0": "Elimina entrada manual de dados e conciliação",
-      "block1Bullet1": "Contratos inteligentes aplicam os termos acordados automaticamente",
-      "block1Bullet2": "Registros blockchain imutáveis previnem disputas e fraude",
-      "block2Heading": "Melhor visibilidade do fluxo de caixa",
-      "block2Bullet0": "Visão em tempo real do status de faturas e prazos de pagamento",
-      "block2Bullet1": "Alertas preditivos baseados no comportamento histórico de pagamentos",
-      "block2Bullet2": "Visão clara de passivos e recebíveis com fornecedores",
-      "block3Heading": "Projetado para confiança e conformidade",
-      "block3Bullet0": "Uma única fonte de verdade compartilhada por todas as partes",
-      "block3Bullet1": "Rastreabilidade à prova de adulteração para reguladores e auditores",
-      "block3Bullet2": "Maior transparência fortalece as relações comprador-fornecedor"
-    },
-    "kbpm": {
-      "heroTitle": "Conformidade e automação de processos",
-      "heroTagline": "Conformidade regulatória e automação de processos de negócios para onboarding, roteamento, emissão de cartões e fluxos unificados.",
-      "module0Title": "Onboarding de clientes",
-      "module0Description": "Automatiza o onboarding para que PMEs e empresas entrem no sistema mais rápido e com menos etapas manuais.",
-      "module1Title": "Roteamento de tarefas",
-      "module1Description": "Direciona cada tarefa à equipe certa (Risco, Jurídico, Operações, Cobrança, Vendas) conforme carga e permissões.",
-      "module2Title": "Emissão e ativação de cartões",
-      "module2Description": "Gerencia emissão de cartões e ativação de contas de ponta a ponta, reduzindo erros manuais.",
-      "module3Title": "Fluxo unificado",
-      "module3Description": "Orquestra desembolsos, pagamentos, lembretes e cobranças em um fluxo unificado.",
-      "module4Title": "Visibilidade em tempo real",
-      "module4Description": "Oferece visibilidade em tempo real de gargalos, atrasos, SLAs e carga operacional entre equipes.",
-      "module5Title": "Blocos de construção",
-      "module5Description": "Reutiliza blocos para lançar novos produtos financeiros ou variações regionais rapidamente.",
-      "module6Title": "Rastros de auditoria",
-      "module6Description": "Fornece rastros de auditoria completos de cada etapa, decisão, documento e ação do usuário.",
-      "module7Title": "Operações padronizadas",
-      "module7Description": "Padroniza operações em todos os países e linhas de produto com adaptações locais controladas."
-    },
-    "kcard": {
-      "heroTitle": "Gestão de despesas",
-      "heroTagline": "Controle global para emissão de cartões corporativos, gestão de crédito, processamento de despesas e supervisão de políticas.",
-      "heroHighlight0": "Emissão de cartões corporativos",
-      "heroHighlight1": "Gestão de crédito",
-      "heroHighlight2": "Plataforma de processamento de despesas",
-      "heroHighlight3": "Cumprimento de políticas e supervisão de relatórios"
-    },
     "ktalk": {
       "heroTitle": "IA conversacional",
       "heroTagline": "Interface de IA conversacional (texto e voz) conectada diretamente a todas as fontes de dados internas e externas da organização.",
@@ -1040,64 +905,6 @@
       "heroHighlight1": "Permite decisões mais rápidas e baseadas em dados reduzindo o atrito organizacional.",
       "heroHighlight2": "Acesso imediato conversacional a dados de carteira, eliminando relatórios manuais.",
       "heroHighlight3": "Integra-se com sistemas centrais garantindo acesso seguro a dados atuais."
-    },
-    "kai": {
-      "heroTitle": "Não comprometa. Agora as empresas podem trabalhar mais e melhor.",
-      "heroTagline": "Kai oferece soluções abrangentes que aprimoram sua infraestrutura existente e adicionam capacidades revolucionárias para os desafios financeiros de amanhã.",
-      "benefitCategory0": "Proposta de valor",
-      "benefitCategory1": "Melhorias de eficiência",
-      "benefitCategory2": "Tomada de decisão aprimorada",
-      "benefitCategory3": "Economia de custos",
-      "benefitCategory4": "Segurança e privacidade",
-      "benefit0MainPoint": "Kai suporta orquestração de ciclo de vida completo desde onboarding, originação até gestão de empréstimos e liquidação.",
-      "benefit0Sub0": "Conjunto de módulos totalmente integrados para implantação rápida.",
-      "benefit0Sub1": "Acessibilidade 24/7/365 e alcance global",
-      "benefit1MainPoint": "Automatize fluxos com supervisão aprimorada, liberando tempo e despesas operacionais.",
-      "benefit1Sub0": "Redução significativa de tarefas manuais e entrada de dados",
-      "benefit1Sub1": "Processos otimizados desde onboarding até cobrança",
-      "benefit2MainPoint": "O poder da análise de nível empresarial ao alcance, analisando tendências e condições de mercado continuamente.",
-      "benefit2Sub0": "Insights com IA para decisões mais rápidas e precisas",
-      "benefit2Sub1": "Monitoramento proativo de risco e sistemas de alerta antecipado",
-      "benefit3MainPoint": "Maximize o valor da sua infraestrutura existente adicionando capacidades poderosas.",
-      "benefit3Sub0": "Mais automação de back-office com sua infraestrutura atual",
-      "benefit3Sub1": "Módulos personalizáveis que se integram com sistemas existentes",
-      "benefit4MainPoint": "Preparado para o futuro com tecnologia blockchain oferecendo proteção avançada e conformidade.",
-      "benefit4Sub0": "Camadas de permissão que oferecem flexibilidade e conformidade regulatória",
-      "benefit4Sub1": "Registro imutável para rastros de auditoria completos e integridade de dados",
-      "modulesHeader": "Visão de arquitetura: Escalável. Seguro. Modular.",
-      "module0Title": "Camada de experiência",
-      "module0Description": "Interfaces Kai Web/Mobile e K Talk (texto/voz) para insights instantâneos e interação fluida.",
-      "module1Title": "Módulos centrais",
-      "module1Description": "K BPM, K Rails, K Axis, K Risk, K Leads e a próxima plataforma de cartões corporativos.",
-      "module2Title": "Dados e IA",
-      "module2Description": "Armazém de dados central com modelos explicáveis; monitoramento contínuo e controles de deriva/viés para análise confiável.",
-      "module3Title": "Emissão de cartões corporativos",
-      "module3Description": "Automação de processos manuais para gestão de despesas e relatórios mais eficientes.",
-      "module4Title": "Pagamentos e infraestrutura",
-      "module4Description": "O sistema K Rails utiliza NFTs de faturas, fundos de crédito, contratos inteligentes e reserva de stablecoins, integrado à banca tradicional.",
-      "module5Title": "Camada de integração",
-      "module5Description": "APIs seguras conectando a ERP/CRM, parceiros bancários, autoridades fiscais, bureaus de crédito e plataformas contábeis.",
-      "module6Title": "Segurança e conformidade",
-      "module6Description": "Controle de acesso por função, criptografia de ponta a ponta, rastros de auditoria completos, permissões que preservam privacidade e salvaguardas KYB/KYC/AML.",
-      "module7Title": "Gestão de crédito e plataforma de processamento de despesas",
-      "module7Description": "Reconhecimento de despesas com IA, cumprimento de políticas e prevenção de fraude.",
-      "blocksFeatureTitle": "Ampliando o alcance do mercado",
-      "blocksFeatureSubline": "Desbloqueia potencial de mercado inexplorado e alcança novos segmentos através da parceria K.",
-      "block0Heading": "Startups, PMEs e empresa",
-      "block0Subheading": "A visão geral para seu negócio",
-      "block0Bullet0": "Kai vai além de pagamentos para oferecer um ecossistema de negócios que suporta escala e complexidade organizacional.",
-      "block0Bullet1": "IA embutida sugere automação no ponto de repetição, liberando tempo para você voltar a fazer crescer seu negócio.",
-      "block0Bullet2": "Escale com confiança usando módulos projetados para seu estágio de crescimento.",
-      "block1Heading": "Soluções financeiras",
-      "block1Subheading": "Interoperabilidade com velocidade e conformidade",
-      "block1Bullet0": "Aprimore sistemas legados por meio de integração com APIs de banco central e capacidades de próxima geração.",
-      "block1Bullet1": "Flexibilidade e interoperabilidade permitem que instituições integrem hoje planejando o crescimento e a velocidade do mercado de amanhã.",
-      "block1Bullet2": "Impulsione financiamento de cadeia de suprimentos, trade finance, gestão de caixa, contas a pagar e controle de despesas com conformidade integrada.",
-      "block2Heading": "Parceiros",
-      "block2Subheading": "Aprimore suas ferramentas atuais",
-      "block2Bullet0": "Potencialize sistemas e processos existentes com capacidades modulares e inteligentes que impulsionam desempenho.",
-      "block2Bullet1": "Kai atua como extensão da equipe, permitindo decisões em tempo real baseadas em dados e liberando tempo para iniciativas estratégicas.",
-      "block2Bullet2": "Diferencie sua oferta com inteligência embutida e capacidades financeiras que complementam seu negócio central."
     }
   }
 }

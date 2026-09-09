@@ -144,25 +144,9 @@
   transition: color 0.3s ease;
 }
 
-.itemLogo svg *:not(.kabl-blue):not(.kabl-blue-stroke) {
+.itemLogo svg * {
   fill: currentColor;
   stroke: currentColor;
-}
-
-/* Preserve blue color in K-ABL logo */
-.itemLogo svg .kabl-blue,
-.itemLogo svg [class="kabl-blue"],
-.itemLogo svg path.kabl-blue,
-.itemLogo svg polygon.kabl-blue {
-  fill: #306fc6 !important;
-  stroke: none !important;
-  stroke-width: 0 !important;
-}
-
-.itemLogo svg .kabl-blue-stroke,
-.itemLogo svg [class="kabl-blue-stroke"] {
-  stroke: #306fc6 !important;
-  fill: none !important;
 }
 
 .itemDescription {
@@ -190,21 +174,9 @@
     color: hsl(var(--accent));
   }
 
-  .item:hover .itemLogo svg *:not(.kabl-blue):not(.kabl-blue-stroke) {
+  .item:hover .itemLogo svg * {
     fill: currentColor;
     stroke: currentColor;
-  }
-
-  /* Preserve blue color in K-ABL logo on hover */
-  .item:hover .itemLogo svg .kabl-blue,
-  .item:hover .itemLogo svg [class="kabl-blue"] {
-    fill: #306fc6 !important;
-  }
-
-  .item:hover .itemLogo svg .kabl-blue-stroke,
-  .item:hover .itemLogo svg [class="kabl-blue-stroke"] {
-    stroke: #306fc6 !important;
-    fill: none !important;
   }
 
   .item:hover .itemDescription {

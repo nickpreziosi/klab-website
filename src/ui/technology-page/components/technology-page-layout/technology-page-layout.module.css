@@ -10,6 +10,14 @@
   align-items: center;
 }
 
+.neutralGradient {
+  --theme-gradient: linear-gradient(180deg, #ffffff 0%, #f2f2f2 100%);
+}
+
+:global(html.dark) .neutralGradient {
+  --theme-gradient: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+}
+
 /* Shared inner: max-width + padding for all sections */
 .inner {
   width: 100%;

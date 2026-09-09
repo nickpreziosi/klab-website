@@ -70,8 +70,3 @@ env:
       - BUILD
       - RUNTIME
 
-  # Kena page unlock (password-protected section)
-  - variable: KENA_PASSWORD
-    secret: KENA_PASSWORD
-    availability:
-      - RUNTIME

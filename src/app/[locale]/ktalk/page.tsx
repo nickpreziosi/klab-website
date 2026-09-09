@@ -1,10 +1,10 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { KBpmView } from "@/ui/technology-page/views/KBpmView/KBpmView";
-import { buildKbpmContent, kbpmMockups } from "@/ui/technology-page/views/KBpmView/kbpm-content";
+import { KTalkView } from "@/ui/technology-page/views/KTalkView/KTalkView";
+import { buildKtalkContent, ktalkMockups } from "@/ui/technology-page/views/KTalkView/ktalk-content";
 
 type Props = { params: Promise<{ locale: string }> };
 
-export default async function KBpmPage({ params }: Props) {
+export default async function KTalkPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const [tCommon, tTech] = await Promise.all([
@@ -15,12 +15,12 @@ export default async function KBpmPage({ params }: Props) {
     contactSales: tCommon("contactSales"),
     technologyScreenshot: tCommon("technologyScreenshot"),
   };
-  const { hero, sections } = buildKbpmContent(tTech);
+  const { hero, sections } = buildKtalkContent(tTech);
   return (
-    <KBpmView
+    <KTalkView
       translations={translations}
       hero={hero}
-      mockups={kbpmMockups}
+      mockups={ktalkMockups}
       sections={sections}
     />
   );

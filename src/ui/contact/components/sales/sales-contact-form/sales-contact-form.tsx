@@ -49,19 +49,7 @@ const companyTypeIds = [
   "truck-freight-industry",
   "other",
 ];
-const productIds = [
-  "krails",
-  "kena",
-  "kcard",
-  "ktalk",
-  "kaxis",
-  "krisk",
-  "kai",
-  "kabl",
-  "kbpm",
-  "kim",
-  "other",
-];
+const productIds = ["krails", "kleads", "ktalk", "krisk", "other"];
 const countryComboboxOptions = countries.map((c) => ({ value: c.value, label: c.label }));
 const countryIds = countries.map((c) => c.value);
 

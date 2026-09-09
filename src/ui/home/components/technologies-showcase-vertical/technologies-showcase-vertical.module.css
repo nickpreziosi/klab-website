@@ -135,12 +135,6 @@
   object-fit: contain;
 }
 
-.techLogo :global(.kabl-blue),
-.techLogo :global(.kabl-blue-stroke) {
-  fill: #306fc6 !important;
-  stroke: #306fc6 !important;
-}
-
 .techLogo > div svg path {
   transition: fill 0.2s ease;
 }
@@ -156,12 +150,6 @@
 
   .techCircle:hover .techLogo > div svg path {
     fill: hsl(var(--accent)) !important;
-  }
-
-  .techCircle:hover .techLogo > div :global(.kabl-blue),
-  .techCircle:hover .techLogo > div :global(.kabl-blue-stroke) {
-    fill: hsl(var(--accent)) !important;
-    stroke: hsl(var(--accent)) !important;
   }
 }
 

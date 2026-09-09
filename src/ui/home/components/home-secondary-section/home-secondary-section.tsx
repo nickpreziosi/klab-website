@@ -438,15 +438,7 @@ export default function HomeSecondarySection({
 }: HomeSecondarySection) {
   const t = useTranslations("homeSecondary");
   const tCommon = useTranslations("common");
-  const resolvedCards = cards ?? [
-    {
-      title: t("kenaTitle"),
-      description: t("kenaDescription"),
-      link: "/technologies/kena-ai",
-      image: "/images/kena.webp",
-      video: "/videos/kena.mp4",
-    },
-  ];
+  const resolvedCards = cards ?? [];
   const cardsRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardsRef, { once: animateOnce, amount: 0.2 });
   const effectiveIsInView = skipAnimation || isInView;

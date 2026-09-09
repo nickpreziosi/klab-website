@@ -348,16 +348,9 @@
   "technologiesDropdown": {
     "heading": "Infrastructure",
     "krailsDesc": "B2B blockchain payments and lending with instant settlements",
-    "kenaDesc": "World's first AI underwriter for intelligent credit decisions",
     "ktalkDesc": "AI-powered chatbot for internal and external support",
     "kriskDesc": "AI-powered risk assessment and decision making",
-    "kablDesc": "Integrated automation eliminating silos with AI and blockchain",
-    "kcardDesc": "Multi-currency payment gateway with real-time FX",
-    "kbpmDesc": "Regulatory compliance automation with blockchain",
-    "kimDesc": "Immutable transaction ledger with enterprise security",
-    "kaxisDesc": "API-first platform connecting financial institutions",
-    "kleadsDesc": "Real-time analytics and predictive insights",
-    "kaiDesc": "Enterprise digital wallet with multi-signature support"
+    "kleadsDesc": "Real-time analytics and predictive insights"
   },
   "resourcesDropdown": {
     "heading": "Resources",
@@ -425,17 +418,7 @@
     "subtitle": "Product manuals and documentation. View and download them here.",
     "empty": "Manuals will appear here soon."
   },
-  "techPlaceholder": {
-    "contactSales": "Contact sales",
-    "comingSoonSubline": "Detailed use cases and benefits for this technology are coming soon.",
-    "overview": "Overview",
-    "learnMoreSoon": "Learn more soon",
-    "bullet1": "This page will include mockups, use cases, and detailed information.",
-    "bullet2": "Contact us for early access or demos."
-  },
   "homeSecondary": {
-    "kenaTitle": "Kena",
-    "kenaDescription": "Kena, our proprietary risk AI, replicates the reasoning of financial underwriters and continuously self-trains with global data.",
     "timelineTitlePrimary": "Live in 90 days.",
     "timelineTitleAccent": "No rip-and-replace",
     "timelineMethodology": "K Rails plugs into your existing payment rails, ERP systems, and settlement infrastructure. Our structured sprint methodology gets you from scoping to go-live without disrupting current operations.",
@@ -507,8 +490,7 @@
       "softwareBug": "Software Bug"
     },
     "products": {
-      "krails": "K Rails",
-      "kena": "Kena"
+      "krails": "K Rails"
     }
   },
   "salesForm": {
@@ -578,16 +560,9 @@
     },
     "products": {
       "krails": "K Rails",
-      "kena": "Kena",
-      "kcard": "K Card",
       "kleads": "K Leads",
       "ktalk": "K Talk",
-      "kaxis": "K Axis",
       "krisk": "K Risk",
-      "kai": "Kai",
-      "kabl": "K Abl",
-      "kbpm": "K Bpm",
-      "kim": "Kim",
       "other": "Other"
     }
   },
@@ -711,16 +686,9 @@
   "technologiesShowcase": {
     "technologies": {
       "krails": "The core. Decides whether a payment should move, under what conditions, and through which rail. Compliance and audit, built in.",
-      "kena": "Kena is a proprietary system for Intelligent Financial Infrastructure (IFI).",
       "ktalk": "Ask questions by text or voice. Get instant answers, summaries and visualizations, pulled from every data source on the platform.",
       "krisk": "Real-time credit and risk scoring on financial, tax, bank and bureau data. Continuous monitoring, not one-time underwriting.",
-      "kabl": "K Abl is an AI and blockchain powered financial ecosystem, anchored by K Rails unifying all K Modules into a single intelligent platform.",
-      "kcard": "Corporate card issuance, expense management, and global enforcement. Automating manual processes for more efficient spend management and reporting oversight.",
-      "kbpm": "The orchestration engine that powers every operational process across the K Lab lending ecosystem.",
-      "kim": "Turns a traditionally manual, error-prone process into a fully automated, intelligent, and trusted digital workflow—unlocking speed, liquidity, and confidence across the supply chain.",
-      "kaxis": "Powerful CRM system built to give you real-time visibility into every aspect of your customer's financial journey. From credit lines and loans to payments and balances, centralizes key customer data in a single, easy-to-use platform.",
-      "kleads": "Finds and ranks commercial opportunities, feeding new deal origination.",
-      "kai": "Sitting at the core of our suite of modules. Kai supports full lifecycle orchestration from onboarding, origination to loan management and settlement."
+      "kleads": "Finds and ranks commercial opportunities, feeding new deal origination."
     }
   },
   "localeSwitcher": {
@@ -792,54 +760,6 @@
     "interviews-insights": "Interviews & Insights",
     "technology-innovation": "Technology & Innovation",
     "uncategorized": "Uncategorized"
-  },
-  "kena": {
-    "heroHeading": "AI that Understands Risk the Way",
-    "heroSecondHeading": "Humans Do — Only Smarter.",
-    "heroSubtitle": "Kena is the world's first risk AI that replicates the decision-making of financial underwriters, analyzing, conversing, and improving in real time.",
-    "twoColLeft": "Kena is the world's first financial intelligence AI agent.",
-    "twoColRight": "A finance expert that understands, analyzes, and predicts financial risk in real time with human-level reasoning and machine precision. From credit assessment and financial modeling to predictive analytics and pattern detection, Kena continuously evolves through millions of SME data points — driving intelligent and fast, data-driven decision-making.",
-    "cardsHeading": "Why Kena changes everything",
-    "cardsImageAlt": "Kena — AI-powered risk intelligence",
-    "feature0Title": "Human-level reasoning",
-    "feature0Description": "Understands financial logic and qualitative signals like a real risk officer.",
-    "feature1Title": "Continuous self-learning",
-    "feature1Description": "Improves accuracy and context awareness with every new dataset.",
-    "feature2Title": "Seamless integration",
-    "feature2Description": "Connects with existing workflows through chat, APIs, and core systems.",
-    "feature3Title": "Scalable risk automation",
-    "feature3Description": "From a single SME to global portfolios — Kena evolves with your business.",
-    "section3dHeading": "How Kena Thinks, Learns, and Decides",
-    "step0Heading": "Input & Context",
-    "step0Text": "Users share data and documents via chat or system integration.",
-    "step1Heading": "Understanding & Reasoning",
-    "step1Text": "Kena interprets each case as an underwriter would - assesing logic, ratios, and narrative.",
-    "step2Heading": "Decisioning",
-    "step2Text": "Generates real-time credit risk outcomes with transparent, explainable logic.",
-    "step3Heading": "Learning Loop",
-    "step3Text": "Every decision and outcome feeds back into her neural framework - refining accuracy continuously.",
-    "step4Heading": "Scale & Deploy",
-    "step4Text": "Organizations can train Kena models for new markets, products, or regulations.",
-    "ctaHeading": "Transform your risk strategy with intelligent automation.",
-    "ctaButton": "Request a Demo",
-    "showPassword": "Show password",
-    "hidePassword": "Hide password",
-    "passwordAccessTitle": "Access Kena",
-    "passwordAccessDescription": "Enter the access password to reveal the rest of this page.",
-    "passwordLabel": "Password",
-    "unlockButton": "Unlock",
-    "unlockingButton": "Unlocking…",
-    "passwordGateMessage": "Access restricted. Enter the password to view additional information about Kena.",
-    "passwordGateButton": "Enter password",
-    "passwordHint": "This content is gated.",
-    "passwordErrorInvalid": "Invalid password. Please try again.",
-    "passwordErrorNetwork": "Network error. Please try again.",
-    "passwordErrorGeneric": "Something went wrong. Please try again.",
-    "closeDialog": "Close",
-    "previousCaseStudy": "Previous case study",
-    "nextCaseStudy": "Next case study",
-    "showCaseStudy": "Show {name}",
-    "showSlide": "Show slide {number}"
   },
   "krails": {
     "heroHeadingPrefix": "What is",
@@ -955,9 +875,6 @@
     "logoAlt": "K Rails Logo"
   },
   "techPages": {
-    "kabl": {
-      "heroTitle": "Coming Soon..."
-    },
     "krisk": {
       "heroTitle": "Know Your Customer To Serve Them Better",
       "heroTagline": "Comprehensive intelligence engine that integrates internal history and external data sources to fortify underwriting, proactively protect the portfolio, and drive data-based strategic decisions.",
@@ -981,58 +898,6 @@
       "heroHighlight1": "Maximize commercial efficiency",
       "heroHighlight2": "Accelerate growth"
     },
-    "kaxis": {
-      "heroTitle": "Customer Financial CRM",
-      "heroTagline": "A powerful CRM built for real-time visibility into every aspect of your customer's financial journey—credit lines, loans, payments, and balances in a single, easy-to-use platform."
-    },
-    "kim": {
-      "heroTitle": "AI-Powered Invoice Management",
-      "heroTagline": "Our AI-powered invoice management solution turns a traditionally manual, error-prone process into a fully automated, intelligent, and trusted digital workflow—unlocking speed, liquidity, and confidence across the supply chain.",
-      "block0Heading": "Faster Processing & Financing",
-      "block0Bullet0": "Reduces processing from days to minutes",
-      "block0Bullet1": "Accelerates approvals and access financing",
-      "block0Bullet2": "Enables dynamic discounting and early payment programs",
-      "block1Heading": "Reduce Risk & Errors",
-      "block1Bullet0": "Eliminates manual data entry and reconciliation",
-      "block1Bullet1": "Smart contracts enforce agreed terms automatically",
-      "block1Bullet2": "Immutable blockchain records prevent disputes and fraud",
-      "block2Heading": "Improved Cash Flow Visibility",
-      "block2Bullet0": "Real-time insight into invoice status and payment timelines",
-      "block2Bullet1": "Predictive alerts based on historical payment behavior",
-      "block2Bullet2": "Clear view of liabilities and receivables across suppliers",
-      "block3Heading": "Built for Trust & Compliance",
-      "block3Bullet0": "Single source of truth shared across all parties",
-      "block3Bullet1": "Tamper-proof audit trail for regulators and auditors",
-      "block3Bullet2": "Enhanced transparency strengthens buyer-supplier relationships"
-    },
-    "kbpm": {
-      "heroTitle": "Compliance & Process Automation",
-      "heroTagline": "Regulatory compliance and business process automation for onboarding, routing, card issuance, and unified workflows.",
-      "module0Title": "Customer onboarding",
-      "module0Description": "Automates customer onboarding, so new SMEs and corporates enter the system faster and with fewer manual steps.",
-      "module1Title": "Task routing",
-      "module1Description": "Routes every task to the right team (Risk, Legal, Ops, Collections, Sales) based on workload and permissions.",
-      "module2Title": "Card issuance & activation",
-      "module2Description": "Manages card issuance and account activation end-to-end, reducing manual errors.",
-      "module3Title": "Unified workflow",
-      "module3Description": "Orchestrates disbursements, payments, reminders, and collections in a unified workflow.",
-      "module4Title": "Real-time visibility",
-      "module4Description": "Gives real-time visibility into bottlenecks, delays, SLAs, and operational load across teams.",
-      "module5Title": "Building blocks",
-      "module5Description": "Reuses building blocks to launch new financial products or regional variations quickly.",
-      "module6Title": "Audit trails",
-      "module6Description": "Provides complete audit trails of every step, decision, document, and user action.",
-      "module7Title": "Standardized operations",
-      "module7Description": "Standardizes operations across all countries and product lines with controlled local adaptations."
-    },
-    "kcard": {
-      "heroTitle": "Expense Management",
-      "heroTagline": "Global enforcement for corporate card issuance, credit management, expense processing, and policy oversight.",
-      "heroHighlight0": "Corporate card issuance",
-      "heroHighlight1": "Credit management",
-      "heroHighlight2": "Expense processing platform",
-      "heroHighlight3": "Policy enforcement and reporting oversight"
-    },
     "ktalk": {
       "heroTitle": "Conversational AI",
       "heroTagline": "Conversational AI interface—accessible via text and voice—connected directly to all internal and external data sources across the organization.",
@@ -1040,64 +905,6 @@
       "heroHighlight1": "Enables faster, data-driven decisions by reducing organizational friction.",
       "heroHighlight2": "Conversational immediate access to portfolio data, eliminating manual reporting.",
       "heroHighlight3": "Integrates with core systems, ensuring secure access to current data."
-    },
-    "kai": {
-      "heroTitle": "Don't compromise. Now businesses can work harder and smarter.",
-      "heroTagline": "Kai delivers comprehensive solutions that enhance your existing infrastructure while adding revolutionary capabilities for tomorrow's financial challenges.",
-      "benefitCategory0": "Value Proposition",
-      "benefitCategory1": "Efficiency Improvements",
-      "benefitCategory2": "Enhanced Decision-Making",
-      "benefitCategory3": "Cost Savings",
-      "benefitCategory4": "Security & Privacy",
-      "benefit0MainPoint": "Kai supports full lifecycle orchestration from onboarding, origination to loan management and settlement.",
-      "benefit0Sub0": "Fully integrated set of modules built for rapid deployment.",
-      "benefit0Sub1": "24/7/365 accessibility and global reach",
-      "benefit1MainPoint": "Automate workflows with enhanced oversight, freeing up valuable time and operational expenses.",
-      "benefit1Sub0": "Significant reduction in manual tasks and data entry",
-      "benefit1Sub1": "Streamlined processes from onboarding through collections",
-      "benefit2MainPoint": "The power of enterprise-grade analytics at your fingertips, analyzing trends and market conditions continuously.",
-      "benefit2Sub0": "AI-powered insights for faster, more accurate decisions",
-      "benefit2Sub1": "Proactive risk monitoring and early warning systems",
-      "benefit3MainPoint": "Maximize value from your existing infrastructure while adding powerful new capabilities.",
-      "benefit3Sub0": "More back-office automation with your current infrastructure",
-      "benefit3Sub1": "Customizable modules that integrate with existing systems",
-      "benefit4MainPoint": "Futureproofed with blockchain technology offering advanced protection and compliance features.",
-      "benefit4Sub0": "Permission layers providing flexibility and regulatory compliance",
-      "benefit4Sub1": "Immutable ledgering for complete audit trails and data integrity",
-      "modulesHeader": "Architecture overview: Scalable. Secure. Modular.",
-      "module0Title": "Experience Layer",
-      "module0Description": "Kai Web/Mobile interfaces and KTalk (text/voice) for instant insights and seamless user interaction.",
-      "module1Title": "Core Modules",
-      "module1Description": "K Bpm, K Rails, K Axis, K Risk, K Leads, and the upcoming Corporate Card Platform.",
-      "module2Title": "Data & AI",
-      "module2Description": "Central data warehouse with explainable models; continuous monitoring, drift/bias checks for reliable analytics.",
-      "module3Title": "Corporate Card Issuance",
-      "module3Description": "Automating manual processes for more efficient spend management and reporting oversight.",
-      "module4Title": "Payments & Rails",
-      "module4Description": "K Rails system uses invoice NFTs, credit pools, smart contracts, and stablecoin reserve, integrated with traditional banking infrastructure.",
-      "module5Title": "Integration Layer",
-      "module5Description": "Secure APIs connecting to ERP/CRM systems, banking partners, tax authorities, credit bureaus, and accounting platforms.",
-      "module6Title": "Security & Compliance",
-      "module6Description": "Role-based access control, end-to-end encryption, comprehensive audit trails, privacy-preserving permissions, and KYB/KYC/AML safeguards.",
-      "module7Title": "Credit Management & Expense Processing Platform",
-      "module7Description": "AI-powered expense recognition, policy enforcement, and fraud prevention capabilities.",
-      "blocksFeatureTitle": "Expanding Market Reach",
-      "blocksFeatureSubline": "Unlocks untapped market potential and reaches entirely new segments through the K partnership.",
-      "block0Heading": "Startups, SMB & Enterprise",
-      "block0Subheading": "The Bigger Picture for Your Business",
-      "block0Bullet0": "Kai expands beyond payments to deliver a comprehensive business ecosystem supporting organizational scale and complexity.",
-      "block0Bullet1": "Embedded AI runs in the background suggesting automation at the point of repetition, freeing up valuable time for you to get back to growing your business.",
-      "block0Bullet2": "Scale with confidence using modules specifically designed for your growth stage.",
-      "block1Heading": "Financial Solutions",
-      "block1Subheading": "Interoperability with Speed and Compliance",
-      "block1Bullet0": "Enhance legacy systems through seamless integration with core banking APIs while unlocking next-generation capabilities.",
-      "block1Bullet1": "Flexibility and interoperability allow FIs to integrate today while planning for the growth and speed of tomorrow's market.",
-      "block1Bullet2": "Empower supply chain financing, trade finance, cash management, accounts payable, and expense control with built-in compliance.",
-      "block2Heading": "Partners",
-      "block2Subheading": "Enhance your current tooling",
-      "block2Bullet0": "Supercharge your existing systems and processes with modular, intelligent capabilities that drive performance.",
-      "block2Bullet1": "Kai acts as an extension of the team, enabling real-time, data-driven decisions and freeing up time for strategic initiatives.",
-      "block2Bullet2": "Differentiate your offering with embedded intelligence and financial capabilities that complement your core business."
     }
   }
 }

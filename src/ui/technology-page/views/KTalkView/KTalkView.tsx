@@ -17,6 +17,7 @@ export function KTalkView({ translations, hero, mockups, sections }: TechnologyP
       defaultAlt={translations.technologyScreenshot}
       skipAnimation={skipAnimation}
       heroMockupExtendToBottom
+      neutralGradient
     />
   );
 }

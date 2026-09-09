@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { ResourceLibraryView } from "@/ui/resource-library/views/ResourceLibraryView";
 import { PRESS_COLLECTIONS, toResourceCollections } from "@/ui/press/data/press-collections";
-import { KenaGateSection } from "@/ui/kena/components/kena-gate-section/kena-gate-section";
+import { PressGateSection } from "@/ui/press/components/press-gate-section/press-gate-section";
 import { PasswordDialog, type PasswordUnlockResult } from "@/ui/shared/components/password-dialog/password-dialog";
 
 const STORAGE_KEY = "press:unlocked";
@@ -76,7 +76,7 @@ export function PressView() {
         collections={collections}
         afterHeader={
           unlocked ? undefined : (
-            <KenaGateSection
+            <PressGateSection
               message={t("passwordGateMessage")}
               buttonLabel={t("passwordGateButton")}
               onEnterPassword={() => setDialogOpen(true)}

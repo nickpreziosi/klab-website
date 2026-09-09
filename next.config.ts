@@ -3,8 +3,20 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin();
 
+const PRODUCT_SLUGS = "krails|kleads|ktalk|krisk";
+const LOCALES = "en|es|pt|ar";
+
 const nextConfig: NextConfig = {
   transpilePackages: ["@k-lab/components"],
+  async redirects() {
+    return [
+      {
+        source: `/:locale(${LOCALES})/technologies/:slug(${PRODUCT_SLUGS})`,
+        destination: "/:locale/:slug",
+        permanent: true,
+      },
+    ];
+  },
   productionBrowserSourceMaps: true,
   images: {
     formats: ["image/avif", "image/webp"],

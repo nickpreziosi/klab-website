@@ -89,6 +89,8 @@ export interface TechnologyPageLayoutProps {
   benefitColumnsVariant?: "default" | "pill-per-column";
   /** When true, hero mockup column grows to fill the hero and the mockup aligns to the bottom (e.g. K-Talk). */
   heroMockupExtendToBottom?: boolean;
+  /** When true, use the gray company gradient instead of the blue K Rails gradient. */
+  neutralGradient?: boolean;
 }
 
 /** Server-resolved strings for technology page UI (CTA, image alt). Pass from page to view. */

@@ -1,15 +1,15 @@
 "use client";
 
 import Button from "@/ui/shared/components/button/button";
-import styles from "./kena-gate-section.module.css";
+import styles from "./press-gate-section.module.css";
 
-export interface KenaGateSectionProps {
+export interface PressGateSectionProps {
   message: string;
   buttonLabel: string;
   onEnterPassword: () => void;
 }
 
-export function KenaGateSection({ message, buttonLabel, onEnterPassword }: KenaGateSectionProps) {
+export function PressGateSection({ message, buttonLabel, onEnterPassword }: PressGateSectionProps) {
   return (
     <div className={styles.gate}>
       <div className={styles.gateLockBack} aria-hidden>

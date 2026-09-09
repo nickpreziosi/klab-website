@@ -241,6 +241,7 @@ export function TechnologyPageLayout({
   skipAnimation = false,
   benefitColumnsVariant = "default",
   heroMockupExtendToBottom = false,
+  neutralGradient = false,
 }: TechnologyPageLayoutProps) {
   const defaultAlt = defaultAltProp ?? "Technology screenshot";
   const { effectiveTheme } = useTheme();
@@ -262,7 +263,7 @@ export function TechnologyPageLayout({
       : null;
 
   return (
-    <main className={styles.container}>
+    <main className={cn(styles.container, neutralGradient && styles.neutralGradient)}>
       {hero && (
         <motion.section
           ref={heroRef}

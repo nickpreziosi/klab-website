@@ -49,7 +49,7 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
   {
     id: "krails",
     name: "K Rails",
-    href: "/technologies/krails",
+    href: "/krails",
     idleVideo: "/videos/krails-idle.mp4",
     playingVideo: "/videos/krails-sphere-loop.mp4",
     product: BRAND_PRODUCT_SLUG.krails,
@@ -60,7 +60,7 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
   {
     id: "krisk",
     name: "K Risk",
-    href: "/technologies/krisk",
+    href: "/krisk",
     idleVideo: "/videos/krisk-idle.mp4",
     playingVideo: "/videos/krisk-loop.mp4",
     product: BRAND_PRODUCT_SLUG.krisk,
@@ -70,7 +70,7 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
   {
     id: "kleads",
     name: "K Leads",
-    href: "/technologies/kleads",
+    href: "/kleads",
     idleVideo: "/videos/kleads-idle.mp4",
     playingVideo: "/videos/kleads-loop.mp4",
     product: BRAND_PRODUCT_SLUG.kleads,
@@ -80,7 +80,7 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
   {
     id: "ktalk",
     name: "K Talk",
-    href: "/technologies/ktalk",
+    href: "/ktalk",
     idleVideo: "/videos/ktalk-idle.mp4",
     playingVideo: "/videos/ktalk-loop.mp4",
     product: BRAND_PRODUCT_SLUG.ktalk,

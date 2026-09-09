@@ -242,17 +242,6 @@ html[dir="rtl"] .techCircle.rightHalf {
   transition: fill 0.2s ease;
 }
 
-.techLogo :global(.kabl-blue),
-.techLogo :global(.kabl-blue-stroke) {
-  fill: #306fc6 !important;
-  stroke: #306fc6 !important;
-}
-
-/* KBpm has a P descender – scale up so the K cap height matches; align from left edge */
-.techLogoKbpm > div svg {
-  transform: scale(1.3);
-}
-
 .techLogoMark {
   display: flex !important;
   align-items: center;
@@ -348,12 +337,6 @@ html[dir="rtl"] .techCircle.rightHalf {
 
   .techCircle:hover .techLogo > div svg path {
     fill: hsl(var(--accent)) !important;
-  }
-
-  .techCircle:hover .techLogo > div :global(.kabl-blue),
-  .techCircle:hover .techLogo > div :global(.kabl-blue-stroke) {
-    fill: hsl(var(--accent)) !important;
-    stroke: hsl(var(--accent)) !important;
   }
 }
 
