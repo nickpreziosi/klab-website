@@ -1,10 +1,8 @@
 "use client";
 
-import { ExternalLink, MoveRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { cn } from "@/ui/shared/utils/utils";
-import { RESOURCE_NAV_ICONS, RESOURCE_NAV_ITEMS } from "./resource-nav-items";
+import { RESOURCE_NAV_ITEMS } from "./resource-nav-items";
 import sphereStyles from "./nav-addon-spheres.module.css";
 import styles from "./nav-resource-links.module.css";
 
@@ -21,22 +19,8 @@ export function NavResourceLinks({ onLinkClick, headerTitle }: NavResourceLinksP
       {headerTitle ? <h3 className={sphereStyles.headerTitle}>{headerTitle}</h3> : null}
       <div className={styles.list}>
         {RESOURCE_NAV_ITEMS.map((item) => {
-          const Icon = RESOURCE_NAV_ICONS[item.id];
-          const LinkIcon = item.external ? ExternalLink : MoveRight;
-          const className = styles.card;
-          const content = (
-            <>
-              <span className={styles.iconWell} aria-hidden>
-                <Icon className={styles.categoryIcon} strokeWidth={1.75} />
-              </span>
-              <span className={styles.label}>{t(item.id)}</span>
-              <LinkIcon
-                className={cn(styles.linkIcon, "rtlFlipH")}
-                aria-hidden
-                strokeWidth={2}
-              />
-            </>
-          );
+          const className = styles.link;
+          const label = t(item.id);
 
           if (item.external) {
             const isPlaceholder = item.href === "#";
@@ -51,7 +35,7 @@ export function NavResourceLinks({ onLinkClick, headerTitle }: NavResourceLinksP
                   onLinkClick?.();
                 }}
               >
-                {content}
+                {label}
               </a>
             );
           }
@@ -65,7 +49,7 @@ export function NavResourceLinks({ onLinkClick, headerTitle }: NavResourceLinksP
                 onLinkClick?.();
               }}
             >
-              {content}
+              {label}
             </Link>
           );
         })}
