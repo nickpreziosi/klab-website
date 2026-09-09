@@ -2,7 +2,7 @@
   width: 100%;
   background: var(--theme-gradient);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .container {
@@ -51,51 +51,8 @@
   line-height: 1.55;
 }
 
-.modulesGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px;
-}
-
-.module {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-sm);
-  padding-inline-start: var(--padding-md);
-  border-inline-start: 3px solid var(--accent-color);
-}
-
-.moduleLogoWrap {
-  display: flex;
-  align-items: center;
-  height: 2rem;
-  width: auto;
-  max-width: 11rem;
-}
-
-.moduleLogoInner {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  width: auto;
-}
-
-.moduleLogo {
-  display: block;
-  height: 2rem !important;
-  width: auto !important;
-  max-width: 11rem;
-  object-fit: contain;
-  object-position: left center;
-}
-
-.moduleText {
-  margin: 0;
-  font-size: clamp(1rem, 1.15vw + 0.75rem, 1.25rem);
-  font-weight: var(--font-medium);
-  line-height: 1.65;
-  color: rgba(var(--secondary-color-rgb), 0.98);
+.modules {
+  margin-top: 0.25rem;
 }
 
 .valuesCard {
@@ -251,10 +208,6 @@
     margin-bottom: var(--margin-lg);
   }
 
-  .modulesGrid {
-    gap: 22px;
-  }
-
   .valuesCard {
     padding: 56px 44px 28px;
   }
@@ -275,10 +228,6 @@
 
   .header {
     margin-bottom: var(--margin-md);
-  }
-
-  .modulesGrid {
-    grid-template-columns: 1fr;
   }
 
   .valuesCard {
@@ -327,13 +276,5 @@
   .leadStack {
     max-width: 100%;
     gap: 12px;
-  }
-
-  .moduleLogoWrap {
-    height: 1.75rem;
-  }
-
-  .moduleLogo {
-    height: 1.75rem !important;
   }
 }

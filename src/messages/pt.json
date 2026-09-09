@@ -712,16 +712,16 @@
   },
   "technologiesShowcase": {
     "technologies": {
-      "krails": "Uma camada programável de confiança e execução para movimentação de dinheiro institucional.",
+      "krails": "O núcleo. Decide se um pagamento deve se mover, sob quais condições e por qual trilho. Conformidade e auditoria, de série.",
       "kena": "Kena é um sistema proprietário de Infraestrutura Financeira Inteligente (IFI).",
-      "ktalk": "Uma interface de IA conversacional que oferece acesso instantâneo em linguagem natural a dados operacionais, financeiros e transacionais em todos os sistemas K Lab.",
-      "krisk": "Motor automatizado de decisão de risco que usa IA, modelos de dados e regras dinâmicas para avaliar crédito, detectar fraude e monitorar exposições em tempo real.",
+      "ktalk": "Faça perguntas por texto ou voz. Receba respostas instantâneas, resumos e visualizações, extraídos de cada fonte de dados da plataforma.",
+      "krisk": "Pontuação de crédito e risco em tempo real sobre dados financeiros, fiscais, bancários e de birô. Monitoramento contínuo, não uma análise pontual.",
       "kabl": "K Abl é um ecossistema financeiro alimentado por IA e blockchain, ancorado pelo K Rails que unifica todos os módulos K em uma única plataforma inteligente.",
       "kcard": "Emissão de cartões corporativos, gestão de despesas e controle global. Automatização de processos manuais para gestão de gastos e supervisão de relatórios mais eficientes.",
       "kbpm": "O motor de orquestração que impulsa cada processo operacional do ecossistema de empréstimos K Lab.",
       "kim": "Transforma um processo tradicionalmente manual e propenso a erros em um fluxo de trabalho digital totalmente automatizado, inteligente e confiável, desbloqueando velocidade, liquidez e confiança na cadeia de suprimentos.",
       "kaxis": "Sistema CRM poderoso criado para dar visibilidade em tempo real a cada aspecto da jornada financeira do cliente. De linhas de crédito e empréstimos a pagamentos e saldos, centraliza dados essenciais do cliente em uma única plataforma fácil de usar.",
-      "kleads": "Surjam mais leads qualificados para maximizar a eficiência comercial e acelerar o crescimento e o fluxo de negócios.",
+      "kleads": "Encontra e classifica oportunidades comerciais, alimentando a originação de novos negócios.",
       "kai": "No núcleo de nossa suíte de módulos. Kai suporta orquestração de ciclo de vida completo desde onboarding, originación até gestão de empréstimos e liquidação."
     }
   },

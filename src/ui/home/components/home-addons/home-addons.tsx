@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   motion,
   useInView,
@@ -11,14 +11,11 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { useLocale, useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import type { HomeKrailsTranslations } from "@/ui/home/types";
 import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
-import { ADDON_SPHERE_PRODUCTS } from "@/ui/shared/components/addon-spheres/addon-sphere-products";
-import Button from "@/ui/shared/components/button/button";
-import { ProductLogo } from "@k-lab/components";
+import { AddonSphereRow } from "@/ui/shared/components/addon-spheres/addon-sphere-row";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./home-addons.module.css";
 
@@ -28,110 +25,6 @@ const screenFade = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
 };
-
-const PRODUCT_CLASS = {
-  krails: styles.krails,
-  krisk: styles.krisk,
-  kleads: styles.kleads,
-  ktalk: styles.ktalk,
-} as const;
-
-type PlaybackMode = "idle" | "playing" | "paused";
-
-function prefersReducedMotion() {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-function SphereVideo({
-  idleSrc,
-  playingSrc,
-  mode,
-  onEnded,
-}: {
-  idleSrc: string;
-  playingSrc: string;
-  mode: PlaybackMode;
-  onEnded?: () => void;
-}) {
-  const idleRef = useRef<HTMLVideoElement>(null);
-  const playingRef = useRef<HTMLVideoElement>(null);
-  const onEndedRef = useRef(onEnded);
-  const [playingReady, setPlayingReady] = useState(false);
-
-  onEndedRef.current = onEnded;
-
-  useEffect(() => {
-    const idle = idleRef.current;
-    if (!idle) return;
-    if (prefersReducedMotion()) return;
-    idle.play().catch(() => {});
-  }, [idleSrc]);
-
-  useEffect(() => {
-    const video = playingRef.current;
-    if (!video) return;
-
-    if (mode !== "playing") {
-      setPlayingReady(false);
-      video.pause();
-      if (mode === "idle") video.currentTime = 0;
-      return;
-    }
-
-    if (prefersReducedMotion()) return;
-
-    let cancelled = false;
-    const showWhenReady = () => {
-      if (cancelled) return;
-      setPlayingReady(true);
-      video.muted = false;
-      video.play().catch(() => {});
-    };
-    const handleEnded = () => onEndedRef.current?.();
-
-    video.addEventListener("ended", handleEnded);
-    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-      showWhenReady();
-    } else {
-      video.addEventListener("canplay", showWhenReady);
-      video.muted = false;
-      video.play().catch(() => {});
-    }
-
-    return () => {
-      cancelled = true;
-      video.removeEventListener("canplay", showWhenReady);
-      video.removeEventListener("ended", handleEnded);
-    };
-  }, [mode, playingSrc]);
-
-  return (
-    <span
-      className={styles.sphere}
-      data-playing={mode === "playing" && playingReady ? "true" : undefined}
-      aria-hidden
-    >
-      <video
-        ref={idleRef}
-        className={styles.sphereVideo}
-        src={idleSrc}
-        muted
-        loop
-        playsInline
-        autoPlay
-        preload="auto"
-      />
-      <video
-        ref={playingRef}
-        className={cn(styles.sphereVideo, styles.sphereVideoPlaying)}
-        src={playingSrc}
-        playsInline
-        preload="auto"
-        data-ready={playingReady ? "true" : undefined}
-      />
-    </span>
-  );
-}
 
 type HomeAddonsProps = {
   translations: HomeKrailsTranslations;
@@ -220,15 +113,12 @@ function LeaderLine({
 export function HomeAddons({ translations, skipAnimation = false }: HomeAddonsProps) {
   const locale = useLocale() as Locale;
   const dir = getTextDirection(locale);
-  const tAddons = useTranslations("homeKrails");
   const sceneRef = useRef<HTMLDivElement>(null);
   const boardRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const skip = skipAnimation || !!reduceMotion;
   const inView = useInView(boardRef, { once: true, amount: 0.3 });
   const revealed = skip || inView;
-  const [activeName, setActiveName] = useState<string | null>(null);
-  const [mode, setMode] = useState<PlaybackMode>("idle");
 
   const { scrollYProgress } = useScroll({
     target: sceneRef,
@@ -262,19 +152,6 @@ export function HomeAddons({ translations, skipAnimation = false }: HomeAddonsPr
   const linePathLength = skip ? 1 : lineLength;
   const lineStartOpacity = skip ? 1 : lineStart;
   const lineEndOpacity = skip ? 1 : lineEnd;
-
-  const toggleProduct = (name: string) => {
-    if (activeName === name && mode === "playing") {
-      setMode("paused");
-      return;
-    }
-    if (activeName === name && mode === "paused") {
-      setMode("playing");
-      return;
-    }
-    setActiveName(name);
-    setMode("playing");
-  };
 
   return (
     <section
@@ -402,63 +279,7 @@ export function HomeAddons({ translations, skipAnimation = false }: HomeAddonsPr
         </div>
       </div>
 
-      <div className={styles.products} dir="ltr">
-        {ADDON_SPHERE_PRODUCTS.map((product) => {
-          const productMode = activeName === product.name ? mode : "idle";
-          const playing = productMode === "playing";
-          return (
-            <div key={product.name} className={styles.item}>
-              <button
-                type="button"
-                className={cn(styles.product, PRODUCT_CLASS[product.id])}
-                aria-label={playing ? `Pause ${product.name}` : `Play ${product.name}`}
-                onClick={() => toggleProduct(product.name)}
-              >
-                {!product.hideAddons ? (
-                  <>
-                    <span className={styles.pillSm} aria-hidden />
-                    <span className={styles.plusSm} aria-hidden>
-                      <img src="/images/home-addons/plus-circle-sm.svg" alt="" width={16} height={16} />
-                      <span className={styles.plusBarVSm} />
-                      <span className={styles.plusBarHSm} />
-                    </span>
-                    <span className={styles.pillSmLabel} dir={dir}>
-                      {translations.addonsEyebrow}
-                    </span>
-                  </>
-                ) : null}
-                <SphereVideo
-                  idleSrc={product.idleVideo}
-                  playingSrc={product.playingVideo}
-                  mode={productMode}
-                  onEnded={() => {
-                    setActiveName(null);
-                    setMode("idle");
-                  }}
-                />
-                <ProductLogo
-                  product={product.product}
-                  variant={product.logoVariant}
-                  className={styles.productLogo}
-                  wrapperClassName={styles.productLogoWrap}
-                  aria-hidden
-                />
-                <span className={styles.play} aria-hidden>
-                  <img src={product.playIcon} alt="" />
-                </span>
-                <span className={styles.pause} aria-hidden>
-                  <span className={styles.pauseBar} />
-                  <span className={styles.pauseBar} />
-                </span>
-                <span className={styles.listen}>{tAddons("addonsClickToListen")}</span>
-              </button>
-              <Button asChild variant="accent-brand-outline" size="sm" className={styles.explore}>
-                <Link href={product.href}>{tAddons("addonsExplore")}</Link>
-              </Button>
-            </div>
-          );
-        })}
-      </div>
+      <AddonSphereRow />
     </section>
   );
 }

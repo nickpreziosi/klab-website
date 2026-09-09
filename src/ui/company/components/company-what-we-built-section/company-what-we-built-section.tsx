@@ -3,36 +3,13 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
-import { ProductLogo } from "@k-lab/components";
 import { Building2, Landmark, Package } from "lucide-react";
 import CompanySectionTitle from "@/ui/company/components/company-section-title/company-section-title";
 import type { CompanyWhatWeBuiltTranslations } from "@/ui/company/types";
 import { buildCompanyWhatWeBuiltTranslations } from "@/ui/company/types";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
+import { AddonSphereRow } from "@/ui/shared/components/addon-spheres/addon-sphere-row";
 import styles from "./company-what-we-built-section.module.css";
-
-const MODULES = [
-  {
-    product: "k-rails" as const,
-    altKey: "moduleRailsAlt" as const,
-    textKey: "moduleRails" as const,
-  },
-  {
-    product: "k-talk" as const,
-    altKey: "moduleTalkAlt" as const,
-    textKey: "moduleTalk" as const,
-  },
-  {
-    product: "k-risk" as const,
-    altKey: "moduleRiskAlt" as const,
-    textKey: "moduleRisk" as const,
-  },
-  {
-    product: "k-leads" as const,
-    altKey: "moduleLeadsAlt" as const,
-    textKey: "moduleLeads" as const,
-  },
-];
 
 const VALUES: {
   textKey: "valueEnterprises" | "valueBanks" | "valueSuppliers" | "valueKLabEarns";
@@ -115,22 +92,7 @@ export default function CompanyWhatWeBuiltSection({
 
           <p className={styles.introLine}>{translations.introLine}</p>
 
-          <div className={styles.modulesGrid}>
-            {MODULES.map((module) => (
-              <div key={module.product} className={styles.module}>
-                <div className={styles.moduleLogoWrap} dir="ltr">
-                  <ProductLogo
-                    product={module.product}
-                    variant="theme-aware"
-                    alt={translations[module.altKey]}
-                    className={styles.moduleLogo}
-                    wrapperClassName={styles.moduleLogoInner}
-                  />
-                </div>
-                <p className={styles.moduleText}>{translations[module.textKey]}</p>
-              </div>
-            ))}
-          </div>
+          <AddonSphereRow className={styles.modules} />
 
           <div className={styles.valuesCard}>
             <div className={styles.valuesPills}>

@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import { ProductLogo } from "@k-lab/components";
+import { ArrowRight } from "lucide-react";
 import Button from "@/ui/shared/components/button/button";
 import { cn } from "@/ui/shared/utils/utils";
 import { ADDON_SPHERE_PRODUCTS } from "./addon-sphere-products";
@@ -298,7 +299,15 @@ export function NavAddonSpheres({ onLinkClick, headerTitle }: NavAddonSpheresPro
                 </span>
                 <span className={styles.listen}>{tAddons("addonsClickToListen")}</span>
               </button>
-              <Button asChild variant="accent-brand-outline" size="sm" className={styles.explore}>
+              <Button
+                asChild
+                variant="accent-brand-outline"
+                size="sm"
+                className={styles.explore}
+                iconPosition="end"
+                iconSize="size-3"
+                icon={<ArrowRight className="rtlFlipH" />}
+              >
                 <Link href={product.href} onClick={onLinkClick}>
                   {tAddons("addonsExplore")}
                 </Link>
