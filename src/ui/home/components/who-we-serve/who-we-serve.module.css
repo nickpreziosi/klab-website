@@ -246,23 +246,38 @@
   );
 }
 
-.desktopShot {
+.shotStack {
   position: absolute;
   z-index: 1;
   top: 0;
   left: 0;
   width: 100%;
   height: calc(312 / 425 * 100%);
+}
+
+.shotLayer {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.shotLayer .glow {
+  height: 100%;
+}
+
+.desktopShot {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
   border-radius: 8px;
 }
 
 .desktopShot .image {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
   aspect-ratio: auto;
+  object-fit: cover;
 }
 
 .viewport {
@@ -404,6 +419,12 @@
 
   .imageFrame {
     aspect-ratio: auto;
+  }
+
+  .shotStack {
+    z-index: 0;
+    height: auto;
+    aspect-ratio: 553 / 312;
   }
 
   .desktopShot {

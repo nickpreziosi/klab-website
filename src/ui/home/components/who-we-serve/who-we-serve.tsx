@@ -23,7 +23,6 @@ import styles from "./who-we-serve.module.css";
 const DASHBOARD = "/images/who-we-serve/dashboard.png";
 const DESKTOP_MQ = "(min-width: 1025px)";
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
-const IMAGE_FADE_EASE = [0.4, 0, 0.2, 1] as const;
 const SCROLL_UNLOCK_MS = 900;
 
 const AUDIENCES: readonly { id: string; icon: string; rotate?: boolean }[] = [
@@ -528,30 +527,26 @@ export function WhoWeServe({
           <motion.div className={styles.media} variants={itemVariants}>
             <div className={styles.stage}>
               <div className={styles.imageFrame} dir="ltr">
-                <motion.div
-                  className={styles.glow}
-                  aria-hidden
-                  initial={disableEntrance ? false : { opacity: 0 }}
-                  animate={{ opacity: showEntrance ? 1 : 0 }}
-                  transition={shotTransition(disableEntrance, 0, 0.7)}
-                />
-                <div className={styles.desktopShot}>
-                  <AnimatePresence initial={false}>
-                    <motion.img
+                <div className={styles.shotStack}>
+                  <AnimatePresence initial={false} mode="wait">
+                    <motion.div
                       key={disableEntrance ? "static" : selected}
-                      src={DASHBOARD}
-                      alt={translations.serveImageAlt}
-                      className={styles.image}
-                      decoding="async"
+                      className={styles.shotLayer}
                       initial={disableEntrance ? false : { opacity: 0 }}
                       animate={{ opacity: showEntrance ? 1 : 0 }}
                       exit={disableEntrance ? undefined : { opacity: 0 }}
-                      transition={
-                        disableEntrance
-                          ? { duration: 0 }
-                          : { duration: 0.5, ease: IMAGE_FADE_EASE }
-                      }
-                    />
+                      transition={shotTransition(disableEntrance, 0, 0.2)}
+                    >
+                      <div className={styles.glow} aria-hidden />
+                      <div className={styles.desktopShot}>
+                        <img
+                          src={DASHBOARD}
+                          alt={translations.serveImageAlt}
+                          className={styles.image}
+                          decoding="async"
+                        />
+                      </div>
+                    </motion.div>
                   </AnimatePresence>
                 </div>
                 <Fragment key={disableEntrance ? "static" : selected}>
