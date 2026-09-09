@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import {
   motion,
   useInView,
@@ -12,11 +11,13 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import type { HomeKrailsTranslations } from "@/ui/home/types";
 import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
 import { ADDON_SPHERE_PRODUCTS } from "@/ui/shared/components/addon-spheres/addon-sphere-products";
+import Button from "@/ui/shared/components/button/button";
 import { ProductLogo } from "@k-lab/components";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./home-addons.module.css";
@@ -219,6 +220,7 @@ function LeaderLine({
 export function HomeAddons({ translations, skipAnimation = false }: HomeAddonsProps) {
   const locale = useLocale() as Locale;
   const dir = getTextDirection(locale);
+  const tAddons = useTranslations("homeKrails");
   const sceneRef = useRef<HTMLDivElement>(null);
   const boardRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
@@ -405,54 +407,55 @@ export function HomeAddons({ translations, skipAnimation = false }: HomeAddonsPr
           const productMode = activeName === product.name ? mode : "idle";
           const playing = productMode === "playing";
           return (
-            <Link
-              key={product.name}
-              href={product.href}
-              className={cn(styles.product, PRODUCT_CLASS[product.id])}
-              aria-label={playing ? `Pause ${product.name}` : `Play ${product.name}`}
-              onClick={(event) => {
-                if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-                event.preventDefault();
-                toggleProduct(product.name);
-              }}
-            >
-              {!product.hideAddons ? (
-                <>
-                  <span className={styles.pillSm} aria-hidden />
-                  <span className={styles.plusSm} aria-hidden>
-                    <img src="/images/home-addons/plus-circle-sm.svg" alt="" width={16} height={16} />
-                    <span className={styles.plusBarVSm} />
-                    <span className={styles.plusBarHSm} />
-                  </span>
-                  <span className={styles.pillSmLabel} dir={dir}>
-                    {translations.addonsEyebrow}
-                  </span>
-                </>
-              ) : null}
-              <SphereVideo
-                idleSrc={product.idleVideo}
-                playingSrc={product.playingVideo}
-                mode={productMode}
-                onEnded={() => {
-                  setActiveName(null);
-                  setMode("idle");
-                }}
-              />
-              <ProductLogo
-                product={product.product}
-                variant={product.logoVariant}
-                className={styles.productLogo}
-                wrapperClassName={styles.productLogoWrap}
-                aria-hidden
-              />
-              <span className={styles.play} aria-hidden>
-                <img src={product.playIcon} alt="" />
-              </span>
-              <span className={styles.pause} aria-hidden>
-                <span className={styles.pauseBar} />
-                <span className={styles.pauseBar} />
-              </span>
-            </Link>
+            <div key={product.name} className={styles.item}>
+              <button
+                type="button"
+                className={cn(styles.product, PRODUCT_CLASS[product.id])}
+                aria-label={playing ? `Pause ${product.name}` : `Play ${product.name}`}
+                onClick={() => toggleProduct(product.name)}
+              >
+                {!product.hideAddons ? (
+                  <>
+                    <span className={styles.pillSm} aria-hidden />
+                    <span className={styles.plusSm} aria-hidden>
+                      <img src="/images/home-addons/plus-circle-sm.svg" alt="" width={16} height={16} />
+                      <span className={styles.plusBarVSm} />
+                      <span className={styles.plusBarHSm} />
+                    </span>
+                    <span className={styles.pillSmLabel} dir={dir}>
+                      {translations.addonsEyebrow}
+                    </span>
+                  </>
+                ) : null}
+                <SphereVideo
+                  idleSrc={product.idleVideo}
+                  playingSrc={product.playingVideo}
+                  mode={productMode}
+                  onEnded={() => {
+                    setActiveName(null);
+                    setMode("idle");
+                  }}
+                />
+                <ProductLogo
+                  product={product.product}
+                  variant={product.logoVariant}
+                  className={styles.productLogo}
+                  wrapperClassName={styles.productLogoWrap}
+                  aria-hidden
+                />
+                <span className={styles.play} aria-hidden>
+                  <img src={product.playIcon} alt="" />
+                </span>
+                <span className={styles.pause} aria-hidden>
+                  <span className={styles.pauseBar} />
+                  <span className={styles.pauseBar} />
+                </span>
+                <span className={styles.listen}>{tAddons("addonsClickToListen")}</span>
+              </button>
+              <Button asChild variant="accent-brand-outline" size="sm" className={styles.explore}>
+                <Link href={product.href}>{tAddons("addonsExplore")}</Link>
+              </Button>
+            </div>
           );
         })}
       </div>

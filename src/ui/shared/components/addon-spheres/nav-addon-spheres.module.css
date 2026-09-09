@@ -28,15 +28,28 @@
   width: 100%;
 }
 
-.product {
+.item {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   flex: 1 1 0;
   max-width: 200px;
+  min-width: 0;
+}
+
+.product {
+  position: relative;
+  width: 100%;
   aspect-ratio: 1;
   overflow: visible;
-  text-decoration: none;
+  padding: 0;
+  border: none;
   border-radius: 50%;
-  --tech-showcase-arrow-color: #ffffff;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
 }
 
 .product:focus-visible {
@@ -174,11 +187,15 @@
   transform: translateX(-50%);
 }
 
-.ktalk {
-  --tech-showcase-arrow-color: #000000;
+.ktalk .pauseBar {
+  background: #000000;
 }
 
-.arrowWrap {
+.ktalk .listen {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.play {
   position: absolute;
   z-index: 1;
   top: 55.16%;
@@ -192,16 +209,67 @@
   pointer-events: none;
 }
 
-.arrowWrap > span {
-  position: static;
-  left: auto;
-  top: auto;
-  transform: none;
+.play img {
+  display: block;
+  width: 75%;
+  height: auto;
+  transform: rotate(90deg);
+}
+
+.pause {
+  position: absolute;
+  z-index: 1;
+  top: 55.16%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14%;
+  width: 25%;
+  height: 25%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.pauseBar {
+  width: 16%;
+  height: 52%;
+  border-radius: 2px;
+  background: #ffffff;
+}
+
+.product[data-playing="true"] .play {
+  opacity: 0;
+}
+
+.product[data-playing="true"] .pause {
+  opacity: 1;
+}
+
+.listen {
+  position: absolute;
+  z-index: 1;
+  top: 84%;
+  left: 50%;
+  width: 78%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  pointer-events: none;
+}
+
+.explore {
+  margin-top: 0.75rem;
 }
 
 .description {
   position: absolute;
-  top: calc(100% + 12px);
+  top: calc(100% + 8px);
   left: 50%;
   z-index: 10;
   width: max(200px, min(260px, 90vw));
@@ -220,8 +288,8 @@
   pointer-events: none;
 }
 
-.product:hover .description,
-.product:focus-visible .description {
+.product:hover ~ .description,
+.product:focus-visible ~ .description {
   opacity: 1;
   visibility: visible;
 }
