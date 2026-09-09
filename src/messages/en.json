@@ -459,6 +459,7 @@
     "searchPlaceholder": "Search...",
     "emptyMessage": "No option found.",
     "recaptchaTimeout": "Verification timed out. Please try again.",
+    "submitError": "Failed to submit support request. Please try again.",
     "placeholders": {
       "firstName": "John",
       "lastName": "Doe",
@@ -521,6 +522,7 @@
     "searchPlaceholder": "Search...",
     "emptyMessage": "No option found.",
     "recaptchaTimeout": "Verification timed out. Please try again.",
+    "submitError": "Failed to submit inquiry. Please try again.",
     "placeholders": {
       "firstName": "John",
       "lastName": "Doe",
@@ -591,6 +593,7 @@
     "searchPlaceholder": "Search...",
     "emptyMessage": "No option found.",
     "recaptchaTimeout": "Verification timed out. Please try again.",
+    "submitError": "Failed to submit application. Please try again.",
     "placeholders": {
       "firstName": "John",
       "lastName": "Doe",
@@ -740,6 +743,7 @@
     "close": "Close",
     "galleryLocked": "This gallery is password protected.",
     "galleryGateButton": "Enter password",
+    "galleryTitle": "Gallery",
     "galleryPasswordTitle": "Access Gallery",
     "galleryPasswordDescription": "Enter the password to view the gallery images.",
     "galleryPasswordLabel": "Password",

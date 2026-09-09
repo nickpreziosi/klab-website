@@ -459,6 +459,7 @@
     "searchPlaceholder": "بحث...",
     "emptyMessage": "لم يتم العثور على خيارات.",
     "recaptchaTimeout": "انتهت مهلة التحقق. يرجى المحاولة مرة أخرى.",
+    "submitError": "تعذر إرسال طلب الدعم. يرجى المحاولة مرة أخرى.",
     "placeholders": {
       "firstName": "أحمد",
       "lastName": "محمد",
@@ -521,6 +522,7 @@
     "searchPlaceholder": "بحث...",
     "emptyMessage": "لم يتم العثور على خيارات.",
     "recaptchaTimeout": "انتهت مهلة التحقق. يرجى المحاولة مرة أخرى.",
+    "submitError": "تعذر إرسال الاستفسار. يرجى المحاولة مرة أخرى.",
     "placeholders": {
       "firstName": "أحمد",
       "lastName": "محمد",
@@ -591,6 +593,7 @@
     "searchPlaceholder": "بحث...",
     "emptyMessage": "لم يتم العثور على خيارات.",
     "recaptchaTimeout": "انتهت مهلة التحقق. يرجى المحاولة مرة أخرى.",
+    "submitError": "تعذر إرسال الطلب. يرجى المحاولة مرة أخرى.",
     "placeholders": {
       "firstName": "أحمد",
       "lastName": "محمد",
@@ -740,6 +743,7 @@
     "close": "إغلاق",
     "galleryLocked": "هذا المعرض محمي بكلمة مرور.",
     "galleryGateButton": "أدخل كلمة المرور",
+    "galleryTitle": "المعرض",
     "galleryPasswordTitle": "الوصول إلى المعرض",
     "galleryPasswordDescription": "أدخل كلمة المرور لعرض صور المعرض.",
     "galleryPasswordLabel": "كلمة المرور",

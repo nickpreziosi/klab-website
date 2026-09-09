@@ -341,7 +341,7 @@ export function ArticleView({
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <div className={styles.galleryContainer}>
-            <h2 className={styles.galleryTitle}>Gallery</h2>
+            <h2 className={styles.galleryTitle}>{t("galleryTitle")}</h2>
             {!galleryUnlocked ? (
               <div className={styles.galleryGate}>
                 <div className={styles.galleryGateLockBack} aria-hidden="true">

@@ -225,8 +225,7 @@ export function CareersContactForm({ skipAnimation = false }: CareersContactForm
         message: result.message || "Application submitted successfully!",
       });
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Failed to submit application. Please try again.";
+      const errorMessage = t("submitError");
       console.error("Form submission error:", error);
       setSubmitStatus({ type: "error", message: errorMessage });
       toast.error(errorMessage);

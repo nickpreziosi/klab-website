@@ -230,8 +230,7 @@ export function SalesContactForm({ skipAnimation = false }: SalesContactFormProp
       setIsSuccess(true);
       setSubmitStatus({ type: "success", message: successMessage });
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Failed to submit inquiry. Please try again.";
+      const errorMessage = t("submitError");
       console.error("Form submission error:", error);
       console.log("Sales form submission error", {
         error: errorMessage,

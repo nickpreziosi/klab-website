@@ -459,6 +459,7 @@
     "searchPlaceholder": "Pesquisar...",
     "emptyMessage": "Nenhuma opção encontrada.",
     "recaptchaTimeout": "A verificação expirou. Por favor, tente novamente.",
+    "submitError": "Não foi possível enviar a solicitação de suporte. Tente novamente.",
     "placeholders": {
       "firstName": "João",
       "lastName": "Silva",
@@ -484,7 +485,7 @@
       "recaptchaRequired": "Por favor, complete a verificação reCAPTCHA"
     },
     "issueTypes": {
-      "onboarding": "Onboarding",
+      "onboarding": "Integração",
       "accountIssue": "Problema de conta",
       "technicalIssue": "Problema técnico",
       "softwareBug": "Bug de software"
@@ -521,6 +522,7 @@
     "searchPlaceholder": "Pesquisar...",
     "emptyMessage": "Nenhuma opção encontrada.",
     "recaptchaTimeout": "A verificação expirou. Por favor, tente novamente.",
+    "submitError": "Não foi possível enviar a consulta. Tente novamente.",
     "placeholders": {
       "firstName": "João",
       "lastName": "Silva",
@@ -591,6 +593,7 @@
     "searchPlaceholder": "Pesquisar...",
     "emptyMessage": "Nenhuma opção encontrada.",
     "recaptchaTimeout": "A verificação expirou. Por favor, tente novamente.",
+    "submitError": "Não foi possível enviar a candidatura. Tente novamente.",
     "placeholders": {
       "firstName": "João",
       "lastName": "Silva",
@@ -740,6 +743,7 @@
     "close": "Fechar",
     "galleryLocked": "Esta galeria está protegida por senha.",
     "galleryGateButton": "Inserir senha",
+    "galleryTitle": "Galeria",
     "galleryPasswordTitle": "Acessar galeria",
     "galleryPasswordDescription": "Insira a senha para ver as imagens da galeria.",
     "galleryPasswordLabel": "Senha",

@@ -291,7 +291,7 @@
         "bio": "Gabriel pasó 17 años en American Express como CFO para España. Dirigió con éxito el crecimiento responsable y sostenible en SafetyPay y 4Finance, con más de 11 millones de préstamos por valor de 5.000 millones de euros."
       },
       "juanSilva": {
-        "position": "Legal",
+        "position": "Jurídico",
         "bio": "Juan Gabriel combina más de 15 años de experiencia en bufetes de abogados internacionales y empresas tecnológicas, asesorando en materia corporativa, financiera y regulatoria que impulsa el crecimiento en mercados transfronterizos complejos."
       },
       "nickSchwartz": {
@@ -397,7 +397,7 @@
     "assetCount": "{count} recursos",
     "photoAlt": "{name}, foto {number}",
     "fileTypeDocument": "Documento",
-    "fileTypeVideo": "Video",
+    "fileTypeVideo": "Vídeo",
     "fileTypeArchive": "Archivo"
   },
   "pocMetadata": {
@@ -459,6 +459,7 @@
     "searchPlaceholder": "Buscar...",
     "emptyMessage": "No se encontraron opciones.",
     "recaptchaTimeout": "La verificación ha caducado. Por favor, inténtalo de nuevo.",
+    "submitError": "No se pudo enviar la solicitud de soporte. Inténtalo de nuevo.",
     "placeholders": {
       "firstName": "Juan",
       "lastName": "García",
@@ -521,6 +522,7 @@
     "searchPlaceholder": "Buscar...",
     "emptyMessage": "No se encontraron opciones.",
     "recaptchaTimeout": "La verificación ha caducado. Por favor, inténtalo de nuevo.",
+    "submitError": "No se pudo enviar la consulta. Inténtalo de nuevo.",
     "placeholders": {
       "firstName": "Juan",
       "lastName": "García",
@@ -553,7 +555,7 @@
       "food-grocery-convenience": "Alimentación / Supermercado / Tienda de conveniencia",
       "food-beverage-industry": "Industria alimentaria y de bebidas",
       "franchise": "Franquicia",
-      "retail": "Retail",
+      "retail": "Comercio minorista",
       "technology-electronics": "Tecnología / Electrónica",
       "truck-freight-industry": "Transporte de mercancías",
       "other": "Otro"
@@ -591,6 +593,7 @@
     "searchPlaceholder": "Buscar...",
     "emptyMessage": "No se encontraron opciones.",
     "recaptchaTimeout": "La verificación ha caducado. Por favor, inténtalo de nuevo.",
+    "submitError": "No se pudo enviar la solicitud. Inténtalo de nuevo.",
     "placeholders": {
       "firstName": "Juan",
       "lastName": "García",
@@ -618,11 +621,11 @@
       "engineering": "Ingeniería",
       "product": "Producto",
       "design": "Diseño",
-      "marketing": "Marketing",
+      "marketing": "Mercadotecnia",
       "sales": "Ventas",
       "operations": "Operaciones",
       "finance": "Finanzas",
-      "legal": "Legal",
+      "legal": "Jurídico",
       "hr": "Recursos humanos",
       "customer-success": "Atención al cliente",
       "other": "Otro"
@@ -740,6 +743,7 @@
     "close": "Cerrar",
     "galleryLocked": "Esta galería está protegida con contraseña.",
     "galleryGateButton": "Introducir contraseña",
+    "galleryTitle": "Galería",
     "galleryPasswordTitle": "Acceder a la galería",
     "galleryPasswordDescription": "Introduce la contraseña para ver las imágenes de la galería.",
     "galleryPasswordLabel": "Contraseña",
