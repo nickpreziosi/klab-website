@@ -400,8 +400,7 @@
   "poc": {
     "heading": "POC",
     "subtitle": "Videos de prueba de concepto y recursos relacionados. Consúltalos y descárgalos aquí.",
-    "demoTitle": "Demo de K Rails",
-    "demoDescription": "Demostración web de K Rails."
+    "empty": "Los recursos de POC aparecerán aquí pronto."
   },
   "manualsMetadata": {
     "title": "Manuales | K Lab",

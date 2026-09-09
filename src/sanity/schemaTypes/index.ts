@@ -1,8 +1,8 @@
 import { type SchemaTypeDefinition } from "sanity";
 import { articleType } from "./articleType";
 import { internationalArticleType } from "./internationalArticleType";
-import { pocDemoType } from "./pocDemoType";
+import { pocType } from "./pocType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [articleType, internationalArticleType, pocDemoType],
+  types: [articleType, internationalArticleType, pocType],
 };

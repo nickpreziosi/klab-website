@@ -7,10 +7,16 @@ type PocViewProps = {
   heading: string;
   subtitle: string;
   collections: ResourceCollection[];
+  emptyMessage?: string;
 };
 
-export function PocView({ heading, subtitle, collections }: PocViewProps) {
+export function PocView({ heading, subtitle, collections, emptyMessage }: PocViewProps) {
   return (
-    <ResourceLibraryView heading={heading} subtitle={subtitle} collections={collections} />
+    <ResourceLibraryView
+      heading={heading}
+      subtitle={subtitle}
+      collections={collections}
+      emptyMessage={emptyMessage}
+    />
   );
 }

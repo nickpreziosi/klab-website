@@ -400,8 +400,7 @@
   "poc": {
     "heading": "POC",
     "subtitle": "Proof-of-concept videos and related assets. View and download them here.",
-    "demoTitle": "K Rails demo",
-    "demoDescription": "Web demonstration of K Rails."
+    "empty": "POC assets will appear here soon."
   },
   "manualsMetadata": {
     "title": "Manuals | K Lab",

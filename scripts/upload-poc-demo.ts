@@ -2,14 +2,13 @@ import { createReadStream, existsSync } from "node:fs";
 import path from "node:path";
 import { createClient } from "@sanity/client";
 import { config as loadEnv } from "dotenv";
-import { POC_DEMO_DOCUMENT_ID } from "../src/sanity/schemaTypes/pocDemoType";
+import { randomUUID } from "node:crypto";
 
 loadEnv({ path: ".env.local" });
 loadEnv();
 
 const DEFAULT_VIDEO_PATH = "/Users/nicholaspreziosi/Downloads/K-RAILS - DEMO WEB V5.mp4";
 const DEFAULT_POSTER_PATH = path.join(process.cwd(), "public/images/krails.webp");
-const VIDEO_FILENAME = "k-rails-demo-web-v5.mp4";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "mp87vpva";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
@@ -27,8 +26,12 @@ if (!token) {
   process.exit(1);
 }
 
-const videoPath = process.env.POC_DEMO_VIDEO_PATH || DEFAULT_VIDEO_PATH;
-const posterPath = process.env.POC_DEMO_POSTER_PATH || DEFAULT_POSTER_PATH;
+const videoPath = process.env.POC_VIDEO_PATH || process.env.POC_DEMO_VIDEO_PATH || DEFAULT_VIDEO_PATH;
+const posterPath = process.env.POC_POSTER_PATH || process.env.POC_DEMO_POSTER_PATH || DEFAULT_POSTER_PATH;
+// IDs with a "." are private in Sanity and will not show on the public site.
+const documentId = process.env.POC_DOCUMENT_ID || randomUUID();
+const downloadFilename = process.env.POC_DOWNLOAD_FILENAME;
+const videoFilename = downloadFilename || path.basename(videoPath);
 
 if (!existsSync(videoPath)) {
   console.error(`Video file not found: ${videoPath}`);
@@ -44,9 +47,9 @@ const client = createClient({
 });
 
 async function main() {
-  console.log(`Uploading video: ${videoPath}`);
+  console.log(`Uploading file: ${videoPath}`);
   const fileAsset = await client.assets.upload("file", createReadStream(videoPath), {
-    filename: VIDEO_FILENAME,
+    filename: videoFilename,
     contentType: "video/mp4",
   });
   console.log(`Uploaded file ${fileAsset._id}`);
@@ -73,14 +76,17 @@ async function main() {
       asset: posterRef,
     };
   }
+  if (downloadFilename) {
+    patch.downloadFilename = downloadFilename;
+  }
 
   await client
     .transaction()
-    .createIfNotExists({ _id: POC_DEMO_DOCUMENT_ID, _type: "pocDemo" })
-    .patch(POC_DEMO_DOCUMENT_ID, (p) => p.set(patch))
+    .createIfNotExists({ _id: documentId, _type: "poc" })
+    .patch(documentId, (p) => p.set(patch))
     .commit();
 
-  console.log(`Patched singleton ${POC_DEMO_DOCUMENT_ID}`);
+  console.log(`Patched POC document ${documentId}`);
 }
 
 main().catch((error: unknown) => {

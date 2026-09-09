@@ -400,8 +400,7 @@
   "poc": {
     "heading": "إثبات المفهوم",
     "subtitle": "فيديوهات إثبات المفهوم والموارد ذات الصلة. اعرضها وحمّلها هنا.",
-    "demoTitle": "عرض K Rails",
-    "demoDescription": "عرض ويب لـ K Rails."
+    "empty": "ستظهر موارد إثبات المفهوم هنا قريباً."
   },
   "manualsMetadata": {
     "title": "الأدلة | K Lab",

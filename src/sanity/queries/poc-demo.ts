@@ -1,47 +1,107 @@
 import { groq } from "next-sanity";
 import { client } from "../client";
-import { POC_DEMO_DOCUMENT_ID } from "../schemaTypes/pocDemoType";
+import type { ResourceAsset, ResourceAssetType, ResourceCollection } from "@/ui/resource-library/types";
 
-export type PocDemoAsset = {
-  youtubeUrl: string | null;
-  originalUrl: string | null;
-  originalFilename: string | null;
-  posterUrl: string | null;
+type PocLocalization = {
+  language?: string;
+  title?: string;
+  description?: string | null;
 };
 
-const pocDemoQuery = groq`
-  *[_type == "pocDemo" && _id == $id][0] {
+type PocQueryResult = {
+  _id: string;
+  youtubeUrl?: string | null;
+  downloadFilename?: string | null;
+  originalUrl?: string | null;
+  originalFilename?: string | null;
+  originalMime?: string | null;
+  posterUrl?: string | null;
+  localizations?: PocLocalization[] | null;
+};
+
+const pocDocumentsQuery = groq`
+  *[_type == "poc"] | order(order asc, _createdAt desc) {
+    _id,
     youtubeUrl,
+    downloadFilename,
     "originalUrl": original.asset->url,
     "originalFilename": original.asset->originalFilename,
-    "posterUrl": poster.asset->url
+    "originalMime": original.asset->mimeType,
+    "posterUrl": poster.asset->url,
+    localizations[] {
+      language,
+      title,
+      description
+    }
   }
 `;
 
-function withDownloadParam(url: string, filename: string | null): string {
-  const separator = url.includes("?") ? "&" : "?";
-  const dl = encodeURIComponent(filename || "k-rails-demo-web-v5.mp4");
-  return `${url}${separator}dl=${dl}`;
+function pickLocalization(localizations: PocLocalization[] | null | undefined, locale: string) {
+  if (!localizations?.length) return null;
+  return (
+    localizations.find((item) => item.language === locale) ??
+    localizations.find((item) => item.language === "en") ??
+    localizations[0]
+  );
 }
 
-export async function getPocDemo(): Promise<PocDemoAsset | null> {
-  const result = await client.fetch<{
-    youtubeUrl?: string | null;
-    originalUrl?: string | null;
-    originalFilename?: string | null;
-    posterUrl?: string | null;
-  } | null>(pocDemoQuery, { id: POC_DEMO_DOCUMENT_ID });
+function withDownloadParam(url: string, filename: string | null): string {
+  if (!filename) return url;
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}dl=${encodeURIComponent(filename)}`;
+}
 
-  if (!result) return null;
+export function pocAssetType(mimeType: string | null | undefined): ResourceAssetType {
+  const mime = mimeType?.toLowerCase() ?? "";
+  if (mime.startsWith("video/")) return "video";
+  if (mime.startsWith("image/")) return "image";
+  return "document";
+}
 
-  const originalUrl = result.originalUrl
-    ? withDownloadParam(result.originalUrl, result.originalFilename ?? null)
-    : null;
+export async function getPocDocuments(locale: string): Promise<ResourceCollection[]> {
+  const results = await client.fetch<PocQueryResult[]>(pocDocumentsQuery);
 
-  return {
-    youtubeUrl: result.youtubeUrl?.trim() || null,
-    originalUrl,
-    originalFilename: result.originalFilename ?? null,
-    posterUrl: result.posterUrl ?? null,
-  };
+  return results.flatMap((doc) => {
+    const localization = pickLocalization(doc.localizations, locale);
+    const title = localization?.title?.trim();
+    if (!title) return [];
+
+    const filename =
+      doc.downloadFilename?.trim() || doc.originalFilename?.trim() || null;
+    const href = doc.originalUrl ? withDownloadParam(doc.originalUrl, filename) : "";
+    const youtubeUrl = doc.youtubeUrl?.trim() || undefined;
+    const type = pocAssetType(doc.originalMime);
+    const resolvedType: ResourceAssetType =
+      type === "document" && youtubeUrl && !doc.originalMime ? "video" : type;
+
+    const asset: ResourceAsset = {
+      id: `${doc._id}-file`,
+      type: resolvedType,
+      href,
+      filename: filename ?? "download",
+      title,
+      previewSrc: doc.posterUrl ?? undefined,
+      youtubeUrl,
+    };
+
+    if (!asset.href && !asset.youtubeUrl && !asset.previewSrc) {
+      return [
+        {
+          id: doc._id,
+          title,
+          description: localization?.description?.trim() || undefined,
+          assets: [],
+        },
+      ];
+    }
+
+    return [
+      {
+        id: doc._id,
+        title,
+        description: localization?.description?.trim() || undefined,
+        assets: [asset],
+      },
+    ];
+  });
 }
