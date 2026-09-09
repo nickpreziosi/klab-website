@@ -91,6 +91,7 @@ export const NavigationMenuDemo = ({
 
       compactNavRef.current = nextCompact;
       setUseCompactNav(nextCompact);
+      if (!nextCompact) setIsNavbarHidden(false);
     };
 
     check();
@@ -147,9 +148,15 @@ export const NavigationMenuDemo = ({
       if (cancelled) return;
       const scrollY = window.scrollY;
 
-      // Scroll-to-hide: hide on scroll down, show on scroll up or at top (desktop + mobile)
+      // Scroll-to-hide only on compact / tablet / mobile nav.
       const threshold = 80;
       const scrollDelta = scrollY - lastScrollY.current;
+
+      if (!compactNavRef.current) {
+        setIsNavbarHidden(false);
+        lastScrollY.current = scrollY;
+        return;
+      }
 
       if (openDropdownRef.current || drawerOpenRef.current) {
         lastScrollY.current = scrollY;

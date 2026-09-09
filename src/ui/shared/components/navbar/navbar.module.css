@@ -58,7 +58,7 @@
   -webkit-backdrop-filter: blur(8px);
 }
 
-/* Scroll-to-hide: applied only on desktop via JS */
+/* Scroll-to-hide: applied only on compact / tablet / mobile nav via JS */
 .containerHidden {
   transform: translateY(-100%);
 }
