@@ -376,7 +376,21 @@
     "collections": {
       "jayHeller": "Jay Heller",
       "paoloFidanza": "Paolo Fidanza"
-    }
+    },
+    "showPassword": "إظهار كلمة المرور",
+    "hidePassword": "إخفاء كلمة المرور",
+    "passwordAccessTitle": "الوصول إلى الصحافة",
+    "passwordAccessDescription": "أدخل كلمة مرور الوصول لعرض صور وموارد الصحافة.",
+    "passwordLabel": "كلمة المرور",
+    "unlockButton": "فتح",
+    "unlockingButton": "جارٍ الفتح…",
+    "passwordGateMessage": "الوصول مقيد. أدخل كلمة المرور لعرض صور وموارد الصحافة.",
+    "passwordGateButton": "إدخال كلمة المرور",
+    "passwordHint": "هذا المحتوى محمي.",
+    "passwordErrorInvalid": "كلمة المرور غير صحيحة. حاول مرة أخرى.",
+    "passwordErrorNetwork": "خطأ في الشبكة. حاول مرة أخرى.",
+    "passwordErrorGeneric": "حدث خطأ ما. حاول مرة أخرى.",
+    "closeDialog": "إغلاق"
   },
   "resourceLibrary": {
     "downloadAll": "تنزيل الكل",

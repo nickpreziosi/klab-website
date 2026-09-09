@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import { ResourceCollectionSection } from "@/ui/resource-library/components/resource-collection-section/resource-collection-section";
@@ -11,6 +12,7 @@ type ResourceLibraryViewProps = {
   subtitle?: string;
   collections: ResourceCollection[];
   emptyMessage?: string;
+  afterHeader?: ReactNode;
 };
 
 export function ResourceLibraryView({
@@ -18,6 +20,7 @@ export function ResourceLibraryView({
   subtitle,
   collections,
   emptyMessage,
+  afterHeader,
 }: ResourceLibraryViewProps) {
   const skipAnimation = useSkipAnimationOnLocaleSwitch();
 
@@ -32,6 +35,7 @@ export function ResourceLibraryView({
             animateOnce
             skipAnimation={skipAnimation}
           />
+          {afterHeader}
           {collections.length > 0 ? (
             <div className={styles.collections}>
               {collections.map((collection) => (

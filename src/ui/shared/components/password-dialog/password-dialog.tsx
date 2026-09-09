@@ -1,21 +1,23 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import Button from "@/ui/shared/components/button/button";
 import { FloatingLabelInput } from "@/ui/shared/components/floating-label-input/floating-label-input";
-import styles from "./kena-password-dialog.module.css";
+import styles from "./password-dialog.module.css";
 
-export type KenaUnlockResult = { ok: true } | { ok: false; message?: string };
+export type PasswordUnlockResult = { ok: true } | { ok: false; message?: string };
 
-export interface KenaPasswordDialogProps {
+export interface PasswordDialogProps {
   open: boolean;
   onClose: () => void;
-  onUnlock: (password: string) => Promise<KenaUnlockResult>;
+  onUnlock: (password: string) => Promise<PasswordUnlockResult>;
+  /** Message namespace that provides the password-dialog copy keys. */
+  namespace: string;
 }
 
-export function KenaPasswordDialog({ open, onClose, onUnlock }: KenaPasswordDialogProps) {
-  const t = useTranslations("kena");
+export function PasswordDialog({ open, onClose, onUnlock, namespace }: PasswordDialogProps) {
+  const t = useTranslations(namespace);
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,7 +34,7 @@ export function KenaPasswordDialog({ open, onClose, onUnlock }: KenaPasswordDial
   }, [open]);
 
   const handleSubmit = useCallback(
-    async (ev?: React.FormEvent) => {
+    async (ev?: FormEvent) => {
       ev?.preventDefault();
       setLoading(true);
       setError(null);
@@ -47,7 +49,7 @@ export function KenaPasswordDialog({ open, onClose, onUnlock }: KenaPasswordDial
           setTimeout(() => setError(null), 3000);
         }
       } catch {
-        setError("Network error");
+        setError(t("passwordErrorNetwork"));
         setTimeout(() => setError(null), 3000);
       } finally {
         setLoading(false);
@@ -67,8 +69,8 @@ export function KenaPasswordDialog({ open, onClose, onUnlock }: KenaPasswordDial
       onCancel={handleClose}
       onClick={(e) => e.target === dialogRef.current && handleClose()}
       className={styles.dialogOverlay}
-      aria-labelledby="kena-dialog-title"
-      aria-describedby="kena-dialog-description"
+      aria-labelledby={`${namespace}-dialog-title`}
+      aria-describedby={`${namespace}-dialog-description`}
     >
       <div className={styles.dialogPanel} onClick={(e) => e.stopPropagation()} role="document">
         <div className={styles.dialogCard}>
@@ -105,10 +107,10 @@ export function KenaPasswordDialog({ open, onClose, onUnlock }: KenaPasswordDial
           </div>
 
           <div className={styles.dialogCardHeader}>
-            <h2 id="kena-dialog-title" className={styles.dialogTitle}>
+            <h2 id={`${namespace}-dialog-title`} className={styles.dialogTitle}>
               {t("passwordAccessTitle")}
             </h2>
-            <p id="kena-dialog-description" className={styles.dialogDescription}>
+            <p id={`${namespace}-dialog-description`} className={styles.dialogDescription}>
               {t("passwordAccessDescription")}
             </p>
           </div>
@@ -116,7 +118,7 @@ export function KenaPasswordDialog({ open, onClose, onUnlock }: KenaPasswordDial
           <form className={styles.dialogForm} onSubmit={handleSubmit}>
             <div className={styles.dialogPasswordWrap}>
               <FloatingLabelInput
-                id="kena-password-input"
+                id={`${namespace}-password-input`}
                 type={showPassword ? "text" : "password"}
                 label={t("passwordLabel")}
                 value={password}

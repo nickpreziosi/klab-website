@@ -376,7 +376,21 @@
     "collections": {
       "jayHeller": "Jay Heller",
       "paoloFidanza": "Paolo Fidanza"
-    }
+    },
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "passwordAccessTitle": "Access Press",
+    "passwordAccessDescription": "Enter the access password to view press photos and media assets.",
+    "passwordLabel": "Password",
+    "unlockButton": "Unlock",
+    "unlockingButton": "Unlocking…",
+    "passwordGateMessage": "Access restricted. Enter the password to view press photos and media assets.",
+    "passwordGateButton": "Enter password",
+    "passwordHint": "This content is gated.",
+    "passwordErrorInvalid": "Invalid password. Please try again.",
+    "passwordErrorNetwork": "Network error. Please try again.",
+    "passwordErrorGeneric": "Something went wrong. Please try again.",
+    "closeDialog": "Close"
   },
   "resourceLibrary": {
     "downloadAll": "Download all",

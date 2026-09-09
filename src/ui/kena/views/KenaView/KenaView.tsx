@@ -8,8 +8,7 @@ import KenaHeroSection from "@/ui/kena/components/kena-hero-section/kena-hero-se
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import styles from "./KenaView.module.css";
 import KenaCtaSection from "@/ui/kena/components/kena-cta-section/kena-cta-section";
-import { KenaPasswordDialog } from "@/ui/kena/components/kena-password-dialog/kena-password-dialog";
-import type { KenaUnlockResult } from "@/ui/kena/components/kena-password-dialog/kena-password-dialog";
+import { PasswordDialog, type PasswordUnlockResult } from "@/ui/shared/components/password-dialog/password-dialog";
 
 export interface KenaTranslations {
   heroHeading: string;
@@ -61,7 +60,7 @@ export function KenaView({ translations }: { translations: KenaTranslations }) {
   }, []);
 
   const handleUnlock = useCallback(
-    async (password: string): Promise<KenaUnlockResult> => {
+    async (password: string): Promise<PasswordUnlockResult> => {
       try {
         const res = await fetch("/api/kena-unlock", {
           method: "POST",
@@ -118,7 +117,8 @@ export function KenaView({ translations }: { translations: KenaTranslations }) {
         </>
       )}
 
-      <KenaPasswordDialog
+      <PasswordDialog
+        namespace="kena"
         open={dialogOpen}
         onClose={closeDialog}
         onUnlock={handleUnlock}

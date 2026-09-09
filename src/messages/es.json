@@ -376,7 +376,21 @@
     "collections": {
       "jayHeller": "Jay Heller",
       "paoloFidanza": "Paolo Fidanza"
-    }
+    },
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "passwordAccessTitle": "Acceso a Prensa",
+    "passwordAccessDescription": "Introduce la contraseña de acceso para ver las fotos y recursos de prensa.",
+    "passwordLabel": "Contraseña",
+    "unlockButton": "Desbloquear",
+    "unlockingButton": "Desbloqueando…",
+    "passwordGateMessage": "Acceso restringido. Introduce la contraseña para ver las fotos y recursos de prensa.",
+    "passwordGateButton": "Introducir contraseña",
+    "passwordHint": "Este contenido está restringido.",
+    "passwordErrorInvalid": "Contraseña no válida. Inténtalo de nuevo.",
+    "passwordErrorNetwork": "Error de red. Inténtalo de nuevo.",
+    "passwordErrorGeneric": "Algo salió mal. Inténtalo de nuevo.",
+    "closeDialog": "Cerrar"
   },
   "resourceLibrary": {
     "downloadAll": "Descargar todo",
