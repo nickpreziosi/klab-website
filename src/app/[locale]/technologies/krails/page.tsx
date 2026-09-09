@@ -60,8 +60,6 @@ export default async function KRailsPage({ params }: Props) {
     serveCallout: t("serveCallout"),
     servePrev: t("servePrev"),
     serveNext: t("serveNext"),
-    servePause: t("servePause"),
-    servePlay: t("servePlay"),
     serveItems: [
       { id: "governments", title: t("serveGovernmentsTitle"), body: t("serveGovernmentsBody") },
       { id: "enterprises", title: t("serveEnterprisesTitle"), body: t("serveEnterprisesBody") },

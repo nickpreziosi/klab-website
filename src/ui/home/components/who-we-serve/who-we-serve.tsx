@@ -1,18 +1,30 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "react";
+import {
+  Fragment,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type KeyboardEvent,
+} from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
-import { motion, useInView } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
+import Button from "@/ui/shared/components/button/button";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./who-we-serve.module.css";
 
 const DASHBOARD = "/images/who-we-serve/dashboard.png";
-const AUTOPLAY_MS = 8000;
+const DESKTOP_MQ = "(min-width: 1025px)";
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
+const IMAGE_FADE_EASE = [0.4, 0, 0.2, 1] as const;
+const SCROLL_UNLOCK_MS = 900;
 
 const AUDIENCES: readonly { id: string; icon: string; rotate?: boolean }[] = [
   { id: "governments", icon: "/images/who-we-serve/icon-governments.svg" },
@@ -22,14 +34,43 @@ const AUDIENCES: readonly { id: string; icon: string; rotate?: boolean }[] = [
   { id: "capital", icon: "/images/who-we-serve/icon-capital.svg" },
 ];
 
+const panelVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.14,
+      delayChildren: 0.04,
+    },
+  },
+};
+
+const layoutVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.14 },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: ENTRANCE_EASE },
+  },
+};
+
+const fadeUpInstant = {
+  hidden: { opacity: 1, y: 0 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0 } },
+};
+
 export type WhoWeServeTranslations = {
   serveTitle: string;
   serveImageAlt: string;
   serveCallout: string;
   servePrev: string;
   serveNext: string;
-  servePause: string;
-  servePlay: string;
   serveItems: { id: string; title: string; body: string }[];
 };
 
@@ -48,6 +89,119 @@ type AudienceCopyProps = {
   active?: boolean;
   collapseBody?: boolean;
 };
+
+function isDesktopViewport() {
+  return window.matchMedia(DESKTOP_MQ).matches;
+}
+
+function readNavbarHeight() {
+  const raw = getComputedStyle(document.documentElement)
+    .getPropertyValue("--navbar-height")
+    .trim();
+  const parsed = Number.parseFloat(raw);
+  return Number.isFinite(parsed) ? parsed : 88;
+}
+
+function clamp01(value: number) {
+  return Math.max(0, Math.min(1, value));
+}
+
+function readPanelHeight(panel: HTMLElement | null) {
+  if (panel) return panel.getBoundingClientRect().height;
+  return Math.max(0, window.innerHeight - readNavbarHeight());
+}
+
+function readTrackProgress(track: HTMLElement, panel: HTMLElement | null) {
+  const nav = readNavbarHeight();
+  const { top, height } = track.getBoundingClientRect();
+  const panelHeight = readPanelHeight(panel);
+  const range = height - panelHeight;
+  if (range <= 0) return top <= nav ? 1 : 0;
+  return clamp01((nav - top) / range);
+}
+
+function indexFromProgress(progress: number, count: number) {
+  if (count <= 1) return 0;
+  if (progress <= 0) return 0;
+  if (progress >= 1) return count - 1;
+  return Math.min(count - 1, Math.floor(progress * count));
+}
+
+function scrollTrackToIndex(
+  track: HTMLElement,
+  panel: HTMLElement | null,
+  index: number,
+  count: number,
+  instant: boolean,
+) {
+  const nav = readNavbarHeight();
+  const { top, height } = track.getBoundingClientRect();
+  const panelHeight = readPanelHeight(panel);
+  const range = height - panelHeight;
+  if (range <= 0) return;
+  const targetProgress = (index + 0.5) / count;
+  const targetTop = nav - targetProgress * range;
+  window.scrollTo({
+    top: window.scrollY + (top - targetTop),
+    behavior: instant ? "auto" : "smooth",
+  });
+}
+
+function shotTransition(skip: boolean, delay: number, duration: number) {
+  return skip
+    ? { duration: 0 }
+    : { duration, delay, ease: ENTRANCE_EASE };
+}
+
+function CalloutLeader({
+  className,
+  play,
+  skip,
+}: {
+  className?: string;
+  play: boolean;
+  skip: boolean;
+}) {
+  const shown = skip || play;
+
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 74.3486 27.1667"
+      fill="none"
+      preserveAspectRatio="none"
+      overflow="visible"
+      aria-hidden
+    >
+      <motion.circle
+        cx="2.66667"
+        cy="2.66667"
+        r="2.66667"
+        fill="currentColor"
+        initial={skip ? false : { opacity: 0 }}
+        animate={{ opacity: shown ? 1 : 0 }}
+        transition={shotTransition(skip, 0.28, 0.25)}
+      />
+      <motion.path
+        d="M2.667 2.667 H64.667 A6 6 0 0 1 70.667 8.667 V26.667"
+        stroke="currentColor"
+        strokeWidth="1"
+        initial={skip ? false : { pathLength: 0 }}
+        animate={{ pathLength: shown ? 1 : 0 }}
+        transition={shotTransition(skip, 0.32, 0.55)}
+      />
+      <motion.path
+        d="M67.838 23.131 L70.667 26.667 L73.495 23.131"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinejoin="miter"
+        initial={skip ? false : { opacity: 0 }}
+        animate={{ opacity: shown ? 1 : 0 }}
+        transition={shotTransition(skip, 0.82, 0.2)}
+      />
+    </svg>
+  );
+}
 
 function AudienceCopy({
   item,
@@ -94,11 +248,17 @@ export function WhoWeServe({
 }: WhoWeServeProps) {
   const locale = useLocale() as Locale;
   const dir = getTextDirection(locale);
+  const reduceMotion = useReducedMotion();
+  const disableEntrance = skipAnimation || Boolean(reduceMotion);
   const sectionRef = useRef<HTMLElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const selectedRef = useRef(0);
+  const scrollLockRef = useRef<number | null>(null);
+  const scrollUnlockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const jumpIdRef = useRef(0);
   const [selected, setSelected] = useState(0);
-  const [autoplayPaused, setAutoplayPaused] = useState(false);
-  const isInView = useInView(sectionRef, { amount: 0.2 });
+  const panelInView = useInView(stickyRef, { once: true, amount: 0.25 });
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     loop: true,
@@ -106,8 +266,15 @@ export function WhoWeServe({
     direction: dir,
   });
 
+  const items = translations.serveItems;
+  const count = items.length;
+  selectedRef.current = selected;
+  const showEntrance = disableEntrance || panelInView;
+  const itemVariants = disableEntrance ? fadeUpInstant : fadeUp;
+
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
+    if (isDesktopViewport()) return;
     setSelected(emblaApi.selectedScrollSnap());
   }, [emblaApi]);
 
@@ -116,28 +283,121 @@ export function WhoWeServe({
     onSelect();
     emblaApi.on("select", onSelect);
     emblaApi.on("reInit", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
   }, [emblaApi, onSelect]);
 
   useEffect(() => {
     emblaApi?.reInit();
   }, [dir, emblaApi]);
 
-  const items = translations.serveItems;
+  useEffect(() => {
+    const mq = window.matchMedia(DESKTOP_MQ);
+    const onChange = () => {
+      if (mq.matches) return;
+      emblaApi?.reInit();
+      emblaApi?.scrollTo(selectedRef.current, true);
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, [emblaApi]);
+
+  useLayoutEffect(() => {
+    const track = sectionRef.current;
+    if (!track) return;
+
+    const update = () => {
+      if (!isDesktopViewport()) return;
+      const locked = scrollLockRef.current;
+      if (locked != null) {
+        setSelected((prev) => (prev === locked ? prev : locked));
+        return;
+      }
+      const next = indexFromProgress(
+        readTrackProgress(track, stickyRef.current),
+        count,
+      );
+      setSelected((prev) => (prev === next ? prev : next));
+    };
+
+    update();
+    const frame = window.requestAnimationFrame(update);
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    const mq = window.matchMedia(DESKTOP_MQ);
+    mq.addEventListener("change", update);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+      mq.removeEventListener("change", update);
+    };
+  }, [count]);
 
   useEffect(() => {
-    if (!emblaApi || items.length < 2 || !isInView || autoplayPaused) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    return () => {
+      scrollLockRef.current = null;
+      if (scrollUnlockTimerRef.current) {
+        clearTimeout(scrollUnlockTimerRef.current);
+      }
+    };
+  }, []);
 
-    const id = window.setTimeout(() => {
-      emblaApi.scrollNext();
-    }, AUTOPLAY_MS);
+  const goTo = useCallback(
+    (index: number, instant = false) => {
+      const next = Math.max(0, Math.min(count - 1, index));
+      if (isDesktopViewport()) {
+        const track = sectionRef.current;
+        if (!track) return;
 
-    return () => window.clearTimeout(id);
-  }, [emblaApi, items.length, selected, isInView, autoplayPaused]);
+        const jumpId = ++jumpIdRef.current;
+        scrollLockRef.current = next;
+        setSelected(next);
 
-  const goTo = (index: number) => {
-    emblaApi?.scrollTo(index);
-  };
+        const instantJump =
+          instant || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        scrollTrackToIndex(track, stickyRef.current, next, count, instantJump);
+
+        const release = () => {
+          if (jumpId !== jumpIdRef.current) return;
+          scrollLockRef.current = null;
+          if (scrollUnlockTimerRef.current) {
+            clearTimeout(scrollUnlockTimerRef.current);
+            scrollUnlockTimerRef.current = null;
+          }
+          const currentTrack = sectionRef.current;
+          if (currentTrack && isDesktopViewport()) {
+            const synced = indexFromProgress(
+              readTrackProgress(currentTrack, stickyRef.current),
+              count,
+            );
+            setSelected(synced);
+          }
+        };
+
+        if (scrollUnlockTimerRef.current) {
+          clearTimeout(scrollUnlockTimerRef.current);
+        }
+
+        if (instantJump) {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(release);
+          });
+          return;
+        }
+
+        scrollUnlockTimerRef.current = setTimeout(release, SCROLL_UNLOCK_MS);
+        window.addEventListener("scrollend", release, { once: true });
+        return;
+      }
+
+      emblaApi?.scrollTo(next);
+    },
+    [count, emblaApi],
+  );
 
   const goPrev = () => {
     emblaApi?.scrollPrev();
@@ -148,7 +408,7 @@ export function WhoWeServe({
   };
 
   const onTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
-    const last = items.length - 1;
+    const last = count - 1;
     let next = index;
     if (event.key === "ArrowDown" || event.key === "ArrowRight") {
       event.preventDefault();
@@ -170,148 +430,198 @@ export function WhoWeServe({
   };
 
   return (
-    <motion.section
+    <section
       ref={sectionRef}
       id="who-we-serve"
       className={cn(styles.section, className)}
       dir={dir}
       aria-labelledby="who-we-serve-heading"
-      initial={skipAnimation ? false : { opacity: 0 }}
-      whileInView={skipAnimation ? undefined : { opacity: 1 }}
-      animate={skipAnimation ? { opacity: 1 } : undefined}
-      viewport={skipAnimation ? undefined : { once: true, amount: 0.15 }}
-      transition={
-        skipAnimation ? { duration: 0 } : { duration: 0.7, ease: ENTRANCE_EASE }
-      }
+      style={{ "--serve-count": count } as CSSProperties}
     >
-      <div className={styles.header}>
-        <h2 id="who-we-serve-heading" className={styles.heading}>
-          {translations.serveTitle}
-        </h2>
-        <div className={styles.controls}>
-          <button
-            type="button"
-            className={cn(styles.navButton, styles.stepButton)}
-            aria-label={translations.servePrev}
-            onClick={goPrev}
-          >
-            <ChevronLeft className="rtlFlipH" aria-hidden />
-          </button>
-          <button
-            type="button"
-            className={cn(styles.navButton, styles.stepButton)}
-            aria-label={translations.serveNext}
-            onClick={goNext}
-          >
-            <ChevronRight className="rtlFlipH" aria-hidden />
-          </button>
-          <button
-            type="button"
-            className={styles.navButton}
-            aria-label={autoplayPaused ? translations.servePlay : translations.servePause}
-            onClick={() => setAutoplayPaused((paused) => !paused)}
-          >
-            {autoplayPaused ? (
-              <Play aria-hidden />
-            ) : (
-              <Pause aria-hidden />
-            )}
-          </button>
-        </div>
+      <div className={styles.markers} aria-hidden>
+        {items.map((item, index) => (
+          <div
+            key={item.id}
+            className={styles.marker}
+            style={{
+              top: `calc(${(index + 0.5) / Math.max(count, 1)} * (100% - (100dvh - var(--navbar-height))))`,
+            }}
+          />
+        ))}
       </div>
 
-      <div className={styles.layout}>
-        <div
-          className={styles.list}
-          role="tablist"
-          aria-label={translations.serveTitle}
-          aria-orientation="vertical"
-        >
-          {items.map((item, index) => {
-            const active = index === selected;
-            const audience = AUDIENCES[index];
-            return (
-              <button
-                key={item.id}
-                ref={(node) => {
-                  tabRefs.current[index] = node;
-                }}
-                type="button"
-                role="tab"
-                id={`serve-tab-${item.id}`}
-                tabIndex={active ? 0 : -1}
-                aria-selected={active}
-                aria-controls={`serve-panel-${item.id}`}
-                className={cn(styles.item, active && styles.itemActive)}
-                onClick={() => goTo(index)}
-                onKeyDown={(event) => onTabKeyDown(event, index)}
-              >
-                <AudienceCopy
-                  item={item}
-                  icon={audience?.icon}
-                  rotate={audience?.rotate}
-                  active={active}
-                  collapseBody
-                />
-              </button>
-            );
-          })}
-        </div>
+      <motion.div
+        ref={stickyRef}
+        className={styles.sticky}
+        initial={disableEntrance ? "visible" : "hidden"}
+        animate={showEntrance ? "visible" : "hidden"}
+        variants={disableEntrance ? undefined : panelVariants}
+      >
+        <motion.div className={styles.header} variants={itemVariants}>
+          <h2 id="who-we-serve-heading" className={styles.heading}>
+            {translations.serveTitle}
+          </h2>
+          <div className={styles.controls}>
+            <Button
+              type="button"
+              variant="accent-brand-outline"
+              size="icon"
+              className={styles.navButton}
+              aria-label={translations.servePrev}
+              onClick={goPrev}
+              icon={<ChevronLeft className="rtlFlipH" aria-hidden />}
+            />
+            <Button
+              type="button"
+              variant="accent-brand-outline"
+              size="icon"
+              className={styles.navButton}
+              aria-label={translations.serveNext}
+              onClick={goNext}
+              icon={<ChevronRight className="rtlFlipH" aria-hidden />}
+            />
+          </div>
+        </motion.div>
 
-        <div className={styles.media}>
-          <div className={styles.stage}>
-            <div className={styles.imageFrame} dir="ltr">
-              <div className={styles.glow} aria-hidden />
-              <div className={styles.viewport} ref={emblaRef}>
-                <div className={styles.container}>
-                  {items.map((item, index) => {
-                    const active = index === selected;
-                    const audience = AUDIENCES[index];
-                    return (
-                      <div
-                        key={item.id}
-                        className={styles.slide}
-                        role="tabpanel"
-                        id={`serve-panel-${item.id}`}
-                        aria-labelledby={`serve-tab-${item.id}`}
-                        aria-hidden={!active}
-                        inert={!active}
-                      >
-                        <img
-                          src={DASHBOARD}
-                          alt={active ? translations.serveImageAlt : ""}
-                          className={styles.image}
-                          decoding="async"
-                        />
-                        <p className={cn(styles.callout, styles.slideCallout)}>
-                          {translations.serveCallout}
-                        </p>
-                        <div className={cn(styles.slideCopy, styles.itemActive)}>
-                          <AudienceCopy
-                            item={item}
-                            icon={audience?.icon}
-                            rotate={audience?.rotate}
+        <motion.div
+          className={styles.layout}
+          variants={disableEntrance ? undefined : layoutVariants}
+        >
+          <motion.div
+            className={styles.list}
+            role="tablist"
+            aria-label={translations.serveTitle}
+            aria-orientation="vertical"
+            variants={itemVariants}
+          >
+            {items.map((item, index) => {
+              const active = index === selected;
+              const audience = AUDIENCES[index];
+              return (
+                <button
+                  key={item.id}
+                  ref={(node) => {
+                    tabRefs.current[index] = node;
+                  }}
+                  type="button"
+                  role="tab"
+                  id={`serve-tab-${item.id}`}
+                  tabIndex={active ? 0 : -1}
+                  aria-selected={active}
+                  aria-controls={`serve-panel-${item.id}`}
+                  className={cn(styles.item, active && styles.itemActive)}
+                  onClick={() => goTo(index)}
+                  onKeyDown={(event) => onTabKeyDown(event, index)}
+                >
+                  <AudienceCopy
+                    item={item}
+                    icon={audience?.icon}
+                    rotate={audience?.rotate}
+                    active={active}
+                    collapseBody
+                  />
+                </button>
+              );
+            })}
+          </motion.div>
+
+          <motion.div className={styles.media} variants={itemVariants}>
+            <div className={styles.stage}>
+              <div className={styles.imageFrame} dir="ltr">
+                <motion.div
+                  className={styles.glow}
+                  aria-hidden
+                  initial={disableEntrance ? false : { opacity: 0 }}
+                  animate={{ opacity: showEntrance ? 1 : 0 }}
+                  transition={shotTransition(disableEntrance, 0, 0.7)}
+                />
+                <div className={styles.desktopShot}>
+                  <AnimatePresence initial={false}>
+                    <motion.img
+                      key={disableEntrance ? "static" : selected}
+                      src={DASHBOARD}
+                      alt={translations.serveImageAlt}
+                      className={styles.image}
+                      decoding="async"
+                      initial={disableEntrance ? false : { opacity: 0 }}
+                      animate={{ opacity: showEntrance ? 1 : 0 }}
+                      exit={disableEntrance ? undefined : { opacity: 0 }}
+                      transition={
+                        disableEntrance
+                          ? { duration: 0 }
+                          : { duration: 0.5, ease: IMAGE_FADE_EASE }
+                      }
+                    />
+                  </AnimatePresence>
+                </div>
+                <Fragment key={disableEntrance ? "static" : selected}>
+                  <span className={styles.leader} aria-hidden>
+                    <CalloutLeader
+                      className={styles.leaderImg}
+                      play={showEntrance}
+                      skip={disableEntrance}
+                    />
+                  </span>
+                  <motion.p
+                    className={cn(styles.callout, styles.overlayCallout)}
+                    initial={disableEntrance ? false : { opacity: 0 }}
+                    animate={{ opacity: showEntrance ? 1 : 0 }}
+                    transition={shotTransition(disableEntrance, 0.5, 0.45)}
+                  >
+                    {translations.serveCallout}
+                  </motion.p>
+                </Fragment>
+                <div className={styles.viewport} ref={emblaRef}>
+                  <div className={styles.container}>
+                    {items.map((item, index) => {
+                      const active = index === selected;
+                      const audience = AUDIENCES[index];
+                      return (
+                        <div
+                          key={item.id}
+                          className={styles.slide}
+                          role="tabpanel"
+                          id={`serve-panel-${item.id}`}
+                          aria-labelledby={`serve-tab-${item.id}`}
+                          aria-hidden={!active}
+                          inert={!active}
+                        >
+                          <img
+                            src={DASHBOARD}
+                            alt={active ? translations.serveImageAlt : ""}
+                            className={styles.image}
+                            decoding="async"
                           />
+                          <motion.p
+                            className={cn(styles.callout, styles.slideCallout)}
+                            initial={disableEntrance ? false : { opacity: 0 }}
+                            animate={{ opacity: active && showEntrance ? 1 : 0 }}
+                            transition={shotTransition(disableEntrance, 0.2, 0.45)}
+                          >
+                            {translations.serveCallout}
+                          </motion.p>
+                          <motion.div
+                            className={cn(styles.slideCopy, styles.itemActive)}
+                            initial={disableEntrance ? false : { opacity: 0 }}
+                            animate={{ opacity: active && showEntrance ? 1 : 0 }}
+                            transition={shotTransition(disableEntrance, 0.28, 0.45)}
+                          >
+                            <AudienceCopy
+                              item={item}
+                              icon={audience?.icon}
+                              rotate={audience?.rotate}
+                            />
+                          </motion.div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
-              <span className={styles.leader} aria-hidden>
-                <img
-                  src="/images/who-we-serve/callout-leader.svg"
-                  alt=""
-                  className={styles.leaderImg}
-                />
-              </span>
-              <p className={cn(styles.callout, styles.overlayCallout)}>
-                {translations.serveCallout}
-              </p>
             </div>
-          </div>
-        </div>
-      </div>
-    </motion.section>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </section>
   );
 }
