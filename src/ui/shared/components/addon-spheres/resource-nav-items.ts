@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 
 export const RESOURCE_NAV_ITEMS = [
-  { id: "brand", href: "https://klab-brand-center.vercel.app/", external: true },
+  { id: "brand", href: "https://klab-gbl-brand-portal-web-ui-386390871985.us-central1.run.app/assets", external: true },
   { id: "press", href: "/press", external: false },
   { id: "poc", href: "/poc", external: false },
   { id: "manuals", href: "/manuals", external: false },
