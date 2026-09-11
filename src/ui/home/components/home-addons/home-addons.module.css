@@ -26,46 +26,7 @@
   width: 100%;
 }
 
-@media (min-width: 1025px) {
-  .scene {
-    height: 200vh;
-  }
-
-  .sticky {
-    position: sticky;
-    top: var(--navbar-height);
-    height: calc(100vh - var(--navbar-height));
-    height: calc(100dvh - var(--navbar-height));
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: visible;
-  }
-}
-
-.sceneStatic {
-  height: auto;
-}
-
-.sceneStatic .sticky {
-  position: static;
-  height: auto;
-}
-
-.sceneStatic .callout {
-  opacity: 1;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .scene {
-    height: auto;
-  }
-
-  .sticky {
-    position: static;
-    height: auto;
-  }
-
   .callout {
     opacity: 1;
   }
@@ -147,8 +108,11 @@
 
 .callouts {
   position: absolute;
-  inset: 0;
   z-index: 2;
+  top: calc(425 / 495 * 100%);
+  right: 0;
+  bottom: 0;
+  left: 0;
   pointer-events: none;
 }
 
@@ -164,13 +128,13 @@
 }
 
 .calloutLeft {
-  top: calc(425 / 495 * 100%);
+  top: 0;
   left: calc(11 / 610 * 100%);
   width: calc(255 / 610 * 100%);
 }
 
 .calloutRight {
-  top: calc(425 / 495 * 100%);
+  top: 0;
   left: calc(338 / 610 * 100%);
   width: calc(207 / 610 * 100%);
 }

@@ -1,16 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import {
-  motion,
-  useInView,
-  useMotionValue,
-  useMotionValueEvent,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import type { HomeKrailsTranslations } from "@/ui/home/types";
@@ -31,19 +22,25 @@ type HomeAddonsProps = {
   skipAnimation?: boolean;
 };
 
+function shotTransition(skip: boolean, delay: number, duration: number) {
+  return skip
+    ? { duration: 0 }
+    : { duration, delay, ease: ENTRANCE_EASE };
+}
+
 function LeaderLine({
   variant,
   className,
-  pathLength,
-  startOpacity,
-  endOpacity,
+  play,
+  skip,
 }: {
   variant: "left" | "right";
   className: string;
-  pathLength: MotionValue<number> | number;
-  startOpacity: MotionValue<number> | number;
-  endOpacity: MotionValue<number> | number;
+  play: boolean;
+  skip: boolean;
 }) {
+  const shown = skip || play;
+
   if (variant === "left") {
     return (
       <svg
@@ -59,20 +56,26 @@ function LeaderLine({
           cy="2.66667"
           r="2.66667"
           fill="#00ACFD"
-          style={{ opacity: startOpacity }}
+          initial={skip ? false : { opacity: 0 }}
+          animate={{ opacity: shown ? 1 : 0 }}
+          transition={shotTransition(skip, 0.28, 0.25)}
         />
         <motion.path
           d="M2.667 2.667 V139.167 A6 6 0 0 0 8.667 145.167 H103.5"
           stroke="#00ACFD"
           strokeWidth="1"
-          style={{ pathLength }}
+          initial={skip ? false : { pathLength: 0 }}
+          animate={{ pathLength: shown ? 1 : 0 }}
+          transition={shotTransition(skip, 0.32, 0.55)}
         />
         <motion.path
           d="M100.132 142.338 L102.96 145.167 L100.132 147.995"
           stroke="#00ACFD"
           strokeWidth="1"
           strokeLinejoin="miter"
-          style={{ opacity: endOpacity }}
+          initial={skip ? false : { opacity: 0 }}
+          animate={{ opacity: shown ? 1 : 0 }}
+          transition={shotTransition(skip, 0.82, 0.2)}
         />
       </svg>
     );
@@ -92,19 +95,25 @@ function LeaderLine({
         cy="30.5"
         r="2.66667"
         fill="#00ACFD"
-        style={{ opacity: startOpacity }}
+        initial={skip ? false : { opacity: 0 }}
+        animate={{ opacity: shown ? 1 : 0 }}
+        transition={shotTransition(skip, 0.28, 0.25)}
       />
       <motion.path
         d="M2.667 30.5 V6.5 A6 6 0 0 1 8.667 0.5 H138.667 A6 6 0 0 1 144.667 6.5 V53.5"
         stroke="#00ACFD"
         strokeWidth="1"
-        style={{ pathLength }}
+        initial={skip ? false : { pathLength: 0 }}
+        animate={{ pathLength: shown ? 1 : 0 }}
+        transition={shotTransition(skip, 0.32, 0.55)}
       />
       <motion.path
         d="M141.838 50.4646 L144.667 53.293 L147.495 50.4646"
         stroke="#00ACFD"
         strokeWidth="1"
-        style={{ opacity: endOpacity }}
+        initial={skip ? false : { opacity: 0 }}
+        animate={{ opacity: shown ? 1 : 0 }}
+        transition={shotTransition(skip, 0.82, 0.2)}
       />
     </svg>
   );
@@ -113,45 +122,18 @@ function LeaderLine({
 export function HomeAddons({ translations, skipAnimation = false }: HomeAddonsProps) {
   const locale = useLocale() as Locale;
   const dir = getTextDirection(locale);
-  const sceneRef = useRef<HTMLDivElement>(null);
   const boardRef = useRef<HTMLDivElement>(null);
+  const calloutsRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const skip = skipAnimation || !!reduceMotion;
-  const inView = useInView(boardRef, { once: true, amount: 0.3 });
-  const revealed = skip || inView;
+  const boardInView = useInView(boardRef, { once: true, amount: 0.3 });
+  const calloutsInView = useInView(calloutsRef, { once: true, amount: 0.4 });
+  const boardRevealed = skip || boardInView;
+  const shotReady = skip || calloutsInView;
 
-  const { scrollYProgress } = useScroll({
-    target: sceneRef,
-    offset: ["start start", "end end"],
-  });
-  const lineLength = useTransform(scrollYProgress, [0.22, 0.52], [0, 1]);
-  const lineStart = useTransform(scrollYProgress, [0.18, 0.28], [0, 1]);
-  const lineEnd = useTransform(scrollYProgress, [0.48, 0.58], [0, 1]);
-  const calloutProgress = useTransform(scrollYProgress, [0.32, 0.52], [0, 1]);
-  const boxesOpacity = useMotionValue(skip ? 1 : 0);
-  const prevProgress = useRef(0);
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const goingDown = latest >= prevProgress.current;
-    prevProgress.current = latest;
-    const mapped = calloutProgress.get();
-    if (goingDown) {
-      if (mapped > boxesOpacity.get()) boxesOpacity.set(mapped);
-      return;
-    }
-    boxesOpacity.set(mapped);
-  });
-
-  useEffect(() => {
-    if (skip) boxesOpacity.set(1);
-  }, [skip, boxesOpacity]);
-
-  const screenState = skip ? "visible" : revealed ? "visible" : "hidden";
+  const screenState = skip ? "visible" : boardRevealed ? "visible" : "hidden";
   const screenTransition = (delay: number) =>
     skip ? { duration: 0 } : { duration: 0.7, delay, ease: ENTRANCE_EASE };
-  const linePathLength = skip ? 1 : lineLength;
-  const lineStartOpacity = skip ? 1 : lineStart;
-  const lineEndOpacity = skip ? 1 : lineEnd;
 
   return (
     <section
@@ -159,10 +141,7 @@ export function HomeAddons({ translations, skipAnimation = false }: HomeAddonsPr
       dir={dir}
       aria-labelledby="home-addons-heading"
     >
-      <div
-        ref={sceneRef}
-        className={cn(styles.scene, reduceMotion && styles.sceneStatic)}
-      >
+      <div className={styles.scene}>
         <div className={styles.sticky}>
           <div className={styles.top}>
         <div className={styles.visual} dir="ltr">
@@ -208,27 +187,27 @@ export function HomeAddons({ translations, skipAnimation = false }: HomeAddonsPr
                 <LeaderLine
                   variant="left"
                   className={styles.leaderLeft}
-                  pathLength={linePathLength}
-                  startOpacity={lineStartOpacity}
-                  endOpacity={lineEndOpacity}
+                  play={shotReady}
+                  skip={skip}
                 />
               </span>
               <span className={styles.leaderRightWrap} aria-hidden>
                 <LeaderLine
                   variant="right"
                   className={styles.leaderRight}
-                  pathLength={linePathLength}
-                  startOpacity={lineStartOpacity}
-                  endOpacity={lineEndOpacity}
+                  play={shotReady}
+                  skip={skip}
                 />
               </span>
             </div>
 
-            <div className={styles.callouts}>
+            <div className={styles.callouts} ref={calloutsRef}>
               <motion.div
                 className={cn(styles.callout, styles.calloutLeft)}
                 dir={dir}
-                style={{ opacity: boxesOpacity }}
+                initial={skip ? false : { opacity: 0 }}
+                animate={{ opacity: shotReady ? 1 : 0 }}
+                transition={shotTransition(skip, 0.5, 0.45)}
               >
                 <ul>
                   <li>{translations.addonsCallout1}</li>
@@ -238,7 +217,9 @@ export function HomeAddons({ translations, skipAnimation = false }: HomeAddonsPr
               <motion.div
                 className={cn(styles.callout, styles.calloutRight)}
                 dir={dir}
-                style={{ opacity: boxesOpacity }}
+                initial={skip ? false : { opacity: 0 }}
+                animate={{ opacity: shotReady ? 1 : 0 }}
+                transition={shotTransition(skip, 0.5, 0.45)}
               >
                 <ul>
                   <li>{translations.addonsCallout3}</li>

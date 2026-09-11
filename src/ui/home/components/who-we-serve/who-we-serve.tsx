@@ -4,10 +4,8 @@ import {
   Fragment,
   useCallback,
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
-  type CSSProperties,
   type KeyboardEvent,
 } from "react";
 import useEmblaCarousel from "embla-carousel-react";
@@ -23,7 +21,6 @@ import styles from "./who-we-serve.module.css";
 const DASHBOARD = "/images/who-we-serve/dashboard.png";
 const DESKTOP_MQ = "(min-width: 1025px)";
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
-const SCROLL_UNLOCK_MS = 900;
 
 const AUDIENCES: readonly { id: string; icon: string; rotate?: boolean }[] = [
   { id: "governments", icon: "/images/who-we-serve/icon-governments.svg" },
@@ -91,59 +88,6 @@ type AudienceCopyProps = {
 
 function isDesktopViewport() {
   return window.matchMedia(DESKTOP_MQ).matches;
-}
-
-function readNavbarHeight() {
-  const raw = getComputedStyle(document.documentElement)
-    .getPropertyValue("--navbar-height")
-    .trim();
-  const parsed = Number.parseFloat(raw);
-  return Number.isFinite(parsed) ? parsed : 88;
-}
-
-function clamp01(value: number) {
-  return Math.max(0, Math.min(1, value));
-}
-
-function readPanelHeight(panel: HTMLElement | null) {
-  if (panel) return panel.getBoundingClientRect().height;
-  return Math.max(0, window.innerHeight - readNavbarHeight());
-}
-
-function readTrackProgress(track: HTMLElement, panel: HTMLElement | null) {
-  const nav = readNavbarHeight();
-  const { top, height } = track.getBoundingClientRect();
-  const panelHeight = readPanelHeight(panel);
-  const range = height - panelHeight;
-  if (range <= 0) return top <= nav ? 1 : 0;
-  return clamp01((nav - top) / range);
-}
-
-function indexFromProgress(progress: number, count: number) {
-  if (count <= 1) return 0;
-  if (progress <= 0) return 0;
-  if (progress >= 1) return count - 1;
-  return Math.min(count - 1, Math.floor(progress * count));
-}
-
-function scrollTrackToIndex(
-  track: HTMLElement,
-  panel: HTMLElement | null,
-  index: number,
-  count: number,
-  instant: boolean,
-) {
-  const nav = readNavbarHeight();
-  const { top, height } = track.getBoundingClientRect();
-  const panelHeight = readPanelHeight(panel);
-  const range = height - panelHeight;
-  if (range <= 0) return;
-  const targetProgress = (index + 0.5) / count;
-  const targetTop = nav - targetProgress * range;
-  window.scrollTo({
-    top: window.scrollY + (top - targetTop),
-    behavior: instant ? "auto" : "smooth",
-  });
 }
 
 function shotTransition(skip: boolean, delay: number, duration: number) {
@@ -249,13 +193,9 @@ export function WhoWeServe({
   const dir = getTextDirection(locale);
   const reduceMotion = useReducedMotion();
   const disableEntrance = skipAnimation || Boolean(reduceMotion);
-  const sectionRef = useRef<HTMLElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const selectedRef = useRef(0);
-  const scrollLockRef = useRef<number | null>(null);
-  const scrollUnlockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const jumpIdRef = useRef(0);
   const [selected, setSelected] = useState(0);
   const panelInView = useInView(stickyRef, { once: true, amount: 0.25 });
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -303,93 +243,11 @@ export function WhoWeServe({
     return () => mq.removeEventListener("change", onChange);
   }, [emblaApi]);
 
-  useLayoutEffect(() => {
-    const track = sectionRef.current;
-    if (!track) return;
-
-    const update = () => {
-      if (!isDesktopViewport()) return;
-      const locked = scrollLockRef.current;
-      if (locked != null) {
-        setSelected((prev) => (prev === locked ? prev : locked));
-        return;
-      }
-      const next = indexFromProgress(
-        readTrackProgress(track, stickyRef.current),
-        count,
-      );
-      setSelected((prev) => (prev === next ? prev : next));
-    };
-
-    update();
-    const frame = window.requestAnimationFrame(update);
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    const mq = window.matchMedia(DESKTOP_MQ);
-    mq.addEventListener("change", update);
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-      mq.removeEventListener("change", update);
-    };
-  }, [count]);
-
-  useEffect(() => {
-    return () => {
-      scrollLockRef.current = null;
-      if (scrollUnlockTimerRef.current) {
-        clearTimeout(scrollUnlockTimerRef.current);
-      }
-    };
-  }, []);
-
   const goTo = useCallback(
-    (index: number, instant = false) => {
+    (index: number) => {
       const next = Math.max(0, Math.min(count - 1, index));
       if (isDesktopViewport()) {
-        const track = sectionRef.current;
-        if (!track) return;
-
-        const jumpId = ++jumpIdRef.current;
-        scrollLockRef.current = next;
         setSelected(next);
-
-        const instantJump =
-          instant || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        scrollTrackToIndex(track, stickyRef.current, next, count, instantJump);
-
-        const release = () => {
-          if (jumpId !== jumpIdRef.current) return;
-          scrollLockRef.current = null;
-          if (scrollUnlockTimerRef.current) {
-            clearTimeout(scrollUnlockTimerRef.current);
-            scrollUnlockTimerRef.current = null;
-          }
-          const currentTrack = sectionRef.current;
-          if (currentTrack && isDesktopViewport()) {
-            const synced = indexFromProgress(
-              readTrackProgress(currentTrack, stickyRef.current),
-              count,
-            );
-            setSelected(synced);
-          }
-        };
-
-        if (scrollUnlockTimerRef.current) {
-          clearTimeout(scrollUnlockTimerRef.current);
-        }
-
-        if (instantJump) {
-          requestAnimationFrame(() => {
-            requestAnimationFrame(release);
-          });
-          return;
-        }
-
-        scrollUnlockTimerRef.current = setTimeout(release, SCROLL_UNLOCK_MS);
-        window.addEventListener("scrollend", release, { once: true });
         return;
       }
 
@@ -430,25 +288,11 @@ export function WhoWeServe({
 
   return (
     <section
-      ref={sectionRef}
       id="who-we-serve"
       className={cn(styles.section, className)}
       dir={dir}
       aria-labelledby="who-we-serve-heading"
-      style={{ "--serve-count": count } as CSSProperties}
     >
-      <div className={styles.markers} aria-hidden>
-        {items.map((item, index) => (
-          <div
-            key={item.id}
-            className={styles.marker}
-            style={{
-              top: `calc(${(index + 0.5) / Math.max(count, 1)} * (100% - (100dvh - var(--navbar-height))))`,
-            }}
-          />
-        ))}
-      </div>
-
       <motion.div
         ref={stickyRef}
         className={styles.sticky}

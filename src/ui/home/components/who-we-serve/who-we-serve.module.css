@@ -8,19 +8,6 @@
   background: transparent;
 }
 
-.markers {
-  display: none;
-}
-
-.marker {
-  position: absolute;
-  left: 0;
-  width: 1px;
-  height: 1px;
-  pointer-events: none;
-  opacity: 0;
-}
-
 .sticky {
   width: 100%;
 }
@@ -360,39 +347,6 @@
   width: calc(276 / 553 * 100%);
   min-height: calc(87 / 425 * 100%);
   margin: 0;
-}
-
-@media (min-width: 1025px) {
-  .section {
-    position: relative;
-    height: calc(var(--serve-count, 5) * 100vh);
-  }
-
-  .markers {
-    display: block;
-  }
-
-  .sticky {
-    position: sticky;
-    top: var(--navbar-height);
-    height: auto;
-    min-height: calc(100vh - var(--navbar-height));
-    min-height: calc(100dvh - var(--navbar-height));
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-sizing: border-box;
-    overflow: visible;
-  }
-
-  .layout {
-    min-height: min-content;
-    align-items: start;
-  }
-
-  .list {
-    min-height: min-content;
-  }
 }
 
 @media (max-width: 1024px) {
