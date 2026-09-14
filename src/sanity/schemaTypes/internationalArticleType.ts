@@ -37,7 +37,8 @@ export const internationalArticleType = defineType({
       name: "embedLink",
       type: "string",
       title: "Embed Link",
-      description: "YouTube or other video embed URL.",
+      description:
+        "YouTube, Vimeo, Apple Podcasts, or a direct video URL. For Apple Podcasts, paste the share URL, embed URL, or iframe code.",
     }),
     defineField({
       name: "author",

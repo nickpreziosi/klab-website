@@ -1,9 +1,10 @@
 import { getTranslations } from "next-intl/server";
 import { getAllArticles } from "@/sanity/queries/articles";
-import { urlForSized } from "@/sanity/lib/image";
+import { urlForSized, hasSanityImageAsset } from "@/sanity/lib/image";
 import { NewsView } from "@/ui/news/views/NewsView/NewsView";
 import { formatReadTimeWithUnit } from "@/ui/news/utils/read-time";
 import { toCanonicalNewsCategoryKey } from "@/constants/news-categories";
+import { getApplePodcastArtworkUrl } from "@/lib/news/apple-podcast-artwork";
 
 const ARTICLES_PER_PAGE = 6;
 
@@ -47,19 +48,23 @@ export default async function NewsKeoPage({ params, searchParams }: NewsKeoPageP
   const t = await getTranslations("newsPage");
   const minutesLabel = t("readTimeMinutes");
 
-  const allArticles = sanityArticles.map((article) => ({
-    slug: article.slug.current,
-    title: article.title,
-    excerpt: article.excerpt || "",
-    category: String(toCanonicalNewsCategoryKey(article.category)),
-    date: formatDate(article.publishedAt),
-    readTime: formatReadTimeWithUnit(article.readTime, minutesLabel) ?? "",
-    image: article.image ? urlForSized(article.image, { width: 500, quality: 75 }) : undefined,
-    youtubeId: extractYouTubeId(article.embedLink),
-    embedLink: article.embedLink || undefined,
-    author: article.author || undefined,
-    authorRole: article.authorRole || undefined,
-  }));
+  const allArticles = await Promise.all(
+    sanityArticles.map(async (article) => ({
+      slug: article.slug.current,
+      title: article.title,
+      excerpt: article.excerpt || "",
+      category: String(toCanonicalNewsCategoryKey(article.category)),
+      date: formatDate(article.publishedAt),
+      readTime: formatReadTimeWithUnit(article.readTime, minutesLabel) ?? "",
+      image: hasSanityImageAsset(article.image)
+        ? urlForSized(article.image, { width: 500, quality: 75 })
+        : await getApplePodcastArtworkUrl(article.embedLink),
+      youtubeId: extractYouTubeId(article.embedLink),
+      embedLink: article.embedLink || undefined,
+      author: article.author || undefined,
+      authorRole: article.authorRole || undefined,
+    }))
+  );
 
   let filteredArticles = allArticles;
 

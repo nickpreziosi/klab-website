@@ -76,6 +76,10 @@
   transform: scale(1.05);
 }
 
+.imagePoster {
+  object-position: center;
+}
+
 /* Direct video playback for videos without thumbnail support */
 .video {
   width: 100%;

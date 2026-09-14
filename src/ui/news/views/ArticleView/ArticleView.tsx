@@ -13,6 +13,10 @@ import Button from "@/ui/shared/components/button/button";
 import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
 import { formatReadTimeWithUnit } from "@/ui/news/utils/read-time";
 import { translateNewsCategory } from "@/ui/news/utils/news-category";
+import {
+  APPLE_PODCAST_SHOW_HEIGHT,
+  applePodcastUrlToLargeEmbedUrl,
+} from "@/ui/shared/utils/apple-podcast-embed";
 
 interface GalleryImage {
   url: string;
@@ -67,6 +71,9 @@ export function ArticleView({
   const tCategory = useTranslations("newsCategories");
   const categoryLabel = translateNewsCategory(tCategory, article.category);
   const readTimeDisplay = formatReadTimeWithUnit(article.readTime, t("readTimeMinutes"));
+  const applePodcastSrc = article.embedLink
+    ? applePodcastUrlToLargeEmbedUrl(article.embedLink)
+    : null;
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -276,7 +283,20 @@ export function ArticleView({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
       >
-        {article.embedLink ? (
+        {applePodcastSrc ? (
+          <div className={styles.podcastWrapper}>
+            <iframe
+              title={article.title}
+              className={styles.podcast}
+              src={applePodcastSrc}
+              width="100%"
+              height={APPLE_PODCAST_SHOW_HEIGHT}
+              allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+              sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+              loading="lazy"
+            />
+          </div>
+        ) : article.embedLink ? (
           isYouTubeOrVimeo(article.embedLink) ? (
             <div className={styles.videoWrapper}>
               <iframe

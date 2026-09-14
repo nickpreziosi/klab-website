@@ -10,6 +10,12 @@ export const urlFor = (source: SanityImageSource) => {
   return builder.image(source);
 };
 
+export function hasSanityImageAsset(
+  source: { asset?: { _ref?: string } | null } | null | undefined
+): source is { asset: { _ref: string } } {
+  return typeof source?.asset?._ref === "string" && source.asset._ref.length > 0;
+}
+
 const DEFAULT_QUALITY = 80;
 
 /** Build Sanity image URL with size hints and optional quality/format for optimized delivery */

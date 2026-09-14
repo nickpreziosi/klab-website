@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { translateNewsCategory } from "@/ui/news/utils/news-category";
+import { isApplePodcastUrl } from "@/ui/shared/utils/apple-podcast-embed";
 import styles from "./news-card.module.css";
 import Image from "next/image";
 
@@ -129,7 +130,7 @@ export default function NewsCard({ article, index, articleHrefBase = "/news" }: 
                 </>
               ) : null}
             </>
-          ) : article.embedLink ? (
+          ) : article.embedLink && !isApplePodcastUrl(article.embedLink) ? (
             <>
               {/* Direct video playback for videos without thumbnail support */}
               <video
@@ -151,7 +152,7 @@ export default function NewsCard({ article, index, articleHrefBase = "/news" }: 
                 height={500}
                 src={article.image || "/images/placeholder.svg"}
                 alt={article.title}
-                className={styles.image}
+                className={`${styles.image}${isApplePodcastUrl(article.embedLink) ? ` ${styles.imagePoster}` : ""}`}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 500px"
               />
             </>

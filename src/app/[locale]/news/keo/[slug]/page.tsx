@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getArticleBySlug } from "@/sanity/queries/articles";
-import { urlForSized } from "@/sanity/lib/image";
+import { urlForSized, hasSanityImageAsset } from "@/sanity/lib/image";
 import { ArticleView } from "@/ui/news/views/ArticleView/ArticleView";
 import { formatArticleDate, portableBodyToHtml } from "@/lib/news/article-portable-body";
 
@@ -16,7 +16,7 @@ export default async function KeoArticlePage({
     notFound();
   }
 
-  const imageUrl = regularArticle.image
+  const imageUrl = hasSanityImageAsset(regularArticle.image)
     ? urlForSized(regularArticle.image, { width: 1200, height: 600, quality: 80 })
     : undefined;
   const formattedDate = formatArticleDate(regularArticle.publishedAt);

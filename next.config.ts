@@ -38,6 +38,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "vumbnail.com",
       },
+      {
+        protocol: "https",
+        hostname: "*.mzstatic.com",
+      },
     ],
   },
   webpack: (config) => {

@@ -1,9 +1,10 @@
 import { getTranslations } from "next-intl/server";
 import { getAllInternationalArticles } from "@/sanity/queries/articles";
-import { urlForSized } from "@/sanity/lib/image";
+import { urlForSized, hasSanityImageAsset } from "@/sanity/lib/image";
 import { NewsView } from "@/ui/news/views/NewsView/NewsView";
 import { formatReadTimeWithUnit } from "@/ui/news/utils/read-time";
 import { toCanonicalNewsCategoryKey } from "@/constants/news-categories";
+import { getApplePodcastArtworkUrl } from "@/lib/news/apple-podcast-artwork";
 
 const ARTICLES_PER_PAGE = 6;
 
@@ -47,28 +48,32 @@ export default async function NewsPage({ params, searchParams }: NewsPageProps) 
   const t = await getTranslations("newsPage");
   const minutesLabel = t("readTimeMinutes");
 
-  const mappedInternational = internationalArticles.flatMap((article) => {
-    const localization = article.localizations?.find((l) => l.language === locale);
-    if (!localization) return [];
+  const mappedInternational = (
+    await Promise.all(
+      internationalArticles.map(async (article) => {
+        const localization = article.localizations?.find((l) => l.language === locale);
+        if (!localization) return null;
 
-    return [
-      {
-        slug: article.slug.current,
-        title: localization.title,
-        excerpt: localization.excerpt || "",
-        category: String(toCanonicalNewsCategoryKey(article.category)),
-        date: formatDate(article.publishedAt),
-        readTime: formatReadTimeWithUnit(article.readTime, minutesLabel) ?? "",
-        image: localization.image
+        const image = hasSanityImageAsset(localization.image)
           ? urlForSized(localization.image, { width: 500, quality: 75 })
-          : undefined,
-        youtubeId: extractYouTubeId(article.embedLink),
-        embedLink: article.embedLink || undefined,
-        author: article.author || undefined,
-        authorRole: article.authorRole || undefined,
-      },
-    ];
-  });
+          : await getApplePodcastArtworkUrl(article.embedLink);
+
+        return {
+          slug: article.slug.current,
+          title: localization.title,
+          excerpt: localization.excerpt || "",
+          category: String(toCanonicalNewsCategoryKey(article.category)),
+          date: formatDate(article.publishedAt),
+          readTime: formatReadTimeWithUnit(article.readTime, minutesLabel) ?? "",
+          image,
+          youtubeId: extractYouTubeId(article.embedLink),
+          embedLink: article.embedLink || undefined,
+          author: article.author || undefined,
+          authorRole: article.authorRole || undefined,
+        };
+      })
+    )
+  ).filter((article): article is NonNullable<typeof article> => article !== null);
 
   const allArticles = [...mappedInternational];
 

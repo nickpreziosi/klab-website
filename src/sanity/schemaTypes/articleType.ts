@@ -49,6 +49,9 @@ export const articleType = defineType({
     defineField({
       name: "embedLink",
       type: "string",
+      title: "Embed Link",
+      description:
+        "YouTube, Vimeo, Apple Podcasts, or a direct video URL. For Apple Podcasts, paste the share URL, embed URL, or iframe code.",
     }),
     defineField({
       name: "body",

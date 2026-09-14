@@ -3,7 +3,7 @@ import {
   getArticleBySlug,
   getInternationalArticleBySlug,
 } from "@/sanity/queries/articles";
-import { urlForSized } from "@/sanity/lib/image";
+import { urlForSized, hasSanityImageAsset } from "@/sanity/lib/image";
 import { ArticleView } from "@/ui/news/views/ArticleView/ArticleView";
 import { formatArticleDate, portableBodyToHtml } from "@/lib/news/article-portable-body";
 
@@ -22,7 +22,7 @@ export default async function ArticlePage({
       notFound();
     }
 
-    const imageUrl = localization.image
+    const imageUrl = hasSanityImageAsset(localization.image)
       ? urlForSized(localization.image, { width: 1200, height: 600, quality: 80 })
       : undefined;
     const formattedDate = formatArticleDate(intlArticle.publishedAt);
