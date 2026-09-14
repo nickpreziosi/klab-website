@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SANITY_NEWS_CATEGORY_OPTIONS } from "@/constants/news-categories";
 import { GalleryInput } from "../components/GalleryInput";
+import { ARTICLE_IMAGE_POSITION_OPTIONS } from "@/ui/news/utils/image-position";
 
 export const SUPPORTED_LANGUAGES = [
   { title: "English", value: "en" },
@@ -135,6 +136,17 @@ export const internationalArticleType = defineType({
                   name: "alt",
                   type: "string",
                   title: "Alt Text",
+                }),
+                defineField({
+                  name: "position",
+                  type: "string",
+                  title: "Image position",
+                  description:
+                    "Which part of the photo to keep in the wide crop. Top keeps heads in portraits. Leave blank for top.",
+                  options: {
+                    list: [...ARTICLE_IMAGE_POSITION_OPTIONS],
+                    layout: "radio",
+                  },
                 }),
               ],
             }),

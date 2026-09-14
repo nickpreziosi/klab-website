@@ -24,6 +24,8 @@ export function urlForSized(
   options: {
     width?: number;
     height?: number;
+    /** Sanity crop origin when both width and height are set. */
+    crop?: "top" | "center" | "bottom" | "left" | "right";
     /** 1–100; default 80 for smaller payloads */
     quality?: number;
     /** Use "webp" for smaller files; omit to keep original format */
@@ -33,6 +35,9 @@ export function urlForSized(
   let img = builder.image(source);
   if (options.width) img = img.width(options.width);
   if (options.height) img = img.height(options.height);
+  if (options.crop) {
+    img = img.fit("crop").crop(options.crop);
+  }
   const quality = options.quality ?? DEFAULT_QUALITY;
   img = img.quality(quality);
   if (options.format) img = img.format(options.format);

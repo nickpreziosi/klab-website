@@ -113,6 +113,7 @@ export interface SanityLocalization {
     asset: { _ref?: string; _type?: string };
     caption?: string;
     alt?: string;
+    position?: string;
   };
   excerpt?: string;
   body?: Array<{ _type: string; [key: string]: unknown }>;
@@ -152,7 +153,8 @@ const internationalArticlesQuery = groq`
       image {
         asset,
         caption,
-        alt
+        alt,
+        position
       },
       excerpt
     }
@@ -181,7 +183,8 @@ const internationalArticleBySlugQuery = groq`
       image {
         asset,
         caption,
-        alt
+        alt,
+        position
       },
       excerpt,
       body

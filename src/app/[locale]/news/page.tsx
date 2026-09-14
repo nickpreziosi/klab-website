@@ -66,6 +66,7 @@ export default async function NewsPage({ params, searchParams }: NewsPageProps) 
           date: formatDate(article.publishedAt),
           readTime: formatReadTimeWithUnit(article.readTime, minutesLabel) ?? "",
           image,
+          imagePosition: localization.image?.position || undefined,
           youtubeId: extractYouTubeId(article.embedLink),
           embedLink: article.embedLink || undefined,
           author: article.author || undefined,

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { translateNewsCategory } from "@/ui/news/utils/news-category";
+import { resolveArticleImagePosition } from "@/ui/news/utils/image-position";
 import { isApplePodcastUrl } from "@/ui/shared/utils/apple-podcast-embed";
 import styles from "./news-card.module.css";
 import Image from "next/image";
@@ -46,6 +47,7 @@ interface NewsCardProps {
     date: string;
     readTime: string;
     image?: string;
+    imagePosition?: string;
     youtubeId?: string;
     embedLink?: string;
     author?: string;
@@ -153,6 +155,11 @@ export default function NewsCard({ article, index, articleHrefBase = "/news" }: 
                 src={article.image || "/images/placeholder.svg"}
                 alt={article.title}
                 className={`${styles.image}${isApplePodcastUrl(article.embedLink) ? ` ${styles.imagePoster}` : ""}`}
+                style={
+                  isApplePodcastUrl(article.embedLink)
+                    ? undefined
+                    : { objectPosition: resolveArticleImagePosition(article.imagePosition) }
+                }
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 500px"
               />
             </>

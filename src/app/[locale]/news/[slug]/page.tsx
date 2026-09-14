@@ -6,6 +6,7 @@ import {
 import { urlForSized, hasSanityImageAsset } from "@/sanity/lib/image";
 import { ArticleView } from "@/ui/news/views/ArticleView/ArticleView";
 import { formatArticleDate, portableBodyToHtml } from "@/lib/news/article-portable-body";
+import { resolveArticleImagePosition } from "@/ui/news/utils/image-position";
 
 export default async function ArticlePage({
   params,
@@ -23,7 +24,12 @@ export default async function ArticlePage({
     }
 
     const imageUrl = hasSanityImageAsset(localization.image)
-      ? urlForSized(localization.image, { width: 1200, height: 600, quality: 80 })
+      ? urlForSized(localization.image, {
+          width: 1200,
+          height: 600,
+          quality: 80,
+          crop: resolveArticleImagePosition(localization.image.position),
+        })
       : undefined;
     const formattedDate = formatArticleDate(intlArticle.publishedAt);
 

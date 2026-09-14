@@ -13,6 +13,7 @@ import Button from "@/ui/shared/components/button/button";
 import { BLUR_PLACEHOLDER } from "@/ui/shared/constants/blur-placeholder";
 import { formatReadTimeWithUnit } from "@/ui/news/utils/read-time";
 import { translateNewsCategory } from "@/ui/news/utils/news-category";
+import { resolveArticleImagePosition } from "@/ui/news/utils/image-position";
 import {
   APPLE_PODCAST_SHOW_HEIGHT,
   applePodcastUrlToLargeEmbedUrl,
@@ -30,7 +31,7 @@ interface ArticleData {
   author?: string | null;
   authorRole?: string | null;
   embedLink?: string | null;
-  image?: { alt?: string | null; caption?: string | null } | null;
+  image?: { alt?: string | null; caption?: string | null; position?: string | null } | null;
   category?: string | null;
   readTime?: string | null;
 }
@@ -324,11 +325,11 @@ export function ArticleView({
           <>
             <div className={styles.imageContainer}>
               <Image
-                width={1200}
-                height={600}
+                fill
                 src={imageUrl}
                 alt={article.image?.alt || article.title}
                 className={styles.image}
+                style={{ objectPosition: resolveArticleImagePosition(article.image?.position) }}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                 priority
                 placeholder="blur"
