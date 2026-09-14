@@ -23,12 +23,13 @@ export default async function ArticlePage({
       notFound();
     }
 
+    const imagePosition = resolveArticleImagePosition(localization.image?.position);
     const imageUrl = hasSanityImageAsset(localization.image)
       ? urlForSized(localization.image, {
           width: 1200,
           height: 600,
           quality: 80,
-          crop: resolveArticleImagePosition(localization.image.position),
+          crop: imagePosition,
         })
       : undefined;
     const formattedDate = formatArticleDate(intlArticle.publishedAt);
