@@ -36,7 +36,14 @@ export function HeroStatCards({
       {stats.map((stat) => {
         const isolateTitle = LATIN_OR_DOLLAR.test(stat.title);
         return (
-          <li key={stat.title} className={styles.card}>
+          <li
+            key={stat.title}
+            className={styles.card}
+            style={{
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+            }}
+          >
             <p
               dir={isolateTitle ? "ltr" : undefined}
               className={cn(styles.title, isolateTitle && styles.titleLtr)}

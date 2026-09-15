@@ -23,8 +23,6 @@
   border-radius: var(--rounded-app);
   background: hsl(var(--foreground) / 0.1);
   border: 1px solid hsl(var(--foreground) / 0.15);
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
   opacity: 0;
 }
 
