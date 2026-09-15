@@ -10,6 +10,16 @@ import { AddonSphereRow } from "@/ui/shared/components/addon-spheres/addon-spher
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./home-addons.module.css";
 
+const DASH_BACK = {
+  light: "/images/hero-mockups/krails-sending-contract-light.webp",
+  dark: "/images/hero-mockups/krails-sending-contract-dark.webp",
+} as const;
+
+const DASH_FRONT = {
+  light: "/images/hero-mockups/krails-contract-validation-light.webp",
+  dark: "/images/hero-mockups/krails-contract-validation-dark.webp",
+} as const;
+
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
 
 const screenFade = {
@@ -156,9 +166,19 @@ export function HomeAddons({ translations, skipAnimation = false }: HomeAddonsPr
                 transition={screenTransition(0)}
               />
               <motion.img
-                src="/images/home-addons/dashboard-back.png"
+                src={DASH_BACK.light}
                 alt=""
-                className={styles.dashBack}
+                className={cn(styles.dashBack, styles.dashBackLight)}
+                decoding="async"
+                initial={skip ? false : "hidden"}
+                animate={screenState}
+                variants={screenFade}
+                transition={screenTransition(0)}
+              />
+              <motion.img
+                src={DASH_BACK.dark}
+                alt=""
+                className={cn(styles.dashBack, styles.dashBackDark)}
                 decoding="async"
                 initial={skip ? false : "hidden"}
                 animate={screenState}
@@ -174,9 +194,19 @@ export function HomeAddons({ translations, skipAnimation = false }: HomeAddonsPr
                 transition={screenTransition(0.15)}
               />
               <motion.img
-                src="/images/home-addons/dashboard-front.png"
+                src={DASH_FRONT.light}
                 alt={translations.addonsDashAlt}
-                className={styles.dashFront}
+                className={cn(styles.dashFront, styles.dashFrontLight)}
+                decoding="async"
+                initial={skip ? false : "hidden"}
+                animate={screenState}
+                variants={screenFade}
+                transition={screenTransition(0.15)}
+              />
+              <motion.img
+                src={DASH_FRONT.dark}
+                alt={translations.addonsDashAlt}
+                className={cn(styles.dashFront, styles.dashFrontDark)}
                 decoding="async"
                 initial={skip ? false : "hidden"}
                 animate={screenState}

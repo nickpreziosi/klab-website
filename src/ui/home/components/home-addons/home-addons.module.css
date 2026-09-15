@@ -86,9 +86,23 @@
 .dashBack,
 .dashFront {
   position: absolute;
-  display: block;
   object-fit: cover;
   pointer-events: none;
+}
+
+.dashBackDark,
+.dashFrontDark {
+  display: none;
+}
+
+:global(html.dark) .dashBackLight,
+:global(html.dark) .dashFrontLight {
+  display: none;
+}
+
+:global(html.dark) .dashBackDark,
+:global(html.dark) .dashFrontDark {
+  display: block;
 }
 
 .dashBack {
