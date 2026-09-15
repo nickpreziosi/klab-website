@@ -267,6 +267,10 @@
   object-fit: cover;
 }
 
+.desktopShot video.image {
+  pointer-events: none;
+}
+
 .viewport {
   display: none;
 }

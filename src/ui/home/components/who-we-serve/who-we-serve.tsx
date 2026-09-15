@@ -18,7 +18,8 @@ import Button from "@/ui/shared/components/button/button";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./who-we-serve.module.css";
 
-const DASHBOARD = "/images/who-we-serve/dashboard.png";
+const GOVERNMENT_VIDEO = "/videos/who-we-serve-government.mp4";
+const PRIVATE_CAPITAL_VIDEO = "/videos/who-we-serve-private-capital.mp4";
 const DESKTOP_MQ = "(min-width: 1025px)";
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -29,6 +30,49 @@ const AUDIENCES: readonly { id: string; icon: string; rotate?: boolean }[] = [
   { id: "banks", icon: "/images/who-we-serve/icon-banks.svg", rotate: true },
   { id: "capital", icon: "/images/who-we-serve/icon-capital.svg" },
 ];
+
+type ServeMediaProps = {
+  audienceId: string;
+  alt: string;
+  className?: string;
+  active?: boolean;
+};
+
+function ServeMedia({
+  audienceId,
+  alt,
+  className,
+  active = true,
+}: ServeMediaProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const src =
+    audienceId === "governments" ? GOVERNMENT_VIDEO : PRIVATE_CAPITAL_VIDEO;
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (active) {
+      void video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, [active]);
+
+  return (
+    <video
+      ref={videoRef}
+      className={className}
+      src={src}
+      muted
+      loop
+      playsInline
+      autoPlay={active}
+      preload={active ? "auto" : "none"}
+      aria-label={active ? alt : undefined}
+      aria-hidden={!active}
+    />
+  );
+}
 
 const panelVariants = {
   hidden: {},
@@ -383,11 +427,11 @@ export function WhoWeServe({
                     >
                       <div className={styles.glow} aria-hidden />
                       <div className={styles.desktopShot}>
-                        <img
-                          src={DASHBOARD}
+                        <ServeMedia
+                          key={AUDIENCES[selected]?.id ?? "governments"}
+                          audienceId={AUDIENCES[selected]?.id ?? "governments"}
                           alt={translations.serveImageAlt}
                           className={styles.image}
-                          decoding="async"
                         />
                       </div>
                     </motion.div>
@@ -425,11 +469,11 @@ export function WhoWeServe({
                           aria-hidden={!active}
                           inert={!active}
                         >
-                          <img
-                            src={DASHBOARD}
-                            alt={active ? translations.serveImageAlt : ""}
+                          <ServeMedia
+                            audienceId={audience?.id ?? item.id}
+                            alt={translations.serveImageAlt}
                             className={styles.image}
-                            decoding="async"
+                            active={active}
                           />
                           <motion.p
                             className={cn(styles.callout, styles.slideCallout)}
