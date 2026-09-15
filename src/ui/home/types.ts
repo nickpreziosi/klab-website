@@ -12,8 +12,6 @@ export type HeroTranslations = {
   statBillionBody: string;
   statYearsTitle: string;
   statYearsBody: string;
-  statLiveTitle: string;
-  statLiveBody: string;
 };
 
 export function buildHeroTranslations(t: (key: string) => string): HeroTranslations {
@@ -27,8 +25,6 @@ export function buildHeroTranslations(t: (key: string) => string): HeroTranslati
     statBillionBody: t("statBillionBody"),
     statYearsTitle: t("statYearsTitle"),
     statYearsBody: t("statYearsBody"),
-    statLiveTitle: t("statLiveTitle"),
-    statLiveBody: t("statLiveBody"),
   };
 }
 

@@ -34,9 +34,7 @@
     "statBillionTitle": "$1 mil millones+",
     "statBillionBody": "Movidos, totalmente autorizados",
     "statYearsTitle": "+5 años",
-    "statYearsBody": "Impulsado por cinco años de datos transaccionales propietarios y modelos de IA",
-    "statLiveTitle": "Ya en operación",
-    "statLiveBody": "en Canadá, México, Brasil y otros mercados latinoamericanos."
+    "statYearsBody": "Impulsado por cinco años de datos transaccionales propietarios y modelos de IA"
   },
   "homeKrails": {
     "whatIsPrefix": "Qué es",
@@ -242,7 +240,7 @@
     "title": "Nuestra trayectoria",
     "subtitle": "Más de cinco años de inteligencia. Una plataforma programable.",
     "paragraph1": "K Lab se construye sobre el historial de transacciones, los modelos propietarios y los datos operativos adquiridos de KEO World — una empresa de pagos B2B que procesó transacciones reales en América Latina durante más de cinco años.",
-    "paragraph2": "Esa inteligencia acumulada es ahora la base de K Rails — un sistema entrenado en cómo se mueve realmente el dinero institucional. Ya en funcionamiento en Canadá, México, Brasil y otros mercados de América Latina.",
+    "paragraph2": "Esa inteligencia acumulada es ahora la base de K Rails — un sistema entrenado en cómo se mueve realmente el dinero institucional.",
     "year2020": "2020",
     "year2025": "2025",
     "sold": "¡VENDIDO!",

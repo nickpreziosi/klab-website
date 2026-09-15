@@ -25,7 +25,6 @@ export function HeroStatCards({
   const stats = [
     { title: translations.statBillionTitle, body: translations.statBillionBody },
     { title: translations.statYearsTitle, body: translations.statYearsBody },
-    { title: translations.statLiveTitle, body: translations.statLiveBody },
   ];
 
   return (

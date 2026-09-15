@@ -40,10 +40,6 @@
   animation-delay: 0.8s;
 }
 
-.loaded:not(.skip) .card:nth-child(3) {
-  animation-delay: 0.9s;
-}
-
 .skip .card {
   opacity: 1;
   animation: none;
