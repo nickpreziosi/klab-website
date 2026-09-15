@@ -257,12 +257,30 @@
   direction: ltr;
 }
 
+.media {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
 .mediaImage {
   display: block;
   width: 100%;
   height: auto;
   object-fit: contain;
-  scale: 1.15;
+  transform: scale(1.12);
+}
+
+.mediaImageBlack {
+  display: none;
+}
+
+:global(html.dark) .mediaImageWhite {
+  display: none;
+}
+
+:global(html.dark) .mediaImageBlack {
+  display: block;
 }
 
 @media (max-width: 1200px) {

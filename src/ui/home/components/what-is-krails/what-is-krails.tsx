@@ -11,7 +11,10 @@ import { ProductLogo } from "@k-lab/components";
 import { cn } from "@/ui/shared/utils/utils";
 import styles from "./what-is-krails.module.css";
 
-const DASHBOARD_GIF = "/images/krails-what-is-dashboard.gif";
+const DASHBOARD = {
+  white: "/images/krails-animated-dashboard-white.gif",
+  black: "/images/krails-animated-dashboard-black.gif",
+} as const;
 const KRAILS_SPHERE = ADDON_SPHERE_PRODUCTS.find((product) => product.id === "krails")!;
 
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
@@ -151,54 +154,64 @@ export function WhatIsKrails({ translations, skipAnimation = false }: WhatIsKrai
         variants={fadeUp}
       >
         <div className={styles.frame}>
-        <div className={styles.layout}>
-          <div className={styles.card}>
-            <div className={styles.headingRow}>
-              <h2 className={styles.heading}>
-                <span className={styles.prefix}>{translations.whatIsPrefix}</span>
-                <span className={styles.logoRow}>
-                  <span className={styles.logoWrap} dir="ltr">
-                    <ProductLogo product="k-rails" alt="K Rails" className={styles.logo} />
+          <div className={styles.layout}>
+            <div className={styles.card}>
+              <div className={styles.headingRow}>
+                <h2 className={styles.heading}>
+                  <span className={styles.prefix}>{translations.whatIsPrefix}</span>
+                  <span className={styles.logoRow}>
+                    <span className={styles.logoWrap} dir="ltr">
+                      <ProductLogo product="k-rails" alt="K Rails" className={styles.logo} />
+                    </span>
+                    <span className={styles.mark} aria-hidden>
+                      {translations.whatIsQuestionMark}
+                    </span>
                   </span>
-                  <span className={styles.mark} aria-hidden>
-                    {translations.whatIsQuestionMark}
+                </h2>
+                <button
+                  type="button"
+                  className={styles.clip}
+                  aria-label={
+                    playing ? `Pause ${KRAILS_SPHERE.name}` : `Play ${KRAILS_SPHERE.name}`
+                  }
+                  onClick={toggleClip}
+                >
+                  <SphereVideo
+                    idleSrc={KRAILS_SPHERE.idleVideo}
+                    playingSrc={KRAILS_SPHERE.playingVideo}
+                    mode={mode}
+                    onEnded={() => setMode("idle")}
+                  />
+                  <span className={styles.play} aria-hidden>
+                    <img src={KRAILS_SPHERE.playIcon} alt="" />
                   </span>
-                </span>
-              </h2>
-              <button
-                type="button"
-                className={styles.clip}
-                aria-label={playing ? `Pause ${KRAILS_SPHERE.name}` : `Play ${KRAILS_SPHERE.name}`}
-                onClick={toggleClip}
-              >
-                <SphereVideo
-                  idleSrc={KRAILS_SPHERE.idleVideo}
-                  playingSrc={KRAILS_SPHERE.playingVideo}
-                  mode={mode}
-                  onEnded={() => setMode("idle")}
-                />
-                <span className={styles.play} aria-hidden>
-                  <img src={KRAILS_SPHERE.playIcon} alt="" />
-                </span>
-                <span className={styles.pause} aria-hidden>
-                  <span className={styles.pauseBar} />
-                  <span className={styles.pauseBar} />
-                </span>
-              </button>
+                  <span className={styles.pause} aria-hidden>
+                    <span className={styles.pauseBar} />
+                    <span className={styles.pauseBar} />
+                  </span>
+                </button>
+              </div>
+              <div className={styles.body}>
+                <p>{withBrandLtr(translations.whatIsBody1, styles.brandLtr)}</p>
+                <p>{withBrandLtr(translations.whatIsBody2, styles.brandLtr)}</p>
+              </div>
             </div>
-            <div className={styles.body}>
-              <p>{withBrandLtr(translations.whatIsBody1, styles.brandLtr)}</p>
-              <p>{withBrandLtr(translations.whatIsBody2, styles.brandLtr)}</p>
+
+            <div className={styles.media}>
+              <img
+                src={DASHBOARD.white}
+                alt={translations.whatIsImageAlt}
+                className={cn(styles.mediaImage, styles.mediaImageWhite)}
+                decoding="async"
+              />
+              <img
+                src={DASHBOARD.black}
+                alt={translations.whatIsImageAlt}
+                className={cn(styles.mediaImage, styles.mediaImageBlack)}
+                decoding="async"
+              />
             </div>
           </div>
-
-          <img
-            src={DASHBOARD_GIF}
-            alt={translations.whatIsImageAlt}
-            className={styles.mediaImage}
-            decoding="async"
-          />
-        </div>
         </div>
       </motion.div>
     </section>
