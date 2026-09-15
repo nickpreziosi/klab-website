@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { useEffect, useRef, type ReactNode, type RefObject } from "react";
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
@@ -15,20 +15,84 @@ import styles from "./krails-invoice-rebate.module.css";
 
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
 
-const CHEVRON_COPIES = [0, 1, 2, 3] as const;
-const STRIPE_SOURCES = [
-  "/images/krails-rebate-deco/card5-a.svg",
-  "/images/krails-rebate-deco/card5-b.svg",
-  "/images/krails-rebate-deco/card5-c.svg",
-  "/images/krails-rebate-deco/card5-c.svg",
+const FEATURE_BACKGROUNDS = [
+  { src: "/images/krails-cards/krails-box-1.gif" },
+  { src: "/images/krails-cards/krails-box-2.mp4" },
+  { src: "/images/krails-cards/krails-box-3.mp4", playbackRate: 2 },
+  { src: "/images/krails-cards/krails-box-4.mp4" },
+  { src: "/images/krails-cards/krails-box-5.mp4" },
 ] as const;
-const PHONE_ARCS = [
-  "/images/krails-rebate-deco/card6-a.svg",
-  "/images/krails-rebate-deco/card6-b.svg",
-  "/images/krails-rebate-deco/card6-c.svg",
-  "/images/krails-rebate-deco/card6-c.svg",
-  "/images/krails-rebate-deco/card6-d.svg",
-] as const;
+
+const PHONE_BACKGROUND = {
+  src: "/images/krails-cards/krails-box-6.mp4",
+} as const;
+
+type FeatureMedia = {
+  src: string;
+  playbackRate?: number;
+};
+
+function FeatureBackground({
+  media,
+  alt,
+  videoRef,
+}: {
+  media: FeatureMedia;
+  alt?: string;
+  videoRef?: RefObject<HTMLVideoElement | null>;
+}) {
+  if (media.src.endsWith(".mp4")) {
+    return (
+      <video
+        ref={videoRef}
+        className={styles.featureBg}
+        src={media.src}
+        muted
+        loop
+        playsInline
+        autoPlay
+        preload="metadata"
+        aria-label={alt}
+        aria-hidden={alt ? undefined : true}
+      />
+    );
+  }
+
+  return (
+    <img
+      className={styles.featureBg}
+      src={media.src}
+      alt={alt ?? ""}
+      aria-hidden={alt ? undefined : true}
+    />
+  );
+}
+
+function FeatureCanvas({
+  media,
+  alt,
+  children,
+}: {
+  media: FeatureMedia;
+  alt?: string;
+  children?: ReactNode;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (media.playbackRate) video.playbackRate = media.playbackRate;
+    void video.play().catch(() => {});
+  }, [media.playbackRate, media.src]);
+
+  return (
+    <div className={styles.featureCanvas}>
+      <FeatureBackground media={media} alt={alt} videoRef={videoRef} />
+      {children}
+    </div>
+  );
+}
 
 export type KRailsInvoiceRebateTranslations = {
   rebateBody: string;
@@ -45,72 +109,6 @@ type KRailsInvoiceRebateProps = {
   translations: KRailsInvoiceRebateTranslations;
   skipAnimation?: boolean;
 };
-
-function FeatureDeco({ index }: { index: number }) {
-  if (index === 0) {
-    return (
-      <div className={styles.decoLayer} aria-hidden>
-        <img
-          className={`${styles.decoImg} ${styles.meshLeft}`}
-          src="/images/krails-rebate-deco/card1-mesh-left.svg"
-          alt=""
-        />
-        <img
-          className={`${styles.decoImg} ${styles.meshRight}`}
-          src="/images/krails-rebate-deco/card1-mesh-right.svg"
-          alt=""
-        />
-      </div>
-    );
-  }
-
-  if (index === 1) {
-    return (
-      <div className={styles.decoLayer} aria-hidden>
-        <img
-          className={`${styles.decoImg} ${styles.slash}`}
-          src="/images/krails-rebate-deco/card2-slash.svg"
-          alt=""
-        />
-      </div>
-    );
-  }
-
-  if (index === 2) {
-    return (
-      <div className={styles.decoLayer} aria-hidden>
-        <span className={styles.aurora} />
-      </div>
-    );
-  }
-
-  if (index === 3) {
-    return (
-      <div className={styles.decoLayer} aria-hidden>
-        {CHEVRON_COPIES.map((copy) => (
-          <span key={`bl-${copy}`} className={styles.chevronBl} style={{ "--i": copy } as CSSProperties}>
-            <img src="/images/krails-rebate-deco/card4-a.svg" alt="" />
-          </span>
-        ))}
-        {CHEVRON_COPIES.map((copy) => (
-          <span key={`tr-${copy}`} className={styles.chevronTr} style={{ "--i": copy } as CSSProperties}>
-            <img src="/images/krails-rebate-deco/card4-b.svg" alt="" />
-          </span>
-        ))}
-      </div>
-    );
-  }
-
-  return (
-    <div className={styles.decoLayer} aria-hidden>
-      {STRIPE_SOURCES.map((src, copy) => (
-        <span key={src + copy} className={styles.stripe} style={{ "--i": copy } as CSSProperties}>
-          <img src={src} alt="" />
-        </span>
-      ))}
-    </div>
-  );
-}
 
 export function KRailsInvoiceRebate({
   translations,
@@ -182,38 +180,18 @@ export function KRailsInvoiceRebate({
         >
           {translations.rebateCards.map((feature, index) => (
             <motion.li key={feature.title} className={styles.featureCard} variants={cardFade}>
-              <div className={styles.featureCanvas}>
-                <FeatureDeco index={index} />
+              <FeatureCanvas media={FEATURE_BACKGROUNDS[index]}>
                 <div className={styles.featureContent}>
-                  <span className={styles.featureNumber} aria-hidden>
-                    {index + 1}
-                  </span>
                   <div className={styles.featurePanel}>
                     <h3 className={styles.featureTitle}>{withBrandLtr(feature.title, styles.brandLtr)}</h3>
                     <p className={styles.featureBody}>{withBrandLtr(feature.body, styles.brandLtr)}</p>
                   </div>
                 </div>
-              </div>
+              </FeatureCanvas>
             </motion.li>
           ))}
           <motion.li className={`${styles.featureCard} ${styles.phoneCard}`} variants={cardFade}>
-            <div className={styles.featureCanvas}>
-              <div className={styles.decoLayer} aria-hidden>
-                {PHONE_ARCS.map((src, copy) => (
-                  <span key={src + copy} className={styles.phoneArc} style={{ "--i": copy } as CSSProperties}>
-                    <img src={src} alt="" />
-                  </span>
-                ))}
-              </div>
-              <div className={styles.phoneFrame}>
-                <img
-                  src="/images/krails-rebate-phone.png"
-                  alt={translations.rebatePhoneAlt}
-                  width={448}
-                  height={918}
-                />
-              </div>
-            </div>
+            <FeatureCanvas media={PHONE_BACKGROUND} alt={translations.rebatePhoneAlt} />
           </motion.li>
         </motion.ul>
 
