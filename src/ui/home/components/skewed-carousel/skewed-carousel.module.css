@@ -1,50 +1,10 @@
-/* Light: Figma 156:274. PNGs are already perspective-skewed. */
-.stage {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  padding-top: 9.25vw;
-  line-height: 0;
-  pointer-events: none;
-}
-
-.stage img {
-  display: block;
-  width: 45.51%;
-  height: auto;
-  filter: drop-shadow(0 0 15.3px rgb(0 0 0 / 0.13));
-}
-
-.stage img:first-child {
-  position: relative;
-  left: -9.45%;
-  z-index: 1;
-}
-
-.stage img:nth-child(2),
-.stage img:nth-child(3) {
-  position: absolute;
-}
-
-.stage img:nth-child(2) {
-  left: 27.27%;
-  top: 4.61vw;
-  z-index: 2;
-}
-
-.stage img:nth-child(3) {
-  left: 64.11%;
-  top: 0;
-  z-index: 3;
-}
-
-/* Dark: animated 3D marquee with the dashboard GIF. */
+/* Animated 3D marquee of KRails product screens. */
 .root {
   --slide-width: clamp(280px, 36vw, 560px);
   --slide-gap: 1.5rem;
   --shift: 0px;
   --duration: 30s;
-  display: none;
+  display: block;
   position: absolute;
   left: 0;
   right: 0;
@@ -54,14 +14,6 @@
   height: var(--hero-carousel-slot);
   pointer-events: none;
   overflow: visible;
-}
-
-:global(html.dark) .stage {
-  display: none;
-}
-
-:global(html.dark) .root {
-  display: block;
 }
 
 .viewport {
@@ -110,6 +62,7 @@
 
 .group {
   display: flex;
+  flex: 0 0 auto;
   align-items: stretch;
   gap: var(--slide-gap);
   margin: 0;
@@ -125,7 +78,7 @@
 .card {
   position: relative;
   width: var(--slide-width);
-  aspect-ratio: 1440 / 900;
+  aspect-ratio: 1024 / 576;
   border-radius: var(--rounded-app);
   border: 1px solid hsl(var(--border));
   background: hsl(var(--surface));
@@ -134,15 +87,28 @@
 }
 
 .cardImage {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  scale: 1.15;
+  object-fit: contain;
+  display: block;
+}
+
+.cardImageDark {
+  display: none;
+}
+
+:global(html.dark) .cardImageLight {
+  display: none;
+}
+
+:global(html.dark) .cardImageDark {
   display: block;
 }
 
 .inFlow {
-  --hero-carousel-slot: clamp(280px, 38vw, 480px);
+  --hero-carousel-slot: clamp(304px, 42vw, 528px);
   position: relative;
   left: auto;
   right: auto;
@@ -151,7 +117,13 @@
 }
 
 .inFlow .lift {
-  top: var(--gap-md);
+  top: calc(var(--gap-lg) + var(--gap-sm));
+}
+
+@media (min-width: 1025px) {
+  .inFlow {
+    --hero-carousel-slot: clamp(360px, 32vw, 460px);
+  }
 }
 
 @keyframes marquee {
@@ -159,7 +131,7 @@
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(calc(var(--shift) * -1), 0, 0);
+    transform: translate3d(-33.333333%, 0, 0);
   }
 }
 
@@ -168,26 +140,21 @@
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(var(--shift), 0, 0);
+    transform: translate3d(33.333333%, 0, 0);
   }
 }
 
 @media (max-width: 768px) {
-  .stage {
-    width: 180%;
-    margin-left: -40%;
-  }
-
   .root {
     --slide-width: clamp(240px, 70vw, 400px);
   }
 
   .inFlow {
-    --hero-carousel-slot: clamp(260px, 62vw, 380px);
+    --hero-carousel-slot: clamp(280px, 64vw, 400px);
   }
 
   .inFlow .lift {
-    top: 0;
+    top: var(--gap-md);
   }
 }
 
