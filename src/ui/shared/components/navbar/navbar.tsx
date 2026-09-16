@@ -14,9 +14,9 @@ import {
 import { ThemeToggle } from "@/ui/shared/components/theme-toggle/theme-toggle";
 import { LocaleSwitcher } from "@/ui/shared/components/locale-switcher/locale-switcher";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
-import { ProductLogo } from "@k-lab/components";
 import {
   ADDON_SPHERE_PRODUCTS,
+  addonSphereLogoSrc,
   preloadAddonSphereLogos,
   preloadAddonSphereVideos,
 } from "@/ui/shared/components/addon-spheres/addon-sphere-products";
@@ -104,8 +104,7 @@ export const NavigationMenuDemo = ({
     };
   }, [nav.whatWeDo, nav.kRails, nav.whoWeServe, nav.resources]);
 
-  // Warm K Rails dropdown logos in the decoder cache. Those ProductLogo <img>s
-  // only mount when the menu opens, so without this they fetch/decode on click.
+  // Warm K Rails dropdown logos before the menu opens (panel mounts on click).
   useEffect(() => {
     preloadAddonSphereLogos();
   }, []);
@@ -276,14 +275,18 @@ export const NavigationMenuDemo = ({
             openDropdown && styles.containerDropdownOpen
           } ${shouldHideNavbar && styles.containerHidden}`}
         >
-          {/* Same ProductLogo marks as the K Rails menu, kept mounted so they fetch before the menu opens. */}
+          {/* Same sphere marks as the K Rails menu — eager/sync so they decode before open. */}
           <div className={styles.addonLogoPreload} aria-hidden>
             {ADDON_SPHERE_PRODUCTS.map((product) => (
-              <ProductLogo
+              <img
                 key={product.id}
-                product={product.product}
-                variant={product.logoVariant}
-                aria-hidden
+                src={addonSphereLogoSrc(product)}
+                alt=""
+                width={160}
+                height={40}
+                loading="eager"
+                decoding="sync"
+                fetchPriority="high"
               />
             ))}
           </div>

@@ -166,14 +166,6 @@
   text-align: right;
 }
 
-.productLogoHost {
-  display: contents;
-}
-
-.productLogoWrap {
-  display: contents !important;
-}
-
 .productLogo {
   position: absolute;
   z-index: 1;

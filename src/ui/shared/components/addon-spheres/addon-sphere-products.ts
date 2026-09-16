@@ -22,14 +22,26 @@ export function addonSphereLogoSrc(product: AddonSphereProduct): string {
 }
 
 const retainedLogoPreloads: HTMLImageElement[] = [];
+const retainedLogoLinks: HTMLLinkElement[] = [];
 
+/** Warm HTTP + decoder cache before the K Rails menu opens (ProductLogo defaults to async decode). */
 export function preloadAddonSphereLogos() {
   if (typeof window === "undefined") return;
   if (retainedLogoPreloads.length > 0) return;
   for (const product of ADDON_SPHERE_PRODUCTS) {
+    const href = addonSphereLogoSrc(product);
+
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+    link.href = href;
+    document.head.appendChild(link);
+    retainedLogoLinks.push(link);
+
     const img = new Image();
     img.decoding = "sync";
-    img.src = addonSphereLogoSrc(product);
+    img.src = href;
+    void img.decode?.().catch(() => {});
     retainedLogoPreloads.push(img);
   }
 }

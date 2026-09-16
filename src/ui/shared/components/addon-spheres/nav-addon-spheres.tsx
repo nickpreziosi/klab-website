@@ -1,15 +1,18 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState, type ComponentProps } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getTextDirection, type Locale } from "@/i18n/routing";
-import { ProductLogo } from "@k-lab/components";
 import { ArrowRight } from "lucide-react";
 import Button from "@/ui/shared/components/button/button";
 import { cn } from "@/ui/shared/utils/utils";
-import { ADDON_SPHERE_PRODUCTS } from "./addon-sphere-products";
+import {
+  ADDON_SPHERE_PRODUCTS,
+  addonSphereLogoSrc,
+  type AddonSphereProduct,
+} from "./addon-sphere-products";
 import styles from "./nav-addon-spheres.module.css";
 
 type PlaybackMode = "idle" | "playing" | "paused";
@@ -191,26 +194,30 @@ export function IdleSphereVideo({
   );
 }
 
-/** ProductLogo imgs default to async decode and sit in a height:0/opacity:0 panel, so the browser skips the request until the menu finishes opening. */
-function DropdownProductLogo(props: ComponentProps<typeof ProductLogo>) {
-  const ref = useRef<HTMLSpanElement>(null);
-
-  useLayoutEffect(() => {
-    const img = ref.current?.querySelector("img");
-    if (!img) return;
-    img.loading = "eager";
-    img.fetchPriority = "high";
-    img.decoding = "sync";
-    const src = img.getAttribute("src");
-    if (!src) return;
-    img.removeAttribute("src");
-    img.setAttribute("src", src);
-  }, [props.product, props.variant]);
-
+/**
+ * ProductLogo hardcodes decoding="async". In this menu the panel opens from
+ * height:0/opacity:0 while idle videos also start, so async marks lose the race.
+ * Use a plain eager/sync img against the same preloaded SVG URLs.
+ */
+function DropdownSphereLogo({
+  product,
+  className,
+}: {
+  product: AddonSphereProduct;
+  className?: string;
+}) {
   return (
-    <span ref={ref} className={styles.productLogoHost}>
-      <ProductLogo {...props} />
-    </span>
+    <img
+      src={addonSphereLogoSrc(product)}
+      alt=""
+      aria-hidden
+      className={className}
+      width={160}
+      height={40}
+      loading="eager"
+      decoding="sync"
+      fetchPriority="high"
+    />
   );
 }
 
@@ -283,12 +290,9 @@ export function NavAddonSpheres({ onLinkClick, headerTitle }: NavAddonSpheresPro
                     setMode("idle");
                   }}
                 />
-                <DropdownProductLogo
-                  product={product.product}
-                  variant={product.logoVariant}
+                <DropdownSphereLogo
+                  product={product}
                   className={styles.productLogo}
-                  wrapperClassName={styles.productLogoWrap}
-                  aria-hidden
                 />
                 <span className={styles.play} aria-hidden>
                   <img src={product.playIcon} alt="" />
