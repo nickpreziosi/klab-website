@@ -242,13 +242,7 @@
   height: calc(312 / 425 * 100%);
 }
 
-.shotLayer {
-  position: absolute;
-  inset: 0;
-  overflow: visible;
-}
-
-.shotLayer .glow {
+.shotStack > .glow {
   height: 100%;
 }
 
@@ -257,6 +251,18 @@
   inset: 0;
   overflow: hidden;
   border-radius: 8px;
+}
+
+.mediaLayer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.mediaLayerActive {
+  opacity: 1;
 }
 
 .desktopShot .image {

@@ -10,7 +10,7 @@ import {
 } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useLocale } from "next-intl";
 import { getTextDirection, type Locale } from "@/i18n/routing";
 import { withBrandLtr } from "@/ui/home/utils/with-brand-ltr";
@@ -42,11 +42,18 @@ const AUDIENCE_MEDIA: Record<string, { src: string; type: "video" | "image" }> =
   capital: { src: PRIVATE_CAPITAL_IMAGE, type: "image" },
 };
 
+const PRELOAD_MEDIA = Array.from(
+  new Map(
+    Object.values(AUDIENCE_MEDIA).map((media) => [media.src, media] as const),
+  ).values(),
+);
+
 type ServeMediaProps = {
   audienceId: string;
   alt: string;
   className?: string;
   active?: boolean;
+  warm?: boolean;
 };
 
 function ServeMedia({
@@ -54,12 +61,14 @@ function ServeMedia({
   alt,
   className,
   active = true,
+  warm = false,
 }: ServeMediaProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const media = AUDIENCE_MEDIA[audienceId] ?? {
     src: PRIVATE_CAPITAL_VIDEO,
     type: "video" as const,
   };
+  const shouldBuffer = warm || active;
 
   useEffect(() => {
     const video = videoRef.current;
@@ -78,6 +87,8 @@ function ServeMedia({
         src={media.src}
         alt={active ? alt : ""}
         decoding="async"
+        loading={shouldBuffer ? "eager" : "lazy"}
+        fetchPriority={active ? "high" : "low"}
         aria-hidden={!active}
       />
     );
@@ -86,18 +97,34 @@ function ServeMedia({
   return (
     <video
       ref={videoRef}
-      key={media.src}
       className={className}
       src={media.src}
       muted
       loop
       playsInline
       autoPlay={active}
-      preload={active ? "auto" : "none"}
+      preload={shouldBuffer ? "auto" : "metadata"}
       aria-label={active ? alt : undefined}
       aria-hidden={!active}
     />
   );
+}
+
+function preloadAudienceMedia() {
+  for (const media of PRELOAD_MEDIA) {
+    if (media.type === "image") {
+      const image = new window.Image();
+      image.decoding = "async";
+      image.src = media.src;
+      continue;
+    }
+    const video = document.createElement("video");
+    video.preload = "auto";
+    video.muted = true;
+    video.playsInline = true;
+    video.src = media.src;
+    video.load();
+  }
 }
 
 const panelVariants = {
@@ -267,6 +294,7 @@ export function WhoWeServe({
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const selectedRef = useRef(0);
   const [selected, setSelected] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(true);
   const panelInView = useInView(stickyRef, { once: true, amount: 0.25 });
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
@@ -280,6 +308,20 @@ export function WhoWeServe({
   selectedRef.current = selected;
   const showEntrance = disableEntrance || panelInView;
   const itemVariants = disableEntrance ? fadeUpInstant : fadeUp;
+  const mediaWarm = panelInView || showEntrance;
+
+  useEffect(() => {
+    const mq = window.matchMedia(DESKTOP_MQ);
+    const onChange = () => setIsDesktop(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    if (!mediaWarm) return;
+    preloadAudienceMedia();
+  }, [mediaWarm]);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -442,26 +484,29 @@ export function WhoWeServe({
             <div className={styles.stage}>
               <div className={styles.imageFrame} dir="ltr">
                 <div className={styles.shotStack}>
-                  <AnimatePresence initial={false} mode="wait">
-                    <motion.div
-                      key={disableEntrance ? "static" : selected}
-                      className={styles.shotLayer}
-                      initial={disableEntrance ? false : { opacity: 0 }}
-                      animate={{ opacity: showEntrance ? 1 : 0 }}
-                      exit={disableEntrance ? undefined : { opacity: 0 }}
-                      transition={shotTransition(disableEntrance, 0, 0.2)}
-                    >
-                      <div className={styles.glow} aria-hidden />
-                      <div className={styles.desktopShot}>
-                        <ServeMedia
-                          key={AUDIENCES[selected]?.id ?? "governments"}
-                          audienceId={AUDIENCES[selected]?.id ?? "governments"}
-                          alt={translations.serveImageAlt}
-                          className={styles.image}
-                        />
+                  <div className={styles.glow} aria-hidden />
+                  <div className={styles.desktopShot}>
+                    {AUDIENCES.map((audience, index) => (
+                      <div
+                        key={audience.id}
+                        className={cn(
+                          styles.mediaLayer,
+                          index === selected && styles.mediaLayerActive,
+                        )}
+                        aria-hidden={index !== selected}
+                      >
+                        {isDesktop ? (
+                          <ServeMedia
+                            audienceId={audience.id}
+                            alt={translations.serveImageAlt}
+                            className={styles.image}
+                            active={index === selected && showEntrance}
+                            warm={mediaWarm}
+                          />
+                        ) : null}
                       </div>
-                    </motion.div>
-                  </AnimatePresence>
+                    ))}
+                  </div>
                 </div>
                 <Fragment key={disableEntrance ? "static" : selected}>
                   <span className={styles.leader} aria-hidden>
@@ -495,12 +540,17 @@ export function WhoWeServe({
                           aria-hidden={!active}
                           inert={!active}
                         >
-                          <ServeMedia
-                            audienceId={audience?.id ?? item.id}
-                            alt={translations.serveImageAlt}
-                            className={styles.image}
-                            active={active}
-                          />
+                          {!isDesktop ? (
+                            <ServeMedia
+                              audienceId={audience?.id ?? item.id}
+                              alt={translations.serveImageAlt}
+                              className={styles.image}
+                              active={active && showEntrance}
+                              warm={mediaWarm}
+                            />
+                          ) : (
+                            <div className={styles.image} aria-hidden />
+                          )}
                           <motion.p
                             className={cn(styles.callout, styles.slideCallout)}
                             initial={disableEntrance ? false : { opacity: 0 }}
