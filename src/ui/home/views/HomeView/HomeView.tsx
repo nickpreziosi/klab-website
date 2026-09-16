@@ -16,7 +16,7 @@ import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-anima
 import styles from "./HomeView.module.css";
 
 const BACKGROUND_VIDEO = "/videos/klab-hero-loop.mp4";
-const BACKGROUND_POSTER = "/images/bg-logo-zoom-right.webp";
+const BACKGROUND_POSTER = "/images/klab-hero-loop-poster.webp";
 
 type HomeViewProps = {
   /** When provided (from server), hero copy is SSR'd */

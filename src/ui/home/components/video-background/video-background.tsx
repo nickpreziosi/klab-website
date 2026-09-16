@@ -146,6 +146,7 @@ export default function VideoPlayer({
         <motion.video
           ref={videoRef}
           className={styles.video}
+          poster={posterUrl}
           initial={{ opacity: skipAnimation ? 1 : 0 }}
           animate={{ opacity: mediaVisible ? 1 : 0 }}
           transition={{ duration: skipAnimation ? 0 : 0.75, ease: "easeInOut" }}

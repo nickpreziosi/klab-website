@@ -17,18 +17,33 @@ const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
 
 const FEATURE_BACKGROUNDS = [
   { src: "/images/krails-cards/krails-box-1.gif" },
-  { src: "/images/krails-cards/krails-box-2.mp4" },
-  { src: "/images/krails-cards/krails-box-3.mp4", playbackRate: 2 },
-  { src: "/images/krails-cards/krails-box-4.mp4" },
-  { src: "/images/krails-cards/krails-box-5.mp4" },
+  {
+    src: "/images/krails-cards/krails-box-2.mp4",
+    poster: "/images/krails-cards/krails-box-2-poster.webp",
+  },
+  {
+    src: "/images/krails-cards/krails-box-3.mp4",
+    poster: "/images/krails-cards/krails-box-3-poster.webp",
+    playbackRate: 2,
+  },
+  {
+    src: "/images/krails-cards/krails-box-4.mp4",
+    poster: "/images/krails-cards/krails-box-4-poster.webp",
+  },
+  {
+    src: "/images/krails-cards/krails-box-5.mp4",
+    poster: "/images/krails-cards/krails-box-5-poster.webp",
+  },
 ] as const;
 
 const PHONE_BACKGROUND = {
   src: "/images/krails-cards/krails-box-6.mp4",
+  poster: "/images/krails-cards/krails-box-6-poster.webp",
 } as const;
 
 type FeatureMedia = {
   src: string;
+  poster?: string;
   playbackRate?: number;
 };
 
@@ -47,6 +62,7 @@ function FeatureBackground({
         ref={videoRef}
         className={styles.featureBg}
         src={media.src}
+        poster={media.poster}
         muted
         loop
         playsInline

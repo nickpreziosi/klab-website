@@ -153,6 +153,7 @@ const DialogDemo = ({ onPlay }: { onPlay?: () => void }) => {
           {/* Native HTML video element */}
           <video
             src="/videos/keo-home-main.mp4"
+            poster="/images/klab-home-main-poster.webp"
             ref={videoRef}
             className={styles.videoEmbed}
             controls

@@ -17,8 +17,7 @@ import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 import {
   ADDON_SPHERE_PRODUCTS,
   addonSphereLogoSrc,
-  preloadAddonSphereLogos,
-  preloadAddonSphereVideos,
+  preloadAddonSphereAssets,
 } from "@/ui/shared/components/addon-spheres/addon-sphere-products";
 import {
   TECHNOLOGIES,
@@ -104,10 +103,9 @@ export const NavigationMenuDemo = ({
     };
   }, [nav.whatWeDo, nav.kRails, nav.whoWeServe, nav.resources]);
 
-  // Warm K Rails dropdown logos + videos on page load.
+  // Warm sphere marks first; videos only after logos so marks are never starved.
   useEffect(() => {
-    preloadAddonSphereLogos();
-    preloadAddonSphereVideos();
+    preloadAddonSphereAssets();
   }, []);
 
   // Preload all tech logos on page load so drawer/dropdown show them instantly (Safari/mobile).
@@ -253,9 +251,8 @@ export const NavigationMenuDemo = ({
   const shouldHideNavbar = isNavbarHidden && !openDropdown && !drawerOpen;
 
   const preloadKRails = () => {
-    preloadAddonSphereLogos();
+    preloadAddonSphereAssets();
     preloadTechnologyLogos(effectiveTheme);
-    preloadAddonSphereVideos();
   };
 
   return (
@@ -285,7 +282,8 @@ export const NavigationMenuDemo = ({
                 alt=""
                 width={160}
                 height={40}
-                decoding="async"
+                decoding="sync"
+                fetchPriority="high"
               />
             ))}
           </div>

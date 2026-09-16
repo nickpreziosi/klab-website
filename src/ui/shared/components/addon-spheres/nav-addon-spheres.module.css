@@ -64,16 +64,18 @@
   overflow: hidden;
   border-radius: 50%;
   pointer-events: none;
-  background: #d9d9d9;
+  /* Match orb mid-tones so any paint gap never flashes light gray/white. */
+  background: #3d6fad;
 }
 
 :global(html.dark) .sphere {
-  background: #2a2a2a;
+  background: #2a3f5c;
 }
 
 .sphereCanvas {
   position: absolute;
   inset: 0;
+  z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
@@ -84,6 +86,20 @@
 .sphereCanvas[data-ready="true"] {
   opacity: 1;
 }
+
+.spherePoster {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* Fully cropped into the orb — no white letterbox/corners. */
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Keep poster under the canvas; fading it out briefly showed the fallback fill. */
 
 .sphereVideoSource {
   position: fixed;
@@ -166,16 +182,13 @@
   text-align: right;
 }
 
-.productLogoWrap {
-  display: contents !important;
-}
-
 .productLogo {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 32.14%;
   left: 50%;
   height: 16%;
+  min-height: 22px;
   width: auto;
   max-width: 78%;
   object-fit: contain;

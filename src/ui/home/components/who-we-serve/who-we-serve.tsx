@@ -34,11 +34,31 @@ const AUDIENCES: readonly { id: string; icon: string; rotate?: boolean }[] = [
   { id: "capital", icon: "/images/who-we-serve/icon-capital.svg" },
 ];
 
-const AUDIENCE_MEDIA: Record<string, { src: string; type: "video" | "image" }> = {
-  governments: { src: GOVERNMENT_VIDEO, type: "video" },
-  enterprises: { src: PRIVATE_CAPITAL_VIDEO, type: "video" },
-  suppliers: { src: SME_VIDEO, type: "video" },
-  banks: { src: BANK_VIDEO, type: "video" },
+type AudienceMedia =
+  | { src: string; type: "video"; poster: string }
+  | { src: string; type: "image"; poster?: undefined };
+
+const AUDIENCE_MEDIA: Record<string, AudienceMedia> = {
+  governments: {
+    src: GOVERNMENT_VIDEO,
+    type: "video",
+    poster: "/images/who-we-serve/poster-government.webp",
+  },
+  enterprises: {
+    src: PRIVATE_CAPITAL_VIDEO,
+    type: "video",
+    poster: "/images/who-we-serve/poster-enterprises.webp",
+  },
+  suppliers: {
+    src: SME_VIDEO,
+    type: "video",
+    poster: "/images/who-we-serve/poster-suppliers.webp",
+  },
+  banks: {
+    src: BANK_VIDEO,
+    type: "video",
+    poster: "/images/who-we-serve/poster-banks.webp",
+  },
   capital: { src: PRIVATE_CAPITAL_IMAGE, type: "image" },
 };
 
@@ -50,64 +70,85 @@ const PRELOAD_MEDIA = Array.from(
 
 const retainedAudiencePreloads: (HTMLImageElement | HTMLVideoElement)[] = [];
 let audienceMediaPreloadStarted = false;
+let audiencePosterPreloadStarted = false;
 
-function preloadAudienceMedia() {
-  if (typeof document === "undefined" || audienceMediaPreloadStarted) return;
-  audienceMediaPreloadStarted = true;
+function preloadAudiencePosters() {
+  if (typeof document === "undefined" || audiencePosterPreloadStarted) return;
+  audiencePosterPreloadStarted = true;
 
   for (const media of PRELOAD_MEDIA) {
-    if (media.type === "image") {
-      const image = new window.Image();
-      image.decoding = "async";
-      image.src = media.src;
-      retainedAudiencePreloads.push(image);
+    const poster = media.type === "video" ? media.poster : media.src;
+    const image = new window.Image();
+    image.decoding = "async";
+    image.fetchPriority = "low";
+    image.src = poster;
+    retainedAudiencePreloads.push(image);
+  }
+}
+
+function preloadAudienceVideos(prioritySrc?: string) {
+  if (typeof document === "undefined") return;
+
+  const videos = PRELOAD_MEDIA.filter((media) => media.type === "video");
+  const ordered = prioritySrc
+    ? [
+        ...videos.filter((media) => media.src === prioritySrc),
+        ...videos.filter((media) => media.src !== prioritySrc),
+      ]
+    : videos;
+
+  for (const media of ordered) {
+    if (retainedAudiencePreloads.some((el) => el instanceof HTMLVideoElement && el.src.endsWith(media.src))) {
       continue;
     }
     const video = document.createElement("video");
     video.preload = "auto";
     video.muted = true;
     video.playsInline = true;
+    video.poster = media.poster;
     video.src = media.src;
     video.load();
     retainedAudiencePreloads.push(video);
   }
 }
 
-/** After window load + browser idle so hero/nav preloads finish first. */
+function preloadAudienceMedia(prioritySrc?: string) {
+  preloadAudiencePosters();
+  if (audienceMediaPreloadStarted && !prioritySrc) return;
+  audienceMediaPreloadStarted = true;
+  preloadAudienceVideos(prioritySrc);
+}
+
+/** Posters ASAP; videos after a short beat so hero/nav finish first. */
 function scheduleAudienceMediaPreload(onStart?: () => void) {
   if (typeof window === "undefined") return () => {};
 
-  let idleId = 0;
   let timeoutId = 0;
   let cancelled = false;
 
+  // Tiny stills first — these paint instantly when the section is reached.
+  preloadAudiencePosters();
+
   const run = () => {
     if (cancelled) return;
-    preloadAudienceMedia();
+    preloadAudienceMedia(GOVERNMENT_VIDEO);
     onStart?.();
   };
 
-  const scheduleIdle = () => {
+  const schedule = () => {
     if (cancelled) return;
-    if (typeof window.requestIdleCallback === "function") {
-      idleId = window.requestIdleCallback(run, { timeout: 4000 });
-    } else {
-      timeoutId = window.setTimeout(run, 1200);
-    }
+    timeoutId = window.setTimeout(run, 400);
   };
 
   if (document.readyState === "complete") {
-    scheduleIdle();
+    schedule();
   } else {
-    window.addEventListener("load", scheduleIdle, { once: true });
+    window.addEventListener("load", schedule, { once: true });
   }
 
   return () => {
     cancelled = true;
-    window.removeEventListener("load", scheduleIdle);
-    if (idleId && typeof window.cancelIdleCallback === "function") {
-      window.cancelIdleCallback(idleId);
-    }
+    window.removeEventListener("load", schedule);
     if (timeoutId) window.clearTimeout(timeoutId);
   };
 }
@@ -128,11 +169,17 @@ function ServeMedia({
   warm = false,
 }: ServeMediaProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
   const media = AUDIENCE_MEDIA[audienceId] ?? {
     src: PRIVATE_CAPITAL_VIDEO,
     type: "video" as const,
+    poster: "/images/who-we-serve/poster-enterprises.webp",
   };
   const shouldBuffer = warm || active;
+
+  useEffect(() => {
+    setVideoReady(false);
+  }, [media.src]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -143,6 +190,17 @@ function ServeMedia({
       video.pause();
     }
   }, [active, media.type]);
+
+  // Changing preload= after mount does not always restart buffering — force load when warmed.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || media.type !== "video" || !shouldBuffer) return;
+    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      setVideoReady(true);
+      return;
+    }
+    video.load();
+  }, [shouldBuffer, media.type, media.src]);
 
   if (media.type === "image") {
     return (
@@ -159,18 +217,33 @@ function ServeMedia({
   }
 
   return (
-    <video
-      ref={videoRef}
-      className={className}
-      src={media.src}
-      muted
-      loop
-      playsInline
-      autoPlay={active}
-      preload={shouldBuffer ? "auto" : "metadata"}
-      aria-label={active ? alt : undefined}
-      aria-hidden={!active}
-    />
+    <span className={className ? `${className} ${styles.mediaFrame}` : styles.mediaFrame}>
+      <img
+        className={styles.poster}
+        src={media.poster}
+        alt=""
+        decoding="async"
+        loading="eager"
+        fetchPriority={active ? "high" : "low"}
+        aria-hidden
+      />
+      <video
+        ref={videoRef}
+        className={styles.video}
+        src={media.src}
+        poster={media.poster}
+        muted
+        loop
+        playsInline
+        autoPlay={active}
+        preload={shouldBuffer ? "auto" : "metadata"}
+        data-ready={videoReady ? "true" : undefined}
+        aria-label={active ? alt : undefined}
+        aria-hidden={!active}
+        onLoadedData={() => setVideoReady(true)}
+        onCanPlay={() => setVideoReady(true)}
+      />
+    </span>
   );
 }
 
@@ -365,8 +438,15 @@ export function WhoWeServe({
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  // After other page assets: window load, then idle — not when the section scrolls into view.
+  // After other page assets finish loading; if the user reaches the section first, warm immediately.
   useEffect(() => scheduleAudienceMediaPreload(() => setMediaWarm(true)), []);
+
+  useEffect(() => {
+    if (!panelInView || mediaWarm) return;
+    const activeSrc = AUDIENCE_MEDIA[AUDIENCES[selected]?.id ?? "governments"]?.src;
+    preloadAudienceMedia(activeSrc);
+    setMediaWarm(true);
+  }, [panelInView, mediaWarm, selected]);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;

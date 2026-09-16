@@ -36,11 +36,13 @@ function prefersReducedMotion() {
 function SphereVideo({
   idleSrc,
   playingSrc,
+  idlePoster,
   mode,
   onEnded,
 }: {
   idleSrc: string;
   playingSrc: string;
+  idlePoster?: string;
   mode: PlaybackMode;
   onEnded?: () => void;
 }) {
@@ -106,6 +108,7 @@ function SphereVideo({
         ref={idleRef}
         className={styles.sphereVideo}
         src={idleSrc}
+        poster={idlePoster}
         muted
         loop
         playsInline
@@ -179,6 +182,7 @@ export function WhatIsKrails({ translations, skipAnimation = false }: WhatIsKrai
                   <SphereVideo
                     idleSrc={KRAILS_SPHERE.idleVideo}
                     playingSrc={KRAILS_SPHERE.playingVideo}
+                    idlePoster={KRAILS_SPHERE.idlePoster}
                     mode={mode}
                     onEnded={() => setMode("idle")}
                   />

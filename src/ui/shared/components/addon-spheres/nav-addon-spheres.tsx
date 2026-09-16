@@ -1,15 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getTextDirection, type Locale } from "@/i18n/routing";
-import { ProductLogo } from "@k-lab/components";
 import { ArrowRight } from "lucide-react";
 import Button from "@/ui/shared/components/button/button";
 import { cn } from "@/ui/shared/utils/utils";
-import { ADDON_SPHERE_PRODUCTS } from "./addon-sphere-products";
+import {
+  ADDON_SPHERE_PRODUCTS,
+  addonSphereLogoSrc,
+  type AddonSphereProduct,
+} from "./addon-sphere-products";
 import styles from "./nav-addon-spheres.module.css";
 
 type PlaybackMode = "idle" | "playing" | "paused";
@@ -52,17 +55,22 @@ function drawCover(
 /**
  * Logos / chrome are siblings — they never wait on video.
  * Idle + playing clips both stay mounted with preload while this sphere is open.
+ * `mediaEnabled` delays video work until marks have painted (navbar cache → instant).
  */
 export function IdleSphereVideo({
   idleSrc,
   playingSrc,
+  idlePoster,
   mode,
   onEnded,
+  mediaEnabled = true,
 }: {
   idleSrc: string;
   playingSrc: string;
+  idlePoster?: string;
   mode: PlaybackMode;
   onEnded?: () => void;
+  mediaEnabled?: boolean;
 }) {
   const idleRef = useRef<HTMLVideoElement>(null);
   const playingRef = useRef<HTMLVideoElement>(null);
@@ -78,17 +86,21 @@ export function IdleSphereVideo({
   }, []);
 
   useEffect(() => {
-    if (!mounted || prefersReducedMotion()) return;
+    if (!mediaEnabled) setReady(false);
+  }, [mediaEnabled]);
+
+  useEffect(() => {
+    if (!mediaEnabled || !mounted || prefersReducedMotion()) return;
     idleRef.current?.load();
     playingRef.current?.load();
-  }, [mounted, idleSrc, playingSrc]);
+  }, [mounted, idleSrc, playingSrc, mediaEnabled]);
 
   useEffect(() => {
     const idle = idleRef.current;
     const playing = playingRef.current;
     const canvas = canvasRef.current;
     const sphere = sphereRef.current;
-    if (!mounted || !idle || !playing || !canvas || !sphere) return;
+    if (!mediaEnabled || !mounted || !idle || !playing || !canvas || !sphere) return;
     if (prefersReducedMotion()) return;
 
     const activeVideo = mode === "idle" ? idle : playing;
@@ -183,22 +195,31 @@ export function IdleSphereVideo({
       document.removeEventListener("visibilitychange", onVisibility);
       activeVideo.pause();
     };
-  }, [mode, mounted, idleSrc, playingSrc]);
+  }, [mode, mounted, idleSrc, playingSrc, mediaEnabled]);
 
   return (
     <span ref={sphereRef} className={styles.sphere} aria-hidden>
+      {idlePoster ? (
+        <img
+          className={styles.spherePoster}
+          src={idlePoster}
+          alt=""
+          decoding="async"
+        />
+      ) : null}
       <canvas
         ref={canvasRef}
         className={styles.sphereCanvas}
         data-ready={ready ? "true" : undefined}
       />
-      {mounted && !prefersReducedMotion()
+      {mediaEnabled && mounted && !prefersReducedMotion()
         ? createPortal(
             <>
               <video
                 ref={idleRef}
                 className={styles.sphereVideoSource}
                 src={idleSrc}
+                poster={idlePoster}
                 muted
                 playsInline
                 preload="auto"
@@ -223,6 +244,62 @@ export function IdleSphereVideo({
   );
 }
 
+/**
+ * Same URLs as the always-mounted navbar preload imgs.
+ * Plain <img> (not ProductLogo) so we can gate video start on paint and avoid async-decode races.
+ */
+function SphereProductLogo({
+  product,
+  className,
+  onReady,
+}: {
+  product: AddonSphereProduct;
+  className?: string;
+  onReady?: () => void;
+}) {
+  const ref = useRef<HTMLImageElement>(null);
+  const notified = useRef(false);
+
+  const notify = () => {
+    if (notified.current) return;
+    notified.current = true;
+    onReady?.();
+  };
+
+  useLayoutEffect(() => {
+    const img = ref.current;
+    if (!img) return;
+    if (img.complete && img.naturalWidth > 0) {
+      notify();
+      return;
+    }
+    const onLoad = () => notify();
+    const onError = () => notify();
+    img.addEventListener("load", onLoad);
+    img.addEventListener("error", onError);
+    return () => {
+      img.removeEventListener("load", onLoad);
+      img.removeEventListener("error", onError);
+    };
+    // Re-run when the mark URL changes; onReady is optional paint gate only.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product.id, product.logoVariant]);
+
+  return (
+    <img
+      ref={ref}
+      src={addonSphereLogoSrc(product)}
+      alt=""
+      aria-hidden
+      className={className}
+      width={160}
+      height={40}
+      decoding="sync"
+      fetchPriority="high"
+    />
+  );
+}
+
 type NavAddonSpheresProps = {
   onLinkClick?: () => void;
   headerTitle?: string;
@@ -235,6 +312,17 @@ export function NavAddonSpheres({ onLinkClick, headerTitle }: NavAddonSpheresPro
   const tShowcase = useTranslations("technologiesShowcase");
   const [activeId, setActiveId] = useState<string | null>(null);
   const [mode, setMode] = useState<PlaybackMode>("idle");
+  const [logosReadyCount, setLogosReadyCount] = useState(0);
+  const [logosWaitTimedOut, setLogosWaitTimedOut] = useState(false);
+  const mediaEnabled =
+    logosWaitTimedOut || logosReadyCount >= ADDON_SPHERE_PRODUCTS.length;
+
+  const markLogoReady = () => setLogosReadyCount((count) => count + 1);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => setLogosWaitTimedOut(true), 600);
+    return () => window.clearTimeout(id);
+  }, []);
 
   const toggleProduct = (id: string) => {
     if (activeId === id && mode === "playing") {
@@ -286,19 +374,18 @@ export function NavAddonSpheres({ onLinkClick, headerTitle }: NavAddonSpheresPro
                 <IdleSphereVideo
                   idleSrc={product.idleVideo}
                   playingSrc={product.playingVideo}
+                  idlePoster={product.idlePoster}
                   mode={productMode}
+                  mediaEnabled={mediaEnabled}
                   onEnded={() => {
                     setActiveId(null);
                     setMode("idle");
                   }}
                 />
-                {/* Independent of video ready — sits on the sphere placeholder until canvas fades in. */}
-                <ProductLogo
-                  product={product.product}
-                  variant={product.logoVariant}
+                <SphereProductLogo
+                  product={product}
                   className={styles.productLogo}
-                  wrapperClassName={styles.productLogoWrap}
-                  aria-hidden
+                  onReady={markLogoReady}
                 />
                 <span className={styles.play} aria-hidden>
                   <img src={product.playIcon} alt="" decoding="async" />
