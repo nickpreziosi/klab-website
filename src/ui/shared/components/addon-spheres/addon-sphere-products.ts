@@ -23,8 +23,9 @@ export function addonSphereLogoSrc(product: AddonSphereProduct): string {
 
 const retainedLogoPreloads: HTMLImageElement[] = [];
 const retainedLogoLinks: HTMLLinkElement[] = [];
+const retainedVideoPreloads: HTMLVideoElement[] = [];
 
-/** Warm HTTP + decoder cache before the K Rails menu opens (ProductLogo defaults to async decode). */
+/** Warm logo HTTP cache on page load (async decode — marks stay independent of video). */
 export function preloadAddonSphereLogos() {
   if (typeof window === "undefined") return;
   if (retainedLogoPreloads.length > 0) return;
@@ -39,21 +40,31 @@ export function preloadAddonSphereLogos() {
     retainedLogoLinks.push(link);
 
     const img = new Image();
-    img.decoding = "sync";
+    img.decoding = "async";
     img.src = href;
-    void img.decode?.().catch(() => {});
     retainedLogoPreloads.push(img);
+
+    const play = new Image();
+    play.decoding = "async";
+    play.src = product.playIcon;
+    retainedLogoPreloads.push(play);
   }
 }
 
+/** Keep idle + playing clips buffering so the menu never cold-starts media. */
 export function preloadAddonSphereVideos() {
   if (typeof document === "undefined") return;
+  if (retainedVideoPreloads.length > 0) return;
   for (const product of ADDON_SPHERE_PRODUCTS) {
-    const video = document.createElement("video");
-    video.preload = "auto";
-    video.muted = true;
-    video.playsInline = true;
-    video.src = product.idleVideo;
+    for (const src of [product.idleVideo, product.playingVideo]) {
+      const video = document.createElement("video");
+      video.preload = "auto";
+      video.muted = true;
+      video.playsInline = true;
+      video.src = src;
+      video.load();
+      retainedVideoPreloads.push(video);
+    }
   }
 }
 

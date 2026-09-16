@@ -104,9 +104,10 @@ export const NavigationMenuDemo = ({
     };
   }, [nav.whatWeDo, nav.kRails, nav.whoWeServe, nav.resources]);
 
-  // Warm K Rails dropdown logos before the menu opens (panel mounts on click).
+  // Warm K Rails dropdown logos + videos on page load.
   useEffect(() => {
     preloadAddonSphereLogos();
+    preloadAddonSphereVideos();
   }, []);
 
   // Preload all tech logos on page load so drawer/dropdown show them instantly (Safari/mobile).
@@ -275,7 +276,7 @@ export const NavigationMenuDemo = ({
             openDropdown && styles.containerDropdownOpen
           } ${shouldHideNavbar && styles.containerHidden}`}
         >
-          {/* Same sphere marks as the K Rails menu — eager/sync so they decode before open. */}
+          {/* Mirror sphere marks so HTTP cache is warm before the menu opens. */}
           <div className={styles.addonLogoPreload} aria-hidden>
             {ADDON_SPHERE_PRODUCTS.map((product) => (
               <img
@@ -284,9 +285,7 @@ export const NavigationMenuDemo = ({
                 alt=""
                 width={160}
                 height={40}
-                loading="eager"
-                decoding="sync"
-                fetchPriority="high"
+                decoding="async"
               />
             ))}
           </div>

@@ -5,14 +5,11 @@ import { createPortal } from "react-dom";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getTextDirection, type Locale } from "@/i18n/routing";
+import { ProductLogo } from "@k-lab/components";
 import { ArrowRight } from "lucide-react";
 import Button from "@/ui/shared/components/button/button";
 import { cn } from "@/ui/shared/utils/utils";
-import {
-  ADDON_SPHERE_PRODUCTS,
-  addonSphereLogoSrc,
-  type AddonSphereProduct,
-} from "./addon-sphere-products";
+import { ADDON_SPHERE_PRODUCTS } from "./addon-sphere-products";
 import styles from "./nav-addon-spheres.module.css";
 
 type PlaybackMode = "idle" | "playing" | "paused";
@@ -52,6 +49,10 @@ function drawCover(
   return true;
 }
 
+/**
+ * Logos / chrome are siblings — they never wait on video.
+ * Idle + playing clips both stay mounted with preload while this sphere is open.
+ */
 export function IdleSphereVideo({
   idleSrc,
   playingSrc,
@@ -63,13 +64,13 @@ export function IdleSphereVideo({
   mode: PlaybackMode;
   onEnded?: () => void;
 }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const idleRef = useRef<HTMLVideoElement>(null);
+  const playingRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sphereRef = useRef<HTMLSpanElement>(null);
   const onEndedRef = useRef(onEnded);
   const [ready, setReady] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const src = mode === "idle" ? idleSrc : playingSrc;
   onEndedRef.current = onEnded;
 
   useEffect(() => {
@@ -77,11 +78,26 @@ export function IdleSphereVideo({
   }, []);
 
   useEffect(() => {
-    const video = videoRef.current;
+    if (!mounted || prefersReducedMotion()) return;
+    idleRef.current?.load();
+    playingRef.current?.load();
+  }, [mounted, idleSrc, playingSrc]);
+
+  useEffect(() => {
+    const idle = idleRef.current;
+    const playing = playingRef.current;
     const canvas = canvasRef.current;
     const sphere = sphereRef.current;
-    if (!mounted || !video || !canvas || !sphere) return;
+    if (!mounted || !idle || !playing || !canvas || !sphere) return;
     if (prefersReducedMotion()) return;
+
+    const activeVideo = mode === "idle" ? idle : playing;
+    const otherVideo = mode === "idle" ? playing : idle;
+
+    otherVideo.pause();
+    if (mode === "idle") {
+      playing.currentTime = 0;
+    }
 
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
@@ -102,8 +118,10 @@ export function IdleSphereVideo({
     };
 
     const paint = () => {
-      if (video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA || video.seeking) return;
-      if (drawCover(ctx, video, canvas, SPHERE_VIDEO_SCALE) && !painted) {
+      if (activeVideo.readyState < HTMLMediaElement.HAVE_CURRENT_DATA || activeVideo.seeking) {
+        return;
+      }
+      if (drawCover(ctx, activeVideo, canvas, SPHERE_VIDEO_SCALE) && !painted) {
         painted = true;
         setReady(true);
       }
@@ -118,9 +136,9 @@ export function IdleSphereVideo({
 
     const restartBeforeEnd = () => {
       if (mode !== "idle") return;
-      if (!video.duration || !Number.isFinite(video.duration)) return;
-      if (video.currentTime >= video.duration - 0.08) {
-        video.currentTime = 0.04;
+      if (!idle.duration || !Number.isFinite(idle.duration)) return;
+      if (idle.currentTime >= idle.duration - 0.08) {
+        idle.currentTime = 0.04;
       }
     };
 
@@ -132,27 +150,27 @@ export function IdleSphereVideo({
       if (document.hidden) {
         running = false;
         cancelAnimationFrame(raf);
-        video.pause();
+        activeVideo.pause();
         return;
       }
       running = true;
-      if (mode !== "paused") video.play().catch(() => {});
+      if (mode !== "paused") activeVideo.play().catch(() => {});
       raf = requestAnimationFrame(tick);
     };
 
     const observer = new ResizeObserver(resize);
     observer.observe(sphere);
-    video.addEventListener("timeupdate", restartBeforeEnd);
-    video.addEventListener("ended", handleEnded);
+    idle.addEventListener("timeupdate", restartBeforeEnd);
+    playing.addEventListener("ended", handleEnded);
     document.addEventListener("visibilitychange", onVisibility);
 
-    video.muted = mode !== "playing";
+    activeVideo.muted = mode !== "playing";
     if (mode === "paused") {
-      video.pause();
+      activeVideo.pause();
       resize();
       paint();
     } else {
-      video.play().catch(() => {});
+      activeVideo.play().catch(() => {});
       raf = requestAnimationFrame(tick);
     }
 
@@ -160,12 +178,12 @@ export function IdleSphereVideo({
       running = false;
       cancelAnimationFrame(raf);
       observer.disconnect();
-      video.removeEventListener("timeupdate", restartBeforeEnd);
-      video.removeEventListener("ended", handleEnded);
+      idle.removeEventListener("timeupdate", restartBeforeEnd);
+      playing.removeEventListener("ended", handleEnded);
       document.removeEventListener("visibilitychange", onVisibility);
-      video.pause();
+      activeVideo.pause();
     };
-  }, [src, mode, mounted]);
+  }, [mode, mounted, idleSrc, playingSrc]);
 
   return (
     <span ref={sphereRef} className={styles.sphere} aria-hidden>
@@ -176,48 +194,32 @@ export function IdleSphereVideo({
       />
       {mounted && !prefersReducedMotion()
         ? createPortal(
-            <video
-              ref={videoRef}
-              className={styles.sphereVideoSource}
-              src={src}
-              muted={mode !== "playing"}
-              playsInline
-              autoPlay={mode !== "paused"}
-              preload="auto"
-              disablePictureInPicture
-              aria-hidden
-            />,
+            <>
+              <video
+                ref={idleRef}
+                className={styles.sphereVideoSource}
+                src={idleSrc}
+                muted
+                playsInline
+                preload="auto"
+                disablePictureInPicture
+                aria-hidden
+              />
+              <video
+                ref={playingRef}
+                className={styles.sphereVideoSource}
+                src={playingSrc}
+                muted={mode !== "playing"}
+                playsInline
+                preload="auto"
+                disablePictureInPicture
+                aria-hidden
+              />
+            </>,
             document.body,
           )
         : null}
     </span>
-  );
-}
-
-/**
- * ProductLogo hardcodes decoding="async". In this menu the panel opens from
- * height:0/opacity:0 while idle videos also start, so async marks lose the race.
- * Use a plain eager/sync img against the same preloaded SVG URLs.
- */
-function DropdownSphereLogo({
-  product,
-  className,
-}: {
-  product: AddonSphereProduct;
-  className?: string;
-}) {
-  return (
-    <img
-      src={addonSphereLogoSrc(product)}
-      alt=""
-      aria-hidden
-      className={className}
-      width={160}
-      height={40}
-      loading="eager"
-      decoding="sync"
-      fetchPriority="high"
-    />
   );
 }
 
@@ -290,12 +292,16 @@ export function NavAddonSpheres({ onLinkClick, headerTitle }: NavAddonSpheresPro
                     setMode("idle");
                   }}
                 />
-                <DropdownSphereLogo
-                  product={product}
+                {/* Independent of video ready — sits on the sphere placeholder until canvas fades in. */}
+                <ProductLogo
+                  product={product.product}
+                  variant={product.logoVariant}
                   className={styles.productLogo}
+                  wrapperClassName={styles.productLogoWrap}
+                  aria-hidden
                 />
                 <span className={styles.play} aria-hidden>
-                  <img src={product.playIcon} alt="" />
+                  <img src={product.playIcon} alt="" decoding="async" />
                 </span>
                 <span className={styles.pause} aria-hidden>
                   <span className={styles.pauseBar} />
