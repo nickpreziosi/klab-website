@@ -20,6 +20,8 @@ import styles from "./who-we-serve.module.css";
 
 const GOVERNMENT_VIDEO = "/videos/who-we-serve-government.mp4";
 const PRIVATE_CAPITAL_VIDEO = "/videos/who-we-serve-private-capital.mp4";
+const SME_VIDEO = "/videos/who-we-serve-sme.mp4";
+const PRIVATE_CAPITAL_IMAGE = "/images/who-we-serve/private-capital.png";
 const DESKTOP_MQ = "(min-width: 1025px)";
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -30,6 +32,14 @@ const AUDIENCES: readonly { id: string; icon: string; rotate?: boolean }[] = [
   { id: "banks", icon: "/images/who-we-serve/icon-banks.svg", rotate: true },
   { id: "capital", icon: "/images/who-we-serve/icon-capital.svg" },
 ];
+
+const AUDIENCE_MEDIA: Record<string, { src: string; type: "video" | "image" }> = {
+  governments: { src: GOVERNMENT_VIDEO, type: "video" },
+  enterprises: { src: PRIVATE_CAPITAL_VIDEO, type: "video" },
+  suppliers: { src: SME_VIDEO, type: "video" },
+  banks: { src: PRIVATE_CAPITAL_VIDEO, type: "video" },
+  capital: { src: PRIVATE_CAPITAL_IMAGE, type: "image" },
+};
 
 type ServeMediaProps = {
   audienceId: string;
@@ -45,24 +55,39 @@ function ServeMedia({
   active = true,
 }: ServeMediaProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const src =
-    audienceId === "governments" ? GOVERNMENT_VIDEO : PRIVATE_CAPITAL_VIDEO;
+  const media = AUDIENCE_MEDIA[audienceId] ?? {
+    src: PRIVATE_CAPITAL_VIDEO,
+    type: "video" as const,
+  };
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || media.type !== "video") return;
     if (active) {
       void video.play().catch(() => {});
     } else {
       video.pause();
     }
-  }, [active]);
+  }, [active, media.type]);
+
+  if (media.type === "image") {
+    return (
+      <img
+        className={className}
+        src={media.src}
+        alt={active ? alt : ""}
+        decoding="async"
+        aria-hidden={!active}
+      />
+    );
+  }
 
   return (
     <video
       ref={videoRef}
+      key={media.src}
       className={className}
-      src={src}
+      src={media.src}
       muted
       loop
       playsInline
