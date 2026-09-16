@@ -21,7 +21,7 @@ import styles from "./who-we-serve.module.css";
 const GOVERNMENT_VIDEO = "/videos/who-we-serve-government.mp4";
 const PRIVATE_CAPITAL_VIDEO = "/videos/who-we-serve-private-capital.mp4";
 const SME_VIDEO = "/videos/who-we-serve-sme.mp4";
-const PRIVATE_CAPITAL_IMAGE = "/images/who-we-serve/private-capital.png";
+const PRIVATE_CAPITAL_IMAGE = "/images/who-we-serve/private-capital.webp";
 const DESKTOP_MQ = "(min-width: 1025px)";
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
 
