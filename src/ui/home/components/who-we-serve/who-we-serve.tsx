@@ -48,6 +48,70 @@ const PRELOAD_MEDIA = Array.from(
   ).values(),
 );
 
+const retainedAudiencePreloads: (HTMLImageElement | HTMLVideoElement)[] = [];
+let audienceMediaPreloadStarted = false;
+
+function preloadAudienceMedia() {
+  if (typeof document === "undefined" || audienceMediaPreloadStarted) return;
+  audienceMediaPreloadStarted = true;
+
+  for (const media of PRELOAD_MEDIA) {
+    if (media.type === "image") {
+      const image = new window.Image();
+      image.decoding = "async";
+      image.src = media.src;
+      retainedAudiencePreloads.push(image);
+      continue;
+    }
+    const video = document.createElement("video");
+    video.preload = "auto";
+    video.muted = true;
+    video.playsInline = true;
+    video.src = media.src;
+    video.load();
+    retainedAudiencePreloads.push(video);
+  }
+}
+
+/** After window load + browser idle so hero/nav preloads finish first. */
+function scheduleAudienceMediaPreload(onStart?: () => void) {
+  if (typeof window === "undefined") return () => {};
+
+  let idleId = 0;
+  let timeoutId = 0;
+  let cancelled = false;
+
+  const run = () => {
+    if (cancelled) return;
+    preloadAudienceMedia();
+    onStart?.();
+  };
+
+  const scheduleIdle = () => {
+    if (cancelled) return;
+    if (typeof window.requestIdleCallback === "function") {
+      idleId = window.requestIdleCallback(run, { timeout: 4000 });
+    } else {
+      timeoutId = window.setTimeout(run, 1200);
+    }
+  };
+
+  if (document.readyState === "complete") {
+    scheduleIdle();
+  } else {
+    window.addEventListener("load", scheduleIdle, { once: true });
+  }
+
+  return () => {
+    cancelled = true;
+    window.removeEventListener("load", scheduleIdle);
+    if (idleId && typeof window.cancelIdleCallback === "function") {
+      window.cancelIdleCallback(idleId);
+    }
+    if (timeoutId) window.clearTimeout(timeoutId);
+  };
+}
+
 type ServeMediaProps = {
   audienceId: string;
   alt: string;
@@ -108,23 +172,6 @@ function ServeMedia({
       aria-hidden={!active}
     />
   );
-}
-
-function preloadAudienceMedia() {
-  for (const media of PRELOAD_MEDIA) {
-    if (media.type === "image") {
-      const image = new window.Image();
-      image.decoding = "async";
-      image.src = media.src;
-      continue;
-    }
-    const video = document.createElement("video");
-    video.preload = "auto";
-    video.muted = true;
-    video.playsInline = true;
-    video.src = media.src;
-    video.load();
-  }
 }
 
 const panelVariants = {
@@ -308,7 +355,7 @@ export function WhoWeServe({
   selectedRef.current = selected;
   const showEntrance = disableEntrance || panelInView;
   const itemVariants = disableEntrance ? fadeUpInstant : fadeUp;
-  const mediaWarm = panelInView || showEntrance;
+  const [mediaWarm, setMediaWarm] = useState(audienceMediaPreloadStarted);
 
   useEffect(() => {
     const mq = window.matchMedia(DESKTOP_MQ);
@@ -318,10 +365,8 @@ export function WhoWeServe({
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  useEffect(() => {
-    if (!mediaWarm) return;
-    preloadAudienceMedia();
-  }, [mediaWarm]);
+  // After other page assets: window load, then idle — not when the section scrolls into view.
+  useEffect(() => scheduleAudienceMediaPreload(() => setMediaWarm(true)), []);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
