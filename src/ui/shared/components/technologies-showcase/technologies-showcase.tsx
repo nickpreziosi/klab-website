@@ -27,7 +27,8 @@ export const TECHNOLOGIES: {
   logoLight: string;
   logoDark: string;
   descriptionKey: TechDescriptionKey;
-  href: string;
+  /** Product page href. Omit when the product has no standalone page. */
+  href?: string;
   product?: (typeof BRAND_PRODUCT_SLUG)[keyof typeof BRAND_PRODUCT_SLUG];
 }[] = [
   {
@@ -43,7 +44,6 @@ export const TECHNOLOGIES: {
     logoLight: BRAND_LOGO_SRC.ktalk.white,
     logoDark: BRAND_LOGO_SRC.ktalk.dark,
     descriptionKey: "ktalk",
-    href: "/ktalk",
     product: BRAND_PRODUCT_SLUG.ktalk,
   },
   {
@@ -51,7 +51,6 @@ export const TECHNOLOGIES: {
     logoLight: BRAND_LOGO_SRC.krisk.white,
     logoDark: BRAND_LOGO_SRC.krisk.dark,
     descriptionKey: "krisk",
-    href: "/krisk",
     product: BRAND_PRODUCT_SLUG.krisk,
   },
   {
@@ -59,7 +58,6 @@ export const TECHNOLOGIES: {
     logoLight: BRAND_LOGO_SRC.kleads.white,
     logoDark: BRAND_LOGO_SRC.kleads.dark,
     descriptionKey: "kleads",
-    href: "/kleads",
     product: BRAND_PRODUCT_SLUG.kleads,
   },
 ];
@@ -215,7 +213,7 @@ export function TechnologiesShowcase({
         <div ref={gridRef} className={styles.scrollContainer} style={{ gridTemplateColumns }}>
           {visibleLeftTechs.map((tech, index) => (
             <TechSemiCircle
-              key={`left-${tech.href}-${index}`}
+              key={`left-${tech.descriptionKey}-${index}`}
               tech={tech}
               description={getDescription(tech)}
               logoSrc={logoSrc(tech)}
@@ -259,7 +257,7 @@ export function TechnologiesShowcase({
 
           {visibleRightTechs.map((tech, index) => (
             <TechSemiCircle
-              key={`right-${tech.href}-${index}`}
+              key={`right-${tech.descriptionKey}-${index}`}
               tech={tech}
               description={getDescription(tech)}
               logoSrc={logoSrc(tech)}
@@ -308,6 +306,28 @@ function TechSemiCircle({
   isWidestLogo: boolean;
   logoRef?: React.RefObject<HTMLDivElement | null>;
 }) {
+  const circleClass = `${styles.techCircle} ${side === "left" ? styles.leftHalf : styles.rightHalf}`;
+  const circleContent = (
+    <div className={styles.techContent}>
+      <div
+        ref={logoRef}
+        className={`${styles.techLogo} ${isWidestLogo ? styles.techLogoWidest : ""}`}
+      >
+        {tech.product ? (
+          <ProductLogo
+            product={tech.product}
+            className={styles.techLogoImg}
+            wrapperClassName={styles.techLogoMark}
+            aria-hidden
+          />
+        ) : (
+          <LogoComponent src={logoSrc} />
+        )}
+        <TechnologiesShowcaseLogoArrow />
+      </div>
+    </div>
+  );
+
   return (
     <div
       className={`${styles.techItem} ${isExpanded ? styles.expanded : ""}`}
@@ -317,39 +337,34 @@ function TechSemiCircle({
     >
       <Tooltip>
         <TooltipTrigger asChild>
-          <Link
-            href={tech.href}
-            className={`${styles.techCircle} ${side === "left" ? styles.leftHalf : styles.rightHalf}`}
-            onFocus={() => expandOnFirstTap && onToggle()}
-            onClick={(e) => {
-              if (expandOnFirstTap && !isExpanded) {
-                e.preventDefault();
-                onToggle();
-                return;
-              }
-              onLinkClick?.();
-            }}
-            aria-label={tech.title}
-          >
-            <div className={styles.techContent}>
-              <div
-                ref={logoRef}
-                className={`${styles.techLogo} ${isWidestLogo ? styles.techLogoWidest : ""}`}
-              >
-                {tech.product ? (
-                  <ProductLogo
-                    product={tech.product}
-                    className={styles.techLogoImg}
-                    wrapperClassName={styles.techLogoMark}
-                    aria-hidden
-                  />
-                ) : (
-                  <LogoComponent src={logoSrc} />
-                )}
-                <TechnologiesShowcaseLogoArrow />
-              </div>
-            </div>
-          </Link>
+          {tech.href ? (
+            <Link
+              href={tech.href}
+              className={circleClass}
+              onFocus={() => expandOnFirstTap && onToggle()}
+              onClick={(e) => {
+                if (expandOnFirstTap && !isExpanded) {
+                  e.preventDefault();
+                  onToggle();
+                  return;
+                }
+                onLinkClick?.();
+              }}
+              aria-label={tech.title}
+            >
+              {circleContent}
+            </Link>
+          ) : (
+            <button
+              type="button"
+              className={circleClass}
+              onFocus={() => expandOnFirstTap && onToggle()}
+              onClick={() => onToggle()}
+              aria-label={tech.title}
+            >
+              {circleContent}
+            </button>
+          )}
         </TooltipTrigger>
         <TooltipContent side="bottom" sideOffset={24} className={styles.techTooltip}>
           {description}

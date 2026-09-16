@@ -309,19 +309,21 @@ export function NavAddonSpheres({ onLinkClick, headerTitle }: NavAddonSpheresPro
                 </span>
                 <span className={styles.listen}>{tAddons("addonsClickToListen")}</span>
               </button>
-              <Button
-                asChild
-                variant="accent-brand-outline"
-                size="sm"
-                className={styles.explore}
-                iconPosition="end"
-                iconSize="size-3"
-                icon={<ArrowRight className="rtlFlipH" />}
-              >
-                <Link href={product.href} onClick={onLinkClick}>
-                  {tAddons("addonsExplore")}
-                </Link>
-              </Button>
+              {product.href ? (
+                <Button
+                  asChild
+                  variant="accent-brand-outline"
+                  size="sm"
+                  className={styles.explore}
+                  iconPosition="end"
+                  iconSize="size-3"
+                  icon={<ArrowRight className="rtlFlipH" />}
+                >
+                  <Link href={product.href} onClick={onLinkClick}>
+                    {tAddons("addonsExplore")}
+                  </Link>
+                </Button>
+              ) : null}
               <span className={styles.description} role="tooltip">
                 {tShowcase(`technologies.${product.id}`)}
               </span>

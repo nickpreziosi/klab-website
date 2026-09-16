@@ -293,7 +293,7 @@ export const NavigationMenuDemo = ({
           <div className={styles.techLogoPreload} aria-hidden>
             {TECHNOLOGIES.flatMap((tech) => [
               <img
-                key={`${tech.href}-light`}
+                key={`${tech.descriptionKey}-light`}
                 src={tech.logoLight}
                 alt=""
                 width={24}
@@ -302,7 +302,7 @@ export const NavigationMenuDemo = ({
                 fetchPriority="high"
               />,
               <img
-                key={`${tech.href}-dark`}
+                key={`${tech.descriptionKey}-dark`}
                 src={tech.logoDark}
                 alt=""
                 width={24}

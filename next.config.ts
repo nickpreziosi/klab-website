@@ -3,16 +3,26 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin();
 
-const PRODUCT_SLUGS = "krails|kleads|ktalk|krisk";
 const LOCALES = "en|es|pt|ar";
+const REMOVED_PRODUCT_SLUGS = "kleads|ktalk|krisk";
 
 const nextConfig: NextConfig = {
   transpilePackages: ["@k-lab/components"],
   async redirects() {
     return [
       {
-        source: `/:locale(${LOCALES})/technologies/:slug(${PRODUCT_SLUGS})`,
-        destination: "/:locale/:slug",
+        source: `/:locale(${LOCALES})/technologies/krails`,
+        destination: "/:locale/krails",
+        permanent: true,
+      },
+      {
+        source: `/:locale(${LOCALES})/technologies/:slug(${REMOVED_PRODUCT_SLUGS})`,
+        destination: "/:locale",
+        permanent: true,
+      },
+      {
+        source: `/:locale(${LOCALES})/:slug(${REMOVED_PRODUCT_SLUGS})`,
+        destination: "/:locale",
         permanent: true,
       },
     ];

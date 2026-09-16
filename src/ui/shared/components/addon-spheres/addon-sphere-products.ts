@@ -5,7 +5,8 @@ export type AddonSphereId = BrandTechId;
 export type AddonSphereProduct = {
   id: AddonSphereId;
   name: string;
-  href: string;
+  /** Product page. Omit when the product has no standalone page (no Explore). */
+  href?: string;
   idleVideo: string;
   playingVideo: string;
   product: (typeof BRAND_PRODUCT_SLUG)[BrandTechId];
@@ -83,7 +84,6 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
   {
     id: "krisk",
     name: "K Risk",
-    href: "/krisk",
     idleVideo: "/videos/krisk-idle.mp4",
     playingVideo: "/videos/krisk-loop.mp4",
     product: BRAND_PRODUCT_SLUG.krisk,
@@ -93,7 +93,6 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
   {
     id: "kleads",
     name: "K Leads",
-    href: "/kleads",
     idleVideo: "/videos/kleads-idle.mp4",
     playingVideo: "/videos/kleads-loop.mp4",
     product: BRAND_PRODUCT_SLUG.kleads,
@@ -103,7 +102,6 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
   {
     id: "ktalk",
     name: "K Talk",
-    href: "/ktalk",
     idleVideo: "/videos/ktalk-idle.mp4",
     playingVideo: "/videos/ktalk-loop.mp4",
     product: BRAND_PRODUCT_SLUG.ktalk,

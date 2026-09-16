@@ -30,7 +30,8 @@ const TECHNOLOGIES: {
   logoLight: string;
   logoDark: string;
   descriptionKey: TechKey;
-  href: string;
+  /** Product page href. Omit when the product has no standalone page. */
+  href?: string;
   product?: (typeof BRAND_PRODUCT_SLUG)[keyof typeof BRAND_PRODUCT_SLUG];
 }[] = [
   {
@@ -46,7 +47,6 @@ const TECHNOLOGIES: {
     logoLight: BRAND_LOGO_SRC.ktalk.white,
     logoDark: BRAND_LOGO_SRC.ktalk.dark,
     descriptionKey: "ktalk",
-    href: "/ktalk",
     product: BRAND_PRODUCT_SLUG.ktalk,
   },
   {
@@ -54,7 +54,6 @@ const TECHNOLOGIES: {
     logoLight: BRAND_LOGO_SRC.krisk.white,
     logoDark: BRAND_LOGO_SRC.krisk.dark,
     descriptionKey: "krisk",
-    href: "/krisk",
     product: BRAND_PRODUCT_SLUG.krisk,
   },
   {
@@ -62,7 +61,6 @@ const TECHNOLOGIES: {
     logoLight: BRAND_LOGO_SRC.kleads.white,
     logoDark: BRAND_LOGO_SRC.kleads.dark,
     descriptionKey: "kleads",
-    href: "/kleads",
     product: BRAND_PRODUCT_SLUG.kleads,
   },
 ];
@@ -219,9 +217,11 @@ function TechSlot({
             <div className={styles.popoverMobileContent}>
               <h4 className={styles.popoverMobileTitle}>{tech.title}</h4>
               <p className={styles.popoverMobileDescription}>{description}</p>
-              <Button href={tech.href} variant="accent-brand" className={styles.popoverMobileLink}>
-                {learnMoreLabel}
-              </Button>
+              {tech.href ? (
+                <Button href={tech.href} variant="accent-brand" className={styles.popoverMobileLink}>
+                  {learnMoreLabel}
+                </Button>
+              ) : null}
             </div>
           </PopoverContent>
         </Popover>

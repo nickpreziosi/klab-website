@@ -279,7 +279,7 @@ export const Drawer = (props: DrawerProps) => {
                           effectiveTheme === "dark" ? tech.logoLight : tech.logoDark;
                         return (
                           <img
-                            key={tech.href}
+                            key={tech.descriptionKey}
                             src={logoSrc}
                             alt=""
                             width={24}
@@ -364,19 +364,30 @@ export const Drawer = (props: DrawerProps) => {
                             {visibleTechnologies.map((tech) => {
                               const logoSrc =
                                 effectiveTheme === "dark" ? tech.logoLight : tech.logoDark;
+                              const logo = (
+                                <DrawerTechLogo
+                                  src={logoSrc}
+                                  product={tech.product}
+                                  title={tech.title}
+                                  className={styles.dropdownItemLogo}
+                                />
+                              );
+                              if (!tech.href) {
+                                return (
+                                  <div key={tech.descriptionKey} className={styles.dropdownItem}>
+                                    {logo}
+                                    <VisuallyHidden>{tech.title}</VisuallyHidden>
+                                  </div>
+                                );
+                              }
                               return (
                                 <Link
-                                  key={tech.href}
+                                  key={tech.descriptionKey}
                                   href={tech.href}
                                   className={styles.dropdownItem}
                                   onClick={() => handleOpenChange(false)}
                                 >
-                                  <DrawerTechLogo
-                                    src={logoSrc}
-                                    product={tech.product}
-                                    title={tech.title}
-                                    className={styles.dropdownItemLogo}
-                                  />
+                                  {logo}
                                   <VisuallyHidden>{tech.title}</VisuallyHidden>
                                 </Link>
                               );

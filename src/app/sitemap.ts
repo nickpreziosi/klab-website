@@ -21,9 +21,6 @@ const STATIC_PATHS = [
   "news",
   "news/keo",
   "krails",
-  "kleads",
-  "ktalk",
-  "krisk",
 ] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
