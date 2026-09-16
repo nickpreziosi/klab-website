@@ -404,7 +404,21 @@
   "poc": {
     "heading": "إثبات المفهوم",
     "subtitle": "فيديوهات إثبات المفهوم والموارد ذات الصلة. اعرضها وحمّلها هنا.",
-    "empty": "ستظهر موارد إثبات المفهوم هنا قريباً."
+    "empty": "ستظهر موارد إثبات المفهوم هنا قريباً.",
+    "showPassword": "إظهار كلمة المرور",
+    "hidePassword": "إخفاء كلمة المرور",
+    "passwordAccessTitle": "الوصول إلى إثبات المفهوم",
+    "passwordAccessDescription": "أدخل كلمة مرور الوصول لعرض فيديوهات إثبات المفهوم والموارد ذات الصلة.",
+    "passwordLabel": "كلمة المرور",
+    "unlockButton": "فتح",
+    "unlockingButton": "جارٍ الفتح…",
+    "passwordGateMessage": "الوصول مقيد. أدخل كلمة المرور لعرض فيديوهات إثبات المفهوم والموارد ذات الصلة.",
+    "passwordGateButton": "إدخال كلمة المرور",
+    "passwordHint": "هذا المحتوى محمي.",
+    "passwordErrorInvalid": "كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.",
+    "passwordErrorNetwork": "خطأ في الشبكة. يرجى المحاولة مرة أخرى.",
+    "passwordErrorGeneric": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    "closeDialog": "إغلاق"
   },
   "manualsMetadata": {
     "title": "الأدلة | K Lab",

@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import SectionHeader from "@/ui/shared/components/section-header/section-header";
 import { useSkipAnimationOnLocaleSwitch } from "@/ui/shared/providers/skip-animation-on-locale-switch/skip-animation-on-locale-switch";
 import { ResourceDownloadGrid } from "@/ui/resource-library/components/resource-download-grid/resource-download-grid";
@@ -13,6 +14,7 @@ type ResourceDownloadLibraryViewProps = {
   collections?: ResourceCollection[];
   items?: ResourceDownloadItem[];
   emptyMessage?: string;
+  afterHeader?: ReactNode;
 };
 
 function collectionsToItems(collections: ResourceCollection[]): ResourceDownloadItem[] {
@@ -30,6 +32,7 @@ export function ResourceDownloadLibraryView({
   collections = [],
   items,
   emptyMessage,
+  afterHeader,
 }: ResourceDownloadLibraryViewProps) {
   const skipAnimation = useSkipAnimationOnLocaleSwitch();
   const resolvedItems = items ?? collectionsToItems(collections);
@@ -45,6 +48,7 @@ export function ResourceDownloadLibraryView({
             animateOnce
             skipAnimation={skipAnimation}
           />
+          {afterHeader}
           {resolvedItems.length > 0 ? (
             <ResourceDownloadGrid items={resolvedItems} />
           ) : emptyMessage ? (

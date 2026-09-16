@@ -404,7 +404,21 @@
   "poc": {
     "heading": "POC",
     "subtitle": "Videos de prueba de concepto y recursos relacionados. Consúltalos y descárgalos aquí.",
-    "empty": "Los recursos de POC aparecerán aquí pronto."
+    "empty": "Los recursos de POC aparecerán aquí pronto.",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "passwordAccessTitle": "Acceso a POC",
+    "passwordAccessDescription": "Introduce la contraseña de acceso para ver los videos de prueba de concepto y recursos relacionados.",
+    "passwordLabel": "Contraseña",
+    "unlockButton": "Desbloquear",
+    "unlockingButton": "Desbloqueando…",
+    "passwordGateMessage": "Acceso restringido. Introduce la contraseña para ver los videos de POC y recursos relacionados.",
+    "passwordGateButton": "Introducir contraseña",
+    "passwordHint": "Este contenido está protegido.",
+    "passwordErrorInvalid": "Contraseña incorrecta. Inténtalo de nuevo.",
+    "passwordErrorNetwork": "Error de red. Inténtalo de nuevo.",
+    "passwordErrorGeneric": "Algo salió mal. Inténtalo de nuevo.",
+    "closeDialog": "Cerrar"
   },
   "manualsMetadata": {
     "title": "Manuales | K Lab",

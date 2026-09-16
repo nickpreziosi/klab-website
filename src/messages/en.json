@@ -404,7 +404,21 @@
   "poc": {
     "heading": "POC",
     "subtitle": "Proof-of-concept videos and related assets. View and download them here.",
-    "empty": "POC assets will appear here soon."
+    "empty": "POC assets will appear here soon.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "passwordAccessTitle": "Access POC",
+    "passwordAccessDescription": "Enter the access password to view proof-of-concept videos and related assets.",
+    "passwordLabel": "Password",
+    "unlockButton": "Unlock",
+    "unlockingButton": "Unlocking…",
+    "passwordGateMessage": "Access restricted. Enter the password to view POC videos and related assets.",
+    "passwordGateButton": "Enter password",
+    "passwordHint": "This content is gated.",
+    "passwordErrorInvalid": "Invalid password. Please try again.",
+    "passwordErrorNetwork": "Network error. Please try again.",
+    "passwordErrorGeneric": "Something went wrong. Please try again.",
+    "closeDialog": "Close"
   },
   "manualsMetadata": {
     "title": "Manuals | K Lab",
