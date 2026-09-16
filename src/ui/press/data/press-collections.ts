@@ -42,17 +42,6 @@ export const PRESS_COLLECTIONS: PressCollection[] = [
     },
     assets: imageAssets("jay-heller", 6),
   },
-  {
-    id: "paoloFidanza",
-    titleKey: "collections.paoloFidanza",
-    zipHref: "/press/collections/paolo-fidanza.zip",
-    zipFilename: "paolo-fidanza.zip",
-    person: {
-      name: "Paolo Fidanza",
-      titleKey: "paoloFidanza",
-    },
-    assets: imageAssets("paolo-fidanza", 4),
-  },
 ];
 
 export function toResourceCollections(
