@@ -1,6 +1,6 @@
 "use client";
 
-import { ResourceLibraryView } from "@/ui/resource-library/views/ResourceLibraryView";
+import { ResourceDownloadLibraryView } from "@/ui/resource-library/views/ResourceDownloadLibraryView";
 import type { ResourceCollection } from "@/ui/resource-library/types";
 
 type PocViewProps = {
@@ -12,7 +12,7 @@ type PocViewProps = {
 
 export function PocView({ heading, subtitle, collections, emptyMessage }: PocViewProps) {
   return (
-    <ResourceLibraryView
+    <ResourceDownloadLibraryView
       heading={heading}
       subtitle={subtitle}
       collections={collections}
