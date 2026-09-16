@@ -21,6 +21,7 @@ import styles from "./who-we-serve.module.css";
 const GOVERNMENT_VIDEO = "/videos/who-we-serve-government.mp4";
 const PRIVATE_CAPITAL_VIDEO = "/videos/who-we-serve-private-capital.mp4";
 const SME_VIDEO = "/videos/who-we-serve-sme.mp4";
+const BANK_VIDEO = "/videos/who-we-serve-bank.mp4";
 const PRIVATE_CAPITAL_IMAGE = "/images/who-we-serve/private-capital.webp";
 const DESKTOP_MQ = "(min-width: 1025px)";
 const ENTRANCE_EASE = [0.16, 1, 0.3, 1] as const;
@@ -37,7 +38,7 @@ const AUDIENCE_MEDIA: Record<string, { src: string; type: "video" | "image" }> =
   governments: { src: GOVERNMENT_VIDEO, type: "video" },
   enterprises: { src: PRIVATE_CAPITAL_VIDEO, type: "video" },
   suppliers: { src: SME_VIDEO, type: "video" },
-  banks: { src: PRIVATE_CAPITAL_VIDEO, type: "video" },
+  banks: { src: BANK_VIDEO, type: "video" },
   capital: { src: PRIVATE_CAPITAL_IMAGE, type: "image" },
 };
 
