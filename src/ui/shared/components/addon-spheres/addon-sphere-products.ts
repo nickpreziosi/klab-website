@@ -1,4 +1,4 @@
-import { BRAND_LOGO_SRC, BRAND_PRODUCT_SLUG, type BrandTechId } from "./brand-logos";
+import { BRAND_PRODUCT_SLUG, type BrandTechId } from "./brand-logos";
 
 export type AddonSphereId = BrandTechId;
 
@@ -12,6 +12,8 @@ export type AddonSphereProduct = {
   idlePoster: string;
   playingVideo: string;
   product: (typeof BRAND_PRODUCT_SLUG)[BrandTechId];
+  /** Public raster mark for spheres (not ProductLogo) — paints immediately from cache. */
+  logoSrc: string;
   /** White on video for most spheres; K Talk's clip is light so it uses the dark mark. */
   logoVariant: "white" | "dark";
   playIcon: string;
@@ -20,8 +22,7 @@ export type AddonSphereProduct = {
 };
 
 export function addonSphereLogoSrc(product: AddonSphereProduct): string {
-  const marks = BRAND_LOGO_SRC[product.id];
-  return product.logoVariant === "dark" ? marks.dark : marks.white;
+  return product.logoSrc;
 }
 
 const retainedLogoPreloads: HTMLImageElement[] = [];
@@ -124,6 +125,7 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
     idlePoster: "/images/home-addons/poster-krails-idle.webp",
     playingVideo: "/videos/krails-sphere-loop.mp4",
     product: BRAND_PRODUCT_SLUG.krails,
+    logoSrc: "/images/home-addons/logo-krails.webp",
     logoVariant: "white",
     playIcon: "/images/home-addons/play.svg",
     hideAddons: true,
@@ -135,6 +137,7 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
     idlePoster: "/images/home-addons/poster-krisk-idle.webp",
     playingVideo: "/videos/krisk-loop.mp4",
     product: BRAND_PRODUCT_SLUG.krisk,
+    logoSrc: "/images/home-addons/logo-krisk.webp",
     logoVariant: "white",
     playIcon: "/images/home-addons/play.svg",
   },
@@ -145,6 +148,7 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
     idlePoster: "/images/home-addons/poster-kleads-idle.webp",
     playingVideo: "/videos/kleads-loop.mp4",
     product: BRAND_PRODUCT_SLUG.kleads,
+    logoSrc: "/images/home-addons/logo-kleads.webp",
     logoVariant: "white",
     playIcon: "/images/home-addons/play.svg",
   },
@@ -155,6 +159,7 @@ export const ADDON_SPHERE_PRODUCTS: AddonSphereProduct[] = [
     idlePoster: "/images/home-addons/poster-ktalk-idle.webp",
     playingVideo: "/videos/ktalk-loop.mp4",
     product: BRAND_PRODUCT_SLUG.ktalk,
+    logoSrc: "/images/home-addons/logo-ktalk.webp",
     logoVariant: "dark",
     playIcon: "/images/home-addons/play-black.svg",
     darkControls: true,

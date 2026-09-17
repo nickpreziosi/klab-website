@@ -4,11 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getTextDirection, type Locale } from "@/i18n/routing";
-import { ProductLogo } from "@k-lab/components";
 import { ArrowRight } from "lucide-react";
 import Button from "@/ui/shared/components/button/button";
 import { cn } from "@/ui/shared/utils/utils";
-import { ADDON_SPHERE_PRODUCTS } from "./addon-sphere-products";
+import { ADDON_SPHERE_PRODUCTS, addonSphereLogoSrc } from "./addon-sphere-products";
 import styles from "./addon-sphere-row.module.css";
 
 type PlaybackMode = "idle" | "playing" | "paused";
@@ -178,12 +177,16 @@ export function AddonSphereRow({ className, onExploreClick }: AddonSphereRowProp
                   setMode("idle");
                 }}
               />
-              <ProductLogo
-                product={product.product}
-                variant={product.logoVariant}
-                className={styles.productLogo}
-                wrapperClassName={styles.productLogoWrap}
+              <img
+                src={addonSphereLogoSrc(product)}
+                alt=""
                 aria-hidden
+                className={styles.productLogo}
+                width={160}
+                height={40}
+                decoding="sync"
+                loading="eager"
+                fetchPriority="high"
               />
               <span className={styles.play} aria-hidden>
                 <img src={product.playIcon} alt="" />

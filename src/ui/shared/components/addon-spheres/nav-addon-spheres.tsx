@@ -10,7 +10,6 @@ import Button from "@/ui/shared/components/button/button";
 import { cn } from "@/ui/shared/utils/utils";
 import {
   ADDON_SPHERE_PRODUCTS,
-  addonSphereLogoSrc,
   type AddonSphereProduct,
 } from "./addon-sphere-products";
 import styles from "./nav-addon-spheres.module.css";
@@ -245,8 +244,8 @@ export function IdleSphereVideo({
 }
 
 /**
- * Same URLs as the always-mounted navbar preload imgs.
- * Plain <img> (not ProductLogo) so we can gate video start on paint and avoid async-decode races.
+ * Public WebP marks from /images/home-addons (not ProductLogo).
+ * Plain <img> so paint is a cache hit and we can gate video start.
  */
 function SphereProductLogo({
   product,
@@ -267,6 +266,7 @@ function SphereProductLogo({
   };
 
   useLayoutEffect(() => {
+    notified.current = false;
     const img = ref.current;
     if (!img) return;
     if (img.complete && img.naturalWidth > 0) {
@@ -281,20 +281,20 @@ function SphereProductLogo({
       img.removeEventListener("load", onLoad);
       img.removeEventListener("error", onError);
     };
-    // Re-run when the mark URL changes; onReady is optional paint gate only.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product.id, product.logoVariant]);
+  }, [product.logoSrc]);
 
   return (
     <img
       ref={ref}
-      src={addonSphereLogoSrc(product)}
+      src={product.logoSrc}
       alt=""
       aria-hidden
       className={className}
       width={160}
       height={40}
       decoding="sync"
+      loading="eager"
       fetchPriority="high"
     />
   );

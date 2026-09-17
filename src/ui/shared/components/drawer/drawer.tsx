@@ -13,7 +13,6 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { ClientOnly } from "@/ui/shared/components/client-only/client-only";
 import { MobileThemeToggle } from "@/ui/shared/components/mobile-theme-toggle/mobile-theme-toggle";
 import { MobileLocaleSwitcher } from "@/ui/shared/components/mobile-locale-switcher/mobile-locale-switcher";
-import { ProductLogo } from "@k-lab/components";
 import { KlabLogo } from "@/ui/shared/components/klab-logo/klab-logo";
 import {
   TECHNOLOGIES,
@@ -43,33 +42,27 @@ function pathWithoutLocale(pathname: string): string {
   return pathname;
 }
 
-/** Native img so logos show as soon as cached (no async fetch+setState delay). Drawer preloads when open. */
+/** Native img from public so logos show as soon as cached (no ProductLogo/theme delay). */
 function DrawerTechLogo({
   src,
-  product,
   className,
 }: {
   src: string;
-  product?: (typeof TECHNOLOGIES)[number]["product"];
   title: string;
   className?: string;
 }) {
   return (
     <div className={className} aria-hidden>
-      {product ? (
-        <ProductLogo product={product} className={styles.dropdownItemLogoImg} aria-hidden />
-      ) : (
-        <img
-          src={src}
-          alt=""
-          className={styles.dropdownItemLogoImg}
-          width={24}
-          height={24}
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-        />
-      )}
+      <img
+        src={src}
+        alt=""
+        className={styles.dropdownItemLogoImg}
+        width={24}
+        height={24}
+        loading="eager"
+        decoding="sync"
+        fetchPriority="high"
+      />
     </div>
   );
 }
@@ -367,7 +360,6 @@ export const Drawer = (props: DrawerProps) => {
                               const logo = (
                                 <DrawerTechLogo
                                   src={logoSrc}
-                                  product={tech.product}
                                   title={tech.title}
                                   className={styles.dropdownItemLogo}
                                 />
