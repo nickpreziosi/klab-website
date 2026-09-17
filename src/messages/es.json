@@ -268,10 +268,6 @@
         "position": "CEO",
         "bio": "Jay aporta más de 25 años de experiencia en mercados de capitales, con un historial comprobado asesorando empresas innovadoras en mercados públicos y privados. Durante sus 18 años en Nasdaq, lideró un equipo que ejecutó más de 3.000 OPVs, incluyendo Coinbase, Arm Holdings, CoreWeave y Airbnb, entre otras. También asesoró in situ en la OPV más grande del mundo, Saudi Aramco."
       },
-      "paoloFidanza": {
-        "position": "Creativo",
-        "bio": "Empresario en serie e ingeniero aeroespacial, con pasión por hacer del mundo un lugar mejor. Paolo ha liderado y desarrollado empresas tecnológicas revolucionarias durante las últimas dos décadas."
-      },
       "faridShidfar": {
         "position": "Innovación",
         "bio": "Como empresario en serie y líder visionario, Farid tiene 30 años de experiencia lanzando tecnologías innovadoras. Pasó más de 15 años en Accenture ayudando a empresas a alcanzar mayor valor."
@@ -302,9 +298,6 @@
       }
     },
     "board": {
-      "paoloFidanza": {
-        "bio": "Empresario en serie e ingeniero aeroespacial, con pasión por hacer del mundo un lugar mejor. Paolo ha liderado y desarrollado empresas tecnológicas revolucionarias durante las últimas dos décadas."
-      },
       "faridShidfar": {
         "bio": "Como empresario en serie y líder visionario, Farid tiene 30 años de experiencia lanzando tecnologías innovadoras. Pasó más de 15 años en Accenture ayudando a empresas a alcanzar mayor valor."
       },

@@ -12,14 +12,6 @@ export const EMPLOYEES_STATIC = [
     email: "jay@k-lab.ai",
   },
   {
-    key: "paoloFidanza" as const,
-    name: "Paolo Fidanza",
-    image: "/images/people/paolo-fidanza-black.webp",
-    imageLight: "/images/people/paolo-fidanza.webp",
-    imageDark: "/images/people/paolo-fidanza-black.webp",
-    email: "paolo@k-lab.ai",
-  },
-  {
     key: "faridShidfar" as const,
     name: "Farid Shidfar",
     image: "/images/people/farid-shidfar-black.webp",
@@ -78,14 +70,6 @@ export const EMPLOYEES_STATIC = [
 ];
 
 export const BOARD_STATIC = [
-  {
-    key: "paoloFidanza" as const,
-    name: "Paolo Fidanza",
-    image: "/images/people/paolo-fidanza.webp",
-    imageLight: "/images/people/paolo-fidanza.webp",
-    imageDark: "/images/people/paolo-fidanza-black.webp",
-    email: "paolo@k-lab.ai",
-  },
   {
     key: "faridShidfar" as const,
     name: "Farid Shidfar",

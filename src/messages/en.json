@@ -268,10 +268,6 @@
         "position": "CEO",
         "bio": "Jay brings over 25 years of capital markets experience, with a proven track record of advising innovative companies across the public and private markets. During his 18-year tenure at Nasdaq, he led a team that executed more than 3,000 IPOs, including Coinbase, Arm Holdings, CoreWeave, and Airbnb to name a few. He also consulted onsite for the world's largest IPO, Saudi Aramco."
       },
-      "paoloFidanza": {
-        "position": "Creative",
-        "bio": "A serial entrepreneur and aerospace engineer, with a passion for making the world a better place. Paolo has been leading and developing revolutionary technology companies for the past two decades."
-      },
       "faridShidfar": {
         "position": "Innovation",
         "bio": "As a serial entrepreneur and a visionary leader, Farid has 30 years of experience launching innovative technologies. He spent over 15 years at Accenture helping companies achieve higher value."
@@ -302,9 +298,6 @@
       }
     },
     "board": {
-      "paoloFidanza": {
-        "bio": "A serial entrepreneur and aerospace engineer, with a passion for making the world a better place. Paolo has been leading and developing revolutionary technology companies for the past two decades."
-      },
       "faridShidfar": {
         "bio": "As a serial entrepreneur and a visionary leader, Farid has 30 years of experience launching innovative technologies. He spent over 15 years at Accenture helping companies achieve higher value."
       },
