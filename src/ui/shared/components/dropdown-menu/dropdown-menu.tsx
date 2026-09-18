@@ -86,11 +86,12 @@ export function DesktopDropdown({ isOpen, variant, onClose }: DesktopDropdownPro
         <motion.div
           ref={dropdownRef}
           className={styles.dropdown}
-          initial={{ height: 0 }}
-          animate={{ height: "auto" }}
-          exit={{ height: 0 }}
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
           transition={{
             height: { duration: 0.3, ease: EASE },
+            opacity: { duration: 0.3 },
           }}
           onAnimationStart={() => {
             if (dropdownRef.current) dropdownRef.current.style.overflow = "hidden";
@@ -118,13 +119,13 @@ export function DesktopDropdown({ isOpen, variant, onClose }: DesktopDropdownPro
                   key={variant}
                   ref={panelRef}
                   className={styles.content}
-                  initial={isSwap ? { opacity: 0 } : false}
-                  animate={{ opacity: 1 }}
-                  exit={isSwap ? { opacity: 0 } : { opacity: 1, transition: { duration: 0 } }}
+                  initial={isSwap ? { opacity: 0 } : { y: -20, opacity: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={isSwap ? { opacity: 0 } : { opacity: 1, y: 0, transition: { duration: 0 } }}
                   transition={
                     isSwap
                       ? { duration: 0.2, ease: EASE }
-                      : { duration: 0.2, ease: EASE }
+                      : { delay: 0.15, duration: 0.3, ease: EASE }
                   }
                 >
                   {variant === "resources" ? (
