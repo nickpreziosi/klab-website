@@ -1,9 +1,9 @@
 # Firebase App Hosting configuration for KLab Website
 # See: https://firebase.google.com/docs/app-hosting/configure
 #
-# For variables using "secret:", create the secret in Google Cloud Secret Manager
-# and grant access: firebase apphosting:secrets:grantaccess BACKEND_ID SECRET_NAME
-# Or create via: firebase apphosting:secrets:set SECRET_NAME
+# `value:` is read from this file on rollout.
+# `secret:` is a name that already exists from the original App Hosting setup
+# (RECAPTCHA_SECRET_KEY, EMAIL_PASSWORD). Do not add new secret: keys.
 
 env:
   # Sanity CMS (News/Blog)
@@ -70,3 +70,12 @@ env:
       - BUILD
       - RUNTIME
 
+  # Password gates (Press / POC library)
+  - variable: PRESS_PASSWORD
+    value: "1010"
+    availability:
+      - RUNTIME
+  - variable: POC_PASSWORD
+    value: "2020"
+    availability:
+      - RUNTIME
